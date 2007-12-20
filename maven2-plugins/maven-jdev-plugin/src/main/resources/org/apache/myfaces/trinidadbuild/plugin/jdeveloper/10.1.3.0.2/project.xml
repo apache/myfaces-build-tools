@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jpr:project xmlns:jpr="http://xmlns.oracle.com/ide/project" >
+  <hash n="component-versions" >
+    <value n="oracle.adfdt.controller.struts.addin.StrutsProjectMigrator" v="10.1.3.0.2" />
+    <value n="oracle.ide.model.Project" v="10.1.3.0.2" />
+    <value n="oracle.jdeveloper.offlinedb.migration.OfflineDBProjectMigrator" v="10.1.3.0.2" />
+    <value n="oracle.jdevimpl.jsp.JspMigrator" v="10.1.3.0.2" />
+    <value n="oracle.jdevimpl.webservices.WebServicesMigratorHelper" v="10.1.3.0.2" />
+  </hash>
+  <list n="contentSets" >
+    <string v="oracle.jdeveloper.model.PathsConfiguration/javaContentSet" />
+    <string v="oracle.jdeveloper.resources.ResourcePaths/resourcesContentSet" />
+    <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet" />
+  </list>
+  <hash n="oracle.ide.model.DependencyConfiguration" >
+    <list n="dependencyList" />
+  </hash>
+  <hash n="oracle.jdeveloper.compiler.OjcConfiguration" >
+    <value n="assertionsEnabled" v="true" />
+    <list n="copyRes" >
+      <string v=".java" />
+    </list>
+    <value n="reverseCopyRes" v="true" />
+    <value n="internalEncoding" v="Default" />
+    <value n="showObjectDotStaticWarnings" v="true" />
+    <value n="showPartialImportWarnings" v="true" />
+    <value n="showUnusedImportWarnings" v="true" />
+  </hash>
+  <hash n="oracle.jdeveloper.model.J2eeSettings" >
+    <value n="j2eeWebAppName" v="maven-generated-webapp" />
+    <value n="j2eeWebContextRoot" v="maven-generated-context-root" />
+    <hash n="webContentSet" >
+      <list n="url-path" />
+    </hash>
+  </hash>
+  <hash n="oracle.jdeveloper.model.PathsConfiguration" >
+    <hash n="javaContentSet" >
+      <list n="pattern-filters" >
+        <string v="+**" />
+      </list>
+      <list n="url-path" />
+    </hash>
+  </hash>
+  <hash n="oracle.jdeveloper.resources.ResourcePaths" >
+    <hash n="resourcesContentSet" >
+      <list n="pattern-filters" >
+        <string v="+**" />
+      </list>
+      <list n="url-path" />
+    </hash>
+  </hash>
+  <hash n="oracle.jdevimpl.config.JProjectLibraries" >
+    <list n="exportedReferences" />
+    <hash n="internalDefinitions" >
+      <list n="libraryDefinitions" />
+    </hash>
+    <list n="libraryReferences" />
+  </hash>
+  <hash n="oracle.jdevimpl.config.JProjectPaths" >
+    <url n="outputDirectory" />
+  </hash>
+  <hash n="oracle.jdevimpl.webapp.jsp.libraries.model.ProjectTagLibraries" >
+    <hash n="libraries" />
+  </hash>
+</jpr:project>
