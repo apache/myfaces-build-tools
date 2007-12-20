@@ -157,6 +157,7 @@
     <module>maven-javascript-plugin</module>
     <module>maven-xrts-plugin</module>
     <module>maven-tagdoc-plugin</module>
+    <module>wagon-maven-plugin</module>
   </modules>
 
   <distributionManagement>
