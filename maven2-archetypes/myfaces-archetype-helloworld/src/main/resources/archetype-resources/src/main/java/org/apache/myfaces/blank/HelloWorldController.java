@@ -21,7 +21,6 @@ package org.apache.myfaces.blank;
 /**
  * A typical simple backing bean, that is backed to <code>helloworld.jsp</code>
  * 
- * @author <a href="mailto:matzew@apache.org">Matthias Weﬂendorf</a> 
  */
 public class HelloWorldController {
 
