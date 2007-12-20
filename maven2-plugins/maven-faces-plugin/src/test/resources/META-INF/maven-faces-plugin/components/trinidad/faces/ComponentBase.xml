@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:md="http://myfaces.apache.org/bali/xml/metadata"
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin" >
+
+  <component>  
+  
+    <component-type>org.apache.myfaces.trinidad.ComponentBase</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXComponentBase</component-class>
+
+    <property>
+      <property-name>attributeChangeListener</property-name>
+      <property-class>javax.faces.el.MethodBinding</property-class>
+      <description>
+          The reference to the Java method that will be invoked when
+          an AttributeChangeEvent is broadcast by this component.  The 
+          method signature takes a single AttributeChangeEvent parameter 
+          and returns void.
+      </description>
+      <property-extension>
+        <mfp:state-holder>true</mfp:state-holder>
+        <mfp:method-binding-signature>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.AttributeChangeEvent</mfp:parameter-type>
+          <mfp:return-type>void</mfp:return-type>
+        </mfp:method-binding-signature>
+      </property-extension>
+    </property>
+
+    <component-extension>
+      <mfp:component-supertype>javax.faces.Component</mfp:component-supertype>
+
+      <mfp:jsp-tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXComponentTag</mfp:jsp-tag-class>
+      <mfp:event>
+        <mfp:event-type>org.apache.myfaces.trinidad.AttributeChange</mfp:event-type>
+        <mfp:event-delivery-phases>Invoke Application,Apply Request Values</mfp:event-delivery-phases>
+      </mfp:event>
+    </component-extension>
+
+  </component>
+</faces-config>
