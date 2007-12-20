@@ -1,0 +1,34 @@
+<attribute>
+    <name>id</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>
+        The developer-assigned ID of this component.  The ID must be unique
+        within the scope of the tag's enclosing naming container (e.g.
+        h:form or f:subview).  This value must be a static value.
+    </description>
+</attribute>
+
+<attribute>
+    <name>binding</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>
+        Identifies a backing bean property (of type UIComponent or appropriate
+        subclass) to bind to this component instance.  This value must be an
+        EL expression.
+    </description>
+</attribute>
+
+<attribute>
+    <name>rendered</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>
+        A boolean value that indicates whether this component should be rendered.
+        Default value: true.
+    </description>
+</attribute>

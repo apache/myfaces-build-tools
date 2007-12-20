@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ 
+ @author Bruno Aranda (latest modification by $Author: grantsmith $)
+ @version $Revision: 472560 $ $Date: 2006-11-08 18:45:25 +0100 (Mi, 08 Nov 2006) $
+ 
+-->
+
+<archetype>
+    <id>jsfcomponents-archetype</id>
+    <resources>
+        <resource>examples/src/main/resources/org/myorganization/component/example/build.properties</resource>
+        <resource>examples/src/main/java/org/myorganization/component/example/SayHelloBean.java</resource>
+        <resource>examples/src/main/webapp/sayhello.jsp</resource>
+        <resource>examples/src/main/webapp/index.jsp</resource>
+        <resource>examples/src/main/webapp/WEB-INF/examples-config.xml</resource>
+        <resource>examples/src/main/webapp/WEB-INF/web.xml</resource>
+        <resource>examples/src/main/webapp/home.jsp</resource>
+        <resource>examples/pom.xml</resource>
+        <resource>core/src/main/resources/META-INF/faces-config.xml</resource>
+        <resource>core/src/main/tld/entities/say_hello_attributes.xml</resource>
+        <resource>core/src/main/tld/entities/ui_component_attributes.xml</resource>
+        <resource>core/src/main/tld/misc/resolve_entities.xsl</resource>
+        <resource>core/src/main/tld/misc/web-jsptaglibrary_1_2.dtd</resource>
+        <resource>core/src/main/tld/misc/resolve_entities-tlddoc.xsl</resource>
+        <resource>core/src/main/tld/mycomponents.tld</resource>
+        <resource>core/src/main/java/org/myorganization/component/sayhello/SayHello.java</resource>
+        <resource>core/src/main/java/org/myorganization/component/sayhello/SayHelloRenderer.java</resource>
+        <resource>core/src/main/java/org/myorganization/component/sayhello/SayHelloTag.java</resource>
+        <resource>core/src/test/java/org/myorganization/component/sayhello/SayHelloRendererTest.java</resource>
+        <resource>core/pom.xml</resource>
+    </resources>
+</archetype>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

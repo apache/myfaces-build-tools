@@ -1,0 +1,17 @@
+<!-- This is the list of attributes for the sayHello component -->
+<attribute>
+    <name>firstName</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The first name of the user
+    </description>
+</attribute>
+<attribute>
+    <name>lastName</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The last name of the user
+    </description>
+</attribute>

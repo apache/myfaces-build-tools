@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+  "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd" [
+
+<!--
+===========================================================================
+My component entities. Working with entities allows a more clear structure
+of the tld file and the possibility to reuse attributes without having to
+rewrite them again.
+When adding a new component or creating/modifying attributes for an existing
+component, create or modify the corresponding 'entities' file in the entities
+folder.
+===========================================================================
+-->
+<!ENTITY ui_component_attributes       SYSTEM "entities/ui_component_attributes.xml">
+<!ENTITY say_hello_attributes       SYSTEM "entities/say_hello_attributes.xml">
+]>
+
+<taglib>
+
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>mycomp</short-name>
+    <uri>http://www.myorganitzation.org/mycomponents</uri>
+    <description>
+        Example components library. Actually it only contains a simple component
+    </description>
+
+    <!-- Add your component tags here -->
+
+    <!-- sayHello demo component-->
+    <tag>
+        <name>sayHello</name>
+        <tag-class>org.myorganization.component.sayhello.SayHelloTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>Simple component to greet a user.</description>
+
+        <!-- import the entities for that component here-->
+        &ui_component_attributes;
+        &say_hello_attributes;
+	</tag>
+
+
+</taglib>
