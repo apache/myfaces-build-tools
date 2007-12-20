@@ -1,0 +1,1501 @@
+options {
+    STATIC=false;
+    MULTI=true;
+    VISITOR=true;
+    NODE_USES_PARSER=true;
+    DEBUG_TOKEN_MANAGER=false;
+    DEBUG_PARSER=false;
+}
+
+PARSER_BEGIN(JSParser20)
+package org.apache.myfaces.trinidadbuild.plugin.javascript.javascript20parser;
+import java.io.IOException;
+public class JSParser20 
+{
+    //
+    // This is the root node for the parse tree (root DOM node, tree of SimpleNode(s))
+    //
+    protected ASTProgram _jjtRoot;
+    
+    public ASTProgram getRootNode()
+    {
+    	return _jjtRoot;
+    }
+    
+}
+
+PARSER_END(JSParser20)
+
+
+
+/////////////////////////////////////////////////////
+// LEXICAL RULES Section
+/////////////////////////////////////////////////////
+TOKEN_MGR_DECLS :
+{
+    private boolean isRegValid = true;
+    public void setRegInvalid()
+    {
+        isRegValid = false;
+    }
+    public void setRegValid()
+    {
+        isRegValid = true;
+    }
+}
+
+/////////////////////////////////////////////////////
+// WHITE SPACE 
+/////////////////////////////////////////////////////
+SPECIAL_TOKEN :
+{
+        <EOL:   (["\n","\r"])+ >
+    |   <WS:    ([" ","\t"])+ >
+}
+/////////////////////////////////////////////////////
+// COMMENTS 
+/////////////////////////////////////////////////////
+MORE :
+{
+        "//" : IN_SINGLE_LINE_COMMENT
+    |   "/*" : IN_MULTI_LINE_COMMENT
+}
+
+<IN_SINGLE_LINE_COMMENT>
+SPECIAL_TOKEN :
+{
+        < SINGLE_LINE_COMMENT: (~["\n","\r"])* ("\n"|"\r"|"\r\n")? >  : DEFAULT
+}
+
+<IN_MULTI_LINE_COMMENT>
+SPECIAL_TOKEN :
+{
+        <MULTI_LINE_COMMENT: "*/" > : DEFAULT
+}
+
+<IN_SINGLE_LINE_COMMENT, IN_MULTI_LINE_COMMENT>
+MORE :
+{
+        < ~[] >
+}
+/////////////////////////////////////////////////////
+// RESERVED WORDS AND LITERALS
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < AS:           "as"         >
+    |   < BREAK:        "break"      >
+    |   < CASE:         "case"       >
+    |   < CATCH:        "catch"      >
+    |   < CLASS:        "class"      >
+    |   < CONST:        "const"      >
+    |   < CONTINUE:     "continue"   >
+    |   < _DEFAULT:     "default"    >
+    |   < DELETE:       "delete"     >
+    |   < DO:           "do"         >
+    |   < ELSE:         "else"       >
+    |   < EXTENDS:      "extends"    >
+    |   < FALSE:        "false"      >   
+    |   < FINALLY:      "finally"    >
+    |   < FOR:          "for"        >
+    |   < FUNCTION:     "function"   >
+    |   < FUNCTION_:    "Function"   >
+    |   < GET:          "get"        >
+    |   < IF:           "if"         >
+    |   < IN:           "in"         >
+    |   < INCLUDE:      "include"    >
+    |   < INSTANCEOF:   "instanceof" >
+    |   < IS:           "is"         >
+    |   < NAMESPACE:    "namespace"  >
+    |   < NEW:          "new"        >
+    |   < NULL:         "null"       >    
+    |   < PACKAGE:      "package"    > 
+    |   < PRIVATE:      "private"    >
+    |   < PUBLIC:       "public"     >
+    |   < RETURN:       "return"     >
+    |   < SET:          "set"        >
+    |   < SUPER:        "super"      >
+    |   < SWITCH:       "switch"     >
+    |   < THIS:         "this"       >
+    |   < THROW:        "throw"      >
+    |   < TRUE:         "true"       > 
+    |   < TRY:          "try"        >
+    |   < TYPEOF:       "typeof"     >
+    |   < USE:          "use"        >
+    |   < VAR:          "var"        >
+    |   < VOID:         "void"       >
+    |   < WHILE:        "while"      >
+    |   < WITH:         "with"       >
+}
+/////////////////////////////////////////////////////
+// FUTURE RESERVED WORDS
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < ABSTRACT:     "abstract"     >
+    |   < DEBUGGER:     "debugger"     >
+    |   < ENUM:         "enum"         >
+    |   < EXPORT:       "export"       >
+    |   < GOTO:         "goto"         >
+    |   < IMPLEMENTS:   "implements"   >
+    |   < INTERFACE:    "interface"    >
+    |   < NATIVE:       "native"       >
+    |   < PROTECTED:    "protected"    >
+    |   < SYNCHRONIZED: "synchronized" >
+    |   < THROWS:       "throws"       >
+    |   < TRANSIENT:    "transient"    >
+    |   < VOLATILE:     "volatile"     >
+    |   < IMPORT:       "import"       >
+}
+/////////////////////////////////////////////////////
+// LITERALS 
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
+    |   < HEX_LITERAL: "0" ["x","X"] (["0"-"9","a"-"f","A"-"F"])+ >
+    |   < OCTAL_LITERAL: "0" (["0"-"7"])* >
+    |   < FLOATING_POINT_LITERAL: (["0"-"9"])+ "." (["0"-"9"])* (<EXPONENT>)? 
+                                |   "." (["0"-"9"])+ (<EXPONENT>)? 
+                                |   (["0"-"9"])+ (<EXPONENT>)? 
+        >
+    |   < #EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+ >
+    |   < STRING_LITERAL:   "\""  
+                            ( (~["\"","\\","\n","\r"]) | <ESCAPE_SEQUENCE> )* 
+                            "\""
+                        |   "\"" 
+                            ( (~["\"","\\"]) | "\\" ("\n" | "\r" | "\r\n") | <ESCAPE_SEQUENCE> )* 
+                            "\""  
+                        |   "'"
+                            ( (~["'","\\","\n","\r"]) | <ESCAPE_SEQUENCE> )*
+                            "'"
+        >
+    |   < #ESCAPE_SEQUENCE: 
+            "\\"
+            (       ["n","t","b","r","f","\\","'","\"","[","]"]
+                |   ["0"-"7"] ( ["0"-"7"] )?
+                |   ["0"-"3"] ["0"-"7"] ["0"-"7"]
+                |   ["x"] ["0"-"9","a"-"f","A"-"F"] ["0"-"9","a"-"f","A"-"F"]
+                |   ["u"] ["0"-"9","a"-"f","A"-"F"] ["0"-"9","a"-"f","A"-"F"] 
+                          ["0"-"9","a"-"f","A"-"F"] ["0"-"9","a"-"f","A"-"F"]
+            )
+        >
+    |   < UNTERMINATED_STRING_LITERAL:
+                "\"" ( (~["\"","\\","\n","\r"]) | <ESCAPE_SEQUENCE> )* ( ["\n","\r"] )?
+            |   "'"  ( (~["'","\\","\n","\r"])  | <ESCAPE_SEQUENCE> )* ( ["\n","\r"] )?
+        >
+}
+/////////////////////////////////////////////////////
+// REGULAR EXPRESSIONS 
+/////////////////////////////////////////////////////
+TOKEN :
+{ 
+        < #REGX_START_CHAR : ~["\r","\n","/","=","*"] | "\\/">
+    |   < #REGX_BODY_CHAR_EXCLUSION : ~["\r","\n","/"] >  
+    |   < #REGX_BODY_CHAR : ( <REGX_BODY_CHAR_EXCLUSION> | "\\/" ) >
+    |   < #REGEX_END_CHAR :     "i" 
+                            |   "g" 
+                            |   "m" 
+                            |   "ig" 
+                            |   "im" 
+                            |   "gi" 
+                            |   "gm" 
+                            |   "mi" 
+                            |   "mg" 
+                            |   "igm" 
+                            |   "img" 
+                            |   "gmi" 
+                            |   "gim" 
+                            |   "mig" 
+                            |   "mgi" 
+                            
+        >
+}
+
+TOKEN :
+{
+        <REGULAR_EXPRESSION : "/" <REGX_START_CHAR> (<REGX_BODY_CHAR>)* "/"  (<REGEX_END_CHAR>)? >
+        {
+           try {
+                // Peek at the next character.
+                char nextCh = input_stream.readChar();
+                input_stream.backup(1);
+                if (isRegValid == false || nextCh == '/' || nextCh == '*') {
+                    //
+                    // Lexecal analyser thinks it is a RE
+                    // operator such as /...../
+                    // Put the everything to the first "/" back on the input stream
+                    //
+                    input_stream.backup(lengthOfMatch-1);
+                    //
+                    // And remove it from the token
+                    //
+                    matchedToken.image = matchedToken.image.substring(0, 1);
+                    image.delete(0, image.length() - 1);
+                    image.append('/');
+                    matchedToken.kind=SLASH;
+                }
+               } catch (IOException e) {
+                    throw new Error(e.toString());
+               }
+       }        
+        
+}
+/////////////////////////////////////////////////////
+// IDENTIFIERS 
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < IDENTIFIER: <LETTER> (<LETTER>|<DIGIT>)* >
+    |   < #LETTER: ["a"-"z","A"-"Z","$","_"] >
+    |   < #DIGIT: ["0"-"9"]>
+}
+/////////////////////////////////////////////////////
+// SEPARATORS 
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < LPAREN:    "("   >
+    |   < RPAREN:    ")"   >
+    |   < LBRACE:    "{"   >
+    |   < RBRACE:    "}"   >
+    |   < LBRACKET:  "["   >
+    |   < RBRACKET:  "]"   >
+    |   < SEMICOLON: ";"   >
+    |   < COMMA:     ","   >
+    |   < DOT:       "."   >
+    |   < QUALIFIER: "::"  >
+    |   < ELIPSE:    "..." >
+}
+
+/////////////////////////////////////////////////////
+// OPERATORS 
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < ASSIGN:               "="    >
+    |   < GT:                   ">"    >
+    |   < LT:                   "<"    >
+    |   < BANG:                 "!"    >
+    |   < TILDE:                "~"    >
+    |   < HOOK:                 "?"    >
+    |   < COLON:                ":"    >
+    |   < EQ:                   "=="   >
+    |   < LE:                   "<="   >
+    |   < GE:                   ">="   >
+    |   < NE:                   "!="   >
+    |   < SC_OR:                "||"   >
+    |   < SC_AND:               "&&"   >
+    |   < SC_XOR:               "^^"   >
+    |   < INCR:                 "++"   >
+    |   < DECR:                 "--"   >
+    |   < PLUS:                 "+"    >
+    |   < MINUS:                "-"    >
+    |   < STAR:                 "*"    >
+    |   < SLASH:                "/"    >
+    |   < BIT_AND:              "&"    >
+    |   < BIT_OR:               "|"    >
+    |   < XOR:                  "^"    >
+    |   < REM:                  "%"    >
+    |   < LSHIFT:               "<<"   >
+    |   < RSIGNEDSHIFT:         ">>"   >
+    |   < RUNSIGNEDSHIFT:       ">>>"  >
+    |   < PLUSASSIGN:           "+="   >
+    |   < MINUSASSIGN:          "-="   >
+    |   < STARASSIGN:           "*="   >
+    |   < SLASHASSIGN:          "/="   >
+    |   < ANDASSIGN:            "&="   >
+    |   < ORASSIGN:             "|="   >
+    |   < XORASSIGN:            "^="   >
+    |   < REMASSIGN:            "%="   >
+    |   < LSHIFTASSIGN:         "<<="  >
+    |   < RSIGNEDSHIFTASSIGN:   ">>="  >
+    |   < RUNSIGNEDSHIFTASSIGN: ">>>=" >
+    |   < SC_ORASSIGN:          "||="  >
+    |   < SC_ANDASSIGN:         "&&="  >
+    |   < SC_XORASSIGN:         "^^="  >
+    |   < IDENTITYOPER:         "==="  >
+    |   < NOTIDENTITYOPER:      "!=="  >
+}
+///////////////////////////////////////////////////////////////////
+// GRAMMAR Section
+///////////////////////////////////////////////////////////////////
+
+Token Program():
+{
+        Token retval = getToken(1);
+}
+{
+        (PackageDefinition())* [Directives()] <EOF>
+        {
+            _jjtRoot = jjtThis;
+            return retval;
+        }
+}
+
+/////////////////////////////////////////////////////
+// Expressions 
+/////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+// Identifier 
+/////////////////////////////////////////////////////
+void Identifier():
+{}
+{
+        <IDENTIFIER>
+    |   <GET>
+    |   <SET>
+    |   <INCLUDE>
+//    |   <NAMESPACE>
+}
+
+/////////////////////////////////////////////////////
+// Qualified Identifier 
+/////////////////////////////////////////////////////
+void SimpleQualifiedIdentifier():
+{}
+{
+       Identifier() [<QUALIFIER> Identifier()]
+    |  ReservedNamespace() [<QUALIFIER> Identifier()] 
+}
+
+void ExpressionQualifiedIdentifier():
+{}
+{
+       <LPAREN> AssignmentExpression() <RPAREN> <QUALIFIER> Identifier()
+}
+
+void QualifiedIdentifier():
+{}
+{
+       SimpleQualifiedIdentifier()
+    |  ExpressionQualifiedIdentifier()
+}
+
+/////////////////////////////////////////////////////
+// Primary Expressions
+/////////////////////////////////////////////////////
+void PrimaryExpression ():
+{}
+{
+    (
+        <NULL>
+    |   <TRUE>
+    |   <FALSE>
+    |   <DECIMAL_LITERAL> 
+    |   <OCTAL_LITERAL>
+    |   <HEX_LITERAL>
+    |   <FLOATING_POINT_LITERAL> 
+    |   <STRING_LITERAL> 
+    |   <THIS>
+    |   <REGULAR_EXPRESSION>
+    |   <LPAREN> ListExpression() <RPAREN>
+    |   ArrayLiteral()
+    |   ObjectLiteral()
+    |   FunctionExpression()
+    )
+    {
+        token_source.setRegValid();
+    }
+}
+
+void ReservedNamespace ():
+{}
+{
+       <PUBLIC>
+    |  <PROTECTED>
+    |  <PRIVATE>
+}
+
+/////////////////////////////////////////////////////
+// Function Expression
+/////////////////////////////////////////////////////
+void  FunctionExpression ():
+{}
+{
+        LOOKAHEAD(2) <FUNCTION> FunctionCommon()
+    |                <FUNCTION> Identifier() FunctionCommon()
+}
+
+/////////////////////////////////////////////////////
+// Object Literals
+/////////////////////////////////////////////////////
+void ObjectLiteral ():
+{}
+{
+        <LBRACE> [FieldList()] <RBRACE>  
+}        
+
+void FieldList():
+{}
+{
+        LiteralField() (<COMMA> LiteralField())*
+}
+
+void LiteralField ():
+{}
+{
+        FieldName() <COLON> AssignmentExpression()
+}
+
+void FieldName ():
+{}
+{
+        <STRING_LITERAL>
+    |   <DECIMAL_LITERAL>
+    |   SimpleQualifiedIdentifier()
+    |   <LPAREN> AssignmentExpression() <RPAREN> [<QUALIFIER> Identifier()]
+}	
+
+/////////////////////////////////////////////////////
+// Array Literal
+/////////////////////////////////////////////////////
+void ArrayLiteral():
+{}
+{
+        <LBRACKET> [ElementList()] <RBRACKET>
+}
+
+void ElementList():
+{}
+{
+        LiteralElement() (<COMMA> LiteralElement())*
+}
+
+void LiteralElement():
+{}
+{
+        AssignmentExpression()
+}
+
+/////////////////////////////////////////////////////
+// Super Expression
+/////////////////////////////////////////////////////
+void SuperExpression ():
+{}
+{
+        <SUPER> [LOOKAHEAD(2) <LPAREN> AssignmentExpression() <RPAREN>]
+}
+
+/////////////////////////////////////////////////////
+// Postfix Expression
+/////////////////////////////////////////////////////
+void PostfixExpression ():
+{}
+{
+        AttributeExpression ()                            [PostfixOp()]
+    |   {token_source.setRegInvalid();} 
+        FullPostfixExpression () (PropertyOrArguments())* [PostfixOp()]
+    |   SuperExpression()         PropertyOperator()
+}    
+
+void AttributeExpression ():
+{}
+{
+        SimpleQualifiedIdentifier()  (PropertyOrArguments())*
+}
+
+void FullPostfixExpression ():
+{}
+{
+       LOOKAHEAD(<LPAREN> AssignmentExpression() <RPAREN> <QUALIFIER>) 
+       ExpressionQualifiedIdentifier()
+    |  PrimaryExpression() 
+    |  FullNewExpression()             
+}
+
+void FullNewExpression ():
+{}
+{
+        <NEW> FullNewSubexpression()  (LOOKAHEAD(2) PropertyOperator())* [LOOKAHEAD(2) Arguments()]
+}
+
+void FunctionConstructor():
+{}
+{    
+        <FUNCTION_> Arguments()
+}
+
+void FullNewSubexpression ():
+{}
+{
+        LOOKAHEAD(<LPAREN> AssignmentExpression() <RPAREN> <QUALIFIER>) 
+        ExpressionQualifiedIdentifier()        
+    |   PrimaryExpression() 
+    |   SimpleQualifiedIdentifier()
+    |   SuperExpression() 
+    |   FullNewExpression()
+    |   FunctionConstructor()
+}
+
+
+void PostfixOp():
+{}
+{
+        <INCR>
+    |   <DECR>
+}
+
+void PropertyOrArguments ():
+{}
+{
+        Arguments()        
+    |   PropertyOperator()
+}
+
+/////////////////////////////////////////////////////
+// Property Operators
+/////////////////////////////////////////////////////
+void PropertyOperator ():
+{}
+{          
+        <DOT>      QualifiedIdentifier()
+    |   LOOKAHEAD(2) <LBRACKET> <RBRACKET>
+    |   LOOKAHEAD(2) <LBRACKET> <ELIPSE> AssignmentExpression() <RBRACKET>
+    |                <LBRACKET> ListExpression() [<ELIPSE> AssignmentExpression()] <RBRACKET>
+}
+
+void Arguments ():
+{{token_source.setRegValid();}}
+{
+        LOOKAHEAD(2) <LPAREN> <RPAREN>
+    |   LOOKAHEAD(2) <LPAREN> <ELIPSE> AssignmentExpression() <RPAREN>
+    |                <LPAREN> ListExpression() [<ELIPSE> AssignmentExpression()] <RPAREN>
+}
+
+/////////////////////////////////////////////////////
+// Unary Operators 
+/////////////////////////////////////////////////////
+void UnaryExpression ():
+{}
+{
+                 PostfixExpression()
+    |   <DELETE> PostfixExpression()
+    |   <VOID>   UnaryExpression()
+    |   <TYPEOF> UnaryExpression()
+    |   <INCR>   PostfixExpression()
+    |   <DECR>   PostfixExpression()
+    |   <PLUS>   UnaryExpression()
+    |   <MINUS>  UnaryExpression()
+    |   <TILDE>  UnaryExpression()
+    |   <BANG>   UnaryExpression()
+}
+
+/////////////////////////////////////////////////////
+// Multiplicative Operators 
+/////////////////////////////////////////////////////
+void MulOp():
+{}
+{
+        <STAR>
+    |   <SLASH>
+    |   <REM> 
+}
+
+void MultiplicativeExpression():
+{}
+{
+        UnaryExpression() (MulOp() UnaryExpression())*
+
+}
+
+/////////////////////////////////////////////////////
+// Additive Operators 
+/////////////////////////////////////////////////////
+void AddOp():
+{}
+{
+        <PLUS>
+    |   <MINUS>
+}
+
+void AdditiveExpression():
+{}
+{
+        MultiplicativeExpression() (AddOp() MultiplicativeExpression())*
+} 
+
+/////////////////////////////////////////////////////
+// Bitwise Shift Operators 
+/////////////////////////////////////////////////////
+void ShiftOp():
+{}
+{
+        <LSHIFT>
+    |   <RSIGNEDSHIFT>
+    |   <RUNSIGNEDSHIFT>
+}
+
+void ShiftExpression():
+{}
+{
+        AdditiveExpression() (ShiftOp() AdditiveExpression())*
+}
+
+/////////////////////////////////////////////////////
+// Relational Operators 
+/////////////////////////////////////////////////////
+void RelOp():
+{}
+{
+        <LT>
+    |   <GT> 
+    |   <LE> 
+    |   <GE>
+    |   <IS>
+    |   <AS>
+}
+
+void RelationalExpression():
+{}
+{
+        ShiftExpression() 
+            (LOOKAHEAD(3)(RelOp() | <IN> | <INSTANCEOF> ) ShiftExpression())*
+}
+
+void RelationalExpressionNoIN():
+{}
+{
+        ShiftExpression() 
+            ((RelOp() | <INSTANCEOF>)  ShiftExpression())*
+}
+
+/////////////////////////////////////////////////////
+// Equality Operators 
+/////////////////////////////////////////////////////
+void EqualOp():
+{}
+{
+        <EQ> 
+    |   <NE> 
+    |   <IDENTITYOPER> 
+    |   <NOTIDENTITYOPER>
+}
+
+void EqualityExpression():
+{}
+{
+        RelationalExpression() (EqualOp() RelationalExpression())*
+}
+
+void EqualityExpressionNoIN():
+{}
+{
+        RelationalExpressionNoIN() (EqualOp() RelationalExpressionNoIN())*
+}
+
+/////////////////////////////////////////////////////
+// Binary Bitwise Operators 
+/////////////////////////////////////////////////////
+void BitwiseANDOp():
+{}
+{
+        <BIT_AND>
+}
+
+void BitwiseANDExpression():
+{}
+{
+        EqualityExpression() (BitwiseANDOp() EqualityExpression())*
+}
+
+void BitwiseANDExpressionNoIN():
+{}
+{
+        EqualityExpressionNoIN() (BitwiseANDOp() EqualityExpressionNoIN())*
+}
+
+
+void BitwiseXOROp():
+{}
+{
+        <XOR>
+}
+
+void BitwiseXORExpression():
+{}
+{
+        BitwiseANDExpression() (BitwiseXOROp() BitwiseANDExpression())*
+}
+
+void BitwiseXORExpressionNoIN():
+{}
+{
+        BitwiseANDExpressionNoIN() (BitwiseXOROp() BitwiseANDExpressionNoIN())*
+}
+
+void BitwiseOROp():
+{}
+{
+        <BIT_OR>
+}
+
+void BitwiseORExpression():
+{}
+{
+        BitwiseXORExpression() (BitwiseOROp() BitwiseXORExpression())*
+}
+
+void BitwiseORExpressionNoIN():
+{}
+{
+        BitwiseXORExpressionNoIN() (BitwiseOROp() BitwiseXORExpressionNoIN())*
+}
+
+/////////////////////////////////////////////////////
+// Binary Logical Operators 
+/////////////////////////////////////////////////////
+void LogicalANDExpression():
+{}
+{
+        BitwiseORExpression() (<SC_AND> BitwiseORExpression())*
+}
+
+void LogicalANDExpressionNoIN():
+{}
+{
+        BitwiseORExpressionNoIN() (<SC_AND> BitwiseORExpressionNoIN())*
+}
+
+void LogicalORExpression():
+{}
+{
+        LogicalANDExpression() (<SC_OR> LogicalANDExpression())*
+}
+
+void LogicalORExpressionNoIN():
+{}
+{
+        LogicalANDExpressionNoIN() (<SC_OR> LogicalANDExpressionNoIN())*
+}
+
+/////////////////////////////////////////////////////
+// Conditional Operators 
+/////////////////////////////////////////////////////
+void ConditionalExpression():
+{}
+{
+        LogicalORExpression() [<HOOK>  AssignmentExpression() 
+                               <COLON> AssignmentExpression()]
+}
+
+void ConditionalExpressionNoIN():
+{}
+{
+        LogicalORExpressionNoIN()  [<HOOK>  AssignmentExpressionNoIN() 
+                                    <COLON> AssignmentExpressionNoIN()]
+}
+
+void NonAssignmentExpression():
+{}
+{
+        LogicalORExpression() [<HOOK>  NonAssignmentExpression() 
+                               <COLON> NonAssignmentExpression()]
+}
+
+void NonAssignmentExpressionNoIN():
+{}
+{
+        LogicalORExpressionNoIN() [<HOOK>  NonAssignmentExpressionNoIN() 
+                                   <COLON> NonAssignmentExpressionNoIN()]
+}
+
+/////////////////////////////////////////////////////
+// Assignment Operators 
+/////////////////////////////////////////////////////
+void AssignementOperator():
+{}
+{
+        <ASSIGN>
+    |   <STARASSIGN>
+    |   <SLASHASSIGN> 
+    |   <REMASSIGN> 
+    |   <PLUSASSIGN>
+    |   <MINUSASSIGN> 
+    |   <LSHIFTASSIGN> 
+    |   <RSIGNEDSHIFTASSIGN>
+    |   <RUNSIGNEDSHIFTASSIGN>
+    |   <ANDASSIGN> 
+    |   <XORASSIGN> 
+    |   <ORASSIGN>
+    |   <SC_ANDASSIGN>
+    |   <SC_XORASSIGN>
+    |   <SC_ORASSIGN>
+ 
+}
+
+void AssignmentExpression():
+{}
+{
+        ConditionalExpression() [LOOKAHEAD(2) AssignementOperator() AssignmentExpression()]
+}
+
+void AssignmentExpressionNoIN():
+{}
+{
+        ConditionalExpressionNoIN() [LOOKAHEAD(2) AssignementOperator() AssignmentExpressionNoIN()]
+}
+
+/////////////////////////////////////////////////////
+// Comma Expressions
+/////////////////////////////////////////////////////
+void ListExpression ():
+{}
+{
+        AssignmentExpression() (<COMMA> AssignmentExpression())*
+}   
+
+void ListExpressionNoIN ():
+{}
+{
+        AssignmentExpressionNoIN() (<COMMA> AssignmentExpressionNoIN())*
+}   
+
+/////////////////////////////////////////////////////
+// Type Expressions
+/////////////////////////////////////////////////////
+void TypeExpression ():
+{}
+{
+        NonAssignmentExpression()
+}
+
+void TypeExpressionNoIN ():
+{}
+{
+        NonAssignmentExpressionNoIN()
+}
+
+void TypeExpressionList ():
+{}
+{
+        NonAssignmentExpression() (<COMMA> NonAssignmentExpression())*
+}
+/////////////////////////////////////////////////////
+// Staements (abbrev, noShortIf, full) 
+/////////////////////////////////////////////////////
+void Statement ():
+{}
+{
+        LOOKAHEAD(3) ExpressionStatement() Sc()
+    |                SuperStatement() Sc()
+    |                Block()
+    |                LabeledStatement()
+    |                IfStatement()
+    |                SwitchStatement()
+    |                DoStatement() Sc()
+    |                WhileStatement()
+    |                ForStatement()
+    |                WithStatement()
+    |                ContinueStatement() Sc()
+    |                BreakStatement() Sc()
+    |                ReturnStatement() Sc()
+    |                ThrowStatement() Sc()
+    |                TryStatement()
+}
+
+void Substatement ():
+{}
+{
+                     EmptyStatement()
+    |   LOOKAHEAD(2) Statement()
+    |                SimpleVariableDefinition() Sc()
+    |                Attributes()               <LBRACE> Substatements() <RBRACE>
+}
+
+void Substatements ():
+{}
+{
+        (Substatement())+
+}
+
+JAVACODE
+  void Sc() {
+    Token tok = getToken(1);
+    if (tok.kind == SEMICOLON) {
+       tok = getNextToken();
+    } else if (tok.specialToken != null) {
+       if (!EolCommentSkipWs(tok.specialToken) && (tok.kind != EOF)) {
+          throw generateParseException();
+       }
+    } else if ((tok.kind != EOF) && (tok.kind!=RBRACE)) {
+         throw generateParseException();
+    }
+  }
+ 
+JAVACODE
+  boolean EolCommentSkipWs(Token t) {
+    boolean retVal = false;
+    Token specialToken = t;
+    while(specialToken != null) {
+      if(specialToken.kind == WS) {
+        specialToken = specialToken.specialToken;
+        continue;
+      }
+      else if(specialToken.kind == EOL  ||
+              specialToken.kind == SINGLE_LINE_COMMENT) {
+        retVal = true;
+        break;
+      }
+      else {
+        break;
+      }
+    }
+    return retVal;
+  }
+ 
+/////////////////////////////////////////////////////
+// Empty Statement 
+/////////////////////////////////////////////////////
+void EmptyStatement():
+{}
+{
+        <SEMICOLON>
+}
+
+/////////////////////////////////////////////////////
+// Expresion Statement 
+/////////////////////////////////////////////////////
+void ExpressionStatement():
+{}
+{
+        ListExpression() 
+}
+
+/////////////////////////////////////////////////////
+// Super Statement 
+/////////////////////////////////////////////////////
+void SuperStatement ():
+{}
+{
+        <SUPER> Arguments()
+}
+
+/////////////////////////////////////////////////////
+// Block Statement 
+/////////////////////////////////////////////////////
+void Block ():
+{}
+{   
+        <LBRACE> [Directives()] <RBRACE>
+}
+
+/////////////////////////////////////////////////////
+// Labeled Statement (maps to literal field)
+/////////////////////////////////////////////////////
+void LabeledStatement ():
+{}
+{
+        Identifier() <COLON> Substatement()
+}
+
+/////////////////////////////////////////////////////
+// If Statement 
+/////////////////////////////////////////////////////
+void IfStatement():
+{}
+{
+        <IF> <LPAREN> ListExpression() <RPAREN> 
+            Substatement() 
+            [LOOKAHEAD(1) <ELSE> Substatement()]
+}
+
+/////////////////////////////////////////////////////
+// Switch Statement 
+/////////////////////////////////////////////////////
+void SwitchStatement ():
+{}
+{
+        <SWITCH> <LPAREN> ListExpression() <RPAREN>
+                 <LBRACE> [CaseElements()] <RBRACE>
+}
+
+void CaseElements ():
+{}
+{
+        CaseLabel() (CaseElement())*
+}
+
+void CaseElement ():
+{}
+{
+        Directive()
+    |   CaseLabel()
+}
+
+void CaseLabel ():
+{}
+{
+        <CASE> ListExpression() <COLON>
+    |   <_DEFAULT> <COLON>
+}
+
+/////////////////////////////////////////////////////
+// Do-While Statement 
+/////////////////////////////////////////////////////
+void DoStatement(): 
+{}
+{
+        <DO> Substatement() <WHILE> <LPAREN> ListExpression() <RPAREN>
+}
+
+/////////////////////////////////////////////////////
+// While Statement
+/////////////////////////////////////////////////////
+void WhileStatement ():
+{}
+{
+        <WHILE> <LPAREN> ListExpression() <RPAREN>
+           Substatement()
+}
+
+/////////////////////////////////////////////////////
+// For Statements 
+/////////////////////////////////////////////////////
+void ForStatement ():
+{}
+{
+         LOOKAHEAD(<FOR> <LPAREN> ForInBinding() <IN>)
+                   <FOR> <LPAREN> ForInBinding() <IN> ListExpression() <RPAREN>
+                      Substatement()
+    |              <FOR> <LPAREN> [ForInitializer()] <SEMICOLON> 
+                       [ListExpression()] <SEMICOLON> 
+                       [ListExpression()] <RPAREN> 
+                      Substatement()
+}
+
+void ForInitializer ():
+{}
+{
+        LOOKAHEAD(3) ListExpressionNoIN()
+    |                VariableDefinitionNoIN()
+    |                Attributes()             VariableDefinitionNoIN()
+}
+
+void ForInBinding ():
+{}
+{
+        LOOKAHEAD(3) PostfixExpression()
+    |                VariableDefinitionKind() VariableBindingNoIN()
+    |                Attributes()             VariableDefinitionKind() VariableBindingNoIN()
+}
+
+/////////////////////////////////////////////////////
+// With Statement 
+/////////////////////////////////////////////////////
+void WithStatement():
+{}
+{
+        <WITH> <LPAREN> ExpressionStatement() <RPAREN>
+            Substatement()
+}
+
+/////////////////////////////////////////////////////
+// Continue and Break Statement
+/////////////////////////////////////////////////////
+void ContinueStatement():
+{}
+{
+        <CONTINUE> [Identifier()]
+}
+
+void BreakStatement():
+{}
+{
+        <BREAK> [Identifier()]
+}
+ 
+
+/////////////////////////////////////////////////////
+// Return Statement
+/////////////////////////////////////////////////////
+void ReturnStatement():
+{}
+{
+        <RETURN> [ListExpression()]
+}
+
+/////////////////////////////////////////////////////
+// Throw Statement
+/////////////////////////////////////////////////////
+void ThrowStatement():
+{}
+{
+        <THROW> ListExpression()
+}
+
+/////////////////////////////////////////////////////
+// Try Statement
+/////////////////////////////////////////////////////
+void TryStatement():
+{}
+{
+        <TRY> Block()
+        (<CATCH> <LPAREN> Identifier() <RPAREN> Block())*
+        [<FINALLY> Block()]
+} 
+ 
+/////////////////////////////////////////////////////
+// Directives 
+/////////////////////////////////////////////////////
+void Directives ():
+{}
+{
+        (Directive())+
+}
+
+void Directive ():
+{}
+{
+                      EmptyStatement()
+     |   LOOKAHEAD(3) Statement()
+     |   LOOKAHEAD(2) AnnotatableDirective()
+     |   LOOKAHEAD(2) Attributes()            <LBRACE> Directives() <RBRACE>
+     |   LOOKAHEAD(2) Attributes()            AnnotatableDirective() 
+     |                IncludeDirective()      Sc()
+     |                Pragma()                Sc()
+}
+
+void AnnotatableDirective ():
+{}
+{
+         VariableDefinition() Sc()
+     |   FunctionDefinition()
+     |   ClassDefinition()
+     |   InterfaceDefinition()
+     |   NamespaceDefinition() Sc()
+     |   ImportDirective() Sc()
+     |   ExportDefinition() Sc()
+     |   UseDirective() Sc()
+}
+/////////////////////////////////////////////////////
+// Attributes
+/////////////////////////////////////////////////////
+void Attributes ():
+{}
+{
+        (Attribute ())+
+}
+
+void Attribute ():
+{}
+{
+                     AttributeExpression()
+    |                <TRUE>
+    |                <FALSE>
+}
+
+/////////////////////////////////////////////////////
+// Use Directive
+/////////////////////////////////////////////////////
+void UseDirective ():
+{}
+{ 
+        <USE> <NAMESPACE> <LPAREN> ListExpression() <RPAREN>
+}
+
+/////////////////////////////////////////////////////
+// Import Directive
+/////////////////////////////////////////////////////
+void ImportDirective ():
+{}
+{
+        LOOKAHEAD(3) <IMPORT> PackageName()
+    |                <IMPORT> Identifier() <ASSIGN> PackageName()
+}
+
+/////////////////////////////////////////////////////
+// Include Directive
+/////////////////////////////////////////////////////
+void IncludeDirective (): 
+{}
+{
+        <INCLUDE> <STRING_LITERAL>
+}
+
+/////////////////////////////////////////////////////
+// Pragma
+/////////////////////////////////////////////////////
+void Pragma ():
+{}
+{
+        <USE> PragmaItems()
+}
+
+void PragmaItems ():
+{}
+{
+        PragmaItem() (<COMMA> PragmaItem())
+}
+
+void PragmaItem ():
+{}
+{
+        PragmaExpr() [<HOOK>]
+}
+
+
+void PragmaExpr ():
+{}
+{
+        Identifier() [<LPAREN> PragmaArgument() <RPAREN>]
+}
+
+void PragmaArgument ():
+{}
+{
+        <TRUE>
+    |   <FALSE>
+    |   <DECIMAL_LITERAL> 
+    |   <OCTAL_LITERAL>
+    |   <HEX_LITERAL>
+    |   <FLOATING_POINT_LITERAL> 
+    |   <STRING_LITERAL> 
+}
+
+/////////////////////////////////////////////////////
+// Definitions 
+/////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+// Export Definition 
+/////////////////////////////////////////////////////
+void ExportDefinition ():
+{}
+{
+        <EXPORT> ExportBindingList ()
+}
+
+void ExportBindingList ():
+{}
+{
+        ExportBinding() (<COMMA> ExportBinding())*
+}
+
+void ExportBinding ():
+{}
+{
+        LOOKAHEAD(2) FunctionName ()
+    |                FunctionName () <ASSIGN> FunctionName ()
+}
+
+/////////////////////////////////////////////////////
+// Variable Definition (in, NoIN)
+/////////////////////////////////////////////////////
+void VariableDefinition ():
+{}
+{
+        VariableDefinitionKind() VariableBindingList()
+}
+
+void VariableDefinitionNoIN ():
+{}
+{
+        VariableDefinitionKind() VariableBindingListNoIN()
+}
+
+
+void VariableDefinitionKind ():
+{}
+{
+        <VAR>
+    |   <CONST>
+}
+
+void VariableBindingList ():
+{}
+{
+   VariableBinding() (<COMMA> VariableBinding ())*
+}
+
+void VariableBindingListNoIN ():
+{}
+{
+   VariableBindingNoIN() (<COMMA> VariableBindingNoIN())*
+}
+
+void VariableBinding ():
+{}
+{
+        TypedIdentifier() [VariableInitialisation()]
+}
+
+void VariableBindingNoIN ():
+{}
+{
+        TypedIdentifierNoIN() [VariableInitialisationNoIN()]
+}
+
+
+void VariableInitialisation ():
+{}
+{
+       <ASSIGN>  VariableInitializer ()
+}
+
+void VariableInitialisationNoIN ():
+{}
+{
+       <ASSIGN>  VariableInitializerNoIN ()
+}
+
+void VariableInitializer ():
+{}
+{
+        LOOKAHEAD(3) AssignmentExpression ()
+    |                Attributes ()
+}
+
+void VariableInitializerNoIN ():
+{}
+{
+        LOOKAHEAD(3) AssignmentExpressionNoIN ()
+    |                Attributes ()
+}
+
+
+void TypedIdentifier ():
+{}
+{
+        Identifier () [<COLON> TypeExpression()]
+}
+
+void TypedIdentifierNoIN ():
+{}
+{
+        Identifier () [<COLON> TypeExpressionNoIN()]
+}
+
+/////////////////////////////////////////////////////
+// Simple Variable Definition 
+/////////////////////////////////////////////////////
+void SimpleVariableDefinition ():
+{}
+{
+        <VAR> UntypedVariableBindingList()
+}
+
+void UntypedVariableBindingList ():
+{}
+{
+        UntypedVariableBinding() (<COMMA> UntypedVariableBinding())*
+}
+
+void UntypedVariableBinding ():
+{}
+{
+        Identifier() VariableInitialisation()
+}
+
+/////////////////////////////////////////////////////
+// Function Definition
+/////////////////////////////////////////////////////
+void FunctionDefinition ():
+{}
+{
+        <FUNCTION> FunctionName() FunctionCommon()
+}
+
+void FunctionName ():
+{}
+{
+        // no line break after get
+        LOOKAHEAD(2) <GET> Identifier()
+        // no line break after get
+    |   LOOKAHEAD(2) <SET> Identifier()
+    |                 Identifier()
+}
+
+void FunctionCommon ():
+{}
+{
+        <LPAREN> [Parameters()] <RPAREN> [Result()] Block()
+}
+
+void Parameters ():
+{}
+{
+        RestParameters()
+    |   ParameterInit() (<COMMA> ParameterInit())* [RestParameters()]
+}
+
+void Parameter ():
+{}
+{
+        [<CONST>] TypedIdentifier()
+}
+
+void ParameterInit ():
+{}
+{
+        Parameter() [<ASSIGN> AssignmentExpression()]
+}
+
+void RestParameters ():
+{}
+{
+        <ELIPSE> [<CONST> Identifier()]
+}
+
+void Result ():
+{}
+{
+        <COLON> TypeExpression()
+}
+
+/////////////////////////////////////////////////////
+// Class Definition
+/////////////////////////////////////////////////////
+void ClassDefinition ():
+{}
+{
+        <CLASS> Identifier() [Inheritance()] Block()
+}
+
+void InterfaceDefinition ():
+{}
+{
+        LOOKAHEAD(3) <INTERFACE> Identifier() Sc()
+    |                <INTERFACE> Identifier() 
+                                 [<EXTENDS> TypeExpressionList()] Block()
+}
+
+
+void Inheritance ():
+{}
+{ 
+        <EXTENDS> TypeExpression() [<IMPLEMENTS> TypeExpressionList()]
+    |   <IMPLEMENTS> TypeExpressionList()
+}
+
+/////////////////////////////////////////////////////
+// Namespace Definition 
+/////////////////////////////////////////////////////
+void NamespaceDefinition ():
+{}
+{
+        <NAMESPACE> Identifier()
+}
+
+/////////////////////////////////////////////////////
+// Package Definition 
+/////////////////////////////////////////////////////
+void PackageDefinition ():
+{}
+{
+        <PACKAGE> [PackageName()] Block()
+}
+
+void PackageName ():
+{}
+{
+        <STRING_LITERAL>
+    |   PackageIdentifiers()
+}
+
+void PackageIdentifiers ():
+{}
+{
+        Identifier() (<DOT> Identifier())*
+}

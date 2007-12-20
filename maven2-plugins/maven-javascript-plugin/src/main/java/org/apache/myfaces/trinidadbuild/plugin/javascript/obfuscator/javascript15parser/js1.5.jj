@@ -1,0 +1,1183 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+options {
+  STATIC=false;
+  DEBUG_TOKEN_MANAGER=false;
+  DEBUG_PARSER=false;
+}
+
+PARSER_BEGIN(JSParser15)
+package org.apache.myfaces.trinidadbuild.plugin.javascript.obfuscator.javascript15parser;
+import java.util.Vector;
+import java.io.IOException;
+public class JSParser15 
+{
+    // This is a stack of symbol tables for the JS file
+    protected ProgramContextStack _contextStack = new ProgramContextStack();
+    
+}
+
+PARSER_END(JSParser15)
+
+/////////////////////////////////////////////////////
+// LEXICAL RULES Section
+/////////////////////////////////////////////////////
+TOKEN_MGR_DECLS :
+{
+    private boolean isRegValid = true;
+    public void setRegInvalid()
+    {
+        isRegValid = false;
+    }
+    public void setRegValid()
+    {
+        isRegValid = true;
+    }
+}
+
+/////////////////////////////////////////////////////
+// WHITE SPACE 
+/////////////////////////////////////////////////////
+SPECIAL_TOKEN :
+{
+        <EOL:   (["\n","\r"])+ >
+    |   <WS:    ([" ","\t"])+ >
+}
+/////////////////////////////////////////////////////
+// COMMENTS 
+/////////////////////////////////////////////////////
+MORE :
+{
+        "//" : IN_SINGLE_LINE_COMMENT
+    |   "/*" : IN_MULTI_LINE_COMMENT
+}
+
+<IN_SINGLE_LINE_COMMENT>
+SPECIAL_TOKEN :
+{
+        < SINGLE_LINE_COMMENT: (~["\n","\r"])* ("\n"|"\r"|"\r\n")? >  : DEFAULT
+}
+
+<IN_MULTI_LINE_COMMENT>
+SPECIAL_TOKEN :
+{
+        <MULTI_LINE_COMMENT: "*/" > : DEFAULT
+}
+
+<IN_SINGLE_LINE_COMMENT, IN_MULTI_LINE_COMMENT>
+MORE :
+{
+        < ~[] >
+}
+/////////////////////////////////////////////////////
+// RESERVED WORDS AND LITERALS
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < BREAK:        "break" >
+    |   < CONTINUE:     "continue" >
+    |   < DELETE:       "delete" >
+    |   < ELSE:         "else" >
+    |   < FOR:          "for" >
+    |   < FUNCTION:     "function" >
+    |   < FUNCTION_:    "Function" >
+    |   < IF:           "if" >
+    |   < IN:           "in" >
+    |   < NEW:          "new" >
+    |   < RETURN:       "return" >
+    |   < THIS:         "this" >
+    |   < TYPEOF:       "typeof" >
+    |   < INSTANCEOF:   "instanceof" >
+    |   < VAR:          "var" >
+    |   < VOID:         "void" >
+    |   < WHILE:        "while" >
+    |   < WITH:         "with" >
+    |   < CASE:         "case" >
+    |   < CATCH:        "catch" >
+    |   < CLASS:        "class" >
+    |   < CONST:        "const" >
+    |   < DEBUGGER:     "debugger" >
+    |   < _DEFAULT:     "default" >
+    |   < DO:           "do" >
+    |   < ENUM:         "enum" >
+    |   < EXPORT:       "export" >
+    |   < EXTENDS:      "extends" >
+    |   < FINALLY:      "finally" >
+    |   < IMPORT:       "import" >
+    |   < SUPER:        "super" >
+    |   < SWITCH:       "switch" >
+    |   < THROW:        "throw" >
+    |   < TRY:          "try" >
+    |   < TRUE:         "true" >    // They are not supposed to be keywords
+    |   < FALSE:        "false" >   // They are not supposed to be keywords
+    |   < NULL:         "null" >    // They are not supposed to be keywords
+}
+/////////////////////////////////////////////////////
+// LITERALS 
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < DECIMAL_LITERAL: ["1"-"9"] (["0"-"9"])* >
+    |   < HEX_LITERAL: "0" ["x","X"] (["0"-"9","a"-"f","A"-"F"])+ >
+    |   < OCTAL_LITERAL: "0" (["0"-"7"])* >
+    |   < FLOATING_POINT_LITERAL: (["0"-"9"])+ "." (["0"-"9"])* (<EXPONENT>)? 
+                                |   "." (["0"-"9"])+ (<EXPONENT>)? 
+                                |   (["0"-"9"])+ (<EXPONENT>)? 
+        >
+    |   < #EXPONENT: ["e","E"] (["+","-"])? (["0"-"9"])+ >
+    |   < STRING_LITERAL:   "\""  
+                            ( (~["\"","\\","\n","\r"]) | <ESCAPE_SEQUENCE> )* 
+                            "\""
+                        |   "\"" 
+                            ( (~["\"", "\\"]) | "\\" ("\n" | "\r" | "\r\n") | <ESCAPE_SEQUENCE> )* 
+                            "\""  
+                        |   "'"
+                            ( (~["'","\\","\n","\r"]) | <ESCAPE_SEQUENCE> )*
+                            "'"
+        >
+    |   < #ESCAPE_SEQUENCE: 
+            "\\"
+            (       ["n","t","b","r","f","\\","'","\"","[","]"]
+                |   ["0"-"7"] ( ["0"-"7"] )?
+                |   ["0"-"3"] ["0"-"7"] ["0"-"7"]
+                |   ["x"] ["0"-"9","a"-"f","A"-"F"] ["0"-"9","a"-"f","A"-"F"]
+                |   ["u"] ["0"-"9","a"-"f","A"-"F"] ["0"-"9","a"-"f","A"-"F"] 
+                          ["0"-"9","a"-"f","A"-"F"] ["0"-"9","a"-"f","A"-"F"]
+            )
+        >
+    |   < UNTERMINATED_STRING_LITERAL:
+                "\"" ( <ESCAPE_SEQUENCE> | (~["\"","\\","\n","\r"]) )* ( ["\n","\r"] )?
+            |   "'"  ( <ESCAPE_SEQUENCE> | (~["'","\\","\n","\r"])  )* ( ["\n","\r"] )?
+        >
+}
+/////////////////////////////////////////////////////
+// REGULAR EXPRESSIONS 
+/////////////////////////////////////////////////////
+TOKEN :
+{ 
+        < #REGX_START_CHAR : ~["\r","\n","/","=","*"] | "\\/">
+    |   < #REGX_BODY_CHAR_EXCLUSION : ~["\r","\n","/"] >  
+    |   < #REGX_BODY_CHAR : ( <REGX_BODY_CHAR_EXCLUSION> | "\\/" ) >
+    |   < #REGEX_END_CHAR :     "i" 
+                            |   "g" 
+                            |   "m" 
+                            |   "ig" 
+                            |   "im" 
+                            |   "gi" 
+                            |   "gm" 
+                            |   "mi" 
+                            |   "mg" 
+                            |   "igm" 
+                            |   "img" 
+                            |   "gmi" 
+                            |   "gim" 
+                            |   "mig" 
+                            |   "mgi" 
+        >
+}
+
+TOKEN :
+{
+        <REGULAR_EXPRESSION : "/" <REGX_START_CHAR> (<REGX_BODY_CHAR>)* "/" (<REGEX_END_CHAR>)? >
+        {
+           try {
+                // Peek at the next character.
+                char nextCh = input_stream.readChar();
+                input_stream.backup(1);
+                if (isRegValid == false || nextCh == '/' || nextCh == '*') {
+                    //
+                    // Lexecal analyser thinks it is a RE
+                    // operator such as /...../
+                    // Put the everything to the first "/" back on the input stream
+                    //
+                    input_stream.backup(lengthOfMatch-1);
+                    //
+                    // And remove it from the token
+                    //
+                    matchedToken.image = matchedToken.image.substring(0, 1);
+                    image.delete(0, image.length() - 1);
+                    image.append('/');
+                    matchedToken.kind=SLASH;
+                }
+               } catch (IOException e) {
+                    throw new Error(e.toString());
+               }
+        }        
+
+}
+/////////////////////////////////////////////////////
+// IDENTIFIERS 
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < IDENTIFIER: <LETTER> (<LETTER>|<DIGIT>)* >
+    |   < #LETTER: ["a"-"z","A"-"Z","$","_"] >
+    |   < #DIGIT: ["0"-"9"]>
+}
+/////////////////////////////////////////////////////
+// SEPARATORS 
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < LPAREN:   "(" >
+    |   < RPAREN:   ")" >
+    |   < LBRACE:   "{" >
+    |   < RBRACE:   "}" >
+    |   < LBRACKET: "[" >
+    |   < RBRACKET: "]" >
+    |   < SEMICOLON: ";" >
+    |   < COMMA:    "," >
+    |   < DOT:      "." >
+}
+
+/////////////////////////////////////////////////////
+// OPERATORS 
+/////////////////////////////////////////////////////
+TOKEN :
+{
+        < ASSIGN:               "=" >
+    |   < GT:                   ">" >
+    |   < LT:                   "<" >
+    |   < BANG:                 "!" >
+    |   < TILDE:                "~" >
+    |   < HOOK:                 "?" >
+    |   < COLON:                ":" >
+    |   < EQ:                   "==" >
+    |   < LE:                   "<=" >
+    |   < GE:                   ">=" >
+    |   < NE:                   "!=" >
+    |   < SC_OR:                "||" >
+    |   < SC_AND:               "&&" >
+    |   < INCR:                 "++" >
+    |   < DECR:                 "--" >
+    |   < PLUS:                 "+" >
+    |   < MINUS:                "-" >
+    |   < STAR:                 "*" >
+    |   < SLASH:                "/" >
+    |   < BIT_AND:              "&" >
+    |   < BIT_OR:               "|" >
+    |   < XOR:                  "^" >
+    |   < REM:                  "%" >
+    |   < LSHIFT:               "<<" >
+    |   < RSIGNEDSHIFT:         ">>" >
+    |   < RUNSIGNEDSHIFT:       ">>>" >
+    |   < PLUSASSIGN:           "+=" >
+    |   < MINUSASSIGN:          "-=" >
+    |   < STARASSIGN:           "*=" >
+    |   < SLASHASSIGN:          "/=" >
+    |   < ANDASSIGN:            "&=" >
+    |   < ORASSIGN:             "|=" >
+    |   < XORASSIGN:            "^=" >
+    |   < REMASSIGN:            "%=" >
+    |   < LSHIFTASSIGN:         "<<=" >
+    |   < RSIGNEDSHIFTASSIGN:   ">>=" >
+    |   < RUNSIGNEDSHIFTASSIGN: ">>>=" >
+    |   < IDENTITYOPER:         "===" >
+    |   < NOTIDENTITYOPER:      "!==" >
+}
+///////////////////////////////////////////////////////////////////
+// GRAMMAR Section
+///////////////////////////////////////////////////////////////////
+
+void Literal():
+{}
+{
+        <DECIMAL_LITERAL> 
+    |   <OCTAL_LITERAL>
+    |   <HEX_LITERAL>
+    |   <FLOATING_POINT_LITERAL> 
+    |   <STRING_LITERAL> 
+    |   <TRUE> 
+    |   <FALSE>
+    |   <REGULAR_EXPRESSION> 
+    |   <NULL>
+}
+
+Token Identifier():
+{
+		Token t;
+}
+{
+    	t = <IDENTIFIER> {return t;}
+}
+
+void PrimaryExpression():
+{
+		Token prefixToken = null;	
+}
+{
+    (
+        prefixToken = <THIS>            (PrimarySuffix())*
+            {
+               JSParserUtils.tagObjectIdentifier(prefixToken, getToken(1));
+            }
+    |   prefixToken=Identifier()        (PrimarySuffix())*
+            {
+               JSParserUtils.tagObjectIdentifier(prefixToken, getToken(1));
+               JSParserUtils.tagMethodInvocation(_contextStack, 
+                                                 (AnnotatedToken)prefixToken, 
+                                                 (AnnotatedToken)getToken(1));
+            }
+    |   LOOKAHEAD(2)  <STRING_LITERAL>      (PrimarySuffix())*  
+    |   LOOKAHEAD(2)  <REGULAR_EXPRESSION>  (PrimarySuffix())*    
+    |   LOOKAHEAD(2)  Literal() 
+    |   FunctionLiteral()
+    |   NestedArrayLiteral()                (PrimarySuffix())*
+    |   ObjectLiteral() 
+    |   <LPAREN> Expression() <RPAREN>      (PrimarySuffix())* 
+    |   AllocationExpression() (PrimarySuffix())*             
+    )
+    {
+        token_source.setRegValid();
+    }
+}
+
+void PrimarySuffix():
+{}
+{
+        Arguments() 
+    |   {token_source.setRegInvalid();} <LBRACKET> Expression() <RBRACKET> 
+    |   {token_source.setRegInvalid();} <DOT> Identifier()
+}
+
+void Arguments():
+{}
+{
+        <LPAREN> {token_source.setRegValid();} [ArgumentList()] <RPAREN>
+}
+
+void ArgumentList():
+{}
+{
+        AssignmentExpression() (<COMMA> AssignmentExpression())*
+}
+
+void LiteralArgumentList():
+{}
+{
+        <STRING_LITERAL> (<COMMA> <STRING_LITERAL>)*
+}
+
+void NewSuffix():
+{}
+{
+        <DOT> Identifier()
+}
+
+void AllocationExpression():
+{
+        Token t;
+}
+{
+        LOOKAHEAD(4)  t=<NEW> <THIS>       (LOOKAHEAD(2) NewSuffix())* [LOOKAHEAD(2) Arguments()] 
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
+    |   LOOKAHEAD(4)  t=<NEW> Identifier() (LOOKAHEAD(2) NewSuffix())* [LOOKAHEAD(2) Arguments()] 
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
+    |   LOOKAHEAD(4)  t=<NEW> FunctionConstructor() (LOOKAHEAD(2) NewSuffix())* [LOOKAHEAD (2) Arguments()] 
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
+}
+
+
+void PostfixOp():
+{}
+{
+        <INCR>
+    |   <DECR>
+}
+
+void PostfixExpression():
+{}
+{
+        PrimaryExpression() [PostfixOp()]
+}
+
+
+void UnaryOp():
+{
+        Token t;
+}
+{
+        t=<DELETE>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}
+    |   t=<VOID>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}
+    |   t=<TYPEOF>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}
+    |   t=<INCR>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}
+    |   t=<DECR>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}    
+    |   t=<PLUS>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}    
+    |   t=<MINUS>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}    
+    |   t=<TILDE>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}    
+    |   t=<BANG>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}    
+}
+
+void UnaryExpression():
+{}
+{
+        PostfixExpression()
+    |   UnaryOp() UnaryExpression()
+}
+
+void MulOp():
+{}
+{
+        <STAR>
+    |   <SLASH>
+    |   <REM> 
+}
+
+void MultiplicativeExpression():
+{}
+{
+        UnaryExpression() (MulOp() UnaryExpression())*
+} 
+
+void AddOp():
+{}
+{
+        <PLUS> 
+    |   <MINUS>
+}
+
+void AdditiveExpression():
+{}
+{
+        MultiplicativeExpression() (AddOp() MultiplicativeExpression())*
+} 
+
+void ShiftOp():
+{}
+{
+        <LSHIFT>
+    |   <RSIGNEDSHIFT>
+    |   <RUNSIGNEDSHIFT>
+}
+
+void ShiftExpression():
+{}
+{
+        AdditiveExpression() (ShiftOp() AdditiveExpression())*
+}
+
+void RelOp():
+{}
+{
+        <LT>
+    |   <GT> 
+    |   <LE> 
+    |   <GE>
+}
+
+void RelationalExpression():
+{
+        Token t;
+}
+{
+        ShiftExpression() 
+            (LOOKAHEAD(3) (  RelOp() 
+                           | t=<INSTANCEOF> 
+                             {JSParserUtils.annotateToken(t, 
+                                                          AnnotationConstants.UNDEFINED, 
+                                                          null, AnnotatedToken.INFIX_WS);}
+                           | t=<IN> 
+                             {JSParserUtils.annotateToken(t,
+                                                          AnnotationConstants.UNDEFINED,
+                                                          null, AnnotatedToken.INFIX_WS);})
+             ShiftExpression())*
+}
+
+void RelationalExpressionNoIN():
+{
+        Token t;
+}
+{
+        ShiftExpression() 
+            ( (  RelOp() 
+               | t=<INSTANCEOF>  
+                 {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, 
+                                              null, AnnotatedToken.INFIX_WS);})
+              ShiftExpression())*
+}
+
+void EqualOp():
+{}
+{
+        <EQ> 
+    |   <NE> 
+    |   <IDENTITYOPER> 
+    |   <NOTIDENTITYOPER>
+}
+
+void EqualityExpression():
+{}
+{
+        RelationalExpression() (EqualOp() RelationalExpression())*
+}
+
+void EqualityExpressionNoIN():
+{}
+{
+        RelationalExpressionNoIN() (EqualOp() RelationalExpressionNoIN())*
+}
+
+
+void BitwiseANDOp():
+{}
+{
+        <BIT_AND>
+}
+
+void BitwiseANDExpression():
+{}
+{
+        EqualityExpression() (BitwiseANDOp() EqualityExpression())*
+}
+
+void BitwiseANDExpressionNoIN():
+{}
+{
+        EqualityExpressionNoIN() (BitwiseANDOp() EqualityExpressionNoIN())*
+}
+
+
+void BitwiseXOROp():
+{}
+{
+        <XOR>
+}
+
+void BitwiseXORExpression():
+{}
+{
+        BitwiseANDExpression() (BitwiseXOROp() BitwiseANDExpression())*
+}
+
+void BitwiseXORExpressionNoIN():
+{}
+{
+        BitwiseANDExpressionNoIN() (BitwiseXOROp() BitwiseANDExpressionNoIN())*
+}
+
+void BitwiseOROp():
+{}
+{
+        <BIT_OR>
+}
+
+void BitwiseORExpression():
+{}
+{
+        BitwiseXORExpression() (BitwiseOROp() BitwiseXORExpression())*
+}
+
+void BitwiseORExpressionNoIN():
+{}
+{
+        BitwiseXORExpressionNoIN() (BitwiseOROp() BitwiseXORExpressionNoIN())*
+}
+
+void LogicalANDExpression():
+{}
+{
+        BitwiseORExpression() (<SC_AND> BitwiseORExpression())*
+}
+
+void LogicalANDExpressionNoIN():
+{}
+{
+        BitwiseORExpressionNoIN() (<SC_AND> BitwiseORExpressionNoIN())*
+}
+
+void LogicalORExpression():
+{}
+{
+        LogicalANDExpression() (<SC_OR> LogicalANDExpression())*
+}
+
+void LogicalORExpressionNoIN():
+{}
+{
+        LogicalANDExpressionNoIN() (<SC_OR> LogicalANDExpressionNoIN())*
+}
+
+void ConditionalExpression():
+{}
+{
+        LogicalORExpression() [<HOOK> Expression() <COLON> ConditionalExpression()]
+}
+
+void ConditionalExpressionNoIN():
+{}
+{
+        LogicalORExpressionNoIN() [<HOOK> ExpressionNoIN() <COLON> ConditionalExpressionNoIN()]
+}
+
+Token AssignementOperator():
+{
+        Token t;
+}
+{
+        ( t=<ASSIGN>
+    |     t=<STARASSIGN>
+    |     t=<SLASHASSIGN> 
+    |     t=<REMASSIGN> 
+    |     t=<PLUSASSIGN>
+    |     t=<MINUSASSIGN> 
+    |     t=<LSHIFTASSIGN> 
+    |     t=<RSIGNEDSHIFTASSIGN>
+    |     t=<RUNSIGNEDSHIFTASSIGN>
+    |     t=<ANDASSIGN> 
+    |     t=<XORASSIGN> 
+    |     t=<ORASSIGN> )
+        { return t; } 
+}
+
+void AssignmentExpression():
+{
+        Token tLHS      = getToken(1); 
+		Token tOperator = null; 
+		Token tRHS      = null;
+		Token tEnd      = null;
+}
+{
+        ConditionalExpression() 
+            [ (AssignementOperator() 
+               {tRHS=getToken(1);}
+               AssignmentExpression())
+               {
+                  tEnd = getToken(1);
+                  JSParserUtils.tagAssignmentExpression(_contextStack, null, 
+                                                        (AnnotatedToken)tLHS, 
+                                                        (AnnotatedToken)tOperator,
+                                                        (AnnotatedToken)tRHS, 
+                                                        (AnnotatedToken)tEnd); 
+               }
+            ]
+}
+
+void AssignmentExpressionNoIN():
+{
+        Token tLHS      = getToken(1); 
+		Token tOperator = null; 
+		Token tRHS      = null;
+		Token tEnd      = null;
+}
+{
+        ConditionalExpressionNoIN() 
+            [ (AssignementOperator() {tRHS=getToken(1);}
+               AssignmentExpressionNoIN())
+               {
+                  tEnd = getToken(1);
+                  JSParserUtils.tagAssignmentExpression(_contextStack, null, 
+                                                        (AnnotatedToken)tLHS, 
+                                                        (AnnotatedToken)tOperator,
+                                                        (AnnotatedToken)tRHS, 
+                                                        (AnnotatedToken)tEnd); 
+               }
+            ]
+}
+
+
+void Expression()                     :
+{}
+{
+  AssignmentExpression() ( "," AssignmentExpression() )*
+}   
+
+void ExpressionNoIN()                     :
+{}
+{
+  AssignmentExpressionNoIN() ( "," AssignmentExpressionNoIN() )*
+}   
+
+
+void Statement():
+{}
+{
+        LOOKAHEAD(3)    Block(null)
+    |                   VariableStatement()
+    |                   EmptyStatement()
+    |                   ExpressionStatement()
+    |                   IfStatement()
+    |                   IterationStatement()
+    |                   ContinueStatement()
+    |                   BreakStatement()
+    |                   ReturnStatement()
+    |                   WithStatement()
+    |                   TryStatement()
+    |                   ThrowStatement()
+    |                   SwitchStatement()
+}
+ 
+void Block(ProgramContext context):
+{}
+{
+        LOOKAHEAD(3)    <LBRACE> <RBRACE>   
+    |                   <LBRACE> {
+                                     if (context == null) {
+                                        _contextStack.pushContext(new ProgramContext("block"));
+ 	                                 }
+                                 }
+                                 [StatementList()] 
+                                 <RBRACE>
+                                 {
+                                     _contextStack.popContext();
+                                 }
+}
+ 
+void VariableStatement():
+{
+        Token t;
+}
+{
+        t=<VAR> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
+        VariableDeclarationList(t) Sc()
+}
+ 
+void VariableDeclarationList(Token varToken):
+{}
+{
+        VariableDeclaration(varToken) ( <COMMA> VariableDeclaration(varToken) )*
+}
+
+void VariableDeclaration(Token varToken):
+{
+        Token lhs      = null;
+        Token[] tArray = null;
+}
+{
+        lhs=Identifier() [Initializer()]
+        {
+            JSParserUtils.annotateToken(lhs, AnnotationConstants.VAR_IDENTIFIER, null, -1);
+            JSParserUtils.pushToken(_contextStack, (AnnotatedToken)lhs);      
+      
+            if(tArray != null) {
+      	       Token end = getToken(1);
+               JSParserUtils.tagAssignmentExpression(_contextStack, (AnnotatedToken)varToken, 
+                                                     (AnnotatedToken)lhs, (AnnotatedToken)tArray[0], 
+                                                     (AnnotatedToken)tArray[1], (AnnotatedToken)end); 
+            }
+        }
+}
+
+Token[] Initializer():
+{
+        Token[] tArray = new Token[2];
+}
+{
+        tArray[0]=<ASSIGN> {tArray[1]=getToken(1);} 
+        AssignmentExpression()
+        {return tArray;}
+}
+ 
+void EmptyStatement():
+{}
+{
+        <SEMICOLON>
+}
+
+void ExpressionStatement():
+{}
+{
+        Expression() Sc() 
+}
+
+JAVACODE
+  void Sc() {
+
+    Token tok = getToken(1);
+    if (tok.kind == SEMICOLON) {
+       tok = getNextToken();
+    } else if (tok.specialToken != null) {
+       if (!EolCommentSkipWs(tok.specialToken) && (tok.kind != EOF)) {
+          throw generateParseException();
+       }
+    } else if ((tok.kind != EOF) && (tok.kind!=RBRACE)) {
+         throw generateParseException();
+    }
+  }
+ 
+JAVACODE
+  boolean EolCommentSkipWs(Token t) {
+    boolean retVal = false;
+    Token specialToken = t;
+    while(specialToken != null) {
+      if(specialToken.kind == WS) {
+        specialToken = specialToken.specialToken;
+        continue;
+      }
+      else if(specialToken.kind == EOL  || 
+              specialToken.kind == SINGLE_LINE_COMMENT) {
+        retVal = true;
+        break;
+      }
+      else {
+        break;
+      }
+    }
+    return retVal;
+  }
+ 
+void IfStatement():
+{
+        Token t;
+}
+{
+        <IF> <LPAREN> Expression() <RPAREN> 
+            Statement() 
+            [ LOOKAHEAD(1) t=<ELSE> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED,
+                                                                 null, AnnotatedToken.PREFIX_WS);}
+              Statement()
+            ]
+}
+
+
+void IterationStatement():
+{}
+{
+                            WhileStatement()
+    |                       DoStatement()
+    |   LOOKAHEAD(<FOR> <LPAREN> Expression() <SEMICOLON>)                     
+                            ForStatement()
+    |   LOOKAHEAD(<FOR> <LPAREN> <SEMICOLON>)                                  
+                            ForStatement()
+    |   LOOKAHEAD(<FOR> <LPAREN> varToekn=<VAR> VariableDeclarationList(varToken) <SEMICOLON>)  
+                            ForVarStatement()
+    |   LOOKAHEAD(3)        ForInStatement()
+    |   LOOKAHEAD(3)        ForVarInStatement()
+}
+ 
+void DoStatement():
+{}
+{
+        <DO> Statement() <WHILE> <LPAREN> Expression() <RPAREN>
+}
+
+void WhileStatement():
+{}
+{
+        <WHILE> <LPAREN> Expression() <RPAREN> 
+            Statement()
+}
+ 
+void ForStatement():
+{}
+{
+        <FOR> <LPAREN>  [Expression()] <SEMICOLON> 
+                        [Expression()] <SEMICOLON> 
+                        [Expression()] <RPAREN> 
+            Statement()
+}
+
+void ForVarStatement():
+{
+        Token t;
+}
+{
+        <FOR> <LPAREN>  t=<VAR> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, 
+                                                             null, AnnotatedToken.PREFIX_WS);}
+                        VariableDeclarationList(t) <SEMICOLON> 
+                        [Expression()]  <SEMICOLON> 
+                        [Expression()]  <RPAREN> 
+            Statement()
+}
+
+void ForInStatement():
+{
+        Token t;
+}
+{
+        <FOR> <LPAREN>  ExpressionNoIN() 
+                        t=<IN> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, 
+                                                            null, AnnotatedToken.INFIX_WS);}
+                        ExpressionNoIN() <RPAREN> 
+            Statement()
+}
+ 
+void ForVarInStatement():
+{
+        Token t;
+}
+{
+        <FOR> <LPAREN>  
+                t=<VAR> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
+                t=Identifier() 
+                  {
+   	                  JSParserUtils.annotateToken(t, AnnotationConstants.VAR_IDENTIFIER, null, AnnotatedToken.PREFIX_WS);
+   	                  JSParserUtils.pushToken(_contextStack, (AnnotatedToken)t);
+                  }
+                [Initializer()] 
+                t=<IN> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}
+                ExpressionNoIN() 
+              <RPAREN> 
+            Statement()
+}
+
+void ContinueStatement():
+{}
+{
+        <CONTINUE> Sc()
+}
+
+void BreakStatement():
+{}
+{
+        <BREAK> Sc()
+}
+ 
+void ReturnStatement():
+{
+        Token t;
+}
+{
+        t=<RETURN> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
+        [Expression()] Sc()
+}
+
+void WithStatement():
+{}
+{
+        <WITH> <LPAREN> Expression() <RPAREN>
+            Statement()
+}
+
+void TryStatement():
+{}
+{
+        <TRY> Block(null)
+        (<CATCH> <LPAREN> Identifier() <RPAREN> Block(null))*
+        [<FINALLY> Block(null)]
+} 
+
+void ThrowStatement():
+{
+        Token t;
+}
+{
+        t=<THROW> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
+        [Expression()] Sc()
+}
+
+void CaseGuard():
+{
+        Token t;
+}
+{
+        t=<CASE> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
+        Expression() <COLON>
+    |   <_DEFAULT> <COLON>
+}
+
+void CaseGroup():
+{}
+{
+        CaseGuard() (Statement())*  
+}
+
+void SwitchStatement():
+{}
+{
+        <SWITCH>    <LPAREN> Expression() <RPAREN> 
+                    <LBRACE> (CaseGroup())* <RBRACE>
+}
+
+void NamedFunction():
+{
+        Token  tIdentifier = null;
+        Token  tFunction   = null;
+        Token  blockStart  = null;
+        Token  blockEnd    = null;
+        Vector params      = new Vector();
+}
+{
+        tFunction=<FUNCTION> 
+        tIdentifier=Identifier() 
+           { 
+              JSParserUtils.annotateToken(tIdentifier, AnnotationConstants.FUNCTION_NAME_IDENTIFIER, 
+                                          null, -1); 
+              ProgramContext context = new ProgramContext(tIdentifier.image);
+              _contextStack.pushContext(context);
+           }
+        <LPAREN> 
+           [params=FormalParameterList()] 
+              { 
+                  JSParserUtils.annotateTokens(params,
+                                               AnnotationConstants.FUNCTION_PARAM_IDENTIFIER,
+                                               null, -1); 
+                  JSParserUtils.annotateToken(tFunction, AnnotationConstants.NAMED_FUNCTION,
+                                              params, AnnotatedToken.PREFIX_WS); 
+                  JSParserUtils.pushTokens(_contextStack, params);
+              } 
+
+        <RPAREN>
+        {blockStart = getToken(1);} 
+        Block(context)
+        {
+           blockEnd = getToken(1);
+           JSParserUtils.tagEvalCalls(tFunction, blockStart, blockEnd);
+        }
+}
+
+void AnonymousFunction():
+{
+        Token  tFunction  = null;
+        Token  blockStart = null;
+        Token  blockEnd   = null;
+        Vector params     = new Vector();
+}
+{
+        tFunction=<FUNCTION>
+           { 
+              ProgramContext context = new ProgramContext("anonymous");
+              _contextStack.pushContext(context);
+           } 
+        <LPAREN> 
+           [params=FormalParameterList()] 
+              { 
+                  JSParserUtils.annotateTokens(params,
+                                               AnnotationConstants.FUNCTION_PARAM_IDENTIFIER,
+                                               null, -1); 
+                  JSParserUtils.annotateToken(tFunction,
+                                              AnnotationConstants.ANONYMOUS_FUNCTION,
+                                              params, -1); 
+                  JSParserUtils.pushTokens(_contextStack, params);
+              } 
+        <RPAREN> 
+        {blockStart = getToken(1);}
+        Block(context)
+        {
+           blockEnd = getToken(1);
+           JSParserUtils.tagEvalCalls(tFunction, blockStart, blockEnd);
+        }
+}
+
+void FunctionConstructor():
+{}
+{    
+        <FUNCTION_> <LPAREN> ArgumentList() <RPAREN> 
+}
+
+void FunctionDeclaration():
+{}
+{
+        LOOKAHEAD(2) NamedFunction() 
+    |   LOOKAHEAD(2) AnonymousFunction()
+}           
+
+void FunctionLiteral():
+{}
+{
+        LOOKAHEAD(2) NamedFunction()
+    |   LOOKAHEAD(2) AnonymousFunction()
+}
+                          
+Vector FormalParameterList():
+{
+        Token  t = null;
+        Vector v = new Vector();
+}
+{
+        t=Identifier() {v.add(t);} 
+        (<COMMA> t=Identifier() {v.add(t);})*
+        {return v;}
+}
+
+void LiteralElement() :
+{}
+{
+        AssignmentExpression()
+}
+
+void ElementList():
+{}
+{
+        LiteralElement() (<COMMA> LiteralElement())*
+}
+
+void ArrayLiteral():
+{}
+{
+        LOOKAHEAD(2) <LBRACKET> <RBRACKET>
+    |   LOOKAHEAD(2) <LBRACKET> ElementList() <RBRACKET>
+}
+
+void NestedArrayLiteral():
+{}
+{
+        LOOKAHEAD(3) ArrayLiteral() 
+    |   LOOKAHEAD(3) <LBRACKET> NestedArrayLiteral() <RBRACKET>
+}
+
+void LiteralField():
+{
+        Token t = null;
+}
+{
+        t=Identifier()     <COLON> AssignmentExpression()
+        {JSParserUtils.annotateToken(t, AnnotationConstants.LITERAL_OBJECT_KEY_IDENTIFIER,null,-1); }
+   |    t=<STRING_LITERAL> <COLON> AssignmentExpression()
+        {JSParserUtils.annotateToken(t, AnnotationConstants.LITERAL_OBJECT_KEY_IDENTIFIER,null,-1); }
+}
+
+void FieldList():
+{}
+{
+        LiteralField() (<COMMA> LiteralField())*
+}
+
+void ObjectLiteral():
+{}
+{
+        LOOKAHEAD(2) <LBRACE> <RBRACE>
+    |   LOOKAHEAD(2) <LBRACE> FieldList() <RBRACE>  
+}
+
+
+Token Program():
+{
+        Token retval = getToken(1);
+}
+{
+        {_contextStack.pushContext(new ProgramContext("root"));}
+        (SourceElement())*  <EOF>
+        {
+            return retval;
+        }
+}
+
+void SourceElement():
+{}
+{
+        LOOKAHEAD(2)    Statement() 
+    |                   FunctionDeclaration()
+}
+
+void StatementList(): 
+{
+//        Token t;
+}
+{
+        (Statement())+
+}
