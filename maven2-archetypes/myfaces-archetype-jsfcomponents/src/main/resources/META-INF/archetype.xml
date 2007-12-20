@@ -24,7 +24,7 @@
 -->
 
 <archetype>
-    <id>jsfcomponents-archetype</id>
+    <id>myfaces-archetype-jsfcomponents</id>
     <resources>
         <resource>examples/src/main/resources/org/myorganization/component/example/build.properties</resource>
         <resource>examples/src/main/java/org/myorganization/component/example/SayHelloBean.java</resource>

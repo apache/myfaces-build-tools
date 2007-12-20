@@ -24,13 +24,13 @@
 -->
 
 <archetype>
-  <id>myfaces-archetype</id>
+  <id>myfaces-archetype-helloworld</id>
   <resources>
     <resource>src/main/java/org/apache/myfaces/blank/HelloWorldBacking.java</resource>
     <resource>src/main/webapp/index.jsp</resource>
     <resource>src/main/webapp/helloWorld.jsp</resource>
     <resource>src/main/webapp/page2.jsp</resource>
     <resource>src/main/webapp/WEB-INF/web.xml</resource>
-    <resource>src/main/webapp/WEB-INF/examples-config.xml</resource>
+    <resource>src/main/webapp/WEB-INF/faces-config.xml</resource>
   </resources>
 </archetype>
