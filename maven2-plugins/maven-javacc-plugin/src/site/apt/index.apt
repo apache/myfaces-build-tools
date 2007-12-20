@@ -1,0 +1,115 @@
+~~Licensed to the Apache Software Foundation (ASF) under one
+~~or more contributor license agreements.  See the NOTICE file
+~~distributed with this work for additional information
+~~regarding copyright ownership.  The ASF licenses this file
+~~to you under the Apache License, Version 2.0 (the
+~~"License"); you may not use this file except in compliance
+~~with the License.  You may obtain a copy of the License at
+~~
+~~http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~Unless required by applicable law or agreed to in writing,
+~~software distributed under the License is distributed on an
+~~"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~KIND, either express or implied.  See the License for the
+~~specific language governing permissions and limitations
+~~under the License.
+~~
+
+------
+ Maven 2 JavaCC plugin 
+ ------
+ <jruiz@exist.com>
+ Jesse McConnell <jesse.mcconnell@gmail.com>
+ ------
+ July 27 2005
+ ------
+
+Maven 2 JavaCC plugin
+
+ This plugin is for processing javacc files into java sources.
+
+ https://javacc.dev.java.net
+
+ This plugin will process all *.jj files in the sourceDirectory into a 
+ common generated sources output directory.  This will occur during the 
+ generate-resources phase and the sources directory will be added to the project
+ for the compile phase.
+ 
+Available Configuration Options: (param - default value)
+ 
+ * sourceDirectory - src/main/javacc
+ 
+ * outputDirectory - target/generated-sources/javacc
+ 
+ * timestampDirectory - target (used so grammers are not constantly regenerated)
+ 
+ * lookAhead - 1
+
+ * choiceAmbiguityCheck - 2
+
+ * otherAmbiguityCheck - 1
+
+ * isStatic - true
+
+ * debugParser - false
+
+ * debugLookAhead - false
+
+ * debugTokenManager - false
+
+ * optimizeTokenManager - true
+
+ * errorReporting - true
+
+ * javaUnicodeEscape - false
+
+ * unicodeInput - false
+
+ * ignoreCase - false
+
+ * commonTokenAction - false
+
+ * userTokenManager - false
+
+ * userCharStream - false
+
+ * buildParser - true
+
+ * buildTokenManager - true
+
+ * sanityCheck - true
+
+ * forceLaCheck - false
+
+ * cacheTokens - false
+
+ * keepLineColumn - true
+ 
+ []
+ 
+Usage:
+
+-------------------
+<project>
+   ...
+      <build>
+         <plugins>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-javacc-plugin</artifactId>
+	       <version>1.0</version>
+	       <executions>
+	          <execution>
+	             <goals>
+	                <goal>generate</goal>
+	             </goals>
+	          </execution>
+	       </executions>
+            </plugin>
+         </plugins>
+         ...
+      </build>
+   ...
+</project>
+-------------------
