@@ -150,14 +150,14 @@
   </scm>
 
   <modules>
-    <module>maven-faces-plugin</module>
-    <module>maven-javacc-plugin</module>
-    <module>maven-i18n-plugin</module>
-    <module>maven-jdev-plugin</module>
-    <module>maven-javascript-plugin</module>
-    <module>maven-xrts-plugin</module>
-    <module>maven-tagdoc-plugin</module>
-    <module>wagon-maven-plugin</module>
+    <module>myfaces-faces-plugin</module>
+    <module>myfaces-i18n-plugin</module>
+    <module>myfaces-javacc-plugin</module>
+    <module>myfaces-javascript-plugin</module>
+    <module>myfaces-jdev-plugin</module>
+    <module>myfaces-tagdoc-plugin</module>
+    <module>myfaces-wagon-plugin</module>
+    <module>myfaces-xrts-plugin</module>
   </modules>
 
   <distributionManagement>
