@@ -12,7 +12,7 @@
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-wagon-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <name>Wagon Maven Plugin</name>
+  <name>Apache MyFaces Buildtools Maven2 Wagon Plugin</name>
   <version>1.2.7-SNAPSHOT</version>
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/maven/trunk/wagon-maven-plugin</connection>

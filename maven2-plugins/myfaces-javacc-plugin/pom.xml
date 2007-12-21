@@ -29,7 +29,7 @@
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-javacc-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <name>Apache Trinidad Maven Javacc Plugin</name>
+  <name>Apache MyFaces Buildtools Maven2 Javacc Plugin</name>
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>

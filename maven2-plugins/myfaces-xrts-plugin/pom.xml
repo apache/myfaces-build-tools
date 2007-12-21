@@ -29,7 +29,7 @@
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-xrts-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <name>Apache Trinidad Maven XRTS Plugin</name>
+  <name>Apache MyFaces Buildtools Maven2 XRTS Plugin</name>
 
   <build>
     <pluginManagement>
