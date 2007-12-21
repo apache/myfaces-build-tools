@@ -113,9 +113,9 @@
   </reporting>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/trinidad-maven/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/trinidad-maven/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewvc/maven/pom/tags/apache-4/maven-plugin-parent</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins//</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/</url>
   </scm>
 
   <modules>
