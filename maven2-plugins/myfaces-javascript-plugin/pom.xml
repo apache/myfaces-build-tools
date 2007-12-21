@@ -48,8 +48,8 @@
         <version>${project.version}</version>
         <configuration>
           <sourceDirectory>src/main/java</sourceDirectory>
-          <sourcePath>org/apache/myfaces/trinidadbuild/plugin/javascript/obfuscator/javascript15parser</sourcePath>
-          <outputPath>org/apache/myfaces/trinidadbuild/plugin/javascript/obfuscator/javascript15parser</outputPath>
+          <sourcePath>org/apache/myfaces/buildtools/maven2/plugin/javascript/obfuscator/javascript15parser</sourcePath>
+          <outputPath>org/apache/myfaces/buildtools/maven2/plugin/javascript/obfuscator/javascript15parser</outputPath>
           <isStatic>false</isStatic>
           <doNotGenerateTokenFile>true</doNotGenerateTokenFile>
         </configuration>
