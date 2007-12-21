@@ -9,8 +9,8 @@
   </parent>
 
 
-  <groupId>org.apache.myfaces.maven</groupId>
-  <artifactId>wagon-maven-plugin</artifactId>
+  <groupId>org.apache.myfaces.buildtools</groupId>
+  <artifactId>myfaces-wagon-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>Wagon Maven Plugin</name>
   <version>1.2.7-SNAPSHOT</version>

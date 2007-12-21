@@ -27,7 +27,7 @@
   <artifactId>myfaces-plugin-parent</artifactId>
   <version>1.2.7-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Apache Trinidad Maven Plugin Parent</name>
+  <name>Apache MyFaces Buildtools Maven2 Plugin Parent</name>
 
   <issueManagement>
     <system>jira</system>
@@ -49,37 +49,6 @@
   </ciManagement>
 
   <inceptionYear>2001</inceptionYear>
-
-  <mailingLists>
-    <mailingList>
-      <name>MyFaces Users (use [Trinidad] prefix)</name>
-      <post>users@myfaces.apache.org</post>
-      <subscribe>users-subscribe@myfaces.apache.org</subscribe>
-      <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users/</archive>
-    </mailingList>
-    <mailingList>
-      <name>MyFaces Developers (use [Trinidad] prefix)</name>
-      <post>dev@myfaces.apache.org</post>
-      <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
-      <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev/</archive>
-    </mailingList>
-    <mailingList>
-      <name>MyFaces issues</name>
-      <post>Do not post</post>
-      <subscribe>issues-subscribe@myfaces.apache.org</subscribe>
-      <unsubscribe>issues-unsubscribe@myfaces.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-issues/</archive>
-    </mailingList>
-    <mailingList>
-      <name>MyFaces commits</name>
-      <post>Do not post</post>
-      <subscribe>commits-subscribe@myfaces.apache.org</subscribe>
-      <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits/</archive>
-    </mailingList>
-  </mailingLists>
 
   <build>
     <plugins>
