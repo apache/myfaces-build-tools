@@ -897,8 +897,13 @@ public class JDeveloperMojo
     {
       File webInfDir = 
         new File(project.getBasedir(), "src/main/webapp/WEB-INF");
+      if (webInfDir == null)
+        return;
+      
       File[] files = webInfDir.listFiles();
-
+      if (files == null)
+        return;
+      
       Xpp3Dom hashDOM = null;
       Xpp3Dom valueDOM = null;
       for (int i = 0; i < files.length; i++)
