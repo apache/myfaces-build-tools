@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadbuild.plugin.faces.io;
+package org.apache.myfaces.buildtools.maven2.plugin.faces.io;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
