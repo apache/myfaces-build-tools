@@ -25,7 +25,7 @@
 
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-plugin-parent</artifactId>
-  <version>1.2.7-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Apache MyFaces Buildtools Maven2 Plugin Parent</name>
 
