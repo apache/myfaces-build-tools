@@ -17,7 +17,7 @@
  *  under the License.
  */
 
-package org.apache.myfaces.trinidadbuild.plugin.jdeveloper;
+package org.apache.myfaces.buildtools.maven2.plugin.jdeveloper;
 
 import java.io.File;
 import java.io.FileReader;
