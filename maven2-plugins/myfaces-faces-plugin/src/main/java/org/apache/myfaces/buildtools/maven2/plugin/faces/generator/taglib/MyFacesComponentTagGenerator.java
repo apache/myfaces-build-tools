@@ -219,6 +219,11 @@ public class MyFacesComponentTagGenerator extends AbstractComponentTagGenerator
                                             Iterator properties) throws IOException
   {
 
+    if("HtmlColumn".equals(componentClass))
+    {
+        componentClass = "UIColumn";
+    }
+
     out.println("if (!(component instanceof " + componentClass + "))");
     out.println("{");
     out.indent();
