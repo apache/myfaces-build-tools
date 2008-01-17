@@ -16,7 +16,7 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package org.apache.myfaces.trinidadbuild.plugin.i18n.uixtools;
+package org.apache.myfaces.buildtools.maven2.plugin.i18n.uixtools;
 
 import java.io.BufferedWriter;
 import java.io.File;
