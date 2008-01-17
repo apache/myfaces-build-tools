@@ -439,6 +439,7 @@
       <xsl:apply-templates select="javaee:converter-id"/>
       <xsl:apply-templates select="javaee:converter-for-class"/>
       <xsl:apply-templates select="javaee:converter-class"/>
+      <xsl:apply-templates select="javaee:property"/>
     </xsl:element>
   </xsl:template>
 
@@ -715,6 +716,7 @@
       <xsl:apply-templates select="javaee:display-name"/>
       <xsl:apply-templates select="javaee:validator-id"/>
       <xsl:apply-templates select="javaee:validator-class"/>
+      <xsl:apply-templates select="javaee:property"/>
     </xsl:element>
   </xsl:template>
 
