@@ -29,6 +29,7 @@ import java.io.Reader;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -64,23 +65,23 @@ import org.xml.sax.SAXException;
 
   /*
    * Important informational note:
-   * 
-   * The following XML code is similar to what would be seen in a pom file 
+   *
+   * The following XML code is similar to what would be seen in a pom file
    * under the maven-jdev-plugin tag if Libraries (e.g. JSP Runtime
    * and JSF 1.2) and Distributed Tag Libraries wanted to be added to the .jpr
    * project.
-   * 
+   *
    * What you see below are the defaults that are put in a project's .jpr
    * automatically without specifying anything.  See replaceLibraries(),
    * replaceTagLibraries() and replaceDefaultTagLibraries().
-   * 
-   * Also note that by setting the property "jdev.plugin.add.libraries" to 
+   *
+   * Also note that by setting the property "jdev.plugin.add.libraries" to
    * false in a project's pom.xml file, no libraries will be added, default
-   * or otherwise.  In kind, setting the property "jdev.plugin.add.taglibs" 
+   * or otherwise.  In kind, setting the property "jdev.plugin.add.taglibs"
    * to false will result in no tag libraries of any kind being added.
-   * 
+   *
    * As you would expect, the default for both of these properties is "true".
-   * 
+   *
    *   <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
@@ -142,51 +143,89 @@ import org.xml.sax.SAXException;
  */
 
 /**
+ * Generates the JDeveloper Workspace and Projects
+ * from a maven development environment.
  * @version $Id$
  * @goal jdev
  * @execute phase=process-resources
  * @requiresDependencyResolution test
- * @description Goal which generates the JDeveloper Workspace
+ * @description Goal which generates the JDeveloper Workspace and Projects
+ *              from a maven development environment.
  */
 public class JDeveloperMojo
   extends AbstractMojo
 {
   /**
+   * Libraries to include in Classpath.
    * @parameter
    */
   private String[] libraries;
 
   /**
+   * List of source root directories
    * @parameter
    */
   private File[] sourceRoots;
 
   /**
+   * List of source root directories for the test project
    * @parameter
    */
   private File[] testSourceRoots;
 
   /**
+   * List of resource root directories
    * @parameter
    */
   private File[] resourceRoots;
 
   /**
+   * List of resource root directories for the test project
    * @parameter
    */
   private File[] testResourceRoots;
 
   /**
-   * @parameter expression="${force}"
+   * Force the Mojo to use the default project.xml or
+   * workspace.xml file to be used in creation of the
+   * workspace file (.jws) or project file (.jpr). Otherwise,
+   * if a .jws or .jpr exists, it will be used instead.
+   * @parameter expression="${force}" default-value=true
+   *
    */
   private boolean force;
 
   /**
+   * Compiler to be used by JDeveloper. "Ojc" is the default.  
+   * If this parameter is absent or anything other than "Javac", "Ojc" will
+   * be used.
+   * @parameter expression="${jdev.compiler}" default-value="Ojc"
+   */
+  private String compiler;
+
+  /**
+   * Make the entire project before each run.  Running anything in the
+   * project will automatically trigger a make of the entire project
+   * followed by the run.
+   * @parameter expression="${jdev.make.project}" default-value="false"
+   */
+  private boolean makeProject;
+
+  /**
+   * Default file to be run when JDeveloper project is run.
+   * @parameter expression="${jdev.run.target}"
+   */
+  private String runTarget;
+
+  /**
+   * Create JDeveloper Workspace and Project Files that correspond to
+   * the format used
    * @parameter expression="${jdev.release}" default-value="10.1.3.0.4"
    */
   private String release;
 
   /**
+   * Name of the Maven Project
    * @parameter expression="${project}"
    * @required
    * @readonly
@@ -194,6 +233,7 @@ public class JDeveloperMojo
   private MavenProject project;
 
   /**
+   * List of reactorProjects
    * @parameter expression="${reactorProjects}"
    * @required
    * @readonly
@@ -201,15 +241,15 @@ public class JDeveloperMojo
   private List reactorProjects;
 
   /**
-   * Tag library Directory
+   * Tag library directory used by each distributed tag library
    *
-   * @parameter expression="${jdev.tag.lib.dir}" default-value="@oracle.home@lib/java/shared/oracle.jsf/1.2/jsf-ri.jar!/META-INF"
+   * @parameter expression="${jdev.tag.lib.dir}"
+   *            default-value="@oracle.home@lib/java/shared/oracle.jsf/1.2/jsf-ri.jar!/META-INF"
    */
   private String tagLibDirectory;
 
   /**
-   * Tag Libraries and their properties
-   *
+   * Tag libraries and their properties.
    * @parameter
    */
   private Properties[] distributedTagLibraries;
@@ -238,7 +278,7 @@ public class JDeveloperMojo
   {
     if (!project.getCollectedProjects().isEmpty())
     {
-      getLog().info("Generating JDeveloper " + release + " workspace: " + 
+      getLog().info("Generating JDeveloper " + release + " workspace: " +
                     project.getArtifactId());
 
       File workspaceFile = getJWorkspaceFile(project);
@@ -262,21 +302,21 @@ public class JDeveloperMojo
     if (!"pom".equals(project.getPackaging()))
     {
       File projectFile = getJProjectFile(project);
-      
+
       // Get Project Properties to tell Mojo whether or not to add
       // library refs and taglibs to the project.
       Properties props = project.getProperties();
       String addLibs = (String)props.get(_PROPERTY_ADD_LIBRARY);
       String addTagLibs = (String)props.get(_PROPERTY_ADD_TAGLIBS);
-      _addLibraries = (addLibs == null) 
+      _addLibraries = (addLibs == null)
         ? true : (new Boolean(addLibs)).booleanValue();
       _addTagLibs   = (addTagLibs == null)
         ? true : (new Boolean(addTagLibs)).booleanValue();
-      
+
       // TODO: read configuration for war:war goal
       File webappDir = new File(project.getBasedir(), "src/main/webapp");
       // TODO: read configuration for compiler:complie goal
-      File outputDir = 
+      File outputDir =
         new File(project.getBuild().getDirectory(), "classes");
 
       MavenProject executionProject = project.getExecutionProject();
@@ -300,7 +340,7 @@ public class JDeveloperMojo
         }
       }
 
-      getLog().info("Generating JDeveloper " + release + " Project " + 
+      getLog().info("Generating JDeveloper " + release + " Project " +
                     project.getArtifactId());
 
       Set pluginArtifacts = new LinkedHashSet();
@@ -312,11 +352,11 @@ public class JDeveloperMojo
       compileArtifacts.addAll(project.getRuntimeArtifacts());
 
       // Note: separate "runtime" vs. "compile" dependencies in JDeveloper?
-      generateProject(projectFile, project.getArtifactId(), 
-                      project.getPackaging(), project.getDependencies(), 
-                      new ArrayList(compileArtifacts), compileSourceRoots, 
-                      compileResourceRoots, 
-                      Collections.singletonList(webappDir.getPath()), 
+      generateProject(projectFile, project.getArtifactId(),
+                      project.getPackaging(), project.getDependencies(),
+                      new ArrayList(compileArtifacts), compileSourceRoots,
+                      compileResourceRoots,
+                      Collections.singletonList(webappDir.getPath()),
                       outputDir);
     }
   }
@@ -327,9 +367,19 @@ public class JDeveloperMojo
     if (!"pom".equals(project.getPackaging()))
     {
       File projectFile = getJProjectTestFile(project);
+
+      // Get Project Properties to tell Mojo whether or not to add
+      // library refs and taglibs to the project.
+      Properties props = project.getProperties();
+      String addLibs = (String)props.get(_PROPERTY_ADD_LIBRARY);
+      String addTagLibs = (String)props.get(_PROPERTY_ADD_TAGLIBS);
+      _addLibraries = (addLibs == null)
+        ? true : (new Boolean(addLibs)).booleanValue();
+      _addTagLibs   = (addTagLibs == null)
+        ? true : (new Boolean(addTagLibs)).booleanValue();
       File webappDir = new File(project.getBasedir(), "src/test/webapp");
       // TODO: read configuration for compiler:testCompile goal
-      File outputDir = 
+      File outputDir =
         new File(project.getBuild().getDirectory(), "test-classes");
 
       // self dependency needed for test project
@@ -341,7 +391,7 @@ public class JDeveloperMojo
       testDependencies.add(selfDependency);
 
       MavenProject executionProject = project.getExecutionProject();
-      List compileSourceRoots = 
+      List compileSourceRoots =
         executionProject.getTestCompileSourceRoots();
 
       if (testSourceRoots != null)
@@ -363,23 +413,23 @@ public class JDeveloperMojo
         }
       }
 
-      getLog().info("Generating JDeveloper " + release + " Project " + 
+      getLog().info("Generating JDeveloper " + release + " Project " +
                     project.getArtifactId() + "-test");
 
       // Note: all artifacts implicitly included in "test" scope
-      generateProject(projectFile, project.getArtifactId() + "-test", 
-                      project.getPackaging(), testDependencies, 
-                      project.getTestArtifacts(), compileSourceRoots, 
-                      compileResourceRoots, 
-                      Collections.singletonList(webappDir.getPath()), 
+      generateProject(projectFile, project.getArtifactId() + "-test",
+                      project.getPackaging(), testDependencies,
+                      project.getTestArtifacts(), compileSourceRoots,
+                      compileResourceRoots,
+                      Collections.singletonList(webappDir.getPath()),
                       outputDir);
     }
   }
 
-  private void generateProject(File projectFile, String projectName, 
-                               String packaging, List dependencies, 
-                               List artifacts, List sourceRoots, 
-                               List resourceRoots, List webSourceRoots, 
+  private void generateProject(File projectFile, String projectName,
+                               String packaging, List dependencies,
+                               List artifacts, List sourceRoots,
+                               List resourceRoots, List webSourceRoots,
                                File outputDir)
     throws IOException, MojoExecutionException
   {
@@ -388,8 +438,7 @@ public class JDeveloperMojo
       File projectDir = projectFile.getParentFile();
       Xpp3Dom projectDOM = readProjectDOM(projectFile);
       replaceWebappInfo(projectName, projectDOM);
-      replaceDemoConfiguration(projectName, projectDOM);
-      replaceSourcePaths(projectDir, sourceRoots, resourceRoots, 
+      replaceSourcePaths(projectDir, sourceRoots, resourceRoots,
                          projectDOM);
       //replaceResourcePaths(projectDir, resourceRoots, projectDOM);
       replaceWebSourcePaths(projectDir, webSourceRoots, projectDOM);
@@ -397,6 +446,7 @@ public class JDeveloperMojo
       replaceLibraries(projectDir, artifacts, projectDOM);
       replaceTagLibraries(projectDOM);
       replaceOutputDirectory(projectDir, outputDir, projectDOM);
+      replaceParameters(projectName, projectDOM);
       writeDOM(projectFile, projectDOM);
 
       if ("war".equals(packaging))
@@ -421,17 +471,17 @@ public class JDeveloperMojo
     // </hash>
     Xpp3Dom targetDOM = new Xpp3Dom("list");
 
-    for (Iterator i = project.getCollectedProjects().iterator(); 
+    for (Iterator i = project.getCollectedProjects().iterator();
          i.hasNext(); )
     {
       MavenProject collectedProject = (MavenProject) i.next();
 
       File projectFile = getJProjectFile(collectedProject);
-      targetDOM.addChild(createProjectReferenceDOM(workspaceDir, 
+      targetDOM.addChild(createProjectReferenceDOM(workspaceDir,
                                                    projectFile));
 
       File testProjectFile = getJProjectTestFile(collectedProject);
-      targetDOM.addChild(createProjectReferenceDOM(workspaceDir, 
+      targetDOM.addChild(createProjectReferenceDOM(workspaceDir,
                                                    testProjectFile));
     }
 
@@ -443,7 +493,7 @@ public class JDeveloperMojo
     Xpp3Dom.mergeXpp3Dom(sourceDOM, targetDOM, Boolean.FALSE);
   }
 
-  private void replaceWebSourcePaths(File projectDir, List sourceRoots, 
+  private void replaceWebSourcePaths(File projectDir, List sourceRoots,
                                      Xpp3Dom projectDOM)
     throws XmlPullParserException
   {
@@ -451,9 +501,9 @@ public class JDeveloperMojo
     //   /hash[@n="oracle.jdeveloper.model.J2eeSettings"]
     //     /hash[@n="webContentSet"]
     //       /list[@n="url-path"]
-    Xpp3Dom pathsDOM = 
+    Xpp3Dom pathsDOM =
       findNamedChild(projectDOM, "hash", "oracle.jdeveloper.model.J2eeSettings");
-    Xpp3Dom contentSetDOM = 
+    Xpp3Dom contentSetDOM =
       findNamedChild(pathsDOM, "hash", "webContentSet");
     Xpp3Dom sourceDOM = findNamedChild(contentSetDOM, "list", "url-path");
 
@@ -478,39 +528,6 @@ public class JDeveloperMojo
     Xpp3Dom.mergeXpp3Dom(sourceDOM, targetDOM, Boolean.FALSE);
   }
 
-  private void replaceDemoConfiguration(String projectName, 
-                                        Xpp3Dom projectDOM)
-    throws XmlPullParserException
-  {
-    if ((_releaseMajor >= 11) && (projectName != null) && 
-        projectName.endsWith("demo"))
-    {
-      // /jpr:project
-      //   /hash[@n="oracle.jdeveloper.runner.RunConfigurations"]
-      //     /hash[@n="runConfigurationDefinitions"]
-      //       /hash[@n="Default"]
-      //         /value[@n="compileBeforeRun" v="false"]
-      //         /url[@n="targetURL" path="src/main/webapp/index.jspx"]
-      Xpp3Dom configDOM = 
-        findNamedChild(projectDOM, "hash", "oracle.jdeveloper.runner.RunConfigurations");
-      Xpp3Dom defsDOM = 
-        findNamedChild(configDOM, "hash", "runConfigurationDefinitions");
-      Xpp3Dom defaultDOM = findNamedChild(defsDOM, "hash", "Default");
-
-      Xpp3Dom valueDOM = new Xpp3Dom("value");
-      valueDOM.setAttribute("n", "compileBeforeRun");
-      valueDOM.setAttribute("v", "false");
-
-      Xpp3Dom targetDOM = new Xpp3Dom("url");
-      targetDOM.setAttribute("n", "targetURL");
-      targetDOM.setAttribute("path", "src/main/webapp/index.jspx");
-
-      defaultDOM.addChild(valueDOM);
-      defaultDOM.addChild(targetDOM);
-    }
-    return;
-  }
-
   private void replaceWebappInfo(String projectName, Xpp3Dom projectDOM)
     throws XmlPullParserException
   {
@@ -518,11 +535,11 @@ public class JDeveloperMojo
     //   /hash[@n="oracle.jdeveloper.model.J2eeSettings"]
     //     /value[@n="j2eeWebAppName" v="maven-generated-webapp"]
     //     /value[@n="j2eeWebContextRoot" v="maven-generated-context-root"]
-    Xpp3Dom settingsDOM = 
+    Xpp3Dom settingsDOM =
       findNamedChild(projectDOM, "hash", "oracle.jdeveloper.model.J2eeSettings");
-    Xpp3Dom webappNameDOM = 
+    Xpp3Dom webappNameDOM =
       findNamedChild(settingsDOM, "value", "j2eeWebAppName");
-    Xpp3Dom webappContextDOM = 
+    Xpp3Dom webappContextDOM =
       findNamedChild(settingsDOM, "value", "j2eeWebContextRoot");
 
     // update the webapp name
@@ -532,7 +549,7 @@ public class JDeveloperMojo
     webappContextDOM.setAttribute("v", projectName + "-context-root");
   }
 
-  private void replaceSourcePaths(File projectDir, List sourceRoots, 
+  private void replaceSourcePaths(File projectDir, List sourceRoots,
                                   List resourceRoots, Xpp3Dom projectDOM)
     throws XmlPullParserException
   {
@@ -540,9 +557,9 @@ public class JDeveloperMojo
     //   /hash[@n="oracle.jdeveloper.model.PathsConfiguration"]
     //     /hash[@n="javaContentSet"]
     //       /list[@n="url-path"]
-    Xpp3Dom pathsDOM = 
+    Xpp3Dom pathsDOM =
       findNamedChild(projectDOM, "hash", "oracle.jdeveloper.model.PathsConfiguration");
-    Xpp3Dom contentSetDOM = 
+    Xpp3Dom contentSetDOM =
       findNamedChild(pathsDOM, "hash", "javaContentSet");
     Xpp3Dom sourceDOM = findNamedChild(contentSetDOM, "list", "constituent-sets");
 
@@ -550,13 +567,13 @@ public class JDeveloperMojo
     // <url path="[relative-path-to-source-root]" />
     //
     Xpp3Dom targetDOM = new Xpp3Dom("list");
-    
+
     Collections.sort(sourceRoots);
     for (Iterator i = sourceRoots.iterator(); i.hasNext(); )
     {
       File sourceRoot = new File((String) i.next());
       Xpp3Dom hashDOM = new Xpp3Dom("hash");
-      
+
       Xpp3Dom listDOM = new Xpp3Dom("list");
       listDOM.setAttribute("n", "pattern-filters");
       hashDOM.addChild(listDOM);
@@ -564,16 +581,16 @@ public class JDeveloperMojo
       Xpp3Dom stringDOM = new Xpp3Dom("string");
       stringDOM.setAttribute("v", "+**");
       listDOM.addChild(stringDOM);
-      
+
       listDOM = new Xpp3Dom("list");
       listDOM.setAttribute("n", "url-path");
       hashDOM.addChild(listDOM);
-      
+
       String relativeRoot = getRelativeDir(projectDir, sourceRoot);
       Xpp3Dom urlDOM = new Xpp3Dom("url");
       urlDOM.setAttribute("path", relativeRoot);
       listDOM.addChild(urlDOM);
-      
+
       targetDOM.addChild(hashDOM);
     }
 
@@ -596,7 +613,7 @@ public class JDeveloperMojo
       String relativeRoot = getRelativeDir(projectDir, resourceRoot);
 
       Xpp3Dom hashDOM = new Xpp3Dom("hash");
-      
+
       Xpp3Dom listDOM = new Xpp3Dom("list");
       listDOM.setAttribute("n", "pattern-filters");
       hashDOM.addChild(listDOM);
@@ -608,23 +625,23 @@ public class JDeveloperMojo
       if (relativeRoot.startsWith("src/test/resources"))
       {
         stringDOM = new Xpp3Dom("string");
-        stringDOM.setAttribute("v", 
+        stringDOM.setAttribute("v",
                             "-oracle/adfinternal/view/faces/renderkit/golden/");
         listDOM.addChild(stringDOM);
       }
 
-      stringDOM = new Xpp3Dom("string");     
+      stringDOM = new Xpp3Dom("string");
       stringDOM.setAttribute("v", "+**");
       listDOM.addChild(stringDOM);
-      
+
       listDOM = new Xpp3Dom("list");
       listDOM.setAttribute("n", "url-path");
       hashDOM.addChild(listDOM);
-      
+
       Xpp3Dom urlDOM = new Xpp3Dom("url");
       urlDOM.setAttribute("path", relativeRoot);
       listDOM.addChild(urlDOM);
-      
+
       targetDOM.addChild(hashDOM);
     }
 
@@ -636,7 +653,7 @@ public class JDeveloperMojo
     Xpp3Dom.mergeXpp3Dom(sourceDOM, targetDOM, Boolean.FALSE);
   }
 
-  private void replaceResourcePaths(File projectDir, List resourceRoots, 
+  private void replaceResourcePaths(File projectDir, List resourceRoots,
                                     Xpp3Dom projectDOM)
     throws XmlPullParserException
   {
@@ -645,9 +662,9 @@ public class JDeveloperMojo
     //     /hash[@n="resourcesContentSet"]
     //       /list[@n="url-path"]
 
-    Xpp3Dom pathsDOM = 
+    Xpp3Dom pathsDOM =
       findNamedChild(projectDOM, "hash", "oracle.ide.model.ResourcePaths");
-    Xpp3Dom contentSetDOM = 
+    Xpp3Dom contentSetDOM =
       findNamedChild(pathsDOM, "hash", "resourcesContentSet");
     Xpp3Dom sourceDOM = findNamedChild(contentSetDOM, "list", "url-path");
 
@@ -673,34 +690,34 @@ public class JDeveloperMojo
     Xpp3Dom.mergeXpp3Dom(sourceDOM, targetDOM, Boolean.FALSE);
   }
 
-  private void replaceDependencies(File projectDir, List dependencies, 
+  private void replaceDependencies(File projectDir, List dependencies,
                                    Xpp3Dom projectDOM)
     throws XmlPullParserException
   {
     // /jpr:project
     //   /hash[@n="oracle.ide.model.DependencyConfiguration"]
     //     /list[@n="dependencyList"]
-    Xpp3Dom configDOM = 
+    Xpp3Dom configDOM =
       findNamedChild(projectDOM, "hash", "oracle.ide.model.DependencyConfiguration");
-    Xpp3Dom sourceDOM = 
+    Xpp3Dom sourceDOM =
       findNamedChild(configDOM, "list", "dependencyList");
 
     Xpp3Dom targetDOM = new Xpp3Dom("list");
     for (Iterator i = dependencies.iterator(); i.hasNext(); )
     {
       Dependency dependency = (Dependency) i.next();
-      MavenProject dependentProject = 
+      MavenProject dependentProject =
         findDependentProject(dependency.getManagementKey());
       if (dependentProject != null)
       {
         File dependentProjectFile = getJProjectFile(dependentProject);
-        String relativePath = 
+        String relativePath =
           getRelativeFile(projectDir, dependentProjectFile);
 
         Xpp3Dom hashDOM = new Xpp3Dom("hash");
         Xpp3Dom valueDOM = new Xpp3Dom("value");
         valueDOM.setAttribute("n", "class");
-        valueDOM.setAttribute("v", 
+        valueDOM.setAttribute("v",
                               "oracle.jdeveloper.library.ProjectLibrary");
         Xpp3Dom srcOwnValDOM = new Xpp3Dom("value");
         srcOwnValDOM.setAttribute("n", "sourceOwnerURL");
@@ -722,7 +739,7 @@ public class JDeveloperMojo
     Xpp3Dom.mergeXpp3Dom(sourceDOM, targetDOM, Boolean.FALSE);
   }
 
-  private void replaceLibraries(File projectDir, List artifacts, 
+  private void replaceLibraries(File projectDir, List artifacts,
                                 Xpp3Dom projectDOM)
     throws XmlPullParserException
   {
@@ -730,17 +747,17 @@ public class JDeveloperMojo
     //   /hash[@n="oracle.jdevimpl.config.JProjectLibraries"]
     //     /hash[@n="internalDefinitions"]
     //       /list[@n="libraryDefinitions"]
-    Xpp3Dom projectLibsDOM = 
+    Xpp3Dom projectLibsDOM =
       findNamedChild(projectDOM, "hash", "oracle.jdevimpl.config.JProjectLibraries");
-    Xpp3Dom internalDefsDOM = 
+    Xpp3Dom internalDefsDOM =
       findNamedChild(projectLibsDOM, "hash", "internalDefinitions");
-    Xpp3Dom sourceDefsDOM = 
+    Xpp3Dom sourceDefsDOM =
       findNamedChild(internalDefsDOM, "list", "libraryDefinitions");
 
     // /jpr:project
     //   /hash[@n="oracle.jdevimpl.config.JProjectLibraries"]
     //     /list[@n="libraryReferences"]
-    Xpp3Dom sourceRefsDOM = 
+    Xpp3Dom sourceRefsDOM =
       findNamedChild(projectLibsDOM, "list", "libraryReferences");
 
     Xpp3Dom targetDefsDOM = new Xpp3Dom("list");
@@ -822,24 +839,31 @@ public class JDeveloperMojo
     // may be specified under the maven-jdev-plugin.
     if (_addLibraries)
     {
-      // add libraries.  The default libraries can be 
-      // overridden in the trunk or toplevel pom file.
-      // If user wants to also include the default 
-      // libraries, he/she will have to also add them 
-      // there.  There is no facility to merge them.
-      if (libraries == null)
+      // Add libraries.  The default libraries can be
+      // overridden in the trunk/toplevel pom file.
+      if (_releaseMajor >= 11)
       {
-        if (_releaseMajor >= 11)
-        {
-          // Add the default libraries
-          libraryRefs.add(0,"JSF 1.2");
-          libraryRefs.add(0,"JSP Runtime");
-        }
+        // Add the default libraries
+        libraryRefs.add(0,"JSF 1.2");
+        libraryRefs.add(0,"JSP Runtime");
       }
-      else
+
+      // Add the libraries
+      if (libraries != null)
       {
         for (int i = 0; i < libraries.length; i++)
         {
+          // Default libraries for release 11 were already
+          // added above.
+          if (   (_releaseMajor >= 11)
+              && (   ("JSF 1.2".equalsIgnoreCase(libraries[i]))
+                  || ("JSP Runtime".equalsIgnoreCase(libraries[i]))
+                 )
+             )
+          {
+            continue;
+          }
+          // Add the library
           libraryRefs.add(0, libraries[i]);
         }
       }
@@ -895,15 +919,15 @@ public class JDeveloperMojo
     // hash in the .jpr file.
     try
     {
-      File webInfDir = 
+      File webInfDir =
         new File(project.getBasedir(), "src/main/webapp/WEB-INF");
       if (webInfDir == null)
         return;
-      
+
       File[] files = webInfDir.listFiles();
       if (files == null)
         return;
-      
+
       Xpp3Dom hashDOM = null;
       Xpp3Dom valueDOM = null;
       for (int i = 0; i < files.length; i++)
@@ -935,7 +959,7 @@ public class JDeveloperMojo
 
           valueDOM = new Xpp3Dom("value");
           valueDOM.setAttribute("n", "tldURL");
-          valueDOM.setAttribute("v", 
+          valueDOM.setAttribute("v",
             "WEB-INF/" + path.substring(path.indexOf("WEB-INF") +  8));
           hashDOM.addChild(valueDOM);
 
@@ -957,7 +981,7 @@ public class JDeveloperMojo
     }
     catch (SAXException saxex)
     {
-      getLog().info("SAX Parse Exception parsing " + path + ": " + 
+      getLog().info("SAX Parse Exception parsing " + path + ": " +
                     saxex.getMessage(), saxex);
     }
     catch (IOException ioe)
@@ -980,13 +1004,13 @@ public class JDeveloperMojo
     // allows them to be excluded.
     if (!_addTagLibs)
       return;
-    
+
     // /jpr:project
     //   /hash[@n="oracle.jdevimpl.webapp.jsp.libraries.model.ProjectTagLibraries"]
     //       /list[@n="tag-libaries"]
-    Xpp3Dom projectTagsDOM = 
+    Xpp3Dom projectTagsDOM =
       findNamedChild(projectDOM, "hash", "oracle.jdevimpl.webapp.jsp.libraries.model.ProjectTagLibraries");
-    Xpp3Dom tagLibsDOM = 
+    Xpp3Dom tagLibsDOM =
       findNamedChild(projectTagsDOM, "list", "tag-libraries");
 
     Xpp3Dom targetLibsDOM = new Xpp3Dom("list");
@@ -1014,7 +1038,7 @@ public class JDeveloperMojo
     // <value...
     Xpp3Dom valueDOM = null;
 
-    if (distributedTagLibraries != null && 
+    if (distributedTagLibraries != null &&
         distributedTagLibraries.length > 0)
     {
       // Process each distributed Tag Library
@@ -1035,8 +1059,8 @@ public class JDeveloperMojo
         // Add baseLibrary hash to parent hash
         hashDOM.addChild(hashBaseDOM);
 
-        // Process each property of the taglib             
-        for (Enumeration keys = disTagLib.propertyNames(); 
+        // Process each property of the taglib
+        for (Enumeration keys = disTagLib.propertyNames();
              keys.hasMoreElements(); )
         {
           // Get the name value pair
@@ -1051,7 +1075,7 @@ public class JDeveloperMojo
             nameName = name;
             nameValue = value;
 
-            // n="name, v=<name of taglib> in baseLibrary    
+            // n="name, v=<name of taglib> in baseLibrary
             valueDOM = new Xpp3Dom("value");
             valueDOM.setAttribute("n", name);
             valueDOM.setAttribute("v", value);
@@ -1059,7 +1083,7 @@ public class JDeveloperMojo
 
             // Duplicate the "name"  <value...
             // outside of the baseLibrary
-            // n="name, v=<name of taglib> in parent hash    
+            // n="name, v=<name of taglib> in parent hash
             valueDOM = new Xpp3Dom("value");
             valueDOM.setAttribute("n", nameName);
             valueDOM.setAttribute("v", nameValue);
@@ -1126,7 +1150,7 @@ public class JDeveloperMojo
     Xpp3Dom.mergeXpp3Dom(tagLibsDOM, targetLibsDOM, Boolean.FALSE);
   }
 
-  private void replaceDefaultTagLibraries(Xpp3Dom projectDOM, 
+  private void replaceDefaultTagLibraries(Xpp3Dom projectDOM,
                                           Xpp3Dom targetLibsDOM)
     throws XmlPullParserException
   {
@@ -1147,7 +1171,7 @@ public class JDeveloperMojo
     // Xpp3Dom hashBaseDOM = new Xpp3Dom("hash");
     //        hashBaseDOM.setAttribute("n", "baseLibrary");
 
-    // n="name, v=<name of taglib> in baseLibrary    
+    // n="name, v=<name of taglib> in baseLibrary
     valueDOM = new Xpp3Dom("value");
     valueDOM.setAttribute("n", "name");
     valueDOM.setAttribute("v", "JSF HTML");
@@ -1155,7 +1179,7 @@ public class JDeveloperMojo
 
     // Duplicate the "name"  <value...
     // outside of the baseLibrary
-    // n="name, v=<name of taglib> in parent hash    
+    // n="name, v=<name of taglib> in parent hash
     valueDOM = new Xpp3Dom("value");
     valueDOM.setAttribute("n", "name");
     valueDOM.setAttribute("v", "JSF HTML");
@@ -1169,7 +1193,7 @@ public class JDeveloperMojo
 
     // Duplicate the "version" <value...
     // outside of the baseLibrary
-    // n="name, v=<name of taglib> in parent hash    
+    // n="name, v=<name of taglib> in parent hash
     valueDOM = new Xpp3Dom("value");
     valueDOM.setAttribute("n", "version");
     valueDOM.setAttribute("v", "1.2");
@@ -1194,7 +1218,7 @@ public class JDeveloperMojo
     // Add it to the targetLibsDOM
     if (hashDOM != null)
       targetLibsDOM.addChild(hashDOM);
-    
+
     // Begin JSF Core Taglib
     hashDOM     = new Xpp3Dom("hash");
     hashBaseDOM = new Xpp3Dom("hash");
@@ -1204,7 +1228,7 @@ public class JDeveloperMojo
     // Add baseLibrary hash to parent hash
     hashDOM.addChild(hashBaseDOM);
 
-    // n="name, v=<name of taglib> in baseLibrary    
+    // n="name, v=<name of taglib> in baseLibrary
     valueDOM = new Xpp3Dom("value");
     valueDOM.setAttribute("n", "name");
     valueDOM.setAttribute("v", "JSF Core");
@@ -1212,7 +1236,7 @@ public class JDeveloperMojo
 
     // Duplicate the "name"  <value...
     // outside of the baseLibrary
-    // n="name, v=<name of taglib> in parent hash    
+    // n="name, v=<name of taglib> in parent hash
     valueDOM = new Xpp3Dom("value");
     valueDOM.setAttribute("n", "name");
     valueDOM.setAttribute("v", "JSF Core");
@@ -1226,7 +1250,7 @@ public class JDeveloperMojo
 
     // Duplicate the "version" <value...
     // outside of the baseLibrary
-    // n="name, v=<name of taglib> in parent hash    
+    // n="name, v=<name of taglib> in parent hash
     valueDOM = new Xpp3Dom("value");
     valueDOM.setAttribute("n", "version");
     valueDOM.setAttribute("v", "1.2");
@@ -1253,8 +1277,83 @@ public class JDeveloperMojo
       targetLibsDOM.addChild(hashDOM);
   }
 
+  private void replaceParameters(String projectName, Xpp3Dom projectDOM)
+    throws XmlPullParserException
+  {
+    if ((_releaseMajor >= 11) && (projectName != null))
+    {
+      replaceCompiler(projectDOM);
+      replaceMakeProjectAndRunTarget(projectDOM);
+    }
+  }
+  private void replaceCompiler(Xpp3Dom projectDOM)
+    throws XmlPullParserException
+  {
+    // /jpr:project
+    // <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
+    //   <value n="assertionsEnabled" v="true"/>
+    //   <value n="compiler.name" v="Ojc"/>
+    //   <list n="copyRes">
+    //      <string v=".java"/>
+    Xpp3Dom configDOM =
+      findNamedChild(projectDOM, "hash",
+                     "oracle.jdeveloper.compiler.OjcConfiguration");
+    Xpp3Dom compilerDOM = findNamedChild(configDOM, "value", "compiler.name");
+    String compilerValue = "Ojc";
 
-  private void copyTagLibraries(File projectDir, List dependencies, 
+    if (   (compiler != null)
+        && "Javac".equalsIgnoreCase(compiler)
+       )
+    {
+      compilerValue = "Javac";
+    }
+    compilerDOM.setAttribute("v", compilerValue);
+
+    return;
+  }
+
+  private void replaceMakeProjectAndRunTarget(Xpp3Dom projectDOM)
+    throws XmlPullParserException
+  {
+    // /jpr:project
+    //   /hash[@n="oracle.jdeveloper.runner.RunConfigurations"]
+    //     /hash[@n="runConfigurationDefinitions"]
+    //       /hash[@n="Default"]
+    //         /value[@n="makeProject" v="false"]
+    //         /url[@n="targetURL" path="src/main/webapp/index.jspx"]
+    Xpp3Dom configDOM =
+      findNamedChild(projectDOM, "hash",
+                     "oracle.jdeveloper.runner.RunConfigurations");
+    Xpp3Dom defsDOM =
+      findNamedChild(configDOM, "hash", "runConfigurationDefinitions");
+    Xpp3Dom defaultDOM = findNamedChild(defsDOM, "hash", "Default");
+    Xpp3Dom makeProjectDom =
+      findNamedChild(defaultDOM, "value", "compileBeforeRun");
+
+    if (makeProject)
+      makeProjectDom.setAttribute("v", "true");
+    else
+      makeProjectDom.setAttribute("v", "false");
+
+    if ((runTarget != null) && !"".equals(runTarget))
+    {
+      // Convert file separator chars to generic
+      String targetURL = "";
+      if (File.separatorChar == '/')
+        targetURL = runTarget.replace('\\', '/'); // Unix
+      else
+        targetURL = runTarget.replace('/', '\\'); // Windows
+
+      Xpp3Dom targetDOM = new Xpp3Dom("url");
+      targetDOM.setAttribute("path", targetURL);
+      targetDOM.setAttribute("n", "targetURL");
+      defaultDOM.addChild(targetDOM);
+    }
+
+    return;
+  }
+
+  private void copyTagLibraries(File projectDir, List dependencies,
                                 List artifacts)
     throws IOException
   {
@@ -1263,7 +1362,7 @@ public class JDeveloperMojo
     for (Iterator i = dependencies.iterator(); i.hasNext(); )
     {
       Dependency dependency = (Dependency) i.next();
-      MavenProject dependentProject = 
+      MavenProject dependentProject =
         findDependentProject(dependency.getManagementKey());
       if (dependentProject != null)
       {
@@ -1303,7 +1402,7 @@ public class JDeveloperMojo
     for (Iterator i = artifacts.iterator(); i.hasNext(); )
     {
       Artifact artifact = (Artifact) i.next();
-      if (!isDependentProject(artifact.getDependencyConflictId()) && 
+      if (!isDependentProject(artifact.getDependencyConflictId()) &&
           "jar".equals(artifact.getType()))
       {
         File file = artifact.getFile();
@@ -1341,14 +1440,14 @@ public class JDeveloperMojo
         StringBuffer buff = new StringBuffer(sourceFile.getName());
         if (taglibs.size() > 1)
         {
-          String jarName = 
-            file.getName().substring(0, file.getName().length() - 
+          String jarName =
+            file.getName().substring(0, file.getName().length() -
                                      ".jar".length());
           buff.insert(buff.length() - ".tld".length(), "-" + jarName);
         }
 
         URL jarURL = file.toURL();
-        URL sourceURL = 
+        URL sourceURL =
           new URL("jar:" + jarURL.toExternalForm() + "!/" + name);
         File targetFile = new File(targetDir, buff.toString());
         if (targetFile.exists())
@@ -1359,23 +1458,23 @@ public class JDeveloperMojo
     }
   }
 
-  private void replaceOutputDirectory(File projectDir, File outputDir, 
+  private void replaceOutputDirectory(File projectDir, File outputDir,
                                       Xpp3Dom projectDOM)
     throws XmlPullParserException
   {
     // /jpr:project
     //   /hash[@n="oracle.jdevimpl.config.JProjectPaths"]
-    //       /url[@n="outputDirectory"]
 
-    Xpp3Dom projectPathsDOM = 
+    Xpp3Dom projectPathsDOM =
       findNamedChild(projectDOM, "hash", "oracle.jdevimpl.config.JProjectPaths");
-    Xpp3Dom sourceDOM = 
-      findNamedChild(projectPathsDOM, "url", "outputDirectory");
+    Xpp3Dom sourceDOM = new Xpp3Dom("url");
 
     //
-    // <url path="[relative-path-to-output-dir]" />
+    // <url @n="outputDirectory" path="[relative-path-to-output-dir]" />
     //
     sourceDOM.setAttribute("path", getRelativeDir(projectDir, outputDir));
+    sourceDOM.setAttribute("n", "outputDirectory");
+    projectPathsDOM.addChild(sourceDOM);
   }
 
   /**
@@ -1470,7 +1569,7 @@ public class JDeveloperMojo
 
         // ensure that the resourcePath can be found
         if (resource == null)
-          throw new IOException("Unable to read resource: " + 
+          throw new IOException("Unable to read resource: " +
                                 resourcePath);
 
         reader = new InputStreamReader(resource.openStream());
@@ -1522,7 +1621,7 @@ public class JDeveloperMojo
    *
    * @return  the relative path between two files
    */
-  private String getRelativePath(File source, File target, 
+  private String getRelativePath(File source, File target,
                                  boolean isDirectory)
   {
     String sourcePath = source.getAbsolutePath();
@@ -1566,7 +1665,7 @@ public class JDeveloperMojo
         int sourceRelativePathCount = sourcePathCount - commonPathCount;
         int targetRelativePathCount = targetPathCount - commonPathCount;
 
-        int relativePathCount = 
+        int relativePathCount =
           sourceRelativePathCount + targetRelativePathCount;
         String[] relativePaths = new String[relativePathCount];
 
@@ -1577,7 +1676,7 @@ public class JDeveloperMojo
 
         for (int i = 0; i < targetRelativePathCount; i++)
         {
-          relativePaths[sourceRelativePathCount + i] = 
+          relativePaths[sourceRelativePathCount + i] =
               targetPaths[commonPathCount + i];
         }
 
@@ -1598,7 +1697,7 @@ public class JDeveloperMojo
     }
   }
 
-  private Xpp3Dom findNamedChild(Xpp3Dom parent, String childName, 
+  private Xpp3Dom findNamedChild(Xpp3Dom parent, String childName,
                                  String attrValue)
   {
     Xpp3Dom[] hash = parent.getChildren(childName);
@@ -1620,7 +1719,7 @@ public class JDeveloperMojo
     for (Iterator i = reactorProjects.iterator(); i.hasNext(); )
     {
       MavenProject reactorProject = (MavenProject) i.next();
-      String ident = 
+      String ident =
         reactorProject.getArtifact().getDependencyConflictId();
       if (ident.equals(dependencyManagementKey))
         return reactorProject.getExecutionProject();
@@ -1640,14 +1739,14 @@ public class JDeveloperMojo
       parent.removeChild(0);
   }
 
-  private Xpp3Dom createProjectReferenceDOM(File workspaceDir, 
+  private Xpp3Dom createProjectReferenceDOM(File workspaceDir,
                                             File projectFile)
   {
     Xpp3Dom hashDOM = new Xpp3Dom("hash");
     Xpp3Dom urlDOM = new Xpp3Dom("url");
     urlDOM.setAttribute("n", "URL");
-    urlDOM.setAttribute("path", 
-                        getRelativeFile(workspaceDir, projectFile));
+    urlDOM.setAttribute("path", getRelativeFile(workspaceDir, projectFile));
+    
     if (_releaseMajor < 11)
     {
       Xpp3Dom valueDOM = new Xpp3Dom("value");
@@ -1676,8 +1775,8 @@ public class JDeveloperMojo
   private int     _releaseMajor = 0;
   private boolean _addLibraries = true;
   private boolean _addTagLibs   = true;
-  
+
   private static final String _PROPERTY_ADD_LIBRARY = "jdev.plugin.add.libraries";
   private static final String _PROPERTY_ADD_TAGLIBS = "jdev.plugin.add.taglibs";
-  
+
 }

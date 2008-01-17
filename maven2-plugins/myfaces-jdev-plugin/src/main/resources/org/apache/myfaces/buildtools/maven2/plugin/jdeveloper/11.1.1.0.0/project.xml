@@ -21,7 +21,7 @@
     <value n="oracle.adfdt.controller.struts.addin.db.ADFStrutsProjectMigrator" v="10.1.3.0.3;10.1.3.0.4;11.1.1.0.0"/>
     <value n="oracle.adfdt.controller.struts.addin.StrutsProjectMigrator" v="10.1.3.0.2;10.1.3.0.3;10.1.3.0.4;11.1.1.0.0"/>
     <value n="oracle.adfdtinternal.dvt.datapresdt.migration.JspProjectMigrator" v="11.1.1.0.0"/>
-    <value n="oracle.adfdtinternal.model.ide.migration.ProjectMigrator" v="11.1.1.0.0.1"/>
+    <value n="oracle.adfdtinternal.model.ide.migration.ProjectMigrator" v="11.1.1.0.0.1;11.1.1.0.0.11"/>
     <value n="oracle.adfdtinternal.model.ide.xmled.migration.ADFNodeMigrator" v="11.1.1.0.0.5"/>
     <value n="oracle.adfdtinternal.view.common.migration.wizards.MigrationHelper" v="11.1.1.0.0.3"/>
     <value n="oracle.adfdtinternal.view.rich.binding.migration.JarResourceMigrator" v="11.1.1.0.0"/>
@@ -174,9 +174,7 @@
       </hash>
       <list n="libraryReferences"/>
    </hash>
-   <hash n="oracle.jdevimpl.config.JProjectPaths">
-      <url n="outputDirectory" />
-   </hash>
+   <hash n="oracle.jdevimpl.config.JProjectPaths"/>
    <hash n="oracle.jdevimpl.webapp.jsp.libraries.model.ProjectTagLibraries">
       <list n="tag-libraries"/>
    </hash>
