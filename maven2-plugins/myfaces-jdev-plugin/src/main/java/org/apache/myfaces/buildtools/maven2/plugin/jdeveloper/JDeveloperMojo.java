@@ -190,7 +190,7 @@ public class JDeveloperMojo
    * workspace.xml file to be used in creation of the
    * workspace file (.jws) or project file (.jpr). Otherwise,
    * if a .jws or .jpr exists, it will be used instead.
-   * @parameter expression="${force}" default-value=true
+   * @parameter expression="${force}" default-value=false
    *
    */
   private boolean force;
@@ -471,18 +471,24 @@ public class JDeveloperMojo
     // </hash>
     Xpp3Dom targetDOM = new Xpp3Dom("list");
 
-    for (Iterator i = project.getCollectedProjects().iterator();
-         i.hasNext(); )
+    for (Iterator i = project.getCollectedProjects().iterator(); i.hasNext(); )
     {
       MavenProject collectedProject = (MavenProject) i.next();
 
-      File projectFile = getJProjectFile(collectedProject);
-      targetDOM.addChild(createProjectReferenceDOM(workspaceDir,
-                                                   projectFile));
-
-      File testProjectFile = getJProjectTestFile(collectedProject);
-      targetDOM.addChild(createProjectReferenceDOM(workspaceDir,
-                                                   testProjectFile));
+      // if a child project is also a workspace, then don't 
+      // put it in the .jws file.  It will have its own .jws
+      // file.
+      if (!"pom".equals(collectedProject.getPackaging()))
+      {
+        File projectFile = getJProjectFile(collectedProject);
+        
+        targetDOM.addChild(createProjectReferenceDOM(workspaceDir,
+                                                     projectFile));
+  
+        File testProjectFile = getJProjectTestFile(collectedProject);
+        targetDOM.addChild(createProjectReferenceDOM(workspaceDir,
+                                                     testProjectFile));
+      }
     }
 
     // TODO: use a better merge algorithm
