@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>4</version>
+    <version>5</version>
   </parent>
 
   <groupId>org.apache.myfaces.buildtools</groupId>
@@ -31,7 +31,7 @@
 
   <issueManagement>
     <system>jira</system>
-    <url>http://issues.apache.org/jira/browse/TRINIDAD</url>
+    <url>http://issues.apache.org/jira/browse/MYFACES</url>
   </issueManagement>
 
   <ciManagement>
@@ -51,32 +51,11 @@
   <inceptionYear>2001</inceptionYear>
 
   <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-remote-resources-plugin</artifactId>
-        <version>1.0-alpha-6</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>process</goal>
-            </goals>
-            <configuration>
-              <resourceBundles>
-                <resourceBundle>org.apache:apache-jar-resource-bundle:1.1</resourceBundle>
-              </resourceBundles>
-              <properties>
-                <addLicense>true</addLicense>
-              </properties>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
-          <version>2.1</version>
+          <version>2.2</version>
           <configuration>
             <archive>
               <manifest>
@@ -92,7 +71,6 @@
   <reporting>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <version>2.0.1</version>
       </plugin>
@@ -114,7 +92,7 @@
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins//</developerConnection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/</developerConnection>
     <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/</url>
   </scm>
 
@@ -138,7 +116,7 @@
     </snapshotRepository>
     <site>
       <id>apache-site</id>
-      <url>scpexe://minotaur.apache.org/www/myfaces.apache.org/trinidad/plugins/</url>
+      <url>scpexe://people.apache.org/www/myfaces.apache.org/myfaces/plugins/</url>
     </site>
   </distributionManagement>
 
@@ -152,8 +130,8 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.0-alpha-4</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
@@ -166,7 +144,7 @@
           </plugin>
           <plugin>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.2</version>
+            <version>2.3</version>
             <executions>
               <execution>
                 <id>attach-javadocs</id>
@@ -177,8 +155,8 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-scm-plugin</artifactId>
+            <version>1.0</version>
             <executions>
               <execution>
                 <phase>validate</phase>
