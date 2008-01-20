@@ -51,6 +51,19 @@
   <inceptionYear>2001</inceptionYear>
 
   <build>
+    <resources>
+      <resource>
+        <directory>${basedir}</directory>
+        <targetPath>META-INF</targetPath>
+        <includes>
+          <include>NOTICE.txt</include>
+          <include>LICENSE.txt</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+      </resource>
+    </resources>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -67,7 +80,6 @@
       </plugins>
     </pluginManagement>
   </build>
-
   <reporting>
     <plugins>
       <plugin>
