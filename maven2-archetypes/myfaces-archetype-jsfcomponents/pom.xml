@@ -36,36 +36,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.myfaces.buildtools</groupId>
     <artifactId>myfaces-archetype-jsfcomponents</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>JSF Components Library Archetype</name>
     <description>Archetype to ease the burden of creating a library of JSF components</description>
-<!--
-    <scm>
-        <connection>
-            scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-archetypes/myfaces-archetype-jsfcomponents/
-        </connection>
-        <developerConnection>
-            scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-archetypes/myfaces-archetype-jsfcomponents/
-        </developerConnection>
-        <url>
-            http://svn.apache.org/viewcvs.cgi/myfaces/myfaces-build-tools/trunk/maven2-archetypes/myfaces-archetype-jsfcomponents/
-        </url>
-    </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>myfaces-staging</id>
-            <name>Apache MyFaces Staging Repository</name>
-            <url>scpexe://people.apache.org/www/people.apache.org/builds/myfaces/m2-staging-repository</url>
-        </repository>
-        <snapshotRepository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>apache-maven-snapshots</id>
-            <name>Apache Maven Snapshot Repository</name>
-            <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
-        </snapshotRepository>
-    </distributionManagement>
--->
 </project>
 
