@@ -3,13 +3,13 @@
   <parent>
     <groupId>org.apache.myfaces.buildtools</groupId>
     <artifactId>myfaces-archetype-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.myfaces.buildtools</groupId>
     <artifactId>myfaces-archetype-helloworld</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>MyFaces Archetype</name>
     <description>Archetype to ease the burden of creating a new application based in myfaces</description>
