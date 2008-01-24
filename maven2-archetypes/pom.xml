@@ -106,9 +106,9 @@
   </reporting>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-archetypes/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-archetypes/</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-archetypes/</url>
   </scm>
 
   <modules>
