@@ -2,15 +2,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.myfaces.buildtools</groupId>
     <artifactId>myfaces-archetype-jsfcomponents</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>JSF Components Library Archetype</name>
     <description>Archetype to ease the burden of creating a library of JSF components</description>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/branches/lu4242-m2-archetypes-100-release</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/tags/lu4242-m2-archetypes-100-release</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/myfaces/myfaces-build-tools/branches/lu4242-m2-archetypes-100-release</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-archetypes/myfaces-archetype-jsfcomponents/</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-archetypes/myfaces-archetype-jsfcomponents/</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/myfaces/myfaces-build-tools/trunk/maven2-archetypes/myfaces-archetype-jsfcomponents/</url>
     </scm>
 
     <distributionManagement>
