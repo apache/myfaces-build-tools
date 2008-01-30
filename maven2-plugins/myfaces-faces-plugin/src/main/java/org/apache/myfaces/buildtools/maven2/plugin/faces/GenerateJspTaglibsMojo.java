@@ -772,8 +772,11 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         int count = 0;
         while (components.hasNext())
         {
-          componentGen.generateTagHandler((ComponentBean)components.next());
-          count++;
+          ComponentBean component = (ComponentBean)components.next();
+          if (!component.isTagClassExcluded()){
+              componentGen.generateTagHandler(component);
+              count++;
+          }
         }
         while (converters.hasNext())
         {

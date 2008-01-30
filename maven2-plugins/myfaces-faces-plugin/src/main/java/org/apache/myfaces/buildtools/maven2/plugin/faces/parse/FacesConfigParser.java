@@ -154,6 +154,11 @@ public class FacesConfigParser
                                    "tagHandler");
     digester.addBeanPropertySetter("faces-config/component/component-extension/implementation-type",
                                    "implementationType");
+    digester.addBeanPropertySetter("faces-config/component/component-extension/component-class-excluded",
+                                   "componentClassExcluded");
+    digester.addBeanPropertySetter("faces-config/component/component-extension/tag-class-excluded",
+                                   "tagClassExcluded");
+    
     digester.addCallMethod("faces-config/component/component-extension/tag-class-modifier",
                            "parseTagClassModifier", 1);
     digester.addCallParam("faces-config/component/component-extension/tag-class-modifier", 0);

@@ -99,8 +99,11 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
         int count = 0;
         while (components.hasNext())
         {
-          _generateComponent((ComponentBean)components.next());
-          count++;
+          ComponentBean component = (ComponentBean)components.next();
+          if (!component.isComponentClassExcluded()){
+              _generateComponent(component);
+              count++;
+          }          
         }
         getLog().info("Generated " + count + " component(s)");
       }

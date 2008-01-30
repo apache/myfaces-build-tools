@@ -1042,6 +1042,28 @@ public class ComponentBean extends ObjectBean
     }
   }
 
+  public void setComponentClassExcluded(boolean componentClassExcluded)
+  {
+    _componentClassExcluded = componentClassExcluded;
+  }
+
+  public boolean isComponentClassExcluded()
+  {
+    return _componentClassExcluded;
+  }
+  
+  public void setTagClassExcluded(boolean tagClassExcluded)
+  {
+    _tagClassExcluded = tagClassExcluded;
+  }
+
+  public boolean isTagClassExcluded()
+  {
+    return _tagClassExcluded;
+  }
+
+  private boolean _tagClassExcluded;
+  private boolean _componentClassExcluded;  
   private String  _description;
   private String  _longDescription;
   private String  _componentType;
