@@ -135,6 +135,13 @@ public abstract class AbstractComponentGenerator implements ComponentGenerator
     if (template != null)
       interfaces.addAll(template.getImplements());
 
+    if (component.getComponentImplements() != null){
+        StringTokenizer st = new StringTokenizer(component.getComponentImplements(),",",false);
+        while (st.hasMoreTokens()){
+            interfaces.add(st.nextToken());    
+        }        
+    }
+    
     if (component.isNamingContainer())
       interfaces.add("javax.faces.component.NamingContainer");
 
@@ -185,6 +192,15 @@ public abstract class AbstractComponentGenerator implements ComponentGenerator
 
     out.println("{");
     out.indent();
+    
+    //Write serialVersionUID
+    if (component.getComponentSerialUID() != null &&
+            !"".equals(component.getComponentSerialUID())){
+        out.println();
+        out.println("private static final long serialVersionUID = "+
+                component.getComponentSerialUID()+";");
+        out.println();
+    }
   }
 
   public void writeClassEnd(
@@ -215,6 +231,13 @@ public abstract class AbstractComponentGenerator implements ComponentGenerator
     if (template != null)
       imports.addAll(template.getImports());
 
+    if (component.getComponentImplements() != null){
+        StringTokenizer st = new StringTokenizer(component.getComponentImplements(),",",false);
+        while (st.hasMoreTokens()){
+            imports.add(st.nextToken());    
+        }        
+    }    
+    
     // Detect NamingContainer
     if (component.isNamingContainer())
       imports.add("javax.faces.component.NamingContainer");

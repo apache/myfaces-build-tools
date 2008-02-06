@@ -1062,6 +1062,28 @@ public class ComponentBean extends ObjectBean
     return _tagClassExcluded;
   }
 
+  public void setComponentImplements(String _implements)
+  {
+    this._componentImplements = _implements;
+  }
+
+  public String getComponentImplements()
+  {
+    return _componentImplements;
+  }
+
+  public void setComponentSerialUID(String _componentSerialUID)
+  {
+    this._componentSerialUID = _componentSerialUID;
+  }
+
+  public String getComponentSerialUID()
+  {
+    return _componentSerialUID;
+  }
+
+  private String _componentSerialUID;
+  private String _componentImplements;
   private boolean _tagClassExcluded;
   private boolean _componentClassExcluded;  
   private String  _description;

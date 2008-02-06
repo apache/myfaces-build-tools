@@ -429,6 +429,50 @@ public class PropertyBean extends AttributeBean
     return _fieldPropertyName;
   }
 
+  public void setIsSetMethod(boolean _isSetMethod)
+  {
+    this._isSetMethod = _isSetMethod;
+  }
+
+  public boolean isIsSetMethod()
+  {
+    return _isSetMethod;
+  }
+
+  public void setIsSetMethodScope(String _isSetMethodScope)
+  {
+    this._isSetMethodScope = _isSetMethodScope;
+  }
+
+  public String getIsSetMethodScope()
+  {
+    return _isSetMethodScope;
+  }
+
+  public void setIsGetLocalMethod(boolean _isGetLocalMethod)
+  {
+    this._isGetLocalMethod = _isGetLocalMethod;
+  }
+
+  public boolean isIsGetLocalMethod()
+  {
+    return _isGetLocalMethod;   
+  }
+
+  public void setIsGetLocalMethodScope(String _isGetLocalMethodScope)
+  {
+    this._isGetLocalMethodScope = _isGetLocalMethodScope;
+  }
+
+  public String getIsGetLocalMethodScope()
+  {
+    return _isGetLocalMethodScope;
+  }
+
+  private String _isGetLocalMethodScope;
+  private boolean _isGetLocalMethod;
+  private String _isSetMethodScope;
+  private boolean _isSetMethod;
   private String  _aliasOf;
   private String  _jspPropertyName;
   private String  _fieldPropertyName;

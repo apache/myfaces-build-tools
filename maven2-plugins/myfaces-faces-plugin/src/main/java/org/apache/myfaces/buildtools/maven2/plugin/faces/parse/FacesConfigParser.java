@@ -158,6 +158,10 @@ public class FacesConfigParser
                                    "componentClassExcluded");
     digester.addBeanPropertySetter("faces-config/component/component-extension/tag-class-excluded",
                                    "tagClassExcluded");
+    digester.addBeanPropertySetter("faces-config/component/component-extension/component-implements",
+                                   "componentImplements");
+    digester.addBeanPropertySetter("faces-config/component/component-extension/component-serial-uid",
+                                   "componentSerialUID");
     
     digester.addCallMethod("faces-config/component/component-extension/tag-class-modifier",
                            "parseTagClassModifier", 1);
@@ -207,6 +211,15 @@ public class FacesConfigParser
                                    "alternateClass");
     digester.addBeanPropertySetter("faces-config/component/property/property-extension/tag-attribute-excluded",
                                    "tagAttributeExcluded");
+    digester.addBeanPropertySetter("faces-config/component/property/property-extension/is-set-method",
+                                   "isSetMethod");
+    digester.addBeanPropertySetter("faces-config/component/property/property-extension/is-set-method-scope",
+                                   "isSetMethodScope");
+    digester.addBeanPropertySetter("faces-config/component/property/property-extension/is-get-local-method",
+                                   "isGetLocalMethod");
+    digester.addBeanPropertySetter("faces-config/component/property/property-extension/is-get-local-method-scope",
+                                    "isGetLocalMethodScope");
+    
     digester.addCallMethod("faces-config/component/property/property-extension/property-values",
                            "parsePropertyValues", 1);
     digester.addCallParam("faces-config/component/property/property-extension/property-values", 0);

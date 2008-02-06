@@ -80,7 +80,36 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
     if (Util.isPrimitiveClass(propertyFullClass) && !property.isTagAttributeExcluded())
     {
       out.println("private boolean " + fieldPropName + "Set;");
+      
+      if (property.isIsSetMethod()){
+          out.println();
+          String scope = property.getIsSetMethodScope();
+          if (scope == null) scope = "protected";
+          out.println(scope+" boolean "+Util.getPrefixedPropertyName("isSet", propName) + "()");
+          out.println("{");
+          out.indent();
+          out.println("return " + fieldPropName + "Set;");
+          out.unindent();
+          out.println("}");
+      }
     }
+    
+    if (property.isIsGetLocalMethod()){
+        String methodPrefix = ("boolean".equals(propertyClass) ? "isLocal" : "getLocal");
+        String methodName = Util.getPrefixedPropertyName(methodPrefix, propName);
+        
+        out.println();
+        String scope = property.getIsGetLocalMethodScope();
+        if (scope == null) scope = "protected";
+        
+        out.println("final "+scope+" " + propertyClass + " " + methodName + "()");
+        out.println("{");
+        out.indent();
+        out.println("return " + fieldPropName + ";");
+        out.unindent();
+        out.println("}");
+                
+    }    
   }
 
   public void writeStateManagementMethods(PrettyWriter out,
