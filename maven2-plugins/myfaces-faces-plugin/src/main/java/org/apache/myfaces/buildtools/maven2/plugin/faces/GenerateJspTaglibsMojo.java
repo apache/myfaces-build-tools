@@ -785,8 +785,11 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         }
         while (validators.hasNext())
         {
-          validatorGen.generateTagHandler((ValidatorBean)validators.next(), generatedSourceDirectory);
-          count++;
+          ValidatorBean validator = (ValidatorBean)validators.next();
+          if (!validator.isTagClassExcluded()){
+              validatorGen.generateTagHandler(validator, generatedSourceDirectory);
+              count++;    
+          }          
         }
         getLog().info("Generated " + count + " JSP tag(s)");
       }

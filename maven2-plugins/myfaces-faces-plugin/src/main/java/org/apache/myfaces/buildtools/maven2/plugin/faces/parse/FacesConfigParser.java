@@ -371,7 +371,9 @@ public class FacesConfigParser
     digester.addCallMethod("faces-config/validator/validator-extension/tag-class-modifier",
                            "parseTagClassModifier", 1);
     digester.addCallParam("faces-config/validator/validator-extension/tag-class-modifier", 0);
-
+    digester.addBeanPropertySetter("faces-config/validator/property/property-extension/tag-attribute-excluded",
+            "tagAttributeExcluded");
+    
     // faces-config/validator/property/property-extension
     digester.addBeanPropertySetter("faces-config/validator/property/property-extension/tag-attribute-excluded",
                                    "tagAttributeExcluded");

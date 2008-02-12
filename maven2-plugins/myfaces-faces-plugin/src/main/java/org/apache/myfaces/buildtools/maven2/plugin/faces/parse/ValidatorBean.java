@@ -137,11 +137,22 @@ public class ValidatorBean extends AbstractTagBean {
   {
     addValidatorClassModifier(_parseModifier(modifier));
   }
+  
+  public void setTagClassExcluded(boolean tagClassExcluded)
+  {
+    _tagClassExcluded = tagClassExcluded;
+  }
+
+  public boolean isTagClassExcluded()
+  {
+    return _tagClassExcluded;
+  }
 
   private String  _validatorId;
   private String  _validatorClass;
   private String  _validatorSuperClass;
   private int     _validatorClassModifiers;
+  private boolean _tagClassExcluded;
 
 
   static private final Logger _LOG = Logger.getLogger(ValidatorBean.class.getName());
