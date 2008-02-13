@@ -74,8 +74,20 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
 
     out.println();
     out.println("// Property: " + propName);
-    out.println("private " + propertyClass + propertyGenerics + " " +
-        fieldPropName + (def == null ? ";" : " = " + def + ";"));
+    if (property.isLiteralOnly() || property.isTagAttributeExcluded()){
+        //If the property is literal or is tagAttributeExcluded, 
+        //the default value goes on the definition of the field
+        out.println("private " + propertyClass + propertyGenerics + " " +
+                fieldPropName + (def == null ? ";" : " = " + def + ";"));        
+    }else{        
+        //If is a primitive class, has a set field to check if this
+        //property is defined, so the default value goes on the 
+        //getter method.
+        //If is a class, the same applies, because the check
+        //is against null
+        out.println("private " + propertyClass + propertyGenerics + " " +
+                fieldPropName + ";");        
+    }
 
     if (Util.isPrimitiveClass(propertyFullClass) && !property.isTagAttributeExcluded())
     {
