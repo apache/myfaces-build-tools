@@ -336,8 +336,10 @@ public class Util
             } else {
                 return "\""+def+"\"";
             }
+        }else{
+            //Any other class, so we return the default value
+            return def;            
         }
-        return null;
     }
 
     static private void _buildPropertyClass(StringBuffer buffer, String type)
