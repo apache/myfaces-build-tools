@@ -937,7 +937,8 @@ public class ComponentBean extends ObjectBean
 
     ComponentBean parent = resolveSupertype();
     return (parent != null) ? parent.findComponentClass()
-                            : _TRINIDAD_COMPONENT_BASE;
+                            : (isTrinidadComponent() ? 
+                   _TRINIDAD_COMPONENT_BASE : _JSF_COMPONENT_BASE);
   }
 
   /**
@@ -953,7 +954,8 @@ public class ComponentBean extends ObjectBean
 
     ComponentBean parent = resolveSupertype();
     return (parent != null) ? parent.findJspTagClass()
-                            : _TRINIDAD_COMPONENT_TAG;
+                            : (isTrinidadComponent() ?
+                  _TRINIDAD_COMPONENT_TAG : _JSF_COMPONENT_TAG);
   }
 
   /**
@@ -1116,5 +1118,11 @@ public class ComponentBean extends ObjectBean
   static private final String _TRINIDAD_COMPONENT_TAG =
                          "org.apache.myfaces.trinidad.webapp.UIXComponentTag";
 
+  static private final String _JSF_COMPONENT_BASE =
+                         "javax.faces.component.UIComponentBase";
+
+  static private final String _JSF_COMPONENT_TAG =
+                         "javax.faces.webapp.UIComponentTag";
+  
   static private final Logger _LOG = Logger.getLogger(ComponentBean.class.getName());
 }

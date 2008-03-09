@@ -469,6 +469,17 @@ public class PropertyBean extends AttributeBean
     return _isGetLocalMethodScope;
   }
 
+  public void setRtexprvalue(boolean _rtexprvalue)
+  {
+    this._rtexprvalue = _rtexprvalue;
+  }
+
+  public boolean isRtexprvalue()
+  {
+    return _rtexprvalue;
+  }
+ 
+  private boolean _rtexprvalue;
   private String _isGetLocalMethodScope;
   private boolean _isGetLocalMethod;
   private String _isSetMethodScope;

@@ -246,7 +246,9 @@ public abstract class AbstractComponentTagGenerator implements ComponentTagGener
     if (properties.hasNext() || special)
     {
       out.println();
-      out.println("@Override");
+      if (is12()){
+          out.println("@Override");
+      }
       out.println("public void release()");
       out.println("{");
       out.indent();

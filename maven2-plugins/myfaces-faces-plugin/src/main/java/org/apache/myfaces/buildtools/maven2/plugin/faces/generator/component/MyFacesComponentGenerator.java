@@ -48,7 +48,11 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
   protected void addSpecificImports(Set imports, ComponentBean component)
   {
     imports.add("javax.faces.context.FacesContext");
-    imports.add("javax.el.ValueExpression");
+    if (_is12){
+        imports.add("javax.el.ValueExpression");
+    }else{
+        imports.add("javax.faces.el.ValueBinding");
+    }
     for (Iterator lIterator = component.properties(); lIterator.hasNext();)
     {
       PropertyBean lPropertyBean = (PropertyBean) lIterator.next();
@@ -71,6 +75,10 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
     String propertyClass = Util.getClassFromFullClass(propertyFullClass);
     String propertyGenerics = Util.getGenericsFromProperty(property);
     String def = Util.getDefaultValue(property);
+    
+    if (propertyClass.endsWith("Boolean")){
+        def = "Boolean.valueOf("+def+")";
+    }
 
     out.println();
     out.println("// Property: " + propName);
@@ -306,13 +314,47 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
       out.println("return " + property.getFieldPropertyName() + ";");
       out.unindent();
       out.println("}");
-      out.println("ValueExpression expression = getValueExpression(\"" + property.getPropertyName() + "\");");
-      out.println("if (expression != null)");
-      out.println("{");
-      out.indent();
-      out.println("return " + _castIfNecessary(propClass) + "expression.getValue(getFacesContext().getELContext());");
-      out.unindent();
-      out.println("}");
+      if (_is12){
+          out.println("ValueExpression expression = getValueExpression(\"" + property.getPropertyName() + "\");");
+          out.println("if (expression != null)");
+          out.println("{");
+          out.indent();
+          out.println("return " + _castIfNecessary(propClass) + "expression.getValue(getFacesContext().getELContext());");
+          out.unindent();
+          out.println("}");
+      }
+      else
+      {
+          out.println("ValueBinding vb = getValueBinding(\"" + property.getPropertyName() + "\");");
+          out.println("if (vb != null)");
+          out.println("{");
+          out.indent();
+          
+          if (Util.isPrimitiveClass(propFullClass))
+          {                 
+              out.println("return (" + _castIfNecessary(propClass) + "vb.getValue(getFacesContext()))."+propClass+"Value();");
+          }
+          else
+          {
+              String type = null; 
+              if ( (type = Util.getPrimitiveType(propClass)) != null)
+              {
+                  out.println("Object value = vb == null ? null : vb.getValue(getFacesContext());");
+                  out.println("if (!(value instanceof "+propClass+")){");
+                  out.indent();
+                  out.println("value = " + Util.getBoxedClass(type) +".valueOf(value.toString());");
+                  out.unindent();
+                  out.println("}");
+                  out.println("return " + _castIfNecessary(propClass) + "value;");                  
+              }
+              else
+              {
+                  out.println("return " + _castIfNecessary(propClass) + "vb.getValue(getFacesContext());");                  
+              }
+          }
+          out.unindent();
+          out.println("}");          
+      }
 
       String ret = Util.getDefaultValue(property);
       if (null != ret)
@@ -352,7 +394,9 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
     int arraySize = component.propertiesSize() + primitivePropertiesCount + 1;
 
     out.println();
-    out.println("@Override");
+    if (_is12){
+        out.println("@Override");
+    }
     out.println("public Object saveState(FacesContext facesContext)");
     out.println("{");
     out.indent();
@@ -388,14 +432,24 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
       }
       else
       {
-        out.println(arrayName + "[" + propIndex + "] = " + varName + ";");
+        if (!_is12 && Util.isPrimitiveClass(property.getPropertyClass())){
+            out.println(arrayName + "[" + propIndex + "] = "+Util.getBoxedClass(property.getPropertyClass())+".valueOf(" + varName + ");");
+        }
+        else
+        {
+            out.println(arrayName + "[" + propIndex + "] = " + varName + ";");
+        }        
       }
 
       propIndex++;
 
       if (Util.isPrimitiveClass(property.getPropertyClass()) && !property.isTagAttributeExcluded())
       {
-        out.println(arrayName + "[" + propIndex + "] = " + _primitiveSetVarName(varName) + ";");
+        if (!_is12){
+            out.println(arrayName + "[" + propIndex + "] = Boolean.valueOf(" + _primitiveSetVarName(varName) + ");");
+        }else{
+            out.println(arrayName + "[" + propIndex + "] = " + _primitiveSetVarName(varName) + ";");
+        }
         propIndex++;
       }
     }
@@ -412,7 +466,9 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
     String arrayName = "values";
 
     out.println();
-    out.println("@Override");
+    if (_is12){
+        out.println("@Override");
+    }
     out.println("public void restoreState(FacesContext facesContext, Object state)");
     out.println("{");
     out.indent();
@@ -456,16 +512,26 @@ public class MyFacesComponentGenerator extends AbstractComponentGenerator
       }
       else
       {
-        out.println(varName + " = " + _castIfNecessary(propClass)
-            + arrayName + "[" + propIndex + "];");
+        if (!_is12 && Util.isPrimitiveClass(property.getPropertyClass())){
+            out.println(varName + " = (" + _castIfNecessary(propClass)
+                    + arrayName + "[" + propIndex + "])."+propClass+"Value();");            
+        }else{
+            out.println(varName + " = " + _castIfNecessary(propClass)
+                    + arrayName + "[" + propIndex + "];");
+        }
       }
 
       propIndex++;
 
       if (Util.isPrimitiveClass(property.getPropertyClass()) && !property.isTagAttributeExcluded())
       {
-        out.println(_primitiveSetVarName(varName) + " = (Boolean)"
-            + arrayName + "[" + propIndex + "];");
+        if (!_is12){
+            out.println(_primitiveSetVarName(varName) + " = ((Boolean)"
+                    + arrayName + "[" + propIndex + "]).booleanValue();");
+        }else{
+            out.println(_primitiveSetVarName(varName) + " = (Boolean)"
+                    + arrayName + "[" + propIndex + "];");
+        }
         propIndex++;
       }
     }

@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashSet;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -51,15 +52,54 @@ public class GenerateMasterFacesConfigMojo extends AbstractFacesMojo
       addResourceRoot(project, targetDirectory.getCanonicalPath());
 
       // Scan for .xrts sources
-      DirectoryScanner scanner = new DirectoryScanner();
-      scanner.setBasedir(new File(sourceDirectory, sourcePath));
-      scanner.addDefaultExcludes();
-      scanner.setIncludes(new String[] { "**/*.xml" });
-      if (excludes != null)
-        scanner.setExcludes(excludes);
-      scanner.scan();
+      String [] xmlFiles;
+      
+      if (inheritedDirectory != null)
+      {
+          HashSet set = new HashSet();
+         
+          DirectoryScanner scanner = new DirectoryScanner();
+          scanner.setBasedir(new File(sourceDirectory, sourcePath));
+          scanner.addDefaultExcludes();
+          scanner.setIncludes(new String[] { "**/*.xml" });
+          if (excludes != null)
+              scanner.setExcludes(excludes);
+          scanner.scan();
+          
+          String [] sourceFiles = scanner.getIncludedFiles();
+          
+          for (int i = 0; i < sourceFiles.length;i++){
+              set.add(sourceFiles[i]);
+          }
+          
+          scanner.setBasedir(new File(inheritedDirectory,sourcePath));
+          scanner.scan();
+          
+          sourceFiles = scanner.getIncludedFiles();
+          for (int i = 0; i < sourceFiles.length;i++){
+              set.add(sourceFiles[i]);
+          }          
+                    
+          Object [] result = set.toArray();
+          xmlFiles = new String[result.length];
+          for (int i = 0; i < result.length; i++){
+              xmlFiles[i] = (String) result[i];
+          }
+      }
+      else
+      {
+          DirectoryScanner scanner = new DirectoryScanner();
+          scanner.setBasedir(new File(sourceDirectory, sourcePath));
+          scanner.addDefaultExcludes();
+          scanner.setIncludes(new String[] { "**/*.xml" });
+          if (excludes != null)
+              scanner.setExcludes(excludes);
+          scanner.scan();
+          
+          xmlFiles = scanner.getIncludedFiles();
+      }
 
-      String[] xmlFiles = scanner.getIncludedFiles();
+      
 
       long lastModified = 0L;
       for (int i=0; i < xmlFiles.length; i++)
@@ -140,7 +180,12 @@ public class GenerateMasterFacesConfigMojo extends AbstractFacesMojo
    * @required
    */
   private File sourceDirectory;
-
+  
+  /**
+   * @parameter 
+   */  
+  private File inheritedDirectory;
+  
   /**
    * @parameter
    * @readonly

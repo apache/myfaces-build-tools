@@ -631,6 +631,13 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
 
           stream.writeEndElement();
         }
+        else if (property.isRtexprvalue())
+        {
+            stream.writeCharacters("\n      ");
+            stream.writeStartElement("rtexprvalue");
+            stream.writeCharacters("true");
+            stream.writeEndElement();
+        }
         else
         {
           stream.writeCharacters("\n      ");
@@ -773,20 +780,26 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         while (components.hasNext())
         {
           ComponentBean component = (ComponentBean)components.next();
-          if (!component.isTagClassExcluded()){
+          if (!component.isTagClassExcluded())
+          {
               componentGen.generateTagHandler(component);
               count++;
           }
         }
         while (converters.hasNext())
         {
-          converterGen.generateTagHandler((ConverterBean)converters.next(), generatedSourceDirectory);
-          count++;
+          ConverterBean converter = (ConverterBean)converters.next();
+          if (!converter.isTagClassExcluded())
+          {
+              converterGen.generateTagHandler(converter, generatedSourceDirectory);
+              count++;
+          }
         }
         while (validators.hasNext())
         {
           ValidatorBean validator = (ValidatorBean)validators.next();
-          if (!validator.isTagClassExcluded()){
+          if (!validator.isTagClassExcluded())
+          {
               validatorGen.generateTagHandler(validator, generatedSourceDirectory);
               count++;    
           }          
@@ -823,11 +836,18 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       Set componentList;
       
       String fullSuperclassName = component.findJspTagSuperclass();
+            
       if (fullSuperclassName == null)
       {
         getLog().warn("Missing JSP Tag superclass for component: " + component.getComponentClass()
                       + ", generation of this Tag is skipped");
         return;
+      }else{
+          if (is12() && "javax.faces.webapp.UIComponentTag".equalsIgnoreCase(fullSuperclassName)){
+              fullSuperclassName = "javax.faces.webapp.UIComponentELTag";
+          }else if (!is12() && "javax.faces.webapp.UIComponentELTag".equalsIgnoreCase(fullSuperclassName)){
+              fullSuperclassName = "javax.faces.webapp.UIComponentTag";
+          }
       }
       
       componentList = initComponentList(component, fullSuperclassName);

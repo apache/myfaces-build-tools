@@ -82,18 +82,33 @@
       <xsl:apply-templates select="javaee:factory" />
       <xsl:apply-templates select="javaee:component[not(contains(javaee:component-extension/mfp:component-class-modifier/text(), 'abstract')) and
                                                     starts-with(javaee:component-type, $typePrefix)]" />
-      <xsl:apply-templates select="javaee:converter[contains(javaee:converter-class, $packageContains)]" />
+      <!-- In tomahawk 1.1 some converters should be added
+      on faces-config.xml like javax.math.BigDecimal, if we
+      include javaee:converter[contains(javaee:converter-class, $packageContains)] 
+      this class references are not added to faces-config.xml. 
+      So we need to add this for avoid check packaageContains -->                                                    
+      <xsl:apply-templates select="javaee:converter" />
       <xsl:apply-templates select="javaee:managed-bean[contains(javaee:managed-bean-class, $packageContains)]" />
       <xsl:apply-templates select="javaee:navigation-rule" />
       <xsl:apply-templates select="javaee:referenced-bean" />
       <!-- merge the render-kits together -->
-      <xsl:for-each select="javaee:render-kit[contains(javaee:render-kit-class, $packageContains)]" >
+      <!-- In tomahawk 1.1 we don't merge render-kit,
+      because we add all components to HTML_BASIC renderkit,
+      and the render-kit-class is missing (myfaces core or jsf ri
+      decide what class implement this). 
+      So, here we cannot put 
+      javaee:render-kit[contains(javaee:render-kit-class, $packageContains)]
+      again
+       -->      
+      <xsl:for-each select="javaee:render-kit" >
         <xsl:element name="render-kit" >
           <xsl:apply-templates select="javaee:description" />
           <xsl:apply-templates select="javaee:display-name" />
           <xsl:apply-templates select="javaee:icon" />
           <xsl:apply-templates select="javaee:render-kit-id" />
+          <!-- Not required in tomahawk 1.1 --> 
           <xsl:apply-templates select="javaee:render-kit-class" />
+           
           <!-- Drop renderers if desired -->
           <xsl:if test="$removeRenderers != 'true'">
             <xsl:for-each select="key('render-kit-id', javaee:render-kit-id/text())" >

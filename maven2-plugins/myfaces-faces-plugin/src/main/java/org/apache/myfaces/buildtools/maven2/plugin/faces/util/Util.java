@@ -192,6 +192,27 @@ public class Util
     
     return buffer.toString();
   }
+  
+  static public String getPrimitiveType(String className){      
+      if (className.startsWith("java.lang."))
+      {
+          className = className.replace("java.lang.", "");
+      }
+      
+      if (className.endsWith("eger"))
+      {
+          className = className.replace("eger", "");
+      }
+      
+      if (Util.isPrimitiveClass(className.toLowerCase()))
+      {
+          return className.toLowerCase();
+      }else
+      {
+          return null;
+      }
+      
+  }
 
   static public String getBoxedClass(
     String className)

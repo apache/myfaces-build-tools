@@ -584,7 +584,9 @@ public abstract class AbstractComponentGenerator implements ComponentGenerator
       PrettyWriter out) throws IOException
   {
     out.println();
-    out.println("@Override");
+    if (_is12){
+        out.println("@Override");
+    }
     out.println("public String getFamily()");
     out.println("{");
     out.indent();

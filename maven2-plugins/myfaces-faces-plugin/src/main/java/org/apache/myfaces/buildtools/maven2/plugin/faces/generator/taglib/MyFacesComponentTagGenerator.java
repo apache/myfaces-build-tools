@@ -62,6 +62,12 @@ public class MyFacesComponentTagGenerator extends AbstractComponentTagGenerator
     {
       imports.add("javax.el.ValueExpression");
     }
+    else
+    {
+      imports.add("javax.faces.el.ValueBinding");
+      imports.add("javax.faces.context.FacesContext");
+    }
+        
 
     Iterator properties = component.properties();
     properties = new FilteredIterator(properties, new TagAttributeFilter());
@@ -161,7 +167,9 @@ public class MyFacesComponentTagGenerator extends AbstractComponentTagGenerator
     out.println();
 
     // The superclass does not necessarily need to have this method
-    out.println("@Override");
+    if (is12()){
+        out.println("@Override");
+    }
     out.println("public String getComponentType()");
     out.println("{");
     out.indent();
@@ -241,7 +249,7 @@ public class MyFacesComponentTagGenerator extends AbstractComponentTagGenerator
 
     if (!_is12)
     {
-      out.println("FacesContext context = FacesContext.getCurrentInstance();");
+      out.println("FacesContext context = getFacesContext();");
     }
 
     while (properties.hasNext())
@@ -288,7 +296,26 @@ public class MyFacesComponentTagGenerator extends AbstractComponentTagGenerator
 
     if (property.isLiteralOnly())
     {
-      out.println("comp.getAttributes().put(\"" + propName + "\", " + propVar + ");");
+      if (_is12){
+          out.println("comp.getAttributes().put(\"" + propName + "\", " + propVar + ");");
+      }else{
+          String propertyClass = property.getPropertyClass().trim();
+          if (propertyClass.startsWith("java.lang.")){
+              propertyClass = propertyClass.replace("java.lang.", "");
+          }
+          
+          if (propertyClass.endsWith("eger")){
+              propertyClass = propertyClass.replace("eger", "");
+          }
+          
+          if (Util.isPrimitiveClass(propertyClass.toLowerCase())){
+              out.println("comp.getAttributes().put(\"" + propName + "\", " +
+                      Util.getBoxedClass(propertyClass.toLowerCase())+".valueOf(" + propVar + "));");                
+          }else{                
+              out.println("comp.getAttributes().put(\"" + propName + "\", " + propVar + ");");
+          }
+      }
+      
     }
     else if (_is12)
     {
@@ -296,7 +323,7 @@ public class MyFacesComponentTagGenerator extends AbstractComponentTagGenerator
     }
     else
     {
-      _writeSetValueBinding(out, propName, propVar);
+      _writeSetValueBinding(out, property, propName, propVar);
     }
     out.unindent();
     out.println("}");
@@ -304,20 +331,48 @@ public class MyFacesComponentTagGenerator extends AbstractComponentTagGenerator
 
   private void _writeSetValueBinding(
       PrettyWriter out,
+      PropertyBean property,
       String propName,
       String propVar)
   {
-    out.println("if (isValueReference(" + propVar + ")");
+    out.println("if (isValueReference(" + propVar + "))");
     out.println("{");
     out.indent();
     out.println("ValueBinding vb = context.getApplication().createValueBinding(" + propVar + ");");
-    out.println("comp.setValueBinding(\"" + propName + "\", " + propVar + ");");
+    out.println("comp.setValueBinding(\"" + propName + "\", vb);");
     out.unindent();
     out.println("}");
     out.println("else");
     out.println("{");
     out.indent();
-    out.println("comp.getAttributes().put(\"" + propName + "\", " + propVar + ");");
+    if (!is12() && "value".equals(propName))
+    {
+        out.println("comp.setValue(" + propVar + ");");
+    }
+    else
+    {
+        if (Util.isPrimitiveClass(property.getPropertyClass())){
+            out.println("comp.getAttributes().put(\"" + propName + "\", " +
+                    Util.getBoxedClass(property.getPropertyClass())+".valueOf(" + propVar + "));");
+        }else{
+            String propertyClass = property.getPropertyClass().trim();
+            if (propertyClass.startsWith("java.lang.")){
+                propertyClass = propertyClass.replace("java.lang.", "");
+            }
+            
+            if (propertyClass.endsWith("eger")){
+                propertyClass = propertyClass.replace("eger", "");
+            }
+            
+            if (Util.isPrimitiveClass(propertyClass.toLowerCase())){
+                out.println("comp.getAttributes().put(\"" + propName + "\", " +
+                        Util.getBoxedClass(propertyClass.toLowerCase())+".valueOf(" + propVar + "));");                
+            }else{                
+                out.println("comp.getAttributes().put(\"" + propName + "\", " + propVar + ");");
+                
+            }
+        }
+    }    
     out.unindent();
     out.println("}");
   }
@@ -391,26 +446,32 @@ public class MyFacesComponentTagGenerator extends AbstractComponentTagGenerator
       out.println("{");
       out.indent();
 
-      if (isStringMethodBindingReturnType(signature))
+      if (isStringMethodBindingReturnType(signature) || property.getJspPropertyName().equals("action"))
       {
         out.println("MethodBinding mb;");
         out.println("if (isValueReference(" + propVar + "))");
         out.indent();
-        out.println("mb = createMethodBinding(" + propVar + ", " + classArray + ");");
+        out.println("mb = context.getApplication().createMethodBinding(" + propVar + ", " + classArray + ");");
         out.unindent();
         out.println("else");
         out.indent();
-        out.println("mb = new org.apache.myfaces.trinidadinternal.taglib.ConstantMethodBinding(" + propVar + ");");
+        
+        if (!is12() && property.getJspPropertyName().equals("action")){
+            out.println("mb = new org.apache.myfaces.shared_tomahawk.el.SimpleActionMethodBinding("+propVar+");");
+        }else{
+            out.println("throw new IllegalStateException(\"Invalid expression \" + "+propVar+");");
+        }
         out.unindent();
       }
       else
       {
         // never a literal, no need for ConstantMethodBinding
-        out.println("MethodBinding mb = createMethodBinding(" + propVar + ", " +
+        out.println("MethodBinding mb = context.getApplication().createMethodBinding(" + propVar + ", " +
             classArray + ");");
       }
-
-      out.println("bean.setProperty(" + componentClass + "." + propKey + ", mb);");
+      String setMethod = Util.getPrefixedPropertyName("set", propName);
+      
+      out.println("comp."+setMethod+"(mb);");
       out.unindent();
       out.println("}");
     }
@@ -547,8 +608,8 @@ public class MyFacesComponentTagGenerator extends AbstractComponentTagGenerator
       out.println("if (isValueReference(" + propVar + "))");
       out.println("{");
       out.indent();
-      out.println("ValueBinding vb = createValueBinding(" + propVar + ");");
-      out.println("bean.setValueBinding(" + componentClass + "." + propKey + ", vb);");
+      out.println("ValueBinding vb = context.getApplication().createValueBinding(" + propVar + ");");
+      out.println("comp.setValueBinding(\"" +propName+ "\", vb);");
       out.unindent();
       out.println("}");
       out.println("else");
@@ -558,7 +619,7 @@ public class MyFacesComponentTagGenerator extends AbstractComponentTagGenerator
       out.indent();
       out.println("createConverter(" + propVar + ");");
       out.unindent();
-      out.println("bean.setProperty(" + componentClass + "." + propKey + ", converter);");
+      out.println("comp.setConverter(converter);");
       out.unindent();
       out.println("}");
     }

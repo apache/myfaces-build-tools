@@ -138,8 +138,17 @@ public class ConverterBean extends AbstractTagBean {
     addConverterClassModifier(_parseModifier(modifier));
   }
 
+  public void setTagClassExcluded(boolean tagClassExcluded)
+  {
+    _tagClassExcluded = tagClassExcluded;
+  }
 
+  public boolean isTagClassExcluded()
+  {
+    return _tagClassExcluded;
+  }
 
+  private boolean _tagClassExcluded;
   private String  _converterId;
   private String  _converterClass;
   private String  _converterSuperClass;

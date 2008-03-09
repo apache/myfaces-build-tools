@@ -219,6 +219,8 @@ public class FacesConfigParser
                                    "isGetLocalMethod");
     digester.addBeanPropertySetter("faces-config/component/property/property-extension/is-get-local-method-scope",
                                     "isGetLocalMethodScope");
+    digester.addBeanPropertySetter("faces-config/component/property/property-extension/rtexprvalue",
+                                    "rtexprvalue");
     
     digester.addCallMethod("faces-config/component/property/property-extension/property-values",
                            "parsePropertyValues", 1);
@@ -351,6 +353,8 @@ public class FacesConfigParser
                                    "longDescription");
     digester.addBeanPropertySetter("faces-config/converter/converter-extension/tag-class",
                                    "tagClass");
+    digester.addBeanPropertySetter("faces-config/converter/converter-extension/tag-class-excluded",
+                                   "tagClassExcluded");
     digester.addRule("faces-config/converter/converter-extension/tag-name",
                      new BeanPropertySetterRule("tagName"));
     digester.addCallMethod("faces-config/converter/converter-extension/tag-class-modifier",
@@ -360,6 +364,8 @@ public class FacesConfigParser
     // faces-config/converter/property/property-extension
     digester.addBeanPropertySetter("faces-config/converter/property/property-extension/tag-attribute-excluded",
                                    "tagAttributeExcluded");
+    digester.addBeanPropertySetter("faces-config/converter/property/property-extension/literal-only",
+                                   "literalOnly");
 
     // faces-config/validator/validator-extension
     digester.addBeanPropertySetter("faces-config/validator/validator-extension/long-description",
