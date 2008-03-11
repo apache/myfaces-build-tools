@@ -560,11 +560,22 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
 
     if (!_is12())
     {
+      if (property != null)
+      {        
+        if (property.isRequired())
+        {
+          stream.writeCharacters("\n    ");
+          stream.writeStartElement("required");
+          stream.writeCharacters("true");
+          stream.writeEndElement();
+        }
+      }
+        
       stream.writeCharacters("\n      ");
       stream.writeStartElement("rtexprvalue");
       stream.writeCharacters("false");
       stream.writeEndElement();
-
+      
       // In JSP 2.0, the tag description goes at the end
       _writeTagAttributeDescription(stream, description, unsupportedAgents);
     }
