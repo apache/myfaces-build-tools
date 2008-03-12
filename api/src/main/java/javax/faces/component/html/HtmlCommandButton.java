@@ -25,6 +25,9 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @mfp.component
+ *   family="javax.faces.Command"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -72,6 +75,11 @@ public class HtmlCommandButton
     }
 
 
+   /**
+    * Access Key.
+    * 
+    * @mfp.property
+    */
     public void setAccesskey(String accesskey)
     {
         _accesskey = accesskey;
@@ -84,6 +92,11 @@ public class HtmlCommandButton
         return vb != null ? _ComponentUtils.getStringValue(getFacesContext(), vb) : null;
     }
 
+    /**
+     * Alt Text.
+     * 
+     * @mfp.property
+     */
     public void setAlt(String alt)
     {
         _alt = alt;
@@ -96,6 +109,11 @@ public class HtmlCommandButton
         return vb != null ? _ComponentUtils.getStringValue(getFacesContext(), vb) : null;
     }
 
+    /**
+     * Text Direction.
+     * 
+     * @mfp.property
+     */
     public void setDir(String dir)
     {
         _dir = dir;

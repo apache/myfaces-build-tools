@@ -125,6 +125,12 @@ import javax.servlet.jsp.jstl.sql.Result;
  * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
+ * 
+ * @mfp.component 
+ *   type = "javax.faces.Data"
+ *   family = "javax.faces.Data"
+ *   defaultRendererType = "javax.faces.Table"
+ *   desc="tabular data"
  */
 public class UIData extends UIComponentBase implements NamingContainer
 {
@@ -433,6 +439,8 @@ public class UIData extends UIComponentBase implements NamingContainer
      * child components of the table to tell them what the "rowData"
      * object for the current row is. This value must be a literal
      * string (EL expression not permitted).
+     * 
+     * @mfp.property literalOnly=true
      */
     public void setVar(String var)
     {

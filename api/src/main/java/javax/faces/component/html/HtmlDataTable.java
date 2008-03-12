@@ -30,6 +30,9 @@ import javax.faces.el.ValueBinding;
  * <p>
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @mfp.component
+ *   family="javax.faces.UIData"
+ *   
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -90,6 +93,13 @@ public class HtmlDataTable extends UIData
     }
 
 
+    /**
+     * Background Color.
+     * 
+     * @mfp.property
+     * 
+     * @param bgcolor
+     */
     public void setBgcolor(String bgcolor)
     {
         _bgcolor = bgcolor;
