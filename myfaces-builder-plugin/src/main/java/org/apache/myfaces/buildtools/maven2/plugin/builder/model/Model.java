@@ -18,8 +18,10 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -45,6 +47,14 @@ public class Model
   }
 
   /**
+   * Returns all converters
+   */
+  public List getConverters()
+  {
+	  return new ArrayList(_converters.values());
+  }
+
+  /**
    * Returns an iterator for all converters
    */
   public Iterator converters()
@@ -58,6 +68,14 @@ public class Model
   public void addValidator(ValidatorModel validator)
   {
       _validators.put(validator.getValidatorId(), validator);
+  }
+
+  /**
+   * Returns all validators
+   */
+  public List getValidators()
+  {
+	  return new ArrayList(_validators.values());
   }
 
   /**
@@ -83,41 +101,19 @@ public class Model
   }
 
   /**
-   * Returns the component for this component type.
-   *
-   * @param componentType  the component type to find
+   * Returns all components
    */
-  public ComponentModel findComponent(
-    String componentType)
+  public List getComponents()
   {
-    return (ComponentModel)_components.get(componentType);
+	  return new ArrayList(_components.values());
   }
 
   /**
-   * Returns true if this faces config has any components.
-   *
-   * @return true  if this faces config has any components,
-   *         otherwise false
-   */
-  public boolean hasComponents()
-  {
-    return !_components.isEmpty();
-  }
-
-  /**
-   * Returns an iterator for all components in this faces
-   * config.
-   *
-   * @return  the component iterator
+   * Returns an iterator for all components.
    */
   public Iterator components()
   {
     return _components.values().iterator();
-  }
-
-  private void _warning(String s)
-  {
-    _LOG.warning(s);
   }
 
   /**
@@ -140,26 +136,9 @@ public class Model
     }
   }
 
-  /**
-   * Returns the render kit for this render kit id.
-   *
-   * @param renderKitId  the render kit id to find
-   */
-  public RenderKitModel findRenderKit(
-    String renderKitId)
+  public List getRenderKits()
   {
-    return (RenderKitModel)_renderKits.get(renderKitId);
-  }
-
-  /**
-   * Returns true if this faces config has any render kits.
-   *
-   * @return true  if this faces config has any render kits,
-   *         otherwise false
-   */
-  public boolean hasRenderKits()
-  {
-    return !_renderKits.isEmpty();
+	  return new ArrayList(_renderKits.values());
   }
 
   /**
@@ -171,5 +150,15 @@ public class Model
   public Iterator renderKits()
   {
     return _renderKits.values().iterator();
+  }
+
+  /**
+   * Returns the render kit for this render kit id.
+   *
+   * @param renderKitId  the render kit id to find
+   */
+  private RenderKitModel findRenderKit(String renderKitId)
+  {
+    return (RenderKitModel)_renderKits.get(renderKitId);
   }
 }
