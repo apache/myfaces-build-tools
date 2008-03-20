@@ -67,6 +67,12 @@
 
     <pluginManagement>
       <plugins>
+	<plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <!-- 2.4 throws error, so temporally put on 2.3 -->
+          <version>2.3</version>
+        </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>2.2</version>
@@ -116,6 +122,7 @@
     <module>myfaces-archetype-trinidad</module>
     <module>myfaces-archetype-helloworld</module>
     <module>myfaces-archetype-helloworld-facelets</module>
+    <module>myfaces-archetype-helloworld-portlets</module>
   </modules>
 
   <distributionManagement>
