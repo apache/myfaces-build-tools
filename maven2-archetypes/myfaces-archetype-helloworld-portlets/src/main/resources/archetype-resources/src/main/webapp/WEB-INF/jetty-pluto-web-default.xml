@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+	   
+-->
+
+<!-- This web.xml file is used in order to configure pluto to run with jetty in order to test the appropriate web applications -->
+<web-app 
+   xmlns="http://java.sun.com/xml/ns/javaee" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" 
+   metadata-complete="true"
+   version="2.5"> 
+
+  <context-param>
+    <param-name>org.mortbay.jetty.webapp.NoTLDJarPattern</param-name>
+    <param-value>start.jar|ant-.*\.jar|dojo-.*\.jar|jetty-.*\.jar|jsp-api-.*\.jar|junit-.*\.jar|servlet-api-.*\.jar|dnsns\.jar|rt\.jar|jsse\.jar|tools\.jar|sunpkcs11\.jar|sunjce_provider\.jar|xerces.*\.jar</param-value>
+  </context-param>
+  
+  <!-- Listeners -->
+  <listener>
+    <listener-class>
+      com.bekk.boss.pluto.embedded.jetty.util.OverrideContextLoaderListener
+    </listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>      com.bekk.boss.pluto.embedded.util.PortalStartupListener
+    </listener-class>
+  </listener>
+
+  <!-- Filters and Mappings -->
+  <filter>
+    <filter-name>plutoResourceFilter</filter-name>
+    <filter-class>com.bekk.boss.pluto.embedded.util.PlutResourcesFilter</filter-class>
+  </filter>
+
+  <filter>
+    <filter-name>plutoPortalDriver</filter-name>
+    <filter-class>com.bekk.boss.pluto.embedded.util.PlutoPortalDriverFilter</filter-class>
+  </filter>
+	
+  <filter-mapping>
+    <filter-name>plutoResourceFilter</filter-name>
+    <url-pattern>*.css</url-pattern>
+    <url-pattern>*.gif</url-pattern>
+    <url-pattern>*.png</url-pattern>
+    <url-pattern>*.js</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>plutoPortalDriver</filter-name>
+    <url-pattern>/pluto/index.jsp</url-pattern>
+    <url-pattern>/pluto/index.jsp/*</url-pattern>
+  </filter-mapping>
+
+  <!-- Servlets and Mappings -->
+
+  <!--
+    The default servlet.                                                  
+    This servlet, normally mapped to /, provides the handling for static  
+    content, OPTIONS and TRACE methods for the context.                   
+    The following initParameters are supported:                           
+                                                                          
+      acceptRanges     If true, range requests and responses are          
+                       supported                                          
+                                                                          
+      dirAllowed       If true, directory listings are returned if no     
+                       welcome file is found. Else 403 Forbidden.         
+                                                                          
+      redirectWelcome  If true, redirect welcome file requests            
+                       else use request dispatcher forwards               
+                                                                          
+      gzip             If set to true, then static content will be served  
+                       as gzip content encoded if a matching resource is  
+                       found ending with ".gz"                            
+                                                                          
+      resoureBase      Can be set to replace the context resource base    
+                                                                          
+      relativeResourceBase                                                
+                       Set with a pathname relative to the base of the    
+                       servlet context root. Useful for only serving      
+                       static content from only specific subdirectories.  
+                                                                          
+      useFileMappedBuffer                                                 
+                       If set to true (the default), a  memory mapped     
+                       file buffer will be used to serve static content   
+                       when using an NIO connector. Setting this value    
+                       to false means that a direct buffer will be used   
+                       instead. If you are having trouble with Windows    
+                       file locking, set this to false.                   
+                                                                          
+     cacheControl      If set, all static content will have this value    
+                       set as the cache-control header.                   
+                                                                          
+     maxCacheSize      Maximum size of the static resource cache          
+                                                                          
+     maxCachedFileSize Maximum size of any single file in the cache       
+                                                                          
+     maxCachedFiles    Maximum number of files in the cache               
+  -->
+
+  <servlet>
+    <servlet-name>default</servlet-name>
+    <servlet-class>org.mortbay.jetty.servlet.DefaultServlet</servlet-class>
+    <init-param>
+      <param-name>acceptRanges</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dirAllowed</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>redirectWelcome</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>maxCacheSize</param-name>
+      <param-value>4000000</param-value>
+    </init-param>
+    <init-param>
+      <param-name>maxCachedFileSize</param-name>
+      <param-value>254000</param-value>
+    </init-param>
+    <init-param>
+      <param-name>maxCachedFiles</param-name>
+      <param-value>1000</param-value>
+    </init-param>
+    <init-param>
+      <param-name>gzip</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>useFileMappedBuffer</param-name>
+      <param-value>true</param-value>
+    </init-param>  
+    <load-on-startup>0</load-on-startup>
+  </servlet> 
+
+  <servlet id="jsp">
+    <servlet-name>jsp</servlet-name>
+    <servlet-class>com.bekk.boss.pluto.embedded.util.PortletJspServlet</servlet-class>
+    <init-param>
+        <param-name>logVerbosityLevel</param-name>
+        <param-value>DEBUG</param-value>
+    </init-param>
+    <init-param>
+        <param-name>fork</param-name>
+        <param-value>false</param-value>
+    </init-param>
+    <init-param>
+        <param-name>xpoweredBy</param-name>
+        <param-value>false</param-value>
+    </init-param>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping> 
+    <servlet-name>jsp</servlet-name> 
+    <url-pattern>*.jsp</url-pattern> 
+    <url-pattern>*.jspf</url-pattern>
+    <url-pattern>*.jspx</url-pattern>
+    <url-pattern>*.xsp</url-pattern>
+    <url-pattern>*.JSP</url-pattern> 
+    <url-pattern>*.JSPF</url-pattern>
+    <url-pattern>*.JSPX</url-pattern>
+    <url-pattern>*.XSP</url-pattern>
+  </servlet-mapping>
+
+  <!-- Other settings -->
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+	
+  <locale-encoding-mapping-list>
+    <locale-encoding-mapping><locale>ar</locale><encoding>ISO-8859-6</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>be</locale><encoding>ISO-8859-5</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>bg</locale><encoding>ISO-8859-5</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>ca</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>cs</locale><encoding>ISO-8859-2</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>da</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>de</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>el</locale><encoding>ISO-8859-7</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>en</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>es</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>et</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>fi</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>fr</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>hr</locale><encoding>ISO-8859-2</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>hu</locale><encoding>ISO-8859-2</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>is</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>it</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>iw</locale><encoding>ISO-8859-8</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>ja</locale><encoding>Shift_JIS</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>ko</locale><encoding>EUC-KR</encoding></locale-encoding-mapping>     
+    <locale-encoding-mapping><locale>lt</locale><encoding>ISO-8859-2</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>lv</locale><encoding>ISO-8859-2</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>mk</locale><encoding>ISO-8859-5</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>nl</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>no</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>pl</locale><encoding>ISO-8859-2</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>pt</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>ro</locale><encoding>ISO-8859-2</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>ru</locale><encoding>ISO-8859-5</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>sh</locale><encoding>ISO-8859-5</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>sk</locale><encoding>ISO-8859-2</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>sl</locale><encoding>ISO-8859-2</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>sq</locale><encoding>ISO-8859-2</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>sr</locale><encoding>ISO-8859-5</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>sv</locale><encoding>ISO-8859-1</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>tr</locale><encoding>ISO-8859-9</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>uk</locale><encoding>ISO-8859-5</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>zh</locale><encoding>GB2312</encoding></locale-encoding-mapping>
+    <locale-encoding-mapping><locale>zh_TW</locale><encoding>Big5</encoding></locale-encoding-mapping>   
+  </locale-encoding-mapping-list>
+</web-app>
+
