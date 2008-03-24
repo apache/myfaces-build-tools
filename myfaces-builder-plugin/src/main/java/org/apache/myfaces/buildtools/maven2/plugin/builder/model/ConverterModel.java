@@ -36,6 +36,8 @@ public class ConverterModel
             .getName());
 
     private String _className;
+    private String _description;
+    private String _longDescription;
 
     private String _converterId;
     private String _converterClass;
@@ -53,6 +55,8 @@ public class ConverterModel
         out.writeElement("converterId", cm._converterId);
         out.writeElement("converterClass", cm._converterClass);
         out.writeElement("converterSuperClass", cm._converterSuperClass);
+        out.writeElement("desc", cm._description);
+        out.writeElement("longDesc", cm._longDescription);
 
         out.endElement("converter");
     }
@@ -70,6 +74,9 @@ public class ConverterModel
         digester.addBeanPropertySetter(newPrefix + "/converterId");
         digester.addBeanPropertySetter(newPrefix + "/converterClass");
         digester.addBeanPropertySetter(newPrefix + "/converterSuperClass");
+        digester.addBeanPropertySetter(newPrefix + "/desc", "description");
+        digester.addBeanPropertySetter(newPrefix + "/longDesc",
+                "longDescription");
     }
 
     /**
@@ -186,5 +193,49 @@ public class ConverterModel
         }
 
         return modifiers;
+    }
+
+    /**
+     * Sets the brief description of this property.
+     * <p>
+     * This description is used in tooltips, etc.
+     * 
+     * @param description
+     *            the property description
+     */
+    public void setDescription(String description)
+    {
+        _description = description;
+    }
+
+    /**
+     * Returns the brief description of this property.
+     * 
+     * @return the property description
+     */
+    public String getDescription()
+    {
+        return _description;
+    }
+
+    /**
+     * Sets the long description of this property.
+     * 
+     * @param longDescription
+     *            the long property description
+     */
+    public void setLongDescription(String longDescription)
+    {
+        _longDescription = longDescription;
+    }
+
+    /**
+     * Returns the long description of this property.
+     * 
+     * @return the long property description
+     */
+    public String getLongDescription()
+    {
+        return _longDescription;
     }
 }

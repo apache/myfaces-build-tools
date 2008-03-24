@@ -43,6 +43,16 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyModel;
  */
 public class QdoxModelBuilderTest extends TestCase
 {
+    public void testMethodToPropName() throws Exception
+    {
+        assertEquals("fooBar", QdoxModelBuilder.methodToPropName("getfooBar"));
+        assertEquals("fooBar", QdoxModelBuilder.methodToPropName("getFooBar"));
+        assertEquals("url", QdoxModelBuilder.methodToPropName("getUrl"));
+        assertEquals("url", QdoxModelBuilder.methodToPropName("getURL"));
+        assertEquals("urlLocation", QdoxModelBuilder.methodToPropName("getUrlLocation"));
+        assertEquals("urlLocation", QdoxModelBuilder.methodToPropName("getURLLocation"));
+    }
+
     public void testScan() throws Exception
     {
         QdoxModelBuilder builder = new QdoxModelBuilder();

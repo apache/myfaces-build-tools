@@ -24,6 +24,7 @@ import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
 import com.thoughtworks.qdox.model.JavaSource;
+import com.thoughtworks.qdox.model.Type;
 
 public class QdoxModelBuilder implements ModelBuilder
 {
@@ -250,29 +251,41 @@ public class QdoxModelBuilder implements ModelBuilder
 
     private void processConverter(DocletTag tag, JavaClass clazz, Model model)
     {
-        String descDflt = "no description";
-        // TODO: here, set the default description to the first sentence of the
-        // class javadoc.
+        String longDescription = clazz.getComment();
+        String descDflt = getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", tag, descDflt);
 
         String converterId = getString(clazz, "id", tag, null);
 
         ConverterModel converter = new ConverterModel();
         converter.setClassName(clazz.getName());
         converter.setConverterId(converterId);
+        converter.setDescription(shortDescription);
+        converter.setLongDescription(longDescription);
         model.addConverter(converter);
     }
 
     private void processValidator(DocletTag tag, JavaClass clazz, Model model)
     {
-        String descDflt = "no description";
-        // TODO: here, set the default description to the first sentence of the
-        // class javadoc.
+        String longDescription = clazz.getComment();
+        String descDflt = getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", tag, descDflt);
 
         String validatorId = getString(clazz, "id", tag, null);
 
         ValidatorModel validator = new ValidatorModel();
         validator.setClassName(clazz.getName());
         validator.setValidatorId(validatorId);
+        validator.setDescription(shortDescription);
+        validator.setLongDescription(longDescription);
         model.addValidator(validator);
     }
 
@@ -305,15 +318,16 @@ public class QdoxModelBuilder implements ModelBuilder
                     .getInitializationExpression());
         }
 
-        String descDflt = "no description";
-        // TODO: here, set the default description to the first sentence of the
-        // class javadoc.
-
         String componentName = getString(clazz, "name", tag, null);
         String componentClass = getString(clazz, "class", tag, clazz.getName());
 
-        String shortDescription = getString(clazz, "desc", tag, descDflt);
         String longDescription = clazz.getComment();
+        String descDflt = getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", tag, descDflt);
 
         String componentFamily = getString(clazz, "family", tag,
                 componentTypeFamily);
@@ -356,13 +370,17 @@ public class QdoxModelBuilder implements ModelBuilder
         component.setTagHandler(tagHandler);
 
         // Now here walk the component looking for property annotations.
-        processClassProperties(clazz, component);
+        processComponentProperties(clazz, component);
 
         validateComponent(component);
         model.addComponent(component);
     }
 
-    private void processClassProperties(JavaClass clazz,
+    /**
+     * Look for any methods on the specified class that are annotated as being
+     * component properties, and add metadata about them to the model.
+     */
+    private void processComponentProperties(JavaClass clazz,
             ComponentModel component)
     {
         JavaMethod[] methods = clazz.getMethods();
@@ -382,13 +400,24 @@ public class QdoxModelBuilder implements ModelBuilder
 
                 AbstractJavaEntity ctx = tag.getContext();
 
+                String longDescription = ctx.getComment();
+                String descDflt = getFirstSentence(longDescription);
+                if ((descDflt == null) || (descDflt.length() < 2))
+                {
+                    descDflt = "no description";
+                }
+                String shortDescription = getString(clazz, "desc", tag, descDflt);
+
+                Type returnType = method.getReturns();
+
                 PropertyModel p = new PropertyModel();
-                p.setName(methodToPropName(method));
-                p.setClassName("java.lang.String"); // TODO
+                p.setName(methodToPropName(method.getName()));
+                p.setClassName(returnType.toString());
                 p.setRequired(required.booleanValue());
                 p.setTransient(transientProp.booleanValue());
                 p.setLiteralOnly(literalOnly.booleanValue());
-                p.setDescription(ctx.getComment());
+                p.setDescription(shortDescription);
+                p.setLongDescription(longDescription);
 
                 component.addProperty(p);
             }
@@ -397,32 +426,67 @@ public class QdoxModelBuilder implements ModelBuilder
 
     /**
      * Convert a method name to a property name.
-     * <p>
-     * TODO: this method is not quite correctly implemented. In particular there
-     * are special rules handling things like getURL(); the propname is not
-     * "uRL"!
      */
-    private String methodToPropName(JavaMethod method)
+    static String methodToPropName(String methodName)
     {
-        String methName = method.getName();
         StringBuffer name = new StringBuffer();
-        if (methName.startsWith("get") || methName.startsWith("set"))
+        if (methodName.startsWith("get") || methodName.startsWith("set"))
         {
-            name.append(methName.substring(3));
+            name.append(methodName.substring(3));
         }
-        else if (methName.startsWith("is"))
+        else if (methodName.startsWith("is"))
         {
-            name.append(methName.substring(2));
+            name.append(methodName.substring(2));
         }
         else
         {
             throw new IllegalArgumentException("Invalid annotated method name "
-                    + methName);
+                    + methodName);
         }
 
-        char c = name.charAt(0);
-        name.setCharAt(0, Character.toLowerCase(c));
+        // Handle following styles of property name
+        // getfooBar --> fooBar
+        // getFooBar --> fooBar
+        // getURL --> url
+        // getURLLocation --> urlLocation
+        for(int i=0; i<name.length(); ++i) {
+            char c = name.charAt(i);
+            if (Character.isUpperCase(c)) {
+                name.setCharAt(i, Character.toLowerCase(c));
+            } else {
+                if (i>1) {
+                    // reset the previous char to uppercase
+                    c = name.charAt(i-1);
+                    name.setCharAt(i-1, Character.toUpperCase(c));
+                }
+                break;
+            }
+        }
         return name.toString();
+    }
+
+    /**
+     * Given the full javadoc for a component, extract just the "first
+     * sentence".
+     * <p>
+     * Initially, just find the first dot, and strip out any linefeeds. Later,
+     * try to handle "e.g." and similar (see javadoc algorithm for sentence
+     * detection).
+     */
+    private String getFirstSentence(String doc)
+    {
+        if (doc == null)
+        {
+            return null;
+        }
+
+        int index = doc.indexOf('.');
+        if (index == -1)
+        {
+            return doc;
+        }
+        // abc.
+        return doc.substring(0, index);
     }
 
     private void validateComponent(ComponentModel component)

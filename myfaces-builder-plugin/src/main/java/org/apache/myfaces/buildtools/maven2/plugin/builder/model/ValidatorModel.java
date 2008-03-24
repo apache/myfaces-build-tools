@@ -32,6 +32,8 @@ public class ValidatorModel
             .getName());
 
     private String _className;
+    private String _description;
+    private String _longDescription;
 
     private String _validatorId;
     private String _validatorClass;
@@ -50,6 +52,8 @@ public class ValidatorModel
         out.writeElement("validatorId", vm._validatorId);
         out.writeElement("validatorClass", vm._validatorClass);
         out.writeElement("validatorSuperClass", vm._validatorSuperClass);
+        out.writeElement("desc", vm._description);
+        out.writeElement("longDesc", vm._longDescription);
 
         out.endElement("validator");
     }
@@ -67,6 +71,9 @@ public class ValidatorModel
         digester.addBeanPropertySetter(newPrefix + "/validatorId");
         digester.addBeanPropertySetter(newPrefix + "/validatorClass");
         digester.addBeanPropertySetter(newPrefix + "/validatorSuperClass");
+        digester.addBeanPropertySetter(newPrefix + "/desc", "description");
+        digester.addBeanPropertySetter(newPrefix + "/longDesc",
+                "longDescription");
     }
 
     /**
@@ -193,5 +200,49 @@ public class ValidatorModel
     public boolean isTagClassExcluded()
     {
         return _tagClassExcluded;
+    }
+
+    /**
+     * Sets the brief description of this property.
+     * <p>
+     * This description is used in tooltips, etc.
+     * 
+     * @param description
+     *            the property description
+     */
+    public void setDescription(String description)
+    {
+        _description = description;
+    }
+
+    /**
+     * Returns the brief description of this property.
+     * 
+     * @return the property description
+     */
+    public String getDescription()
+    {
+        return _description;
+    }
+
+    /**
+     * Sets the long description of this property.
+     * 
+     * @param longDescription
+     *            the long property description
+     */
+    public void setLongDescription(String longDescription)
+    {
+        _longDescription = longDescription;
+    }
+
+    /**
+     * Returns the long description of this property.
+     * 
+     * @return the long property description
+     */
+    public String getLongDescription()
+    {
+        return _longDescription;
     }
 }
