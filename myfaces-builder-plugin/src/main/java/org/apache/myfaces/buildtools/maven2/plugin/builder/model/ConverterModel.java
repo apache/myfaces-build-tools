@@ -21,9 +21,16 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 import java.lang.reflect.Modifier;
 import java.util.logging.Logger;
 
+import org.apache.commons.digester.Digester;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
+
 /**
+ * Represent a JSF converter.
+ * <p>
+ * A converter can be used in two ways: (a) referenced via its id, or (b)
+ * instantiated via a tag.
  */
-public class ConverterModel extends ModelItem
+public class ConverterModel
 {
     static private final Logger _LOG = Logger.getLogger(ConverterModel.class
             .getName());
@@ -34,6 +41,36 @@ public class ConverterModel extends ModelItem
     private String _converterClass;
     private String _converterSuperClass;
     private int _converterClassModifiers;
+
+    /**
+     * Write an instance of this class out as xml.
+     */
+    public static void writeXml(XmlWriter out, ConverterModel cm)
+    {
+        out.beginElement("converter");
+
+        out.writeElement("className", cm._className);
+        out.writeElement("converterId", cm._converterId);
+        out.writeElement("converterClass", cm._converterClass);
+        out.writeElement("converterSuperClass", cm._converterSuperClass);
+
+        out.endElement("converter");
+    }
+
+    /**
+     * Add digester rules to repopulate an instance of this type from an xml
+     * file.
+     */
+    public static void addXmlRules(Digester digester, String prefix)
+    {
+        String newPrefix = prefix + "/converter";
+
+        digester.addObjectCreate(newPrefix, ConverterModel.class);
+        digester.addBeanPropertySetter(newPrefix + "/className");
+        digester.addBeanPropertySetter(newPrefix + "/converterId");
+        digester.addBeanPropertySetter(newPrefix + "/converterClass");
+        digester.addBeanPropertySetter(newPrefix + "/converterSuperClass");
+    }
 
     /**
      * The name of the class that this metadata applies to.

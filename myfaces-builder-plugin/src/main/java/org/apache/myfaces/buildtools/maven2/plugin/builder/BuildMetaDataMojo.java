@@ -19,17 +19,12 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.QdoxModelBuilder;
 
@@ -66,7 +61,7 @@ public class BuildMetaDataMojo extends AbstractMojo
     public void execute() throws MojoExecutionException
     {
         Model model = buildModel(project);
-        saveModel(model);
+        IOUtils.saveModel(model, new File(targetDirectory, outputFile));
     }
 
     /**
@@ -79,70 +74,5 @@ public class BuildMetaDataMojo extends AbstractMojo
         QdoxModelBuilder builder = new QdoxModelBuilder();
         builder.buildModel(model, project);
         return model;
-    }
-
-    /**
-     * Write the contents of the model to an xml file.
-     */
-    void saveModel(Model model) throws MojoExecutionException
-    {
-        File outfile = new File(targetDirectory, outputFile);
-        FileWriter outputWriter = null;
-
-        try
-        {
-            log.info("Writing file " + outfile);
-            outfile.getParentFile().mkdirs();
-
-            outputWriter = new FileWriter(outfile);
-            writeModel(outputWriter, model);
-        }
-        catch (IOException e)
-        {
-            throw new MojoExecutionException("Unable to save data", e);
-        }
-        finally
-        {
-            try
-            {
-                if (outputWriter != null)
-                {
-                    outputWriter.close();
-                }
-            }
-            catch (IOException e)
-            {
-                // ignore
-            }
-        }
-    }
-    
-    void writeModel(Writer outputWriter, Model model)  throws MojoExecutionException
-    {
-        try
-        {
-            outputWriter.write("<?xml version='1.0' ?>\n");
-            PrintWriter pw = new PrintWriter(outputWriter);
-            XmlWriter xmlWriter = new XmlWriter(pw);
-            Model.writeXml(xmlWriter, model);
-        }
-        catch (IOException e)
-        {
-            throw new MojoExecutionException("Unable to save data", e);
-        }
-        finally
-        {
-            try
-            {
-                if (outputWriter != null)
-                {
-                    outputWriter.close();
-                }
-            }
-            catch (IOException e)
-            {
-                // ignore
-            }
-        }
     }
 }

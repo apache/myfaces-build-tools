@@ -95,8 +95,8 @@ public class MakeComponentsMojo extends AbstractMojo
         while (p.hasNext())
         {
             PropertyModel prop = (PropertyModel) p.next();
-            out.println("prop:" + prop.getPropertyName());
-            out.println("  class:" + prop.getPropertyClass());
+            out.println("prop:" + prop.getName());
+            out.println("  class:" + prop.getClassName());
             out.println("  isLiteral:" + prop.isLiteralOnly());
             out.println("  desc:" + prop.getDescription());
         }
@@ -125,8 +125,8 @@ public class MakeComponentsMojo extends AbstractMojo
         /*
          * Iterator components = facesConfig.components(); components = new
          * FilteredIterator(components, new SkipFilter()); components = new
-         * FilteredIterator(components, new ComponentTypeFilter( typePrefix));
-         *  // incremental unless forced if (!force) components = new
+         * FilteredIterator(components, new ComponentTypeFilter( typePrefix)); //
+         * incremental unless forced if (!force) components = new
          * FilteredIterator(components, new IfModifiedFilter());
          * 
          * if (!components.hasNext()) { getLog() .info("Nothing to generate -
@@ -174,41 +174,36 @@ public class MakeComponentsMojo extends AbstractMojo
          * Component is skipped"); } else { String packageName = Util
          * .getPackageFromFullClass(fullClassName); String fullSuperclassName =
          * component.findComponentSuperclass(); String superclassName = Util
-         * .getClassFromFullClass(fullSuperclassName);
-         *  // make class name fully qualified in case of collision if
-         * (superclassName.equals(className)) superclassName =
-         * fullSuperclassName;
-         *  // TODO: remove this bogosity if
+         * .getClassFromFullClass(fullSuperclassName); // make class name fully
+         * qualified in case of collision if (superclassName.equals(className))
+         * superclassName = fullSuperclassName; // TODO: remove this bogosity if
          * (superclassName.equals("UIXMenuHierarchy") ||
          * superclassName.equals("UIXTable") ||
          * superclassName.equals("UIXHierarchy") ||
          * superclassName.equals("UIXMenuTree") || className.equals("CoreTree")) {
          * superclassName = fullSuperclassName; }
          * 
-         * String componentType = component.getComponentType();
-         *  // Use template file if it exists String templatePath =
+         * String componentType = component.getComponentType(); // Use template
+         * file if it exists String templatePath =
          * Util.convertClassToSourcePath( fullClassName, "Template.java"); File
          * templateFile = new File(templateSourceDirectory, templatePath);
          * 
          * SourceTemplate template = null; if (templateFile.exists()) {
          * getLog().debug("Using template " + templatePath); template = new
          * SourceTemplate(templateFile); template.substitute(className +
-         * "Template", className); template.readPreface(); }
-         *  // header/copyright writePreamble(out);
-         *  // package out.println("package " + packageName + ";");
-         * out.println();
-         *  // imports generator.writeImports(out, template, packageName,
-         * fullSuperclassName, superclassName, component);
-         *  // class generator.writeClassBegin(out, className, superclassName,
-         * component, template);
-         *  // static final constants generator.writePropertyValueConstants(out,
-         * component); generator .writePropertyConstants(out, superclassName,
-         * component); generator.writeFacetConstants(out, component);
-         * generator.writeGenericConstants(out, componentFamily, componentType);
-         *  // public constructors and methods generator.writeConstructor(out,
-         * component, Modifier.PUBLIC);
-         *  // insert template code if (template != null) {
-         * template.writeContent(out); template.close(); }
+         * "Template", className); template.readPreface(); } // header/copyright
+         * writePreamble(out); // package out.println("package " + packageName +
+         * ";"); out.println(); // imports generator.writeImports(out, template,
+         * packageName, fullSuperclassName, superclassName, component); // class
+         * generator.writeClassBegin(out, className, superclassName, component,
+         * template); // static final constants
+         * generator.writePropertyValueConstants(out, component); generator
+         * .writePropertyConstants(out, superclassName, component);
+         * generator.writeFacetConstants(out, component);
+         * generator.writeGenericConstants(out, componentFamily, componentType); //
+         * public constructors and methods generator.writeConstructor(out,
+         * component, Modifier.PUBLIC); // insert template code if (template !=
+         * null) { template.writeContent(out); template.close(); }
          * 
          * generator.writeFacetMethods(out, component);
          * 
@@ -221,21 +216,19 @@ public class MakeComponentsMojo extends AbstractMojo
          * 
          * generator.writeStateManagementMethods(out, component);
          * 
-         * generator.writeGetFamily(out);
-         *  // protected constructors and methods // TODO: reverse this order,
-         * to make protected constructor go // first // for now we want
-         * consistency with previous code generation generator.writeOther(out,
-         * component);
+         * generator.writeGetFamily(out); // protected constructors and methods //
+         * TODO: reverse this order, to make protected constructor go // first //
+         * for now we want consistency with previous code generation
+         * generator.writeOther(out, component);
          * 
          * generator.writeClassEnd(out);
          * 
-         * out.close();
-         *  // delay write in case of error // timestamp should not be updated
-         * when an error occurs // delete target file first, because it is
-         * readonly targetFile.getParentFile().mkdirs(); targetFile.delete();
-         * FileWriter fw = new FileWriter(targetFile); StringBuffer buf =
-         * sw.getBuffer(); fw.write(buf.toString()); fw.close();
-         * targetFile.setReadOnly(); } } catch (IOException e) {
+         * out.close(); // delay write in case of error // timestamp should not
+         * be updated when an error occurs // delete target file first, because
+         * it is readonly targetFile.getParentFile().mkdirs();
+         * targetFile.delete(); FileWriter fw = new FileWriter(targetFile);
+         * StringBuffer buf = sw.getBuffer(); fw.write(buf.toString());
+         * fw.close(); targetFile.setReadOnly(); } } catch (IOException e) {
          * getLog().error("Error generating " + fullClassName, e); }
          */
     }
@@ -248,10 +241,9 @@ public class MakeComponentsMojo extends AbstractMojo
      * templatePath = Util.convertClassToSourcePath(componentClass,
      * "Template.java"); File targetFile = new File(generatedSourceDirectory,
      * sourcePath); File templateFile = new File(templateSourceDirectory,
-     * templatePath);
-     *  // accept if templateFile is newer or component has been modified return
-     * (templateFile.lastModified() > targetFile.lastModified() || component
-     * .isModifiedSince(targetFile.lastModified())); return true; } }
+     * templatePath); // accept if templateFile is newer or component has been
+     * modified return (templateFile.lastModified() > targetFile.lastModified() ||
+     * component .isModifiedSince(targetFile.lastModified())); return true; } }
      */
 
     private boolean _is12()

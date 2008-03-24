@@ -11,9 +11,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelBuilder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterModel;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ModelItem;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorModel;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
@@ -112,7 +114,7 @@ public class QdoxModelBuilder implements ModelBuilder
         tag = clazz.getTagByName(DOC_CONVERTER, false);
         if (tag != null)
         {
-            processComponent(tag, clazz, model);
+            processConverter(tag, clazz, model);
         }
 
         tag = clazz.getTagByName(DOC_VALIDATOR, false);
@@ -248,10 +250,30 @@ public class QdoxModelBuilder implements ModelBuilder
 
     private void processConverter(DocletTag tag, JavaClass clazz, Model model)
     {
+        String descDflt = "no description";
+        // TODO: here, set the default description to the first sentence of the
+        // class javadoc.
+
+        String converterId = getString(clazz, "id", tag, null);
+
+        ConverterModel converter = new ConverterModel();
+        converter.setClassName(clazz.getName());
+        converter.setConverterId(converterId);
+        model.addConverter(converter);
     }
 
     private void processValidator(DocletTag tag, JavaClass clazz, Model model)
     {
+        String descDflt = "no description";
+        // TODO: here, set the default description to the first sentence of the
+        // class javadoc.
+
+        String validatorId = getString(clazz, "id", tag, null);
+
+        ValidatorModel validator = new ValidatorModel();
+        validator.setClassName(clazz.getName());
+        validator.setValidatorId(validatorId);
+        model.addValidator(validator);
     }
 
     private void processComponent(DocletTag tag, JavaClass clazz, Model model)
@@ -347,11 +369,10 @@ public class QdoxModelBuilder implements ModelBuilder
         for (int i = 0; i < methods.length; ++i)
         {
             JavaMethod method = methods[i];
-            System.out.println("Inspecting method " + method.getName());
-            DocletTag tag = method.getTagByName(DOC_PROPERTY, false);
+            DocletTag tag = method.getTagByName(DOC_PROPERTY);
+
             if (tag != null)
             {
-                System.out.println("found method" + method.getName());
                 Boolean required = getBoolean(clazz, "required", tag,
                         Boolean.FALSE);
                 Boolean transientProp = getBoolean(clazz, "transient", tag,
@@ -362,8 +383,8 @@ public class QdoxModelBuilder implements ModelBuilder
                 AbstractJavaEntity ctx = tag.getContext();
 
                 PropertyModel p = new PropertyModel();
-                p.setPropertyName(methodToPropName(method));
-                p.setPropertyClass("java.lang.String"); // TODO
+                p.setName(methodToPropName(method));
+                p.setClassName("java.lang.String"); // TODO
                 p.setRequired(required.booleanValue());
                 p.setTransient(transientProp.booleanValue());
                 p.setLiteralOnly(literalOnly.booleanValue());
@@ -373,24 +394,32 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
     }
-    
+
     /**
      * Convert a method name to a property name.
      * <p>
      * TODO: this method is not quite correctly implemented. In particular there
-     * are special rules handling things like getURL(); the propname is not "uRL"!
+     * are special rules handling things like getURL(); the propname is not
+     * "uRL"!
      */
-    private String methodToPropName(JavaMethod method) {
+    private String methodToPropName(JavaMethod method)
+    {
         String methName = method.getName();
         StringBuffer name = new StringBuffer();
-        if (methName.startsWith("get") || methName.startsWith("set")) {
+        if (methName.startsWith("get") || methName.startsWith("set"))
+        {
             name.append(methName.substring(3));
-        } else if (methName.startsWith("is")) {
-            name.append(methName.substring(2));
-        } else {
-            throw new IllegalArgumentException("Invalid annotated method name " + methName);
         }
-        
+        else if (methName.startsWith("is"))
+        {
+            name.append(methName.substring(2));
+        }
+        else
+        {
+            throw new IllegalArgumentException("Invalid annotated method name "
+                    + methName);
+        }
+
         char c = name.charAt(0);
         name.setCharAt(0, Character.toLowerCase(c));
         return name.toString();

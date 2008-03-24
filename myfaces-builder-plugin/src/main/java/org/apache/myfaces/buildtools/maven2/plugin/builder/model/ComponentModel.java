@@ -50,14 +50,18 @@ public class ComponentModel extends ModelItem
     protected Map _properties;
 
     /**
-     * Write this model out as xml.
+     * Write an instance of this class out as xml.
      */
-    public static void writeXml(XmlWriter out, ComponentModel cm) {
+    public static void writeXml(XmlWriter out, ComponentModel cm)
+    {
         out.beginElement("component");
-        out.writeAttr("name", cm._name);
-        out.writeAttr("type", cm._type);
-        out.writeAttr("family", cm._family);
-        out.writeAttr("rendererType", cm._rendererType);
+
+        ModelItem.writeXml(out, cm);
+
+        out.writeElement("name", cm._name);
+        out.writeElement("type", cm._type);
+        out.writeElement("family", cm._family);
+        out.writeElement("rendererType", cm._rendererType);
 
         out.writeElement("desc", cm._description);
         out.writeElement("longDesc", cm._longDescription);
@@ -70,17 +74,26 @@ public class ComponentModel extends ModelItem
 
         out.endElement("component");
     }
-    
+
     /**
-     * Add digester rules to repopulate a Model instance from an xml file.
+     * Add digester rules to repopulate an instance of this type from an xml
+     * file.
      */
-    public static void addXmlRules(Digester digester, String prefix) {
+    public static void addXmlRules(Digester digester, String prefix)
+    {
         String newPrefix = prefix + "/component";
-        
+
         digester.addObjectCreate(newPrefix, ComponentModel.class);
-        digester.addSetProperties(newPrefix);
+
+        ModelItem.addXmlRules(digester, newPrefix);
+
+        digester.addBeanPropertySetter(newPrefix + "/name");
+        digester.addBeanPropertySetter(newPrefix + "/type");
+        digester.addBeanPropertySetter(newPrefix + "/family");
+        digester.addBeanPropertySetter(newPrefix + "/rendererType");
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
-        digester.addBeanPropertySetter(newPrefix + "/longDesc", "longDescription");
+        digester.addBeanPropertySetter(newPrefix + "/longDesc",
+                "longDescription");
         PropertyModel.addXmlRules(digester, newPrefix);
     }
 
@@ -335,7 +348,7 @@ public class ComponentModel extends ModelItem
      */
     public void addProperty(PropertyModel property)
     {
-        _properties.put(property.getPropertyName(), property);
+        _properties.put(property.getName(), property);
     }
 
     /**

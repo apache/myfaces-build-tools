@@ -18,12 +18,9 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
-import java.beans.IntrospectionException;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Iterator;
@@ -34,13 +31,11 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import org.apache.commons.digester.Digester;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentModel;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
-import org.xml.sax.SAXException;
 
 /**
  * Creates taglib (tld) and faces-config files.
@@ -109,7 +104,8 @@ public class MakeConfigMojo extends AbstractMojo
     {
         try
         {
-            Model model = readModel(project);
+            Model model = IOUtils.loadModel(new File(targetDirectory,
+                    metadataFile));
             model.flatten();
             generateConfig(model);
             throw new MojoExecutionException("Error during generation");
@@ -117,39 +113,6 @@ public class MakeConfigMojo extends AbstractMojo
         catch (IOException e)
         {
             throw new MojoExecutionException("Error generating components", e);
-        }
-    }
-
-    /**
-     * Scan the source tree for annotations. Sets
-     */
-    private Model readModel(MavenProject project) throws MojoExecutionException
-    {
-        File infile = new File(targetDirectory, metadataFile);
-        try
-        {
-            FileReader xmlReader = new FileReader(infile);
-            Digester d = new Digester();
-            
-            Model.addXmlRules(d);
-            
-            d.parse(infile);
-
-            Model model = (Model) d.getRoot();
-            xmlReader.close();
-            return model;
-        }
-        catch (FileNotFoundException e)
-        {
-            throw new MojoExecutionException("No metadata file:" + infile);
-        }
-        catch (IOException e)
-        {
-            throw new MojoExecutionException("Unable to load metadata", e);
-        }
-        catch (SAXException e)
-        {
-            throw new MojoExecutionException("Unable to load metadata", e);
         }
     }
 

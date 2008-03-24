@@ -21,6 +21,9 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 import java.lang.reflect.Modifier;
 import java.util.logging.Logger;
 
+import org.apache.commons.digester.Digester;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
+
 /**
  */
 public class ValidatorModel
@@ -35,6 +38,36 @@ public class ValidatorModel
     private String _validatorSuperClass;
     private int _validatorClassModifiers;
     private boolean _tagClassExcluded;
+
+    /**
+     * Write an instance of this class out as xml.
+     */
+    public static void writeXml(XmlWriter out, ValidatorModel vm)
+    {
+        out.beginElement("validator");
+
+        out.writeElement("className", vm._className);
+        out.writeElement("validatorId", vm._validatorId);
+        out.writeElement("validatorClass", vm._validatorClass);
+        out.writeElement("validatorSuperClass", vm._validatorSuperClass);
+
+        out.endElement("validator");
+    }
+
+    /**
+     * Add digester rules to repopulate an instance of this type from an xml
+     * file.
+     */
+    public static void addXmlRules(Digester digester, String prefix)
+    {
+        String newPrefix = prefix + "/validator";
+
+        digester.addObjectCreate(newPrefix, ConverterModel.class);
+        digester.addBeanPropertySetter(newPrefix + "/className");
+        digester.addBeanPropertySetter(newPrefix + "/validatorId");
+        digester.addBeanPropertySetter(newPrefix + "/validatorClass");
+        digester.addBeanPropertySetter(newPrefix + "/validatorSuperClass");
+    }
 
     /**
      * The name of the class that this metadata applies to.

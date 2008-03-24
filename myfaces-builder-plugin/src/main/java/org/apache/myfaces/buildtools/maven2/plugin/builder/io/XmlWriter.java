@@ -66,8 +66,11 @@ public class XmlWriter
     }
 
     private static final String XML_CHARS = "<>&";
-    private boolean containsXmlChars(String text) {
-        for(int i=0; i<XML_CHARS.length(); ++i) {
+
+    private boolean containsXmlChars(String text)
+    {
+        for (int i = 0; i < XML_CHARS.length(); ++i)
+        {
             if (text.indexOf(XML_CHARS.charAt(i)) >= 0)
                 return true;
         }
@@ -94,14 +97,20 @@ public class XmlWriter
 
         if (containsXmlChars(body))
         {
-            if (body.indexOf("\n") > 0) {
-                // multi-line body, so it is most readable when the CDATA markers
+            if (body.indexOf("\n") > 0)
+            {
+                // multi-line body, so it is most readable when the CDATA
+                // markers
                 // are against the left-hand margin
                 out.write("\n<![CDATA[\n");
                 out.write(body);
-                out.write("\n]]>\n");
+                out.write("\n]]>");
+
+                // Write the end tag on the next line, correctly indented
+                indent();
             }
-            else {
+            else
+            {
                 // just a small body, so output it "inline"
                 out.write("<![CDATA[");
                 out.write(body);
@@ -117,6 +126,11 @@ public class XmlWriter
         out.write(">");
 
         ((Context) contexts.peek()).hasContent = true;
+    }
+
+    public void writeElement(String name, boolean value)
+    {
+        writeElement(name, String.valueOf(value));
     }
 
     public void beginElement(String name)
@@ -161,11 +175,12 @@ public class XmlWriter
     public void endElement(String name)
     {
         Context c = (Context) contexts.pop();
-        
-        if (!c.elementName.equals(name)) {
-            throw new IllegalStateException(
-                  "Unbalanced xml: expected to end [" + c.elementName + "]"
-                  + " but [" + name + "] was ended instead");
+
+        if (!c.elementName.equals(name))
+        {
+            throw new IllegalStateException("Unbalanced xml: expected to end ["
+                    + c.elementName + "]" + " but [" + name
+                    + "] was ended instead");
         }
 
         if (c.hasContent)
@@ -178,6 +193,7 @@ public class XmlWriter
         else
         {
             out.write("/>");
+            --indent; // decrement the indent, but do not write the linefeed
         }
         openElement = false;
     }

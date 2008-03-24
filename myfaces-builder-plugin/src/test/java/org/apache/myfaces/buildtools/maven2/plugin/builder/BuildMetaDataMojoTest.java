@@ -18,8 +18,6 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
-import java.io.StringWriter;
-
 import junit.framework.TestCase;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentModel;
@@ -31,13 +29,6 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyModel;
  */
 public class BuildMetaDataMojoTest extends TestCase
 {
-    public void testScan()
-    {
-        BuildMetaDataMojo mojo = new BuildMetaDataMojo();
-        
-
-    }
-
     public void testWrite() throws Exception
     {
         Model model = new Model();
@@ -52,7 +43,7 @@ public class BuildMetaDataMojoTest extends TestCase
         comp.setType("mockType");
 
         PropertyModel prop = new PropertyModel();
-        prop.setPropertyName("mockProp");
+        prop.setName("mockProp");
         prop.setDescription("propdesc");
         prop.setLiteralOnly(true);
         prop.setRequired(true);
@@ -60,11 +51,5 @@ public class BuildMetaDataMojoTest extends TestCase
 
         model.addComponent(comp);
 
-        BuildMetaDataMojo mojo = new BuildMetaDataMojo();
-
-        StringWriter out = new StringWriter();
-        mojo.writeModel(out, model);
-
-        assertEquals("", out.toString());
     }
 }

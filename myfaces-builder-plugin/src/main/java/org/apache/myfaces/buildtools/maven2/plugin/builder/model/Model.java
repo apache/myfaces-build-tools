@@ -48,30 +48,46 @@ public class Model
     /**
      * Write this model out as xml.
      * <p>
-     * Having a hand-coded method like this is not very elegant; it would be better
-     * to do this via some library like Betwixt. However I'm not very familiar with
-     * such libs, so hand-coding is quicker for now.
+     * Having a hand-coded method like this is not very elegant; it would be
+     * better to do this via some library like Betwixt. However I'm not very
+     * familiar with such libs, so hand-coding is quicker for now.
      */
-    public static void writeXml(XmlWriter out, Model model) {
+    public static void writeXml(XmlWriter out, Model model)
+    {
         out.beginElement("model");
-        
-        for(Iterator i = model._components.iterator(); i.hasNext(); ) {
+
+        for (Iterator i = model._components.iterator(); i.hasNext();)
+        {
             ComponentModel c = (ComponentModel) i.next();
             ComponentModel.writeXml(out, c);
         }
+
+        for (Iterator i = model._converters.iterator(); i.hasNext();)
+        {
+            ConverterModel c = (ConverterModel) i.next();
+            ConverterModel.writeXml(out, c);
+        }
+
+        for (Iterator i = model._validators.iterator(); i.hasNext();)
+        {
+            ValidatorModel c = (ValidatorModel) i.next();
+            ValidatorModel.writeXml(out, c);
+        }
+
         out.endElement("model");
     }
 
     /**
      * Add digester rules to repopulate a Model instance from an xml file.
      * <p>
-     * Having a hand-coded method like this is not very elegant; it would be better
-     * to do this via some library like Betwixt. However I'm not very familiar with
-     * such libs, so hand-coding is quicker for now.
+     * Having a hand-coded method like this is not very elegant; it would be
+     * better to do this via some library like Betwixt. However I'm not very
+     * familiar with such libs, so hand-coding is quicker for now.
      */
-    public static void addXmlRules(Digester digester) {
+    public static void addXmlRules(Digester digester)
+    {
         String prefix = "model";
-        
+
         digester.addObjectCreate(prefix, Model.class);
         ComponentModel.addXmlRules(digester, prefix);
     }
@@ -115,7 +131,7 @@ public class Model
         for (Iterator i = src.properties(); i.hasNext();)
         {
             PropertyModel prop = (PropertyModel) i.next();
-            if (dst.getProperty(prop.getPropertyName()) == null)
+            if (dst.getProperty(prop.getName()) == null)
             {
                 dst.addProperty(prop);
             }
@@ -124,7 +140,7 @@ public class Model
                 // TODO: consider checking that the redefinition of the
                 // property is "compatible".
                 _LOG.info("Duplicate prop def for class " + dst.getClassName()
-                        + " prop " + prop.getPropertyName());
+                        + " prop " + prop.getName());
             }
 
         }

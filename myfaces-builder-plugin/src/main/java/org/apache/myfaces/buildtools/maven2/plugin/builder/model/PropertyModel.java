@@ -18,8 +18,6 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
-import java.util.Iterator;
-
 import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
@@ -28,64 +26,69 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 public class PropertyModel
 {
     private String _name;
-    private String _propertyClass;
+    private String _className;
     private boolean _required;
     private boolean _literalOnly;
     private boolean _transient;
     private String _description;
+    private String _longDescription;
 
     /**
      * Write this model out as xml.
      */
-    public static void writeXml(XmlWriter out, PropertyModel pm) {
+    public static void writeXml(XmlWriter out, PropertyModel pm)
+    {
         out.beginElement("property");
-        out.writeAttr("name", pm._name);
+        out.writeElement("name", pm._name);
+        out.writeElement("className", pm._className);
+        out.writeElement("required", pm._required);
+        out.writeElement("literalOnly", pm._literalOnly);
+        out.writeElement("transient", pm._transient);
         out.writeElement("desc", pm._description);
+        out.writeElement("longDesc", pm._longDescription);
         out.endElement("property");
     }
-    
+
     /**
      * Add digester rules to repopulate a Model instance from an xml file.
      */
-    public static void addXmlRules(Digester digester, String prefix) {
+    public static void addXmlRules(Digester digester, String prefix)
+    {
         String newPrefix = prefix + "/property";
-        
+
         digester.addObjectCreate(newPrefix, PropertyModel.class);
-        digester.addSetProperties(newPrefix, "name", "propertyName");
+        digester.addBeanPropertySetter(newPrefix + "/name");
+        digester.addBeanPropertySetter(newPrefix + "/className");
+        digester.addBeanPropertySetter(newPrefix + "/required");
+        digester.addBeanPropertySetter(newPrefix + "/literalOnly");
+        digester.addBeanPropertySetter(newPrefix + "/transient");
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
-        digester.addBeanPropertySetter(newPrefix + "/longDesc", "longDescription");
+        digester.addBeanPropertySetter(newPrefix + "/longDesc",
+                "longDescription");
     }
 
     /**
      * Sets the name of this property.
-     * 
-     * @param propertyName
-     *            the property name
      */
-    public void setPropertyName(String propertyName)
+    public void setName(String name)
     {
-        _name = propertyName;
+        _name = name;
     }
 
     /**
      * Returns the name of this property.
-     * 
-     * @return the property name
      */
-    public String getPropertyName()
+    public String getName()
     {
         return _name;
     }
 
     /**
      * Sets the property class for this property.
-     * 
-     * @param propertyClass
-     *            the property class
      */
-    public void setPropertyClass(String propertyClass)
+    public void setClassName(String className)
     {
-        this._propertyClass = propertyClass;
+        this._className = className;
     }
 
     /**
@@ -93,9 +96,9 @@ public class PropertyModel
      * 
      * @return the property class
      */
-    public String getPropertyClass()
+    public String getClassName()
     {
-        return _propertyClass;
+        return _className;
     }
 
     /**
@@ -171,6 +174,16 @@ public class PropertyModel
         return _description;
     }
 
+    public void setLongDescription(String desc)
+    {
+        _longDescription = desc;
+    }
+
+    public String getLongDescription()
+    {
+        return _longDescription;
+    }
+
     /**
      * Returns true if this property is a method binding.
      * 
@@ -178,7 +191,7 @@ public class PropertyModel
      */
     public boolean isMethodBinding()
     {
-        return ("javax.faces.el.MethodBinding".equals(getPropertyClass()));
+        return ("javax.faces.el.MethodBinding".equals(getClassName()));
     }
 
     /**
@@ -188,6 +201,6 @@ public class PropertyModel
      */
     public boolean isMethodExpression()
     {
-        return ("javax.el.MethodExpression".equals(getPropertyClass()));
+        return ("javax.el.MethodExpression".equals(getClassName()));
     }
 }
