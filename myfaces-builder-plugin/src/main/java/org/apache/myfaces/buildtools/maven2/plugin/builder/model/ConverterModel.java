@@ -23,115 +23,131 @@ import java.util.logging.Logger;
 
 /**
  */
-public class ConverterModel
+public class ConverterModel extends ModelItem
 {
-	  static private final Logger _LOG = Logger.getLogger(ConverterModel.class.getName());
+    static private final Logger _LOG = Logger.getLogger(ConverterModel.class
+            .getName());
 
-	  private String  _converterId;
-	  private String  _converterClass;
-	  private String  _converterSuperClass;
-	  private int     _converterClassModifiers;
+    private String _className;
 
-  /**
-   * Sets the converter identifer for this component.
-   *
-   * @param converterId  converter identifer
-   */
-  public void setConverterId(
-    String converterId)
-  {
-    _converterId = converterId;
-  }
+    private String _converterId;
+    private String _converterClass;
+    private String _converterSuperClass;
+    private int _converterClassModifiers;
 
-  /**
-   * Returns true if the converter identifier is specified, otherwise false.
-   *
-   * @return  true if the converter identifier is specified,
-   *          otherwise false.
-   */
-  public boolean hasConverterId()
-  {
-    return (_converterId != null);
-  }
-
-  /**
-   * Returns the converter identifier for this component.
-   *
-   * @return  the converter identifier
-   */
-  public String getConverterId()
-  {
-    return _converterId;
-  }
-
-  /**
-   * Sets the converter class for this component.
-   *
-   * @param converterClass  the converter class
-   */
-  public void setConverterClass(String converterClass)
-  {
-    _converterClass = converterClass;
-  }
-
-  /**
-   * Returns the converter class for this component.
-   *
-   * @return  the converter class
-   */
-  public String getConverterClass()
-  {
-    return _converterClass;
-  }
-
-  /**
-   * Sets the converter super class for this component.
-   *
-   * @param converterSuperClass  the converter super class
-   */
-  public void setSuperClass(String converterSuperClass)
-  {
-    _converterSuperClass = converterSuperClass;
-  }
-
-  /**
-   * Returns the converter super class for this component.
-   *
-   * @return  the converter super class
-   */
-  public String getConverterSuperClass()
-  {
-    return _converterSuperClass;
-  }
-
-  /**
-   * Adds a Java Language class modifier to the converter class.
-   *
-   * @param modifier  the modifier to be added
-   */
-  public void addConverterClassModifier(
-    int modifier)
-  {
-    _converterClassModifiers |= modifier;
-  }
-
-  /**
-   * Returns the Java Language class modifiers for the converter class.
-   * By default, these modifiers include Modifier.PUBLIC.
-   *
-   * @return  the Java Language class modifiers for the converter class
-   */
-  public int getConverterClassModifiers()
-  {
-    int modifiers = _converterClassModifiers;
-
-    if (!Modifier.isPrivate(modifiers) &&
-        !Modifier.isProtected(modifiers) &&
-        !Modifier.isPublic(modifiers))
+    /**
+     * The name of the class that this metadata applies to.
+     */
+    public String getClassName()
     {
-      modifiers |= Modifier.PUBLIC;
+        return _className;
     }
 
-    return modifiers;
-  }
+    public void setClassName(String className)
+    {
+        _className = className;
+    }
+
+    /**
+     * Sets the converter identifer for this component.
+     * 
+     * @param converterId
+     *            converter identifer
+     */
+    public void setConverterId(String converterId)
+    {
+        _converterId = converterId;
+    }
+
+    /**
+     * Returns true if the converter identifier is specified, otherwise false.
+     * 
+     * @return true if the converter identifier is specified, otherwise false.
+     */
+    public boolean hasConverterId()
+    {
+        return (_converterId != null);
+    }
+
+    /**
+     * Returns the converter identifier for this component.
+     * 
+     * @return the converter identifier
+     */
+    public String getConverterId()
+    {
+        return _converterId;
+    }
+
+    /**
+     * Sets the converter class for this component.
+     * 
+     * @param converterClass
+     *            the converter class
+     */
+    public void setConverterClass(String converterClass)
+    {
+        _converterClass = converterClass;
+    }
+
+    /**
+     * Returns the converter class for this component.
+     * 
+     * @return the converter class
+     */
+    public String getConverterClass()
+    {
+        return _converterClass;
+    }
+
+    /**
+     * Sets the converter super class for this component.
+     * 
+     * @param converterSuperClass
+     *            the converter super class
+     */
+    public void setSuperClass(String converterSuperClass)
+    {
+        _converterSuperClass = converterSuperClass;
+    }
+
+    /**
+     * Returns the converter super class for this component.
+     * 
+     * @return the converter super class
+     */
+    public String getConverterSuperClass()
+    {
+        return _converterSuperClass;
+    }
+
+    /**
+     * Adds a Java Language class modifier to the converter class.
+     * 
+     * @param modifier
+     *            the modifier to be added
+     */
+    public void addConverterClassModifier(int modifier)
+    {
+        _converterClassModifiers |= modifier;
+    }
+
+    /**
+     * Returns the Java Language class modifiers for the converter class. By
+     * default, these modifiers include Modifier.PUBLIC.
+     * 
+     * @return the Java Language class modifiers for the converter class
+     */
+    public int getConverterClassModifiers()
+    {
+        int modifiers = _converterClassModifiers;
+
+        if (!Modifier.isPrivate(modifiers) && !Modifier.isProtected(modifiers)
+                && !Modifier.isPublic(modifiers))
+        {
+            modifiers |= Modifier.PUBLIC;
+        }
+
+        return modifiers;
+    }
 }

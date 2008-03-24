@@ -18,152 +18,176 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
+import java.util.Iterator;
+
+import org.apache.commons.digester.Digester;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
+
 /**
  */
 public class PropertyModel
 {
-  private String name;
-  private String propertyClass;
-  private boolean _required;
-  private boolean _literalOnly;
-  private boolean _transient;
-  private String description;
-	
-  /**
-   * Sets the name of this property.
-   *
-   * @param propertyName  the property name
-   */
-  public void setPropertyName(
-    String propertyName)
-  {
-    name = propertyName;
-  }
+    private String _name;
+    private String _propertyClass;
+    private boolean _required;
+    private boolean _literalOnly;
+    private boolean _transient;
+    private String _description;
 
-  /**
-   * Returns the name of this property.
-   *
-   * @return  the property name
-   */
-  public String getPropertyName()
-  {
-    return name;
-  }
+    /**
+     * Write this model out as xml.
+     */
+    public static void writeXml(XmlWriter out, PropertyModel pm) {
+        out.beginElement("property");
+        out.writeAttr("name", pm._name);
+        out.writeElement("desc", pm._description);
+        out.endElement("property");
+    }
+    
+    /**
+     * Add digester rules to repopulate a Model instance from an xml file.
+     */
+    public static void addXmlRules(Digester digester, String prefix) {
+        String newPrefix = prefix + "/property";
+        
+        digester.addObjectCreate(newPrefix, PropertyModel.class);
+        digester.addSetProperties(newPrefix, "name", "propertyName");
+        digester.addBeanPropertySetter(newPrefix + "/desc", "description");
+        digester.addBeanPropertySetter(newPrefix + "/longDesc", "longDescription");
+    }
 
-  /**
-   * Sets the property class for this property.
-   *
-   * @param propertyClass  the property class
-   */
-  public void setPropertyClass(
-    String propertyClass)
-  {
-    this.propertyClass = propertyClass;
-  }
+    /**
+     * Sets the name of this property.
+     * 
+     * @param propertyName
+     *            the property name
+     */
+    public void setPropertyName(String propertyName)
+    {
+        _name = propertyName;
+    }
 
-  /**
-   * Returns the property class for this property.
-   *
-   * @return  the property class
-   */
-  public String getPropertyClass()
-  {
-    return propertyClass;
-  }
+    /**
+     * Returns the name of this property.
+     * 
+     * @return the property name
+     */
+    public String getPropertyName()
+    {
+        return _name;
+    }
 
-  /**
-   * Sets the transient flag of this property.
-   *
-   * @param transient  the property transient flag
-   */
-  public void setTransient(
-    boolean transient_)
-  {
-    _transient = transient_;
-  }
+    /**
+     * Sets the property class for this property.
+     * 
+     * @param propertyClass
+     *            the property class
+     */
+    public void setPropertyClass(String propertyClass)
+    {
+        this._propertyClass = propertyClass;
+    }
 
-  /**
-   * Returns transient flag of this property.
-   *
-   * @return  the property transient flag
-   */
-  public boolean isTransient()
-  {
-    return _transient;
-  }
+    /**
+     * Returns the property class for this property.
+     * 
+     * @return the property class
+     */
+    public String getPropertyClass()
+    {
+        return _propertyClass;
+    }
 
-  /**
-   * Sets the required flag of this property.
-   *
-   * @param required  the property required flag
-   */
-  public void setRequired(
-    boolean required)
-  {
-    _required = required;
-  }
+    /**
+     * Sets the transient flag of this property.
+     * 
+     * @param transient
+     *            the property transient flag
+     */
+    public void setTransient(boolean transient_)
+    {
+        _transient = transient_;
+    }
 
-  /**
-   * Returns required flag of this property.
-   *
-   * @return  the property required flag
-   */
-  public boolean isRequired()
-  {
-    return _required;
-  }
+    /**
+     * Returns transient flag of this property.
+     * 
+     * @return the property transient flag
+     */
+    public boolean isTransient()
+    {
+        return _transient;
+    }
 
-  /**
-   * Sets the literalOnly flag of this property.
-   *
-   * @param literalOnly  the property literalOnly flag
-   */
-  public void setLiteralOnly(
-    boolean literalOnly)
-  {
-    _literalOnly = literalOnly;
-  }
+    /**
+     * Sets the required flag of this property.
+     * 
+     * @param required
+     *            the property required flag
+     */
+    public void setRequired(boolean required)
+    {
+        _required = required;
+    }
 
-  /**
-   * Returns literalOnly flag of this property.
-   *
-   * @return  the property literalOnly flag
-   */
-  public boolean isLiteralOnly()
-  {
-    return _literalOnly;
-  }
+    /**
+     * Returns required flag of this property.
+     * 
+     * @return the property required flag
+     */
+    public boolean isRequired()
+    {
+        return _required;
+    }
 
-  public void setDescription(String desc)
-  {
-	  description = desc;
-  }
-  
-  public String getDescription()
-  {
-	return description;  
-  }
+    /**
+     * Sets the literalOnly flag of this property.
+     * 
+     * @param literalOnly
+     *            the property literalOnly flag
+     */
+    public void setLiteralOnly(boolean literalOnly)
+    {
+        _literalOnly = literalOnly;
+    }
 
-  /**
-   * Returns true if this property is a method binding.
-   *
-   * @return true  if this property is a method binding,
-   *         otherwise false
-   */
-  public boolean isMethodBinding()
-  {
-    return ("javax.faces.el.MethodBinding".equals(getPropertyClass()));
-  }
+    /**
+     * Returns literalOnly flag of this property.
+     * 
+     * @return the property literalOnly flag
+     */
+    public boolean isLiteralOnly()
+    {
+        return _literalOnly;
+    }
 
+    public void setDescription(String desc)
+    {
+        _description = desc;
+    }
 
-  /**
-   * Returns true if this property is a method binding.
-   *
-   * @return true  if this property is a method binding,
-   *         otherwise false
-   */
-  public boolean isMethodExpression()
-  {
-    return ("javax.el.MethodExpression".equals(getPropertyClass()));
-  }
+    public String getDescription()
+    {
+        return _description;
+    }
+
+    /**
+     * Returns true if this property is a method binding.
+     * 
+     * @return true if this property is a method binding, otherwise false
+     */
+    public boolean isMethodBinding()
+    {
+        return ("javax.faces.el.MethodBinding".equals(getPropertyClass()));
+    }
+
+    /**
+     * Returns true if this property is a method binding.
+     * 
+     * @return true if this property is a method binding, otherwise false
+     */
+    public boolean isMethodExpression()
+    {
+        return ("javax.el.MethodExpression".equals(getPropertyClass()));
+    }
 }

@@ -25,126 +25,140 @@ import java.util.logging.Logger;
  */
 public class ValidatorModel
 {
-  static private final Logger _LOG = Logger.getLogger(ValidatorModel.class.getName());
+    static private final Logger _LOG = Logger.getLogger(ValidatorModel.class
+            .getName());
 
-  private String  _validatorId;
-  private String  _validatorClass;
-  private String  _validatorSuperClass;
-  private int     _validatorClassModifiers;
-  private boolean _tagClassExcluded;
+    private String _className;
 
-  /**
-   * Sets the validator identifer for this component.
-   *
-   * @param validatorId  validator identifer
-   */
-  public void setValidatorId(
-    String validatorId)
-  {
-    _validatorId = validatorId;
-  }
+    private String _validatorId;
+    private String _validatorClass;
+    private String _validatorSuperClass;
+    private int _validatorClassModifiers;
+    private boolean _tagClassExcluded;
 
-  /**
-   * Returns true if the validator identifier is specified, otherwise false.
-   *
-   * @return  true if the validator identifier is specified,
-   *          otherwise false.
-   */
-  public boolean hasValidatorId()
-  {
-    return (_validatorId != null);
-  }
-
-  /**
-   * Returns the validator identifier for this component.
-   *
-   * @return  the validator identifier
-   */
-  public String getValidatorId()
-  {
-    return _validatorId;
-  }
-
-  /**
-   * Sets the validator class for this component.
-   *
-   * @param validatorClass  the validator class
-   */
-  public void setValidatorClass(
-    String validatorClass)
-  {
-    _validatorClass = validatorClass;
-  }
-
-  /**
-   * Returns the validator class for this component.
-   *
-   * @return  the validator class
-   */
-  public String getValidatorClass()
-  {
-    return _validatorClass;
-  }
-
-  /**
-   * Sets the validator super class for this component.
-   *
-   * @param validatorSuperClass  the validator super class
-   */
-  public void setValidatorSuperClass(
-    String validatorSuperClass)
-  {
-    _validatorSuperClass = validatorSuperClass;
-  }
-
-  /**
-   * Returns the validator super class for this component.
-   *
-   * @return  the validator super class
-   */
-  public String getValidatorSuperClass()
-  {
-    return _validatorSuperClass;
-  }
-
-  /**
-   * Adds a Java Language class modifier to the validator class.
-   *
-   * @param modifier  the modifier to be added
-   */
-  public void addValidatorClassModifier(
-    int modifier)
-  {
-    _validatorClassModifiers |= modifier;
-  }
-
-  /**
-   * Returns the Java Language class modifiers for the validator class.
-   * By default, these modifiers include Modifier.PUBLIC.
-   *
-   * @return  the Java Language class modifiers for the validator class
-   */
-  public int getValidatorClassModifiers()
-  {
-    int modifiers = _validatorClassModifiers;
-
-    if (!Modifier.isPrivate(modifiers) &&
-        !Modifier.isProtected(modifiers) &&
-        !Modifier.isPublic(modifiers))
+    /**
+     * The name of the class that this metadata applies to.
+     */
+    public String getClassName()
     {
-      modifiers |= Modifier.PUBLIC;
+        return _className;
     }
 
-    return modifiers;
-  }
-  
-  public void setTagClassExcluded(boolean tagClassExcluded)
-  {
-    _tagClassExcluded = tagClassExcluded;
-  }
+    public void setClassName(String className)
+    {
+        _className = className;
+    }
 
-  public boolean isTagClassExcluded()
-  {
-    return _tagClassExcluded;
-  }
+    /**
+     * Sets the validator identifer for this component.
+     * 
+     * @param validatorId
+     *            validator identifer
+     */
+    public void setValidatorId(String validatorId)
+    {
+        _validatorId = validatorId;
+    }
+
+    /**
+     * Returns true if the validator identifier is specified, otherwise false.
+     * 
+     * @return true if the validator identifier is specified, otherwise false.
+     */
+    public boolean hasValidatorId()
+    {
+        return (_validatorId != null);
+    }
+
+    /**
+     * Returns the validator identifier for this component.
+     * 
+     * @return the validator identifier
+     */
+    public String getValidatorId()
+    {
+        return _validatorId;
+    }
+
+    /**
+     * Sets the validator class for this component.
+     * 
+     * @param validatorClass
+     *            the validator class
+     */
+    public void setValidatorClass(String validatorClass)
+    {
+        _validatorClass = validatorClass;
+    }
+
+    /**
+     * Returns the validator class for this component.
+     * 
+     * @return the validator class
+     */
+    public String getValidatorClass()
+    {
+        return _validatorClass;
+    }
+
+    /**
+     * Sets the validator super class for this component.
+     * 
+     * @param validatorSuperClass
+     *            the validator super class
+     */
+    public void setValidatorSuperClass(String validatorSuperClass)
+    {
+        _validatorSuperClass = validatorSuperClass;
+    }
+
+    /**
+     * Returns the validator super class for this component.
+     * 
+     * @return the validator super class
+     */
+    public String getValidatorSuperClass()
+    {
+        return _validatorSuperClass;
+    }
+
+    /**
+     * Adds a Java Language class modifier to the validator class.
+     * 
+     * @param modifier
+     *            the modifier to be added
+     */
+    public void addValidatorClassModifier(int modifier)
+    {
+        _validatorClassModifiers |= modifier;
+    }
+
+    /**
+     * Returns the Java Language class modifiers for the validator class. By
+     * default, these modifiers include Modifier.PUBLIC.
+     * 
+     * @return the Java Language class modifiers for the validator class
+     */
+    public int getValidatorClassModifiers()
+    {
+        int modifiers = _validatorClassModifiers;
+
+        if (!Modifier.isPrivate(modifiers) && !Modifier.isProtected(modifiers)
+                && !Modifier.isPublic(modifiers))
+        {
+            modifiers |= Modifier.PUBLIC;
+        }
+
+        return modifiers;
+    }
+
+    public void setTagClassExcluded(boolean tagClassExcluded)
+    {
+        _tagClassExcluded = tagClassExcluded;
+    }
+
+    public boolean isTagClassExcluded()
+    {
+        return _tagClassExcluded;
+    }
 }

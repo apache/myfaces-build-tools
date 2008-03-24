@@ -26,21 +26,20 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import org.apache.commons.betwixt.io.BeanReader;
+import org.apache.commons.digester.Digester;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentModel;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyModel;
 import org.xml.sax.SAXException;
 
 /**
@@ -50,167 +49,221 @@ import org.xml.sax.SAXException;
  * @goal make-config
  * @phase generate-sources
  */
-public class MakeConfigMojo extends AbstractMojo {
-	final Logger log = Logger.getLogger(MakeConfigMojo.class.getName());
+public class MakeConfigMojo extends AbstractMojo
+{
+    final Logger log = Logger.getLogger(MakeConfigMojo.class.getName());
 
-	/**
-	 * @parameter expression="${project}"
-	 * @readonly
-	 */
-	private MavenProject project;
+    /**
+     * @parameter expression="${project}"
+     * @readonly
+     */
+    private MavenProject project;
 
-	/**
-	 * @parameter expression="${project.build.directory}"
-	 */
-	private File targetDirectory;
+    /**
+     * @parameter expression="${project.build.directory}"
+     * @readonly
+     */
+    private File targetDirectory;
 
-	/**
-	 * @parameter
-	 */
-	private String metadataFile = "classes/META-INF/myfaces-metadata.xml";
+    /**
+     * The directory for compiled classes.
+     * 
+     * @parameter expression="${project.build.outputDirectory}"
+     * @required
+     * @readonly
+     */
+    private File outputDirectory;
 
-	/**
-	 * @parameter
-	 */
-	private String facesConfigFile = "classes/META-INF/standard-faces-config.xml";
+    /**
+     * @parameter
+     */
+    private String metadataFile = "classes/META-INF/myfaces-metadata.xml";
 
-	/**
-	 * Execute the Mojo.
-	 */
-	public void execute() throws MojoExecutionException {
-		try {
-			Model model = readModel(project);
-			generateConfig(model);
-			throw new MojoExecutionException("Error during generation");
-		} catch (IOException e) {
-			throw new MojoExecutionException("Error generating components", e);
-		}
-	}
+    /**
+     * @parameter
+     */
+    private String facesConfigFile = "classes/META-INF/standard-faces-config.xml";
 
-	/**
-	 * Scan the source tree for annotations. Sets
-	 */
-	private Model readModel(MavenProject project) throws MojoExecutionException {
-		File infile = new File(targetDirectory, metadataFile);
-		try {
-			FileReader xmlReader = new FileReader(infile);
-			BeanReader beanReader = new BeanReader();
-			beanReader.getXMLIntrospector().getConfiguration()
-					.setAttributesForPrimitives(false);
-			beanReader.getBindingConfiguration().setMapIDs(false);
+    /**
+     * The source directories containing the sources to be compiled.
+     * 
+     * @parameter expression="${project.compileSourceRoots}"
+     * @required
+     * @readonly
+     */
+    private List compileSourceRoots;
 
-			beanReader.registerBeanClass("model", Model.class);
-			Model model = (Model) beanReader.parse(xmlReader);
-			xmlReader.close();
-			return model;
-		} catch (FileNotFoundException e) {
-			throw new MojoExecutionException("No metadata file:" + infile);
-		} catch (IntrospectionException e) {
-			throw new MojoExecutionException("Unable to load metadata", e);
-		} catch (IOException e) {
-			throw new MojoExecutionException("Unable to load metadata", e);
-		} catch (SAXException e) {
-			throw new MojoExecutionException("Unable to load metadata", e);
-		}
-	}
+    /**
+     * Project classpath.
+     * 
+     * @parameter expression="${project.compileClasspathElements}"
+     * @required
+     * @readonly
+     */
+    private List classpathElements;
 
-	/**
-	 * Generates parsed components.
-	 * 
-	 * TODO: probably better to use Velocity or similar to generate the output
-	 * from the model than direct print statements. Alternately, build a DOM
-	 * representation of the model then apply an xslt stylesheet to the dom.
-	 */
-	private void generateConfig(Model model) throws IOException,
-			MojoExecutionException {
+    /**
+     * Execute the Mojo.
+     */
+    public void execute() throws MojoExecutionException
+    {
+        try
+        {
+            Model model = readModel(project);
+            model.flatten();
+            generateConfig(model);
+            throw new MojoExecutionException("Error during generation");
+        }
+        catch (IOException e)
+        {
+            throw new MojoExecutionException("Error generating components", e);
+        }
+    }
 
-		File targetFile = new File(targetDirectory, facesConfigFile);
+    /**
+     * Scan the source tree for annotations. Sets
+     */
+    private Model readModel(MavenProject project) throws MojoExecutionException
+    {
+        File infile = new File(targetDirectory, metadataFile);
+        try
+        {
+            FileReader xmlReader = new FileReader(infile);
+            Digester d = new Digester();
+            
+            Model.addXmlRules(d);
+            
+            d.parse(infile);
 
-		try {
-			getLog().info("Generating " + targetFile);
+            Model model = (Model) d.getRoot();
+            xmlReader.close();
+            return model;
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new MojoExecutionException("No metadata file:" + infile);
+        }
+        catch (IOException e)
+        {
+            throw new MojoExecutionException("Unable to load metadata", e);
+        }
+        catch (SAXException e)
+        {
+            throw new MojoExecutionException("Unable to load metadata", e);
+        }
+    }
 
-			targetFile.delete();
-			targetFile.getParentFile().mkdirs();
+    /**
+     * Generates parsed components.
+     * 
+     * TODO: probably better to use Velocity or similar to generate the output
+     * from the model than direct print statements. Alternately, build a DOM
+     * representation of the model then apply an xslt stylesheet to the dom.
+     */
+    private void generateConfig(Model model) throws IOException,
+            MojoExecutionException
+    {
 
-			OutputStream out = new BufferedOutputStream(new FileOutputStream(
-					targetFile));
-			XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
-			XMLStreamWriter writer = outputFactory.createXMLStreamWriter(out);
-			writer.writeStartDocument("1.0");
-			writer.writeCharacters("\n");
-			writer.writeStartElement("faces-config");
-			writer.writeDefaultNamespace("http://java.sun.com/xml/ns/javaee");
-			writer.writeCharacters("\n");
+        File targetFile = new File(targetDirectory, facesConfigFile);
 
-			// TODO:
-			// * APPLICATION element
-			// * write application-listeners
-			// * write navigation-handlers
-			// * write view-handelrs
-			// * write state-managers
-			// * write supported-locales
-			//
-			// * FACTORY element
-			// * faces-context-factory
-			// * application-factory
-			// * lifecycle-factory
-			// * render-kit-factory
+        try
+        {
+            getLog().info("Generating " + targetFile);
 
-			writeConverters(model, writer);
-			writeValidators(model, writer);
-			writeComponents(model, writer);
-			writeRenderers(model, writer);
-			writeRenderKits(model, writer);
+            targetFile.delete();
+            targetFile.getParentFile().mkdirs();
 
-			writer.writeEndDocument();
-			writer.close();
+            OutputStream out = new BufferedOutputStream(new FileOutputStream(
+                    targetFile));
+            XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+            XMLStreamWriter writer = outputFactory.createXMLStreamWriter(out);
+            writer.writeStartDocument("1.0");
+            writer.writeCharacters("\n");
+            writer.writeStartElement("faces-config");
+            writer.writeDefaultNamespace("http://java.sun.com/xml/ns/javaee");
+            writer.writeCharacters("\n");
 
-			targetFile.setReadOnly();
-		} catch (XMLStreamException e) {
-			throw new MojoExecutionException("Error during generation", e);
-		} catch (IOException e) {
-			throw new MojoExecutionException("Error during generation", e);
-		} catch (Exception e) {
-			throw new MojoExecutionException("Error during generation", e);
-		}
-	}
+            // TODO:
+            // * APPLICATION element
+            // * write application-listeners
+            // * write navigation-handlers
+            // * write view-handelrs
+            // * write state-managers
+            // * write supported-locales
+            //
+            // * FACTORY element
+            // * faces-context-factory
+            // * application-factory
+            // * lifecycle-factory
+            // * render-kit-factory
 
-	private void writeConverters(Model model, XMLStreamWriter writer)
-			throws Exception {
+            writeConverters(model, writer);
+            writeValidators(model, writer);
+            writeComponents(model, writer);
+            writeRenderers(model, writer);
+            writeRenderKits(model, writer);
 
-	}
+            writer.writeEndDocument();
+            writer.close();
 
-	private void writeValidators(Model model, XMLStreamWriter writer)
-			throws Exception {
+            targetFile.setReadOnly();
+        }
+        catch (XMLStreamException e)
+        {
+            throw new MojoExecutionException("Error during generation", e);
+        }
+        catch (IOException e)
+        {
+            throw new MojoExecutionException("Error during generation", e);
+        }
+        catch (Exception e)
+        {
+            throw new MojoExecutionException("Error during generation", e);
+        }
+    }
 
-	}
+    private void writeConverters(Model model, XMLStreamWriter writer)
+            throws Exception
+    {
 
-	private void writeComponents(Model model, XMLStreamWriter writer)
-			throws Exception {
-		for (Iterator i = model.components(); i.hasNext();) {
-			ComponentModel cmp = (ComponentModel) i.next();
-			writer.writeStartElement("component");
-			writer.writeCharacters("\n");
-			writer.writeStartElement("component-type");
-			writer.writeCharacters(cmp.getComponentType());
-			writer.writeEndElement();
-			writer.writeCharacters("\n");
-			writer.writeStartElement("component-class");
-			writer.writeCharacters(cmp.getComponentClass());
-			writer.writeEndElement();
-			writer.writeCharacters("\n");
-			writer.writeEndElement();
-			writer.writeCharacters("\n");
-		}
-	}
+    }
 
-	private void writeRenderers(Model model, XMLStreamWriter writer)
-			throws Exception {
+    private void writeValidators(Model model, XMLStreamWriter writer)
+            throws Exception
+    {
 
-	}
+    }
 
-	private void writeRenderKits(Model model, XMLStreamWriter writer)
-			throws Exception {
+    private void writeComponents(Model model, XMLStreamWriter writer)
+            throws Exception
+    {
+        for (Iterator i = model.components(); i.hasNext();)
+        {
+            ComponentModel cmp = (ComponentModel) i.next();
+            writer.writeStartElement("component");
+            writer.writeCharacters("\n");
+            writer.writeStartElement("component-type");
+            writer.writeCharacters(cmp.getType());
+            writer.writeEndElement();
+            writer.writeCharacters("\n");
+            writer.writeStartElement("component-class");
+            writer.writeCharacters(cmp.getClassName());
+            writer.writeEndElement();
+            writer.writeCharacters("\n");
+            writer.writeEndElement();
+            writer.writeCharacters("\n");
+        }
+    }
 
-	}
+    private void writeRenderers(Model model, XMLStreamWriter writer)
+            throws Exception
+    {
+
+    }
+
+    private void writeRenderKits(Model model, XMLStreamWriter writer)
+            throws Exception
+    {
+
+    }
 }

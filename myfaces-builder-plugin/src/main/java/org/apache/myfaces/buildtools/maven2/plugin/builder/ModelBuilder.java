@@ -6,6 +6,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 
 public interface ModelBuilder
 {
-	public void buildModel(Model model, MavenProject project) throws MojoExecutionException;
-	
+    public void buildModel(Model model, MavenProject project)
+            throws MojoExecutionException;
+
 }

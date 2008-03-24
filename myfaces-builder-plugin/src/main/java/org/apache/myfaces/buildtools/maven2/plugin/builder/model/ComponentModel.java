@@ -23,360 +23,359 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.apache.commons.digester.Digester;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
+
 /**
  */
-public class ComponentModel
+public class ComponentModel extends ModelItem
 {
-  static private final Logger _LOG = Logger.getLogger(ComponentModel.class.getName());
+    static private final Logger _LOG = Logger.getLogger(ComponentModel.class
+            .getName());
 
-  /** Brief description of this component, for tool-tips etc */
-  private String  _description;
-  
-  /** Longer description of this component. */
-  private String  _longDescription;
-  
-  private String  _componentClass;
-  private String  _componentType;
-  private String  _componentFamily;
-  private String  _rendererType;
+    private String _name;
+    private String _description;
+    private String _longDescription;
 
-  private String  _tagName;
-  private String  _tagClass;
-  private String  _tagHandler;
-  private String  _tagSuperclass;
-  private boolean _namingContainer;
-  private boolean _children = true;
+    private String _type;
+    private String _family;
+    private String _rendererType;
 
-  protected Map   _properties;
+    private String _tagClass;
+    private String _tagHandler;
+    private String _tagSuperclass;
+    private boolean _namingContainer;
+    private boolean _children = true;
 
-  /**
-   * Creates a new ComponentBean.
-   */
-  public ComponentModel()
-  {
-    _properties = new LinkedHashMap();
-  }
+    protected Map _properties;
 
-  /**
-   * Sets the component type for this component.
-   *
-   * @param componentType  the component type
-   */
-  public void setComponentType(String componentType)
-  {
-    _componentType = componentType;
-  }
+    /**
+     * Write this model out as xml.
+     */
+    public static void writeXml(XmlWriter out, ComponentModel cm) {
+        out.beginElement("component");
+        out.writeAttr("name", cm._name);
+        out.writeAttr("type", cm._type);
+        out.writeAttr("family", cm._family);
+        out.writeAttr("rendererType", cm._rendererType);
 
-  /**
-   * Returns the component type for this component.
-   *
-   * @return  the component type
-   */
-  public String getComponentType()
-  {
-    return _componentType;
-  }
+        out.writeElement("desc", cm._description);
+        out.writeElement("longDesc", cm._longDescription);
 
-  /**
-   * Sets the component family for this component.
-   *
-   * @param componentFamily  the component family
-   */
-  public void setComponentFamily(
-    String componentFamily)
-  {
-    _componentFamily = componentFamily;
-  }
+        for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
+        {
+            PropertyModel prop = (PropertyModel) i.next();
+            PropertyModel.writeXml(out, prop);
+        }
 
-  /**
-   * Returns the component family for this component.
-   *
-   * @return  the component family
-   */
-  public String getComponentFamily()
-  {
-    return _componentFamily;
-  }
+        out.endElement("component");
+    }
+    
+    /**
+     * Add digester rules to repopulate a Model instance from an xml file.
+     */
+    public static void addXmlRules(Digester digester, String prefix) {
+        String newPrefix = prefix + "/component";
+        
+        digester.addObjectCreate(newPrefix, ComponentModel.class);
+        digester.addSetProperties(newPrefix);
+        digester.addBeanPropertySetter(newPrefix + "/desc", "description");
+        digester.addBeanPropertySetter(newPrefix + "/longDesc", "longDescription");
+        PropertyModel.addXmlRules(digester, newPrefix);
+    }
 
-  /**
-   * Returns true if the component family exists for this component.
-   *
-   * @return  true  if the component family exists,
-   *          false otherwise
-   */
-  public boolean hasComponentFamily()
-  {
-    return (_componentFamily != null);
-  }
+    /**
+     * Constructor.
+     */
+    public ComponentModel()
+    {
+        _properties = new LinkedHashMap();
+    }
 
-  /**
-   * Sets the component class for this component.
-   *
-   * @param componentClass  the component class
-   */
-  public void setComponentClass(
-    String componentClass)
-  {
-    _componentClass = componentClass;
-  }
+    /**
+     * Sets the name that the user will refer to instances of this component by.
+     */
+    public void setName(String name)
+    {
+        _name = name;
+    }
 
-  /**
-   * Returns the component class for this component.
-   *
-   * @return  the component class
-   */
-  public String getComponentClass()
-  {
-    return _componentClass;
-  }
+    /**
+     * Returns the name that the user will refer to instances of this component
+     * by.
+     * <p>
+     * In JSP tags, this value will be used as the JSP tag name.
+     * <p>
+     * This property is optional; if not set then this Model instance represents
+     * a base class that components can be derived from, but which cannot itself
+     * be instantiated as a component.
+     */
+    public String getName()
+    {
+        return _name;
+    }
 
-  /**
-   * Sets the description of this property.
-   *
-   * @param description  the property description
-   */
-  public void setDescription(
-    String description)
-  {
-    _description = description;
-  }
+    /**
+     * Sets the brief description of this property.
+     * <p>
+     * This description is used in tooltips, etc.
+     * 
+     * @param description
+     *            the property description
+     */
+    public void setDescription(String description)
+    {
+        _description = description;
+    }
 
-  /**
-   * Returns the description of this property.
-   *
-   * @return  the property description
-   */
-  public String getDescription()
-  {
-    return _description;
-  }
+    /**
+     * Returns the brief description of this property.
+     * 
+     * @return the property description
+     */
+    public String getDescription()
+    {
+        return _description;
+    }
 
-  /**
-   * Sets the long description of this property.
-   *
-   * @param longDescription  the long property description
-   */
-  public void setLongDescription(
-    String longDescription)
-  {
-    _longDescription = longDescription;
-  }
+    /**
+     * Sets the long description of this property.
+     * 
+     * @param longDescription
+     *            the long property description
+     */
+    public void setLongDescription(String longDescription)
+    {
+        _longDescription = longDescription;
+    }
 
-  /**
-   * Returns the long description of this property.
-   *
-   * @return  the long property description
-   */
-  public String getLongDescription()
-  {
-    return _longDescription;
-  }
+    /**
+     * Returns the long description of this property.
+     * 
+     * @return the long property description
+     */
+    public String getLongDescription()
+    {
+        return _longDescription;
+    }
 
-  /**
-   * Sets the JSP tag handler class for this component.
-   *
-   * @param tagClass  the JSP tag handler class
-   */
-  public void setTagClass(
-    String tagClass)
-  {
-    _tagClass = tagClass;
-  }
+    /**
+     * Sets the JSF component type for this component.
+     * 
+     * @param componentType
+     *            the component type
+     */
+    public void setType(String componentType)
+    {
+        _type = componentType;
+    }
 
-  /**
-   * Returns the JSP tag handler class for this component.
-   *
-   * @return  the JSP tag handler class
-   */
-  public String getTagClass()
-  {
-    return _tagClass;
-  }
+    /**
+     * Returns the JSF component type for this component.
+     * 
+     * @return the component type
+     */
+    public String getType()
+    {
+        return _type;
+    }
 
-  /**
-   * Sets the JSP tag handler superclass for this component.
-   *
-   * @param tagSuperclass  the JSP tag handler superclass
-   */
-  public void setTagSuperclass(
-    String tagSuperclass)
-  {
-    _tagSuperclass = tagSuperclass;
-  }
+    /**
+     * Sets the component family for this component.
+     * 
+     * @param componentFamily
+     *            the component family
+     */
+    public void setFamily(String componentFamily)
+    {
+        _family = componentFamily;
+    }
 
-  /**
-   * Returns the JSP tag handler superclass for this component.
-   *
-   * @return  the JSP tag handler superclass
-   */
-  public String getTagSuperclass()
-  {
-    return _tagSuperclass;
-  }
+    /**
+     * Returns the component family for this component.
+     * 
+     * @return the component family
+     */
+    public String getFamily()
+    {
+        return _family;
+    }
 
-  /**
-  * Sets the Facelets tag handler (component handler) this component.
-  *
-  * @param tagHandler the Facelets tag handler class
-  */
- public void setTagHandler(
-   String tagHandler)
- {
-   _tagHandler = tagHandler;
- }
+    /**
+     * Sets the renderer type for this component.
+     * 
+     * @param rendererType
+     *            the renderer type
+     */
+    public void setRendererType(String rendererType)
+    {
+        _rendererType = rendererType;
+    }
 
- /**
-  * Returns the Facelets tag handler for this component
-  *
-  * @return  the Facelets tag handler
-  */
- public String getTagHandler()
- {
-   return _tagHandler;
- }
+    /**
+     * Returns the renderer type for this component.
+     * 
+     * @return the renderer type
+     */
+    public String getRendererType()
+    {
+        return _rendererType;
+    }
 
-  /**
-   * Returns the JSP tag name for this component.
-   *
-   * @return  the JSP tag name
-   */
-  public String getTagName()
-  {
-    return _tagName;
-  }
+    /**
+     * Sets the JSP tag handler class for this component.
+     * 
+     * @param tagClass
+     *            the JSP tag handler class
+     */
+    public void setTagClass(String tagClass)
+    {
+        _tagClass = tagClass;
+    }
 
-  /**
-   * Sets the JSP tag name for this component.
-   *
-   * @param tagName  the JSP tag name
-   */
-  public void setTagName(String tagName)
-  {
-    _tagName = tagName;
-  }
+    /**
+     * Returns the JSP tag handler class for this component.
+     * 
+     * @return the JSP tag handler class
+     */
+    public String getTagClass()
+    {
+        return _tagClass;
+    }
 
-  /**
-   * Sets the namingContainer flag of this property.
-   *
-   * @param namingContainer  the component namingContainer flag
-   */
-  public void setNamingContainer(
-    boolean namingContainer)
-  {
-    _namingContainer = namingContainer;
-  }
+    /**
+     * Sets the JSP tag handler superclass for this component.
+     * 
+     * @param tagSuperclass
+     *            the JSP tag handler superclass
+     */
+    public void setTagSuperclass(String tagSuperclass)
+    {
+        _tagSuperclass = tagSuperclass;
+    }
 
-  /**
-   * Returns namingContainer flag of this component.
-   *
-   * @return  the component namingContainer flag
-   */
-  public boolean isNamingContainer()
-  {
-    return _namingContainer;
-  }
+    /**
+     * Returns the JSP tag handler superclass for this component.
+     * 
+     * @return the JSP tag handler superclass
+     */
+    public String getTagSuperclass()
+    {
+        return _tagSuperclass;
+    }
 
-  /**
-   * Sets the renderer type for this component.
-   *
-   * @param rendererType  the renderer type
-   */
-  public void setRendererType(
-    String rendererType)
-  {
-    _rendererType = rendererType;
-  }
+    /**
+     * Sets the Facelets tag handler (component handler) this component.
+     * 
+     * @param tagHandler
+     *            the Facelets tag handler class
+     */
+    public void setTagHandler(String tagHandler)
+    {
+        _tagHandler = tagHandler;
+    }
 
-  /**
-   * Returns the renderer type for this component.
-   *
-   * @return  the renderer type
-   */
-  public String getRendererType()
-  {
-    return _rendererType;
-  }
+    /**
+     * Returns the Facelets tag handler for this component
+     * 
+     * @return the Facelets tag handler
+     */
+    public String getTagHandler()
+    {
+        return _tagHandler;
+    }
 
-  /**
-   * Returns the default renderer type for this component.
-   *
-   * @return  the default renderer type
-   */
-  public String getDefaultRendererType()
-  {
-	  return null;
-  }
+    /**
+     * Sets the namingContainer flag of this property.
+     * 
+     * @param namingContainer
+     *            the component namingContainer flag
+     */
+    public void setNamingContainer(boolean namingContainer)
+    {
+        _namingContainer = namingContainer;
+    }
 
-  /**
-   * Adds a property to this component.
-   *
-   * @param property  the property to add
-   */
-  public void addProperty(PropertyModel property)
-  {
-    _properties.put(property.getPropertyName(), property);
-  }
+    /**
+     * Returns namingContainer flag of this component.
+     * 
+     * @return the component namingContainer flag
+     */
+    public boolean isNamingContainer()
+    {
+        return _namingContainer;
+    }
 
-  /**
-   * Returns the property for this property name.
-   *
-   * @param propertyName  the property name to find
-   */
-  public PropertyModel findProperty(String propertyName)
-  {
-    return (PropertyModel)_properties.get(propertyName);
-  }
+    /**
+     * Specifies if the component can have children.
+     * 
+     * @param children
+     *            true if the component can have children. false otherwise
+     */
+    public void setChildren(boolean children)
+    {
+        _children = children;
+    }
 
-  /**
-   * Returns true if this component has any properties.
-   *
-   * @return  true   if this component has any properties,
-   *          false  otherwise
-   */
-  public boolean hasProperties()
-  {
-    return _properties.size() > 0;
-  }
+    /**
+     * Returns true if the component can have children.
+     * 
+     * @return true if the component can have children. false otherwise
+     */
+    public boolean hasChildren()
+    {
+        return _children;
+    }
 
-  /**
-   * Returns an iterator for all properties
-   *
-   * @return  the property iterator
-   */
-  public Iterator properties()
-  {
-    return _properties.values().iterator();
-  }
+    /**
+     * Adds a property to this component.
+     * 
+     * @param property
+     *            the property to add
+     */
+    public void addProperty(PropertyModel property)
+    {
+        _properties.put(property.getPropertyName(), property);
+    }
 
- /**
-  * Number of properties for this component
-  * @return num of properties
-  */
-  public int propertiesSize()
-  {
-    return _properties.size();
-  }
+    /**
+     * Returns the property for this property name.
+     * 
+     * @param propertyName
+     *            the property name to find
+     */
+    public PropertyModel getProperty(String propertyName)
+    {
+        return (PropertyModel) _properties.get(propertyName);
+    }
 
-  /**
-   * Specifies if the component can have children.
-   *
-   * @param children  true  if the component can have children.
-   *                  false otherwise
-   */
-  public void setChildren(
-    boolean children)
-  {
-    _children = children;
-  }
+    /**
+     * Number of properties for this component
+     * 
+     * @return num of properties
+     */
+    public int propertiesSize()
+    {
+        return _properties.size();
+    }
 
-  /**
-   * Returns true if the component can have children.
-   *
-   * @return  true  if the component can have children.
-   *          false otherwise
-   */
-  public boolean hasChildren()
-  {
-    return _children;
-  }
+    /**
+     * Returns true if this component has any properties.
+     * 
+     * @return true if this component has any properties, false otherwise
+     */
+    public boolean hasProperties()
+    {
+        return _properties.size() > 0;
+    }
+
+    /**
+     * Returns an iterator for all properties
+     * 
+     * @return the property iterator
+     */
+    public Iterator properties()
+    {
+        return _properties.values().iterator();
+    }
 }
