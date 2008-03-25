@@ -49,8 +49,10 @@ public class QdoxModelBuilderTest extends TestCase
         assertEquals("fooBar", QdoxModelBuilder.methodToPropName("getFooBar"));
         assertEquals("url", QdoxModelBuilder.methodToPropName("getUrl"));
         assertEquals("url", QdoxModelBuilder.methodToPropName("getURL"));
-        assertEquals("urlLocation", QdoxModelBuilder.methodToPropName("getUrlLocation"));
-        assertEquals("urlLocation", QdoxModelBuilder.methodToPropName("getURLLocation"));
+        assertEquals("urlLocation", QdoxModelBuilder
+                .methodToPropName("getUrlLocation"));
+        assertEquals("urlLocation", QdoxModelBuilder
+                .methodToPropName("getURLLocation"));
     }
 
     public void testScan() throws Exception
@@ -76,11 +78,81 @@ public class QdoxModelBuilderTest extends TestCase
     }
 
     /**
+     * Scan a very simple source tree, and compare the result (line by line)
+     * against a "known good" file.
+     */
+    public void testSimple() throws Exception
+    {
+        QdoxModelBuilder builder = new QdoxModelBuilder();
+
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        URL sourceUrl = classLoader.getResource("builder/simple/Foo.java");
+        String parentDirName = new File(sourceUrl.getFile()).getParent();
+        File parentDir = new File(parentDirName);
+        List sourceDirs = new ArrayList();
+        sourceDirs.add(parentDir.getAbsolutePath());
+
+        Model model = new Model();
+        builder.buildModel(model, sourceDirs);
+
+        // basic sanity checks
+        assertTrue(model.getComponents().size() > 0);
+
+        // Now write it. Optionally, we could just write it to an in-memory
+        // buffer.
+        File outfile = new File("target/simple-out.xml");
+        IOUtils.saveModel(model, outfile);
+
+        StringWriter outbuf = new StringWriter();
+        IOUtils.writeModel(model, outbuf);
+        StringReader reader = new StringReader(outbuf.toString());
+
+        InputStream is = classLoader
+                .getResourceAsStream("builder/simple/goodfile.xml");
+        compareData(reader, new InputStreamReader(is));
+    }
+
+    /**
+     * Scan a very simple source tree that uses java15 annotations, and compare
+     * the result (line by line) against a "known good" file.
+     */
+    public void testSimple15() throws Exception
+    {
+        QdoxModelBuilder builder = new QdoxModelBuilder();
+
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        URL sourceUrl = classLoader.getResource("builder/simple15/Foo.java");
+        String parentDirName = new File(sourceUrl.getFile()).getParent();
+        File parentDir = new File(parentDirName);
+        List sourceDirs = new ArrayList();
+        sourceDirs.add(parentDir.getAbsolutePath());
+
+        Model model = new Model();
+        builder.buildModel(model, sourceDirs);
+
+        // basic sanity checks
+        assertTrue(model.getComponents().size() > 0);
+
+        // Now write it. Optionally, we could just write it to an in-memory
+        // buffer.
+        File outfile = new File("target/simple15-out.xml");
+        IOUtils.saveModel(model, outfile);
+
+        StringWriter outbuf = new StringWriter();
+        IOUtils.writeModel(model, outbuf);
+        StringReader reader = new StringReader(outbuf.toString());
+
+        InputStream is = classLoader
+                .getResourceAsStream("builder/simple15/goodfile.xml");
+        compareData(reader, new InputStreamReader(is));
+    }
+
+    /**
      * Scan a very complex source tree, containing all the different features in
      * various combinations, then dump the result to a file and compare it (line
      * by line) against a "known good" file.
      */
-    public void testAll() throws Exception
+    public void testComplex() throws Exception
     {
         QdoxModelBuilder builder = new QdoxModelBuilder();
 
@@ -100,7 +172,7 @@ public class QdoxModelBuilderTest extends TestCase
 
         // Now write it. Optionally, we could just write it to an in-memory
         // buffer.
-        File outfile = new File("target/outfile.xml");
+        File outfile = new File("target/complex-out.xml");
         IOUtils.saveModel(model, outfile);
 
         StringWriter outbuf = new StringWriter();

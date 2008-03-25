@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -21,6 +22,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorModel;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
+import com.thoughtworks.qdox.model.Annotation;
 import com.thoughtworks.qdox.model.DocletTag;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
@@ -38,15 +40,19 @@ public class QdoxModelBuilder implements ModelBuilder
 
     private static final String DOC_PROPERTY = "JSFProperty";
 
-    private static class JavaClassComparator implements Comparator {
+    private static final String ANNOTATION_BASE = "org.apache.myfaces.buildtools.annotation";
+
+    private static class JavaClassComparator implements Comparator
+    {
         public int compare(Object arg0, Object arg1)
         {
             JavaClass c0 = (JavaClass) arg0;
             JavaClass c1 = (JavaClass) arg1;
-            
+
             return (c0.getName().compareTo(c1.getName()));
         }
     }
+
     /**
      * Scan the source tree for doc-annotations, and build Model objects
      * containing info extracted from the doc-annotation attributes and
@@ -79,7 +85,7 @@ public class QdoxModelBuilder implements ModelBuilder
         System.out.println("CompileSourceRoots end..");
 
         JavaClass[] classes = builder.getClasses();
-        
+
         // Sort the class array so that they are processed in a
         // predictable order, regardless of how the source scanning
         // returned them.
@@ -125,24 +131,79 @@ public class QdoxModelBuilder implements ModelBuilder
         System.out.println("class:" + clazz.getName());
 
         DocletTag tag;
+        Annotation anno;
 
+        // converters
         tag = clazz.getTagByName(DOC_CONVERTER, false);
         if (tag != null)
         {
-            processConverter(tag, clazz, model);
+            Map props = tag.getNamedParameterMap();
+            processConverter(props, tag.getContext(), clazz, model);
+        }
+        anno = getAnnotation(clazz, DOC_CONVERTER);
+        if (anno != null)
+        {
+            Map props = anno.getNamedParameterMap();
+            processConverter(props, anno.getContext(), clazz, model);
         }
 
+        // validators
         tag = clazz.getTagByName(DOC_VALIDATOR, false);
         if (tag != null)
         {
-            processValidator(tag, clazz, model);
+            Map props = tag.getNamedParameterMap();
+            processValidator(props, tag.getContext(), clazz, model);
+        }
+        anno = getAnnotation(clazz, DOC_VALIDATOR);
+        if (anno != null)
+        {
+            Map props = anno.getNamedParameterMap();
+            processValidator(props, anno.getContext(), clazz, model);
         }
 
+        // components
         tag = clazz.getTagByName(DOC_COMPONENT, false);
         if (tag != null)
         {
-            processComponent(tag, clazz, model);
+            Map props = tag.getNamedParameterMap();
+            processComponent(props, tag.getContext(), clazz, model);
         }
+        anno = getAnnotation(clazz, DOC_COMPONENT);
+        if (anno != null)
+        {
+            Map props = anno.getNamedParameterMap();
+            processComponent(props, anno.getContext(), clazz, model);
+        }
+
+    }
+
+    private Annotation getAnnotation(AbstractJavaEntity entity, String annoName)
+    {
+        Annotation[] annos = entity.getAnnotations();
+        if (annos == null)
+        {
+            return null;
+        }
+        // String wanted = ANNOTATION_BASE + "." + annoName;
+        for (int i = 0; i < annos.length; ++i)
+        {
+            Annotation thisAnno = annos[i];
+            // Ideally, here we would check whether the fully-qualified name of
+            // the annotation
+            // class matches ANNOTATION_BASE + "." + annoName. However it
+            // appears that qdox 1.6.3
+            // does not correctly expand @Foo using the class import statements;
+            // method
+            // Annotation.getType.getJavaClass.getFullyQualifiedName still just
+            // returns the short
+            // class name. So for now, just check for the short name.
+            String thisAnnoName = thisAnno.getType().getJavaClass().getName();
+            if (thisAnnoName.equals(annoName))
+            {
+                return thisAnno;
+            }
+        }
+        return null;
     }
 
     /**
@@ -151,13 +212,14 @@ public class QdoxModelBuilder implements ModelBuilder
      * Qdox comments like <code>@foo val= "bar"</code> return a value with leading whitespace and
      *      quotes, so remove them.
      */
-    private String clean(String src)
+    private String clean(Object srcObj)
     {
-        if (src == null)
+        if (srcObj == null)
         {
             return null;
         }
 
+        String src = srcObj.toString();
         int start = 0;
         int end = src.length();
         while (start <= end)
@@ -188,10 +250,9 @@ public class QdoxModelBuilder implements ModelBuilder
      *            is the class the annotation is attached to; only used when
      *            reporting errors.
      */
-    private String getString(JavaClass clazz, String key, DocletTag tag,
-            String dflt)
+    private String getString(JavaClass clazz, String key, Map map, String dflt)
     {
-        String val = clean(tag.getNamedParameter(key));
+        String val = clean(map.get(key));
         if (val != null)
         {
             return val;
@@ -209,10 +270,10 @@ public class QdoxModelBuilder implements ModelBuilder
      *            is the class the annotation is attached to; only used when
      *            reporting errors.
      */
-    private Boolean getBoolean(JavaClass clazz, String key, DocletTag tag,
+    private Boolean getBoolean(JavaClass clazz, String key, Map map,
             Boolean dflt)
     {
-        String val = clean(tag.getNamedParameter(key));
+        String val = clean(map.get(key));
         if (val == null)
         {
             return dflt;
@@ -263,7 +324,8 @@ public class QdoxModelBuilder implements ModelBuilder
         modelItem.setInterfaceClassNames(ifaceNames);
     }
 
-    private void processConverter(DocletTag tag, JavaClass clazz, Model model)
+    private void processConverter(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, Model model)
     {
         String longDescription = clazz.getComment();
         String descDflt = getFirstSentence(longDescription);
@@ -271,9 +333,9 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", tag, descDflt);
+        String shortDescription = getString(clazz, "desc", props, descDflt);
 
-        String converterId = getString(clazz, "id", tag, null);
+        String converterId = getString(clazz, "id", props, null);
 
         ConverterModel converter = new ConverterModel();
         converter.setClassName(clazz.getName());
@@ -283,7 +345,8 @@ public class QdoxModelBuilder implements ModelBuilder
         model.addConverter(converter);
     }
 
-    private void processValidator(DocletTag tag, JavaClass clazz, Model model)
+    private void processValidator(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, Model model)
     {
         String longDescription = clazz.getComment();
         String descDflt = getFirstSentence(longDescription);
@@ -291,9 +354,9 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", tag, descDflt);
+        String shortDescription = getString(clazz, "desc", props, descDflt);
 
-        String validatorId = getString(clazz, "id", tag, null);
+        String validatorId = getString(clazz, "id", props, null);
 
         ValidatorModel validator = new ValidatorModel();
         validator.setClassName(clazz.getName());
@@ -303,8 +366,8 @@ public class QdoxModelBuilder implements ModelBuilder
         model.addValidator(validator);
     }
 
-    private void processComponent(DocletTag tag, JavaClass clazz, Model model)
-            throws MojoExecutionException
+    private void processComponent(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, Model model) throws MojoExecutionException
     {
         String componentTypeDflt = null;
         JavaField fieldComponentType = clazz.getFieldByName("COMPONENT_TYPE");
@@ -332,8 +395,9 @@ public class QdoxModelBuilder implements ModelBuilder
                     .getInitializationExpression());
         }
 
-        String componentName = getString(clazz, "name", tag, null);
-        String componentClass = getString(clazz, "class", tag, clazz.getName());
+        String componentName = getString(clazz, "name", props, null);
+        String componentClass = getString(clazz, "class", props, clazz
+                .getName());
 
         String longDescription = clazz.getComment();
         String descDflt = getFirstSentence(longDescription);
@@ -341,19 +405,20 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", tag, descDflt);
+        String shortDescription = getString(clazz, "desc", props, descDflt);
 
-        String componentFamily = getString(clazz, "family", tag,
+        String componentFamily = getString(clazz, "family", props,
                 componentTypeFamily);
-        String componentType = getString(clazz, "type", tag, componentTypeDflt);
-        String rendererType = getString(clazz, "defaultRendererType", tag,
+        String componentType = getString(clazz, "type", props,
+                componentTypeDflt);
+        String rendererType = getString(clazz, "defaultRendererType", props,
                 rendererTypeDflt);
-        Boolean canHaveChildren = getBoolean(clazz, "canHaveChildren", tag,
+        Boolean canHaveChildren = getBoolean(clazz, "canHaveChildren", props,
                 Boolean.TRUE);
 
-        String tagClass = getString(clazz, "tagClass", tag, null);
-        String tagSuperclass = getString(clazz, "tagSuperclass", tag, null);
-        String tagHandler = getString(clazz, "tagHandler", tag, null);
+        String tagClass = getString(clazz, "tagClass", props, null);
+        String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
+        String tagHandler = getString(clazz, "tagHandler", props, null);
 
         ComponentModel component = new ComponentModel();
         initAncestry(model, clazz, component);
@@ -401,41 +466,54 @@ public class QdoxModelBuilder implements ModelBuilder
         for (int i = 0; i < methods.length; ++i)
         {
             JavaMethod method = methods[i];
-            DocletTag tag = method.getTagByName(DOC_PROPERTY);
 
+            DocletTag tag = method.getTagByName(DOC_PROPERTY);
             if (tag != null)
             {
-                Boolean required = getBoolean(clazz, "required", tag,
-                        Boolean.FALSE);
-                Boolean transientProp = getBoolean(clazz, "transient", tag,
-                        Boolean.FALSE);
-                Boolean literalOnly = getBoolean(clazz, "literalOnly", tag,
-                        Boolean.FALSE);
+                Map props = tag.getNamedParameterMap();
+                processComponentProperty(props, tag.getContext(), clazz,
+                        method, component);
+            }
 
-                AbstractJavaEntity ctx = tag.getContext();
-
-                String longDescription = ctx.getComment();
-                String descDflt = getFirstSentence(longDescription);
-                if ((descDflt == null) || (descDflt.length() < 2))
-                {
-                    descDflt = "no description";
-                }
-                String shortDescription = getString(clazz, "desc", tag, descDflt);
-
-                Type returnType = method.getReturns();
-
-                PropertyModel p = new PropertyModel();
-                p.setName(methodToPropName(method.getName()));
-                p.setClassName(returnType.toString());
-                p.setRequired(required.booleanValue());
-                p.setTransient(transientProp.booleanValue());
-                p.setLiteralOnly(literalOnly.booleanValue());
-                p.setDescription(shortDescription);
-                p.setLongDescription(longDescription);
-
-                component.addProperty(p);
+            Annotation anno = getAnnotation(method, DOC_PROPERTY);
+            if (anno != null)
+            {
+                Map props = anno.getNamedParameterMap();
+                processComponentProperty(props, anno.getContext(), clazz,
+                        method, component);
             }
         }
+    }
+
+    private void processComponentProperty(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, JavaMethod method, ComponentModel component)
+    {
+        Boolean required = getBoolean(clazz, "required", props, Boolean.FALSE);
+        Boolean transientProp = getBoolean(clazz, "transient", props,
+                Boolean.FALSE);
+        Boolean literalOnly = getBoolean(clazz, "literalOnly", props,
+                Boolean.FALSE);
+
+        String longDescription = ctx.getComment();
+        String descDflt = getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+
+        Type returnType = method.getReturns();
+
+        PropertyModel p = new PropertyModel();
+        p.setName(methodToPropName(method.getName()));
+        p.setClassName(returnType.toString());
+        p.setRequired(required.booleanValue());
+        p.setTransient(transientProp.booleanValue());
+        p.setLiteralOnly(literalOnly.booleanValue());
+        p.setDescription(shortDescription);
+        p.setLongDescription(longDescription);
+
+        component.addProperty(p);
     }
 
     /**
@@ -463,15 +541,20 @@ public class QdoxModelBuilder implements ModelBuilder
         // getFooBar --> fooBar
         // getURL --> url
         // getURLLocation --> urlLocation
-        for(int i=0; i<name.length(); ++i) {
+        for (int i = 0; i < name.length(); ++i)
+        {
             char c = name.charAt(i);
-            if (Character.isUpperCase(c)) {
+            if (Character.isUpperCase(c))
+            {
                 name.setCharAt(i, Character.toLowerCase(c));
-            } else {
-                if (i>1) {
+            }
+            else
+            {
+                if (i > 1)
+                {
                     // reset the previous char to uppercase
-                    c = name.charAt(i-1);
-                    name.setCharAt(i-1, Character.toUpperCase(c));
+                    c = name.charAt(i - 1);
+                    name.setCharAt(i - 1, Character.toUpperCase(c));
                 }
                 break;
             }
