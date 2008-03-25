@@ -26,21 +26,21 @@ import javax.faces.convert.Converter;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  * 
- * @mfp.component
+ * @JSFComponent
  */
 public interface ValueHolder
 {
     public Object getLocalValue();
 
     /**
-     * @mfp.property
+     * @JSFProperty
      */
     public Object getValue();
 
     public void setValue(Object value);
 
     /**
-     * @mfp.property
+     * @JSFProperty
      */
     public Converter getConverter();
 

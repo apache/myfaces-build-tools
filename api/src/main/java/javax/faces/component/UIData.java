@@ -126,7 +126,7 @@ import javax.servlet.jsp.jstl.sql.Result;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  * 
- * @mfp.component 
+ * @JSFComponent 
  *   type = "javax.faces.Data"
  *   family = "javax.faces.Data"
  *   defaultRendererType = "javax.faces.Table"
@@ -440,7 +440,7 @@ public class UIData extends UIComponentBase implements NamingContainer
      * object for the current row is. This value must be a literal
      * string (EL expression not permitted).
      * 
-     * @mfp.property literalOnly=true
+     * @JSFProperty literalOnly=true
      */
     public void setVar(String var)
     {

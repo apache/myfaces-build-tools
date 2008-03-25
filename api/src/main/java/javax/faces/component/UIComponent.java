@@ -26,7 +26,7 @@ import javax.faces.event.AbortProcessingException;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  * 
- * @mfp.component
+ * @JSFComponent
  */
 public abstract class UIComponent
         implements StateHolder
@@ -47,7 +47,7 @@ public abstract class UIComponent
     public abstract java.lang.String getFamily();
 
     /**
-	 * @mfp.property
+	 * @JSFProperty
 	 */
     public abstract java.lang.String getId();
 
@@ -65,7 +65,7 @@ public abstract class UIComponent
     public abstract boolean isRendered();
 
     /**
-	 * @mfp.property
+	 * @JSFProperty
 	 */
     public abstract void setRendered(boolean rendered);
 

@@ -24,14 +24,14 @@ package javax.faces.component;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  * 
- * @mfp.component
+ * @JSFComponent
  */
 public interface ActionSource
 {
 	/**
 	 * sk: A method to be invoked when this component is "executed" by the user.
 	 * 
-	 * @mfp.property
+	 * @JSFProperty
 	 */
     public javax.faces.el.MethodBinding getAction();
 
@@ -40,7 +40,7 @@ public interface ActionSource
 	/**
 	 * sk: A listener method to be invoked when this component is "executed" by the user.
 	 * 
-	 * @mfp.property
+	 * @JSFProperty
 	 */
     public javax.faces.el.MethodBinding getActionListener();
 
@@ -50,7 +50,7 @@ public interface ActionSource
 	 * sk: makes action and listener associated with this component run before the
 	 * applyValues phase of any other component.
 	 * 
-	 * @mfp.property
+	 * @JSFProperty
 	 */
     public boolean isImmediate();
 

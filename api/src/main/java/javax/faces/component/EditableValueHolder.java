@@ -60,7 +60,7 @@ import javax.faces.validator.Validator;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  * 
- * @mfp.component
+ * @JSFComponent
  */
 public interface EditableValueHolder
         extends ValueHolder
@@ -142,7 +142,7 @@ public interface EditableValueHolder
      * value must be set for the "submitted value"; validation
      * for "required" fields must then check for that.
      * 
-	 * @mfp.property
+	 * @JSFProperty
 	 */
     public boolean isRequired();
 
@@ -160,7 +160,7 @@ public interface EditableValueHolder
      * immediately (including possible navigation) without performing
      * validation on any following components.
      * 
-	 * @mfp.property
+	 * @JSFProperty
      */
     public boolean isImmediate();
 
@@ -174,7 +174,7 @@ public interface EditableValueHolder
      * <p>
      * This validator is executed after all validators in the validator list.
      * 
-	 * @mfp.property
+	 * @JSFProperty
      */
     public MethodBinding getValidator();
 
@@ -188,7 +188,7 @@ public interface EditableValueHolder
      * <p>
      * This listeners is executed after all listeners in the list.
      * 
-	 * @mfp.property
+	 * @JSFProperty
      */
     public MethodBinding getValueChangeListener();
 
