@@ -59,6 +59,8 @@ import javax.faces.validator.Validator;
  * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
+ * 
+ * @mfp.component
  */
 public interface EditableValueHolder
         extends ValueHolder
@@ -139,7 +141,9 @@ public interface EditableValueHolder
      * string for a text input field) then some special non-null
      * value must be set for the "submitted value"; validation
      * for "required" fields must then check for that.
-     */
+     * 
+	 * @mfp.property
+	 */
     public boolean isRequired();
 
     /**
@@ -155,6 +159,8 @@ public interface EditableValueHolder
      * will call renderResponse, causing the rendering phase to begin
      * immediately (including possible navigation) without performing
      * validation on any following components.
+     * 
+	 * @mfp.property
      */
     public boolean isImmediate();
 
@@ -167,6 +173,8 @@ public interface EditableValueHolder
      * associated with this component.
      * <p>
      * This validator is executed after all validators in the validator list.
+     * 
+	 * @mfp.property
      */
     public MethodBinding getValidator();
 
@@ -179,6 +187,8 @@ public interface EditableValueHolder
      * associated with this component.
      * <p>
      * This listeners is executed after all listeners in the list.
+     * 
+	 * @mfp.property
      */
     public MethodBinding getValueChangeListener();
 

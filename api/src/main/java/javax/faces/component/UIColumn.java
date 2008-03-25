@@ -25,6 +25,8 @@ package javax.faces.component;
  *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
+ * 
+ * @mfp.component name="column" defaultRendererType="RT_COLUMN"
  */
 public class UIColumn
         extends UIComponentBase

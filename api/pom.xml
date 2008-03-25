@@ -23,13 +23,14 @@
         <groupId>org.apache.myfaces.buildtools</groupId>
         <artifactId>myfaces-builder-plugin</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-	<executions>
-	  <execution>
+        <executions>
+          <execution>
             <goals>
+              <goal>build-metadata</goal>
               <goal>make-config</goal>
             </goals>
-	  </execution>
-	</executions>
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>

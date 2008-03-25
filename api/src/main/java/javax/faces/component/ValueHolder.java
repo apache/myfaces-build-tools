@@ -25,15 +25,23 @@ import javax.faces.convert.Converter;
  *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
+ * 
+ * @mfp.component
  */
 public interface ValueHolder
 {
     public Object getLocalValue();
 
+    /**
+     * @mfp.property
+     */
     public Object getValue();
 
     public void setValue(Object value);
 
+    /**
+     * @mfp.property
+     */
     public Converter getConverter();
 
     public void setConverter(Converter converter);
