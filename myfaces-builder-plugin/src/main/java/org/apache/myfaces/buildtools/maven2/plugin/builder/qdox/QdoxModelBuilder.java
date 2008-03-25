@@ -2,6 +2,8 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.qdox;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +25,6 @@ import com.thoughtworks.qdox.model.DocletTag;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
-import com.thoughtworks.qdox.model.JavaSource;
 import com.thoughtworks.qdox.model.Type;
 
 public class QdoxModelBuilder implements ModelBuilder
@@ -37,6 +38,15 @@ public class QdoxModelBuilder implements ModelBuilder
 
     private static final String DOC_PROPERTY = "mfp.property";
 
+    private static class JavaClassComparator implements Comparator {
+        public int compare(Object arg0, Object arg1)
+        {
+            JavaClass c0 = (JavaClass) arg0;
+            JavaClass c1 = (JavaClass) arg1;
+            
+            return (c0.getName().compareTo(c1.getName()));
+        }
+    }
     /**
      * Scan the source tree for doc-annotations, and build Model objects
      * containing info extracted from the doc-annotation attributes and
@@ -68,8 +78,12 @@ public class QdoxModelBuilder implements ModelBuilder
         }
         System.out.println("CompileSourceRoots end..");
 
-        JavaSource[] sources = builder.getSources();
         JavaClass[] classes = builder.getClasses();
+        
+        // Sort the class array so that they are processed in a
+        // predictable order, regardless of how the source scanning
+        // returned them.
+        Arrays.sort(classes, new JavaClassComparator());
         Set processedClasses = new HashSet();
         for (int i = 0; i < classes.length; ++i)
         {
