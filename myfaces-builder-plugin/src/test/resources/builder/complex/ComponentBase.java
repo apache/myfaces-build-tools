@@ -3,7 +3,7 @@
  * <p>
  * This is a base component. It has no name, so is not a concrete component.
  * 
- * @mfp.component
+ * @JSFComponent
  *   type="base"
  *   family="base"
  *   defaultRendererType="BaseRenderer"
@@ -16,7 +16,7 @@ public abstract class ComponentBase
      * <p>
      * Some dummy prop1 documentation.
      *
-     * @mfp.property
+     * @JSFProperty
      */
     public abstract String getProp1();
     

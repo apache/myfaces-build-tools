@@ -3,7 +3,7 @@
  * <p>
  * This is a silly converter. It does nothing useful.
  * 
- * @mfp.converter id="conv1"
+ * @JSFConverter id="conv1"
  */
 public class Converter1 // implements Converter
 {

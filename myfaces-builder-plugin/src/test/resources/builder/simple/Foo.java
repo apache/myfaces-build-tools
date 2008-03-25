@@ -3,7 +3,7 @@
  * <p>
  * This is a foo component. It does nothing useful.
  * 
- * @mfp.component
+ * @JSFComponent
  *   name="foo"
  *   type="foo"
  *   family="foo"
@@ -18,7 +18,7 @@ public class Foo
      * <p>
      * Some dummy prop1 documentatoin.
      *
-     * @mfp.property
+     * @JSFProperty
      */
     public String getProp1() {
         return prop1;

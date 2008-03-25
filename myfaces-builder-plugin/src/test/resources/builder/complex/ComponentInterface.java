@@ -3,7 +3,7 @@
  * <p>
  * This is an interface component.
  * 
- * @mfp.component
+ * @JSFComponent
  *   type="iface"
  *   family="iface"
  *   defaultRendererType="BaseRenderer"
@@ -16,7 +16,7 @@ public interface ComponentInterface
      * <p>
      * Some dummy ifaceProp documentation.
      *
-     * @mfp.property
+     * @JSFProperty
      */
     String getIfaceProp();
     

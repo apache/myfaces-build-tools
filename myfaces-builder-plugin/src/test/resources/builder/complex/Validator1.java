@@ -3,7 +3,7 @@
  * <p>
  * This is a silly validator. It does nothing useful.
  * 
- * @mfp.validator id="val1"
+ * @JSFValidator id="val1"
  */
 public class Validator1 // implements Validator
 {

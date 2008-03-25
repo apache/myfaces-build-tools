@@ -3,7 +3,7 @@
  * <p>
  * This is a child component. It does nothing useful.
  * 
- * @mfp.component
+ * @JSFComponent
  *   name="foo"
  *   type="foo"
  *   family="foo"
@@ -17,7 +17,7 @@ public class ComponentChild extends ComponentBase implements ComponentInterface
     /**
      * Implement the abstract property defined on the base class.
      * Note that because this method is not annotated with the
-     * mfp.property annotation, this comment does not become the
+     * JSFProperty annotation, this comment does not become the
      * documentation for the property itself.
      */
     public String getProp1()
@@ -35,7 +35,7 @@ public class ComponentChild extends ComponentBase implements ComponentInterface
      * <p>
      * Some dummy prop2 documentation.
      *
-     * @mfp.property
+     * @JSFProperty
      */
     public boolean getProp2() {
         return prop2;
@@ -47,7 +47,7 @@ public class ComponentChild extends ComponentBase implements ComponentInterface
 
     /**
      * Implement the method defined on ComponentInterface. Because this method does
-     * not use the mfp.property annotation, the property settings are taken from the
+     * not use the JSFProperty annotation, the property settings are taken from the
      * parent interface, not here.
      */
     public String getIfaceProp()

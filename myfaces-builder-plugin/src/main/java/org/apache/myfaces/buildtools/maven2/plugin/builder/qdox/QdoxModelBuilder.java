@@ -30,13 +30,13 @@ import com.thoughtworks.qdox.model.Type;
 public class QdoxModelBuilder implements ModelBuilder
 {
 
-    private static final String DOC_CONVERTER = "mfp.converter";
-    private static final String DOC_VALIDATOR = "mfp.validator";
-    private static final String DOC_COMPONENT = "mfp.component";
-    private static final String DOC_RENDERER = "mfp.renderer";
-    private static final String DOC_RENDERKIT = "mfp.renderkit";
+    private static final String DOC_CONVERTER = "JSFConverter";
+    private static final String DOC_VALIDATOR = "JSFValidator";
+    private static final String DOC_COMPONENT = "JSFComponent";
+    private static final String DOC_RENDERER = "JSFRenderer";
+    private static final String DOC_RENDERKIT = "JSFRenderkit";
 
-    private static final String DOC_PROPERTY = "mfp.property";
+    private static final String DOC_PROPERTY = "JSFProperty";
 
     private static class JavaClassComparator implements Comparator {
         public int compare(Object arg0, Object arg1)
