@@ -142,6 +142,14 @@ public class XmlWriter
         writeElement(name, String.valueOf(value));
     }
 
+    public void writeElement(String name, Boolean value)
+    {
+        if (value != null)
+        {
+            writeElement(name, value.toString());
+        }
+    }
+
     public void beginElement(String name)
     {
         if (openElement)
