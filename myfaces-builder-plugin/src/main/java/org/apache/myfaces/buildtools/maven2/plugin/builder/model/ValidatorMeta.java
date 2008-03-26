@@ -25,21 +25,19 @@ import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
+ * Store metadata about a class that is either a JSF Validator, or some base
+ * class or interface that a Validator can be derived from.
  */
-public class ValidatorMeta
+public class ValidatorMeta extends ClassMeta
 {
     static private final Logger _LOG = Logger.getLogger(ValidatorMeta.class
             .getName());
 
-    private String _className;
     private String _description;
     private String _longDescription;
 
     private String _validatorId;
-    private String _validatorClass;
-    private String _validatorSuperClass;
     private int _validatorClassModifiers;
-    private boolean _tagClassExcluded;
 
     /**
      * Write an instance of this class out as xml.
@@ -48,10 +46,9 @@ public class ValidatorMeta
     {
         out.beginElement("validator");
 
-        out.writeElement("className", vm._className);
+        ClassMeta.writeXml(out, vm);
+
         out.writeElement("validatorId", vm._validatorId);
-        out.writeElement("validatorClass", vm._validatorClass);
-        out.writeElement("validatorSuperClass", vm._validatorSuperClass);
         out.writeElement("desc", vm._description);
         out.writeElement("longDesc", vm._longDescription);
 
@@ -66,107 +63,33 @@ public class ValidatorMeta
     {
         String newPrefix = prefix + "/validator";
 
-        digester.addObjectCreate(newPrefix, ConverterMeta.class);
-        digester.addBeanPropertySetter(newPrefix + "/className");
+        digester.addObjectCreate(newPrefix, ValidatorMeta.class);
+
+        ClassMeta.addXmlRules(digester, newPrefix);
+
         digester.addBeanPropertySetter(newPrefix + "/validatorId");
-        digester.addBeanPropertySetter(newPrefix + "/validatorClass");
-        digester.addBeanPropertySetter(newPrefix + "/validatorSuperClass");
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
     }
 
     /**
-     * The name of the class that this metadata applies to.
-     */
-    public String getClassName()
-    {
-        return _className;
-    }
-
-    public void setClassName(String className)
-    {
-        _className = className;
-    }
-
-    /**
      * Sets the validator identifer for this component.
-     * 
-     * @param validatorId
-     *            validator identifer
      */
     public void setValidatorId(String validatorId)
     {
         _validatorId = validatorId;
     }
 
-    /**
-     * Returns true if the validator identifier is specified, otherwise false.
-     * 
-     * @return true if the validator identifier is specified, otherwise false.
-     */
-    public boolean hasValidatorId()
-    {
-        return (_validatorId != null);
-    }
-
-    /**
-     * Returns the validator identifier for this component.
-     * 
-     * @return the validator identifier
-     */
     public String getValidatorId()
     {
         return _validatorId;
     }
 
     /**
-     * Sets the validator class for this component.
-     * 
-     * @param validatorClass
-     *            the validator class
-     */
-    public void setValidatorClass(String validatorClass)
-    {
-        _validatorClass = validatorClass;
-    }
-
-    /**
-     * Returns the validator class for this component.
-     * 
-     * @return the validator class
-     */
-    public String getValidatorClass()
-    {
-        return _validatorClass;
-    }
-
-    /**
-     * Sets the validator super class for this component.
-     * 
-     * @param validatorSuperClass
-     *            the validator super class
-     */
-    public void setValidatorSuperClass(String validatorSuperClass)
-    {
-        _validatorSuperClass = validatorSuperClass;
-    }
-
-    /**
-     * Returns the validator super class for this component.
-     * 
-     * @return the validator super class
-     */
-    public String getValidatorSuperClass()
-    {
-        return _validatorSuperClass;
-    }
-
-    /**
      * Adds a Java Language class modifier to the validator class.
-     * 
-     * @param modifier
-     *            the modifier to be added
+     * <p>
+     * TODO: what is this for?
      */
     public void addValidatorClassModifier(int modifier)
     {
@@ -192,34 +115,16 @@ public class ValidatorMeta
         return modifiers;
     }
 
-    public void setTagClassExcluded(boolean tagClassExcluded)
-    {
-        _tagClassExcluded = tagClassExcluded;
-    }
-
-    public boolean isTagClassExcluded()
-    {
-        return _tagClassExcluded;
-    }
-
     /**
      * Sets the brief description of this property.
      * <p>
      * This description is used in tooltips, etc.
-     * 
-     * @param description
-     *            the property description
      */
     public void setDescription(String description)
     {
         _description = description;
     }
 
-    /**
-     * Returns the brief description of this property.
-     * 
-     * @return the property description
-     */
     public String getDescription()
     {
         return _description;
@@ -227,20 +132,12 @@ public class ValidatorMeta
 
     /**
      * Sets the long description of this property.
-     * 
-     * @param longDescription
-     *            the long property description
      */
     public void setLongDescription(String longDescription)
     {
         _longDescription = longDescription;
     }
 
-    /**
-     * Returns the long description of this property.
-     * 
-     * @return the long property description
-     */
     public String getLongDescription()
     {
         return _longDescription;
