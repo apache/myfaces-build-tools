@@ -25,23 +25,25 @@ import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
- * Represent a JSF converter.
+ * Store metadata about a class that is either a JSF Converter, or some base
+ * class or interface that a Converter can be derived from.
  * <p>
- * A converter can be used in two ways: (a) referenced via its id, or (b)
- * instantiated via a tag.
+ * A converter can be used in three ways:
+ * <ul>
+ * <li>instantiated via a tag,
+ * <li>referenced via its id,
+ * <li>implicitly used via its forClass property
+ * </ul>
  */
-public class ConverterMeta
+public class ConverterMeta extends ClassMeta
 {
     static private final Logger _LOG = Logger.getLogger(ConverterMeta.class
             .getName());
 
-    private String _className;
     private String _description;
     private String _longDescription;
 
     private String _converterId;
-    private String _converterClass;
-    private String _converterSuperClass;
     private int _converterClassModifiers;
 
     /**
@@ -51,10 +53,9 @@ public class ConverterMeta
     {
         out.beginElement("converter");
 
-        out.writeElement("className", cm._className);
+        ClassMeta.writeXml(out, cm);
+
         out.writeElement("converterId", cm._converterId);
-        out.writeElement("converterClass", cm._converterClass);
-        out.writeElement("converterSuperClass", cm._converterSuperClass);
         out.writeElement("desc", cm._description);
         out.writeElement("longDesc", cm._longDescription);
 
@@ -70,106 +71,32 @@ public class ConverterMeta
         String newPrefix = prefix + "/converter";
 
         digester.addObjectCreate(newPrefix, ConverterMeta.class);
-        digester.addBeanPropertySetter(newPrefix + "/className");
+
+        ClassMeta.addXmlRules(digester, newPrefix);
+
         digester.addBeanPropertySetter(newPrefix + "/converterId");
-        digester.addBeanPropertySetter(newPrefix + "/converterClass");
-        digester.addBeanPropertySetter(newPrefix + "/converterSuperClass");
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
     }
 
     /**
-     * The name of the class that this metadata applies to.
-     */
-    public String getClassName()
-    {
-        return _className;
-    }
-
-    public void setClassName(String className)
-    {
-        _className = className;
-    }
-
-    /**
      * Sets the converter identifer for this component.
-     * 
-     * @param converterId
-     *            converter identifer
      */
     public void setConverterId(String converterId)
     {
         _converterId = converterId;
     }
 
-    /**
-     * Returns true if the converter identifier is specified, otherwise false.
-     * 
-     * @return true if the converter identifier is specified, otherwise false.
-     */
-    public boolean hasConverterId()
-    {
-        return (_converterId != null);
-    }
-
-    /**
-     * Returns the converter identifier for this component.
-     * 
-     * @return the converter identifier
-     */
     public String getConverterId()
     {
         return _converterId;
     }
 
     /**
-     * Sets the converter class for this component.
-     * 
-     * @param converterClass
-     *            the converter class
-     */
-    public void setConverterClass(String converterClass)
-    {
-        _converterClass = converterClass;
-    }
-
-    /**
-     * Returns the converter class for this component.
-     * 
-     * @return the converter class
-     */
-    public String getConverterClass()
-    {
-        return _converterClass;
-    }
-
-    /**
-     * Sets the converter super class for this component.
-     * 
-     * @param converterSuperClass
-     *            the converter super class
-     */
-    public void setSuperClass(String converterSuperClass)
-    {
-        _converterSuperClass = converterSuperClass;
-    }
-
-    /**
-     * Returns the converter super class for this component.
-     * 
-     * @return the converter super class
-     */
-    public String getConverterSuperClass()
-    {
-        return _converterSuperClass;
-    }
-
-    /**
      * Adds a Java Language class modifier to the converter class.
-     * 
-     * @param modifier
-     *            the modifier to be added
+     * <p>
+     * TODO: what is this for????
      */
     public void addConverterClassModifier(int modifier)
     {
@@ -199,20 +126,12 @@ public class ConverterMeta
      * Sets the brief description of this property.
      * <p>
      * This description is used in tooltips, etc.
-     * 
-     * @param description
-     *            the property description
      */
     public void setDescription(String description)
     {
         _description = description;
     }
 
-    /**
-     * Returns the brief description of this property.
-     * 
-     * @return the property description
-     */
     public String getDescription()
     {
         return _description;
@@ -220,20 +139,12 @@ public class ConverterMeta
 
     /**
      * Sets the long description of this property.
-     * 
-     * @param longDescription
-     *            the long property description
      */
     public void setLongDescription(String longDescription)
     {
         _longDescription = longDescription;
     }
 
-    /**
-     * Returns the long description of this property.
-     * 
-     * @return the long property description
-     */
     public String getLongDescription()
     {
         return _longDescription;
