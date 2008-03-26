@@ -35,14 +35,14 @@ public class Model
 {
     static private final Logger _LOG = Logger.getLogger(Model.class.getName());
 
+    private List _components = new ArrayList(100);
     private List _converters = new ArrayList(100);
     private List _validators = new ArrayList(100);
-    private List _components = new ArrayList(100);
     private List _renderKits = new ArrayList(100);
 
+    private Map _componentsByClass = new TreeMap();
     private Map _convertersByClass = new TreeMap();
     private Map _validatorsByClass = new TreeMap();
-    private Map _componentsByClass = new TreeMap();
     private Map _renderKitsByClass = new TreeMap();
 
     /**
@@ -90,6 +90,8 @@ public class Model
 
         digester.addObjectCreate(prefix, Model.class);
         ComponentMeta.addXmlRules(digester, prefix);
+        ConverterMeta.addXmlRules(digester, prefix);
+        ValidatorMeta.addXmlRules(digester, prefix);
     }
 
     /**
@@ -169,6 +171,39 @@ public class Model
     }
 
     /**
+     * Adds a component to this faces config document.
+     * 
+     * @param component
+     *            the component to add
+     */
+    public void addComponent(ComponentMeta component)
+    {
+        _components.add(component);
+        _componentsByClass.put(component.getClassName(), component);
+    }
+
+    /**
+     * Returns all components
+     */
+    public List getComponents()
+    {
+        return _components;
+    }
+
+    /**
+     * Returns an iterator for all components.
+     */
+    public Iterator components()
+    {
+        return _components.iterator();
+    }
+
+    public ComponentMeta findComponentByClassName(String className)
+    {
+        return (ComponentMeta) _componentsByClass.get(className);
+    }
+
+    /**
      * Holds info about a JSF Converter definition
      */
     public void addConverter(ConverterMeta converter)
@@ -226,39 +261,6 @@ public class Model
     public ValidatorMeta findValidatorByClassName(String className)
     {
         return (ValidatorMeta) _validatorsByClass.get(className);
-    }
-
-    /**
-     * Adds a component to this faces config document.
-     * 
-     * @param component
-     *            the component to add
-     */
-    public void addComponent(ComponentMeta component)
-    {
-        _components.add(component);
-        _componentsByClass.put(component.getClassName(), component);
-    }
-
-    /**
-     * Returns all components
-     */
-    public List getComponents()
-    {
-        return _components;
-    }
-
-    /**
-     * Returns an iterator for all components.
-     */
-    public Iterator components()
-    {
-        return _components.iterator();
-    }
-
-    public ComponentMeta findComponentByClassName(String className)
-    {
-        return (ComponentMeta) _componentsByClass.get(className);
     }
 
     /**
