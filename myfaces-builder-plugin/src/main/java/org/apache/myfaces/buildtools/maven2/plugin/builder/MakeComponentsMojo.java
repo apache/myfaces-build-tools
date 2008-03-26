@@ -27,6 +27,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
 
 /**
  * Maven goal to generate java source code for Component classes.
@@ -115,6 +116,10 @@ public class MakeComponentsMojo extends AbstractMojo
             generateComponents(model);
         }
         catch (IOException e)
+        {
+            throw new MojoExecutionException("Error generating components", e);
+        }
+        catch (BuildException e)
         {
             throw new MojoExecutionException("Error generating components", e);
         }

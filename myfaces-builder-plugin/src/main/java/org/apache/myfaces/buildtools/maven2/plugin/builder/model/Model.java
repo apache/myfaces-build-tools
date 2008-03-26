@@ -26,8 +26,6 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import org.apache.commons.digester.Digester;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.Flattener;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**

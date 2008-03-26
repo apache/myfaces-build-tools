@@ -31,9 +31,9 @@ public class PropertyMeta
 {
     private String _name;
     private String _className;
-    private boolean _required;
-    private boolean _literalOnly;
-    private boolean _transient;
+    private Boolean _required;
+    private Boolean _literalOnly;
+    private Boolean _transient;
     private String _description;
     private String _longDescription;
 
@@ -74,6 +74,22 @@ public class PropertyMeta
     }
 
     /**
+     * Merge the data in the specified other property into this one, throwing an
+     * exception if there is an incompatibility.
+     */
+    public void merge(PropertyMeta other)
+    {
+        // don't merge className
+        
+        _name = ModelUtils.merge(this._name, other._name);
+        _required = ModelUtils.merge(this._required, other._required);
+        _literalOnly = ModelUtils.merge(this._literalOnly, other._literalOnly);
+        _transient = ModelUtils.merge(this._transient, other._transient);
+        _description = ModelUtils.merge(this._description, other._description);
+        _longDescription = ModelUtils.merge(this._longDescription, other._longDescription);
+    }
+
+    /**
      * Set the name that users refer to this property by.
      * <p>
      * This sets the name of xml tag attributes, and the base names of generated
@@ -108,14 +124,14 @@ public class PropertyMeta
      * Transient properties are not saved in the view state and are not restored
      * during the "restore view" phase.
      */
-    public void setTransient(boolean transient_)
+    public void setTransient(Boolean transient_)
     {
         _transient = transient_;
     }
 
-    public boolean isTransient()
+    public Boolean isTransient()
     {
-        return _transient;
+        return ModelUtils.defaultOf(_transient, false);
     }
 
     /**
@@ -123,28 +139,28 @@ public class PropertyMeta
      * error for someone to use a tag for a component with this property but not
      * explicitly provide a value for this property.
      */
-    public void setRequired(boolean required)
+    public void setRequired(Boolean required)
     {
         _required = required;
     }
 
-    public boolean isRequired()
+    public Boolean isRequired()
     {
-        return _required;
+        return ModelUtils.defaultOf(_required, false);
     }
 
     /**
      * Specify whether this property accepts only literal (constant) values, or
      * whether this property can be mapped to an EL expression.
      */
-    public void setLiteralOnly(boolean literalOnly)
+    public void setLiteralOnly(Boolean literalOnly)
     {
         _literalOnly = literalOnly;
     }
 
-    public boolean isLiteralOnly()
+    public Boolean isLiteralOnly()
     {
-        return _literalOnly;
+        return ModelUtils.defaultOf(_literalOnly, false);
     }
 
     public void setDescription(String desc)

@@ -45,8 +45,8 @@ public class BuildMetaDataMojoTest extends TestCase
         PropertyMeta prop = new PropertyMeta();
         prop.setName("mockProp");
         prop.setDescription("propdesc");
-        prop.setLiteralOnly(true);
-        prop.setRequired(true);
+        prop.setLiteralOnly(Boolean.TRUE);
+        prop.setRequired(Boolean.TRUE);
         comp.addProperty(prop);
 
         model.addComponent(comp);

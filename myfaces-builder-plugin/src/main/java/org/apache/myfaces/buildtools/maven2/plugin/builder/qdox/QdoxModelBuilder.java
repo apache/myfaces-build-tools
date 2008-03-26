@@ -419,8 +419,7 @@ public class QdoxModelBuilder implements ModelBuilder
                 componentTypeDflt);
         String rendererType = getString(clazz, "defaultRendererType", props,
                 rendererTypeDflt);
-        Boolean canHaveChildren = getBoolean(clazz, "canHaveChildren", props,
-                Boolean.TRUE);
+        Boolean canHaveChildren = getBoolean(clazz, "canHaveChildren", props, null);
 
         String tagClass = getString(clazz, "tagClass", props, null);
         String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
@@ -435,20 +434,18 @@ public class QdoxModelBuilder implements ModelBuilder
         component.setType(componentType);
         component.setFamily(componentFamily);
         component.setRendererType(rendererType);
-        component.setChildren(canHaveChildren.booleanValue());
+        component.setChildren(canHaveChildren);
 
-        boolean namingContainer = false;
         JavaClass[] interfaces = clazz.getImplementedInterfaces();
         for (int i = 0; i < interfaces.length; ++i)
         {
             JavaClass iface = interfaces[i];
             if (iface.getName().equals("javax.faces.component.NamingContainer"))
             {
-                namingContainer = true;
+                component.setNamingContainer(Boolean.TRUE);
                 break;
             }
         }
-        component.setNamingContainer(namingContainer);
 
         component.setTagClass(tagClass);
         component.setTagSuperclass(tagSuperclass);
@@ -494,11 +491,9 @@ public class QdoxModelBuilder implements ModelBuilder
     private void processComponentProperty(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, ComponentMeta component)
     {
-        Boolean required = getBoolean(clazz, "required", props, Boolean.FALSE);
-        Boolean transientProp = getBoolean(clazz, "transient", props,
-                Boolean.FALSE);
-        Boolean literalOnly = getBoolean(clazz, "literalOnly", props,
-                Boolean.FALSE);
+        Boolean required = getBoolean(clazz, "required", props, null);
+        Boolean transientProp = getBoolean(clazz, "transient", props, null);
+        Boolean literalOnly = getBoolean(clazz, "literalOnly", props, null);
 
         String longDescription = ctx.getComment();
         String descDflt = getFirstSentence(longDescription);
@@ -513,9 +508,9 @@ public class QdoxModelBuilder implements ModelBuilder
         PropertyMeta p = new PropertyMeta();
         p.setName(methodToPropName(method.getName()));
         p.setClassName(returnType.toString());
-        p.setRequired(required.booleanValue());
-        p.setTransient(transientProp.booleanValue());
-        p.setLiteralOnly(literalOnly.booleanValue());
+        p.setRequired(required);
+        p.setTransient(transientProp);
+        p.setLiteralOnly(literalOnly);
         p.setDescription(shortDescription);
         p.setLongDescription(longDescription);
 

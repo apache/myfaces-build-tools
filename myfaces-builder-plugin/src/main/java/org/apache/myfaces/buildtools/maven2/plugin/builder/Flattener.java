@@ -35,11 +35,12 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 public class Flattener
 {
     private final Log log = LogFactory.getLog(Flattener.class);
-    
+
     private Model model;
     private Set flattened = new HashSet();
 
-    public Flattener(Model model) {
+    public Flattener(Model model)
+    {
         this.model = model;
     }
 
@@ -52,7 +53,6 @@ public class Flattener
      * that item.
      */
     public void flatten()
-            throws MojoExecutionException
     {
         flattenComponentProperties();
     }
@@ -67,54 +67,33 @@ public class Flattener
         }
     }
 
-    private void flattenComponent(ComponentMeta component) {
-        if (flattened.contains(component)) {
+    private void flattenComponent(ComponentMeta component)
+    {
+        if (flattened.contains(component))
+        {
             // already done
             return;
         }
-        
-        // for each component
-        //   flatten its parent
-        //   merge parent props into curr class
-        //   for each interface
-        //     flatten the interface
-        //     merge interface props into curr class
-        
+
         String parentClassName = component.getParentClassName();
-        if (parentClassName != null) {
-            ComponentMeta parent = model.findComponentByClassName(parentClassName);
+        if (parentClassName != null)
+        {
+            ComponentMeta parent = model
+                    .findComponentByClassName(parentClassName);
             flattenComponent(parent);
-            copyProps(parent, component);
+            component.merge(parent);
         }
 
         List interfaceClassNames = component.getInterfaceClassNames();
-        for(Iterator i = interfaceClassNames.iterator(); i.hasNext(); ) {
-            String ifaceClassName = (String) i.next();
-            ComponentMeta iface = model.findComponentByClassName(ifaceClassName);
-            flattenComponent(iface);
-            copyProps(iface, component);
-        }
-        
-        flattened.add(component);
-    }
-        
-    private void copyProps(ComponentMeta src, ComponentMeta dst)
-    {
-        for (Iterator i = src.properties(); i.hasNext();)
+        for (Iterator i = interfaceClassNames.iterator(); i.hasNext();)
         {
-            PropertyMeta prop = (PropertyMeta) i.next();
-            if (dst.getProperty(prop.getName()) == null)
-            {
-                dst.addProperty(prop);
-            }
-            else
-            {
-                // TODO: consider checking that the redefinition of the
-                // property is "compatible".
-                log.info("Duplicate prop def for class " + dst.getClassName()
-                        + " prop " + prop.getName());
-            }
-
+            String ifaceClassName = (String) i.next();
+            ComponentMeta iface = model
+                    .findComponentByClassName(ifaceClassName);
+            flattenComponent(iface);
+            component.merge(iface);
         }
+
+        flattened.add(component);
     }
 }

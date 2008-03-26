@@ -27,6 +27,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.QdoxModelBuilder;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
 
 /**
  * Maven goal which runs one or more ModelBuilder objects to gather metadata
@@ -80,9 +81,16 @@ public class BuildMetaDataMojo extends AbstractMojo
     private Model buildModel(MavenProject project)
             throws MojoExecutionException
     {
-        Model model = new Model();
-        QdoxModelBuilder builder = new QdoxModelBuilder();
-        builder.buildModel(model, project);
-        return model;
+        try
+        {
+            Model model = new Model();
+            QdoxModelBuilder builder = new QdoxModelBuilder();
+            builder.buildModel(model, project);
+            return model;
+        }
+        catch (BuildException e)
+        {
+            throw new MojoExecutionException("Unable to build metadata", e);
+        }
     }
 }

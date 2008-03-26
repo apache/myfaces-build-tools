@@ -30,7 +30,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  * Store metadata about a class that is either a JSF UIComponent, or some base
  * class or interface that a UIComponent can be derived from.
  */
-public class ComponentMeta extends ClassMeta
+public class ComponentMeta extends ClassMeta implements PropertyHolder
 {
     static private final Logger _LOG = Logger.getLogger(ComponentMeta.class
             .getName());
@@ -46,8 +46,8 @@ public class ComponentMeta extends ClassMeta
     private String _tagClass;
     private String _tagHandler;
     private String _tagSuperclass;
-    private boolean _namingContainer;
-    private boolean _children = true;
+    private Boolean _namingContainer;
+    private Boolean _children;
 
     protected Map _properties;
 
@@ -106,6 +106,33 @@ public class ComponentMeta extends ClassMeta
     public ComponentMeta()
     {
         _properties = new LinkedHashMap();
+    }
+
+    /**
+     * Merge the data in the specified other property into this one, throwing an
+     * exception if there is an incompatibility.
+     */
+    public void merge(ComponentMeta other)
+    {
+        _name = ModelUtils.merge(this._name, other._name);
+        _description = ModelUtils.merge(this._description, other._description);
+        _longDescription = ModelUtils.merge(this._longDescription,
+                other._longDescription);
+
+        _type = ModelUtils.merge(this._type, other._type);
+        _family = ModelUtils.merge(this._family, other._family);
+        _rendererType = ModelUtils.merge(this._rendererType,
+                other._rendererType);
+
+        _tagClass = ModelUtils.merge(this._tagClass, other._tagClass);
+        _tagHandler = ModelUtils.merge(this._tagHandler, other._tagHandler);
+        _tagSuperclass = ModelUtils.merge(this._tagSuperclass,
+                other._tagSuperclass);
+        _namingContainer = ModelUtils.merge(this._namingContainer,
+                other._namingContainer);
+        _children = ModelUtils.merge(this._children, other._children);
+
+        ModelUtils.mergeProps(this, other);
     }
 
     /**
@@ -241,27 +268,27 @@ public class ComponentMeta extends ClassMeta
      * adds its own clientId as a prefix onto the clientId of its child
      * components.
      */
-    public void setNamingContainer(boolean namingContainer)
+    public void setNamingContainer(Boolean namingContainer)
     {
         _namingContainer = namingContainer;
     }
 
-    public boolean isNamingContainer()
+    public Boolean isNamingContainer()
     {
-        return _namingContainer;
+        return ModelUtils.defaultOf(_namingContainer, false);
     }
 
     /**
      * Specifies if the component supports child components.
      */
-    public void setChildren(boolean children)
+    public void setChildren(Boolean children)
     {
         _children = children;
     }
 
-    public boolean hasChildren()
+    public Boolean hasChildren()
     {
-        return _children;
+        return ModelUtils.defaultOf(_children, true);
     }
 
     /**

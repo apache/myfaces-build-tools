@@ -82,6 +82,21 @@ public class ConverterMeta extends ClassMeta
     }
 
     /**
+     * Merge the data in the specified other property into this one, throwing an
+     * exception if there is an incompatibility.
+     */
+    public void merge(ConverterMeta other)
+    {
+        _description = ModelUtils.merge(this._description, other._description);
+        _longDescription = ModelUtils.merge(this._longDescription,
+                other._longDescription);
+
+        _converterId = ModelUtils.merge(this._converterId, other._converterId);
+        
+        // TODO: _converterClassMOdifiers
+    }
+
+    /**
      * Sets the converter identifer for this component.
      */
     public void setConverterId(String converterId)

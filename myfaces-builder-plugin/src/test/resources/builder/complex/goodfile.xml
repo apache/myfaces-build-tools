@@ -17,9 +17,6 @@ This is a base component. It has no name, so is not a concrete component.
     <property>
       <name>prop1</name>
       <className>java.lang.String</className>
-      <required>false</required>
-      <literalOnly>false</literalOnly>
-      <transient>false</transient>
       <desc>The prop1 property</desc>
       <longDesc>
 <![CDATA[
@@ -46,9 +43,6 @@ This is an interface component.
     <property>
       <name>ifaceProp</name>
       <className>java.lang.String</className>
-      <required>false</required>
-      <literalOnly>false</literalOnly>
-      <transient>false</transient>
       <desc>The ifaceProp property</desc>
       <longDesc>
 <![CDATA[
@@ -80,9 +74,6 @@ This is a child component. It does nothing useful.
     <property>
       <name>prop2</name>
       <className>boolean</className>
-      <required>false</required>
-      <literalOnly>false</literalOnly>
-      <transient>false</transient>
       <desc>The prop2 property</desc>
       <longDesc>
 <![CDATA[

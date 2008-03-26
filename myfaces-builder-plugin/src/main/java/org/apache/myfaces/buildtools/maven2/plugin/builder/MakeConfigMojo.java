@@ -36,6 +36,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
 
 /**
  * Creates taglib (tld) and faces-config files.
@@ -110,11 +111,15 @@ public class MakeConfigMojo extends AbstractMojo
                     metadataFile));
             new Flattener(model).flatten();
             generateConfig(model);
-            throw new MojoExecutionException("Error during generation");
+            throw new MojoExecutionException("Error during config generation");
         }
         catch (IOException e)
         {
-            throw new MojoExecutionException("Error generating components", e);
+            throw new MojoExecutionException("Error during config generation", e);
+        }
+        catch (BuildException e)
+        {
+            throw new MojoExecutionException("Error during config generation", e);
         }
     }
 

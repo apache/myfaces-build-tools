@@ -75,6 +75,21 @@ public class ValidatorMeta extends ClassMeta
     }
 
     /**
+     * Merge the data in the specified other property into this one, throwing an
+     * exception if there is an incompatibility.
+     */
+    public void merge(ValidatorMeta other)
+    {
+        _description = ModelUtils.merge(this._description, other._description);
+        _longDescription = ModelUtils.merge(this._longDescription,
+                other._longDescription);
+
+        _validatorId = ModelUtils.merge(this._validatorId, other._validatorId);
+
+        // TODO: _validatorClassMOdifiers
+    }
+
+    /**
      * Sets the validator identifer for this component.
      */
     public void setValidatorId(String validatorId)
