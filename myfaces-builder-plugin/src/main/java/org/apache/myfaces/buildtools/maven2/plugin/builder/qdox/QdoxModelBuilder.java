@@ -16,7 +16,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelBuilder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ModelItem;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
@@ -288,7 +288,7 @@ public class QdoxModelBuilder implements ModelBuilder
      * Set the parentClassName and interfaceClassNames properties of the
      * provided modelItem object.
      */
-    private void initAncestry(Model model, JavaClass clazz, ModelItem modelItem)
+    private void initAncestry(Model model, JavaClass clazz, ClassMeta modelItem)
     {
         // self
         modelItem.setClassName(clazz.getName());

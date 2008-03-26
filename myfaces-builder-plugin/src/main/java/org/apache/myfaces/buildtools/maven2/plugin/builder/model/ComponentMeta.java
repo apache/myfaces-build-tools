@@ -27,8 +27,10 @@ import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
+ * Store metadata about a class that is either a JSF UIComponent, or some base
+ * class or interface that a UIComponent can be derived from.
  */
-public class ComponentMeta extends ModelItem
+public class ComponentMeta extends ClassMeta
 {
     static private final Logger _LOG = Logger.getLogger(ComponentMeta.class
             .getName());
@@ -56,7 +58,7 @@ public class ComponentMeta extends ModelItem
     {
         out.beginElement("component");
 
-        ModelItem.writeXml(out, cm);
+        ClassMeta.writeXml(out, cm);
 
         out.writeElement("name", cm._name);
         out.writeElement("type", cm._type);
@@ -85,7 +87,7 @@ public class ComponentMeta extends ModelItem
 
         digester.addObjectCreate(newPrefix, ComponentMeta.class);
 
-        ModelItem.addXmlRules(digester, newPrefix);
+        ClassMeta.addXmlRules(digester, newPrefix);
 
         digester.addBeanPropertySetter(newPrefix + "/name");
         digester.addBeanPropertySetter(newPrefix + "/type");

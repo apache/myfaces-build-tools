@@ -27,8 +27,12 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
  * Base class for various metadata (model) classes.
+ * <p>
+ * This holds metadata common to all model classes that represent a jsf class,
+ * eg a component, converter, validator. In all these cases, the class has a
+ * type, a parent and optionally a list of implemented interfaces.
  */
-public class ModelItem
+public class ClassMeta
 {
     private String _className;
     private String _parentClassName;
@@ -37,7 +41,7 @@ public class ModelItem
     /**
      * Write this model out as xml.
      */
-    public static void writeXml(XmlWriter out, ModelItem mi)
+    public static void writeXml(XmlWriter out, ClassMeta mi)
     {
         out.writeElement("className", mi._className);
         out.writeElement("parentClassName", mi._parentClassName);
@@ -69,6 +73,10 @@ public class ModelItem
         digester.addCallParam(prefix + "/interfaces/interface", 0, "name");
     }
 
+    /**
+     * The fully-qualified name of the class that this metadata was extracted
+     * from.
+     */
     public String getClassName()
     {
         return _className;
@@ -79,6 +87,14 @@ public class ModelItem
         _className = className;
     }
 
+    /**
+     * The nearest relevant ancestor class of the class that this metadata was
+     * extracted from.
+     * <p>
+     * For example, when a class is marked as a Component class, then this will
+     * refer to the nearest ancestor class that is also marked as a Component
+     * class.
+     */
     public String getParentClassName()
     {
         return _parentClassName;
@@ -89,6 +105,13 @@ public class ModelItem
         _parentClassName = className;
     }
 
+    /**
+     * The list of relevant interface classes.
+     * <p>
+     * For example, when a class is marked as a Component class, then this will
+     * refer to the list of interfaces which that class implements that are also
+     * marked as a component.
+     */
     public List getInterfaceClassNames()
     {
         return _interfaceClassNames;

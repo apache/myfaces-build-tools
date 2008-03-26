@@ -23,7 +23,7 @@ import java.util.TreeMap;
 
 /**
  */
-public class RendererMeta extends ModelItem
+public class RendererMeta extends ClassMeta
 {
 
     private String _description;
