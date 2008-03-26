@@ -34,6 +34,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.xml.sax.SAXException;
 
 /**
+ * Utilities to write a Model as xml, and read a Model in from xml.
  */
 public class IOUtils
 {

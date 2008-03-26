@@ -29,7 +29,11 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.QdoxModelBuilder;
 
 /**
- * Creates myfaces-metadata.xml file.
+ * Maven goal which runs one or more ModelBuilder objects to gather metadata
+ * about JSF artifacts into a Model object, then save that model object as an
+ * xml file for use by other goals of this plugin.
+ * <p>
+ * By default, the generated file is named "META-INF/myfaces-metadata.xml".
  * 
  * @requiresDependencyResolution compile
  * @goal build-metadata
@@ -40,17 +44,23 @@ public class BuildMetaDataMojo extends AbstractMojo
     final Log log = LogFactory.getLog(BuildMetaDataMojo.class.getName());
 
     /**
+     * Injected Maven project object.
+     * 
      * @parameter expression="${project}"
      * @readonly
      */
     private MavenProject project;
 
     /**
+     * Injected build directory for all generated stuff.
+     * 
      * @parameter expression="${project.build.directory}"
      */
     private File targetDirectory;
 
     /**
+     * Injected name of file to generate, relative to targetDirectory.
+     * 
      * @parameter
      */
     private String outputFile = "classes/META-INF/myfaces-metadata.xml";
