@@ -61,6 +61,8 @@ public class PropertyMeta
         String newPrefix = prefix + "/property";
 
         digester.addObjectCreate(newPrefix, PropertyMeta.class);
+        digester.addSetNext(newPrefix, "addProperty");
+
         digester.addBeanPropertySetter(newPrefix + "/name");
         digester.addBeanPropertySetter(newPrefix + "/className");
         digester.addBeanPropertySetter(newPrefix + "/required");

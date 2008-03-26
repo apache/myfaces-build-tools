@@ -64,6 +64,7 @@ public class ValidatorMeta extends ClassMeta
         String newPrefix = prefix + "/validator";
 
         digester.addObjectCreate(newPrefix, ValidatorMeta.class);
+        digester.addSetNext(newPrefix, "addValidator");
 
         ClassMeta.addXmlRules(digester, newPrefix);
 

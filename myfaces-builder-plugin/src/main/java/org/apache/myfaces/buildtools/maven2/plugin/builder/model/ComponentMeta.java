@@ -86,6 +86,7 @@ public class ComponentMeta extends ClassMeta
         String newPrefix = prefix + "/component";
 
         digester.addObjectCreate(newPrefix, ComponentMeta.class);
+        digester.addSetNext(newPrefix, "addComponent");
 
         ClassMeta.addXmlRules(digester, newPrefix);
 

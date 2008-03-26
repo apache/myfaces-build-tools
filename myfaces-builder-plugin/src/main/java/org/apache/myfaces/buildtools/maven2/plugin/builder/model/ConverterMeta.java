@@ -71,6 +71,7 @@ public class ConverterMeta extends ClassMeta
         String newPrefix = prefix + "/converter";
 
         digester.addObjectCreate(newPrefix, ConverterMeta.class);
+        digester.addSetNext(newPrefix, "addConverter");
 
         ClassMeta.addXmlRules(digester, newPrefix);
 
