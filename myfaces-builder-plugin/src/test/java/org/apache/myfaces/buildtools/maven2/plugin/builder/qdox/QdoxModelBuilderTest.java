@@ -34,9 +34,9 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 
 /**
  * Tests the QDoxModelBuilderTest generation mojo.
@@ -69,10 +69,10 @@ public class QdoxModelBuilderTest extends TestCase
         builder.buildModel(model, sourceDirs);
 
         assertEquals(1, model.getComponents().size());
-        ComponentModel cm = (ComponentModel) model.getComponents().get(0);
+        ComponentMeta cm = (ComponentMeta) model.getComponents().get(0);
         assertEquals(1, cm.propertiesSize());
         Iterator props = cm.properties();
-        PropertyModel prop1 = (PropertyModel) props.next();
+        PropertyMeta prop1 = (PropertyMeta) props.next();
         assertEquals("prop1", prop1.getName());
         assertEquals("java.lang.String", prop1.getClassName());
     }

@@ -27,9 +27,9 @@ import java.util.logging.Logger;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.QdoxModelBuilder;
 
 /**
@@ -80,12 +80,12 @@ public class MakeComponentsMojo extends AbstractMojo
         Iterator components = artifacts.components();
         while (components.hasNext())
         {
-            dumpComponent((ComponentModel) components.next());
+            dumpComponent((ComponentMeta) components.next());
         }
         System.out.println("--dumped artifacts--");
     }
 
-    private void dumpComponent(ComponentModel c)
+    private void dumpComponent(ComponentMeta c)
     {
         PrintStream out = System.out;
         out.println("==Component");
@@ -94,7 +94,7 @@ public class MakeComponentsMojo extends AbstractMojo
         Iterator p = c.properties();
         while (p.hasNext())
         {
-            PropertyModel prop = (PropertyModel) p.next();
+            PropertyMeta prop = (PropertyMeta) p.next();
             out.println("prop:" + prop.getName());
             out.println("  class:" + prop.getClassName());
             out.println("  isLiteral:" + prop.isLiteralOnly());
@@ -144,7 +144,7 @@ public class MakeComponentsMojo extends AbstractMojo
      * @param component
      *            the parsed component metadata
      */
-    private void _generateComponent(ComponentModel component)
+    private void _generateComponent(ComponentMeta component)
             throws MojoExecutionException
     {
         /*

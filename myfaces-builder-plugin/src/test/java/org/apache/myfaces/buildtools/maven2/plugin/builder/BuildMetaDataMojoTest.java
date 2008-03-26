@@ -20,9 +20,9 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
 import junit.framework.TestCase;
 
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 
 /**
  * Tests the faces-config.xml generation mojo.
@@ -33,7 +33,7 @@ public class BuildMetaDataMojoTest extends TestCase
     {
         Model model = new Model();
 
-        ComponentModel comp = new ComponentModel();
+        ComponentMeta comp = new ComponentMeta();
         comp.setName("mockComponent");
         comp.setClassName("example.MockComponent");
         comp.setDescription("dummy desc");
@@ -42,7 +42,7 @@ public class BuildMetaDataMojoTest extends TestCase
         comp.setParentClassName("javax.faces.UIComponent");
         comp.setType("mockType");
 
-        PropertyModel prop = new PropertyModel();
+        PropertyMeta prop = new PropertyMeta();
         prop.setName("mockProp");
         prop.setDescription("propdesc");
         prop.setLiteralOnly(true);

@@ -26,7 +26,7 @@ import java.util.TreeMap;
  * RenderKitBean is a Java representation of the faces-config render-kit XML
  * element.
  */
-public class RenderKitModel
+public class RenderKitMeta
 {
     private String _className;
 
@@ -49,7 +49,7 @@ public class RenderKitModel
     /**
      * Creates a new RenderKitBean.
      */
-    public RenderKitModel()
+    public RenderKitMeta()
     {
         _renderers = new TreeMap();
     }
@@ -81,7 +81,7 @@ public class RenderKitModel
      * @param renderer
      *            the renderer to add
      */
-    public void addRenderer(RendererModel renderer)
+    public void addRenderer(RendererMeta renderer)
     {
         String componentFamily = renderer.getComponentFamily();
         String rendererType = renderer.getRendererType();
@@ -97,11 +97,11 @@ public class RenderKitModel
      * @param rendererType
      *            the renderer type
      */
-    public RendererModel findRenderer(String componentFamily,
+    public RendererMeta findRenderer(String componentFamily,
             String rendererType)
     {
         String compositeKey = componentFamily + "|" + rendererType;
-        return (RendererModel) _renderers.get(compositeKey);
+        return (RendererMeta) _renderers.get(compositeKey);
     }
 
     /**
@@ -124,12 +124,12 @@ public class RenderKitModel
         return _renderers.values().iterator();
     }
 
-    void addAllRenderers(RenderKitModel renderKit)
+    void addAllRenderers(RenderKitMeta renderKit)
     {
         for (Iterator i = renderKit._renderers.values().iterator(); i.hasNext();)
         {
             // use addRenderer to establish owner
-            addRenderer((RendererModel) i.next());
+            addRenderer((RendererMeta) i.next());
         }
     }
 }

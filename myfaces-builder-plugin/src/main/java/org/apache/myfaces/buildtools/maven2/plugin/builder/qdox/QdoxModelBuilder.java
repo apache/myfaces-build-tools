@@ -13,12 +13,12 @@ import java.util.Set;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelBuilder;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentModel;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ModelItem;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyModel;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
@@ -297,7 +297,7 @@ public class QdoxModelBuilder implements ModelBuilder
         JavaClass parentClazz = clazz.getSuperJavaClass();
         while (parentClazz != null)
         {
-            ComponentModel parentComponent = model
+            ComponentMeta parentComponent = model
                     .findComponentByClassName(parentClazz.getName());
             if (parentComponent != null)
             {
@@ -314,7 +314,7 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             JavaClass iclazz = classes[i];
 
-            ComponentModel ifaceComponent = model
+            ComponentMeta ifaceComponent = model
                     .findComponentByClassName(iclazz.getName());
             if (ifaceComponent != null)
             {
@@ -337,7 +337,7 @@ public class QdoxModelBuilder implements ModelBuilder
 
         String converterId = getString(clazz, "id", props, null);
 
-        ConverterModel converter = new ConverterModel();
+        ConverterMeta converter = new ConverterMeta();
         converter.setClassName(clazz.getName());
         converter.setConverterId(converterId);
         converter.setDescription(shortDescription);
@@ -358,7 +358,7 @@ public class QdoxModelBuilder implements ModelBuilder
 
         String validatorId = getString(clazz, "id", props, null);
 
-        ValidatorModel validator = new ValidatorModel();
+        ValidatorMeta validator = new ValidatorMeta();
         validator.setClassName(clazz.getName());
         validator.setValidatorId(validatorId);
         validator.setDescription(shortDescription);
@@ -420,7 +420,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
         String tagHandler = getString(clazz, "tagHandler", props, null);
 
-        ComponentModel component = new ComponentModel();
+        ComponentMeta component = new ComponentMeta();
         initAncestry(model, clazz, component);
         component.setName(componentName);
         component.setClassName(componentClass);
@@ -460,7 +460,7 @@ public class QdoxModelBuilder implements ModelBuilder
      * component properties, and add metadata about them to the model.
      */
     private void processComponentProperties(JavaClass clazz,
-            ComponentModel component)
+            ComponentMeta component)
     {
         JavaMethod[] methods = clazz.getMethods();
         for (int i = 0; i < methods.length; ++i)
@@ -486,7 +486,7 @@ public class QdoxModelBuilder implements ModelBuilder
     }
 
     private void processComponentProperty(Map props, AbstractJavaEntity ctx,
-            JavaClass clazz, JavaMethod method, ComponentModel component)
+            JavaClass clazz, JavaMethod method, ComponentMeta component)
     {
         Boolean required = getBoolean(clazz, "required", props, Boolean.FALSE);
         Boolean transientProp = getBoolean(clazz, "transient", props,
@@ -504,7 +504,7 @@ public class QdoxModelBuilder implements ModelBuilder
 
         Type returnType = method.getReturns();
 
-        PropertyModel p = new PropertyModel();
+        PropertyMeta p = new PropertyMeta();
         p.setName(methodToPropName(method.getName()));
         p.setClassName(returnType.toString());
         p.setRequired(required.booleanValue());
@@ -586,7 +586,7 @@ public class QdoxModelBuilder implements ModelBuilder
         return doc.substring(0, index);
     }
 
-    private void validateComponent(ComponentModel component)
+    private void validateComponent(ComponentMeta component)
             throws MojoExecutionException
     {
         // when name is set, this is a real component, so must have

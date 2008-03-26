@@ -23,7 +23,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
  */
-public class PropertyModel
+public class PropertyMeta
 {
     private String _name;
     private String _className;
@@ -36,7 +36,7 @@ public class PropertyModel
     /**
      * Write this model out as xml.
      */
-    public static void writeXml(XmlWriter out, PropertyModel pm)
+    public static void writeXml(XmlWriter out, PropertyMeta pm)
     {
         out.beginElement("property");
         out.writeElement("name", pm._name);
@@ -56,7 +56,7 @@ public class PropertyModel
     {
         String newPrefix = prefix + "/property";
 
-        digester.addObjectCreate(newPrefix, PropertyModel.class);
+        digester.addObjectCreate(newPrefix, PropertyMeta.class);
         digester.addBeanPropertySetter(newPrefix + "/name");
         digester.addBeanPropertySetter(newPrefix + "/className");
         digester.addBeanPropertySetter(newPrefix + "/required");

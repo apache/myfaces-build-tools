@@ -23,7 +23,7 @@ import java.util.TreeMap;
 
 /**
  */
-public class RendererModel extends ModelItem
+public class RendererMeta extends ModelItem
 {
 
     private String _description;
@@ -38,7 +38,7 @@ public class RendererModel extends ModelItem
     /**
      * Creates a new RendererBean.
      */
-    public RendererModel()
+    public RendererMeta()
     {
         _attributes = new TreeMap();
         _facets = new TreeMap();
@@ -177,7 +177,7 @@ public class RendererModel extends ModelItem
      */
     public String findComponentClass()
     {
-        ComponentModel component = resolveComponentType();
+        ComponentMeta component = resolveComponentType();
         return (component != null) ? component.getClassName()
                 : "org.apache.myfaces.trinidad.component.UIXComponent";
     }
@@ -197,7 +197,7 @@ public class RendererModel extends ModelItem
      * 
      * @return the component type instance
      */
-    public ComponentModel resolveComponentType()
+    public ComponentMeta resolveComponentType()
     {
         if (_componentType == null)
             return null;

@@ -25,40 +25,37 @@ import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
- * Represent a JSF converter.
- * <p>
- * A converter can be used in two ways: (a) referenced via its id, or (b)
- * instantiated via a tag.
  */
-public class ConverterModel
+public class ValidatorMeta
 {
-    static private final Logger _LOG = Logger.getLogger(ConverterModel.class
+    static private final Logger _LOG = Logger.getLogger(ValidatorMeta.class
             .getName());
 
     private String _className;
     private String _description;
     private String _longDescription;
 
-    private String _converterId;
-    private String _converterClass;
-    private String _converterSuperClass;
-    private int _converterClassModifiers;
+    private String _validatorId;
+    private String _validatorClass;
+    private String _validatorSuperClass;
+    private int _validatorClassModifiers;
+    private boolean _tagClassExcluded;
 
     /**
      * Write an instance of this class out as xml.
      */
-    public static void writeXml(XmlWriter out, ConverterModel cm)
+    public static void writeXml(XmlWriter out, ValidatorMeta vm)
     {
-        out.beginElement("converter");
+        out.beginElement("validator");
 
-        out.writeElement("className", cm._className);
-        out.writeElement("converterId", cm._converterId);
-        out.writeElement("converterClass", cm._converterClass);
-        out.writeElement("converterSuperClass", cm._converterSuperClass);
-        out.writeElement("desc", cm._description);
-        out.writeElement("longDesc", cm._longDescription);
+        out.writeElement("className", vm._className);
+        out.writeElement("validatorId", vm._validatorId);
+        out.writeElement("validatorClass", vm._validatorClass);
+        out.writeElement("validatorSuperClass", vm._validatorSuperClass);
+        out.writeElement("desc", vm._description);
+        out.writeElement("longDesc", vm._longDescription);
 
-        out.endElement("converter");
+        out.endElement("validator");
     }
 
     /**
@@ -67,13 +64,13 @@ public class ConverterModel
      */
     public static void addXmlRules(Digester digester, String prefix)
     {
-        String newPrefix = prefix + "/converter";
+        String newPrefix = prefix + "/validator";
 
-        digester.addObjectCreate(newPrefix, ConverterModel.class);
+        digester.addObjectCreate(newPrefix, ConverterMeta.class);
         digester.addBeanPropertySetter(newPrefix + "/className");
-        digester.addBeanPropertySetter(newPrefix + "/converterId");
-        digester.addBeanPropertySetter(newPrefix + "/converterClass");
-        digester.addBeanPropertySetter(newPrefix + "/converterSuperClass");
+        digester.addBeanPropertySetter(newPrefix + "/validatorId");
+        digester.addBeanPropertySetter(newPrefix + "/validatorClass");
+        digester.addBeanPropertySetter(newPrefix + "/validatorSuperClass");
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
@@ -93,98 +90,98 @@ public class ConverterModel
     }
 
     /**
-     * Sets the converter identifer for this component.
+     * Sets the validator identifer for this component.
      * 
-     * @param converterId
-     *            converter identifer
+     * @param validatorId
+     *            validator identifer
      */
-    public void setConverterId(String converterId)
+    public void setValidatorId(String validatorId)
     {
-        _converterId = converterId;
+        _validatorId = validatorId;
     }
 
     /**
-     * Returns true if the converter identifier is specified, otherwise false.
+     * Returns true if the validator identifier is specified, otherwise false.
      * 
-     * @return true if the converter identifier is specified, otherwise false.
+     * @return true if the validator identifier is specified, otherwise false.
      */
-    public boolean hasConverterId()
+    public boolean hasValidatorId()
     {
-        return (_converterId != null);
+        return (_validatorId != null);
     }
 
     /**
-     * Returns the converter identifier for this component.
+     * Returns the validator identifier for this component.
      * 
-     * @return the converter identifier
+     * @return the validator identifier
      */
-    public String getConverterId()
+    public String getValidatorId()
     {
-        return _converterId;
+        return _validatorId;
     }
 
     /**
-     * Sets the converter class for this component.
+     * Sets the validator class for this component.
      * 
-     * @param converterClass
-     *            the converter class
+     * @param validatorClass
+     *            the validator class
      */
-    public void setConverterClass(String converterClass)
+    public void setValidatorClass(String validatorClass)
     {
-        _converterClass = converterClass;
+        _validatorClass = validatorClass;
     }
 
     /**
-     * Returns the converter class for this component.
+     * Returns the validator class for this component.
      * 
-     * @return the converter class
+     * @return the validator class
      */
-    public String getConverterClass()
+    public String getValidatorClass()
     {
-        return _converterClass;
+        return _validatorClass;
     }
 
     /**
-     * Sets the converter super class for this component.
+     * Sets the validator super class for this component.
      * 
-     * @param converterSuperClass
-     *            the converter super class
+     * @param validatorSuperClass
+     *            the validator super class
      */
-    public void setSuperClass(String converterSuperClass)
+    public void setValidatorSuperClass(String validatorSuperClass)
     {
-        _converterSuperClass = converterSuperClass;
+        _validatorSuperClass = validatorSuperClass;
     }
 
     /**
-     * Returns the converter super class for this component.
+     * Returns the validator super class for this component.
      * 
-     * @return the converter super class
+     * @return the validator super class
      */
-    public String getConverterSuperClass()
+    public String getValidatorSuperClass()
     {
-        return _converterSuperClass;
+        return _validatorSuperClass;
     }
 
     /**
-     * Adds a Java Language class modifier to the converter class.
+     * Adds a Java Language class modifier to the validator class.
      * 
      * @param modifier
      *            the modifier to be added
      */
-    public void addConverterClassModifier(int modifier)
+    public void addValidatorClassModifier(int modifier)
     {
-        _converterClassModifiers |= modifier;
+        _validatorClassModifiers |= modifier;
     }
 
     /**
-     * Returns the Java Language class modifiers for the converter class. By
+     * Returns the Java Language class modifiers for the validator class. By
      * default, these modifiers include Modifier.PUBLIC.
      * 
-     * @return the Java Language class modifiers for the converter class
+     * @return the Java Language class modifiers for the validator class
      */
-    public int getConverterClassModifiers()
+    public int getValidatorClassModifiers()
     {
-        int modifiers = _converterClassModifiers;
+        int modifiers = _validatorClassModifiers;
 
         if (!Modifier.isPrivate(modifiers) && !Modifier.isProtected(modifiers)
                 && !Modifier.isPublic(modifiers))
@@ -193,6 +190,16 @@ public class ConverterModel
         }
 
         return modifiers;
+    }
+
+    public void setTagClassExcluded(boolean tagClassExcluded)
+    {
+        _tagClassExcluded = tagClassExcluded;
+    }
+
+    public boolean isTagClassExcluded()
+    {
+        return _tagClassExcluded;
     }
 
     /**

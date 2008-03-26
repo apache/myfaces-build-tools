@@ -34,7 +34,7 @@ import javax.xml.stream.XMLStreamWriter;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentModel;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 
 /**
@@ -202,7 +202,7 @@ public class MakeConfigMojo extends AbstractMojo
     {
         for (Iterator i = model.components(); i.hasNext();)
         {
-            ComponentModel cmp = (ComponentModel) i.next();
+            ComponentMeta cmp = (ComponentMeta) i.next();
             writer.writeStartElement("component");
             writer.writeCharacters("\n");
             writer.writeStartElement("component-type");

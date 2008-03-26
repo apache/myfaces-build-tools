@@ -58,20 +58,20 @@ public class Model
 
         for (Iterator i = model._components.iterator(); i.hasNext();)
         {
-            ComponentModel c = (ComponentModel) i.next();
-            ComponentModel.writeXml(out, c);
+            ComponentMeta c = (ComponentMeta) i.next();
+            ComponentMeta.writeXml(out, c);
         }
 
         for (Iterator i = model._converters.iterator(); i.hasNext();)
         {
-            ConverterModel c = (ConverterModel) i.next();
-            ConverterModel.writeXml(out, c);
+            ConverterMeta c = (ConverterMeta) i.next();
+            ConverterMeta.writeXml(out, c);
         }
 
         for (Iterator i = model._validators.iterator(); i.hasNext();)
         {
-            ValidatorModel c = (ValidatorModel) i.next();
-            ValidatorModel.writeXml(out, c);
+            ValidatorMeta c = (ValidatorMeta) i.next();
+            ValidatorMeta.writeXml(out, c);
         }
 
         out.endElement("model");
@@ -89,7 +89,7 @@ public class Model
         String prefix = "model";
 
         digester.addObjectCreate(prefix, Model.class);
-        ComponentModel.addXmlRules(digester, prefix);
+        ComponentMeta.addXmlRules(digester, prefix);
     }
 
     /**
@@ -115,22 +115,22 @@ public class Model
 
         for (Iterator i = _components.iterator(); i.hasNext();)
         {
-            ComponentModel comp = (ComponentModel) i.next();
+            ComponentMeta comp = (ComponentMeta) i.next();
             List l = new ArrayList();
             addAncestors(l, comp);
             for (Iterator j = l.iterator(); j.hasNext();)
             {
-                ComponentModel ancestor = (ComponentModel) j.next();
+                ComponentMeta ancestor = (ComponentMeta) j.next();
                 copyProps(comp, ancestor);
             }
         }
     }
 
-    private void copyProps(ComponentModel dst, ComponentModel src)
+    private void copyProps(ComponentMeta dst, ComponentMeta src)
     {
         for (Iterator i = src.properties(); i.hasNext();)
         {
-            PropertyModel prop = (PropertyModel) i.next();
+            PropertyMeta prop = (PropertyMeta) i.next();
             if (dst.getProperty(prop.getName()) == null)
             {
                 dst.addProperty(prop);
@@ -146,12 +146,12 @@ public class Model
         }
     }
 
-    private void addAncestors(List l, ComponentModel comp)
+    private void addAncestors(List l, ComponentMeta comp)
     {
         String parentClassName = comp.getParentClassName();
         if (parentClassName != null)
         {
-            ComponentModel parent = (ComponentModel) _componentsByClass
+            ComponentMeta parent = (ComponentMeta) _componentsByClass
                     .get(parentClassName);
             l.add(parent);
             addAncestors(l, parent);
@@ -161,7 +161,7 @@ public class Model
         for (Iterator i = interfaces.iterator(); i.hasNext();)
         {
             String ifaceName = (String) i.next();
-            ComponentModel iface = (ComponentModel) _componentsByClass
+            ComponentMeta iface = (ComponentMeta) _componentsByClass
                     .get(ifaceName);
             l.add(ifaceName);
             addAncestors(l, iface);
@@ -171,7 +171,7 @@ public class Model
     /**
      * Holds info about a JSF Converter definition
      */
-    public void addConverter(ConverterModel converter)
+    public void addConverter(ConverterMeta converter)
     {
         _converters.add(converter);
         _convertersByClass.put(converter.getClassName(), converter);
@@ -193,15 +193,15 @@ public class Model
         return _converters.iterator();
     }
 
-    public ConverterModel findConverterByClassName(String className)
+    public ConverterMeta findConverterByClassName(String className)
     {
-        return (ConverterModel) _convertersByClass.get(className);
+        return (ConverterMeta) _convertersByClass.get(className);
     }
 
     /**
      * Holds info about a JSF Converter definition
      */
-    public void addValidator(ValidatorModel validator)
+    public void addValidator(ValidatorMeta validator)
     {
         _validators.add(validator);
         _validatorsByClass.put(validator.getClassName(), validator);
@@ -223,9 +223,9 @@ public class Model
         return _validators.iterator();
     }
 
-    public ValidatorModel findValidatorByClassName(String className)
+    public ValidatorMeta findValidatorByClassName(String className)
     {
-        return (ValidatorModel) _validatorsByClass.get(className);
+        return (ValidatorMeta) _validatorsByClass.get(className);
     }
 
     /**
@@ -234,7 +234,7 @@ public class Model
      * @param component
      *            the component to add
      */
-    public void addComponent(ComponentModel component)
+    public void addComponent(ComponentMeta component)
     {
         _components.add(component);
         _componentsByClass.put(component.getClassName(), component);
@@ -256,9 +256,9 @@ public class Model
         return _components.iterator();
     }
 
-    public ComponentModel findComponentByClassName(String className)
+    public ComponentMeta findComponentByClassName(String className)
     {
-        return (ComponentModel) _componentsByClass.get(className);
+        return (ComponentMeta) _componentsByClass.get(className);
     }
 
     /**
@@ -267,7 +267,7 @@ public class Model
      * @param renderKit
      *            the render kit to add
      */
-    public void addRenderKit(RenderKitModel renderKit)
+    public void addRenderKit(RenderKitMeta renderKit)
     {
         _renderKits.add(renderKit);
         _renderKitsByClass.put(renderKit.getClassName(), renderKit);
@@ -294,8 +294,8 @@ public class Model
      * @param renderKitId
      *            the render kit id to find
      */
-    private RenderKitModel findRenderKitByClassName(String className)
+    private RenderKitMeta findRenderKitByClassName(String className)
     {
-        return (RenderKitModel) _renderKitsByClass.get(className);
+        return (RenderKitMeta) _renderKitsByClass.get(className);
     }
 }

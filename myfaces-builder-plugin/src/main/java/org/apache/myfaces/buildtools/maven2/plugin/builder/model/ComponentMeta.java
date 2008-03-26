@@ -28,9 +28,9 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
  */
-public class ComponentModel extends ModelItem
+public class ComponentMeta extends ModelItem
 {
-    static private final Logger _LOG = Logger.getLogger(ComponentModel.class
+    static private final Logger _LOG = Logger.getLogger(ComponentMeta.class
             .getName());
 
     private String _name;
@@ -52,7 +52,7 @@ public class ComponentModel extends ModelItem
     /**
      * Write an instance of this class out as xml.
      */
-    public static void writeXml(XmlWriter out, ComponentModel cm)
+    public static void writeXml(XmlWriter out, ComponentMeta cm)
     {
         out.beginElement("component");
 
@@ -68,8 +68,8 @@ public class ComponentModel extends ModelItem
 
         for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
         {
-            PropertyModel prop = (PropertyModel) i.next();
-            PropertyModel.writeXml(out, prop);
+            PropertyMeta prop = (PropertyMeta) i.next();
+            PropertyMeta.writeXml(out, prop);
         }
 
         out.endElement("component");
@@ -83,7 +83,7 @@ public class ComponentModel extends ModelItem
     {
         String newPrefix = prefix + "/component";
 
-        digester.addObjectCreate(newPrefix, ComponentModel.class);
+        digester.addObjectCreate(newPrefix, ComponentMeta.class);
 
         ModelItem.addXmlRules(digester, newPrefix);
 
@@ -94,13 +94,13 @@ public class ComponentModel extends ModelItem
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
-        PropertyModel.addXmlRules(digester, newPrefix);
+        PropertyMeta.addXmlRules(digester, newPrefix);
     }
 
     /**
      * Constructor.
      */
-    public ComponentModel()
+    public ComponentMeta()
     {
         _properties = new LinkedHashMap();
     }
@@ -346,7 +346,7 @@ public class ComponentModel extends ModelItem
      * @param property
      *            the property to add
      */
-    public void addProperty(PropertyModel property)
+    public void addProperty(PropertyMeta property)
     {
         _properties.put(property.getName(), property);
     }
@@ -357,9 +357,9 @@ public class ComponentModel extends ModelItem
      * @param propertyName
      *            the property name to find
      */
-    public PropertyModel getProperty(String propertyName)
+    public PropertyMeta getProperty(String propertyName)
     {
-        return (PropertyModel) _properties.get(propertyName);
+        return (PropertyMeta) _properties.get(propertyName);
     }
 
     /**
