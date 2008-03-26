@@ -10,13 +10,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelBuilder;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
@@ -29,8 +31,17 @@ import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
 import com.thoughtworks.qdox.model.Type;
 
+/**
+ * An implementation of the ModelBuilder interface that uses the Qdox java
+ * source-parsing library to scan a list of specified source directories for
+ * java files.
+ * <p>
+ * The java source files found can use either java15 annotations or doclet
+ * annotations to indicate what data should be added to the Model.
+ */
 public class QdoxModelBuilder implements ModelBuilder
 {
+    private final Log log = LogFactory.getLog(QdoxModelBuilder.class);
 
     private static final String DOC_CONVERTER = "JSFConverter";
     private static final String DOC_VALIDATOR = "JSFValidator";
@@ -75,14 +86,11 @@ public class QdoxModelBuilder implements ModelBuilder
         JavaDocBuilder builder = new JavaDocBuilder();
 
         // need a File object representing the original source tree
-        System.out.println("CompileSourceRoots begin..");
         for (Iterator i = sourceDirs.iterator(); i.hasNext();)
         {
             String srcDir = (String) i.next();
-            System.out.println("==" + srcDir);
             builder.addSourceTree(new File(srcDir));
         }
-        System.out.println("CompileSourceRoots end..");
 
         JavaClass[] classes = builder.getClasses();
 
@@ -128,7 +136,7 @@ public class QdoxModelBuilder implements ModelBuilder
         // ok, now we can mark this class as processed.
         processedClasses.add(clazz);
 
-        System.out.println("class:" + clazz.getName());
+        log.info("processed class:" + clazz.getName());
 
         DocletTag tag;
         Annotation anno;
@@ -209,8 +217,8 @@ public class QdoxModelBuilder implements ModelBuilder
     /**
      * Remove all leading whitespace and a quotemark if it exists.
      * <p>
-     * Qdox comments like <code>@foo val= "bar"</code> return a value with leading whitespace and
-     *      quotes, so remove them.
+     * Qdox comments like <code>foo val= "bar"</code> return a value with
+     * leading whitespace and quotes, so remove them.
      */
     private String clean(Object srcObj)
     {
@@ -246,9 +254,8 @@ public class QdoxModelBuilder implements ModelBuilder
     /**
      * Get the named attribute from a doc-annotation.
      * 
-     * @param clazz
-     *            is the class the annotation is attached to; only used when
-     *            reporting errors.
+     * Param clazz is the class the annotation is attached to; only used when
+     * reporting errors.
      */
     private String getString(JavaClass clazz, String key, Map map, String dflt)
     {
@@ -266,9 +273,8 @@ public class QdoxModelBuilder implements ModelBuilder
     /**
      * Get the named attribute from a doc-annotation and convert to a boolean.
      * 
-     * @param clazz
-     *            is the class the annotation is attached to; only used when
-     *            reporting errors.
+     * Param clazz is the class the annotation is attached to; only used when
+     * reporting errors.
      */
     private Boolean getBoolean(JavaClass clazz, String key, Map map,
             Boolean dflt)
