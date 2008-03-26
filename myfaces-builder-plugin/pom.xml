@@ -86,6 +86,21 @@
       <version>1.8</version>
       <scope>compile</scope>
     </dependency>
+    <!-- Start dependencies for xml -->
+    <dependency>
+      <groupId>javax.xml.stream</groupId>
+      <artifactId>stax-api</artifactId>
+      <version>1.0-2</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.woodstox</groupId>
+      <artifactId>wstx-asl</artifactId>
+      <version>3.2.4</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- End dependencies for xml -->
     <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib</artifactId>
