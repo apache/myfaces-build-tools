@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
+ * Store metadata about a class that is either a JSF Renderer, or some base
+ * class or interface that a Renderer can be derived from.
  */
 public class RendererMeta extends ClassMeta
 {

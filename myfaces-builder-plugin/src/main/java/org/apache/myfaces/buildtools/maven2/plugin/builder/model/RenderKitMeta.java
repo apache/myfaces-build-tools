@@ -23,8 +23,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * RenderKitBean is a Java representation of the faces-config render-kit XML
- * element.
+ * Store metadata about a JSF RenderKit.
  */
 public class RenderKitMeta
 {
