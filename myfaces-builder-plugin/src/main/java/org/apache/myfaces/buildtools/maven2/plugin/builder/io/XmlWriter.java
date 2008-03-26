@@ -21,12 +21,21 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.io;
 import java.io.PrintWriter;
 import java.util.Stack;
 
+/**
+ * Simple utility to help write out data structures in xml format, with pretty
+ * indenting.
+ */
 public class XmlWriter
 {
-    PrintWriter out;
-    Stack contexts = new Stack();
-    int indent = 0;
-    boolean openElement = false;
+    private static final String XML_CHARS = "<>&";
+
+    private PrintWriter out;
+    private Stack contexts = new Stack();
+    private int indent = 0;
+
+    // Is the current xml element still "open" for adding attributes,
+    // ie needs a ">" before adding nested text or child elements.
+    private boolean openElement = false;
 
     private static class Context
     {
@@ -65,8 +74,6 @@ public class XmlWriter
         indent();
     }
 
-    private static final String XML_CHARS = "<>&";
-
     private boolean containsXmlChars(String text)
     {
         for (int i = 0; i < XML_CHARS.length(); ++i)
@@ -97,11 +104,13 @@ public class XmlWriter
 
         if (containsXmlChars(body))
         {
+            // The text contains chars that need to be escaped. Rather than
+            // escape them one-by-one, just write the body in a CDATA section.
+
             if (body.indexOf("\n") > 0)
             {
                 // multi-line body, so it is most readable when the CDATA
-                // markers
-                // are against the left-hand margin
+                // markers are against the left-hand margin
                 out.write("\n<![CDATA[\n");
                 out.write(body);
                 out.write("\n]]>");
