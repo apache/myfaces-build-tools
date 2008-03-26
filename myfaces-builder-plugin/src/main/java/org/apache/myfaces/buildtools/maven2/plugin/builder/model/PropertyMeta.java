@@ -22,6 +22,10 @@ import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
+ * Store metadata about a bean property of a component, converter or other JSF
+ * artifact.
+ * <p>
+ * This metadata defines the attributes of JSP tags, among other things.
  */
 public class PropertyMeta
 {
@@ -68,97 +72,74 @@ public class PropertyMeta
     }
 
     /**
-     * Sets the name of this property.
+     * Set the name that users refer to this property by.
+     * <p>
+     * This sets the name of xml tag attributes, and the base names of generated
+     * getter/setter methods.
      */
     public void setName(String name)
     {
         _name = name;
     }
 
-    /**
-     * Returns the name of this property.
-     */
     public String getName()
     {
         return _name;
     }
 
     /**
-     * Sets the property class for this property.
+     * Set the fully-qualified name of the type of this property.
      */
     public void setClassName(String className)
     {
         this._className = className;
     }
 
-    /**
-     * Returns the property class for this property.
-     * 
-     * @return the property class
-     */
     public String getClassName()
     {
         return _className;
     }
 
     /**
-     * Sets the transient flag of this property.
-     * 
-     * @param transient
-     *            the property transient flag
+     * Specify whether this property is transient or not.
+     * <p>
+     * Transient properties are not saved in the view state and are not restored
+     * during the "restore view" phase.
      */
     public void setTransient(boolean transient_)
     {
         _transient = transient_;
     }
 
-    /**
-     * Returns transient flag of this property.
-     * 
-     * @return the property transient flag
-     */
     public boolean isTransient()
     {
         return _transient;
     }
 
     /**
-     * Sets the required flag of this property.
-     * 
-     * @param required
-     *            the property required flag
+     * Specify whether this property is required, ie whether it is a syntax
+     * error for someone to use a tag for a component with this property but not
+     * explicitly provide a value for this property.
      */
     public void setRequired(boolean required)
     {
         _required = required;
     }
 
-    /**
-     * Returns required flag of this property.
-     * 
-     * @return the property required flag
-     */
     public boolean isRequired()
     {
         return _required;
     }
 
     /**
-     * Sets the literalOnly flag of this property.
-     * 
-     * @param literalOnly
-     *            the property literalOnly flag
+     * Specify whether this property accepts only literal (constant) values, or
+     * whether this property can be mapped to an EL expression.
      */
     public void setLiteralOnly(boolean literalOnly)
     {
         _literalOnly = literalOnly;
     }
 
-    /**
-     * Returns literalOnly flag of this property.
-     * 
-     * @return the property literalOnly flag
-     */
     public boolean isLiteralOnly()
     {
         return _literalOnly;
@@ -186,8 +167,8 @@ public class PropertyMeta
 
     /**
      * Returns true if this property is a method binding.
-     * 
-     * @return true if this property is a method binding, otherwise false
+     * <p>
+     * TODO: what is this for?
      */
     public boolean isMethodBinding()
     {
@@ -196,8 +177,8 @@ public class PropertyMeta
 
     /**
      * Returns true if this property is a method binding.
-     * 
-     * @return true if this property is a method binding, otherwise false
+     * <p>
+     * TODO: what is this for?
      */
     public boolean isMethodExpression()
     {

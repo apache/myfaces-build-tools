@@ -109,15 +109,6 @@ public class ComponentMeta extends ClassMeta
 
     /**
      * Sets the name that the user will refer to instances of this component by.
-     */
-    public void setName(String name)
-    {
-        _name = name;
-    }
-
-    /**
-     * Returns the name that the user will refer to instances of this component
-     * by.
      * <p>
      * In JSP tags, this value will be used as the JSP tag name.
      * <p>
@@ -125,6 +116,11 @@ public class ComponentMeta extends ClassMeta
      * a base class that components can be derived from, but which cannot itself
      * be instantiated as a component.
      */
+    public void setName(String name)
+    {
+        _name = name;
+    }
+
     public String getName()
     {
         return _name;
@@ -134,20 +130,12 @@ public class ComponentMeta extends ClassMeta
      * Sets the brief description of this property.
      * <p>
      * This description is used in tooltips, etc.
-     * 
-     * @param description
-     *            the property description
      */
     public void setDescription(String description)
     {
         _description = description;
     }
 
-    /**
-     * Returns the brief description of this property.
-     * 
-     * @return the property description
-     */
     public String getDescription()
     {
         return _description;
@@ -155,20 +143,12 @@ public class ComponentMeta extends ClassMeta
 
     /**
      * Sets the long description of this property.
-     * 
-     * @param longDescription
-     *            the long property description
      */
     public void setLongDescription(String longDescription)
     {
         _longDescription = longDescription;
     }
 
-    /**
-     * Returns the long description of this property.
-     * 
-     * @return the long property description
-     */
     public String getLongDescription()
     {
         return _longDescription;
@@ -176,41 +156,25 @@ public class ComponentMeta extends ClassMeta
 
     /**
      * Sets the JSF component type for this component.
-     * 
-     * @param componentType
-     *            the component type
      */
     public void setType(String componentType)
     {
         _type = componentType;
     }
 
-    /**
-     * Returns the JSF component type for this component.
-     * 
-     * @return the component type
-     */
     public String getType()
     {
         return _type;
     }
 
     /**
-     * Sets the component family for this component.
-     * 
-     * @param componentFamily
-     *            the component family
+     * Sets the JSF component family for this component.
      */
     public void setFamily(String componentFamily)
     {
         _family = componentFamily;
     }
 
-    /**
-     * Returns the component family for this component.
-     * 
-     * @return the component family
-     */
     public String getFamily()
     {
         return _family;
@@ -218,20 +182,12 @@ public class ComponentMeta extends ClassMeta
 
     /**
      * Sets the renderer type for this component.
-     * 
-     * @param rendererType
-     *            the renderer type
      */
     public void setRendererType(String rendererType)
     {
         _rendererType = rendererType;
     }
 
-    /**
-     * Returns the renderer type for this component.
-     * 
-     * @return the renderer type
-     */
     public String getRendererType()
     {
         return _rendererType;
@@ -239,20 +195,12 @@ public class ComponentMeta extends ClassMeta
 
     /**
      * Sets the JSP tag handler class for this component.
-     * 
-     * @param tagClass
-     *            the JSP tag handler class
      */
     public void setTagClass(String tagClass)
     {
         _tagClass = tagClass;
     }
 
-    /**
-     * Returns the JSP tag handler class for this component.
-     * 
-     * @return the JSP tag handler class
-     */
     public String getTagClass()
     {
         return _tagClass;
@@ -260,83 +208,56 @@ public class ComponentMeta extends ClassMeta
 
     /**
      * Sets the JSP tag handler superclass for this component.
-     * 
-     * @param tagSuperclass
-     *            the JSP tag handler superclass
      */
     public void setTagSuperclass(String tagSuperclass)
     {
         _tagSuperclass = tagSuperclass;
     }
 
-    /**
-     * Returns the JSP tag handler superclass for this component.
-     * 
-     * @return the JSP tag handler superclass
-     */
     public String getTagSuperclass()
     {
         return _tagSuperclass;
     }
 
     /**
-     * Sets the Facelets tag handler (component handler) this component.
-     * 
-     * @param tagHandler
-     *            the Facelets tag handler class
+     * Specifies the class of the Facelets tag handler (component handler) for
+     * this component.
+     * <p>
+     * Note that a Facelets tag handler class is not needed for most components.
      */
     public void setTagHandler(String tagHandler)
     {
         _tagHandler = tagHandler;
     }
 
-    /**
-     * Returns the Facelets tag handler for this component
-     * 
-     * @return the Facelets tag handler
-     */
     public String getTagHandler()
     {
         return _tagHandler;
     }
 
     /**
-     * Sets the namingContainer flag of this property.
-     * 
-     * @param namingContainer
-     *            the component namingContainer flag
+     * Specifies whether this component is a "naming container", ie whether it
+     * adds its own clientId as a prefix onto the clientId of its child
+     * components.
      */
     public void setNamingContainer(boolean namingContainer)
     {
         _namingContainer = namingContainer;
     }
 
-    /**
-     * Returns namingContainer flag of this component.
-     * 
-     * @return the component namingContainer flag
-     */
     public boolean isNamingContainer()
     {
         return _namingContainer;
     }
 
     /**
-     * Specifies if the component can have children.
-     * 
-     * @param children
-     *            true if the component can have children. false otherwise
+     * Specifies if the component supports child components.
      */
     public void setChildren(boolean children)
     {
         _children = children;
     }
 
-    /**
-     * Returns true if the component can have children.
-     * 
-     * @return true if the component can have children. false otherwise
-     */
     public boolean hasChildren()
     {
         return _children;
@@ -344,21 +265,12 @@ public class ComponentMeta extends ClassMeta
 
     /**
      * Adds a property to this component.
-     * 
-     * @param property
-     *            the property to add
      */
     public void addProperty(PropertyMeta property)
     {
         _properties.put(property.getName(), property);
     }
 
-    /**
-     * Returns the property for this property name.
-     * 
-     * @param propertyName
-     *            the property name to find
-     */
     public PropertyMeta getProperty(String propertyName)
     {
         return (PropertyMeta) _properties.get(propertyName);
@@ -366,8 +278,6 @@ public class ComponentMeta extends ClassMeta
 
     /**
      * Number of properties for this component
-     * 
-     * @return num of properties
      */
     public int propertiesSize()
     {
@@ -376,8 +286,6 @@ public class ComponentMeta extends ClassMeta
 
     /**
      * Returns true if this component has any properties.
-     * 
-     * @return true if this component has any properties, false otherwise
      */
     public boolean hasProperties()
     {
@@ -386,8 +294,6 @@ public class ComponentMeta extends ClassMeta
 
     /**
      * Returns an iterator for all properties
-     * 
-     * @return the property iterator
      */
     public Iterator properties()
     {
