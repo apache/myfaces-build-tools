@@ -1,0 +1,150 @@
+<?xml version='1.0' ?>
+
+<model>
+  <component>
+    <className>ComponentBase</className>
+    <type>base</type>
+    <family>base</family>
+    <rendererType>BaseRenderer</rendererType>
+    <desc>A base component class</desc>
+    <longDesc>
+<![CDATA[
+A base component class.
+<p>
+This is a base component. It has no name, so is not a concrete component.
+]]>
+    </longDesc>
+    <property>
+      <name>prop1</name>
+      <className>java.lang.String</className>
+      <required>false</required>
+      <literalOnly>false</literalOnly>
+      <transient>false</transient>
+      <desc>The prop1 property</desc>
+      <longDesc>
+<![CDATA[
+The prop1 property.
+<p>
+Some dummy prop1 documentation.
+]]>
+      </longDesc>
+    </property>
+  </component>
+  <component>
+    <className>ComponentInterface</className>
+    <type>iface</type>
+    <family>iface</family>
+    <rendererType>BaseRenderer</rendererType>
+    <desc>An interface that defines component properties</desc>
+    <longDesc>
+<![CDATA[
+An interface that defines component properties.
+<p>
+This is an interface component.
+]]>
+    </longDesc>
+    <property>
+      <name>ifaceProp</name>
+      <className>java.lang.String</className>
+      <required>false</required>
+      <literalOnly>false</literalOnly>
+      <transient>false</transient>
+      <desc>The ifaceProp property</desc>
+      <longDesc>
+<![CDATA[
+The ifaceProp property.
+<p>
+Some dummy ifaceProp documentation.
+]]>
+      </longDesc>
+    </property>
+  </component>
+  <component>
+    <className>ComponentChild</className>
+    <parentClassName>ComponentBase</parentClassName>
+    <interfaces>
+      <interface name="ComponentInterface"/>
+    </interfaces>
+    <name>foo</name>
+    <type>foo</type>
+    <family>foo</family>
+    <rendererType>FooRenderer</rendererType>
+    <desc>The ComponentChild component</desc>
+    <longDesc>
+<![CDATA[
+The ComponentChild component.
+<p>
+This is a child component. It does nothing useful.
+]]>
+    </longDesc>
+    <property>
+      <name>prop2</name>
+      <className>boolean</className>
+      <required>false</required>
+      <literalOnly>false</literalOnly>
+      <transient>false</transient>
+      <desc>The prop2 property</desc>
+      <longDesc>
+<![CDATA[
+The prop2 property.
+<p>
+Some dummy prop2 documentation.
+]]>
+      </longDesc>
+    </property>
+    <property>
+      <name>prop1</name>
+      <className>java.lang.String</className>
+      <required>false</required>
+      <literalOnly>false</literalOnly>
+      <transient>false</transient>
+      <desc>The prop1 property</desc>
+      <longDesc>
+<![CDATA[
+The prop1 property.
+<p>
+Some dummy prop1 documentation.
+]]>
+      </longDesc>
+    </property>
+    <property>
+      <name>ifaceProp</name>
+      <className>java.lang.String</className>
+      <required>false</required>
+      <literalOnly>false</literalOnly>
+      <transient>false</transient>
+      <desc>The ifaceProp property</desc>
+      <longDesc>
+<![CDATA[
+The ifaceProp property.
+<p>
+Some dummy ifaceProp documentation.
+]]>
+      </longDesc>
+    </property>
+  </component>
+  <converter>
+    <className>Converter1</className>
+    <converterId>conv1</converterId>
+    <desc>The Converter1 converter</desc>
+    <longDesc>
+<![CDATA[
+The Converter1 converter.
+<p>
+This is a silly converter. It does nothing useful.
+]]>
+    </longDesc>
+  </converter>
+  <validator>
+    <className>Validator1</className>
+    <validatorId>val1</validatorId>
+    <desc>The Validator1 validator</desc>
+    <longDesc>
+<![CDATA[
+The Validator1 validator.
+<p>
+This is a silly validator. It does nothing useful.
+]]>
+    </longDesc>
+  </validator>
+</model>

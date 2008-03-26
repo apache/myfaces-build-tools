@@ -111,7 +111,7 @@ public class MakeComponentsMojo extends AbstractMojo
         {
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
-            model.flatten();
+            new Flattener(model).flatten();
             generateComponents(model);
         }
         catch (IOException e)

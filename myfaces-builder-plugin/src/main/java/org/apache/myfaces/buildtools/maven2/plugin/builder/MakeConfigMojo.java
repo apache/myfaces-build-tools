@@ -108,7 +108,7 @@ public class MakeConfigMojo extends AbstractMojo
         {
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
-            model.flatten();
+            new Flattener(model).flatten();
             generateConfig(model);
             throw new MojoExecutionException("Error during generation");
         }

@@ -26,6 +26,8 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import org.apache.commons.digester.Digester;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.Flattener;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
@@ -92,82 +94,6 @@ public class Model
         ComponentMeta.addXmlRules(digester, prefix);
         ConverterMeta.addXmlRules(digester, prefix);
         ValidatorMeta.addXmlRules(digester, prefix);
-    }
-
-    /**
-     * Flatten this model.
-     * <p>
-     * In the flattened representation, each model object directly contains the
-     * data that it inherits from its parents, so that the getter methods return
-     * all available metadata, not just the data that was defined directly on
-     * that item.
-     */
-    public void flatten()
-    {
-        flattenComponentProperties();
-    }
-
-    private void flattenComponentProperties()
-    {
-        // for each component
-        // build up a list of its ancestor and interface components
-        // for each ancestor
-        // for each property
-        // if the component does not yet have that property, copy it
-
-        for (Iterator i = _components.iterator(); i.hasNext();)
-        {
-            ComponentMeta comp = (ComponentMeta) i.next();
-            List l = new ArrayList();
-            addAncestors(l, comp);
-            for (Iterator j = l.iterator(); j.hasNext();)
-            {
-                ComponentMeta ancestor = (ComponentMeta) j.next();
-                copyProps(comp, ancestor);
-            }
-        }
-    }
-
-    private void copyProps(ComponentMeta dst, ComponentMeta src)
-    {
-        for (Iterator i = src.properties(); i.hasNext();)
-        {
-            PropertyMeta prop = (PropertyMeta) i.next();
-            if (dst.getProperty(prop.getName()) == null)
-            {
-                dst.addProperty(prop);
-            }
-            else
-            {
-                // TODO: consider checking that the redefinition of the
-                // property is "compatible".
-                _LOG.info("Duplicate prop def for class " + dst.getClassName()
-                        + " prop " + prop.getName());
-            }
-
-        }
-    }
-
-    private void addAncestors(List l, ComponentMeta comp)
-    {
-        String parentClassName = comp.getParentClassName();
-        if (parentClassName != null)
-        {
-            ComponentMeta parent = (ComponentMeta) _componentsByClass
-                    .get(parentClassName);
-            l.add(parent);
-            addAncestors(l, parent);
-        }
-
-        List interfaces = comp.getInterfaceClassNames();
-        for (Iterator i = interfaces.iterator(); i.hasNext();)
-        {
-            String ifaceName = (String) i.next();
-            ComponentMeta iface = (ComponentMeta) _componentsByClass
-                    .get(ifaceName);
-            l.add(ifaceName);
-            addAncestors(l, iface);
-        }
     }
 
     /**
