@@ -149,7 +149,7 @@ public class MakeTagsMojo extends AbstractMojo
         Properties p = new Properties();
             
         p.setProperty( "resource.loader", "file, class" );
-        p.setProperty( "velocimacro.library", "tagClassMacros11.vm");
+        p.setProperty( "velocimacro.library", "META-INF/tagClassMacros11.vm");
         p.setProperty( "file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
         p.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
         p.setProperty( "class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader" );
