@@ -24,19 +24,21 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Iterator;
+import java.util.Properties;
 import java.util.logging.Logger;
 
-import org.apache.maven.archetype.exception.ArchetypeGenerationFailure;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
+import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
 import org.codehaus.plexus.util.IOUtil;
-import org.codehaus.plexus.velocity.VelocityComponent;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Maven goal to generate java source code for Component tag classes.
@@ -72,10 +74,14 @@ public class MakeTagsMojo extends AbstractMojo
     private String metadataFile = "classes/META-INF/myfaces-metadata.xml";
 
     /**
-     * @parameter expression="src/main/java-templates"
-     * @required
+     * @parameter expression="src/main/resources/META-INF"
      */
     private File templateSourceDirectory;
+    
+    /**
+     * @parameter 
+     */
+    private String templateTagName;
 
     /**
      * @parameter expression="${project.build.directory}/maven-faces-plugin/main/java"
@@ -109,11 +115,6 @@ public class MakeTagsMojo extends AbstractMojo
      * @parameter
      */
     private String jsfVersion;
-    
-    /**
-     * @component
-     */
-    private VelocityComponent velocity;    
 
     /**
      * Execute the Mojo.
@@ -139,18 +140,64 @@ public class MakeTagsMojo extends AbstractMojo
         }
     }
 
+    private VelocityEngine initVelocity() throws MojoExecutionException
+    {
+
+        Properties p = new Properties();
+            
+        p.setProperty( "resource.loader", "file, class" );
+        p.setProperty( "velocimacro.library", "tagClassMacros11.vm");
+        p.setProperty( "file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+        p.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
+        p.setProperty( "class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader" );
+        p.setProperty( "class.resource.loader.path", "src/main/resources/META-INF");
+        p.setProperty( "velocimacro.permissions.allow.inline","true");
+        p.setProperty( "velocimacro.permissions.allow.inline.local.scope", "true");
+
+        File template = new File(templateSourceDirectory, _getTemplateTagName());
+        
+        if (template.exists())
+        {
+            log.info("Using template from file loader: "+template.getPath());
+        }
+        else
+        {
+            log.info("Using template from class loader: src/main/resources/META-INF/"+_getTemplateTagName());
+        }
+        
+        VelocityEngine velocityEngine = new VelocityEngine();
+        
+        try
+        {
+            velocityEngine.init(p);
+        }
+        catch (Exception e)
+        {
+            throw new MojoExecutionException("Error creating VelocityEngine", e);
+        }
+        
+        return velocityEngine;
+    }
+
     /**
      * Generates parsed components.
      */
     private void generateComponents(Model model) throws IOException,
             MojoExecutionException
     {
-        System.out.println("Velocity:"+velocity.toString());
-        for (Iterator it = model.getComponents().iterator(); it.hasNext();){
+        VelocityEngine velocityEngine = initVelocity();
+        
+        for (Iterator it = model.getComponents().iterator(); it.hasNext();)
+        {
             ComponentMeta component = (ComponentMeta) it.next();
-            _generateComponent(component);
+            
+            if (component.getTagClass() != null)
+            {
+                log.info("Generating tag class:"+component.getTagClass());
+                _generateComponent(velocityEngine, component);
+            }
         }
-        //throw new MojoExecutionException("stopping..");
+        throw new MojoExecutionException("stopping..");
     }
 
     /**
@@ -159,35 +206,55 @@ public class MakeTagsMojo extends AbstractMojo
      * @param component
      *            the parsed component metadata
      */
-    private void _generateComponent(ComponentMeta component)
+    private void _generateComponent(VelocityEngine velocityEngine, ComponentMeta component)
             throws MojoExecutionException
     {
+
         Context context = new VelocityContext();
-        context.put("component",component);
-        
+        context.put("component", component);
+
         Writer writer = null;
+        File outFile = null;
 
         try
         {
-            //writer = new OutputStreamWriter( new FileOutputStream( outFile ), encoding );
+            outFile = new File(generatedSourceDirectory, StringUtils.replace(
+                    component.getTagClass(), ".", "/")+".java");
 
-            //velocity.getEngine().mergeTemplate( templateFileName, encoding, context, writer );
+            if ( !outFile.getParentFile().exists() )
+            {
+                outFile.getParentFile().mkdirs();
+            }
+
+            writer = new OutputStreamWriter(new FileOutputStream(outFile));
+
+            Template template = velocityEngine.getTemplate(_getTemplateTagName());
+                        
+            template.merge(context, writer);
 
             writer.flush();
         }
-        catch ( Exception e )
+        catch (Exception e)
         {
-            throw new Exception(
-                "Error merging velocity templates: " + e.getMessage(),
-                e
-            );
+            throw new MojoExecutionException(
+                    "Error merging velocity templates: " + e.getMessage(), e);
         }
         finally
         {
-            IOUtil.close( writer );
+            IOUtil.close(writer);
             writer = null;
         }
-
+    }
+    
+    private String _getTemplateTagName(){
+        if (templateTagName != null){
+            if (_is12()){
+                return "tagClass12.vm";
+            }else{
+                return "tagClass11.vm";
+            }
+        }
+        return "tagClass11.vm";
     }
 
     private boolean _is12()

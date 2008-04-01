@@ -63,6 +63,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         out.writeElement("name", cm._name);
         out.writeElement("type", cm._type);
         out.writeElement("family", cm._family);
+        out.writeElement("tagClass", cm._tagClass);
         out.writeElement("rendererType", cm._rendererType);
 
         out.writeElement("desc", cm._description);
@@ -93,6 +94,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         digester.addBeanPropertySetter(newPrefix + "/name");
         digester.addBeanPropertySetter(newPrefix + "/type");
         digester.addBeanPropertySetter(newPrefix + "/family");
+        digester.addBeanPropertySetter(newPrefix + "/tagClass");
         digester.addBeanPropertySetter(newPrefix + "/rendererType");
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
