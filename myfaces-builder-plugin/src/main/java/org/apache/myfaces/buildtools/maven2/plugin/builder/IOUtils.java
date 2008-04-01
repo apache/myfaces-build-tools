@@ -23,15 +23,24 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.digester.Digester;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.xml.sax.SAXException;
@@ -41,6 +50,9 @@ import org.xml.sax.SAXException;
  */
 public class IOUtils
 {
+    
+    private final static String MYFACES_METADATA = "META-INF/myfaces-metadata.xml";
+    
     /**
      * Write the contents of the model to an xml file.
      */
@@ -125,7 +137,96 @@ public class IOUtils
             }
         }
     }
+    
+    public static List getModelsFromArtifacts(MavenProject project)
+            throws MojoExecutionException
+    {
+        List models = new ArrayList();
 
+        for (Iterator it = project.getArtifacts().iterator(); it.hasNext();)
+        {
+
+            Artifact artifact = (Artifact) it.next();
+
+            //This is safe since we have all depencencies on the
+            //pom, so they are downloaded first by maven.
+            File jarFile = artifact.getFile();
+
+            URLClassLoader archetypeJarLoader;
+
+            InputStream is = null;
+            try
+            {
+                URL[] urls = new URL[1];
+                urls[0] = jarFile.toURL();
+                archetypeJarLoader = new URLClassLoader(urls);
+
+                 is = getStream(MYFACES_METADATA, archetypeJarLoader);
+
+                if (is == null)
+                {
+                    
+                    //System.out.println("Artifact: "
+                    //        + artifact.getFile().getName()
+                    //        + " does not have META-INF/myfaces-metadata.xml");
+                }
+                else
+                {
+                    Reader r = null;
+                    try {
+                        r = new InputStreamReader(is);
+                        Model m = readModel(r);
+                        models.add(m);
+                        r.close();
+                    }catch(IOException e){
+                        throw new MojoExecutionException(
+                                "Error reading myfaces-metadata.xml form "
+                                        + artifact.getFile().getName(), e);                        
+                    }finally{
+                        if (r != null){
+                            try {
+                                r.close();
+                            }catch(IOException e){
+                                //ignore
+                            }
+                        }
+                    }
+                   
+                    System.out.println("Artifact: "
+                            + artifact.getFile().getName()
+                            + " have META-INF/myfaces-metadata.xml");
+                }
+            }
+            catch (IOException e)
+            {
+                throw new MojoExecutionException(
+                        "Error reading myfaces-metadata.xml form "
+                                + artifact.getFile().getName(), e);
+            }
+            finally
+            {
+                if (is != null){
+                    try {
+                        is.close();
+                    }catch(IOException ex){
+                        //ignore
+                    }
+                }
+            }
+        }
+        return models;
+    }
+        
+    private static InputStream getStream( String name,
+            ClassLoader loader )
+    {
+        if ( loader == null )
+        {
+            return Thread.currentThread().getContextClassLoader().getResourceAsStream( name );
+        }
+        return loader.getResourceAsStream( name );
+    }
+    
     /**
      * Read the contents of the model from a provided Reader object.
      */

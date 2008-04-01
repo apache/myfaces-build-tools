@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -115,7 +116,7 @@ public class MakeTagsMojo extends AbstractMojo
      * @parameter
      */
     private String jsfVersion;
-
+    
     /**
      * Execute the Mojo.
      */
@@ -123,10 +124,12 @@ public class MakeTagsMojo extends AbstractMojo
     {
         // This command makes Maven compile the generated source:
         // getProject().addCompileSourceRoot( absoluteGeneratedPath.getPath() );
+        
         try
-        {
+        {            
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
+            List models = IOUtils.getModelsFromArtifacts(project);
             new Flattener(model).flatten();
             generateComponents(model);
         }
@@ -139,7 +142,7 @@ public class MakeTagsMojo extends AbstractMojo
             throw new MojoExecutionException("Error generating components", e);
         }
     }
-
+    
     private VelocityEngine initVelocity() throws MojoExecutionException
     {
 
@@ -197,7 +200,7 @@ public class MakeTagsMojo extends AbstractMojo
                 _generateComponent(velocityEngine, component);
             }
         }
-        throw new MojoExecutionException("stopping..");
+        //throw new MojoExecutionException("stopping..");
     }
 
     /**
