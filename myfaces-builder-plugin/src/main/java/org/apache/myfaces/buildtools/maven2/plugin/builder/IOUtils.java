@@ -27,6 +27,9 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+
 import org.apache.commons.digester.Digester;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
@@ -130,7 +133,13 @@ public class IOUtils
     {
         try
         {
-            Digester d = new Digester();
+            //Digester d = new Digester();
+            SAXParserFactory spf = SAXParserFactory.newInstance();
+            spf.setNamespaceAware(true);
+            // requires JAXP 1.3, in JavaSE 5.0
+            // spf.setXIncludeAware(true);
+            Digester d = new Digester(spf.newSAXParser());
+            d.setNamespaceAware(true);            
 
             Model.addXmlRules(d);
 
@@ -146,6 +155,11 @@ public class IOUtils
         catch (SAXException e)
         {
             throw new MojoExecutionException("Unable to load metadata", e);
+        }
+        catch (ParserConfigurationException e)
+        {
+            // TODO Auto-generated catch block
+            throw new MojoExecutionException("Unable to load parser", e);
         }
     }
 }
