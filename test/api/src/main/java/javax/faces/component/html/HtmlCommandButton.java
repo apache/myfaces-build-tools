@@ -8,6 +8,7 @@ package javax.faces.component.html;
  * @JSFComponent
  *   type = "javax.faces.HtmlCommandButton"
  *   family = "javax.faces.HtmlCommandButton"
+ *   tagClass = "javax.faces.component.html.HtmlCommandButtonTag"
  *   desc = "base component"
  */
 public class HtmlCommandButton
