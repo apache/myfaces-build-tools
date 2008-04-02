@@ -35,8 +35,10 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 public class ClassMeta
 {
     private String _className;
+    private String _packageName;
     private String _parentClassName;
     private List _interfaceClassNames = new ArrayList();
+    private String _modelId;
 
     /**
      * Write this model out as xml.
@@ -44,7 +46,9 @@ public class ClassMeta
     public static void writeXml(XmlWriter out, ClassMeta mi)
     {
         out.writeElement("className", mi._className);
+        out.writeElement("packageName", mi._packageName);
         out.writeElement("parentClassName", mi._parentClassName);
+        out.writeElement("modelId", mi._modelId);
 
         if (!mi._interfaceClassNames.isEmpty())
         {
@@ -67,7 +71,9 @@ public class ClassMeta
     public static void addXmlRules(Digester digester, String prefix)
     {
         digester.addBeanPropertySetter(prefix + "/className");
+        digester.addBeanPropertySetter(prefix + "/packageName");
         digester.addBeanPropertySetter(prefix + "/parentClassName");
+        digester.addBeanPropertySetter(prefix + "/modelId");
         digester.addCallMethod(prefix + "/interfaces/interface",
                 "addInterfaceClassName", 1);
         digester.addCallParam(prefix + "/interfaces/interface", 0, "name");
@@ -125,5 +131,25 @@ public class ClassMeta
     public void addInterfaceClassName(String name)
     {
         _interfaceClassNames.add(name);
+    }
+
+    public void setModelId(String _modelId)
+    {
+        this._modelId = _modelId;
+    }
+
+    public String getModelId()
+    {
+        return _modelId;
+    }
+
+    public void setPackageName(String _packageName)
+    {
+        this._packageName = _packageName;
+    }
+
+    public String getPackageName()
+    {
+        return _packageName;
     }
 }

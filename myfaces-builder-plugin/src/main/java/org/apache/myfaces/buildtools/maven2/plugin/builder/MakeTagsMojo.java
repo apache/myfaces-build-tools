@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -129,7 +128,7 @@ public class MakeTagsMojo extends AbstractMojo
         {            
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
-            List models = IOUtils.getModelsFromArtifacts(project);
+            //List models = IOUtils.getModelsFromArtifacts(project);
             new Flattener(model).flatten();
             generateComponents(model);
         }
@@ -147,16 +146,16 @@ public class MakeTagsMojo extends AbstractMojo
     {
 
         Properties p = new Properties();
-            
+
         p.setProperty( "resource.loader", "file, class" );
-        p.setProperty( "velocimacro.library", "META-INF/tagClassMacros11.vm");
         p.setProperty( "file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
         p.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
-        p.setProperty( "class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader" );
-        p.setProperty( "class.resource.loader.path", "src/main/resources/META-INF");
+        p.setProperty( "class.resource.loader.class", "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
+        p.setProperty( "class.resource.loader.path", "META-INF");            
+        p.setProperty( "velocimacro.library", "tagClassMacros11.vm");
         p.setProperty( "velocimacro.permissions.allow.inline","true");
         p.setProperty( "velocimacro.permissions.allow.inline.local.scope", "true");
-
+                        
         File template = new File(templateSourceDirectory, _getTemplateTagName());
         
         if (template.exists())
@@ -165,11 +164,11 @@ public class MakeTagsMojo extends AbstractMojo
         }
         else
         {
-            log.info("Using template from class loader: src/main/resources/META-INF/"+_getTemplateTagName());
+            log.info("Using template from class loader: META-INF/"+_getTemplateTagName());
         }
-        
+                
         VelocityEngine velocityEngine = new VelocityEngine();
-        
+                
         try
         {
             velocityEngine.init(p);

@@ -19,12 +19,16 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.QdoxModelBuilder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
@@ -67,11 +71,23 @@ public class BuildMetaDataMojo extends AbstractMojo
     private String outputFile = "classes/META-INF/myfaces-metadata.xml";
 
     /**
+     * 
+     * @parameter expression="${project.artifactId}"
+     */
+    private String modelId;
+    /**
      * Execute the Mojo.
      */
     public void execute() throws MojoExecutionException
     {
         Model model = buildModel(project);
+        List models = IOUtils.getModelsFromArtifacts(project);
+        
+        for (Iterator it = models.iterator(); it.hasNext();){
+            Model artifactModel = (Model) it.next();
+            model.merge(artifactModel);
+        }
+        
         IOUtils.saveModel(model, new File(targetDirectory, outputFile));
     }
 
@@ -85,7 +101,8 @@ public class BuildMetaDataMojo extends AbstractMojo
         {
             Model model = new Model();
             QdoxModelBuilder builder = new QdoxModelBuilder();
-            builder.buildModel(model, project);
+            model.setModelId(modelId);
+            builder.buildModel(model, project);            
             return model;
         }
         catch (BuildException e)

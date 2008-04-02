@@ -44,6 +44,8 @@ public class Model
     private Map _convertersByClass = new TreeMap();
     private Map _validatorsByClass = new TreeMap();
     private Map _renderKitsByClass = new TreeMap();
+    
+    private String _modelId;
 
     /**
      * Write this model out as xml.
@@ -55,6 +57,7 @@ public class Model
     public static void writeXml(XmlWriter out, Model model)
     {
         out.beginElement("model");
+        out.writeElement("modelId", model._modelId);
 
         for (Iterator i = model._components.iterator(); i.hasNext();)
         {
@@ -89,9 +92,27 @@ public class Model
         String prefix = "model";
 
         digester.addObjectCreate(prefix, Model.class);
+        digester.addBeanPropertySetter(prefix + "/modelId");
         ComponentMeta.addXmlRules(digester, prefix);
         ConverterMeta.addXmlRules(digester, prefix);
         ValidatorMeta.addXmlRules(digester, prefix);
+    }
+    
+    /**
+     * Adds all components from the other model to this model, because
+     * only this info is necessary from construct a full model of 
+     * components and build correctly faces-config.xml, .tld, and
+     * component and tag classes.
+     * 
+     * @param other
+     */
+    public void merge(Model other){
+        
+        for (Iterator it = other.getComponents().iterator(); it.hasNext();)
+        {
+            ComponentMeta component = (ComponentMeta) it.next();
+            this.addComponent(component);
+        }
     }
 
     /**
@@ -223,5 +244,21 @@ public class Model
     private RenderKitMeta findRenderKitByClassName(String className)
     {
         return (RenderKitMeta) _renderKitsByClass.get(className);
+    }
+
+    public void setModelId(String _modelId)
+    {
+        this._modelId = _modelId;
+    }
+
+    /**
+     * Obtain a value that indicate from where this model
+     * comes from.
+     * 
+     * @return
+     */
+    public String getModelId()
+    {
+        return _modelId;
     }
 }

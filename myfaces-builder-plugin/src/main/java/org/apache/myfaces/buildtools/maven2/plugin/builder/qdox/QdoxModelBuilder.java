@@ -20,6 +20,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RenderKitMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
@@ -103,6 +104,22 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             JavaClass clazz = classes[i];
             processClass(processedClasses, clazz, model);
+        }
+        
+        for (Iterator it = model.getComponents().iterator(); it.hasNext();)
+        {
+            ComponentMeta component = (ComponentMeta) it.next();
+            component.setModelId(model.getModelId());
+        }
+        for (Iterator it = model.getConverters().iterator(); it.hasNext();)
+        {
+            ConverterMeta converter = (ConverterMeta) it.next();
+            converter.setModelId(model.getModelId());
+        }
+        for (Iterator it = model.getValidators().iterator(); it.hasNext();)
+        {
+            ValidatorMeta validator = (ValidatorMeta) it.next();
+            validator.setModelId(model.getModelId());
         }
     }
 
@@ -342,9 +359,12 @@ public class QdoxModelBuilder implements ModelBuilder
         String shortDescription = getString(clazz, "desc", props, descDflt);
 
         String converterId = getString(clazz, "id", props, null);
+        String packageClass = getString(clazz, "class", props, clazz
+                .getPackage());
 
         ConverterMeta converter = new ConverterMeta();
         converter.setClassName(clazz.getName());
+        converter.setPackageName(packageClass);
         converter.setConverterId(converterId);
         converter.setDescription(shortDescription);
         converter.setLongDescription(longDescription);
@@ -361,11 +381,14 @@ public class QdoxModelBuilder implements ModelBuilder
             descDflt = "no description";
         }
         String shortDescription = getString(clazz, "desc", props, descDflt);
+        String packageClass = getString(clazz, "class", props, clazz
+                .getPackage());
 
         String validatorId = getString(clazz, "id", props, null);
 
         ValidatorMeta validator = new ValidatorMeta();
         validator.setClassName(clazz.getName());
+        validator.setPackageName(packageClass);
         validator.setValidatorId(validatorId);
         validator.setDescription(shortDescription);
         validator.setLongDescription(longDescription);
@@ -404,6 +427,8 @@ public class QdoxModelBuilder implements ModelBuilder
         String componentName = getString(clazz, "name", props, null);
         String componentClass = getString(clazz, "class", props, clazz
                 .getName());
+        String packageClass = getString(clazz, "class", props, clazz
+                .getPackage());
 
         String longDescription = clazz.getComment();
         String descDflt = getFirstSentence(longDescription);
@@ -429,6 +454,7 @@ public class QdoxModelBuilder implements ModelBuilder
         initAncestry(model, clazz, component);
         component.setName(componentName);
         component.setClassName(componentClass);
+        component.setPackageName(packageClass);
         component.setDescription(shortDescription);
         component.setLongDescription(longDescription);
         component.setType(componentType);
