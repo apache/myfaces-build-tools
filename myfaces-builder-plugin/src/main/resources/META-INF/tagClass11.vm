@@ -1,1 +1,11 @@
-Hola class
+package ${component.tagPackage};
+
+public class ${component.tagName}{
+
+#foreach( $property in ${component.propertyList} )
+    public void set${property.name}(){
+    
+    }
+#end
+
+}

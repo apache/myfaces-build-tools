@@ -36,6 +36,7 @@ public class PropertyMeta
     private Boolean _transient;
     private String _description;
     private String _longDescription;
+    private String   _defaultValue;
 
     /**
      * Write this model out as xml.
@@ -50,6 +51,7 @@ public class PropertyMeta
         out.writeElement("transient", pm._transient);
         out.writeElement("desc", pm._description);
         out.writeElement("longDesc", pm._longDescription);
+        out.writeElement("defaultValue", pm._defaultValue);
         out.endElement("property");
     }
 
@@ -71,6 +73,7 @@ public class PropertyMeta
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
+        digester.addBeanPropertySetter(newPrefix + "/defaultValue", "defaultValue");
     }
 
     /**
@@ -182,7 +185,28 @@ public class PropertyMeta
     {
         return _longDescription;
     }
+    
+    /**
+     * Sets the default value of this attribute.
+     *
+     * @param defaultValue  the attribute default value
+     */
+    public void setDefaultValue(
+      String defaultValue)
+    {
+      _defaultValue = defaultValue;
+    }
 
+    /**
+     * Returns the default value of this attribute.
+     *
+     * @return  the attribute default value
+     */
+    public String getDefaultValue()
+    {
+      return _defaultValue;
+    }
+    
     /**
      * Returns true if this property is a method binding.
      * <p>

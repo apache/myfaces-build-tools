@@ -33,10 +33,12 @@ import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.MyfacesUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
 
@@ -129,7 +131,7 @@ public class MakeTagsMojo extends AbstractMojo
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
             //List models = IOUtils.getModelsFromArtifacts(project);
-            new Flattener(model).flatten();
+            //new Flattener(model).flatten();
             generateComponents(model);
         }
         catch (IOException e)
@@ -155,7 +157,10 @@ public class MakeTagsMojo extends AbstractMojo
         p.setProperty( "velocimacro.library", "tagClassMacros11.vm");
         p.setProperty( "velocimacro.permissions.allow.inline","true");
         p.setProperty( "velocimacro.permissions.allow.inline.local.scope", "true");
-                        
+        p.setProperty( "directive.foreach.counter.initial.value","0");
+        p.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
+        "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.ConsoleLogSystem" );
+        
         File template = new File(templateSourceDirectory, _getTemplateTagName());
         
         if (template.exists())
@@ -188,6 +193,9 @@ public class MakeTagsMojo extends AbstractMojo
             MojoExecutionException
     {
         VelocityEngine velocityEngine = initVelocity();
+
+        VelocityContext baseContext = new VelocityContext();
+        baseContext.put("utils", new MyfacesUtils());
         
         for (Iterator it = model.getComponents().iterator(); it.hasNext();)
         {
@@ -196,7 +204,7 @@ public class MakeTagsMojo extends AbstractMojo
             if (component.getTagClass() != null)
             {
                 log.info("Generating tag class:"+component.getTagClass());
-                _generateComponent(velocityEngine, component);
+                _generateComponent(velocityEngine, component,baseContext);
             }
         }
         //throw new MojoExecutionException("stopping..");
@@ -208,11 +216,11 @@ public class MakeTagsMojo extends AbstractMojo
      * @param component
      *            the parsed component metadata
      */
-    private void _generateComponent(VelocityEngine velocityEngine, ComponentMeta component)
+    private void _generateComponent(VelocityEngine velocityEngine, ComponentMeta component, VelocityContext baseContext)
             throws MojoExecutionException
     {
 
-        Context context = new VelocityContext();
+        Context context = new VelocityContext(baseContext);
         context.put("component", component);
 
         Writer writer = null;

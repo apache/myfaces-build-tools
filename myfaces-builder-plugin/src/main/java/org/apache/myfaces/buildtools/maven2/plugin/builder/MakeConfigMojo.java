@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
@@ -31,6 +32,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -83,6 +85,15 @@ public class MakeConfigMojo extends AbstractMojo
     private String facesConfigFile = "classes/META-INF/standard-faces-config.xml";
 
     /**
+     * CSV of the modelIds to be applied this goal
+     * 
+     * @parameter expression="${project.artifactId}"
+     */
+    private String modelIds;
+    
+    private List modelIdList;
+    
+    /**
      * The source directories containing the sources to be compiled.
      * 
      * @parameter expression="${project.compileSourceRoots}"
@@ -99,7 +110,7 @@ public class MakeConfigMojo extends AbstractMojo
      * @readonly
      */
     private List classpathElements;
-
+    
     /**
      * Execute the Mojo.
      */
@@ -107,6 +118,17 @@ public class MakeConfigMojo extends AbstractMojo
     {
         try
         {
+            
+            if (modelIds != null){
+                modelIdList = new ArrayList();
+                //Separate in several values
+                String [] values = StringUtils.split(modelIds, ',');
+                for (int i = 0; i < values.length; i++){
+                    //trim spaces
+                    modelIdList.add(values[i].trim()); 
+                }
+            }
+            
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
             new Flattener(model).flatten();
@@ -203,7 +225,7 @@ public class MakeConfigMojo extends AbstractMojo
     {
 
     }
-
+    
     private void writeComponents(Model model, XMLStreamWriter writer)
             throws Exception
     {
