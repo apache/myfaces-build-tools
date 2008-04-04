@@ -14,6 +14,10 @@ package javax.faces.component.html;
 public class HtmlCommandButton
 {
 
-    
-    
+    /**
+     * @JSFProperty
+     */
+    public Object getValue(){
+        return null;
+    }
 }
