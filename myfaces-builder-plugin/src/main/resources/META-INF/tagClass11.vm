@@ -1,3 +1,5 @@
+// WARNING: This file was automatically generated. Do not edit it directly,
+//          or you will lose your changes.
 /*
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
@@ -74,11 +76,11 @@ public class ${component.tagName}{
         super.setProperties(component);
         
         FacesContext context = getFacesContext();
-        
-#foreach( $property in $propertyList )
+
+#foreach( $property in $propertyList )##            1
 #set ($field = $property.fieldName)
 #set ($type = $utils.getJspPropertyType11($property))
-#if     ($utils.isConverter($type))        
+#if     ($utils.isConverter($type))##                 2
         if ($field != null)
         {
             if (isValueReference($field))
@@ -92,23 +94,45 @@ public class ${component.tagName}{
                 comp.setConverter(converter);
             }
         }
-#elseif ($property.isMethodBinding)
-
-#else
+#elseif ($property.isMethodBinding)##                 2
         if ($field != null)
         {
-#if ($property.isLiteralOnly)
+#if ($utils.isStringMethodBindingReturnType($property.methodBindingSignature)))##3
+            MethodBinding mb;
+            if (isValueReference($field))
+            {
+                mb = context.getApplication().createMethodBinding(
+                    $field, $utils.getSignatureParams($property.methodBindingSignature));            
+            }
+            else
+            {
+#if ($property.jspName == "value")##                      4
+                mb = new org.apache.myfaces.shared_impl.el.SimpleActionMethodBinding($field);
+#else##                                                   4
+                throw new IllegalStateException("Invalid expression " + $field);
+#end##                                                    4
+            }
+#else##                                                 3
+            MethodBinding mb = context.getApplication().createMethodBinding(
+                $field, $utils.getSignatureParams($property.methodBindingSignature));
+            comp.setActionListener(mb);
+#end##                                                  3
+        }
+#else##                                               2
+        if ($field != null)
+        {
+#if ($property.isLiteralOnly)##                         3
 #set ($className = $utils.getPrimitiveType($property.className))
-#if ($utils.isPrimitiveClass($className))            
-#if ($utils.isPrimitiveClass($property.className))
+#if ($utils.isPrimitiveClass($className))##               4
+#if ($utils.isPrimitiveClass($property.className))##        5
             comp.getAttributes().put("$property.name", ${utils.getBoxedClass($className)}.valueOf($field));
-#else
+#else##                                                     5
             comp.getAttributes().put("$property.name", $field);
-#end
-#else
+#end##                                                      5
+#else##                                                   4
             comp.getAttributes().put("$property.name", $field);
-#end
-#else
+#end#                                                     4
+#else##                                                 3
             if (isValueReference($field))
             {
                 ValueBinding vb = context.getApplication().createValueBinding($field);
@@ -117,22 +141,20 @@ public class ${component.tagName}{
             else
             {
 #set ($className = $utils.getPrimitiveType($property.className))
-#if ($utils.isPrimitiveClass($className))            
-#if ($utils.isPrimitiveClass($property.className))
+#if ($utils.isPrimitiveClass($className))##               4
+#if ($utils.isPrimitiveClass($property.className))##        5
                 comp.getAttributes().put("$property.name", ${utils.getBoxedClass($className)}.valueOf($field));
-#else
+#else##                                                     5
                 comp.getAttributes().put("$property.name", $field);
-#end
-#else
+#end##                                                      5
+#else##                                                   4
                 comp.getAttributes().put("$property.name", $field);
-#end
+#end##                                                    4
             }
-#end        
+#end##                                                  3
         } 
-#end
-
-
-#end
+#end##                                                2
+#end##                                              1
     }
 
     public void release()

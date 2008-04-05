@@ -20,4 +20,11 @@ public class HtmlCommandButton
     public Object getValue(){
         return null;
     }
+    
+    /**
+     * @JSFProperty
+     */    
+    public boolean isRendered(){
+        return false;
+    }
 }

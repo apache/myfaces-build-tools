@@ -28,6 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 
 public class MyfacesUtils
@@ -134,7 +135,49 @@ public class MyfacesUtils
         else
             return className;
     }
+    
+    public static String getSignatureParams(MethodSignatureMeta signature){
+        String[] paramTypes = (signature != null) ? signature.getParameterTypes() : null;
 
+        String classArray;
+
+        if (paramTypes == null || paramTypes.length == 0)
+        {
+          classArray = "new Class[0]";
+        }
+        else
+        {
+          StringBuffer sb = new StringBuffer();
+          sb.append("new Class[]{");
+          for (int i = 0; i < paramTypes.length; i++)
+          {
+            if (i > 0)
+              sb.append(',');
+            sb.append(paramTypes[i]);
+            sb.append(".class");
+          }
+
+          // TODO: remove trailing comma
+          sb.append(',');
+
+          sb.append('}');
+          classArray = sb.toString();
+        }
+        return classArray;
+    }
+    
+    public static boolean isStringMethodBindingReturnType(MethodSignatureMeta sig)
+    {
+        return (sig != null && "java.lang.String".equals(sig.getReturnType()));
+    }
+    
+    static public String getMethodReaderFromProperty(String propertyName,
+            String propertyClass)
+    {
+        String methodPrefix = ("boolean".equals(propertyClass) ? "is" : "get");
+        return getPrefixedPropertyName(methodPrefix, propertyName);
+    }
+    
     public static String getPrimitiveType(String className)
     {
         if (className.startsWith("java.lang."))
@@ -209,12 +252,6 @@ public class MyfacesUtils
     
     //UNUSED METHODS
 
-    static public String getMethodReaderFromProperty(String propertyName,
-            String propertyClass)
-    {
-        String methodPrefix = ("boolean".equals(propertyClass) ? "is" : "get");
-        return getPrefixedPropertyName(methodPrefix, propertyName);
-    }
 
     static public String convertClassToSourcePath(String className,
             String fileExtension)

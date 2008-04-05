@@ -39,6 +39,7 @@ public class PropertyMeta
     private String _description;
     private String _longDescription;
     private String   _defaultValue;
+    private MethodSignatureMeta _signature;    
 
     /**
      * Write this model out as xml.
@@ -82,6 +83,9 @@ public class PropertyMeta
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
         digester.addBeanPropertySetter(newPrefix + "/defaultValue", "defaultValue");
+        
+        MethodSignatureMeta.addXmlRules(digester, newPrefix);
+        
     }
 
     /**
@@ -101,6 +105,7 @@ public class PropertyMeta
         _description = ModelUtils.merge(this._description, other._description);
         _longDescription = ModelUtils.merge(this._longDescription, other._longDescription);
         _defaultValue = ModelUtils.merge(this._defaultValue, other._defaultValue);
+        _signature = (MethodSignatureMeta) ModelUtils.merge(this._signature, other._signature);
     }
 
     /**
@@ -265,6 +270,28 @@ public class PropertyMeta
 
       return _fieldName;
     }
+    
+    /**
+     * Sets the method binding signature of this property.
+     *
+     * @param signature  the method binding signature of this property
+     */
+    public void setMethodBindingSignature(
+      MethodSignatureMeta signature)
+    {
+      _signature = signature;
+    }
+
+    /**
+     * Returns the method binding signature of this property.
+     *
+     * @return the method binding signature of this property
+     */
+    public MethodSignatureMeta getMethodBindingSignature()
+    {
+      return _signature;
+    }
+    
     
     /**
      * Returns true if this property is a method binding.

@@ -42,6 +42,18 @@ public class ModelUtils
     /**
      * Inherit setting only if current one is empty.
      */
+    public static Object merge(Object curr, Object inherited)
+    {
+        if (curr != null)
+        {
+            return curr;
+        }
+        return inherited;
+    }    
+    
+    /**
+     * Inherit setting only if current one is empty.
+     */
     public static Boolean merge(Boolean curr, Boolean inherited)
     {
         if (curr != null)
