@@ -31,6 +31,8 @@ public class PropertyMeta
 {
     private String _name;
     private String _className;
+    private String _jspName;
+    private String _fieldName;    
     private Boolean _required;
     private Boolean _literalOnly;
     private Boolean _transient;
@@ -45,6 +47,10 @@ public class PropertyMeta
     {
         out.beginElement("property");
         out.writeElement("name", pm._name);
+        if (pm._jspName != null) 
+            out.writeElement("jspName", pm._jspName);
+        if (pm._fieldName != null) 
+            out.writeElement("fieldName", pm._fieldName);        
         out.writeElement("className", pm._className);
         out.writeElement("required", pm._required);
         out.writeElement("literalOnly", pm._literalOnly);
@@ -66,6 +72,8 @@ public class PropertyMeta
         digester.addSetNext(newPrefix, "addProperty");
 
         digester.addBeanPropertySetter(newPrefix + "/name");
+        digester.addBeanPropertySetter(newPrefix + "/jspName");
+        digester.addBeanPropertySetter(newPrefix + "/fieldName");
         digester.addBeanPropertySetter(newPrefix + "/className");
         digester.addBeanPropertySetter(newPrefix + "/required");
         digester.addBeanPropertySetter(newPrefix + "/literalOnly");
@@ -85,11 +93,14 @@ public class PropertyMeta
         // don't merge className
         
         _name = ModelUtils.merge(this._name, other._name);
+        _jspName = ModelUtils.merge(this._jspName, other._jspName);
+        _fieldName = ModelUtils.merge(this._fieldName, other._fieldName);
         _required = ModelUtils.merge(this._required, other._required);
         _literalOnly = ModelUtils.merge(this._literalOnly, other._literalOnly);
         _transient = ModelUtils.merge(this._transient, other._transient);
         _description = ModelUtils.merge(this._description, other._description);
         _longDescription = ModelUtils.merge(this._longDescription, other._longDescription);
+        _defaultValue = ModelUtils.merge(this._defaultValue, other._defaultValue);
     }
 
     /**
@@ -205,6 +216,54 @@ public class PropertyMeta
     public String getDefaultValue()
     {
       return _defaultValue;
+    }
+    
+    /**
+     * Sets the JSP name of this property.
+     *
+     * @param jspName  the JSP property name
+     */
+    public void setJspName(
+      String jspName)
+    {
+      _jspName = jspName;
+    }
+
+    /**
+     * Returns the JSP name of this property.
+     *
+     * @return  the JSP property name
+     */
+    public String getJspName()
+    {
+      if (_jspName == null)
+        return getName();
+
+      return _jspName;
+    }
+
+    /**
+     * Sets the field name of this property, when not generating Trinidad components
+     *
+     * @param fieldName  the field property name
+     */
+    public void setFieldName(
+      String fieldName)
+    {
+      _fieldName = fieldName;
+    }
+
+    /**
+     * Returns the field name of this property, when not generating Trinidad components
+     *
+     * @return  the field property name
+     */
+    public String getFieldName()
+    {
+      if (_fieldName == null)
+        return "_"+getName();
+
+      return _fieldName;
     }
     
     /**

@@ -1,11 +1,151 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
 package ${component.tagPackage};
+
+import javax.faces.component.UIComponent;
+import javax.faces.el.ValueBinding;
+import javax.faces.context.FacesContext;
+$utils.importTagClasses($component)
 
 public class ${component.tagName}{
 
-#foreach( $property in ${component.propertyList} )
-    public void set${property.name}(){
+    public ${component.tagName}()
+    {    
+    }
     
+    public String getComponentType()
+    {
+#if ($component.type)
+        return "$component.type";
+#else
+        return null;
+#end
+    }
+
+    public String getRendererType()
+    {
+#if ($component.rendererType)
+        return "$component.rendererType";
+#else
+        return null;
+#end
+    }
+
+#set ($propertyList = ${component.propertyList})
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#set ($type = $utils.getJspPropertyType11($property))
+ 
+    private $type $field;
+
+#set ($var = $utils.getVariableFromName($property.name))
+    public void $utils.getPrefixedPropertyName("set", $property.jspName)($type $var)
+    {
+        $field = $var;
     }
 #end
 
+    protected void setProperties(UIComponent component)
+    {
+        if (!(component instanceof $component.className)
+        {
+            throw new IllegalArgumentException("Component "+
+                component.getClass().getName() +" is no $component.className");
+        }
+        
+        comp = ($component.className) component;
+        
+        super.setProperties(component);
+        
+        FacesContext context = getFacesContext();
+        
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#set ($type = $utils.getJspPropertyType11($property))
+#if     ($utils.isConverter($type))        
+        if ($field != null)
+        {
+            if (isValueReference($field))
+            {
+            ValueBinding vb = context.getApplication().createValueBinding($field);
+            comp.setValueBinding("$property.name", vb);
+            }
+            else
+            {
+                Converter converter = getFacesContext().getApplication().createConverter($field);
+                comp.setConverter(converter);
+            }
+        }
+#elseif ($property.isMethodBinding)
+
+#else
+        if ($field != null)
+        {
+#if ($property.isLiteralOnly)
+#set ($className = $utils.getPrimitiveType($property.className))
+#if ($utils.isPrimitiveClass($className))            
+#if ($utils.isPrimitiveClass($property.className))
+            comp.getAttributes().put("$property.name", ${utils.getBoxedClass($className)}.valueOf($field));
+#else
+            comp.getAttributes().put("$property.name", $field);
+#end
+#else
+            comp.getAttributes().put("$property.name", $field);
+#end
+#else
+            if (isValueReference($field))
+            {
+                ValueBinding vb = context.getApplication().createValueBinding($field);
+                comp.setValueBinding("$property.name", vb);
+            }
+            else
+            {
+#set ($className = $utils.getPrimitiveType($property.className))
+#if ($utils.isPrimitiveClass($className))            
+#if ($utils.isPrimitiveClass($property.className))
+                comp.getAttributes().put("$property.name", ${utils.getBoxedClass($className)}.valueOf($field));
+#else
+                comp.getAttributes().put("$property.name", $field);
+#end
+#else
+                comp.getAttributes().put("$property.name", $field);
+#end
+            }
+#end        
+        } 
+#end
+
+
+#end
+    }
+
+    public void release()
+    {
+        super.release();
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#if($utils.getJspPropertyType11($property) == "boolean")
+#set ($empty = "false")
+#else
+#set ($empty = "null")
+#end
+        $field = $empty;
+#end
+    }
 }

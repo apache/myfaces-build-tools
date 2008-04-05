@@ -20,17 +20,200 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.utils;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 
 public class MyfacesUtils
 {
     public MyfacesUtils()
     {
+    }
+
+    public static String getPrefixedPropertyName(String prefix,
+            String propertyName)
+    {
+        return prefix + Character.toUpperCase(propertyName.charAt(0))
+                + propertyName.substring(1);
+    }
+
+    public static String getJspPropertyType11(PropertyMeta property)
+    {
+        if (property.isMethodExpression())
+            return "MethodExpression";
+
+        if (property.isMethodBinding())
+            return "MethodExpression";
+
+        return "String";
+    }
+
+    public static String getJspPropertyType12(PropertyMeta property)
+    {
+        if (property.isMethodExpression())
+            return "MethodExpression";
+
+        if (property.isMethodBinding())
+            return "MethodExpression";
+
+        if (!property.isLiteralOnly().booleanValue())
+            return "ValueExpression";
+        else
+            return property.getClassName();
+    }
+
+    public static String getVariableFromName(String name)
+    {
+        if (name == null)
+            return null;
+
+        if (RESERVED_WORDS.contains(name))
+            name = name + "Param";
+
+        return name;
+    }
+
+    public static String importTagClasses(ComponentMeta component)
+    {
+        Set imports = new HashSet();
+        for (Iterator it = component.properties(); it.hasNext();)
+        {
+            PropertyMeta property = (PropertyMeta) it.next();
+            if (!PRIMITIVE_TYPES.contains(property.getClassName()))
+            {
+                if (!property.getClassName().startsWith("java.lang"))
+                {
+                    imports.add(property.getClassName());
+                }
+            }
+        }
+
+        StringBuilder value = new StringBuilder();
+
+        for (Iterator importIterator = imports.iterator(); importIterator
+                .hasNext();)
+        {
+            value.append("import ");
+            value.append((String) importIterator.next());
+            value.append(';');
+            value.append('\n');
+        }
+
+        return value.toString();
+    }
+
+    public static boolean isConverter(String propClass)
+    {
+        return ("javax.faces.convert.Converter".equals(propClass));
+    }
+    
+    public static String getBoxedClass(String className)
+    {
+        if ("boolean".equals(className))
+            return "Boolean";
+        else if ("byte".equals(className))
+            return "Byte";
+        else if ("char".equals(className))
+            return "Character";
+        else if ("double".equals(className))
+            return "Double";
+        else if ("float".equals(className))
+            return "Float";
+        else if ("int".equals(className))
+            return "Integer";
+        else if ("long".equals(className))
+            return "Long";
+        else if ("short".equals(className))
+            return "Short";
+        else
+            return className;
+    }
+
+    public static String getPrimitiveType(String className)
+    {
+        if (className.startsWith("java.lang."))
+        {
+            className = className.replace("java.lang.", "");
+        }
+
+        if (className.endsWith("eger"))
+        {
+            className = className.replace("eger", "");
+        }
+
+        if (MyfacesUtils.isPrimitiveClass(className.toLowerCase()))
+        {
+            return className.toLowerCase();
+        }
+        else
+        {
+            return className;
+        }
+    }    
+    
+    public static boolean isPrimitiveClass(String className)
+    {
+        return "boolean".equals(className) || "byte".equals(className)
+                || "char".equals(className) || "double".equals(className)
+                || "float".equals(className) || "int".equals(className)
+                || "long".equals(className) || "short".equals(className);
+    }
+
+    private static Set _createPrimitiveTypesSet()
+    {
+        Set primitives = new TreeSet();
+        for (int i = 0; i < _PRIMITIVE_TYPES.length; i++)
+        {
+            String type = _PRIMITIVE_TYPES[i];
+            primitives.add(type);
+            primitives.add(type + "[]");
+        }
+        return Collections.unmodifiableSet(primitives);
+    }
+
+    private static Set _createReservedWordsSet()
+    {
+        Set reserved = new TreeSet();
+        for (int i = 0; i < _RESERVED_WORDS.length; i++)
+        {
+            String keyword = _RESERVED_WORDS[i];
+            reserved.add(keyword);
+        }
+        return Collections.unmodifiableSet(reserved);
+    }
+
+    static private final String[] _PRIMITIVE_TYPES = new String[] {// TODO: Shouldn't java.lang.* be specified in that list as well?
+    "boolean", "byte", "char", "float", "double", "int", "short", "long", };
+
+    static private final String[] _RESERVED_WORDS = new String[] { "abstract",
+            "assert", "boolean", "break", "byte", "case", "catch", "char",
+            "class", "const", "continue", "default", "do", "double", "else",
+            "extends", "final", "finally", "float", "for", "goto", "if",
+            "implements", "import", "instanceof", "int", "interface", "long",
+            "native", "new", "package", "private", "protected", "public",
+            "return", "short", "static", "super", "switch", "synchronized",
+            "this", "throw", "throws", "transient", "try", "void", "volatile",
+            "while", };
+
+    static public final Set RESERVED_WORDS = _createReservedWordsSet();
+    static public final Set PRIMITIVE_TYPES = _createPrimitiveTypesSet();
+
+    static private final Pattern _GENERIC_TYPE = Pattern
+            .compile("([^<]+)<(.+)>");
+    
+    //UNUSED METHODS
+
+    static public String getMethodReaderFromProperty(String propertyName,
+            String propertyClass)
+    {
+        String methodPrefix = ("boolean".equals(propertyClass) ? "is" : "get");
+        return getPrefixedPropertyName(methodPrefix, propertyName);
     }
 
     static public String convertClassToSourcePath(String className,
@@ -109,13 +292,6 @@ public class MyfacesUtils
         return constantName.toString();
     }
 
-    static public String getPrefixedPropertyName(String prefix,
-            String propertyName)
-    {
-        return prefix + Character.toUpperCase(propertyName.charAt(0))
-                + propertyName.substring(1);
-    }
-
     static public String getPropertyClass(PropertyMeta property)
     {
         String propertyFullClass = property.getClassName();
@@ -152,26 +328,11 @@ public class MyfacesUtils
                 + eventName.substring(1) + methodSuffix;
     }
 
-    static public String getMethodReaderFromProperty(String propertyName,
-            String propertyClass)
-    {
-        String methodPrefix = ("boolean".equals(propertyClass) ? "is" : "get");
-        return getPrefixedPropertyName(methodPrefix, propertyName);
-    }
-
     static public String getEventNameFromEventType(String eventFullClass)
     {
         String eventName = getClassFromFullClass(eventFullClass);
         return Character.toLowerCase(eventName.charAt(0))
                 + eventName.substring(1, eventName.length());
-    }
-
-    static public boolean isPrimitiveClass(String className)
-    {
-        return "boolean".equals(className) || "byte".equals(className)
-                || "char".equals(className) || "double".equals(className)
-                || "float".equals(className) || "int".equals(className)
-                || "long".equals(className) || "short".equals(className);
     }
 
     /*
@@ -183,51 +344,6 @@ public class MyfacesUtils
       return buffer.toString();
     }
     */
-
-    static public String getPrimitiveType(String className)
-    {
-        if (className.startsWith("java.lang."))
-        {
-            className = className.replace("java.lang.", "");
-        }
-
-        if (className.endsWith("eger"))
-        {
-            className = className.replace("eger", "");
-        }
-
-        if (MyfacesUtils.isPrimitiveClass(className.toLowerCase()))
-        {
-            return className.toLowerCase();
-        }
-        else
-        {
-            return null;
-        }
-
-    }
-
-    static public String getBoxedClass(String className)
-    {
-        if ("boolean".equals(className))
-            return "Boolean";
-        else if ("byte".equals(className))
-            return "Byte";
-        else if ("char".equals(className))
-            return "Character";
-        else if ("double".equals(className))
-            return "Double";
-        else if ("float".equals(className))
-            return "Float";
-        else if ("int".equals(className))
-            return "Integer";
-        else if ("long".equals(className))
-            return "Long";
-        else if ("short".equals(className))
-            return "Short";
-        else
-            return className;
-    }
 
     static public String primitiveDefaultValue(String className)
     {
@@ -285,17 +401,6 @@ public class MyfacesUtils
 
         throw new IllegalStateException("Class name \"" + className
                 + "\" does not use initcaps");
-    }
-
-    static public String getVariableFromName(String name)
-    {
-        if (name == null)
-            return null;
-
-        if (RESERVED_WORDS.contains(name))
-            name = name + "Param";
-
-        return name;
     }
 
     static public String convertStringToLiteral(String value)
@@ -387,47 +492,5 @@ public class MyfacesUtils
             buffer.append(MyfacesUtils.getClassFromFullClass(type));
         }
     }
-
-    static private Set _createPrimitiveTypesSet()
-    {
-        Set primitives = new TreeSet();
-        for (int i = 0; i < _PRIMITIVE_TYPES.length; i++)
-        {
-            String type = _PRIMITIVE_TYPES[i];
-            primitives.add(type);
-            primitives.add(type + "[]");
-        }
-        return Collections.unmodifiableSet(primitives);
-    }
-
-    static private Set _createReservedWordsSet()
-    {
-        Set reserved = new TreeSet();
-        for (int i = 0; i < _RESERVED_WORDS.length; i++)
-        {
-            String keyword = _RESERVED_WORDS[i];
-            reserved.add(keyword);
-        }
-        return Collections.unmodifiableSet(reserved);
-    }
-
-    static private final String[] _PRIMITIVE_TYPES = new String[] {// TODO: Shouldn't java.lang.* be specified in that list as well?
-    "boolean", "byte", "char", "float", "double", "int", "short", "long", };
-
-    static private final String[] _RESERVED_WORDS = new String[] { "abstract",
-            "assert", "boolean", "break", "byte", "case", "catch", "char",
-            "class", "const", "continue", "default", "do", "double", "else",
-            "extends", "final", "finally", "float", "for", "goto", "if",
-            "implements", "import", "instanceof", "int", "interface", "long",
-            "native", "new", "package", "private", "protected", "public",
-            "return", "short", "static", "super", "switch", "synchronized",
-            "this", "throw", "throws", "transient", "try", "void", "volatile",
-            "while", };
-
-    static public final Set RESERVED_WORDS = _createReservedWordsSet();
-    static public final Set PRIMITIVE_TYPES = _createPrimitiveTypesSet();
-
-    static private final Pattern _GENERIC_TYPE = Pattern
-            .compile("([^<]+)<(.+)>");
 
 }
