@@ -1,5 +1,7 @@
 package javax.faces.component.html;
 
+import javax.faces.component.UIComponent;
+
 /**
  * 
  * This is a component that inherits from UIComponent 
@@ -11,7 +13,7 @@ package javax.faces.component.html;
  *   tagClass = "javax.faces.component.html.HtmlCommandButtonTag"
  *   desc = "base component"
  */
-public class HtmlCommandButton
+public class HtmlCommandButton extends UIComponent
 {
 
     /**

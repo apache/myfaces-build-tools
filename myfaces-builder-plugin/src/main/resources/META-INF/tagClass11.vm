@@ -23,9 +23,10 @@ package ${component.tagPackage};
 import javax.faces.component.UIComponent;
 import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
+import ${component.tagSuperclass};
 $utils.importTagClasses($component)
 
-public class ${component.tagName}{
+public class ${component.tagName} extends ${utils.getClassFromFullClass($component.tagSuperclass)}{
 
     public ${component.tagName}()
     {    
@@ -49,7 +50,7 @@ public class ${component.tagName}{
 #end
     }
 
-#set ($propertyList = ${component.propertyList})
+#set ($propertyList = ${component.propertyTagList})
 #foreach( $property in $propertyList )
 #set ($field = $property.fieldName)
 #set ($type = $utils.getJspPropertyType11($property))

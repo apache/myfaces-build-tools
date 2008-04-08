@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
@@ -130,8 +131,8 @@ public class MakeTagsMojo extends AbstractMojo
         {            
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
-            //List models = IOUtils.getModelsFromArtifacts(project);
-            //new Flattener(model).flatten();
+            List models = IOUtils.getModelsFromArtifacts(project);
+            new Flattener(model).flatten();
             generateComponents(model);
         }
         catch (IOException e)

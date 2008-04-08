@@ -3,6 +3,7 @@
 <model>
   <component>
     <className>ComponentBase</className>
+    <name>ComponentBase</name>
     <type>base</type>
     <family>base</family>
     <rendererType>BaseRenderer</rendererType>
@@ -29,6 +30,7 @@ Some dummy prop1 documentation.
   </component>
   <component>
     <className>ComponentInterface</className>
+    <name>ComponentInterface</name>
     <type>iface</type>
     <family>iface</family>
     <rendererType>BaseRenderer</rendererType>

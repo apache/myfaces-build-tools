@@ -18,9 +18,11 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -50,6 +52,8 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
     private String _tagSuperclass;
     private Boolean _namingContainer;
     private Boolean _children;
+    
+    private Boolean _generateTag;
 
     protected Map _properties;
 
@@ -127,16 +131,47 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         _family = ModelUtils.merge(this._family, other._family);
         _rendererType = ModelUtils.merge(this._rendererType,
                 other._rendererType);
-
-        _tagClass = ModelUtils.merge(this._tagClass, other._tagClass);
+        
+        boolean inheritParentTag = false;
+        //check if the parent set a tag class
+        if (other._tagClass != null)
+        {
+            //The tagSuperclass is the tagClass of the parent
+            _tagSuperclass = ModelUtils.merge(this._tagSuperclass,
+                    other._tagClass);
+            inheritParentTag = true;
+        }
+        else
+        {
+            //The tagSuperclass is the tagSuperclass of the parent
+            _tagSuperclass = ModelUtils.merge(this._tagSuperclass,
+                    other._tagSuperclass);            
+        }
+        //_tagClass = ModelUtils.merge(this._tagClass, other._tagClass);
         _tagHandler = ModelUtils.merge(this._tagHandler, other._tagHandler);
-        _tagSuperclass = ModelUtils.merge(this._tagSuperclass,
-                other._tagSuperclass);
         _namingContainer = ModelUtils.merge(this._namingContainer,
                 other._namingContainer);
         _children = ModelUtils.merge(this._children, other._children);
 
         ModelUtils.mergeProps(this, other);
+        
+        if (inheritParentTag)
+        {
+            for (Iterator i = this.properties(); i.hasNext();)
+            {
+                PropertyMeta srcProp = (PropertyMeta) i.next();
+                PropertyMeta parentProp = other.getProperty(srcProp.getName());
+                if (parentProp != null)
+                {
+                    if (!srcProp.isTagExcluded().booleanValue())
+                    {
+                        srcProp.setInheritedTag(Boolean.TRUE);
+                    }
+                    //Heredada, mirar si hereda del
+                }
+            }
+            _propertyTagList = null;
+        }
     }
 
     /**
@@ -282,6 +317,16 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         return ModelUtils.defaultOf(_namingContainer, false);
     }
 
+    public void setGenerateTag(Boolean _generateTag)
+    {
+        this._generateTag = _generateTag;
+    }
+
+    public Boolean isGenerateTag()
+    {
+        return ModelUtils.defaultOf(_generateTag, false);
+    }
+
     /**
      * Specifies if the component supports child components.
      */
@@ -337,6 +382,22 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
     public Collection getPropertyList(){
         return _properties.values();
     }
+    
+    private List _propertyTagList = null; 
+    
+    public Collection getPropertyTagList(){
+        if (_propertyTagList == null){
+            _propertyTagList = new ArrayList();
+            for (Iterator it = _properties.values().iterator(); it.hasNext();){
+                PropertyMeta prop = (PropertyMeta) it.next();
+                if (!prop.isInheritedTag().booleanValue()){
+                    _propertyTagList.add(prop);
+                }
+            }
+            
+        }
+        return _propertyTagList;
+    }    
     
     /**
      * Returns the package part of the tag class

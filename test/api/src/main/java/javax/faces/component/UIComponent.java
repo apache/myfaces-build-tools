@@ -9,6 +9,7 @@ package javax.faces.component;
  *   type = "javax.faces.Component"
  *   family = "javax.faces.Component"
  *   desc = "base component"
+ *   tagClass = "javax.faces.webapp.UIComponentTag"
  */
 public class UIComponent
 {

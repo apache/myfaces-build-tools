@@ -39,8 +39,36 @@ public class PropertyMeta
     private String _description;
     private String _longDescription;
     private String   _defaultValue;
-    private MethodSignatureMeta _signature;    
+    private MethodSignatureMeta _signature;
+    
+    private Boolean _inherited; //Define if this property is inherited from parent component
+    private Boolean _inheritedTag; //Define if this property is inherited from tag component
+    private Boolean _tagExcluded; //Define if this property is excluded from tag and tld    
 
+    public PropertyMeta()
+    {
+        
+    }
+    
+    public PropertyMeta(PropertyMeta pm)
+    {
+        _name = pm._name;
+        _className = pm._className;
+        _jspName = pm._jspName;
+        _fieldName = pm._fieldName;    
+        _required = pm._required;
+        _literalOnly = pm._literalOnly;
+        _transient = pm._transient;
+        _description = pm._description;
+        _longDescription = pm._longDescription;
+        _defaultValue = pm._defaultValue;
+        _signature = pm._signature;
+        
+        _inherited = pm._inherited;
+        _inheritedTag = pm._inheritedTag;
+        _tagExcluded = pm._tagExcluded;    
+    }
+    
     /**
      * Write this model out as xml.
      */
@@ -292,7 +320,36 @@ public class PropertyMeta
       return _signature;
     }
     
+    public void setInherited(Boolean inherited)
+    {
+        _inherited = inherited;
+    }
+
+    public Boolean isInherited()
+    {
+        return ModelUtils.defaultOf(_inherited, false);
+    }
     
+    public void setInheritedTag(Boolean inheritedTag)
+    {
+        _inheritedTag = inheritedTag;
+    }
+
+    public Boolean isInheritedTag()
+    {
+        return ModelUtils.defaultOf(_inheritedTag, false);
+    }
+    
+    public void setTagExcluded(Boolean tagExcluded)
+    {
+        _tagExcluded = tagExcluded;
+    }
+
+    public Boolean isTagExcluded()
+    {
+        return ModelUtils.defaultOf(_tagExcluded, false);
+    }
+
     /**
      * Returns true if this property is a method binding.
      * <p>

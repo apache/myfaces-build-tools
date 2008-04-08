@@ -95,7 +95,9 @@ public class ModelUtils
             if (dstProp == null)
             {
                 // Just copy the whole property unaltered
-                dst.addProperty(srcProp);
+                dstProp = new PropertyMeta(srcProp);
+                dstProp.setInherited(Boolean.TRUE);
+                dst.addProperty(dstProp);
             }
             else
             {

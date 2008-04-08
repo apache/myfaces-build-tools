@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.digester.Digester;
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
@@ -35,7 +36,6 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 public class ClassMeta
 {
     private String _className;
-    private String _packageName;
     private String _parentClassName;
     private List _interfaceClassNames = new ArrayList();
     private String _modelId;
@@ -46,7 +46,6 @@ public class ClassMeta
     public static void writeXml(XmlWriter out, ClassMeta mi)
     {
         out.writeElement("className", mi._className);
-        out.writeElement("packageName", mi._packageName);
         out.writeElement("parentClassName", mi._parentClassName);
         out.writeElement("modelId", mi._modelId);
 
@@ -71,7 +70,6 @@ public class ClassMeta
     public static void addXmlRules(Digester digester, String prefix)
     {
         digester.addBeanPropertySetter(prefix + "/className");
-        digester.addBeanPropertySetter(prefix + "/packageName");
         digester.addBeanPropertySetter(prefix + "/parentClassName");
         digester.addBeanPropertySetter(prefix + "/modelId");
         digester.addCallMethod(prefix + "/interfaces/interface",
@@ -143,13 +141,8 @@ public class ClassMeta
         return _modelId;
     }
 
-    public void setPackageName(String _packageName)
-    {
-        this._packageName = _packageName;
-    }
-
     public String getPackageName()
     {
-        return _packageName;
+        return StringUtils.substring(getClassName(), 0, StringUtils.lastIndexOf(getClassName(), '.'));
     }
 }

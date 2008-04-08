@@ -364,7 +364,6 @@ public class QdoxModelBuilder implements ModelBuilder
 
         ConverterMeta converter = new ConverterMeta();
         converter.setClassName(clazz.getName());
-        converter.setPackageName(packageClass);
         converter.setConverterId(converterId);
         converter.setDescription(shortDescription);
         converter.setLongDescription(longDescription);
@@ -388,7 +387,6 @@ public class QdoxModelBuilder implements ModelBuilder
 
         ValidatorMeta validator = new ValidatorMeta();
         validator.setClassName(clazz.getName());
-        validator.setPackageName(packageClass);
         validator.setValidatorId(validatorId);
         validator.setDescription(shortDescription);
         validator.setLongDescription(longDescription);
@@ -424,11 +422,26 @@ public class QdoxModelBuilder implements ModelBuilder
                     .getInitializationExpression());
         }
 
-        String componentName = getString(clazz, "name", props, null);
+        String componentName = getString(clazz, "name", props, clazz.getName());
         String componentClass = getString(clazz, "class", props, clazz
-                .getName());
-        String packageClass = getString(clazz, "class", props, clazz
-                .getPackage());
+                .getFullyQualifiedName());
+        
+        String componentParentClass = getString(clazz, "parent", props, 
+                clazz.getSuperJavaClass()!= null?
+                        clazz.getSuperJavaClass().getFullyQualifiedName():null);
+        
+        if (componentParentClass != null && componentParentClass.startsWith("java.lang"))
+        {
+            componentParentClass = null;
+        }
+        
+        if (componentParentClass != null)
+        {
+            if (componentParentClass.equals(""))
+            {
+                componentParentClass = null;
+            }
+        }
 
         String longDescription = clazz.getComment();
         String descDflt = getFirstSentence(longDescription);
@@ -454,7 +467,7 @@ public class QdoxModelBuilder implements ModelBuilder
         initAncestry(model, clazz, component);
         component.setName(componentName);
         component.setClassName(componentClass);
-        component.setPackageName(packageClass);
+        component.setParentClassName(componentParentClass);
         component.setDescription(shortDescription);
         component.setLongDescription(longDescription);
         component.setType(componentType);
@@ -638,10 +651,12 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             badprops.add("family");
         }
-        if (component.getRendererType() == null)
-        {
-            badprops.add("rendererType");
-        }
+        
+        //Renderer is optional
+        //if (component.getRendererType() == null)
+        //{
+        //    badprops.add("rendererType");
+        //}
 
         if (badprops.size() > 0)
         {
