@@ -25,14 +25,24 @@
         <artifactId>myfaces-builder-plugin</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <configuration>
-            <packageContains>org.apache</packageContains>
-	    <typePrefix>org.apache</typePrefix>
+           <packageContains>org.apache</packageContains>
+	       <typePrefix>org.apache</typePrefix>
         </configuration>
 	<executions>
 	  <execution>
             <goals>
               <goal>build-metadata</goal>
-              <goal>make-tags</goal>
+            </goals>
+	  </execution>
+	  <execution>
+	       <id>maketags</id>
+	        <configuration>
+	           <modelIds>
+	               <modelId>myfaces-builder-plugin-test-api</modelId>
+	           </modelIds>
+	        </configuration>
+            <goals>
+                <goal>make-tags</goal>
             </goals>
 	  </execution>
 	</executions>

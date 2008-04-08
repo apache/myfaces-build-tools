@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -128,6 +129,11 @@ public class MakeTagsMojo extends AbstractMojo
     private String jsfVersion;
     
     /**
+     * @parameter
+     */
+    private List modelIds;
+    
+    /**
      * Execute the Mojo.
      */
     public void execute() throws MojoExecutionException
@@ -136,7 +142,11 @@ public class MakeTagsMojo extends AbstractMojo
         // getProject().addCompileSourceRoot( absoluteGeneratedPath.getPath() );
         
         try
-        {            
+        {
+            if (modelIds == null){
+                modelIds = new ArrayList();
+                modelIds.add(project.getArtifactId());
+            }
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
             List models = IOUtils.getModelsFromArtifacts(project);
@@ -215,7 +225,8 @@ public class MakeTagsMojo extends AbstractMojo
                 File f = new File(mainSourceDirectory, StringUtils.replace(
                     component.getTagClass(), ".", "/")+".java");
                 
-                if (!f.exists()){                
+                if (!f.exists() && modelIds.contains(component.getModelId()))
+                {                
                     log.info("Generating tag class:"+component.getTagClass());
                     _generateComponent(velocityEngine, component,baseContext);
                 }
