@@ -19,8 +19,11 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,7 +31,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.QdoxModelBuilder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
@@ -92,12 +94,33 @@ public class BuildMetaDataMojo extends AbstractMojo
     private String replacePackagePrefixTagTo;
     
     /**
+     * 
+     * @parameter
+     */
+    private List orderModelIds;
+    
+    /**
+     * @parameter
+     */
+    private List dependencyModelIds;
+    
+    /**
      * Execute the Mojo.
      */
     public void execute() throws MojoExecutionException
     {
         Model model = buildModel(project);
-        List models = IOUtils.getModelsFromArtifacts(project);
+        List models = null;
+        if (dependencyModelIds != null)
+        {
+            models = IOUtils.getModelsFromArtifacts(project,dependencyModelIds);
+        }
+        else
+        {
+            models = IOUtils.getModelsFromArtifacts(project); 
+        }
+        
+        models = sortModels(models);
         
         for (Iterator it = models.iterator(); it.hasNext();){
             Model artifactModel = (Model) it.next();
@@ -107,6 +130,47 @@ public class BuildMetaDataMojo extends AbstractMojo
         resolveReplacePackage(model);
         
         IOUtils.saveModel(model, new File(targetDirectory, outputFile));
+    }
+    
+    /**
+     * This function order the models as suggested by the modelIdOrder.
+     * Tomahawk sandbox depends from myfaces-api and tomahawk core, so
+     * the myfaces-metadata.xml of tomahawk core must be merged first
+     * and then myfaces-api.
+     * 
+     * @param models
+     * @return
+     */
+    private List sortModels(List models)
+    {
+        if (orderModelIds == null)
+        {
+            //No changes
+            return models;
+        }
+        
+        Map modelsMap = new HashMap();
+        List modelsSorted = new ArrayList();
+        
+        for (Iterator it = models.iterator(); it.hasNext();){
+            Model artifactModel = (Model) it.next();
+            modelsMap.put(artifactModel.getModelId(), artifactModel);
+        }
+        
+        for (Iterator it = orderModelIds.iterator(); it.hasNext();){
+            String modelId = (String) it.next();
+            
+            Model artifactModel = null;
+            if ( (artifactModel = (Model) modelsMap.get(modelId)) != null)
+            {
+                modelsMap.remove(modelId);
+                modelsSorted.add(artifactModel);
+            }
+        }
+        
+        modelsSorted.addAll(modelsMap.values());
+        
+        return modelsSorted;
     }
     
     private void resolveReplacePackage(Model model)

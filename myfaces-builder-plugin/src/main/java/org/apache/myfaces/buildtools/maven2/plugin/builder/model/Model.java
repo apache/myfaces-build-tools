@@ -111,7 +111,11 @@ public class Model
         for (Iterator it = other.getComponents().iterator(); it.hasNext();)
         {
             ComponentMeta component = (ComponentMeta) it.next();
-            this.addComponent(component);
+            //If the component is present, the actual takes precedence.
+            if (this.findComponentByClassName(component.getClassName())== null)
+            {
+                this.addComponent(component);
+            }
         }
     }
 

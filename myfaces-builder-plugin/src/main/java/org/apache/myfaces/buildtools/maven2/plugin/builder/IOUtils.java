@@ -33,6 +33,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
@@ -142,80 +143,199 @@ public class IOUtils
             throws MojoExecutionException
     {
         List models = new ArrayList();
-
+        
         for (Iterator it = project.getArtifacts().iterator(); it.hasNext();)
         {
 
             Artifact artifact = (Artifact) it.next();
-
-            //This is safe since we have all depencencies on the
-            //pom, so they are downloaded first by maven.
-            File jarFile = artifact.getFile();
-
-            URLClassLoader archetypeJarLoader;
-
-            InputStream is = null;
-            try
+            
+            if ("compile".equals(artifact.getScope())
+                    || "provided".equals(artifact.getScope())
+                    || "system".equals(artifact.getScope()))
             {
-                URL[] urls = new URL[1];
-                urls[0] = jarFile.toURL();
-                archetypeJarLoader = new URLClassLoader(urls);
+                //This is safe since we have all depencencies on the
+                //pom, so they are downloaded first by maven.
+                File jarFile = artifact.getFile();
 
-                 is = getStream(MYFACES_METADATA, archetypeJarLoader);
+                URLClassLoader archetypeJarLoader;
 
-                if (is == null)
+                InputStream is = null;
+                try
                 {
-                    
-                    //System.out.println("Artifact: "
-                    //        + artifact.getFile().getName()
-                    //        + " does not have META-INF/myfaces-metadata.xml");
-                }
-                else
-                {
-                    Reader r = null;
-                    try {
-                        r = new InputStreamReader(is);
-                        Model m = readModel(r);
-                        models.add(m);
-                        r.close();
-                    }catch(IOException e){
-                        throw new MojoExecutionException(
-                                "Error reading myfaces-metadata.xml form "
-                                        + artifact.getFile().getName(), e);                        
-                    }finally{
-                        if (r != null){
-                            try {
-                                r.close();
-                            }catch(IOException e){
-                                //ignore
+                    URL[] urls = new URL[1];
+                    urls[0] = jarFile.toURL();
+                    archetypeJarLoader = new URLClassLoader(urls);
+
+                    is = getStream(MYFACES_METADATA, archetypeJarLoader);
+
+                    if (is == null)
+                    {
+
+                        //System.out.println("Artifact: "
+                        //        + artifact.getFile().getName()
+                        //        + " does not have META-INF/myfaces-metadata.xml");
+                    }
+                    else
+                    {
+                        Reader r = null;
+                        try
+                        {
+                            r = new InputStreamReader(is);
+                            Model m = readModel(r);
+                            models.add(m);
+                            r.close();
+                        }
+                        catch (IOException e)
+                        {
+                            throw new MojoExecutionException(
+                                    "Error reading myfaces-metadata.xml form "
+                                            + artifact.getFile().getName(), e);
+                        }
+                        finally
+                        {
+                            if (r != null)
+                            {
+                                try
+                                {
+                                    r.close();
+                                }
+                                catch (IOException e)
+                                {
+                                    //ignore
+                                }
                             }
                         }
+
+                        System.out.println("Artifact: "
+                                + artifact.getFile().getName()
+                                + " have META-INF/myfaces-metadata.xml");
                     }
-                   
-                    System.out.println("Artifact: "
-                            + artifact.getFile().getName()
-                            + " have META-INF/myfaces-metadata.xml");
                 }
-            }
-            catch (IOException e)
-            {
-                throw new MojoExecutionException(
-                        "Error reading myfaces-metadata.xml form "
-                                + artifact.getFile().getName(), e);
-            }
-            finally
-            {
-                if (is != null){
-                    try {
-                        is.close();
-                    }catch(IOException ex){
-                        //ignore
+                catch (IOException e)
+                {
+                    throw new MojoExecutionException(
+                            "Error reading myfaces-metadata.xml form "
+                                    + artifact.getFile().getName(), e);
+                }
+                finally
+                {
+                    if (is != null)
+                    {
+                        try
+                        {
+                            is.close();
+                        }
+                        catch (IOException ex)
+                        {
+                            //ignore
+                        }
                     }
                 }
             }
         }
         return models;
     }
+    
+    public static List getModelsFromArtifacts(MavenProject project,
+            List dependencyModelIds) throws MojoExecutionException
+    {
+        List models = new ArrayList();
+
+        for (Iterator it = project.getArtifacts().iterator(); it.hasNext();)
+        {
+
+            Artifact artifact = (Artifact) it.next();
+            
+            if ("compile".equals(artifact.getScope())
+                    || "provided".equals(artifact.getScope())
+                    || "system".equals(artifact.getScope()))
+            {
+                //This is safe since we have all depencencies on the
+                //pom, so they are downloaded first by maven.
+                File jarFile = artifact.getFile();
+
+                URLClassLoader archetypeJarLoader;
+
+                InputStream is = null;
+                try
+                {
+                    URL[] urls = new URL[1];
+                    urls[0] = jarFile.toURL();
+                    archetypeJarLoader = new URLClassLoader(urls);
+
+                    is = getStream(MYFACES_METADATA, archetypeJarLoader);
+
+                    if (is == null)
+                    {
+
+                        //System.out.println("Artifact: "
+                        //        + artifact.getFile().getName()
+                        //        + " does not have META-INF/myfaces-metadata.xml");
+                    }
+                    else
+                    {
+                        Reader r = null;
+                        try
+                        {
+                            r = new InputStreamReader(is);
+                            Model m = readModel(r);
+                            if (dependencyModelIds.contains(m.getModelId()))
+                            {
+                                models.add(m);
+                            }
+                            r.close();
+                        }
+                        catch (IOException e)
+                        {
+                            throw new MojoExecutionException(
+                                    "Error reading myfaces-metadata.xml form "
+                                            + artifact.getFile().getName(), e);
+                        }
+                        finally
+                        {
+                            if (r != null)
+                            {
+                                try
+                                {
+                                    r.close();
+                                }
+                                catch (IOException e)
+                                {
+                                    //ignore
+                                }
+                            }
+                        }
+
+                        System.out.println("Artifact: "
+                                + artifact.getFile().getName()
+                                + " have META-INF/myfaces-metadata.xml");
+                    }
+                }
+                catch (IOException e)
+                {
+                    throw new MojoExecutionException(
+                            "Error reading myfaces-metadata.xml form "
+                                    + artifact.getFile().getName(), e);
+                }
+                finally
+                {
+                    if (is != null)
+                    {
+                        try
+                        {
+                            is.close();
+                        }
+                        catch (IOException ex)
+                        {
+                            //ignore
+                        }
+                    }
+                }
+            }
+        }
+        return models;
+    }
+    
         
     private static InputStream getStream( String name,
             ClassLoader loader )
