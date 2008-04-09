@@ -102,16 +102,33 @@ public class MakeTagsMojo extends AbstractMojo
     private File generatedSourceDirectory;
 
     /**
+     * Only generate tag classes that contains that package prefix
+     * 
      * @parameter
      * @required
      */
     private String packageContains;
 
     /**
+     * Only generate tag classes that its component starts with this type prefix
+     * 
      * @parameter
-     * @required
      */
     private String typePrefix;
+    
+    /**
+     * Replace the package prefix
+     * 
+     * @parameter
+     */
+    private String replacePackagePrefixFrom;
+
+    /**
+     * Replace the package prefix
+     * 
+     * @parameter
+     */
+    private String replacePackagePrefixTo;
 
     /**
      * @parameter
@@ -150,6 +167,7 @@ public class MakeTagsMojo extends AbstractMojo
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
             List models = IOUtils.getModelsFromArtifacts(project);
+            resolveReplacePackage(model);            
             new Flattener(model).flatten();
             generateComponents(model);
         }
@@ -160,6 +178,30 @@ public class MakeTagsMojo extends AbstractMojo
         catch (BuildException e)
         {
             throw new MojoExecutionException("Error generating components", e);
+        }
+    }
+    
+    private void resolveReplacePackage(Model model)
+    {
+        if (replacePackagePrefixFrom == null ||
+                replacePackagePrefixTo == null)
+            return;
+        
+        List components = model.getComponents();
+        for (Iterator i = components.iterator(); i.hasNext();)
+        {
+            ComponentMeta comp = (ComponentMeta) i.next();
+            
+            if (comp.getTagClass() == null)
+            {
+                break;
+            }
+            if (comp.getTagClass().startsWith(replacePackagePrefixFrom))
+            {
+                comp.setTagClass(StringUtils.replaceOnce(
+                        comp.getTagClass(), replacePackagePrefixFrom, replacePackagePrefixTo));
+                log.info("Tag class changed to:"+comp.getTagClass());
+            }
         }
     }
     
@@ -225,7 +267,7 @@ public class MakeTagsMojo extends AbstractMojo
                 File f = new File(mainSourceDirectory, StringUtils.replace(
                     component.getTagClass(), ".", "/")+".java");
                 
-                if (!f.exists() && modelIds.contains(component.getModelId()))
+                if (!f.exists() && canGenerateComponentTag(component))
                 {                
                     log.info("Generating tag class:"+component.getTagClass());
                     _generateComponent(velocityEngine, component,baseContext);
@@ -234,6 +276,59 @@ public class MakeTagsMojo extends AbstractMojo
         }
         //throw new MojoExecutionException("stopping..");
     }
+    
+    public boolean canGenerateComponentTag(ComponentMeta component)
+    {
+        if ( modelIds.contains(component.getModelId())
+                && includePackageTag(component)
+                && includeType(component))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public boolean includePackageTag(ComponentMeta component)
+    {
+        if (packageContains != null)
+        {
+            if (component.getTagPackage().startsWith(packageContains))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }        
+    }
+
+    public boolean includeType(ComponentMeta component)
+    {
+        if (typePrefix != null)
+        {
+            if (component.getType().startsWith(typePrefix))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }        
+    }
+
 
     /**
      * Generates a parsed component.
