@@ -105,7 +105,6 @@ public class MakeTagsMojo extends AbstractMojo
      * Only generate tag classes that contains that package prefix
      * 
      * @parameter
-     * @required
      */
     private String packageContains;
 
@@ -116,20 +115,6 @@ public class MakeTagsMojo extends AbstractMojo
      */
     private String typePrefix;
     
-    /**
-     * Replace the package prefix
-     * 
-     * @parameter
-     */
-    private String replacePackagePrefixFrom;
-
-    /**
-     * Replace the package prefix
-     * 
-     * @parameter
-     */
-    private String replacePackagePrefixTo;
-
     /**
      * @parameter
      */
@@ -166,8 +151,7 @@ public class MakeTagsMojo extends AbstractMojo
             }
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
-            List models = IOUtils.getModelsFromArtifacts(project);
-            resolveReplacePackage(model);            
+            List models = IOUtils.getModelsFromArtifacts(project);            
             new Flattener(model).flatten();
             generateComponents(model);
         }
@@ -180,31 +164,7 @@ public class MakeTagsMojo extends AbstractMojo
             throw new MojoExecutionException("Error generating components", e);
         }
     }
-    
-    private void resolveReplacePackage(Model model)
-    {
-        if (replacePackagePrefixFrom == null ||
-                replacePackagePrefixTo == null)
-            return;
         
-        List components = model.getComponents();
-        for (Iterator i = components.iterator(); i.hasNext();)
-        {
-            ComponentMeta comp = (ComponentMeta) i.next();
-            
-            if (comp.getTagClass() == null)
-            {
-                break;
-            }
-            if (comp.getTagClass().startsWith(replacePackagePrefixFrom))
-            {
-                comp.setTagClass(StringUtils.replaceOnce(
-                        comp.getTagClass(), replacePackagePrefixFrom, replacePackagePrefixTo));
-                log.info("Tag class changed to:"+comp.getTagClass());
-            }
-        }
-    }
-    
     private VelocityEngine initVelocity() throws MojoExecutionException
     {
 

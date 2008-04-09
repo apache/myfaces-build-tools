@@ -32,6 +32,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.QdoxModelBuilder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Maven goal which runs one or more ModelBuilder objects to gather metadata
@@ -75,6 +76,21 @@ public class BuildMetaDataMojo extends AbstractMojo
      * @parameter expression="${project.artifactId}"
      */
     private String modelId;
+    
+    /**
+     * Replace the package prefix
+     * 
+     * @parameter
+     */
+    private String replacePackagePrefixTagFrom;
+
+    /**
+     * Replace the package prefix
+     * 
+     * @parameter
+     */
+    private String replacePackagePrefixTagTo;
+    
     /**
      * Execute the Mojo.
      */
@@ -87,9 +103,36 @@ public class BuildMetaDataMojo extends AbstractMojo
             Model artifactModel = (Model) it.next();
             model.merge(artifactModel);
         }
+
+        resolveReplacePackage(model);
         
         IOUtils.saveModel(model, new File(targetDirectory, outputFile));
     }
+    
+    private void resolveReplacePackage(Model model)
+    {
+        if (replacePackagePrefixTagFrom == null ||
+                replacePackagePrefixTagTo == null)
+            return;
+        
+        List components = model.getComponents();
+        for (Iterator i = components.iterator(); i.hasNext();)
+        {
+            ComponentMeta comp = (ComponentMeta) i.next();
+            
+            if (comp.getTagClass() == null)
+            {
+                break;
+            }
+            if (comp.getTagClass().startsWith(replacePackagePrefixTagFrom))
+            {
+                comp.setTagClass(StringUtils.replaceOnce(
+                        comp.getTagClass(), replacePackagePrefixTagFrom, replacePackagePrefixTagTo));
+                log.info("Tag class changed to:"+comp.getTagClass());
+            }
+        }
+    }
+    
 
     /**
      * Execute ModelBuilder classes to create the Model data-structure.
