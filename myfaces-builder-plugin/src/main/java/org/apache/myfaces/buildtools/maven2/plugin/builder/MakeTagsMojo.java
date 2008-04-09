@@ -151,7 +151,6 @@ public class MakeTagsMojo extends AbstractMojo
             }
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
-            List models = IOUtils.getModelsFromArtifacts(project);            
             new Flattener(model).flatten();
             generateComponents(model);
         }
@@ -240,7 +239,7 @@ public class MakeTagsMojo extends AbstractMojo
     public boolean canGenerateComponentTag(ComponentMeta component)
     {
         if ( modelIds.contains(component.getModelId())
-                && includePackageTag(component)
+                && includePackage(component)
                 && includeType(component))
         {
             return true;
@@ -251,7 +250,7 @@ public class MakeTagsMojo extends AbstractMojo
         }
     }
     
-    public boolean includePackageTag(ComponentMeta component)
+    public boolean includePackage(ComponentMeta component)
     {
         if (packageContains != null)
         {

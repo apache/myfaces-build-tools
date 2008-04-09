@@ -19,7 +19,14 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -28,6 +35,14 @@ import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.MyfacesUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.context.Context;
+import org.apache.velocity.runtime.RuntimeConstants;
+import org.codehaus.plexus.util.IOUtil;
+import org.codehaus.plexus.util.StringUtils;
 
 /**
  * Maven goal to generate java source code for Component classes.
@@ -100,6 +115,24 @@ public class MakeComponentsMojo extends AbstractMojo
      * @parameter
      */
     private String jsfVersion;
+    
+    /**
+     * @parameter
+     */
+    private List modelIds;
+
+    /**
+     * @parameter 
+     */
+    private String templateComponentName;
+    
+    /**
+     * This param is used to search in this folder if some file to
+     * be generated exists and avoid generation and duplicate exception.
+     * 
+     * @parameter expression="src/main/java"
+     */    
+    private File mainSourceDirectory;    
 
     /**
      * Execute the Mojo.
@@ -108,8 +141,13 @@ public class MakeComponentsMojo extends AbstractMojo
     {
         // This command makes Maven compile the generated source:
         // getProject().addCompileSourceRoot( absoluteGeneratedPath.getPath() );
+        
         try
         {
+            if (modelIds == null){
+                modelIds = new ArrayList();
+                modelIds.add(project.getArtifactId());
+            }
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
             new Flattener(model).flatten();
@@ -124,6 +162,50 @@ public class MakeComponentsMojo extends AbstractMojo
             throw new MojoExecutionException("Error generating components", e);
         }
     }
+    
+    
+    private VelocityEngine initVelocity() throws MojoExecutionException
+    {
+
+        Properties p = new Properties();
+
+        p.setProperty( "resource.loader", "file, class" );
+        p.setProperty( "file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+        p.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
+        p.setProperty( "class.resource.loader.class", "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
+        p.setProperty( "class.resource.loader.path", "META-INF");            
+        p.setProperty( "velocimacro.library", "componentClassMacros11.vm");
+        p.setProperty( "velocimacro.permissions.allow.inline","true");
+        p.setProperty( "velocimacro.permissions.allow.inline.local.scope", "true");
+        p.setProperty( "directive.foreach.counter.initial.value","0");
+        p.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
+        "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.ConsoleLogSystem" );
+        
+        File template = new File(templateSourceDirectory, _getTemplateName());
+        
+        if (template.exists())
+        {
+            log.info("Using template from file loader: "+template.getPath());
+        }
+        else
+        {
+            log.info("Using template from class loader: META-INF/"+_getTemplateName());
+        }
+                
+        VelocityEngine velocityEngine = new VelocityEngine();
+                
+        try
+        {
+            velocityEngine.init(p);
+        }
+        catch (Exception e)
+        {
+            throw new MojoExecutionException("Error creating VelocityEngine", e);
+        }
+        
+        return velocityEngine;
+    }
+    
 
     /**
      * Generates parsed components.
@@ -131,144 +213,142 @@ public class MakeComponentsMojo extends AbstractMojo
     private void generateComponents(Model model) throws IOException,
             MojoExecutionException
     {
-        throw new MojoExecutionException("stopping..");
+        // Make sure generated source directory 
+        // is added to compilation source path 
+        //project.addCompileSourceRoot(generatedSourceDirectory.getCanonicalPath());
+        
+        VelocityEngine velocityEngine = initVelocity();
 
-        /*
-         * // Make sure generated source directory // is added to compilation
-         * source path project.addCompileSourceRoot(generatedSourceDirectory
-         * .getCanonicalPath());
-         * 
-         * Iterator components = artifacts.components(); if
-         * (!components.hasNext()) { log.info("Nothing to generate - no
-         * components found"); return; }
-         * 
-         * if (suppressListenerMethods) log.severe("Event listener methods will
-         * not be generated");
-         */
-        /*
-         * Iterator components = facesConfig.components(); components = new
-         * FilteredIterator(components, new SkipFilter()); components = new
-         * FilteredIterator(components, new ComponentTypeFilter( typePrefix)); //
-         * incremental unless forced if (!force) components = new
-         * FilteredIterator(components, new IfModifiedFilter());
-         * 
-         * if (!components.hasNext()) { getLog() .info("Nothing to generate -
-         * all components are up to date"); } else { int count = 0; while
-         * (components.hasNext()) { ComponentBean component = (ComponentBean)
-         * components.next(); if (!component.isComponentClassExcluded()) {
-         * _generateComponent(component); count++; } } getLog().info("Generated " +
-         * count + " component(s)"); }
-         */
+        VelocityContext baseContext = new VelocityContext();
+        baseContext.put("utils", new MyfacesUtils());
+        
+        for (Iterator it = model.getComponents().iterator(); it.hasNext();)
+        {
+            ComponentMeta component = (ComponentMeta) it.next();
+            
+            if (component.getTagClass() != null)
+            {
+                File f = new File(mainSourceDirectory, StringUtils.replace(
+                    component.getTagClass(), ".", "/")+".java");
+                
+                if (!f.exists() && canGenerateComponent(component))
+                {                
+                    log.info("Generating tag class:"+component.getTagClass());
+                    _generateComponent(velocityEngine, component,baseContext);
+                }
+            }
+        }        
+    }
+    
+    public boolean canGenerateComponent(ComponentMeta component)
+    {
+        if ( modelIds.contains(component.getModelId())
+                && includePackage(component)
+                && includeType(component))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public boolean includePackage(ComponentMeta component)
+    {
+        if (packageContains != null)
+        {
+            if (component.getTagPackage().startsWith(packageContains))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }        
     }
 
+    public boolean includeType(ComponentMeta component)
+    {
+        if (typePrefix != null)
+        {
+            if (component.getType().startsWith(typePrefix))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return true;
+        }        
+    }
+    
+    
     /**
      * Generates a parsed component.
      * 
      * @param component
      *            the parsed component metadata
      */
-    private void _generateComponent(ComponentMeta component)
+    private void _generateComponent(VelocityEngine velocityEngine, ComponentMeta component, VelocityContext baseContext)
             throws MojoExecutionException
     {
-        /*
-         * ComponentGenerator generator;
-         * 
-         * String fullClassName = component.getComponentClass();
-         * 
-         * if (component.isTrinidadComponent()) { generator = new
-         * TrinidadComponentGenerator(getLog(), _is12()); } else { generator =
-         * new MyFacesComponentGenerator(getLog(), _is12()); }
-         * 
-         * try { getLog().debug( "Generating " + fullClassName + ", with
-         * generator: " + generator.getClass().getName());
-         * 
-         * String sourcePath = Util.convertClassToSourcePath(fullClassName,
-         * ".java"); File targetFile = new File(generatedSourceDirectory,
-         * sourcePath);
-         * 
-         * StringWriter sw = new StringWriter(); PrettyWriter out = new
-         * PrettyWriter(sw);
-         * 
-         * String className = Util.getClassFromFullClass(fullClassName); String
-         * componentFamily = component.findComponentFamily();
-         * 
-         * if (componentFamily == null) { getLog() .warn( "Missing
-         * <component-family> for \"" + fullClassName + "\", generation of this
-         * Component is skipped"); } else { String packageName = Util
-         * .getPackageFromFullClass(fullClassName); String fullSuperclassName =
-         * component.findComponentSuperclass(); String superclassName = Util
-         * .getClassFromFullClass(fullSuperclassName); // make class name fully
-         * qualified in case of collision if (superclassName.equals(className))
-         * superclassName = fullSuperclassName; // TODO: remove this bogosity if
-         * (superclassName.equals("UIXMenuHierarchy") ||
-         * superclassName.equals("UIXTable") ||
-         * superclassName.equals("UIXHierarchy") ||
-         * superclassName.equals("UIXMenuTree") || className.equals("CoreTree")) {
-         * superclassName = fullSuperclassName; }
-         * 
-         * String componentType = component.getComponentType(); // Use template
-         * file if it exists String templatePath =
-         * Util.convertClassToSourcePath( fullClassName, "Template.java"); File
-         * templateFile = new File(templateSourceDirectory, templatePath);
-         * 
-         * SourceTemplate template = null; if (templateFile.exists()) {
-         * getLog().debug("Using template " + templatePath); template = new
-         * SourceTemplate(templateFile); template.substitute(className +
-         * "Template", className); template.readPreface(); } // header/copyright
-         * writePreamble(out); // package out.println("package " + packageName +
-         * ";"); out.println(); // imports generator.writeImports(out, template,
-         * packageName, fullSuperclassName, superclassName, component); // class
-         * generator.writeClassBegin(out, className, superclassName, component,
-         * template); // static final constants
-         * generator.writePropertyValueConstants(out, component); generator
-         * .writePropertyConstants(out, superclassName, component);
-         * generator.writeFacetConstants(out, component);
-         * generator.writeGenericConstants(out, componentFamily, componentType); //
-         * public constructors and methods generator.writeConstructor(out,
-         * component, Modifier.PUBLIC); // insert template code if (template !=
-         * null) { template.writeContent(out); template.close(); }
-         * 
-         * generator.writeFacetMethods(out, component);
-         * 
-         * if (template == null) { generator.writePropertyMethods(out,
-         * component); } else { generator.writePropertyMethods(out, component,
-         * template .getIgnoreMethods()); }
-         * 
-         * if (!suppressListenerMethods) generator.writeListenerMethods(out,
-         * component);
-         * 
-         * generator.writeStateManagementMethods(out, component);
-         * 
-         * generator.writeGetFamily(out); // protected constructors and methods //
-         * TODO: reverse this order, to make protected constructor go // first //
-         * for now we want consistency with previous code generation
-         * generator.writeOther(out, component);
-         * 
-         * generator.writeClassEnd(out);
-         * 
-         * out.close(); // delay write in case of error // timestamp should not
-         * be updated when an error occurs // delete target file first, because
-         * it is readonly targetFile.getParentFile().mkdirs();
-         * targetFile.delete(); FileWriter fw = new FileWriter(targetFile);
-         * StringBuffer buf = sw.getBuffer(); fw.write(buf.toString());
-         * fw.close(); targetFile.setReadOnly(); } } catch (IOException e) {
-         * getLog().error("Error generating " + fullClassName, e); }
-         */
+        Context context = new VelocityContext(baseContext);
+        context.put("component", component);
+
+        Writer writer = null;
+        File outFile = null;
+
+        try
+        {
+            outFile = new File(generatedSourceDirectory, StringUtils.replace(
+                    component.getClassName(), ".", "/")+".java");
+
+            if ( !outFile.getParentFile().exists() )
+            {
+                outFile.getParentFile().mkdirs();
+            }
+
+            writer = new OutputStreamWriter(new FileOutputStream(outFile));
+
+            Template template = velocityEngine.getTemplate(_getTemplateName());
+                        
+            template.merge(context, writer);
+
+            writer.flush();
+        }
+        catch (Exception e)
+        {
+            throw new MojoExecutionException(
+                    "Error merging velocity templates: " + e.getMessage(), e);
+        }
+        finally
+        {
+            IOUtil.close(writer);
+            writer = null;
+        }
     }
 
-    /*
-     * private class IfModifiedFilter extends ComponentFilter { protected
-     * boolean accept(Component component) { String componentClass =
-     * component.getComponentClass(); String sourcePath =
-     * Util.convertClassToSourcePath(componentClass, ".java"); String
-     * templatePath = Util.convertClassToSourcePath(componentClass,
-     * "Template.java"); File targetFile = new File(generatedSourceDirectory,
-     * sourcePath); File templateFile = new File(templateSourceDirectory,
-     * templatePath); // accept if templateFile is newer or component has been
-     * modified return (templateFile.lastModified() > targetFile.lastModified() ||
-     * component .isModifiedSince(targetFile.lastModified())); return true; } }
-     */
-
+    private String _getTemplateName(){
+        if (templateComponentName != null){
+            if (_is12()){
+                return "componentClass12.vm";
+            }else{
+                return "componentClass11.vm";
+            }
+        }
+        return "componentClass11.vm";
+    }
+    
     private boolean _is12()
     {
         return "1.2".equals(jsfVersion) || "12".equals(jsfVersion);
