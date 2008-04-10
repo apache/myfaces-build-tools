@@ -442,7 +442,7 @@ public class QdoxModelBuilder implements ModelBuilder
                 componentParentClass = null;
             }
         }
-
+                
         String longDescription = clazz.getComment();
         String descDflt = getFirstSentence(longDescription);
         if ((descDflt == null) || (descDflt.length() < 2))
@@ -532,6 +532,7 @@ public class QdoxModelBuilder implements ModelBuilder
     {
         Boolean required = getBoolean(clazz, "required", props, null);
         Boolean transientProp = getBoolean(clazz, "transient", props, null);
+        Boolean stateHolder = getBoolean(clazz, "stateHolder", props, null);
         Boolean literalOnly = getBoolean(clazz, "literalOnly", props, null);
 
         String longDescription = ctx.getComment();
@@ -543,15 +544,21 @@ public class QdoxModelBuilder implements ModelBuilder
         String shortDescription = getString(clazz, "desc", props, descDflt);
 
         Type returnType = method.getReturns();
-
+        
         PropertyMeta p = new PropertyMeta();
         p.setName(methodToPropName(method.getName()));
         p.setClassName(returnType.toString());
         p.setRequired(required);
         p.setTransient(transientProp);
+        p.setStateHolder(stateHolder);
         p.setLiteralOnly(literalOnly);
         p.setDescription(shortDescription);
         p.setLongDescription(longDescription);
+        
+        //If the method is abstract this should be generated
+        if (method.isAbstract()){
+            p.setGenerated(Boolean.TRUE);
+        }
 
         component.addProperty(p);
     }

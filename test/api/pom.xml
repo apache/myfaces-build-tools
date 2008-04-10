@@ -41,6 +41,7 @@
 						</configuration>
 						<goals>
 							<goal>build-metadata</goal>
+							<goal>make-components</goal>
 						</goals>
 					</execution>
 					<execution>

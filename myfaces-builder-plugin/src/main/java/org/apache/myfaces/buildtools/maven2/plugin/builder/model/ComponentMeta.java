@@ -53,8 +53,6 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
     private Boolean _namingContainer;
     private Boolean _children;
     
-    private Boolean _generateTag;
-
     protected Map _properties;
 
     /**
@@ -163,7 +161,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
                 PropertyMeta parentProp = other.getProperty(srcProp.getName());
                 if (parentProp != null)
                 {
-                    if (!srcProp.isTagExcluded().booleanValue())
+                    if (!srcProp.getTagExcluded().booleanValue())
                     {
                         srcProp.setInheritedTag(Boolean.TRUE);
                     }
@@ -312,19 +310,9 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         _namingContainer = namingContainer;
     }
 
-    public Boolean isNamingContainer()
+    public Boolean getNamingContainer()
     {
         return ModelUtils.defaultOf(_namingContainer, false);
-    }
-
-    public void setGenerateTag(Boolean _generateTag)
-    {
-        this._generateTag = _generateTag;
-    }
-
-    public Boolean isGenerateTag()
-    {
-        return ModelUtils.defaultOf(_generateTag, false);
     }
 
     /**
@@ -390,14 +378,31 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
             _propertyTagList = new ArrayList();
             for (Iterator it = _properties.values().iterator(); it.hasNext();){
                 PropertyMeta prop = (PropertyMeta) it.next();
-                if (!prop.isInheritedTag().booleanValue()){
+                if (!prop.getInheritedTag().booleanValue()){
                     _propertyTagList.add(prop);
                 }
             }
             
         }
         return _propertyTagList;
-    }    
+    }
+    
+    private List _propertyComponentList = null; 
+    
+    public Collection getPropertyComponentList(){
+        if (_propertyComponentList == null){
+            _propertyComponentList = new ArrayList();
+            for (Iterator it = _properties.values().iterator(); it.hasNext();){
+                PropertyMeta prop = (PropertyMeta) it.next();
+                if (!prop.getInherited().booleanValue()){
+                    _propertyComponentList.add(prop);
+                }
+            }
+            
+        }
+        return _propertyComponentList;
+    }
+    
     
     /**
      * Returns the package part of the tag class

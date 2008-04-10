@@ -79,25 +79,21 @@ public class MakeComponentsMojo extends AbstractMojo
 
     /**
      * @parameter expression="src/main/java-templates"
-     * @required
      */
     private File templateSourceDirectory;
 
     /**
      * @parameter expression="${project.build.directory}/maven-faces-plugin/main/java"
-     * @required
      */
     private File generatedSourceDirectory;
 
     /**
      * @parameter
-     * @required
      */
     private String packageContains;
 
     /**
      * @parameter
-     * @required
      */
     private String typePrefix;
 
@@ -229,8 +225,8 @@ public class MakeComponentsMojo extends AbstractMojo
             if (component.getTagClass() != null)
             {
                 File f = new File(mainSourceDirectory, StringUtils.replace(
-                    component.getTagClass(), ".", "/")+".java");
-                
+                    component.getClassName(), ".", "/")+".java");
+                                
                 if (!f.exists() && canGenerateComponent(component))
                 {                
                     log.info("Generating tag class:"+component.getTagClass());

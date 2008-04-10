@@ -26,6 +26,7 @@ The prop1 property.
 Some dummy prop1 documentation.
 ]]>
       </longDesc>
+      <generated>true</generated>
     </property>
   </component>
   <component>
@@ -96,6 +97,8 @@ The prop1 property.
 Some dummy prop1 documentation.
 ]]>
       </longDesc>
+      <inherited>true</inherited>
+      <generated>true</generated>
     </property>
     <property>
       <name>ifaceProp</name>
@@ -108,6 +111,7 @@ The ifaceProp property.
 Some dummy ifaceProp documentation.
 ]]>
       </longDesc>
+      <inherited>true</inherited>
     </property>
   </component>
   <converter>

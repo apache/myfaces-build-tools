@@ -26,6 +26,7 @@ The prop1 property.
 Some dummy prop1 documentation.
 ]]>
       </longDesc>
+      <generated>true</generated>
     </property>
   </component>
   <component>

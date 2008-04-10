@@ -46,10 +46,10 @@ public class MyfacesUtils
 
     public static String getJspPropertyType11(PropertyMeta property)
     {
-        if (property.isMethodExpression())
+        if (property.getMethodExpression())
             return "MethodExpression";
 
-        if (property.isMethodBinding())
+        if (property.getMethodBinding())
             return "MethodExpression";
 
         return "String";
@@ -57,13 +57,13 @@ public class MyfacesUtils
 
     public static String getJspPropertyType12(PropertyMeta property)
     {
-        if (property.isMethodExpression())
+        if (property.getMethodExpression())
             return "MethodExpression";
 
-        if (property.isMethodBinding())
+        if (property.getMethodBinding())
             return "MethodExpression";
 
-        if (!property.isLiteralOnly().booleanValue())
+        if (!property.getLiteralOnly().booleanValue())
             return "ValueExpression";
         else
             return property.getClassName();
@@ -113,7 +113,7 @@ public class MyfacesUtils
     {
         return ("javax.faces.convert.Converter".equals(propClass));
     }
-    
+        
     public static String getBoxedClass(String className)
     {
         if ("boolean".equals(className))
@@ -371,7 +371,7 @@ public class MyfacesUtils
         return Character.toLowerCase(eventName.charAt(0))
                 + eventName.substring(1, eventName.length());
     }
-
+    
     /*
     static public String getAlternatePropertyClass(PropertyMeta property)
     {

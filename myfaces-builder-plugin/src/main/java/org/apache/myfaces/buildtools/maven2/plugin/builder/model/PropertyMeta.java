@@ -36,6 +36,7 @@ public class PropertyMeta
     private Boolean _required;
     private Boolean _literalOnly;
     private Boolean _transient;
+    private Boolean _stateHolder;
     private String _description;
     private String _longDescription;
     private String   _defaultValue;
@@ -43,7 +44,9 @@ public class PropertyMeta
     
     private Boolean _inherited; //Define if this property is inherited from parent component
     private Boolean _inheritedTag; //Define if this property is inherited from tag component
-    private Boolean _tagExcluded; //Define if this property is excluded from tag and tld    
+    private Boolean _tagExcluded; //Define if this property is excluded from tag and tld
+    
+    private Boolean _generated;
 
     public PropertyMeta()
     {
@@ -59,6 +62,7 @@ public class PropertyMeta
         _required = pm._required;
         _literalOnly = pm._literalOnly;
         _transient = pm._transient;
+        _stateHolder = pm._stateHolder;
         _description = pm._description;
         _longDescription = pm._longDescription;
         _defaultValue = pm._defaultValue;
@@ -66,7 +70,9 @@ public class PropertyMeta
         
         _inherited = pm._inherited;
         _inheritedTag = pm._inheritedTag;
-        _tagExcluded = pm._tagExcluded;    
+        _tagExcluded = pm._tagExcluded;
+        
+        _generated = pm._generated;
     }
     
     /**
@@ -84,9 +90,16 @@ public class PropertyMeta
         out.writeElement("required", pm._required);
         out.writeElement("literalOnly", pm._literalOnly);
         out.writeElement("transient", pm._transient);
+        out.writeElement("stateHolder", pm._stateHolder);
         out.writeElement("desc", pm._description);
         out.writeElement("longDesc", pm._longDescription);
         out.writeElement("defaultValue", pm._defaultValue);
+        if (pm._signature != null)            
+            MethodSignatureMeta.writeXml(out, pm._signature);
+        out.writeElement("inherited", pm._inherited);
+        out.writeElement("inheritedTag", pm._inheritedTag);
+        out.writeElement("tagExcluded", pm._tagExcluded);
+        out.writeElement("generated",pm._generated);
         out.endElement("property");
     }
 
@@ -107,10 +120,15 @@ public class PropertyMeta
         digester.addBeanPropertySetter(newPrefix + "/required");
         digester.addBeanPropertySetter(newPrefix + "/literalOnly");
         digester.addBeanPropertySetter(newPrefix + "/transient");
+        digester.addBeanPropertySetter(newPrefix + "/stateHolder");
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
         digester.addBeanPropertySetter(newPrefix + "/defaultValue", "defaultValue");
+        digester.addBeanPropertySetter(newPrefix + "/inherited", "inherited");
+        digester.addBeanPropertySetter(newPrefix + "/inheritedTag", "inheritedTag");
+        digester.addBeanPropertySetter(newPrefix + "/tagExcluded", "tagExcluded");
+        digester.addBeanPropertySetter(newPrefix + "/generated", "generated");
         
         MethodSignatureMeta.addXmlRules(digester, newPrefix);
         
@@ -130,10 +148,13 @@ public class PropertyMeta
         _required = ModelUtils.merge(this._required, other._required);
         _literalOnly = ModelUtils.merge(this._literalOnly, other._literalOnly);
         _transient = ModelUtils.merge(this._transient, other._transient);
+        _stateHolder = ModelUtils.merge(this._stateHolder, other._stateHolder);
         _description = ModelUtils.merge(this._description, other._description);
         _longDescription = ModelUtils.merge(this._longDescription, other._longDescription);
         _defaultValue = ModelUtils.merge(this._defaultValue, other._defaultValue);
         _signature = (MethodSignatureMeta) ModelUtils.merge(this._signature, other._signature);
+        _generated = ModelUtils.merge(this._generated, other._generated);
+        
     }
 
     /**
@@ -176,7 +197,7 @@ public class PropertyMeta
         _transient = transient_;
     }
 
-    public Boolean isTransient()
+    public Boolean getTransient()
     {
         return ModelUtils.defaultOf(_transient, false);
     }
@@ -191,7 +212,7 @@ public class PropertyMeta
         _required = required;
     }
 
-    public Boolean isRequired()
+    public Boolean getRequired()
     {
         return ModelUtils.defaultOf(_required, false);
     }
@@ -205,7 +226,7 @@ public class PropertyMeta
         _literalOnly = literalOnly;
     }
 
-    public Boolean isLiteralOnly()
+    public Boolean getLiteralOnly()
     {
         return ModelUtils.defaultOf(_literalOnly, false);
     }
@@ -325,7 +346,7 @@ public class PropertyMeta
         _inherited = inherited;
     }
 
-    public Boolean isInherited()
+    public Boolean getInherited()
     {
         return ModelUtils.defaultOf(_inherited, false);
     }
@@ -335,7 +356,7 @@ public class PropertyMeta
         _inheritedTag = inheritedTag;
     }
 
-    public Boolean isInheritedTag()
+    public Boolean getInheritedTag()
     {
         return ModelUtils.defaultOf(_inheritedTag, false);
     }
@@ -345,9 +366,35 @@ public class PropertyMeta
         _tagExcluded = tagExcluded;
     }
 
-    public Boolean isTagExcluded()
+    public Boolean getTagExcluded()
     {
         return ModelUtils.defaultOf(_tagExcluded, false);
+    }
+    
+    public void setGenerated(Boolean generated)
+    {
+        _generated = generated;
+    }
+
+    /**
+     * Indicates if the property should be generated
+     * or not.
+     * 
+     * @return
+     */
+    public Boolean getGenerated()
+    {
+        return ModelUtils.defaultOf(_generated, false);
+    }
+
+    public void setStateHolder(Boolean stateHolder)
+    {
+        _stateHolder = stateHolder;
+    }
+
+    public Boolean getStateHolder()
+    {
+        return ModelUtils.defaultOf(_stateHolder, false);
     }
 
     /**
@@ -355,7 +402,7 @@ public class PropertyMeta
      * <p>
      * TODO: what is this for?
      */
-    public boolean isMethodBinding()
+    public boolean getMethodBinding()
     {
         return ("javax.faces.el.MethodBinding".equals(getClassName()));
     }
@@ -365,7 +412,7 @@ public class PropertyMeta
      * <p>
      * TODO: what is this for?
      */
-    public boolean isMethodExpression()
+    public boolean getMethodExpression()
     {
         return ("javax.el.MethodExpression".equals(getClassName()));
     }
