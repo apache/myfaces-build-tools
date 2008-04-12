@@ -113,6 +113,36 @@ public class MyfacesUtils
     {
         return ("javax.faces.convert.Converter".equals(propClass));
     }
+    
+    public static boolean isList(String propClass)
+    {
+        if (propClass == null){
+            return false;
+        }
+        else if(propClass.contains("List"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public static String castIfNecessary(String propClass)
+    {
+      if (propClass.equals("Object") || propClass.equals("java.lang.Object"))
+      {
+        return "";
+      }
+
+      if (isPrimitiveClass(propClass))
+      {
+        propClass = getBoxedClass(propClass);
+      }
+
+      return "(" + propClass + ")";
+    }    
         
     public static String getBoxedClass(String className)
     {

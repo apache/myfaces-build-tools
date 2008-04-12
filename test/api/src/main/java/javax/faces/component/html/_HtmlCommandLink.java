@@ -1,6 +1,10 @@
 package javax.faces.component.html;
 
+import java.util.List;
+
 import javax.faces.component.UIComponent;
+import javax.faces.convert.Converter;
+import javax.faces.validator.Validator;
 
 /**
  * 
@@ -32,4 +36,20 @@ abstract class _HtmlCommandLink extends UIComponent
      *   stateHolder="true"
      */
     public abstract String getModel();
+    
+    /**
+     * @JSFProperty
+     */    
+    public abstract Converter getConverter();
+    
+    /**
+     * @JSFProperty
+     */    
+    public abstract List getListItems();
+    
+    /**
+     * @JSFProperty
+     */
+    public abstract Validator getValidator();
+    
 }

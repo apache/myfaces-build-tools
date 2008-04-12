@@ -38,7 +38,7 @@ public class ${utils.getClassFromFullClass($component.className)} extends ${util
 #if ($component.rendererType)
         setRendererType("$component.rendererType");
 #else
-        setRendererType("null");
+        setRendererType(null);
 #end
     }
     
@@ -47,7 +47,12 @@ public class ${utils.getClassFromFullClass($component.className)} extends ${util
         return COMPONENT_FAMILY;
     }
     
-#set ($propertyList = ${component.propertyComponentList})    
+#set ($propertyList = ${component.propertyComponentList})
+
+#foreach( $property in $propertyList )
+    // Property: $property.name
+
+#end
 
     public Object saveState(FacesContext facesContext)
     {
@@ -84,5 +89,30 @@ public class ${utils.getClassFromFullClass($component.className)} extends ${util
     {
         Object[] values = (Object[])state;
         super.restoreState(facesContext,values[0]);
+#set ($arrayIndex = 0)
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#set ($type = $property.className)
+#set ($arrayIndex = $arrayIndex + 1)
+#if ( $property.stateHolder )
+#if ($property.jspName == "validator" && $property.methodBinding )
+        ${field}List = (List<Validator>) restoreAttachedState(facesContext,values[$arrayIndex]);
+#elseif ($utils.isList($type))
+        $field = (List) restoreAttachedState(facesContext,values[$arrayIndex]);
+#else
+        $field = $utils.castIfNecessary($type) restoreAttachedState(facesContext,values[$arrayIndex]); 
+#end
+#elseif ($utils.isConverter($type)) 
+        $field = (Converter) restoreAttachedState(facesContext,values[$arrayIndex]);
+#elseif ($utils.isPrimitiveClass($type))
+        $field = ($utils.castIfNecessary($type) values[$arrayIndex]).${type}Value();
+#else
+        $field = $utils.castIfNecessary($type) values[$arrayIndex];
+#end
+#if($utils.isPrimitiveClass($type) && !$property.tagExcluded.booleanValue())
+#set ($arrayIndex = $arrayIndex + 1)
+        ${field}Set = ((Boolean) values[$arrayIndex]).booleanValue();
+#end
+#end
     }
 }
