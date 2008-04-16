@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.apache.myfaces.buildtools</groupId>
     <artifactId>myfaces-plugin-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
 
 
@@ -14,9 +14,9 @@
   <packaging>maven-plugin</packaging>
   <name>Apache MyFaces Buildtools Maven2 Wagon Plugin</name>
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/branches/lu4242_m2_plugins_100_release</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/branches/lu4242_m2_plugins_100_release</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/myfaces-build-tools/branches/lu4242_m2_plugins_100_release</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/maven/trunk/wagon-maven-plugin</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/maven/trunk/wagon-maven-plugin</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/maven/trunk/wagon-maven-plugin</url>
   </scm>
   <build>
     <extensions>
