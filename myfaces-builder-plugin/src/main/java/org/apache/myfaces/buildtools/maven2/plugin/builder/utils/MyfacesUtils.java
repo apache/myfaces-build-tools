@@ -63,7 +63,7 @@ public class MyfacesUtils
         if (property.isMethodBinding())
             return "MethodExpression";
 
-        if (!property.getLiteralOnly().booleanValue())
+        if (!property.isLiteralOnly().booleanValue())
             return "ValueExpression";
         else
             return property.getClassName();

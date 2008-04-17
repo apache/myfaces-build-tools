@@ -96,10 +96,9 @@ public class ${component.tagName} extends ${utils.getClassFromFullClass($compone
             }
         }
 #elseif ($property.isMethodBinding())##                 2
-        //MethodBinding
         if ($field != null)
         {
-#if ($utils.isStringMethodBindingReturnType($property.methodBindingSignature)))##3
+#if ($utils.isStringMethodBindingReturnType($property.methodBindingSignature))##3
             MethodBinding mb;
             if (isValueReference($field))
             {
@@ -117,13 +116,13 @@ public class ${component.tagName} extends ${utils.getClassFromFullClass($compone
 #else##                                                 3
             MethodBinding mb = context.getApplication().createMethodBinding(
                 $field, $utils.getSignatureParams($property.methodBindingSignature));
-            comp.setActionListener(mb);
 #end##                                                  3
+            comp.${utils.getPrefixedPropertyName("set",$property.name)}(mb);
         }
 #else##                                               2
         if ($field != null)
         {
-#if ($property.isLiteralOnly)##                         3
+#if ($property.isLiteralOnly())##                         3
 #set ($className = $utils.getPrimitiveType($property.className))
 #if ($utils.isPrimitiveClass($className))##               4
 #if ($utils.isPrimitiveClass($property.className))##        5
@@ -133,7 +132,7 @@ public class ${component.tagName} extends ${utils.getClassFromFullClass($compone
 #end##                                                      5
 #else##                                                   4
             comp.getAttributes().put("$property.name", $field);
-#end#                                                     4
+#end##                                                    4
 #else##                                                 3
             if (isValueReference($field))
             {

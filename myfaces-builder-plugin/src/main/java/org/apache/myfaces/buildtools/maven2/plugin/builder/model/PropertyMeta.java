@@ -197,7 +197,7 @@ public class PropertyMeta
         _transient = transient_;
     }
 
-    public Boolean getTransient()
+    public Boolean isTransient()
     {
         return ModelUtils.defaultOf(_transient, false);
     }
@@ -212,7 +212,7 @@ public class PropertyMeta
         _required = required;
     }
 
-    public Boolean getRequired()
+    public Boolean isRequired()
     {
         return ModelUtils.defaultOf(_required, false);
     }
@@ -226,7 +226,7 @@ public class PropertyMeta
         _literalOnly = literalOnly;
     }
 
-    public Boolean getLiteralOnly()
+    public Boolean isLiteralOnly()
     {
         return ModelUtils.defaultOf(_literalOnly, false);
     }
@@ -346,7 +346,7 @@ public class PropertyMeta
         _inherited = inherited;
     }
 
-    public Boolean getInherited()
+    public Boolean isInherited()
     {
         return ModelUtils.defaultOf(_inherited, false);
     }
@@ -356,7 +356,7 @@ public class PropertyMeta
         _inheritedTag = inheritedTag;
     }
 
-    public Boolean getInheritedTag()
+    public Boolean isInheritedTag()
     {
         return ModelUtils.defaultOf(_inheritedTag, false);
     }
@@ -366,7 +366,7 @@ public class PropertyMeta
         _tagExcluded = tagExcluded;
     }
 
-    public Boolean getTagExcluded()
+    public Boolean isTagExcluded()
     {
         return ModelUtils.defaultOf(_tagExcluded, false);
     }
@@ -392,7 +392,7 @@ public class PropertyMeta
         _stateHolder = stateHolder;
     }
 
-    public Boolean getStateHolder()
+    public Boolean isStateHolder()
     {
         return ModelUtils.defaultOf(_stateHolder, false);
     }

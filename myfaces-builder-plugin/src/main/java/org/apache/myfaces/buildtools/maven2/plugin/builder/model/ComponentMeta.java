@@ -161,7 +161,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
                 PropertyMeta parentProp = other.getProperty(srcProp.getName());
                 if (parentProp != null)
                 {
-                    if (!srcProp.getTagExcluded().booleanValue())
+                    if (!srcProp.isTagExcluded().booleanValue())
                     {
                         srcProp.setInheritedTag(Boolean.TRUE);
                     }
@@ -378,8 +378,8 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
             _propertyTagList = new ArrayList();
             for (Iterator it = _properties.values().iterator(); it.hasNext();){
                 PropertyMeta prop = (PropertyMeta) it.next();
-                if (!prop.getTagExcluded().booleanValue() &&
-                        !prop.getInheritedTag().booleanValue()){
+                if (!prop.isTagExcluded().booleanValue() &&
+                        !prop.isInheritedTag().booleanValue()){
                     _propertyTagList.add(prop);
                 }
             }
@@ -395,7 +395,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
             _propertyComponentList = new ArrayList();
             for (Iterator it = _properties.values().iterator(); it.hasNext();){
                 PropertyMeta prop = (PropertyMeta) it.next();
-                if (!prop.getInherited().booleanValue()){
+                if (!prop.isInherited().booleanValue()){
                     _propertyComponentList.add(prop);
                 }
             }

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -18,9 +19,9 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelBuilder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RenderKitMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
@@ -562,6 +563,8 @@ public class QdoxModelBuilder implements ModelBuilder
             descDflt = "no description";
         }
         String shortDescription = getString(clazz, "desc", props, descDflt);
+        String returnSignature = getString(clazz, "returnSignature", props, null);
+        String methodSignature = getString(clazz, "methodSignature", props, null);
 
         Type returnType = method.getReturns();
         
@@ -575,6 +578,26 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setTagExcluded(tagExcluded);
         p.setDescription(shortDescription);
         p.setLongDescription(longDescription);
+        
+        if (returnSignature != null)
+        {
+            MethodSignatureMeta signature = new MethodSignatureMeta();
+            signature.setReturnType(returnSignature);
+            
+            if (methodSignature != null)
+            {
+                String[] params = StringUtils.split(methodSignature,',');
+                
+                if (params != null)
+                {
+                    for (int i = 0; i < params.length; i++)
+                    {
+                        signature.addParameterType(params[i].trim());
+                    }
+                }
+            }
+            p.setMethodBindingSignature(signature);
+        }
         
         //If the method is abstract this should be generated
         if (method.isAbstract()){

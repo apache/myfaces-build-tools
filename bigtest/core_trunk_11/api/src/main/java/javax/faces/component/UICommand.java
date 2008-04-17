@@ -49,6 +49,7 @@ public class UICommand
 
     /**
      * @JSFProperty
+     *   returnSignature="java.lang.String"
      */
     public MethodBinding getAction()
     {
@@ -62,6 +63,8 @@ public class UICommand
 
     /**
      * @JSFProperty
+     *   returnSignature="void"
+     *   methodSignature="javax.faces.event.ActionEvent"
      */
     public MethodBinding getActionListener()
     {
