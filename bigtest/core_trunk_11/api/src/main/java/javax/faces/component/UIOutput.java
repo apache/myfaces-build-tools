@@ -25,6 +25,11 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.Output"
+ *   family = "javax.faces.Output"
+ *   desc = "UIOutput displays a value to the user"
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -61,6 +66,9 @@ public class UIOutput
         _converter = converter;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Converter getConverter()
     {
         if (_converter != null) return _converter;
@@ -73,6 +81,9 @@ public class UIOutput
         _value = value;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Object getValue()
     {
         if (_value != null) return _value;

@@ -78,7 +78,7 @@ public class MakeComponentsMojo extends AbstractMojo
     private String metadataFile = "classes/META-INF/myfaces-metadata.xml";
 
     /**
-     * @parameter expression="src/main/java-templates"
+     * @parameter expression="src/main/resources/META-INF"
      */
     private File templateSourceDirectory;
 

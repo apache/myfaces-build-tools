@@ -378,7 +378,8 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
             _propertyTagList = new ArrayList();
             for (Iterator it = _properties.values().iterator(); it.hasNext();){
                 PropertyMeta prop = (PropertyMeta) it.next();
-                if (!prop.getInheritedTag().booleanValue()){
+                if (!prop.getTagExcluded().booleanValue() &&
+                        !prop.getInheritedTag().booleanValue()){
                     _propertyTagList.add(prop);
                 }
             }

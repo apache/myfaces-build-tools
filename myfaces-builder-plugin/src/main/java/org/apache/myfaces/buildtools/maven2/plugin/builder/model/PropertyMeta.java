@@ -402,7 +402,7 @@ public class PropertyMeta
      * <p>
      * TODO: what is this for?
      */
-    public boolean getMethodBinding()
+    public boolean isMethodBinding()
     {
         return ("javax.faces.el.MethodBinding".equals(getClassName()));
     }
@@ -412,7 +412,7 @@ public class PropertyMeta
      * <p>
      * TODO: what is this for?
      */
-    public boolean getMethodExpression()
+    public boolean isMethodExpression()
     {
         return ("javax.el.MethodExpression".equals(getClassName()));
     }

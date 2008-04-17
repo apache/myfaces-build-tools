@@ -40,9 +40,18 @@
 							<replacePackagePrefixTagTo>org.apache.myfaces.shared_tomahawk.taglib</replacePackagePrefixTagTo>
 						</configuration>
 						<goals>
-							<goal>build-metadata</goal>
+							<goal>build-metadata</goal>							
 							<goal>make-components</goal>
 						</goals>
+					</execution>
+					<execution>
+					    <id>makefacesconfig</id>
+					    <configuration>
+					       <xmlFile>classes/META-INF/standard-faces-config.xml</xmlFile>
+					    </configuration>
+					    <goals>
+					       <goal>make-config</goal>
+					    </goals>
 					</execution>
 					<execution>
 						<id>maketags</id>

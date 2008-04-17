@@ -27,6 +27,11 @@ import javax.faces.event.*;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.Command"
+ *   family = "javax.faces.Command"
+ *   desc = "UICommand executes an action"
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -42,6 +47,9 @@ public class UICommand
         _action = action;
     }
 
+    /**
+     * @JSFProperty
+     */
     public MethodBinding getAction()
     {
         return _action;
@@ -52,6 +60,9 @@ public class UICommand
         _actionListener = actionListener;
     }
 
+    /**
+     * @JSFProperty
+     */
     public MethodBinding getActionListener()
     {
         return _actionListener;
@@ -153,6 +164,9 @@ public class UICommand
         _immediate = Boolean.valueOf(immediate);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isImmediate()
     {
         if (_immediate != null) return _immediate.booleanValue();
@@ -166,6 +180,9 @@ public class UICommand
         _value = value;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Object getValue()
     {
         if (_value != null) return _value;

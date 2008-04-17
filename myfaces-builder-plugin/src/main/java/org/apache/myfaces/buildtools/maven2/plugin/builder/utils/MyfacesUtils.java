@@ -46,10 +46,10 @@ public class MyfacesUtils
 
     public static String getJspPropertyType11(PropertyMeta property)
     {
-        if (property.getMethodExpression())
+        if (property.isMethodExpression())
             return "MethodExpression";
 
-        if (property.getMethodBinding())
+        if (property.isMethodBinding())
             return "MethodExpression";
 
         return "String";
@@ -57,10 +57,10 @@ public class MyfacesUtils
 
     public static String getJspPropertyType12(PropertyMeta property)
     {
-        if (property.getMethodExpression())
+        if (property.isMethodExpression())
             return "MethodExpression";
 
-        if (property.getMethodBinding())
+        if (property.isMethodBinding())
             return "MethodExpression";
 
         if (!property.getLiteralOnly().booleanValue())

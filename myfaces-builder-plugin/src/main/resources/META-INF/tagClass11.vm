@@ -81,13 +81,13 @@ public class ${component.tagName} extends ${utils.getClassFromFullClass($compone
 #foreach( $property in $propertyList )##            1
 #set ($field = $property.fieldName)
 #set ($type = $utils.getJspPropertyType11($property))
-#if     ($utils.isConverter($type))##                 2
+#if ($utils.isConverter($property.className))##                   2
         if ($field != null)
         {
             if (isValueReference($field))
             {
-            ValueBinding vb = context.getApplication().createValueBinding($field);
-            comp.setValueBinding("$property.name", vb);
+                ValueBinding vb = context.getApplication().createValueBinding($field);
+                comp.setValueBinding("$property.name", vb);
             }
             else
             {
@@ -95,7 +95,8 @@ public class ${component.tagName} extends ${utils.getClassFromFullClass($compone
                 comp.setConverter(converter);
             }
         }
-#elseif ($property.isMethodBinding)##                 2
+#elseif ($property.isMethodBinding())##                 2
+        //MethodBinding
         if ($field != null)
         {
 #if ($utils.isStringMethodBindingReturnType($property.methodBindingSignature)))##3
@@ -107,7 +108,7 @@ public class ${component.tagName} extends ${utils.getClassFromFullClass($compone
             }
             else
             {
-#if ($property.jspName == "value")##                      4
+#if ($property.jspName == "action")##                      4
                 mb = new org.apache.myfaces.shared_impl.el.SimpleActionMethodBinding($field);
 #else##                                                   4
                 throw new IllegalStateException("Invalid expression " + $field);

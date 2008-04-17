@@ -50,7 +50,13 @@ public class QdoxModelBuilder implements ModelBuilder
     private static final String DOC_RENDERER = "JSFRenderer";
     private static final String DOC_RENDERKIT = "JSFRenderkit";
 
-    private static final String DOC_PROPERTY = "JSFProperty";
+    private static final String DOC_PROPERTY = "JSFProperty";   
+    
+    //This property is used in special cases where properties 
+    //does not have methods defined on component class, like binding
+    //in jsf 1.1 (in 1.2 has component counterpart). In fact, all
+    //properties must be defined with JSFProperty
+    private static final String DOC_JSP_PROPERTY = "JSFJspProperty";
 
     private static final String ANNOTATION_BASE = "org.apache.myfaces.buildtools.annotation";
 
@@ -525,6 +531,19 @@ public class QdoxModelBuilder implements ModelBuilder
                         method, component);
             }
         }
+        
+        DocletTag[] jspProperties = clazz.getTagsByName(DOC_JSP_PROPERTY);
+        for (int i = 0; i < jspProperties.length; ++i)
+        {
+            //We have here only doclets, because this part is only for
+            //solve problems with binding property on 1.1
+            DocletTag tag = jspProperties[i];
+            
+            Map props = tag.getNamedParameterMap();
+            processComponentJspProperty(props, tag.getContext(), clazz,
+                    component);
+            
+        }        
     }
 
     private void processComponentProperty(Map props, AbstractJavaEntity ctx,
@@ -534,6 +553,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean transientProp = getBoolean(clazz, "transient", props, null);
         Boolean stateHolder = getBoolean(clazz, "stateHolder", props, null);
         Boolean literalOnly = getBoolean(clazz, "literalOnly", props, null);
+        Boolean tagExcluded = getBoolean(clazz, "tagExcluded", props, null);
 
         String longDescription = ctx.getComment();
         String descDflt = getFirstSentence(longDescription);
@@ -552,6 +572,7 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setTransient(transientProp);
         p.setStateHolder(stateHolder);
         p.setLiteralOnly(literalOnly);
+        p.setTagExcluded(tagExcluded);
         p.setDescription(shortDescription);
         p.setLongDescription(longDescription);
         
@@ -562,6 +583,43 @@ public class QdoxModelBuilder implements ModelBuilder
 
         component.addProperty(p);
     }
+    
+    private void processComponentJspProperty(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, ComponentMeta component)
+    {
+        Boolean required = getBoolean(clazz, "required", props, null);
+        Boolean transientProp = getBoolean(clazz, "transient", props, null);
+        Boolean stateHolder = getBoolean(clazz, "stateHolder", props, null);
+        Boolean literalOnly = getBoolean(clazz, "literalOnly", props, null);
+        Boolean tagExcluded = getBoolean(clazz, "tagExcluded", props, null);
+
+        String longDescription = getString(clazz, "longDesc", props, null);
+        
+        String descDflt = longDescription;
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String returnType = getString(clazz, "returnType", props, null);
+        String name = getString(clazz, "name", props, null);
+        
+        PropertyMeta p = new PropertyMeta();
+        p.setName(name);
+        p.setClassName(returnType);
+        p.setRequired(required);
+        p.setTransient(transientProp);
+        p.setStateHolder(stateHolder);
+        p.setLiteralOnly(literalOnly);
+        p.setTagExcluded(tagExcluded);
+        p.setDescription(shortDescription);
+        p.setLongDescription(longDescription);
+        
+        p.setGenerated(Boolean.FALSE);
+
+        component.addProperty(p);
+    }
+    
 
     /**
      * Convert a method name to a property name.
