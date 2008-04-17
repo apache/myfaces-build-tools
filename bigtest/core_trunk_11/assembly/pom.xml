@@ -1,0 +1,156 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.apache.myfaces.core</groupId>
+    <artifactId>myfaces-core-project</artifactId>
+    <version>1.1.6-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>myfaces-core-assembly</artifactId>
+  <packaging>pom</packaging>
+  <name>Apache MyFaces JSF-1.1 Core Assembly</name>
+  <description>
+    This maven module builds a distributable bundle from the artifacts created
+    by other modules.
+  </description>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/core/trunk/assembly</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/core/trunk/assembly</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/core/trunk/assembly</url>
+  </scm>
+
+  <build>
+
+    <plugins>
+       <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+
+          <execution>
+            <id>copy-javadoc</id>
+            <phase>package</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.apache.myfaces.core</groupId>
+                  <artifactId>myfaces-api</artifactId>
+                  <version>${version}</version>
+                  <classifier>javadoc</classifier>
+                  <outputDirectory>${project.build.directory}/javadoc/api</outputDirectory>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.myfaces.core</groupId>
+                  <artifactId>myfaces-impl</artifactId>
+                  <version>${version}</version>
+                  <classifier>javadoc</classifier>
+                  <outputDirectory>${project.build.directory}/javadoc/impl</outputDirectory>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+          
+          <execution>
+            <id>copy-tlddoc</id>
+            <phase>package</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.apache.myfaces.core</groupId>
+                  <artifactId>myfaces-impl</artifactId>
+                  <version>${version}</version>
+                  <classifier>tlddoc</classifier>
+                </artifactItem>
+               </artifactItems>
+               <outputDirectory>${project.build.directory}/tlddoc</outputDirectory>
+             </configuration>
+          </execution>
+          
+          <execution>
+            <id>copy-source</id>
+            <phase>package</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+  		          <artifactItem>
+                  <groupId>org.apache.myfaces.core</groupId>
+                  <artifactId>myfaces-api</artifactId>
+                  <version>${version}</version>
+		              <classifier>sources</classifier>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.apache.myfaces.core</groupId>
+                  <artifactId>myfaces-impl</artifactId>
+                  <version>${version}</version>
+		              <classifier>sources</classifier>
+                </artifactItem>
+		            <artifactItem>
+                  <groupId>org.apache.myfaces.shared</groupId>
+                  <artifactId>myfaces-shared-impl</artifactId>
+                  <version>2.0.7-SNAPSHOT</version>
+		              <classifier>sources</classifier>
+                </artifactItem>
+               </artifactItems>
+               <outputDirectory>${project.build.directory}/src</outputDirectory>
+             </configuration>
+           </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.0.1</version>
+        <configuration>
+          <descriptors>
+             <descriptor>src/main/assembly/bin.xml</descriptor>
+	           <descriptor>src/main/assembly/src.xml</descriptor>
+	        </descriptors>
+          <finalName>myfaces-core-${version}</finalName>
+          <outputDirectory>target/assembly/out</outputDirectory>
+          <workDirectory>target/assembly/work</workDirectory>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.myfaces.maven</groupId>
+        <artifactId>wagon-maven-plugin</artifactId>
+        <version>1.0.6</version>
+        <configuration>
+          <id>myfaces-nightly-builds</id>
+          <url>scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/nightly</url>
+          <inputDirectory>target/assembly/out</inputDirectory>
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+  </build>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-impl</artifactId>
+      <version>${version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-api</artifactId>
+      <version>${version}</version>
+    </dependency>
+
+
+  </dependencies>
+
+</project>
