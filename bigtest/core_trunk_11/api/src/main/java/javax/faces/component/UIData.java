@@ -447,6 +447,7 @@ public class UIData extends UIComponentBase implements NamingContainer
     /**
      * @JSFProperty
      *   literalOnly = "true"
+     *   required = "true"
      */
     public String getVar()
     {

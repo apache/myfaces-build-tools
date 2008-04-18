@@ -177,6 +177,7 @@ public class MakeConfigMojo extends AbstractMojo
                 for (int i = 0; i< children.length; i++){
                     Xpp3Dom dom = children[i];
                     Xpp3DomWriter.write(writer, dom);
+                    writer.write('\n');
                 }
                 baseContent = writer.toString();
                 writer.close();

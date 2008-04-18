@@ -21,6 +21,9 @@
     <resources>
       <resource>
         <directory>src/main/resources</directory>
+        <excludes>
+            <exclude>**/*.vm</exclude>
+        </excludes>
       </resource>
       <resource>
         <directory>src/main/resources-facesconfig</directory>
@@ -63,6 +66,21 @@
           		<goal>make-config</goal>
           	</goals>
           </execution>
+          <execution>
+            <id>makehtmltld</id>
+            <configuration>
+                <xmlFile>classes/META-INF/myfaces_html_gen.tld</xmlFile>
+                <xmlBaseFile>src/main/conf/META-INF/myfaces_html-base.tld</xmlBaseFile>
+                <templateFile>myfaces_html.vm</templateFile>
+                
+                <modelIds>
+                    <modelId>myfaces-api</modelId>
+                </modelIds>
+            </configuration>
+            <goals>
+                <goal>make-config</goal>
+            </goals>
+          </execution>          
         </executions>
       </plugin>        
       <plugin>

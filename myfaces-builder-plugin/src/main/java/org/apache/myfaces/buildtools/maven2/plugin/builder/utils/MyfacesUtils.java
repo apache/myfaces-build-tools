@@ -43,6 +43,22 @@ public class MyfacesUtils
         return prefix + Character.toUpperCase(propertyName.charAt(0))
                 + propertyName.substring(1);
     }
+    
+    /**
+     * Convert h:commandButton to commandButton
+     * 
+     * @param prefixedName
+     * @return
+     */
+    public static String getTagName(String prefixedName)
+    {
+        return prefixedName.substring(prefixedName.indexOf(':')+1); 
+    }
+    
+    public static String getTagPrefix(String prefixedName)
+    {
+        return prefixedName.substring(0,prefixedName.indexOf(':'));
+    }
 
     public static String getJspPropertyType11(PropertyMeta property)
     {
@@ -54,6 +70,18 @@ public class MyfacesUtils
 
         return "String";
     }
+    
+    public static String getFullJspPropertyType11(PropertyMeta property)
+    {
+        if (property.isMethodExpression())
+            return "javax.faces.el.MethodBinding";
+
+        if (property.isMethodBinding())
+            return "javax.faces.el.MethodBinding";
+
+        return "java.lang.String";
+    }
+    
 
     public static String getJspPropertyType12(PropertyMeta property)
     {
