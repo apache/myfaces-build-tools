@@ -18,26 +18,24 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlCommandButtonTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlDataTableTagBase;
 
-import javax.faces.component.html.HtmlCommandButton;
-
+import javax.faces.component.html.HtmlDataTable;
 
 /**
- * @author Manfred Geiler (latest modification by $Author$)
- * @author Martin Marinschek
+ * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-public class HtmlCommandButtonTag
-    extends HtmlCommandButtonTagBase
+public class _HtmlDataTableTag
+        extends HtmlDataTableTagBase
 {
     public String getComponentType()
     {
-        return HtmlCommandButton.COMPONENT_TYPE;
+        return HtmlDataTable.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Button";
+        return "javax.faces.Table";
     }
 }

@@ -30,6 +30,7 @@ import javax.faces.el.ValueBinding;
  *   type = "javax.faces.HtmlPanelGroup"
  *   family = "javax.faces.Panel"
  *   tagClass = "org.apache.myfaces.taglib.html.HtmlPanelGroupTag"
+ *   tagSuperclass = "javax.faces.webapp.UIComponentBodyTag"
  *   desc = "h:panelGroup
  *
  * @author Thomas Spiegl (latest modification by $Author$)

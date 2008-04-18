@@ -18,24 +18,27 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlOutputFormatTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlComponentBodyTagBase;
 
-import javax.faces.component.html.HtmlOutputFormat;
+import javax.faces.component.UIColumn;
+
 
 /**
- * @author Manfred Geiler (latest modification by $Author$)
+ * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-public class HtmlOutputFormatTag
-        extends HtmlOutputFormatTagBase
+public class _HtmlColumnTag
+        extends HtmlComponentBodyTagBase
 {
     public String getComponentType()
     {
-        return HtmlOutputFormat.COMPONENT_TYPE;
+        return UIColumn.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Format";
+        return null;
     }
+
+    // UIComponent attributes --> already implemented in UIComponentTagBase
 }

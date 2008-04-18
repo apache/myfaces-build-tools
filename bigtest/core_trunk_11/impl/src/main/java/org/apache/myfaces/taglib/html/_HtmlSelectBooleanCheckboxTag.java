@@ -18,24 +18,26 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlMessageTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectBooleanCheckboxTagBase;
 
-import javax.faces.component.html.HtmlMessage;
+import javax.faces.component.html.HtmlSelectBooleanCheckbox;
+
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
+ * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlMessageTag
-        extends HtmlMessageTagBase
+public class _HtmlSelectBooleanCheckboxTag
+        extends HtmlSelectBooleanCheckboxTagBase
 {
     public String getComponentType()
     {
-        return HtmlMessage.COMPONENT_TYPE;
+        return HtmlSelectBooleanCheckbox.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Message";
+        return "javax.faces.Checkbox";
     }
 }

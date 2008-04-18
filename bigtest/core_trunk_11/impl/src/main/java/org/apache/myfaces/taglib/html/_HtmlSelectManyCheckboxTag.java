@@ -18,9 +18,9 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlGraphicImageTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectManyCheckboxTagBase;
 
-import javax.faces.component.html.HtmlGraphicImage;
+import javax.faces.component.html.HtmlSelectManyCheckbox;
 
 
 /**
@@ -28,16 +28,16 @@ import javax.faces.component.html.HtmlGraphicImage;
  * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlGraphicImageTag
-    extends HtmlGraphicImageTagBase
+public class _HtmlSelectManyCheckboxTag
+        extends HtmlSelectManyCheckboxTagBase
 {
     public String getComponentType()
     {
-        return HtmlGraphicImage.COMPONENT_TYPE;
+        return HtmlSelectManyCheckbox.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Image";
+        return "javax.faces.Checkbox";
     }
 }

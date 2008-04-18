@@ -18,24 +18,24 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlDataTableTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlPanelGroupTagBase;
 
-import javax.faces.component.html.HtmlDataTable;
+import javax.faces.component.html.HtmlPanelGroup;
 
 /**
- * @author Thomas Spiegl (latest modification by $Author$)
+ * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-public class HtmlDataTableTag
-        extends HtmlDataTableTagBase
+public class _HtmlPanelGroupTag
+        extends HtmlPanelGroupTagBase
 {
     public String getComponentType()
     {
-        return HtmlDataTable.COMPONENT_TYPE;
+        return HtmlPanelGroup.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Table";
+        return "javax.faces.Group";
     }
 }

@@ -18,24 +18,20 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectMenuTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlInputHiddenTagBase;
 
-import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html.HtmlInputHidden;
 
 /**
- * @author Martin Marinschek (latest modification by $Author$)
- * @version $Revision$ $Date$
+ * @author Manfred Geiler
+ * @author Martin Marinschek
+ * @version $Revision$ $Date: $
  */
-public class HtmlSelectOneMenuTag
-        extends HtmlSelectMenuTagBase
+public class _HtmlInputHiddenTag
+        extends HtmlInputHiddenTagBase
 {
     public String getComponentType()
     {
-        return HtmlSelectOneMenu.COMPONENT_TYPE;
-    }
-
-    public String getRendererType()
-    {
-        return "javax.faces.Menu";
+        return HtmlInputHidden.COMPONENT_TYPE;
     }
 }

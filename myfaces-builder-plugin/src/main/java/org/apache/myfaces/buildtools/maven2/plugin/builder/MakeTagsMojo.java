@@ -142,9 +142,10 @@ public class MakeTagsMojo extends AbstractMojo
     {
         // This command makes Maven compile the generated source:
         // getProject().addCompileSourceRoot( absoluteGeneratedPath.getPath() );
-        
         try
         {
+            project.addCompileSourceRoot( generatedSourceDirectory.getCanonicalPath() );
+            
             if (modelIds == null){
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());

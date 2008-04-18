@@ -18,26 +18,25 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlOutputLinkTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlInputTextTagBase;
 
-import javax.faces.component.html.HtmlOutputLink;
+import javax.faces.component.html.HtmlInputText;
 
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
- * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlOutputLinkTag
-        extends HtmlOutputLinkTagBase
+public class _HtmlInputTextTag
+        extends HtmlInputTextTagBase
 {
     public String getComponentType()
     {
-        return HtmlOutputLink.COMPONENT_TYPE;
+        return HtmlInputText.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Link";
+        return "javax.faces.Text";
     }
 }

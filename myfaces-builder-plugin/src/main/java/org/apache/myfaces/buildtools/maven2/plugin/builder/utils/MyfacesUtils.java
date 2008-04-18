@@ -62,12 +62,12 @@ public class MyfacesUtils
 
     public static String getJspPropertyType11(PropertyMeta property)
     {
-        if (property.isMethodExpression())
-            return "MethodBinding";
+//        if (property.isMethodExpression())
+//            return "MethodBinding";
 
-        if (property.isMethodBinding())
-            return "MethodBinding";
-
+//        if (property.isMethodBinding())
+//            return "MethodBinding";
+        //On 1.1 all properties is mapped as String
         return "String";
     }
     

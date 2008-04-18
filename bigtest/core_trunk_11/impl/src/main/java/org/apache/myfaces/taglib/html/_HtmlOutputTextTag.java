@@ -18,26 +18,25 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlCommandLinkTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlOutputTextTagBase;
 
-import javax.faces.component.html.HtmlCommandLink;
+import javax.faces.component.html.HtmlOutputText;
 
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
- * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlCommandLinkTag
-    extends HtmlCommandLinkTagBase
+public class _HtmlOutputTextTag
+        extends HtmlOutputTextTagBase
 {
     public String getComponentType()
     {
-        return HtmlCommandLink.COMPONENT_TYPE;
+        return HtmlOutputText.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Link";
+        return "javax.faces.Text";
     }
 }

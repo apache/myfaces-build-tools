@@ -18,25 +18,24 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlInputTextTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectListboxTagBase;
 
-import javax.faces.component.html.HtmlInputText;
-
+import javax.faces.component.html.HtmlSelectOneListbox;
 
 /**
- * @author Manfred Geiler (latest modification by $Author$)
+ * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-public class HtmlInputTextTag
-        extends HtmlInputTextTagBase
+public class _HtmlSelectOneListboxTag
+        extends HtmlSelectListboxTagBase
 {
     public String getComponentType()
     {
-        return HtmlInputText.COMPONENT_TYPE;
+        return HtmlSelectOneListbox.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Text";
+        return "javax.faces.Listbox";
     }
 }

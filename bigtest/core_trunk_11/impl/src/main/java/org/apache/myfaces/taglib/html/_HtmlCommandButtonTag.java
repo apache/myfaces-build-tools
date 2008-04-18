@@ -18,9 +18,9 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectBooleanCheckboxTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlCommandButtonTagBase;
 
-import javax.faces.component.html.HtmlSelectBooleanCheckbox;
+import javax.faces.component.html.HtmlCommandButton;
 
 
 /**
@@ -28,16 +28,16 @@ import javax.faces.component.html.HtmlSelectBooleanCheckbox;
  * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlSelectBooleanCheckboxTag
-        extends HtmlSelectBooleanCheckboxTagBase
+public class _HtmlCommandButtonTag
+    extends HtmlCommandButtonTagBase
 {
     public String getComponentType()
     {
-        return HtmlSelectBooleanCheckbox.COMPONENT_TYPE;
+        return HtmlCommandButton.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Checkbox";
+        return "javax.faces.Button";
     }
 }

@@ -18,9 +18,9 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectOneRadioTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlGraphicImageTagBase;
 
-import javax.faces.component.html.HtmlSelectOneRadio;
+import javax.faces.component.html.HtmlGraphicImage;
 
 
 /**
@@ -28,16 +28,16 @@ import javax.faces.component.html.HtmlSelectOneRadio;
  * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlSelectOneRadioTag
-        extends HtmlSelectOneRadioTagBase
+public class _HtmlGraphicImageTag
+    extends HtmlGraphicImageTagBase
 {
     public String getComponentType()
     {
-        return HtmlSelectOneRadio.COMPONENT_TYPE;
+        return HtmlGraphicImage.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Radio";
+        return "javax.faces.Image";
     }
 }

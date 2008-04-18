@@ -18,24 +18,26 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlPanelGroupTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlOutputLinkTagBase;
 
-import javax.faces.component.html.HtmlPanelGroup;
+import javax.faces.component.html.HtmlOutputLink;
+
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
+ * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlPanelGroupTag
-        extends HtmlPanelGroupTagBase
+public class _HtmlOutputLinkTag
+        extends HtmlOutputLinkTagBase
 {
     public String getComponentType()
     {
-        return HtmlPanelGroup.COMPONENT_TYPE;
+        return HtmlOutputLink.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Group";
+        return "javax.faces.Link";
     }
 }

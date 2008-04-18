@@ -30,6 +30,7 @@ import javax.faces.el.ValueBinding;
  *   type = "javax.faces.HtmlPanelGrid"
  *   family = "javax.faces.Panel"
  *   tagClass = "org.apache.myfaces.taglib.html.HtmlPanelGridTag"
+ *   tagSuperclass = "javax.faces.webapp.UIComponentBodyTag"
  *   desc = "h:panelGrid"
  *
  * @author Thomas Spiegl (latest modification by $Author$)

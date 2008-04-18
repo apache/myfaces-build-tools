@@ -66,13 +66,13 @@ public class $utils.getClassFromFullClass($component.tagClass) extends ${utils.g
 
     protected void setProperties(UIComponent component)
     {
-        if (!(component instanceof $component.className)
+        if (!(component instanceof $component.className))
         {
             throw new IllegalArgumentException("Component "+
                 component.getClass().getName() +" is no $component.className");
         }
         
-        comp = ($component.className) component;
+        $component.className comp = ($component.className) component;
         
         super.setProperties(component);
         

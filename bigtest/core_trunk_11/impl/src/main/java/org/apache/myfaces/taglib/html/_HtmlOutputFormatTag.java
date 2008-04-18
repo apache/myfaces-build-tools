@@ -18,26 +18,24 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectManyCheckboxTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlOutputFormatTagBase;
 
-import javax.faces.component.html.HtmlSelectManyCheckbox;
-
+import javax.faces.component.html.HtmlOutputFormat;
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
- * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlSelectManyCheckboxTag
-        extends HtmlSelectManyCheckboxTagBase
+public class _HtmlOutputFormatTag
+        extends HtmlOutputFormatTagBase
 {
     public String getComponentType()
     {
-        return HtmlSelectManyCheckbox.COMPONENT_TYPE;
+        return HtmlOutputFormat.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Checkbox";
+        return "javax.faces.Format";
     }
 }

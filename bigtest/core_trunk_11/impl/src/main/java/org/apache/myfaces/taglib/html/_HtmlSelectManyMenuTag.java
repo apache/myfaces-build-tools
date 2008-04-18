@@ -18,9 +18,9 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectListboxTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectMenuTagBase;
 
-import javax.faces.component.html.HtmlSelectManyListbox;
+import javax.faces.component.html.HtmlSelectManyMenu;
 
 
 /**
@@ -28,16 +28,16 @@ import javax.faces.component.html.HtmlSelectManyListbox;
  * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlSelectManyListboxTag
-        extends HtmlSelectListboxTagBase
+public class _HtmlSelectManyMenuTag
+        extends HtmlSelectMenuTagBase
 {
     public String getComponentType()
     {
-        return HtmlSelectManyListbox.COMPONENT_TYPE;
+        return HtmlSelectManyMenu.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Listbox";
+        return "javax.faces.Menu";
     }
 }

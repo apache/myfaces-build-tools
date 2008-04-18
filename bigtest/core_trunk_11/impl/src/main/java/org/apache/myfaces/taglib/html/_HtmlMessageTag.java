@@ -18,26 +18,24 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlInputSecretTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlMessageTagBase;
 
-import javax.faces.component.html.HtmlInputSecret;
-
+import javax.faces.component.html.HtmlMessage;
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
- * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlInputSecretTag
-        extends HtmlInputSecretTagBase
+public class _HtmlMessageTag
+        extends HtmlMessageTagBase
 {
     public String getComponentType()
     {
-        return HtmlInputSecret.COMPONENT_TYPE;
+        return HtmlMessage.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Secret";
+        return "javax.faces.Message";
     }
 }

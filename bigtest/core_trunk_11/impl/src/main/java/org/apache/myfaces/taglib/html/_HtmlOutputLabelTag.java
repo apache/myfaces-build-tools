@@ -18,20 +18,26 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlInputHiddenTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlOutputLabelTagBase;
 
-import javax.faces.component.html.HtmlInputHidden;
+import javax.faces.component.html.HtmlOutputLabel;
+
 
 /**
- * @author Manfred Geiler
+ * @author Manfred Geiler (latest modification by $Author$)
  * @author Martin Marinschek
- * @version $Revision$ $Date: $
+ * @version $Revision$ $Date$
  */
-public class HtmlInputHiddenTag
-        extends HtmlInputHiddenTagBase
+public class _HtmlOutputLabelTag
+        extends HtmlOutputLabelTagBase
 {
     public String getComponentType()
     {
-        return HtmlInputHidden.COMPONENT_TYPE;
+        return HtmlOutputLabel.COMPONENT_TYPE;
+    }
+
+    public String getRendererType()
+    {
+        return "javax.faces.Label";
     }
 }

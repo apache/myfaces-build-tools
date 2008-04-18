@@ -18,24 +18,26 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlFormTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlCommandLinkTagBase;
 
-import javax.faces.component.html.HtmlForm;
+import javax.faces.component.html.HtmlCommandLink;
+
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
+ * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlFormTag
-        extends HtmlFormTagBase
+public class _HtmlCommandLinkTag
+    extends HtmlCommandLinkTagBase
 {
     public String getComponentType()
     {
-        return HtmlForm.COMPONENT_TYPE;
+        return HtmlCommandLink.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Form";
+        return "javax.faces.Link";
     }
 }

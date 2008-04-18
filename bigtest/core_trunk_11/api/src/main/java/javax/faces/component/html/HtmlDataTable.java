@@ -35,6 +35,7 @@ import javax.faces.el.ValueBinding;
  *   type = "javax.faces.HtmlDataTable"
  *   family = "javax.faces.Data"
  *   tagClass = "org.apache.myfaces.taglib.html.HtmlDataTableTag"
+ *   tagSuperclass = "javax.faces.webapp.UIComponentBodyTag"
  *   desc = "h:dataTable"
  *
  * @author Thomas Spiegl (latest modification by $Author$)

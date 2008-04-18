@@ -396,14 +396,14 @@ public class HtmlSelectManyListbox extends UISelectMany
         return v != null ? v.booleanValue() : DEFAULT_READONLY;
     }
 
-    /**
-     * @JSFProperty
-     */
     public void setSize(int size)
     {
         _size = new Integer(size);
     }
-
+    
+    /**
+     * @JSFProperty
+     */
     public int getSize()
     {
         if (_size != null) return _size.intValue();

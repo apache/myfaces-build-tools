@@ -18,24 +18,26 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlMessagesTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectOneRadioTagBase;
 
-import javax.faces.component.html.HtmlMessages;
+import javax.faces.component.html.HtmlSelectOneRadio;
+
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
+ * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlMessagesTag
-        extends HtmlMessagesTagBase
+public class _HtmlSelectOneRadioTag
+        extends HtmlSelectOneRadioTagBase
 {
     public String getComponentType()
     {
-        return HtmlMessages.COMPONENT_TYPE;
+        return HtmlSelectOneRadio.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Messages";
+        return "javax.faces.Radio";
     }
 }

@@ -18,27 +18,24 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlComponentBodyTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectMenuTagBase;
 
-import javax.faces.component.UIColumn;
-
+import javax.faces.component.html.HtmlSelectOneMenu;
 
 /**
- * @author Thomas Spiegl (latest modification by $Author$)
+ * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-public class HtmlColumnTag
-        extends HtmlComponentBodyTagBase
+public class _HtmlSelectOneMenuTag
+        extends HtmlSelectMenuTagBase
 {
     public String getComponentType()
     {
-        return UIColumn.COMPONENT_TYPE;
+        return HtmlSelectOneMenu.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return null;
+        return "javax.faces.Menu";
     }
-
-    // UIComponent attributes --> already implemented in UIComponentTagBase
 }

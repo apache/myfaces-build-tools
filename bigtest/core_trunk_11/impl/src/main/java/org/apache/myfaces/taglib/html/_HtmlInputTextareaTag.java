@@ -18,24 +18,25 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlPanelGridTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlInputTextareaTagBase;
 
-import javax.faces.component.html.HtmlPanelGrid;
+import javax.faces.component.html.HtmlInputTextarea;
+
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-public class HtmlPanelGridTag
-        extends HtmlPanelGridTagBase
+public class _HtmlInputTextareaTag
+        extends HtmlInputTextareaTagBase
 {
     public String getComponentType()
     {
-        return HtmlPanelGrid.COMPONENT_TYPE;
+        return HtmlInputTextarea.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Grid";
+        return "javax.faces.Textarea";
     }
 }

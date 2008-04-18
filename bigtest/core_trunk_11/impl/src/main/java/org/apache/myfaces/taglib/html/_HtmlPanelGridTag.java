@@ -18,26 +18,24 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlOutputLabelTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlPanelGridTagBase;
 
-import javax.faces.component.html.HtmlOutputLabel;
-
+import javax.faces.component.html.HtmlPanelGrid;
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
- * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlOutputLabelTag
-        extends HtmlOutputLabelTagBase
+public class _HtmlPanelGridTag
+        extends HtmlPanelGridTagBase
 {
     public String getComponentType()
     {
-        return HtmlOutputLabel.COMPONENT_TYPE;
+        return HtmlPanelGrid.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Label";
+        return "javax.faces.Grid";
     }
 }

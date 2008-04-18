@@ -18,25 +18,24 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlOutputTextTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlMessagesTagBase;
 
-import javax.faces.component.html.HtmlOutputText;
-
+import javax.faces.component.html.HtmlMessages;
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-public class HtmlOutputTextTag
-        extends HtmlOutputTextTagBase
+public class _HtmlMessagesTag
+        extends HtmlMessagesTagBase
 {
     public String getComponentType()
     {
-        return HtmlOutputText.COMPONENT_TYPE;
+        return HtmlMessages.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Text";
+        return "javax.faces.Messages";
     }
 }

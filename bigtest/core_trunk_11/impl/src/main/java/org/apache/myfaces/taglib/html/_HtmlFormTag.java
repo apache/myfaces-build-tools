@@ -18,26 +18,24 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectMenuTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlFormTagBase;
 
-import javax.faces.component.html.HtmlSelectManyMenu;
-
+import javax.faces.component.html.HtmlForm;
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
- * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlSelectManyMenuTag
-        extends HtmlSelectMenuTagBase
+public class _HtmlFormTag
+        extends HtmlFormTagBase
 {
     public String getComponentType()
     {
-        return HtmlSelectManyMenu.COMPONENT_TYPE;
+        return HtmlForm.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Menu";
+        return "javax.faces.Form";
     }
 }

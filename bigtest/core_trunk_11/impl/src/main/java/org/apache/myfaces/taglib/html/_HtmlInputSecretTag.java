@@ -18,25 +18,26 @@
  */
 package org.apache.myfaces.taglib.html;
 
-import org.apache.myfaces.shared_impl.taglib.html.HtmlInputTextareaTagBase;
+import org.apache.myfaces.shared_impl.taglib.html.HtmlInputSecretTagBase;
 
-import javax.faces.component.html.HtmlInputTextarea;
+import javax.faces.component.html.HtmlInputSecret;
 
 
 /**
  * @author Manfred Geiler (latest modification by $Author$)
+ * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlInputTextareaTag
-        extends HtmlInputTextareaTagBase
+public class _HtmlInputSecretTag
+        extends HtmlInputSecretTagBase
 {
     public String getComponentType()
     {
-        return HtmlInputTextarea.COMPONENT_TYPE;
+        return HtmlInputSecret.COMPONENT_TYPE;
     }
 
     public String getRendererType()
     {
-        return "javax.faces.Textarea";
+        return "javax.faces.Secret";
     }
 }

@@ -24,8 +24,11 @@ package javax.faces.component;
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
+ *   name = "h:column"
  *   type = "javax.faces.Column"
  *   family = "javax.faces.Column"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlColumnTag"
+ *   tagSuperclass = "javax.faces.webapp.UIComponentBodyTag"
  *   desc = "UIData"
  *
  * @author Manfred Geiler (latest modification by $Author$)

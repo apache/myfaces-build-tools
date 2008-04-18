@@ -20,18 +20,20 @@ package org.apache.myfaces.taglib.html;
 
 import org.apache.myfaces.shared_impl.taglib.html.HtmlSelectListboxTagBase;
 
-import javax.faces.component.html.HtmlSelectOneListbox;
+import javax.faces.component.html.HtmlSelectManyListbox;
+
 
 /**
- * @author Martin Marinschek (latest modification by $Author$)
+ * @author Manfred Geiler (latest modification by $Author$)
+ * @author Martin Marinschek
  * @version $Revision$ $Date$
  */
-public class HtmlSelectOneListboxTag
+public class _HtmlSelectManyListboxTag
         extends HtmlSelectListboxTagBase
 {
     public String getComponentType()
     {
-        return HtmlSelectOneListbox.COMPONENT_TYPE;
+        return HtmlSelectManyListbox.COMPONENT_TYPE;
     }
 
     public String getRendererType()
