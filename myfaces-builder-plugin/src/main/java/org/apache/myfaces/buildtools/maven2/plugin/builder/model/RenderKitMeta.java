@@ -18,9 +18,13 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+
+import org.apache.commons.digester.Digester;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
  * Store metadata about a JSF RenderKit.
@@ -33,6 +37,52 @@ public class RenderKitMeta
     private Map _renderers;
 
     /**
+     * Write an instance of this class out as xml.
+     */
+    public static void writeXml(XmlWriter out, RenderKitMeta rkm)
+    {
+        out.beginElement("renderKit");
+                
+        out.writeElement("renderKitId", rkm._renderKitId);
+        out.writeElement("className", rkm._className);
+        
+        for (Iterator it = rkm._renderers.values().iterator();it.hasNext();){
+            RendererMeta rm = (RendererMeta) it.next();
+            RendererMeta.writeXml(out, rm);  
+        }
+        
+        out.endElement("renderKit");        
+    }
+    
+    /**
+     * Add digester rules to repopulate an instance of this type from an xml
+     * file.
+     */
+    public static void addXmlRules(Digester digester, String prefix)
+    {
+        String newPrefix = prefix + "/renderKit";
+
+        digester.addObjectCreate(newPrefix, RenderKitMeta.class);
+        digester.addSetNext(newPrefix, "addRenderKit");
+
+        ClassMeta.addXmlRules(digester, newPrefix);
+
+        digester.addBeanPropertySetter(newPrefix + "/renderKitId");
+        digester.addBeanPropertySetter(newPrefix + "/className");
+        
+        RendererMeta.addXmlRules(digester, newPrefix);
+    }
+
+
+    /**
+     * Creates a new RenderKitBean.
+     */
+    public RenderKitMeta()
+    {
+        _renderers = new TreeMap();
+    }
+
+    /**
      * The name of the class that this metadata applies to.
      */
     public String getClassName()
@@ -43,14 +93,6 @@ public class RenderKitMeta
     public void setClassName(String className)
     {
         _className = className;
-    }
-
-    /**
-     * Creates a new RenderKitBean.
-     */
-    public RenderKitMeta()
-    {
-        _renderers = new TreeMap();
     }
 
     /**
@@ -121,6 +163,11 @@ public class RenderKitMeta
     public Iterator renderers()
     {
         return _renderers.values().iterator();
+    }
+    
+    public Collection getRenderers()
+    {
+        return _renderers.values();
     }
 
     void addAllRenderers(RenderKitMeta renderKit)

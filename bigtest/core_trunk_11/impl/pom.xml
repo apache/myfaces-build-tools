@@ -53,7 +53,7 @@
           <execution>
           	<id>makefacesconfig</id>
           	<configuration>
-          		<xmlFile>classes/META-INF/standard-faces-config.xml</xmlFile>
+          		<xmlFile>classes/org/apache/myfaces/resource/standard-faces-config.xml</xmlFile>
           		<modelIds>
           		    <modelId>myfaces-api</modelId>
           		    <modelId>myfaces-impl</modelId>

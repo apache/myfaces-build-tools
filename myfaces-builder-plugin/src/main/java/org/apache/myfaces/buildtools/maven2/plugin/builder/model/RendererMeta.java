@@ -18,8 +18,9 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
-import java.util.Map;
-import java.util.TreeMap;
+import org.apache.commons.digester.Digester;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
+
 
 /**
  * Store metadata about a class that is either a JSF Renderer, or some base
@@ -31,20 +32,47 @@ public class RendererMeta extends ClassMeta
     private String _description;
     private String _componentFamily;
     private String _rendererType;
-    private String _rendererClass;
-    private String _rendererSuperclass;
-    private String _componentType;
-    private Map _attributes;
-    private Map _facets;
 
+    /**
+     * Write an instance of this class out as xml.
+     */
+    public static void writeXml(XmlWriter out, RendererMeta rm)
+    {
+        out.beginElement("renderer");
+        
+        ClassMeta.writeXml(out, rm);
+        
+        out.writeElement("componentFamily", rm._componentFamily);
+        out.writeElement("rendererType", rm._rendererType);
+        out.writeElement("description", rm._description);
+        
+        out.endElement("renderer");
+    }
+    
+    /**
+     * Add digester rules to repopulate an instance of this type from an xml
+     * file.
+     */
+    public static void addXmlRules(Digester digester, String prefix)
+    {
+        String newPrefix = prefix + "/renderer";
+
+        digester.addObjectCreate(newPrefix, RendererMeta.class);
+        digester.addSetNext(newPrefix, "addRenderer");
+
+        ClassMeta.addXmlRules(digester, newPrefix);
+
+        digester.addBeanPropertySetter(newPrefix + "/componentFamily");
+        digester.addBeanPropertySetter(newPrefix + "/rendererType");
+        digester.addBeanPropertySetter(newPrefix + "/description");
+    }
+    
     /**
      * Creates a new RendererBean.
      */
     public RendererMeta()
     {
-        _attributes = new TreeMap();
-        _facets = new TreeMap();
-    }
+    }    
 
     /**
      * Sets the component family for this component.
@@ -89,27 +117,6 @@ public class RendererMeta extends ClassMeta
     }
 
     /**
-     * Sets the renderer class for this renderer.
-     * 
-     * @param rendererClass
-     *            the renderer class
-     */
-    public void setRendererClass(String rendererClass)
-    {
-        _rendererClass = rendererClass;
-    }
-
-    /**
-     * Returns the renderer class for this renderer.
-     * 
-     * @return the renderer class
-     */
-    public String getRendererClass()
-    {
-        return _rendererClass;
-    }
-
-    /**
      * Sets the description of this attribute.
      * 
      * @param description
@@ -130,79 +137,4 @@ public class RendererMeta extends ClassMeta
         return _description;
     }
 
-    /**
-     * Sets the component type for this component.
-     * 
-     * @param componentType
-     *            the component type
-     */
-    public void setComponentType(String componentType)
-    {
-        _componentType = componentType;
-    }
-
-    /**
-     * Returns the component type for this component.
-     * 
-     * @return the component type
-     */
-    public String getComponentType()
-    {
-        return _componentType;
-    }
-
-    /**
-     * Sets the renderer superclass for this renderer.
-     * 
-     * @param rendererSuperclass
-     *            the renderer superclass
-     */
-    public void setRendererSuperclass(String rendererSuperclass)
-    {
-        _rendererSuperclass = rendererSuperclass;
-    }
-
-    /**
-     * Returns the renderer superclass for this component.
-     * 
-     * @return the renderer superclass
-     */
-    public String getRendererSuperclass()
-    {
-        return _rendererSuperclass;
-    }
-
-    /**
-     * Finds the renderer-specific component class for this renderer.
-     * 
-     * @return the renderer-specifc component class
-     */
-    public String findComponentClass()
-    {
-        ComponentMeta component = resolveComponentType();
-        return (component != null) ? component.getClassName()
-                : "org.apache.myfaces.trinidad.component.UIXComponent";
-    }
-
-    /**
-     * Finds the behavioral component class for this renderer.
-     * 
-     * @return the behavioral component class
-     */
-    public String findComponentFamilyClass()
-    {
-        return null;
-    }
-
-    /**
-     * Returns the component type instance.
-     * 
-     * @return the component type instance
-     */
-    public ComponentMeta resolveComponentType()
-    {
-        if (_componentType == null)
-            return null;
-        return null;
-    }
 }

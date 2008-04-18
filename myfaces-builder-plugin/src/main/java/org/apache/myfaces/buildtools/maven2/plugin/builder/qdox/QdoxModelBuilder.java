@@ -22,6 +22,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RenderKitMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RendererMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
@@ -49,7 +51,7 @@ public class QdoxModelBuilder implements ModelBuilder
     private static final String DOC_VALIDATOR = "JSFValidator";
     private static final String DOC_COMPONENT = "JSFComponent";
     private static final String DOC_RENDERER = "JSFRenderer";
-    private static final String DOC_RENDERKIT = "JSFRenderkit";
+    private static final String DOC_RENDERKIT = "JSFRenderKit";
 
     private static final String DOC_PROPERTY = "JSFProperty";   
     
@@ -206,7 +208,40 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = anno.getNamedParameterMap();
             processComponent(props, anno.getContext(), clazz, model);
         }
-
+        
+        // renderKit
+        tag = clazz.getTagByName(DOC_RENDERKIT, false);
+        if (tag != null)
+        {
+            Map props = tag.getNamedParameterMap();
+            processRenderKit(props, tag.getContext(), clazz, model);
+        }
+        anno = getAnnotation(clazz, DOC_RENDERKIT);
+        if (anno != null)
+        {
+            Map props = anno.getNamedParameterMap();
+            processRenderKit(props, anno.getContext(), clazz, model);
+        }
+                
+        // renderer
+        
+        DocletTag [] tags = clazz.getTagsByName(DOC_RENDERER, false);
+        
+        for (int i = 0; i < tags.length; i++)
+        {
+            tag = tags[i];
+            if (tag != null)
+            {
+                Map props = tag.getNamedParameterMap();
+                processRenderer(props, tag.getContext(), clazz, model);
+            }
+            anno = getAnnotation(clazz, DOC_RENDERER);
+            if (anno != null)
+            {
+                Map props = anno.getNamedParameterMap();
+                processRenderer(props, anno.getContext(), clazz, model);
+            }
+        }
     }
 
     private Annotation getAnnotation(AbstractJavaEntity entity, String annoName)
@@ -416,7 +451,65 @@ public class QdoxModelBuilder implements ModelBuilder
         validator.setLongDescription(longDescription);
         model.addValidator(validator);
     }
+    
+    private void processRenderKit(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, Model model)
+    {
 
+        String renderKitId = getString(clazz, "renderKitId", props, null);
+        String renderKitClass = getString(clazz, "class", props, clazz
+                .getFullyQualifiedName());        
+
+        RenderKitMeta renderKit = model.findRenderKitById(renderKitId);
+        
+        if (renderKit == null)
+        {
+            renderKit = new RenderKitMeta();
+            renderKit.setClassName(renderKitClass);
+            renderKit.setRenderKitId(renderKitId);
+            model.addRenderKit(renderKit);        
+        }
+        else
+        {
+            renderKit.setClassName(renderKitClass);
+            renderKit.setRenderKitId(renderKitId);            
+        }
+    }
+    
+    private void processRenderer(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, Model model)
+    {
+        String longDescription = clazz.getComment();
+        String descDflt = getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+   
+        String renderKitId = getString(clazz, "renderKitId", props, null);
+        String rendererClass = getString(clazz, "class", props, clazz
+                .getFullyQualifiedName());
+        String componentFamily = getString(clazz,"family", props,null);
+        String rendererType = getString(clazz,"type", props,null);
+        
+        RenderKitMeta renderKit = model.findRenderKitById(renderKitId);
+        
+        if (renderKit == null)
+        {
+            renderKit = new RenderKitMeta();
+            renderKit.setRenderKitId(renderKitId);
+            model.addRenderKit(renderKit);            
+        }
+
+        RendererMeta renderer = new RendererMeta();
+        renderer.setClassName(rendererClass);
+        renderer.setDescription(shortDescription);
+        renderer.setComponentFamily(componentFamily);
+        renderer.setRendererType(rendererType);
+        renderKit.addRenderer(renderer);
+    }
+    
     private void processComponent(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, Model model) throws MojoExecutionException
     {

@@ -55,4 +55,21 @@ $baseContent
   </validator>
 #end
 #end
+#set ($renderKitList = ${model.getRenderKits()})
+#foreach( $renderKit in $renderKitList )
+  <render-kit>
+    <render-kit-id>$renderKit.renderKitId</render-kit-id>
+#if ($renderKit.className)
+    <render-kit-class>$renderKit.className</render-kit-class>
+#end
+#set ($rendererList = ${renderKit.getRenderers()})
+#foreach( $renderer in $rendererList )
+      <renderer>
+        <component-family>$renderer.componentFamily</component-family>
+        <renderer-type>$renderer.rendererType</renderer-type>
+        <renderer-class>$renderer.className</renderer-class>
+      </renderer>
+#end
+  </render-kit>
+#end
 </faces-config>

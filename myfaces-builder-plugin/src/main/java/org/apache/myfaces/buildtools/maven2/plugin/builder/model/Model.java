@@ -43,7 +43,7 @@ public class Model
     private Map _componentsByClass = new TreeMap();
     private Map _convertersByClass = new TreeMap();
     private Map _validatorsByClass = new TreeMap();
-    private Map _renderKitsByClass = new TreeMap();
+    private Map _renderKitsById = new TreeMap();
     
     private String _modelId;
 
@@ -76,6 +76,12 @@ public class Model
             ValidatorMeta c = (ValidatorMeta) i.next();
             ValidatorMeta.writeXml(out, c);
         }
+        
+        for (Iterator i = model._renderKits.iterator(); i.hasNext();)
+        {
+            RenderKitMeta c = (RenderKitMeta) i.next();
+            RenderKitMeta.writeXml(out, c);
+        }        
 
         out.endElement("model");
     }
@@ -96,6 +102,7 @@ public class Model
         ComponentMeta.addXmlRules(digester, prefix);
         ConverterMeta.addXmlRules(digester, prefix);
         ValidatorMeta.addXmlRules(digester, prefix);
+        RenderKitMeta.addXmlRules(digester, prefix);
     }
     
     /**
@@ -242,7 +249,7 @@ public class Model
     public void addRenderKit(RenderKitMeta renderKit)
     {
         _renderKits.add(renderKit);
-        _renderKitsByClass.put(renderKit.getClassName(), renderKit);
+        _renderKitsById.put(renderKit.getRenderKitId(), renderKit);
     }
 
     public List getRenderKits()
@@ -266,9 +273,9 @@ public class Model
      * @param renderKitId
      *            the render kit id to find
      */
-    private RenderKitMeta findRenderKitByClassName(String className)
+    public RenderKitMeta findRenderKitById(String id)
     {
-        return (RenderKitMeta) _renderKitsByClass.get(className);
+        return (RenderKitMeta) _renderKitsById.get(id);
     }
 
     public void setModelId(String _modelId)
