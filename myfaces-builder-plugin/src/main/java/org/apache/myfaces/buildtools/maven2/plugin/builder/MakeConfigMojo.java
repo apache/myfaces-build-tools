@@ -192,6 +192,10 @@ public class MakeConfigMojo extends AbstractMojo
         
         baseContext.put("baseContent", baseContent);
         
+        baseContext.put("model", model);
+        
+        baseContext.put("modelIds", modelIds);
+        
         Writer writer = null;
         File outFile = null;
         

@@ -29,19 +29,6 @@
               <goal>build-metadata</goal>
             </goals>
           </execution>
-          <execution>
-          	<id>maketags</id>
-          	<configuration>
-          		<packageContains>org.apache</packageContains>
-          		<typePrefix>javax.faces</typePrefix>
-          		<modelIds>
-          			<modelId>myfaces-api</modelId>
-          		</modelIds>
-          	</configuration>
-          	<goals>
-          		<goal>make-tags</goal>
-          	</goals>
-          </execution>
         </executions>
       </plugin>    
       <plugin>

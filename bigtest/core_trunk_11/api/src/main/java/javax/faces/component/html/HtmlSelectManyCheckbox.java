@@ -25,6 +25,12 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.HtmlSelectManyCheckbox"
+ *   family = "javax.faces.SelectMany"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlSelectManyCheckboxTag"
+ *   desc = "h:selectManyCheckbox"
+ *
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -77,6 +83,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _accesskey = accesskey;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getAccesskey()
     {
         if (_accesskey != null) return _accesskey;
@@ -89,6 +98,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _border = new Integer(border);
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getBorder()
     {
         if (_border != null) return _border.intValue();
@@ -102,6 +114,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _dir = dir;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDir()
     {
         if (_dir != null) return _dir;
@@ -114,6 +129,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _disabled = Boolean.valueOf(disabled);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isDisabled()
     {
         if (_disabled != null) return _disabled.booleanValue();
@@ -127,6 +145,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _disabledClass = disabledClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDisabledClass()
     {
         if (_disabledClass != null) return _disabledClass;
@@ -139,6 +160,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _enabledClass = enabledClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getEnabledClass()
     {
         if (_enabledClass != null) return _enabledClass;
@@ -151,6 +175,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _lang = lang;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLang()
     {
         if (_lang != null) return _lang;
@@ -163,6 +190,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _layout = layout;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLayout()
     {
         if (_layout != null) return _layout;
@@ -175,6 +205,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onblur = onblur;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnblur()
     {
         if (_onblur != null) return _onblur;
@@ -187,6 +220,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onchange = onchange;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnchange()
     {
         if (_onchange != null) return _onchange;
@@ -199,6 +235,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onclick = onclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnclick()
     {
         if (_onclick != null) return _onclick;
@@ -211,6 +250,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _ondblclick = ondblclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOndblclick()
     {
         if (_ondblclick != null) return _ondblclick;
@@ -223,6 +265,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onfocus = onfocus;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnfocus()
     {
         if (_onfocus != null) return _onfocus;
@@ -235,6 +280,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onkeydown = onkeydown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeydown()
     {
         if (_onkeydown != null) return _onkeydown;
@@ -247,6 +295,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onkeypress = onkeypress;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeypress()
     {
         if (_onkeypress != null) return _onkeypress;
@@ -259,6 +310,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onkeyup = onkeyup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeyup()
     {
         if (_onkeyup != null) return _onkeyup;
@@ -271,6 +325,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onmousedown = onmousedown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousedown()
     {
         if (_onmousedown != null) return _onmousedown;
@@ -283,6 +340,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onmousemove = onmousemove;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousemove()
     {
         if (_onmousemove != null) return _onmousemove;
@@ -295,6 +355,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onmouseout = onmouseout;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseout()
     {
         if (_onmouseout != null) return _onmouseout;
@@ -307,6 +370,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onmouseover = onmouseover;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseover()
     {
         if (_onmouseover != null) return _onmouseover;
@@ -319,6 +385,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onmouseup = onmouseup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseup()
     {
         if (_onmouseup != null) return _onmouseup;
@@ -331,6 +400,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _onselect = onselect;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnselect()
     {
         if (_onselect != null) return _onselect;
@@ -343,6 +415,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _readonly = Boolean.valueOf(readonly);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isReadonly()
     {
         if (_readonly != null) return _readonly.booleanValue();
@@ -356,6 +431,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -368,6 +446,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -380,6 +461,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _tabindex = tabindex;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTabindex()
     {
         if (_tabindex != null) return _tabindex;
@@ -392,6 +476,9 @@ public class HtmlSelectManyCheckbox extends UISelectMany
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;

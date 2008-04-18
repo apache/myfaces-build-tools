@@ -25,6 +25,12 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.HtmlOutputFormat"
+ *   family = "javax.faces.Output"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlOutputFormatTag"
+ *   desc = "h:outputFormat"
+ *   
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -52,6 +58,9 @@ public class HtmlOutputFormat extends UIOutput
         _escape = Boolean.valueOf(escape);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isEscape()
     {
         if (_escape != null) return _escape.booleanValue();
@@ -65,6 +74,9 @@ public class HtmlOutputFormat extends UIOutput
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -77,6 +89,9 @@ public class HtmlOutputFormat extends UIOutput
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -89,6 +104,9 @@ public class HtmlOutputFormat extends UIOutput
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;

@@ -24,6 +24,11 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.SelectItems"
+ *   family = "javax.faces.SelectItems"
+ *   desc = "UISelectItems"
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -51,6 +56,9 @@ public class UISelectItems
         _value = value;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Object getValue()
     {
         if (_value != null) return _value;

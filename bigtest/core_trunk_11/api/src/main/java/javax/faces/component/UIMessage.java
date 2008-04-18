@@ -26,6 +26,11 @@ import javax.faces.el.ValueBinding;
  *
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.Message"
+ *   family = "javax.faces.Message"
+ *   desc = "UIMessage"
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -59,6 +64,10 @@ public class UIMessage
         _for = forValue;
     }
 
+    /**
+     * @JSFProperty
+     *   required = "true"
+     */
     public String getFor()
     {
         if (_for != null) return _for;
@@ -71,6 +80,9 @@ public class UIMessage
         _showDetail = Boolean.valueOf(showDetail);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isShowDetail()
     {
         if (_showDetail != null) return _showDetail.booleanValue();
@@ -84,6 +96,9 @@ public class UIMessage
         _showSummary = Boolean.valueOf(showSummary);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isShowSummary()
     {
         if (_showSummary != null) return _showSummary.booleanValue();

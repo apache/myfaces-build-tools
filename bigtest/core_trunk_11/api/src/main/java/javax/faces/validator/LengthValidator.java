@@ -25,6 +25,8 @@ import javax.faces.context.FacesContext;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFValidator
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @author Thomas Spiegl
  * @version $Revision$ $Date$

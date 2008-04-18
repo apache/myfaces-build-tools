@@ -24,6 +24,11 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.SelectBoolean"
+ *   family = "javax.faces.SelectBoolean"
+ *   desc = "UISelectBoolean"
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

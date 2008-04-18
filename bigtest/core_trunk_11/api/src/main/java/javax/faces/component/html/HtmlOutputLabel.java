@@ -25,6 +25,12 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.HtmlOutputLabel"
+ *   family = "javax.faces.Output"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlOutputLabelTag"
+ *   desc = "h:outputLabel"
+ * 
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -67,6 +73,9 @@ public class HtmlOutputLabel extends UIOutput
         _accesskey = accesskey;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getAccesskey()
     {
         if (_accesskey != null) return _accesskey;
@@ -79,6 +88,9 @@ public class HtmlOutputLabel extends UIOutput
         _dir = dir;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDir()
     {
         if (_dir != null) return _dir;
@@ -91,6 +103,9 @@ public class HtmlOutputLabel extends UIOutput
         _for = forValue;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getFor()
     {
         if (_for != null) return _for;
@@ -103,6 +118,9 @@ public class HtmlOutputLabel extends UIOutput
         _lang = lang;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLang()
     {
         if (_lang != null) return _lang;
@@ -115,6 +133,9 @@ public class HtmlOutputLabel extends UIOutput
         _onblur = onblur;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnblur()
     {
         if (_onblur != null) return _onblur;
@@ -127,6 +148,9 @@ public class HtmlOutputLabel extends UIOutput
         _onclick = onclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnclick()
     {
         if (_onclick != null) return _onclick;
@@ -139,6 +163,9 @@ public class HtmlOutputLabel extends UIOutput
         _ondblclick = ondblclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOndblclick()
     {
         if (_ondblclick != null) return _ondblclick;
@@ -151,6 +178,9 @@ public class HtmlOutputLabel extends UIOutput
         _onfocus = onfocus;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnfocus()
     {
         if (_onfocus != null) return _onfocus;
@@ -163,6 +193,9 @@ public class HtmlOutputLabel extends UIOutput
         _onkeydown = onkeydown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeydown()
     {
         if (_onkeydown != null) return _onkeydown;
@@ -175,6 +208,9 @@ public class HtmlOutputLabel extends UIOutput
         _onkeypress = onkeypress;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeypress()
     {
         if (_onkeypress != null) return _onkeypress;
@@ -187,6 +223,9 @@ public class HtmlOutputLabel extends UIOutput
         _onkeyup = onkeyup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeyup()
     {
         if (_onkeyup != null) return _onkeyup;
@@ -199,6 +238,9 @@ public class HtmlOutputLabel extends UIOutput
         _onmousedown = onmousedown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousedown()
     {
         if (_onmousedown != null) return _onmousedown;
@@ -211,6 +253,9 @@ public class HtmlOutputLabel extends UIOutput
         _onmousemove = onmousemove;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousemove()
     {
         if (_onmousemove != null) return _onmousemove;
@@ -223,6 +268,9 @@ public class HtmlOutputLabel extends UIOutput
         _onmouseout = onmouseout;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseout()
     {
         if (_onmouseout != null) return _onmouseout;
@@ -235,6 +283,9 @@ public class HtmlOutputLabel extends UIOutput
         _onmouseover = onmouseover;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseover()
     {
         if (_onmouseover != null) return _onmouseover;
@@ -247,6 +298,9 @@ public class HtmlOutputLabel extends UIOutput
         _onmouseup = onmouseup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseup()
     {
         if (_onmouseup != null) return _onmouseup;
@@ -259,6 +313,9 @@ public class HtmlOutputLabel extends UIOutput
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -271,6 +328,9 @@ public class HtmlOutputLabel extends UIOutput
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -283,6 +343,9 @@ public class HtmlOutputLabel extends UIOutput
         _tabindex = tabindex;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTabindex()
     {
         if (_tabindex != null) return _tabindex;
@@ -295,6 +358,9 @@ public class HtmlOutputLabel extends UIOutput
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;

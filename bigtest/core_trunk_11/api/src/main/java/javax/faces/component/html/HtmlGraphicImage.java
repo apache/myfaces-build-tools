@@ -25,6 +25,12 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.HtmlGraphicImage"
+ *   family = "javax.faces.Graphic"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlGraphicImageTag"
+ *   desc = "h:graphicImage"
+ *   
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -69,6 +75,9 @@ public class HtmlGraphicImage extends UIGraphic
         _alt = alt;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getAlt()
     {
         if (_alt != null) return _alt;
@@ -81,6 +90,9 @@ public class HtmlGraphicImage extends UIGraphic
         _dir = dir;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDir()
     {
         if (_dir != null) return _dir;
@@ -93,6 +105,9 @@ public class HtmlGraphicImage extends UIGraphic
         _height = height;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getHeight()
     {
         if (_height != null) return _height;
@@ -105,6 +120,9 @@ public class HtmlGraphicImage extends UIGraphic
         _ismap = Boolean.valueOf(ismap);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isIsmap()
     {
         if (_ismap != null) return _ismap.booleanValue();
@@ -118,6 +136,9 @@ public class HtmlGraphicImage extends UIGraphic
         _lang = lang;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLang()
     {
         if (_lang != null) return _lang;
@@ -130,6 +151,9 @@ public class HtmlGraphicImage extends UIGraphic
         _longdesc = longdesc;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLongdesc()
     {
         if (_longdesc != null) return _longdesc;
@@ -142,6 +166,9 @@ public class HtmlGraphicImage extends UIGraphic
         _onclick = onclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnclick()
     {
         if (_onclick != null) return _onclick;
@@ -154,6 +181,9 @@ public class HtmlGraphicImage extends UIGraphic
         _ondblclick = ondblclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOndblclick()
     {
         if (_ondblclick != null) return _ondblclick;
@@ -166,6 +196,9 @@ public class HtmlGraphicImage extends UIGraphic
         _onkeydown = onkeydown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeydown()
     {
         if (_onkeydown != null) return _onkeydown;
@@ -178,6 +211,9 @@ public class HtmlGraphicImage extends UIGraphic
         _onkeypress = onkeypress;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeypress()
     {
         if (_onkeypress != null) return _onkeypress;
@@ -190,6 +226,9 @@ public class HtmlGraphicImage extends UIGraphic
         _onkeyup = onkeyup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeyup()
     {
         if (_onkeyup != null) return _onkeyup;
@@ -202,6 +241,9 @@ public class HtmlGraphicImage extends UIGraphic
         _onmousedown = onmousedown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousedown()
     {
         if (_onmousedown != null) return _onmousedown;
@@ -214,6 +256,9 @@ public class HtmlGraphicImage extends UIGraphic
         _onmousemove = onmousemove;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousemove()
     {
         if (_onmousemove != null) return _onmousemove;
@@ -226,6 +271,9 @@ public class HtmlGraphicImage extends UIGraphic
         _onmouseout = onmouseout;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseout()
     {
         if (_onmouseout != null) return _onmouseout;
@@ -238,6 +286,9 @@ public class HtmlGraphicImage extends UIGraphic
         _onmouseover = onmouseover;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseover()
     {
         if (_onmouseover != null) return _onmouseover;
@@ -250,6 +301,9 @@ public class HtmlGraphicImage extends UIGraphic
         _onmouseup = onmouseup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseup()
     {
         if (_onmouseup != null) return _onmouseup;
@@ -262,6 +316,9 @@ public class HtmlGraphicImage extends UIGraphic
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -274,6 +331,9 @@ public class HtmlGraphicImage extends UIGraphic
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -286,6 +346,9 @@ public class HtmlGraphicImage extends UIGraphic
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;
@@ -298,6 +361,9 @@ public class HtmlGraphicImage extends UIGraphic
         _usemap = usemap;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getUsemap()
     {
         if (_usemap != null) return _usemap;
@@ -310,6 +376,9 @@ public class HtmlGraphicImage extends UIGraphic
         _width = width;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getWidth()
     {
         if (_width != null) return _width;

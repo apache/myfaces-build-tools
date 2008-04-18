@@ -34,6 +34,11 @@ import javax.faces.event.PhaseId;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.ViewRoot"
+ *   family = "javax.faces.ViewRoot"
+ *   desc = "UIViewRoot"
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -55,6 +60,9 @@ public class UIViewRoot
     private Locale _locale = null;
     private List _events = null;
 
+    /**
+     * @JSFProperty
+     */
     public String getViewId()
     {
         return _viewId;
@@ -191,6 +199,9 @@ public class UIViewRoot
         return extCtx.encodeNamespace(bld.append(UNIQUE_ID_PREFIX).append(_uniqueIdCounter++).toString());
     }
 
+    /**
+     * @JSFProperty
+     */    
     public Locale getLocale()
     {
         if (_locale != null) return _locale;
@@ -289,6 +300,9 @@ public class UIViewRoot
         _renderKitId = renderKitId;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRenderKitId()
     {
         if (_renderKitId != null) return _renderKitId;

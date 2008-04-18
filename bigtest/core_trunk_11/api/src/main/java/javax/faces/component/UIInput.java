@@ -38,6 +38,11 @@ import java.util.List;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.Input"
+ *   family = "javax.faces.Input"
+ *   desc = "UIInput"
+ *   
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -59,6 +64,10 @@ public class UIInput
     private List _validatorList = null;
 
     // use javadoc inherited from EditableValueHolder
+    /**
+     * @JSFProperty
+     *   tagExcluded = "true"
+     */
     public Object getSubmittedValue()
     {
         return _submittedValue;
@@ -91,6 +100,10 @@ public class UIInput
     }
 
     // use javadoc inherited from EditableValueHolder
+    /**
+     * @JSFProperty
+     *   tagExcluded = "true"
+     */
     public boolean isLocalValueSet()
     {
         return _localValueSet;
@@ -103,6 +116,10 @@ public class UIInput
     }
 
     // use javadoc inherited from EditableValueHolder
+    /**
+     * @JSFProperty
+     *   tagExcluded = "true"
+     */
     public boolean isValid()
     {
         return _valid;
@@ -114,7 +131,13 @@ public class UIInput
         _valid = valid;
     }
 
-    // use javadoc inherited from EditableValueHolder
+    // use javadoc inherited from EditableValueHolder    
+    /**
+     * @JSFProperty
+     *   stateHolder="true"
+     *   returnSignature="void"
+     *   methodSignature="javax.faces.context.FacesContext,javax.faces.component.UIComponent,java.lang.Object"
+     */
     public MethodBinding getValidator()
     {
         return _validator;
@@ -127,6 +150,12 @@ public class UIInput
     }
 
     // use javadoc inherited from EditableValueHolder
+    /**
+     * @JSFProperty
+     *   stateHolder="true"
+     *   returnSignature="void"
+     *   methodSignature="javax.faces.event.ValueChangeEvent"
+     */
     public MethodBinding getValueChangeListener()
     {
         return _valueChangeListener;
@@ -553,6 +582,9 @@ public class UIInput
         _immediate = Boolean.valueOf(immediate);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isImmediate()
     {
         if (_immediate != null) return _immediate.booleanValue();
@@ -566,6 +598,9 @@ public class UIInput
         _required = Boolean.valueOf(required);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isRequired()
     {
         if (_required != null) return _required.booleanValue();

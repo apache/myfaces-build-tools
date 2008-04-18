@@ -25,6 +25,12 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.HtmlPanelGrid"
+ *   family = "javax.faces.Panel"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlPanelGridTag"
+ *   desc = "h:panelGrid
+ *
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -79,6 +85,9 @@ public class HtmlPanelGrid extends UIPanel
         _bgcolor = bgcolor;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getBgcolor()
     {
         if (_bgcolor != null) return _bgcolor;
@@ -91,6 +100,9 @@ public class HtmlPanelGrid extends UIPanel
         _border = new Integer(border);
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getBorder()
     {
         if (_border != null) return _border.intValue();
@@ -104,6 +116,9 @@ public class HtmlPanelGrid extends UIPanel
         _cellpadding = cellpadding;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getCellpadding()
     {
         if (_cellpadding != null) return _cellpadding;
@@ -116,6 +131,9 @@ public class HtmlPanelGrid extends UIPanel
         _cellspacing = cellspacing;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getCellspacing()
     {
         if (_cellspacing != null) return _cellspacing;
@@ -128,6 +146,9 @@ public class HtmlPanelGrid extends UIPanel
         _columnClasses = columnClasses;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getColumnClasses()
     {
         if (_columnClasses != null) return _columnClasses;
@@ -140,6 +161,9 @@ public class HtmlPanelGrid extends UIPanel
         _columns = new Integer(columns);
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getColumns()
     {
         if (_columns != null) return _columns.intValue();
@@ -153,6 +177,9 @@ public class HtmlPanelGrid extends UIPanel
         _dir = dir;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDir()
     {
         if (_dir != null) return _dir;
@@ -165,6 +192,9 @@ public class HtmlPanelGrid extends UIPanel
         _footerClass = footerClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getFooterClass()
     {
         if (_footerClass != null) return _footerClass;
@@ -177,6 +207,9 @@ public class HtmlPanelGrid extends UIPanel
         _frame = frame;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getFrame()
     {
         if (_frame != null) return _frame;
@@ -189,6 +222,9 @@ public class HtmlPanelGrid extends UIPanel
         _headerClass = headerClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getHeaderClass()
     {
         if (_headerClass != null) return _headerClass;
@@ -201,6 +237,9 @@ public class HtmlPanelGrid extends UIPanel
         _lang = lang;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLang()
     {
         if (_lang != null) return _lang;
@@ -213,6 +252,9 @@ public class HtmlPanelGrid extends UIPanel
         _onclick = onclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnclick()
     {
         if (_onclick != null) return _onclick;
@@ -225,6 +267,9 @@ public class HtmlPanelGrid extends UIPanel
         _ondblclick = ondblclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOndblclick()
     {
         if (_ondblclick != null) return _ondblclick;
@@ -237,6 +282,9 @@ public class HtmlPanelGrid extends UIPanel
         _onkeydown = onkeydown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeydown()
     {
         if (_onkeydown != null) return _onkeydown;
@@ -249,6 +297,9 @@ public class HtmlPanelGrid extends UIPanel
         _onkeypress = onkeypress;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeypress()
     {
         if (_onkeypress != null) return _onkeypress;
@@ -261,6 +312,9 @@ public class HtmlPanelGrid extends UIPanel
         _onkeyup = onkeyup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeyup()
     {
         if (_onkeyup != null) return _onkeyup;
@@ -273,6 +327,9 @@ public class HtmlPanelGrid extends UIPanel
         _onmousedown = onmousedown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousedown()
     {
         if (_onmousedown != null) return _onmousedown;
@@ -285,6 +342,9 @@ public class HtmlPanelGrid extends UIPanel
         _onmousemove = onmousemove;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousemove()
     {
         if (_onmousemove != null) return _onmousemove;
@@ -297,6 +357,9 @@ public class HtmlPanelGrid extends UIPanel
         _onmouseout = onmouseout;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseout()
     {
         if (_onmouseout != null) return _onmouseout;
@@ -309,6 +372,9 @@ public class HtmlPanelGrid extends UIPanel
         _onmouseover = onmouseover;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseover()
     {
         if (_onmouseover != null) return _onmouseover;
@@ -321,6 +387,9 @@ public class HtmlPanelGrid extends UIPanel
         _onmouseup = onmouseup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseup()
     {
         if (_onmouseup != null) return _onmouseup;
@@ -333,6 +402,9 @@ public class HtmlPanelGrid extends UIPanel
         _rowClasses = rowClasses;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowClasses()
     {
         if (_rowClasses != null) return _rowClasses;
@@ -345,6 +417,9 @@ public class HtmlPanelGrid extends UIPanel
         _rules = rules;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRules()
     {
         if (_rules != null) return _rules;
@@ -357,6 +432,9 @@ public class HtmlPanelGrid extends UIPanel
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -369,6 +447,9 @@ public class HtmlPanelGrid extends UIPanel
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -381,6 +462,9 @@ public class HtmlPanelGrid extends UIPanel
         _summary = summary;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getSummary()
     {
         if (_summary != null) return _summary;
@@ -393,6 +477,9 @@ public class HtmlPanelGrid extends UIPanel
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;
@@ -405,6 +492,9 @@ public class HtmlPanelGrid extends UIPanel
         _width = width;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getWidth()
     {
         if (_width != null) return _width;

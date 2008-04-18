@@ -24,7 +24,13 @@ import javax.faces.el.ValueBinding;
 
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
- *
+ * 
+ * @JSFComponent
+ *   type = "javax.faces.HtmlCommandLink"
+ *   family = "javax.faces.Command"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlCommandLinkTag"
+ *   desc = "h:commandLink"
+ *   
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -74,6 +80,9 @@ public class HtmlCommandLink extends UICommand
         _accesskey = accesskey;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getAccesskey()
     {
         if (_accesskey != null) return _accesskey;
@@ -86,6 +95,9 @@ public class HtmlCommandLink extends UICommand
         _charset = charset;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getCharset()
     {
         if (_charset != null) return _charset;
@@ -98,6 +110,9 @@ public class HtmlCommandLink extends UICommand
         _coords = coords;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getCoords()
     {
         if (_coords != null) return _coords;
@@ -110,6 +125,9 @@ public class HtmlCommandLink extends UICommand
         _dir = dir;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDir()
     {
         if (_dir != null) return _dir;
@@ -122,6 +140,9 @@ public class HtmlCommandLink extends UICommand
         _hreflang = hreflang;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getHreflang()
     {
         if (_hreflang != null) return _hreflang;
@@ -134,6 +155,9 @@ public class HtmlCommandLink extends UICommand
         _lang = lang;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLang()
     {
         if (_lang != null) return _lang;
@@ -146,6 +170,9 @@ public class HtmlCommandLink extends UICommand
         _onblur = onblur;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnblur()
     {
         if (_onblur != null) return _onblur;
@@ -158,6 +185,9 @@ public class HtmlCommandLink extends UICommand
         _onclick = onclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnclick()
     {
         if (_onclick != null) return _onclick;
@@ -170,6 +200,9 @@ public class HtmlCommandLink extends UICommand
         _ondblclick = ondblclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOndblclick()
     {
         if (_ondblclick != null) return _ondblclick;
@@ -182,6 +215,9 @@ public class HtmlCommandLink extends UICommand
         _onfocus = onfocus;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnfocus()
     {
         if (_onfocus != null) return _onfocus;
@@ -194,6 +230,9 @@ public class HtmlCommandLink extends UICommand
         _onkeydown = onkeydown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeydown()
     {
         if (_onkeydown != null) return _onkeydown;
@@ -206,6 +245,9 @@ public class HtmlCommandLink extends UICommand
         _onkeypress = onkeypress;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeypress()
     {
         if (_onkeypress != null) return _onkeypress;
@@ -218,6 +260,9 @@ public class HtmlCommandLink extends UICommand
         _onkeyup = onkeyup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeyup()
     {
         if (_onkeyup != null) return _onkeyup;
@@ -230,6 +275,9 @@ public class HtmlCommandLink extends UICommand
         _onmousedown = onmousedown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousedown()
     {
         if (_onmousedown != null) return _onmousedown;
@@ -242,6 +290,9 @@ public class HtmlCommandLink extends UICommand
         _onmousemove = onmousemove;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousemove()
     {
         if (_onmousemove != null) return _onmousemove;
@@ -254,6 +305,9 @@ public class HtmlCommandLink extends UICommand
         _onmouseout = onmouseout;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseout()
     {
         if (_onmouseout != null) return _onmouseout;
@@ -266,6 +320,9 @@ public class HtmlCommandLink extends UICommand
         _onmouseover = onmouseover;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseover()
     {
         if (_onmouseover != null) return _onmouseover;
@@ -278,6 +335,9 @@ public class HtmlCommandLink extends UICommand
         _onmouseup = onmouseup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseup()
     {
         if (_onmouseup != null) return _onmouseup;
@@ -290,6 +350,9 @@ public class HtmlCommandLink extends UICommand
         _rel = rel;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRel()
     {
         if (_rel != null) return _rel;
@@ -302,6 +365,9 @@ public class HtmlCommandLink extends UICommand
         _rev = rev;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRev()
     {
         if (_rev != null) return _rev;
@@ -314,6 +380,9 @@ public class HtmlCommandLink extends UICommand
         _shape = shape;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getShape()
     {
         if (_shape != null) return _shape;
@@ -326,6 +395,9 @@ public class HtmlCommandLink extends UICommand
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -338,6 +410,9 @@ public class HtmlCommandLink extends UICommand
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -350,6 +425,9 @@ public class HtmlCommandLink extends UICommand
         _tabindex = tabindex;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTabindex()
     {
         if (_tabindex != null) return _tabindex;
@@ -362,6 +440,9 @@ public class HtmlCommandLink extends UICommand
         _target = target;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTarget()
     {
         if (_target != null) return _target;
@@ -374,6 +455,9 @@ public class HtmlCommandLink extends UICommand
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;
@@ -386,6 +470,9 @@ public class HtmlCommandLink extends UICommand
         _type = type;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getType()
     {
         if (_type != null) return _type;

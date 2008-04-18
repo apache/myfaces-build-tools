@@ -25,6 +25,12 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.HtmlPanelGroup"
+ *   family = "javax.faces.Panel"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlPanelGroupTag"
+ *   desc = "h:panelGroup
+ *
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -49,6 +55,9 @@ public class HtmlPanelGroup extends UIPanel
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -61,6 +70,9 @@ public class HtmlPanelGroup extends UIPanel
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;

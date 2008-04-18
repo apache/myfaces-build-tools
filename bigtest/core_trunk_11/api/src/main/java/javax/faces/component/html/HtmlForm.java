@@ -25,6 +25,12 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.HtmlForm"
+ *   family = "javax.faces.Form"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlFormTag"
+ *   desc = "h:form"
+ *   
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -69,6 +75,9 @@ public class HtmlForm extends UIForm
         _accept = accept;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getAccept()
     {
         if (_accept != null) return _accept;
@@ -81,6 +90,9 @@ public class HtmlForm extends UIForm
         _acceptcharset = acceptcharset;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getAcceptcharset()
     {
         if (_acceptcharset != null) return _acceptcharset;
@@ -93,6 +105,9 @@ public class HtmlForm extends UIForm
         _dir = dir;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDir()
     {
         if (_dir != null) return _dir;
@@ -105,6 +120,9 @@ public class HtmlForm extends UIForm
         _enctype = enctype;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getEnctype()
     {
         if (_enctype != null) return _enctype;
@@ -117,6 +135,9 @@ public class HtmlForm extends UIForm
         _lang = lang;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLang()
     {
         if (_lang != null) return _lang;
@@ -129,6 +150,9 @@ public class HtmlForm extends UIForm
         _onclick = onclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnclick()
     {
         if (_onclick != null) return _onclick;
@@ -141,6 +165,9 @@ public class HtmlForm extends UIForm
         _ondblclick = ondblclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOndblclick()
     {
         if (_ondblclick != null) return _ondblclick;
@@ -153,6 +180,9 @@ public class HtmlForm extends UIForm
         _onkeydown = onkeydown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeydown()
     {
         if (_onkeydown != null) return _onkeydown;
@@ -165,6 +195,9 @@ public class HtmlForm extends UIForm
         _onkeypress = onkeypress;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeypress()
     {
         if (_onkeypress != null) return _onkeypress;
@@ -177,6 +210,9 @@ public class HtmlForm extends UIForm
         _onkeyup = onkeyup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeyup()
     {
         if (_onkeyup != null) return _onkeyup;
@@ -189,6 +225,9 @@ public class HtmlForm extends UIForm
         _onmousedown = onmousedown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousedown()
     {
         if (_onmousedown != null) return _onmousedown;
@@ -201,6 +240,9 @@ public class HtmlForm extends UIForm
         _onmousemove = onmousemove;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousemove()
     {
         if (_onmousemove != null) return _onmousemove;
@@ -213,6 +255,9 @@ public class HtmlForm extends UIForm
         _onmouseout = onmouseout;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseout()
     {
         if (_onmouseout != null) return _onmouseout;
@@ -225,6 +270,9 @@ public class HtmlForm extends UIForm
         _onmouseover = onmouseover;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseover()
     {
         if (_onmouseover != null) return _onmouseover;
@@ -237,6 +285,9 @@ public class HtmlForm extends UIForm
         _onmouseup = onmouseup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseup()
     {
         if (_onmouseup != null) return _onmouseup;
@@ -249,6 +300,9 @@ public class HtmlForm extends UIForm
         _onreset = onreset;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnreset()
     {
         if (_onreset != null) return _onreset;
@@ -261,6 +315,9 @@ public class HtmlForm extends UIForm
         _onsubmit = onsubmit;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnsubmit()
     {
         if (_onsubmit != null) return _onsubmit;
@@ -273,6 +330,9 @@ public class HtmlForm extends UIForm
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -285,6 +345,9 @@ public class HtmlForm extends UIForm
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -297,6 +360,9 @@ public class HtmlForm extends UIForm
         _target = target;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTarget()
     {
         if (_target != null) return _target;
@@ -309,6 +375,9 @@ public class HtmlForm extends UIForm
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;

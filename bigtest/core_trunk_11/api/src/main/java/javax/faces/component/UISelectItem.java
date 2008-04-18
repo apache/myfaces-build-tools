@@ -34,6 +34,11 @@ import javax.faces.el.ValueBinding;
  * 
  * See Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.SelectItem"
+ *   family = "javax.faces.SelectItem"
+ *   desc = "UISelectItem"
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -70,6 +75,8 @@ public class UISelectItem
      * For use in development tools.
      * <p>
      * Q: what use is an EL expression for this???
+     * 
+     * @JSFProperty 
      */
     public String getItemDescription()
     {
@@ -90,6 +97,8 @@ public class UISelectItem
 
     /**
      * Determine whether this item can be chosen by the user.
+     * 
+     * @JSFProperty
      */
     public boolean isItemDisabled()
     {
@@ -106,6 +115,8 @@ public class UISelectItem
 
     /**
      * Get the string which will be presented to the user for this option.
+     * 
+     * @JSFProperty
      */
     public String getItemLabel()
     {
@@ -119,6 +130,9 @@ public class UISelectItem
         _itemValue = itemValue;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Object getItemValue()
     {
         if (_itemValue != null) return _itemValue;
@@ -131,6 +145,9 @@ public class UISelectItem
         _value = value;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Object getValue()
     {
         if (_value != null) return _value;

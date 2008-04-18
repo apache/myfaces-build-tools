@@ -25,6 +25,12 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.HtmlSelectBooleanCheckbox"
+ *   family = "javax.faces.SelectBoolean"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlSelectBooleanCheckboxTag"
+ *   desc = "h:selectBooleanCheckbox"
+ *
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -72,6 +78,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _accesskey = accesskey;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getAccesskey()
     {
         if (_accesskey != null) return _accesskey;
@@ -84,6 +93,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _dir = dir;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDir()
     {
         if (_dir != null) return _dir;
@@ -96,6 +108,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _disabled = Boolean.valueOf(disabled);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isDisabled()
     {
         if (_disabled != null) return _disabled.booleanValue();
@@ -109,6 +124,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _lang = lang;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLang()
     {
         if (_lang != null) return _lang;
@@ -121,6 +139,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onblur = onblur;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnblur()
     {
         if (_onblur != null) return _onblur;
@@ -133,6 +154,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onchange = onchange;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnchange()
     {
         if (_onchange != null) return _onchange;
@@ -145,6 +169,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onclick = onclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnclick()
     {
         if (_onclick != null) return _onclick;
@@ -157,6 +184,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _ondblclick = ondblclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOndblclick()
     {
         if (_ondblclick != null) return _ondblclick;
@@ -169,6 +199,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onfocus = onfocus;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnfocus()
     {
         if (_onfocus != null) return _onfocus;
@@ -181,6 +214,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onkeydown = onkeydown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeydown()
     {
         if (_onkeydown != null) return _onkeydown;
@@ -193,6 +229,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onkeypress = onkeypress;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeypress()
     {
         if (_onkeypress != null) return _onkeypress;
@@ -205,6 +244,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onkeyup = onkeyup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeyup()
     {
         if (_onkeyup != null) return _onkeyup;
@@ -217,6 +259,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onmousedown = onmousedown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousedown()
     {
         if (_onmousedown != null) return _onmousedown;
@@ -229,6 +274,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onmousemove = onmousemove;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousemove()
     {
         if (_onmousemove != null) return _onmousemove;
@@ -241,6 +289,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onmouseout = onmouseout;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseout()
     {
         if (_onmouseout != null) return _onmouseout;
@@ -253,6 +304,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onmouseover = onmouseover;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseover()
     {
         if (_onmouseover != null) return _onmouseover;
@@ -265,6 +319,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onmouseup = onmouseup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseup()
     {
         if (_onmouseup != null) return _onmouseup;
@@ -277,6 +334,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _onselect = onselect;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnselect()
     {
         if (_onselect != null) return _onselect;
@@ -289,6 +349,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _readonly = Boolean.valueOf(readonly);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isReadonly()
     {
         if (_readonly != null) return _readonly.booleanValue();
@@ -302,6 +365,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -314,6 +380,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -326,6 +395,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _tabindex = tabindex;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTabindex()
     {
         if (_tabindex != null) return _tabindex;
@@ -338,6 +410,9 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;

@@ -123,6 +123,11 @@ import javax.servlet.jsp.jstl.sql.Result;
  * </p>
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a> for more.
  * 
+ * @JSFComponent
+ *   type = "javax.faces.Data"
+ *   family = "javax.faces.Data"
+ *   desc = "UIData"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -439,6 +444,10 @@ public class UIData extends UIComponentBase implements NamingContainer
         _var = var;
     }
 
+    /**
+     * @JSFProperty
+     *   literalOnly = "true"
+     */
     public String getVar()
     {
         return _var;
@@ -999,6 +1008,9 @@ public class UIData extends UIComponentBase implements NamingContainer
         _first = new Integer(first);
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getFirst()
     {
         if (_first != null)
@@ -1008,6 +1020,9 @@ public class UIData extends UIComponentBase implements NamingContainer
         return v != null ? v.intValue() : DEFAULT_FIRST;
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getRows()
     {
         if (_rows != null)
@@ -1017,6 +1032,9 @@ public class UIData extends UIComponentBase implements NamingContainer
         return v != null ? v.intValue() : DEFAULT_ROWS;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Object getValue()
     {
         if (_value != null)

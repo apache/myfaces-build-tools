@@ -24,6 +24,11 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.Graphic"
+ *   family = "javax.faces.Graphic"
+ *   desc = "UIGraphic"
+ *   
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -33,6 +38,9 @@ public class UIGraphic
     private static final String URL_PROPERTY = "url";
     private static final String VALUE_PROPERTY = "value";
 
+    /**
+     * @JSFProperty
+     */
     public String getUrl()
     {
         return (String)getValue();
@@ -92,6 +100,9 @@ public class UIGraphic
         _value = value;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Object getValue()
     {
         if (_value != null) return _value;

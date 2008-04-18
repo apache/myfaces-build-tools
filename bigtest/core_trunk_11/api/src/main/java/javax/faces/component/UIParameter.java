@@ -24,6 +24,11 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.Parameter"
+ *   family = "javax.faces.Parameter"
+ *   desc = "UIParameter"
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -52,6 +57,9 @@ public class UIParameter
         _name = name;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getName()
     {
         if (_name != null) return _name;
@@ -64,6 +72,9 @@ public class UIParameter
         _value = value;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Object getValue()
     {
         if (_value != null) return _value;

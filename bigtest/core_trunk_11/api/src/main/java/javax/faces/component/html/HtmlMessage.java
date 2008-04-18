@@ -25,6 +25,12 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.HtmlMessage"
+ *   family = "javax.faces.Message"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlMessageTag"
+ *   desc = "h:message"
+ *   
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -60,6 +66,9 @@ public class HtmlMessage extends UIMessage
         _errorClass = errorClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getErrorClass()
     {
         if (_errorClass != null) return _errorClass;
@@ -72,6 +81,9 @@ public class HtmlMessage extends UIMessage
         _errorStyle = errorStyle;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getErrorStyle()
     {
         if (_errorStyle != null) return _errorStyle;
@@ -84,6 +96,9 @@ public class HtmlMessage extends UIMessage
         _fatalClass = fatalClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getFatalClass()
     {
         if (_fatalClass != null) return _fatalClass;
@@ -96,6 +111,9 @@ public class HtmlMessage extends UIMessage
         _fatalStyle = fatalStyle;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getFatalStyle()
     {
         if (_fatalStyle != null) return _fatalStyle;
@@ -108,6 +126,9 @@ public class HtmlMessage extends UIMessage
         _infoClass = infoClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getInfoClass()
     {
         if (_infoClass != null) return _infoClass;
@@ -120,6 +141,9 @@ public class HtmlMessage extends UIMessage
         _infoStyle = infoStyle;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getInfoStyle()
     {
         if (_infoStyle != null) return _infoStyle;
@@ -132,6 +156,9 @@ public class HtmlMessage extends UIMessage
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -144,6 +171,9 @@ public class HtmlMessage extends UIMessage
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -156,6 +186,9 @@ public class HtmlMessage extends UIMessage
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;
@@ -168,6 +201,9 @@ public class HtmlMessage extends UIMessage
         _tooltip = Boolean.valueOf(tooltip);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isTooltip()
     {
         if (_tooltip != null) return _tooltip.booleanValue();
@@ -181,6 +217,9 @@ public class HtmlMessage extends UIMessage
         _warnClass = warnClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getWarnClass()
     {
         if (_warnClass != null) return _warnClass;
@@ -193,6 +232,9 @@ public class HtmlMessage extends UIMessage
         _warnStyle = warnStyle;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getWarnStyle()
     {
         if (_warnStyle != null) return _warnStyle;

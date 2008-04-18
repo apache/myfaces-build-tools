@@ -25,6 +25,12 @@ import javax.faces.el.ValueBinding;
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
+ * @JSFComponent
+ *   type = "javax.faces.HtmlSelectOneMenu"
+ *   family = "javax.faces.SelectOne"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlSelectOneMenuTag"
+ *   desc = "h:selectOneMenu"
+ *   
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -74,6 +80,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _enabledClass = value;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getEnabledClass()
     {
         if (_enabledClass != null) return _enabledClass;
@@ -86,6 +95,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _disabledClass = value;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDisabledClass()
     {
         if (_disabledClass != null) return _disabledClass;
@@ -99,6 +111,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _accesskey = accesskey;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getAccesskey()
     {
         if (_accesskey != null) return _accesskey;
@@ -111,6 +126,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _dir = dir;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDir()
     {
         if (_dir != null) return _dir;
@@ -123,6 +141,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _disabled = Boolean.valueOf(disabled);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isDisabled()
     {
         if (_disabled != null) return _disabled.booleanValue();
@@ -136,6 +157,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _lang = lang;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLang()
     {
         if (_lang != null) return _lang;
@@ -148,6 +172,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onblur = onblur;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnblur()
     {
         if (_onblur != null) return _onblur;
@@ -160,6 +187,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onchange = onchange;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnchange()
     {
         if (_onchange != null) return _onchange;
@@ -172,6 +202,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onclick = onclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnclick()
     {
         if (_onclick != null) return _onclick;
@@ -184,6 +217,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _ondblclick = ondblclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOndblclick()
     {
         if (_ondblclick != null) return _ondblclick;
@@ -196,6 +232,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onfocus = onfocus;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnfocus()
     {
         if (_onfocus != null) return _onfocus;
@@ -208,6 +247,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onkeydown = onkeydown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeydown()
     {
         if (_onkeydown != null) return _onkeydown;
@@ -220,6 +262,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onkeypress = onkeypress;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeypress()
     {
         if (_onkeypress != null) return _onkeypress;
@@ -232,6 +277,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onkeyup = onkeyup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeyup()
     {
         if (_onkeyup != null) return _onkeyup;
@@ -244,6 +292,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onmousedown = onmousedown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousedown()
     {
         if (_onmousedown != null) return _onmousedown;
@@ -256,6 +307,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onmousemove = onmousemove;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousemove()
     {
         if (_onmousemove != null) return _onmousemove;
@@ -268,6 +322,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onmouseout = onmouseout;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseout()
     {
         if (_onmouseout != null) return _onmouseout;
@@ -280,6 +337,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onmouseover = onmouseover;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseover()
     {
         if (_onmouseover != null) return _onmouseover;
@@ -292,6 +352,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onmouseup = onmouseup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseup()
     {
         if (_onmouseup != null) return _onmouseup;
@@ -304,6 +367,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _onselect = onselect;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnselect()
     {
         if (_onselect != null) return _onselect;
@@ -316,6 +382,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _readonly = Boolean.valueOf(readonly);
     }
    
+    /**
+     * @JSFProperty
+     */
     public boolean isReadonly()
     {
         if (_readonly != null) return _readonly.booleanValue();
@@ -329,6 +398,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -341,6 +413,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -353,6 +428,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _tabindex = tabindex;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTabindex()
     {
         if (_tabindex != null) return _tabindex;
@@ -365,6 +443,9 @@ public class HtmlSelectOneMenu extends UISelectOne
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;

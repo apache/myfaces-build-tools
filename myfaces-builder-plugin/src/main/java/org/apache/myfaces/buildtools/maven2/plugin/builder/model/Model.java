@@ -117,6 +117,27 @@ public class Model
                 this.addComponent(component);
             }
         }
+        
+        for (Iterator it = other.getConverters().iterator(); it.hasNext();)
+        {
+            ConverterMeta converter = (ConverterMeta) it.next();
+            
+            if (this.findConverterByClassName(converter.getClassName())== null)
+            {
+                this.addConverter(converter);
+            }
+        }
+        
+        for (Iterator it = other.getValidators().iterator(); it.hasNext();)
+        {
+            ValidatorMeta converter = (ValidatorMeta) it.next();
+            
+            if (this.findConverterByClassName(converter.getClassName())== null)
+            {
+                this.addValidator(converter);
+            }
+        }
+        
     }
 
     /**

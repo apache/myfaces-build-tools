@@ -29,6 +29,12 @@ import javax.faces.el.ValueBinding;
  * such as CSS style attributes and event handler scripts.
  * <p>
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
+ * 
+ * @JSFComponent
+ *   type = "javax.faces.HtmlDataTable"
+ *   family = "javax.faces.Data"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlDataTableTag"
+ *   desc = "h:dataTable"
  *
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
@@ -95,6 +101,9 @@ public class HtmlDataTable extends UIData
         _bgcolor = bgcolor;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getBgcolor()
     {
         if (_bgcolor != null) return _bgcolor;
@@ -107,6 +116,9 @@ public class HtmlDataTable extends UIData
         _border = new Integer(border);
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getBorder()
     {
         if (_border != null) return _border.intValue();
@@ -120,6 +132,9 @@ public class HtmlDataTable extends UIData
         _cellpadding = cellpadding;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getCellpadding()
     {
         if (_cellpadding != null) return _cellpadding;
@@ -132,6 +147,9 @@ public class HtmlDataTable extends UIData
         _cellspacing = cellspacing;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getCellspacing()
     {
         if (_cellspacing != null) return _cellspacing;
@@ -144,6 +162,9 @@ public class HtmlDataTable extends UIData
         _columnClasses = columnClasses;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getColumnClasses()
     {
         if (_columnClasses != null) return _columnClasses;
@@ -156,6 +177,9 @@ public class HtmlDataTable extends UIData
         _dir = dir;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getDir()
     {
         if (_dir != null) return _dir;
@@ -168,6 +192,9 @@ public class HtmlDataTable extends UIData
         _footerClass = footerClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getFooterClass()
     {
         if (_footerClass != null) return _footerClass;
@@ -180,6 +207,9 @@ public class HtmlDataTable extends UIData
         _frame = frame;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getFrame()
     {
         if (_frame != null) return _frame;
@@ -192,6 +222,9 @@ public class HtmlDataTable extends UIData
         _headerClass = headerClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getHeaderClass()
     {
         if (_headerClass != null) return _headerClass;
@@ -204,6 +237,9 @@ public class HtmlDataTable extends UIData
         _lang = lang;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getLang()
     {
         if (_lang != null) return _lang;
@@ -216,6 +252,9 @@ public class HtmlDataTable extends UIData
         _onclick = onclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnclick()
     {
         if (_onclick != null) return _onclick;
@@ -228,6 +267,9 @@ public class HtmlDataTable extends UIData
         _ondblclick = ondblclick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOndblclick()
     {
         if (_ondblclick != null) return _ondblclick;
@@ -240,6 +282,9 @@ public class HtmlDataTable extends UIData
         _onkeydown = onkeydown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeydown()
     {
         if (_onkeydown != null) return _onkeydown;
@@ -252,6 +297,9 @@ public class HtmlDataTable extends UIData
         _onkeypress = onkeypress;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeypress()
     {
         if (_onkeypress != null) return _onkeypress;
@@ -264,6 +312,9 @@ public class HtmlDataTable extends UIData
         _onkeyup = onkeyup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnkeyup()
     {
         if (_onkeyup != null) return _onkeyup;
@@ -276,6 +327,9 @@ public class HtmlDataTable extends UIData
         _onmousedown = onmousedown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousedown()
     {
         if (_onmousedown != null) return _onmousedown;
@@ -288,6 +342,9 @@ public class HtmlDataTable extends UIData
         _onmousemove = onmousemove;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmousemove()
     {
         if (_onmousemove != null) return _onmousemove;
@@ -300,6 +357,9 @@ public class HtmlDataTable extends UIData
         _onmouseout = onmouseout;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseout()
     {
         if (_onmouseout != null) return _onmouseout;
@@ -312,6 +372,9 @@ public class HtmlDataTable extends UIData
         _onmouseover = onmouseover;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseover()
     {
         if (_onmouseover != null) return _onmouseover;
@@ -324,6 +387,9 @@ public class HtmlDataTable extends UIData
         _onmouseup = onmouseup;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOnmouseup()
     {
         if (_onmouseup != null) return _onmouseup;
@@ -336,6 +402,9 @@ public class HtmlDataTable extends UIData
         _rowClasses = rowClasses;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowClasses()
     {
         if (_rowClasses != null) return _rowClasses;
@@ -348,6 +417,9 @@ public class HtmlDataTable extends UIData
         _rules = rules;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRules()
     {
         if (_rules != null) return _rules;
@@ -360,6 +432,9 @@ public class HtmlDataTable extends UIData
         _style = style;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyle()
     {
         if (_style != null) return _style;
@@ -372,6 +447,9 @@ public class HtmlDataTable extends UIData
         _styleClass = styleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass()
     {
         if (_styleClass != null) return _styleClass;
@@ -384,6 +462,9 @@ public class HtmlDataTable extends UIData
         _summary = summary;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getSummary()
     {
         if (_summary != null) return _summary;
@@ -396,6 +477,9 @@ public class HtmlDataTable extends UIData
         _title = title;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTitle()
     {
         if (_title != null) return _title;
@@ -408,6 +492,9 @@ public class HtmlDataTable extends UIData
         _width = width;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getWidth()
     {
         if (_width != null) return _width;

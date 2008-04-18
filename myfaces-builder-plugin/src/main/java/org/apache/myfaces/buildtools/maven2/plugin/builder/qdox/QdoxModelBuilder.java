@@ -254,6 +254,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String src = srcObj.toString();
         int start = 0;
         int end = src.length();
+
         while (start <= end)
         {
             char c = src.charAt(start);
@@ -365,12 +366,20 @@ public class QdoxModelBuilder implements ModelBuilder
         }
         String shortDescription = getString(clazz, "desc", props, descDflt);
 
-        String converterId = getString(clazz, "id", props, null);
-        String packageClass = getString(clazz, "class", props, clazz
-                .getPackage());
+        String converterIdDflt = null;
+        JavaField fieldConverterId = clazz
+                .getFieldByName("CONVERTER_ID");
+        if (fieldConverterId != null)
+        {
+            String value = fieldConverterId.getInitializationExpression();
+            converterIdDflt = clean(value.substring(value.indexOf('"')));
+        }        
+        String converterId = getString(clazz, "id", props, converterIdDflt);
+        String converterClass = getString(clazz, "class", props, clazz
+                .getFullyQualifiedName());
 
         ConverterMeta converter = new ConverterMeta();
-        converter.setClassName(clazz.getName());
+        converter.setClassName(converterClass);
         converter.setConverterId(converterId);
         converter.setDescription(shortDescription);
         converter.setLongDescription(longDescription);
@@ -387,13 +396,21 @@ public class QdoxModelBuilder implements ModelBuilder
             descDflt = "no description";
         }
         String shortDescription = getString(clazz, "desc", props, descDflt);
-        String packageClass = getString(clazz, "class", props, clazz
-                .getPackage());
 
-        String validatorId = getString(clazz, "id", props, null);
+        String validatorIdDflt = null;
+        JavaField fieldConverterId = clazz
+                .getFieldByName("VALIDATOR_ID");
+        if (fieldConverterId != null)
+        {
+            String value = fieldConverterId.getInitializationExpression();
+            validatorIdDflt = clean(value.substring(value.indexOf('"')));
+        }        
+        String validatorId = getString(clazz, "id", props, validatorIdDflt);
+        String validatorClass = getString(clazz, "class", props, clazz
+                .getFullyQualifiedName());        
 
         ValidatorMeta validator = new ValidatorMeta();
-        validator.setClassName(clazz.getName());
+        validator.setClassName(validatorClass);
         validator.setValidatorId(validatorId);
         validator.setDescription(shortDescription);
         validator.setLongDescription(longDescription);
