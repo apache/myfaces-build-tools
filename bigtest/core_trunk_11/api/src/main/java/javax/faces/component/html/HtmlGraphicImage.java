@@ -26,6 +26,7 @@ import javax.faces.el.ValueBinding;
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
+ *   name = "h:graphicImage"
  *   type = "javax.faces.HtmlGraphicImage"
  *   family = "javax.faces.Graphic"
  *   tagClass = "org.apache.myfaces.taglib.html.HtmlGraphicImageTag"

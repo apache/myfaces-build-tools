@@ -26,6 +26,7 @@ import javax.faces.el.ValueBinding;
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
+ *   name = "h:selectOneMenu"
  *   type = "javax.faces.HtmlSelectOneMenu"
  *   family = "javax.faces.SelectOne"
  *   tagClass = "org.apache.myfaces.taglib.html.HtmlSelectOneMenuTag"

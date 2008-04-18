@@ -26,10 +26,11 @@ import javax.faces.el.ValueBinding;
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
+ *   name = "h:panelGrid"
  *   type = "javax.faces.HtmlPanelGrid"
  *   family = "javax.faces.Panel"
  *   tagClass = "org.apache.myfaces.taglib.html.HtmlPanelGridTag"
- *   desc = "h:panelGrid
+ *   desc = "h:panelGrid"
  *
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$

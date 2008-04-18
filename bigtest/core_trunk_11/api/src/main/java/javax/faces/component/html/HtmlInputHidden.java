@@ -24,6 +24,7 @@ import javax.faces.component.UIInput;
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
+ *   name = "h:inputHidden"
  *   type = "javax.faces.HtmlInputHidden"
  *   family = "javax.faces.Input"
  *   tagClass = "org.apache.myfaces.taglib.html.HtmlInputHiddenTag"

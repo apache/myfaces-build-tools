@@ -539,7 +539,7 @@ public class QdoxModelBuilder implements ModelBuilder
                     .getInitializationExpression());
         }
 
-        String componentName = getString(clazz, "name", props, clazz.getName());
+        String componentName = getString(clazz, "name", props, null);
         String componentClass = getString(clazz, "class", props, clazz
                 .getFullyQualifiedName());
         

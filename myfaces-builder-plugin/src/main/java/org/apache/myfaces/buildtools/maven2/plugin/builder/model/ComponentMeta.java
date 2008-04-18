@@ -413,14 +413,6 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
     public String getTagPackage(){
         return StringUtils.substring(getTagClass(), 0, StringUtils.lastIndexOf(getTagClass(), '.'));
     }
-    
-    /**
-     * Returns the Tag name of the tag class
-     * @return
-     */
-    public String getTagName(){
-        return StringUtils.substring(getTagClass(), StringUtils.lastIndexOf(getTagClass(), '.')+1);        
-    }
-    
+        
     //END
 }

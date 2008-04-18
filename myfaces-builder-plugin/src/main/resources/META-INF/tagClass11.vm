@@ -26,9 +26,9 @@ import javax.faces.context.FacesContext;
 import ${component.tagSuperclass};
 $utils.importTagClasses($component)
 
-public class ${component.tagName} extends ${utils.getClassFromFullClass($component.tagSuperclass)}{
+public class $utils.getClassFromFullClass($component.tagClass) extends ${utils.getClassFromFullClass($component.tagSuperclass)}{
 
-    public ${component.tagName}()
+    public $utils.getClassFromFullClass($component.tagClass)()
     {    
     }
     
