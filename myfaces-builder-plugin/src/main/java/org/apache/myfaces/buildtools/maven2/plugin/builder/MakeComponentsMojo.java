@@ -140,6 +140,8 @@ public class MakeComponentsMojo extends AbstractMojo
         
         try
         {
+            project.addCompileSourceRoot( generatedSourceDirectory.getCanonicalPath() );
+            
             if (modelIds == null){
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());

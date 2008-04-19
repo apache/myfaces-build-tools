@@ -381,7 +381,7 @@ public class QdoxModelBuilder implements ModelBuilder
             JavaClass iclazz = classes[i];
 
             ComponentMeta ifaceComponent = model
-                    .findComponentByClassName(iclazz.getName());
+                    .findComponentByClassName(iclazz.getFullyQualifiedName());
             if (ifaceComponent != null)
             {
                 ifaceNames.add(ifaceComponent.getClassName());
@@ -643,6 +643,44 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
         
+        Type [] interfaces = clazz.getImplements();
+        
+        //Scan interfaces for properties to be added to this component
+        //This feature allow us to have groups of functions.
+        for (int i = 0; i < interfaces.length;++i)
+        {
+            JavaClass intf = interfaces[i].getJavaClass();
+
+            //If the interfaces has a JSFComponent Doclet,
+            //this is managed in other way
+            if (intf.getTagByName(DOC_COMPONENT, false) == null)
+            {
+                JavaMethod[] intfmethods = intf.getMethods();
+                for (int j = 0; j < intfmethods.length; ++j)
+                {
+                    JavaMethod intfmethod = intfmethods[j];
+
+                    DocletTag tag = intfmethod.getTagByName(DOC_PROPERTY);
+                    if (tag != null)
+                    {
+                        Map props = tag.getNamedParameterMap();
+                        processInterfaceComponentProperty(props, tag.getContext(), 
+                                clazz, intfmethod, component);
+                    }
+
+                    Annotation anno = getAnnotation(intfmethod, DOC_PROPERTY);
+                    if (anno != null)
+                    {
+                        Map props = anno.getNamedParameterMap();
+                        processInterfaceComponentProperty(props, anno.getContext(),
+                                clazz, intfmethod, component);
+                    }
+                }
+            }
+        }
+
+        //Scan for properties defined only on jsp (special case on myfaces 1.1,
+        //this feature should not be used on typical situations)
         DocletTag[] jspProperties = clazz.getTagsByName(DOC_JSP_PROPERTY);
         for (int i = 0; i < jspProperties.length; ++i)
         {
@@ -655,6 +693,23 @@ public class QdoxModelBuilder implements ModelBuilder
                     component);
             
         }        
+    }
+    
+    private void processInterfaceComponentProperty(Map props, AbstractJavaEntity ctx,
+    JavaClass clazz, JavaMethod method, ComponentMeta component){
+        this.processComponentProperty(props, ctx, clazz, method, component);
+        
+        PropertyMeta property = component.getProperty(methodToPropName(method.getName()));
+        
+        //Try to get the method from the component clazz to see if this
+        //has an implementation
+        JavaMethod clazzMethod = clazz.getMethodBySignature(method.getName(), null , false);
+        
+        if (clazzMethod == null)
+        {
+            //The method should be generated!
+            property.setGenerated(Boolean.TRUE);
+        }            
     }
 
     private void processComponentProperty(Map props, AbstractJavaEntity ctx,
@@ -675,6 +730,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String shortDescription = getString(clazz, "desc", props, descDflt);
         String returnSignature = getString(clazz, "returnSignature", props, null);
         String methodSignature = getString(clazz, "methodSignature", props, null);
+        String defaultValue = getString(clazz,"defaultValue",props,null);
 
         Type returnType = method.getReturns();
         
@@ -688,6 +744,7 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setTagExcluded(tagExcluded);
         p.setDescription(shortDescription);
         p.setLongDescription(longDescription);
+        p.setDefaultValue(defaultValue);
         
         if (returnSignature != null)
         {
@@ -845,10 +902,12 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             badprops.add("type");
         }
-        if (component.getFamily() == null)
-        {
-            badprops.add("family");
-        }
+        
+        //Family is optional because this can be inherited
+        //if (component.getFamily() == null)
+        //{
+        //    badprops.add("family");
+        //}
         
         //Renderer is optional
         //if (component.getRendererType() == null)

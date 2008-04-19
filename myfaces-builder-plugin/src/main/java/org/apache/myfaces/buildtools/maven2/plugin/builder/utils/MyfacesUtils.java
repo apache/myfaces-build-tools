@@ -560,6 +560,16 @@ public class MyfacesUtils
             return def;
         }
     }
+    
+    public static String getDefaultValueField(PropertyMeta property)
+    {
+        String def =  getDefaultValue(property);
+
+        if (property.getClassName().endsWith("Boolean")){
+                def = "Boolean.valueOf("+def+")";
+        }
+        return def;
+    }
 
     static private void _buildPropertyClass(StringBuffer buffer, String type)
     {

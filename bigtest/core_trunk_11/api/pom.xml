@@ -29,6 +29,12 @@
               <goal>build-metadata</goal>
             </goals>
           </execution>
+          <execution>
+            <id>makecomp</id>
+            <goals>
+              <goal>make-components</goal>
+            </goals>
+          </execution>          
         </executions>
       </plugin>    
       <plugin>
