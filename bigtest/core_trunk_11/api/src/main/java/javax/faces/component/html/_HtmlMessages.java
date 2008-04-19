@@ -18,7 +18,7 @@
 */
 package javax.faces.component.html;
 
-import javax.faces.component.UICommand;
+import javax.faces.component.UIMessages;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
@@ -26,32 +26,26 @@ import javax.faces.el.ValueBinding;
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
- *   name = "h:commandButton"
- *   class = "javax.faces.component.html.HtmlCommandButton"
- *   tagClass = "org.apache.myfaces.taglib.html.HtmlCommandButtonTag"
- *   desc = "h:commandButton"
+ *   name = "h:messages"
+ *   class = "javax.faces.component.html.HtmlMessages"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlMessagesTag"
+ *   desc = "h:messages"
  *   
- * @author Manfred Geiler (latest modification by $Author$)
+ * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class _HtmlCommandButton
-        extends UICommand implements _Focus_BlurProperties, 
-        _EventProperties, _StyleProperties, _UniversalProperties,
-        _AccesskeyProperty, _TabindexProperty, _AltProperty, 
-        _Change_SelectProperties, _Disabled_ReadonlyProperties
+abstract class _HtmlMessages extends UIMessages implements _StyleProperties, 
+    _MessageProperties
 {
-    public static final String COMPONENT_TYPE = "javax.faces.HtmlCommandButton";
-    private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Button";
-            
-    /**
-     * @JSFProperty
-     */
-    public abstract String getImage();
+    //------------------ GENERATED CODE BEGIN (do not modify!) --------------------
+
+    public static final String COMPONENT_TYPE = "javax.faces.HtmlMessages";
+    private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Messages";
 
     /**
      * @JSFProperty
-     *   defaultValue = "submit"
+     *   defaultValue = "list"
      */
-    public abstract String getType();
+    public abstract String getLayout();
 
 }

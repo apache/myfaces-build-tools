@@ -18,7 +18,7 @@
 */
 package javax.faces.component.html;
 
-import javax.faces.component.UICommand;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
@@ -26,32 +26,33 @@ import javax.faces.el.ValueBinding;
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
- *   name = "h:commandButton"
- *   class = "javax.faces.component.html.HtmlCommandButton"
- *   tagClass = "org.apache.myfaces.taglib.html.HtmlCommandButtonTag"
- *   desc = "h:commandButton"
- *   
- * @author Manfred Geiler (latest modification by $Author$)
+ *   name = "h:inputTextarea"
+ *   class = "javax.faces.component.html.HtmlInputTextarea"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlInputTextareaTag"
+ *   desc = "h:inputTextarea"
+ *
+ * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class _HtmlCommandButton
-        extends UICommand implements _Focus_BlurProperties, 
-        _EventProperties, _StyleProperties, _UniversalProperties,
-        _AccesskeyProperty, _TabindexProperty, _AltProperty, 
-        _Change_SelectProperties, _Disabled_ReadonlyProperties
+abstract class _HtmlInputTextarea extends UIInput implements _AccesskeyProperty,
+    _UniversalProperties, _Focus_BlurProperties, _Change_SelectProperties,
+    _EventProperties, _StyleProperties, _TabindexProperty, 
+    _Disabled_ReadonlyProperties
 {
-    public static final String COMPONENT_TYPE = "javax.faces.HtmlCommandButton";
-    private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Button";
-            
-    /**
-     * @JSFProperty
-     */
-    public abstract String getImage();
+
+    public static final String COMPONENT_TYPE = "javax.faces.HtmlInputTextarea";
+    private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Textarea";
 
     /**
      * @JSFProperty
-     *   defaultValue = "submit"
+     *   defaultValue = "Integer.MIN_VALUE"
      */
-    public abstract String getType();
+    public abstract int getCols();
+    
+    /**
+     * @JSFProperty
+     *   defaultValue = "Integer.MIN_VALUE"
+     */
+    public abstract int getRows();
 
 }
