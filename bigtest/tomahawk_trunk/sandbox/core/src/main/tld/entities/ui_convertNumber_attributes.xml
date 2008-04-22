@@ -1,0 +1,6 @@
+<attribute>
+    <name>destType</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>The java class name the value should be converted to. Default: automatically determined through valueBinding</description>
+</attribute>

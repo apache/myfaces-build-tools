@@ -1,0 +1,91 @@
+
+<!DOCTYPE tiles-definitions
+    [
+            <!ENTITY % Boolean "(true|false)">
+            <!ENTITY % ContentType "(string|template|definition|object)">
+            <!ENTITY % ClassName "CDATA">
+            <!ENTITY % RequestPath "CDATA">
+            <!ENTITY % DefinitionName "CDATA">
+            <!ENTITY % BeanName "CDATA">
+            <!ENTITY % PropName "CDATA">
+            <!ENTITY % Location "#PCDATA">
+            <!ELEMENT tiles-definitions (definition+)>
+            <!ELEMENT definition (icon?, display-name?, description?, put-attribute*, put-list-attribute*)>
+            <!ATTLIST definition       id               ID               #IMPLIED>
+            <!ATTLIST definition       preparer         CDATA      #IMPLIED>
+            <!ATTLIST definition       extends          CDATA #IMPLIED>
+            <!ATTLIST definition       name             CDATA #REQUIRED>
+            <!ATTLIST definition       role             CDATA            #IMPLIED>
+            <!ATTLIST definition       template         CDATA    #IMPLIED>
+            <!ELEMENT put-attribute (#PCDATA)>
+            <!ATTLIST put-attribute     id               ID              #IMPLIED>
+            <!ATTLIST put-attribute     name             CDATA           #REQUIRED>
+            <!ATTLIST put-attribute     type             (string|template|definition|object)   #IMPLIED>
+            <!ATTLIST put-attribute     value            CDATA           #IMPLIED>
+            <!ATTLIST put-attribute     role             CDATA            #IMPLIED>
+            <!ELEMENT put-list-attribute ( (add-attribute* | item* | bean* | add-list-attribute*)+) >
+            <!ATTLIST put-list-attribute id               ID              #IMPLIED>
+            <!ATTLIST put-list-attribute name             CDATA           #REQUIRED>
+            <!ATTLIST put-list-attribute role             CDATA            #IMPLIED>
+            <!ELEMENT add-attribute (#PCDATA)>
+            <!ATTLIST add-attribute              id               ID              #IMPLIED>
+            <!ATTLIST add-attribute              type             (string|template|definition|object)   #IMPLIED>
+            <!ATTLIST add-attribute              value            CDATA           #IMPLIED>
+            <!ATTLIST add-attribute              role             CDATA            #IMPLIED>
+            <!ELEMENT add-list-attribute ( (add-attribute* | item* | bean* | add-list-attribute*)+) >
+            <!ATTLIST add-list-attribute id               ID              #IMPLIED>
+            <!ATTLIST add-list-attribute role             CDATA            #IMPLIED>
+            <!ELEMENT bean (set-property*)>
+            <!ATTLIST bean             id               ID              #IMPLIED>
+            <!ATTLIST bean             classtype        CDATA     #REQUIRED>
+            <!ELEMENT set-property   EMPTY>
+            <!ATTLIST set-property   id             ID              #IMPLIED>
+            <!ATTLIST set-property   property       CDATA      #REQUIRED>
+            <!ATTLIST set-property   value          CDATA           #REQUIRED>
+            <!ELEMENT item (#PCDATA)>
+            <!ATTLIST item             id               ID              #IMPLIED>
+            <!ATTLIST item             classtype        CDATA     #IMPLIED>
+            <!ATTLIST item             icon             CDATA           #IMPLIED>
+            <!ATTLIST item             link             CDATA           #REQUIRED>
+            <!ATTLIST item             tooltip          CDATA           #IMPLIED>
+            <!ATTLIST item             value            CDATA           #REQUIRED>
+            <!ELEMENT description    (#PCDATA)>
+            <!ATTLIST description    id             ID              #IMPLIED>
+            <!ELEMENT display-name (#PCDATA)>
+            <!ATTLIST display-name   id             ID              #IMPLIED>
+            <!ELEMENT icon           (small-icon?, large-icon?)>
+            <!ATTLIST icon           id             ID              #IMPLIED>
+            <!ELEMENT large-icon     (#PCDATA)>
+            <!ATTLIST large-icon     id             ID              #IMPLIED>
+            <!ELEMENT small-icon     (#PCDATA)>
+            <!ATTLIST small-icon     id             ID              #IMPLIED>
+
+    ]>
+
+<tiles-definitions>
+    <definition name="layout.example" template="/template/template.jsp" >
+        <put-attribute name="header" value="/common/header.jsp" />
+        <put-attribute name="menu" value="/common/navigation.jsp" />
+    </definition>
+
+    <definition name="/page1.tiles" extends="layout.example" >
+        <put-attribute name="body" value="/page1.jsp" />
+    </definition>
+
+    <definition name="/page2.tiles" extends="layout.example" >
+        <put-attribute name="body" value="/page2.jsp" />
+    </definition>
+
+<!-- workaround for non-tiles JSF pages-->
+    <definition name="non.tiles1" template="/non-tile.jsp" />
+
+<!-- nested tiles definition -->
+    <definition name="nested.example" template="/template/template2.jsp" >
+        <put-attribute name="nested1" value="/common/nested1.jsp" />
+        <put-attribute name="nested2" value="/common/nested2.jsp" />
+    </definition>
+    <definition name="/page4.tiles" extends="layout.example" >
+        <put-attribute name="body" value="nested.example" />
+    </definition>
+
+</tiles-definitions>

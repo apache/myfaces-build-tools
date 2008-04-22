@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                Validate by comparing this component value to another component value
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not Available</p> <!-- replace with either a figure or Not Available -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">validatorId</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.validator.CompareTo</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">validator-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.comparetovalidator.CompareToValidator</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.comparetovalidator.ValidateCompareToTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">&lt;t:inputCalendar id="startDate"/&gt;
+&lt;t:inputCalendar id="endDate"&gt;
+    &lt;s:validateCompareTo operator="gt" for="startDate" /&gt;
+    &lt;s:validateCompareTo operator="gt" for="startDate" message="Start date must be before end date." /&gt;
+    &lt;s:validateCompareTo operator="gt" for="startDate" message="{0} must be {2} {3}" /&gt;
+    &lt;s:validateCompareTo operator="gt" for="startDate" alternateOperatorName="after" /&gt;
+    &lt;s:validateCompareTo operator="gt" for="startDate" message="{0} must be {2} {3}" alternateOperatorName="after" /&gt;
+    &lt;s:validateCompareTo operator="gt" for="startDate" comparator="#{dateComparator}" /&gt;
+&lt;t:inputCalendar&gt;</source>
+        </section>
+        
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;s:validateCompareTo/&gt;</h3>
+                <code>for - Required reference to another component.</code><br/>
+                <code>operator - Required operator for comparison: </code><br/>
+                <code>....equals:                  eq, ==, =,</code><br/>
+                <code>....not equals:              ne, !=,</code><br/>
+                <code>....greater than:            gt, &gt;,</code><br/>
+                <code>....less than:               lt, &lt;,</code><br/>
+                <code>....greater than or equals:  ge, &gt;=,</code><br/>
+                <code>....less than or equals:     le, &lt;=</code><br/>
+                <code>comparator - Optional value binding for an alternate java.util.Comparator object if component values don't implement Comparable</code><br/>
+                <code>message - Optional alternate validation error message format string where</code><br/>
+                <code>....{0} is the parent component id,</code><br/>
+                <code>....{1} is the parent component value,</code><br/>
+                <code>....{2} is the operator name,</code><br/>
+                <code>....{3} is the foreign component id, and</code><br/>
+                <code>....{4} is the foreign component value.</code><br/>
+                <code>alternateOperatorName = Optional custom operator name in error message (ie "after" instead of "greater than" for dates)</code><br/>
+            </blockquote>
+        </section>
+        
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+				If the comparator attribute is specified, the component values are compared
+				using the specified java.util.Comparator object.  If no comparator is specified, the
+				component values must implement Comparable and are compared using compareTo().
+				If either value or foreign value does not implement Comparable and no Comparator
+				is specified, validation always succeeds.
+            </p>
+            <p>
+				Put this validator on the bottom-most component to insure that
+				the foreign component's value has been converted and validated first.
+				However, this validator will attempt to convert and validate the foreign
+				component's value if this has not already occurred.  This process may not
+				be identical to the standard JSF conversion and validation process.
+            </p>
+            <p>See "myfaces-example-sandbox/validateCompareTo.jsp" for an example.</p>
+        </section>
+
+        <!-- Additional Information -->
+        <section name="Known issues">
+            
+            <p>
+				The validation error message key is currently hardcoded as
+				"{0} value &lt;{1}&gt; must be {2} {3} value &lt;{4}&gt;"
+				and should be localized.
+            </p>
+            <p>
+				Operator names should be localized.
+            </p>
+            <p>
+				Perhaps an exception should be thrown if the two values are not
+				Comparable and no Comparator is specified.
+            </p>
+        </section>        
+
+    </body>
+    
+
+</document>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                Renders a vertical menu structure with support for nested menu items.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/panelnavigation.png" alt="panelnavigation"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">since</td>
+                    <td colspan="1" rowspan="1">0.1.0 (former &lt;t:navigation&gt;)</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">author</td>
+                    <td colspan="1" rowspan="1">MyFaces Team</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Panel</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.Navigation</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.navigation.HtmlPanelNavigation</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.navigation.HtmlNavigationRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.navigation.HtmlPanelNavigationTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:panelNavigation [ standard HTML table attributes ]
+                      [itemClass="normal-menu-item-css-class"]
+                      [openItemClass="open-menu-item-css-class"]
+                      [activeItemClass="active-menu-item-css-class"]
+                      [separatorClass="separator-css-class"]
+                      [itemStyle="normal-menu-item-css-style"]
+                      [openItemStyle="open-menu-item-css-style"]
+                      [activeItemStyle="active-menu-item-css-style"]
+                      [separatorStyle="separator-css-style"]&gt;
+    Nested &lt;t:commandNavigation&gt; tags (menu items) and output components (separat
+&lt;/t:panelNavigation&gt;
+            </source>
+        </section>
+
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:panelNavigation&gt;</h3>
+                <code>[ standard HTML table attributes ]</code><br/>
+                <code>[itemClass="normal-menu-item-css-class"]</code><br/>
+                <code>[openItemClass="open-menu-item-css-class"]</code><br/>
+                <code>[activeItemClass="active-menu-item-css-class"]</code><br/>
+                <code>[separatorClass="separator-css-class"]</code><br/>
+                <code>[itemStyle="normal-menu-item-css-style"]</code><br/>
+                <code>[openItemStyle="open-menu-item-css-style"]</code><br/>
+                <code>[activeItemStyle="active-menu-item-css-style"]</code><br/>
+                <code>[separatorStyle="separator-css-style"]</code><br/>
+            </blockquote>
+        </section>
+
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                Body content must be a combination of &lt;t:commandNavigation&gt; tags
+                and standard output tags. Output tags are rendered as separators
+                and can be used to divide the menu into sections.
+            </p>
+        </section>        
+
+    </body>
+    
+
+</document>

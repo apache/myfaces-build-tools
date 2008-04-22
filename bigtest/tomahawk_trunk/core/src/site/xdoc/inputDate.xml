@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                An input text control for dates.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/inputdate.png" alt="inputdate"/></div>
+            <p/>
+          <!--  <figure src="images/inputdate2.png" alt="inputdate2"/> -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Input</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.Date</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.date.HtmlInputDate</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.date.HtmlDateRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.date.HtmlInputDateTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:inputDate type="{date|time|both|short_time|full}"
+                popupCalendar="{true|false}"
+                ampm="{true|false}"/&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:inputDate&gt;</h3>
+                <code>
+                    type - defines the content type. One of these constants (date | time | both | full | short_time).
+                </code>
+                <br/>
+                <code>popupCalendar - if true the value can be set using a popup inputCalendar component.</code><br/>
+                <code>
+                    ampm - If true, use 12hr times with AM/PM selector; if false, use 24hr time.  Default false.
+                </code>
+                <br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                see examples/date.jsp for an example!
+            </p>
+        </section>
+    </body>
+    
+
+</document>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component>
+    <component-class>org.apache.myfaces.custom.navigation.HtmlPanelNavigation</component-class>
+    <base-class>javax.faces.component.html.HtmlPanelGroup</base-class>
+    <component-type>org.apache.myfaces.HtmlPanelNavigation</component-type>
+    <component-family>javax.faces.Panel</component-family>
+    <renderer-type>org.apache.myfaces.Navigation</renderer-type>
+    <field>
+        <name>itemClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>openItemClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>activeItemClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>separatorClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>itemStyle</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>openItemStyle</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>activeItemStyle</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>separatorStyle</name>
+        <type>java.lang.String</type>
+    </field>
+</component>

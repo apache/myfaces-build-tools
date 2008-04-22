@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                The forceId attribute allows you to set
+                the id of a component to a fixed value.
+                This can be useful if you want to heavily use
+                (or reuse your preexisting) JavaScript libraries
+                or CSS-styles.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not available</p> <!-- replace with either a figure or Not Available -->
+            <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">attribute forceId</td>
+                    <td colspan="1" rowspan="1">
+                        On all MyFaces extended and custom components (all components
+                        in the extended taglib, usually prefixed with an 't')
+                        the forceId attribute can be set to true to force the desired id-value.
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;(anyCustomComponent) forceId="true" id="yourIdValue"/&gt;
+            </source>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                An example:<br/>
+                if you want to use the panelGroup control with a predefined id of "foo", 
+                you include the markup
+                <code>&lt;t:panelGroup id="foo" forceId="true"/&gt;</code>
+                into your JSP-file.
+            </p>
+        </section>
+    </body>
+    
+
+</document>

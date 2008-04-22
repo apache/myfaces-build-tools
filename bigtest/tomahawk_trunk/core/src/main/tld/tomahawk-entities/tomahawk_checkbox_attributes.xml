@@ -1,0 +1,17 @@
+        <!-- HtmlCheckbox attributes -->
+        <attribute>
+            <name>for</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                id of the referenced extended selectManyCheckbox component
+            </description>
+        </attribute>
+        <attribute>
+            <name>index</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                n-th SelectItem of referenced UISelectMany starting with 0.
+            </description>
+        </attribute>

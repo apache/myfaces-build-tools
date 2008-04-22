@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                PanelNavigation2 is the successor of PanelNavigation.
+                The menu is rendered as unordered List instead of a Table. Morever the menu-tree
+                can be dynamically build using NavigationMenuItem(s). If you want to explore
+                the features of panelNavigation2 visit the http://www.irian.at/myfaces/home.jsf.
+            </p>
+            <p>
+            Many thanks to Swiss Federal Institute of Intellectual Property &amp; Marc Bouquet
+            for helping to develop this component.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/panelnavigation2.png" alt="panelnavigation2"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">since</td>
+                    <td colspan="1" rowspan="1">0.1.0 (former &lt;t:navigation&gt;)</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">author</td>
+                    <td colspan="1" rowspan="1">MyFaces Team</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Panel</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.NavigationMenu</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.navmenu.htmlnavmenu.HtmlPanelNavigationMenu</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.navmenu.htmlnavmenu.HtmlNavigationMenuRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.navmenu.htmlnavmenu.HtmlPanelNavigationMenuTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:panelNavigation2 [ standard HTML table attributes ]
+                      [itemClass="normal-menu-item-css-class"]
+                      [openItemClass="open-menu-item-css-class"]
+                      [activeItemClass="active-menu-item-css-class"]
+                      [separatorClass="separator-css-class"]
+                      [itemStyle="normal-menu-item-css-style"]
+                      [openItemStyle="open-menu-item-css-style"]
+                      [activeItemStyle="active-menu-item-css-style"]
+                      [separatorStyle="separator-css-style"]&gt;
+    Nested &lt;t:commandNavigation2&gt; tags (menu items) and output components
+       &lt;t:navigationMenuItem&gt; tags (NavigationMenuItem)
+       &lt;t:navigationMenuItems&gt; tags (NavigationMenuItem(s))
+                &lt;/t:panelNavigation&gt;
+            </source>
+        </section>
+
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:panelNavigation2&gt;</h3>
+                <code>[ standard HTML table attributes ]</code><br/>
+                <code>[itemClass="normal-menu-item-css-class"]</code><br/>
+                <code>[openItemClass="open-menu-item-css-class"]</code><br/>
+                <code>[activeItemClass="active-menu-item-css-class"]</code><br/>
+                <code>[separatorClass="separator-css-class"]</code><br/>
+                <code>[itemStyle="normal-menu-item-css-style"]</code><br/>
+                <code>[openItemStyle="open-menu-item-css-style"]</code><br/>
+                <code>[activeItemStyle="active-menu-item-css-style"]</code><br/>
+                <code>[separatorStyle="separator-css-style"]</code><br/>
+            </blockquote>
+        </section>
+
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                See PanelNavigation Examples http://www.irian.at/myfaces/home.jsf.
+            </p>
+        </section>        
+
+    </body>
+    
+
+</document>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE faces-config PUBLIC
+          "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+          "http://java.sun.com/dtd/web-facesconfig_1_1.dtd"[
+<!ENTITY beans  SYSTEM "beans.xml">
+<!ENTITY navigation  SYSTEM "navigation.xml">
+]>
+          
+<faces-config>        
+    <application>
+        <!--<default-render-kit-id>WML_BASIC</default-render-kit-id>-->
+        <default-render-kit-id>WML_BASIC</default-render-kit-id>
+    </application>    
+
+    <converter>
+        <converter-id>MyConv</converter-id>
+        <converter-class>javax.faces.convert.DateTimeConverter</converter-class>
+    </converter>
+    <!--<validator>
+        <validator-id>LRValidator</validator-id>
+        <validator-class>javax.faces.validator.LongRangeValidator</validator-class>
+    </validator>-->
+
+    &beans;    
+    &navigation;        
+    
+</faces-config>

@@ -1,0 +1,134 @@
+<attribute>
+	<name>spellchecker</name>
+	<required>true</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>Reference to the method which checks the input.</description>
+</attribute>
+<attribute>
+	<name>width</name>
+	<required>true</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description></description>
+</attribute>
+<attribute>
+	<name>height</name>
+	<required>true</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description></description>
+</attribute>
+<attribute>
+	<name>zoomWidth</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description></description>
+</attribute>
+<attribute>
+	<name>zoomHeight</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description></description>
+</attribute>
+
+<attribute>
+	<name>id</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>Every component may have an unique id. Automatically created if omitted.</description>
+</attribute>
+<attribute>
+	<name>rendered</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>If false, this component will not be rendered.</description>
+</attribute>
+<attribute>
+	<name>binding</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>Component binding.</description>
+</attribute>
+<attribute>
+	<name>value</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>Initial value to set when rendered for the first time.</description>
+</attribute>
+<attribute>
+	<name>required</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+
+	<description>Required attribute</description>
+</attribute>
+<attribute>
+	<name>javascriptLocation</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>An alternate location to find javascript resources. If no values is specified, javascript will be loaded from the resources directory using AddResource and ExtensionsFilter.</description>
+</attribute>
+<attribute>
+	<name>textSpellcheck</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description></description>
+</attribute>
+<attribute>
+	<name>textResume</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description></description>
+</attribute>
+<attribute>
+	<name>textWorking</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description></description>
+</attribute>
+<attribute>
+	<name>textChecking</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description></description>
+</attribute>
+<attribute>
+	<name>textNoMisspellings</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description></description>
+</attribute>
+<attribute>
+	<name>disabled</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>HTML: When true, this element cannot receive focus.</description>
+</attribute>
+<attribute>
+	<name>readonly</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>HTML: When true, indicates that this component cannot be modified by the user. The element may receive focus unless it has also been disabled.</description>
+</attribute>
+<attribute>
+	<name>controlMode</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>possible modes, editfield, pagelet, pagelet-editfield others to follow, default editfield</description>
+</attribute>

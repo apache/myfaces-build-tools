@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+
+<document>
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            <p>
+                Renders a schedule component, showing appointments and events
+                in a day, workweek, week or month view, similar to the schedule
+                part of MS Outlook or Evolution.
+            </p>
+            <p>
+                The component is backed by an implementation of the
+                ScheduleModel interface. Creating a custom model can be easily
+                achieved by implementing this interface, or by overriding
+                the AbstractScheduleModel class.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            <p>Month mode</p>
+            <div><img src="images/schedule1.png" alt="schedule month mode"/></div>
+            <p>Workweek mode</p>
+            <div><img src="images/schedule2.png" alt="schedule workweek mode"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            <table>
+                <tr>
+                    <td>author</td>
+                    <td>Jurgen Lust</td>
+                </tr>
+                <tr>
+                    <td>component-family</td>
+                    <td>javax.faces.Panel</td>
+                </tr>
+                <tr>
+                    <td>renderer-type</td>
+                    <td>org.apache.myfaces.Schedule</td>
+                </tr>
+                <tr>
+                    <td>component-class</td>
+                    <td>org.apache.myfaces.custom.schedule.HtmlSchedule</td>
+                </tr>
+                <tr>
+                    <td>renderer-class</td>
+                    <td>org.apache.myfaces.custom.schedule.renderer.ScheduleDelegatingRenderer</td>
+                </tr>
+                <tr>
+                    <td>tag-class</td>
+                    <td>org.apache.myfaces.custom.schedule.ScheduleTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            <source xml:space="preserve">
+&lt;s:schedule [ UI component attributes ]
+               [ UI command attributes ]
+               [value="#{backingBean.scheduleModel}"]
+               [visibleStartHour="7"]
+               [visibleEndHour="21"]
+               [workingStartHour="9"]
+               [workingEndHour="17"]
+               [readonly={true|false}]
+               [submitOnClick={true|false}]
+               [mouseListener="#{backingBean.scheduleClicked}"]
+               [tooltip={true|false}]
+               [theme={default|outlookxp|evolution}]
+               [headerDateFormat="dd-MM-yyyy"]
+               [compactWeekRowHeight="200"]
+               [compactMonthRowHeight="100"]&gt;
+&lt;/s:schedule&gt;
+            </source>
+        </section>
+        
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <note label="&lt;x:schedule/&gt;">
+                <code>
+                    value - This must be a value binding expression that points to an instance of ScheduleModel.
+                </code>
+                <br/>
+                <code>
+                    visibleStartHour - Integer value indicating the first hour of the day that should be visible in the schedule
+                </code>
+                <br/>
+                <code>
+                    visibleEndHour - Integer value indicating the last hour of the day that should be visible in the schedule
+                </code>
+                <br/>
+                <code>
+                    workingStartHour - Integer value indicating the start of the working day. Everything before this hour will be grayed out
+                </code>
+                <br/>
+                <code>
+                    workingEndHour - Integer value indicating the end of the working day. Everything after this hour will be grayed out
+                </code>
+                <br/>
+                <code>
+                    readonly - When a schedule is read-only, no entries can be selected
+                </code>
+                <br/>
+                <code>
+                	submitOnClick - When this is true AND the readonly property is set to false, then clicking anywhere on the schedule, but outside an entry box, will submit the form, posting the date and the time of day that was clicked.
+                </code>
+                <code>
+                	mouseListener - a Method Binding with parameter of type ScheduleMouseEvent. This allows a backing bean to listen for mouse click events on the schedule.
+                </code>
+                <br/>
+                <code>
+                    tooltip - Determines whether or not tooltips will be displayed for schedule entries
+                </code>
+                <br/>
+                <code>
+                    renderZeroLengthEntries - Normally, when an entry has the same start- and endtime, it is not rendered in the detailed views. Setting this to 'true' forces such entries to be rendered. The size of the entry box is then adapted to fit the text in it.
+                </code>
+                <br/>
+                <code>
+                    expandToFitEntries - By default, if an appointment exists outside the visibleStartHour/visibleEndHour limits, it does not appear in the day or workweek modes. This setting checks for events outside the visible range and extends the visible range to display the events. If events only occur within the visible range, then no adjustment is made.
+                </code>
+                <br/>
+                <code>
+                    theme - The name of the theme that should be used when rendering the schedule. Available themes are 'default', 'outlookxp' and 'evolution'
+                </code>
+                <br/>
+                <code>
+                    headerDateFormat - If you want to override the Locale dateFormat for displaying the date in the header, you can specify the custom format here
+                </code>
+                <br/>
+                <code>
+                    compactWeekRowHeight - The height in pixels of a row in the week view (defaults to 200)
+                </code>
+                <br/>
+                <code>
+                    compactMonthRowHeight - The height in pixels of a row in the month view (defaults to 100)
+                </code>
+                <br/>
+                <code>
+                    entryRenderer - value binding to an instance of ScheduleEntryRenderer that is used to render entries on the schedule. (default: DefaultScheduleEntryRenderer)
+                </code>
+                <br/>
+                <code>
+                    columnClass - css class for columns in the detailed mode (default: column)
+                </code>
+                <br/>
+                <code>
+					backgroundClass - css class for the background of the detailed mode (default: background)                   
+                </code>
+                <br/>
+                <code>
+					freeClass - css class for non-working hours in the detailed mode (default: free)
+                </code>
+                <br/>
+                <code>
+					evenClass - css class for even rows in the detailed mode (default: even)                    
+                </code>
+                <br/>
+                <code>
+                    unevenClass - css class for uneven rows in the detailed mode (default: uneven)
+                </code>
+                <br/>
+                <code>
+                    gutterClass - the css class of a td in the gutter on the left, containing hours of the day (default: gutter)
+                </code>
+                <br/>
+                <code>
+					headerClass - the css class of a td in the header, containing dates (default: header) 
+                </code>
+                <br/>
+                <code>
+                    dateClass - the css class of the span around the date in the header (default: date)
+                </code>
+                <br/>
+                <code>
+                    holidayClass - the css class of the span around a holiday name in the header (default: holiday)                   
+                </code>
+                <br/>
+                <code>
+                    hoursClass - the css class of the span around the hour in the gutter (default: hours)
+                </code>
+                <br/>
+                <code>
+                    minutesClass - the css class of the span around the minutes in the gutter (default: minutes)
+                </code>
+                <br/>
+                <code>
+                    selectedEntryClass - the css class of the div around a selected entry (default: entry-selected)
+                </code>
+                <br/>
+                <code>
+                    textClass - the css class of the div around the contents of an entry in the detailed mode, when using the DefaultScheduleEntryRenderer (default: text)
+                </code>
+                <br/>
+                <code>
+                    titleClass - the css class of the span around the title of an entry in the detailed mode, when using the DefaultScheduleEntryRenderer (default: title)
+                </code>
+                <br/>
+                <code>
+                    subtitleClass - the css class of the span around the subtitle of an entry in the detailed mode, when using the DefaultScheduleRenderer (default: subtitle)
+                </code>
+                <br/>
+                <code>
+                    entryClass - the css class of the div around an entry (default: entry)
+                </code>
+                <br/>
+                <code>
+                    foregroundClass - the css class of the div containing the foreground table (default: foreground)
+                </code>
+                <br/>
+                <code>
+                    dayClass - the css class of the td representing a day in the compact mode (default: day)
+                </code>
+                <br/>
+                <code>
+                    inactiveDayClass: the css class of the td representing an inactive day in the compact mode (default: inactive-day)
+                </code>
+                <br/>
+                <code>
+                    contentClass - the css class of the td containing the entries of a day in the compact mode (default: content)
+                </code>
+                <br/>
+                <code>
+                    selectedClass: the css class of a selected entry in the compact mode (default: selected)
+                </code>
+                <br/>
+                <code>
+					monthClass - the css class of the table representing a month in the compact mode (default: month)
+                </code>
+                <br/>
+                <code>
+					weekClass - the css class of the table representing a week in the compact mode (default: week)
+                </code>
+                <br/>
+            </note>
+        </section>
+        
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            <p>see the Sandbox examples.</p>
+        </section>        
+
+    </body>
+
+</document>

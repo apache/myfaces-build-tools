@@ -1,0 +1,190 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hPanelGridTest</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">hPanelGridTest</td></tr>
+</thead><tbody>
+<!--
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+//-->
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/home.jsf</td>
+	<td></td>
+</tr>
+<!-- Load page to be tested-->
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/hPanelGrid.jsf</td>
+	<td></td>
+</tr>
+<!-- Test hPanelGrid -->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//table[@id='hPanelGrid']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']@class</td>
+	<td>tableClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']@lang</td>
+	<td>en</td>
+</tr>
+<!--Note: IE 6 and 7 returns the style attribute as [object] -->
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']@style</td>
+	<td>regexp:(\[object\]|background-color: silver;)</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']@summary</td>
+	<td>exact:h:panelGrid Summary</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']@title</td>
+	<td>exact:h:panelGrid Title</td>
+</tr>
+<!-- Test hPanelGrid Header -->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//table[@id='hPanelGrid']/thead</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//table[@id='hPanelGrid']/thead/tr/th</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/thead/tr/th@class</td>
+	<td>tableHeaderClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/thead/tr/th@colspan</td>
+	<td>4</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/thead/tr/th@scope</td>
+	<td>colgroup</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='hPanelGrid']/thead/tr/th</td>
+	<td>exact:Header for h:panelGrid</td>
+</tr>
+<!-- Test hPanelGrid Footer -->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//table[@id='hPanelGrid']/tfoot</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//table[@id='hPanelGrid']/tfoot/tr/td</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/tfoot/tr/td@class</td>
+	<td>tableFooterClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/tfoot/tr/td@colspan</td>
+	<td>4</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='hPanelGrid']/tfoot/tr/td</td>
+	<td>exact:Footer for h:panelGrid</td>
+</tr>
+<!-- Test hPanelGrid Body-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//table[@id='hPanelGrid']/tbody</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/tbody/tr[1]@class</td>
+	<td>oddRowClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/tbody/tr[2]@class</td>
+	<td>evenRowClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/tbody/tr[3]@class</td>
+	<td>oddRowClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/tbody/tr[4]@class</td>
+	<td>evenRowClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/tbody/tr[1]/td[1]@class</td>
+	<td>oddColumnClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//table[@id='hPanelGrid']/tbody/tr[1]/td[2]@class</td>
+	<td>evenColumnClass</td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//table[@id='hPanelGrid']/tbody/tr[1]/td[3]@class</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//table[@id='hPanelGrid']/tbody/tr[1]/td[4]@class</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='hPanelGrid']/tbody/tr[1]/td[4]</td>
+	<td>exact:1.4</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='hPanelGrid']/tbody/tr[4]/td[1]</td>
+	<td>exact:4.1</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

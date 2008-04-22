@@ -1,0 +1,82 @@
+<attribute>
+    <name>value</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>An EL expression that specifies the data model that backs this table.  The value can be of any type.
+
+    A value of type DataModel is used directly.  Array-like parameters of type java.util.List, array of Object,
+    java.sql.ResultSet, or javax.servlet.jsp.jstl.sql.Result are wrapped in a DataModel.
+
+    Other values are wrapped in a DataModel as a single row.</description>
+</attribute>
+
+<attribute>
+    <name>var</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>Defines the name of the request-scope variable that will hold the current row during iteration.  This value must be a static value.</description>
+</attribute>
+
+<attribute>
+    <name>styleClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>CSS style class attribute</description>
+</attribute>
+
+<attribute>
+    <name>headClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>default=fixedHeader see http://dojotoolkit.org filterTable</description>
+</attribute>
+
+<attribute>
+    <name>tbodyClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>default=scrollContent see http://dojotoolkit.org filterTable</description>
+</attribute>
+
+<attribute>
+    <name>multiple</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>default=true see http://dojotoolkit.org filterTable</description>
+</attribute>
+
+<attribute>
+    <name>alternateRows</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>default=true see http://dojotoolkit.org filterTable</description>
+</attribute>
+
+<attribute>
+    <name>maxSortable</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>default=1 see http://dojotoolkit.org filterTable</description>
+</attribute>
+
+
+<attribute>
+    <name>cellpadding</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>default=0</description>
+</attribute>
+
+<attribute>
+    <name>cellspacing</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>default=0</description>
+</attribute>
+
+<attribute>
+    <name>border</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>default=0</description>
+</attribute>

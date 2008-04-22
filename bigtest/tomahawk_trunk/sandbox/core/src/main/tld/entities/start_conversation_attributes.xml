@@ -1,0 +1,8 @@
+<attribute>
+    <name>persistence</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+       true|false - if this conversation requires a persistence manager. Default: false
+    </description>
+</attribute>

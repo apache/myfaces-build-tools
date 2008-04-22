@@ -1,0 +1,168 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hFormWithSelectsTest</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">hFormWithSelectsTest</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/home.jsf</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/hFormWithSelects.jsf</td>
+	<td></td>
+</tr>
+<!-- Testing h:selectBooleanCheckbox -->
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="selectBooleanCheckboxForm:hSelectBooleanCheckboxFalse"]@type</td>
+	<td>checkbox</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>//input[@id="selectBooleanCheckboxForm:hSelectBooleanCheckboxFalse"]</td>
+	<td>off</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>//input[@id="selectBooleanCheckboxForm:hSelectBooleanCheckboxTrue"]</td>
+	<td>on</td>
+</tr>
+<!-- Testing h:selectManyCheckbox -->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>document.forms[1].elements['selectManyCheckboxForm:hSelectManyCheckbox'][0]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTable</td>
+	<td>selectManyCheckboxForm:hSelectManyCheckbox.0.0</td>
+	<td>Check Box 1</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@name="selectManyCheckboxForm:hSelectManyCheckbox" and @value="CB2"]@disabled</td>
+	<td>glob:*</td>
+</tr>
+<!-- Testing h:selectManyCheckbox  Page Direction -->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//table[@id="selectManyCheckboxPageDirectionForm:hSelectManyCheckbox"]//tr[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//table[@id="selectManyCheckboxPageDirectionForm:hSelectManyCheckbox"]//tr[6]</td>
+	<td></td>
+</tr>
+<!-- Testing h:selectManyCheckbox  Line Direction -->
+<tr>
+	<td>verifyAttribute</td>
+	<td>//table[@id="selectManyCheckboxLineDirectionForm:hSelectManyCheckbox"]@border</td>
+	<td>3</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//table[@id="selectManyCheckboxLineDirectionForm:hSelectManyCheckbox"]//tr/td[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//table[@id="selectManyCheckboxLineDirectionForm:hSelectManyCheckbox"]//tr/td[6]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementNotPresent</td>
+	<td>//table[@id="selectManyCheckboxLineDirectionForm:hSelectManyCheckbox"]//tr[2]</td>
+	<td></td>
+</tr>
+<!-- Testing h:selectManyListBoxForm" -->
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectManyListBoxForm:hSelectManyListbox"]@size</td>
+	<td>2</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectManyListBoxForm:hSelectManyListbox"]@accesskey</td>
+	<td>A</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectManyListBoxForm:hSelectManyListbox"]@onselect</td>
+	<td>onSelect</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectManyListBoxForm:hSelectManyListbox"]/option[1]@value</td>
+	<td>LB1</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectManyListBoxForm:hSelectManyListbox"]//option[@value="LB2"]@disabled</td>
+	<td>glob:*</td>
+</tr>
+<!-- Testing h:selectManyMenuForm" -->
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectManyMenuForm:hSelectManyMenu"]@size</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectManyMenuForm:hSelectManyMenu"]@accesskey</td>
+	<td>A</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectManyMenuForm:hSelectManyMenu"]@onselect</td>
+	<td>onSelect</td>
+</tr>
+<!-- Testing h:selectOneListboxForm" -->
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectOneListBoxForm:hSelectOneListbox"]@size</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectOneListBoxForm:hSelectOneListbox"]@accesskey</td>
+	<td>A</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectOneListBoxForm:hSelectOneListbox"]@onselect</td>
+	<td>onSelect</td>
+</tr>
+<!-- Testing h:selectOneMenuForm" -->
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectOneMenuForm:hSelectOneMenu"]@size</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectOneMenuForm:hSelectOneMenu"]@accesskey</td>
+	<td>A</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//select[@name="selectOneMenuForm:hSelectOneMenu"]@onselect</td>
+	<td>onSelect</td>
+</tr>
+<!-- Testing h:selectOneRadioForm" -->
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@name="selectOneRadioForm:hSelectOneRadio" and @value="RB1"]@type</td>
+	<td>radio</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

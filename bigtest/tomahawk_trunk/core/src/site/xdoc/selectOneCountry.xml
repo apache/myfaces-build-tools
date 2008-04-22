@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                A localized input control for ISO 3166 country codes (same as for for java.util.Locale.getCountry()).
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>TODO</p>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.SelectOne</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.SelectOneCountryRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.selectOneCountry.SelectOneCountry</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.selectOneCountry.SelectOneCountryRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.selectOneCountry.SelectOneCountryTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:selectOneCountry maxLength="int"&gt;
+	...(optional f:select* filters)...
+&lt;t:selectOneCountry/&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:inputDate&gt;</h3>
+                <code>
+                    maxLength - Integer equals to the maximum number of characters in the country name.
+                </code>
+                <br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                You can restrict the countries list by adding &lt;f:selectItem*/&gt; tags with the country codes.<br/>
+                Example : &lt;f:selectItem itemValue="DE"/&gt; &lt;f:selectItem itemValue="DO"/&gt; &lt;f:selectItem itemValue="FR"/&gt; ...
+            </p>
+        </section>
+    </body>
+    
+
+</document>

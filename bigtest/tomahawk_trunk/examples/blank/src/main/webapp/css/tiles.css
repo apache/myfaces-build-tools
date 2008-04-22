@@ -1,0 +1,23 @@
+body {
+    margin:12px 12px 0 9px;
+    padding:0;
+    background:#FFFFFF;
+}
+#level0 {
+}
+#level1 {
+}
+#level2 {
+    margin-left:150px;
+    padding:15px;
+}
+#topBar {
+    background:#B1D2EB;
+    padding:4px;
+}
+#lftBar {
+    background:#FC0;
+    position:absolute;
+    width:120px;
+    top:145px;
+}

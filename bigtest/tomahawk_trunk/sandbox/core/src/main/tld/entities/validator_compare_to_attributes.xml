@@ -1,0 +1,39 @@
+      <attribute>
+         <name>for</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+         <description>
+         The JSF id of the component with which to compare values.
+         </description>
+      </attribute>
+      <attribute>
+         <name>operator</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+         <description>
+         Operator for comparison: 
+			equals:                  eq, ==, =,
+			not equals:              ne, !=,
+			greater than:            gt, &gt;,
+			less than:               lt, &lt;,
+			greater than or equals:  ge, &gt;=,
+			less than or equals:     le, &lt;=
+         </description>
+      </attribute>
+      <attribute>
+         <name>comparator</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+         <description>
+         Value binding for an alternate java.util.Comparator object if component values don't implement Comparable
+         </description>
+      </attribute>
+      <attribute>
+         <name>alternateOperatorName</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+         <description>
+         custom operator name in error message (ie "after" instead of "greater than" for dates)
+         </description>
+      </attribute>
+      

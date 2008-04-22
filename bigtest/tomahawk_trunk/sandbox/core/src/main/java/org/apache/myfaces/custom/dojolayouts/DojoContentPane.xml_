@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component>
+    <component-class>org.apache.myfaces.custom.dojolayouts.DojoContentPane</component-class>
+    <base-class>javax.faces.component.UIOutput</base-class>
+    <component-type>org.apache.myfaces.DojoContentPane</component-type>
+    <component-family>javax.faces.Output</component-family>
+    <renderer-type>org.apache.myfaces.DojoContentPaneRenderer</renderer-type>
+    <field>
+        <name>sizeShare</name>
+        <type>Integer</type>
+    </field>
+</component>

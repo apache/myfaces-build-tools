@@ -1,0 +1,232 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hFormWithInputsTest</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">hFormWithInputsTest</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/home.jsf</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/hFormWithInputs.jsf</td>
+	<td></td>
+</tr>
+<!-- Testing h:OutputLabel and h:InputText -->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>textInputForm:hOutputText</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//label[@id="textInputForm:hOutputLabel"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//label[@id="textInputForm:hOutputLabel"]</td>
+	<td>Label</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//label[@id="textInputForm:hOutputLabel"]@for</td>
+	<td>textInputForm:hInputText</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputText"]@name</td>
+	<td>textInputForm:hInputText</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputText"]@type</td>
+	<td>text</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputText"]@value</td>
+	<td>text value</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>textInputForm:hInputText</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@type</td>
+	<td>text</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@value</td>
+	<td>text value</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@accesskey</td>
+	<td>K</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@alt</td>
+	<td>altText</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@dir</td>
+	<td>ltr</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@lang</td>
+	<td>en</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@maxlength</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@onblur</td>
+	<td>onBlur</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@onchange</td>
+	<td>onChange</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@onfocus</td>
+	<td>onFocus</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@onkeyup</td>
+	<td>onKeyUp</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@onkeydown</td>
+	<td>onKeyDown</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@onmousedown</td>
+	<td>onMouseDown</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@onmouseup</td>
+	<td>onMouseUp</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@onmouseover</td>
+	<td>onMouseOver</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@onmouseout</td>
+	<td>onMouseOut</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@onselect</td>
+	<td>onSelect</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@size</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@style</td>
+	<td>regexp:(\[object\]|font-weight: bold;)</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@class</td>
+	<td>Class</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@tabindex</td>
+	<td>7</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hInputTextWithAttributes"]@title</td>
+	<td>thisTitle</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@id="textInputForm:hReadOnlyInputText"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hReadOnlyInputText"]@readonly</td>
+	<td>readonly</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//input[@id="textInputForm:hDisabledInputText"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id="textInputForm:hDisabledInputText"]@disabled</td>
+	<td>disabled</td>
+</tr>
+<!-- Testing h:inputTextArea -->
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//textarea[@id="textAreaInputForm:hInputTextarea"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//textarea[@id="textAreaInputForm:hInputTextarea"]</td>
+	<td>Text Area</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//textarea[@id="textAreaInputForm:hInputTextareaWithAttributes"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//textarea[@id="textAreaInputForm:hInputTextareaWithAttributes"]</td>
+	<td>Text Area with attributes</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//textarea[@id="textAreaInputForm:hInputTextareaWithAttributes"]@cols</td>
+	<td>5</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//textarea[@id="textAreaInputForm:hInputTextareaWithAttributes"]@rows</td>
+	<td>10</td>
+</tr>
+
+
+</tbody></table>
+</body>
+</html>

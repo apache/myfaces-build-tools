@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component generateUserRoleMethods="true" >
+    <component-class>org.apache.myfaces.component.html.ext.HtmlMessages</component-class>
+    <base-class>javax.faces.component.html.HtmlMessages</base-class>
+    <component-type>org.apache.myfaces.HtmlMessages</component-type>
+    <renderer-type>org.apache.myfaces.Messages</renderer-type>
+    <field>
+        <name>summaryFormat</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>globalSummaryFormat</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>detailFormat</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>enabledOnUserRole</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>visibleOnUserRole</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>replaceIdWithLabel</name>
+        <type>boolean</type>
+    </field>
+    <field>
+        <name>forceRenderSpan</name>
+        <type>boolean</type>
+    </field>
+</component>

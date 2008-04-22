@@ -1,0 +1,8 @@
+      <attribute>
+         <name>for</name>
+         <required>false</required>
+         <rtexprvalue>false</rtexprvalue>
+         <description>
+         The JSF id of the component to receive focus.
+         </description>
+      </attribute>

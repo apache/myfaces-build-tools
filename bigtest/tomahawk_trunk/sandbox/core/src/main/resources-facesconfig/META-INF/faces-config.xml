@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE faces-config PUBLIC
+ "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+ "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
+<faces-config xmlns="http://java.sun.com/JSF/Configuration">
+
+  <!-- sandbox components -->
+
+  <component>
+    <component-type>org.apache.myfaces.LoadBundle</component-type>
+    <component-class>org.apache.myfaces.custom.loadbundle.LoadBundle</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.InputSuggestAjax</component-type>
+    <component-class>org.apache.myfaces.custom.suggestajax.inputsuggestajax.InputSuggestAjax</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.TableSuggestAjax</component-type>
+    <component-class>org.apache.myfaces.custom.suggestajax.tablesuggestajax.TableSuggestAjax</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.AjaxChildComboBox</component-type>
+    <component-class>org.apache.myfaces.custom.ajaxchildcombobox.AjaxChildComboBox</component-class>
+  </component>
+
+  <component>
+	<component-type>org.apache.myfaces.HtmlOutputTextFor</component-type>
+	<component-class>org.apache.myfaces.custom.suggestajax.tablesuggestajax.HtmlOutputText</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.HtmlSelectManyCheckboxAjax</component-type>
+    <component-class>org.apache.myfaces.custom.inputAjax.HtmlSelectManyCheckboxAjax</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.HtmlSelectOneRadioAjax</component-type>
+    <component-class>org.apache.myfaces.custom.inputAjax.HtmlSelectOneRadioAjax</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.InputTextAjax</component-type>
+    <component-class>org.apache.myfaces.custom.inputAjax.HtmlInputTextAjax</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.SelectBooleanCheckboxAjax</component-type>
+    <component-class>org.apache.myfaces.custom.inputAjax.HtmlSelectBooleanCheckboxAjax</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.HtmlCommandButtonAjax</component-type>
+    <component-class>org.apache.myfaces.custom.inputAjax.HtmlCommandButtonAjax</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.Listener</component-type>
+    <component-class>org.apache.myfaces.custom.inputAjax.Listener</component-class>
+  </component>
+
+  <component>
+     <component-type>org.apache.myfaces.Script</component-type>
+     <component-class>org.apache.myfaces.custom.script.Script</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.AutoUpdateDataTable</component-type>
+    <component-class>org.apache.myfaces.custom.autoupdatedatatable.AutoUpdateDataTable</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.HtmlAccordionPanel</component-type>
+    <component-class>org.apache.myfaces.custom.accordion.HtmlAccordionPanel</component-class>
+  </component>
+
+    <component>
+   		<component-type>org.apache.myfaces.Focus</component-type>
+   		<component-class>org.apache.myfaces.custom.focus.HtmlFocus</component-class>
+  	</component>
+
+  <component>
+    <component-type>org.apache.myfaces.HtmlForm</component-type>
+    <component-class>org.apache.myfaces.custom.form.HtmlForm</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.Fieldset</component-type>
+    <component-class>org.apache.myfaces.custom.fieldset.Fieldset</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.GraphicImageDynamic</component-type>
+    <component-class>org.apache.myfaces.custom.graphicimagedynamic.GraphicImageDynamic</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.OutputLinkDynamic</component-type>
+    <component-class>org.apache.myfaces.custom.outputlinkdynamic.OutputLinkDynamic</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.TogglePanel</component-type>
+    <component-class>org.apache.myfaces.custom.toggle.TogglePanel</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.ToggleGroup</component-type>
+    <component-class>org.apache.myfaces.custom.toggle.ToggleGroup</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.ToggleLink</component-type>
+    <component-class>org.apache.myfaces.custom.toggle.ToggleLink</component-class>
+  </component>
+  
+  <component>
+	<component-type>org.apache.myfaces.Scope</component-type>
+	<component-class>org.apache.myfaces.custom.scope.UIScope</component-class>
+  </component>
+
+  <component>
+	<component-type>org.apache.myfaces.StartConversation</component-type>
+	<component-class>org.apache.myfaces.custom.conversation.UIStartConversation</component-class>
+  </component>
+  <component>
+	<component-type>org.apache.myfaces.EndConversation</component-type>
+	<component-class>org.apache.myfaces.custom.conversation.UIEndConversation</component-class>
+  </component>
+  <component>
+	<component-type>org.apache.myfaces.SeparateConversationContext</component-type>
+	<component-class>org.apache.myfaces.custom.conversation.UISeparateConversationContext</component-class>
+  </component>
+  <component>
+	<component-type>org.apache.myfaces.Conversation</component-type>
+	<component-class>org.apache.myfaces.custom.conversation.UIConversation</component-class>
+  </component>
+  <component>
+    <component-type>org.apache.myfaces.EnsureConversation</component-type>
+    <component-class>org.apache.myfaces.custom.conversation.UIEnsureConversation</component-class>
+  </component>
+
+  <component>
+	<component-type>org.apache.myfaces.HtmlSelectManyPicklist</component-type>
+	<component-class>org.apache.myfaces.custom.picklist.HtmlSelectManyPicklist</component-class>
+  </component>
+
+  <component>
+	<component-type>org.apache.myfaces.SubForm</component-type>
+	<component-class>org.apache.myfaces.custom.subform.SubForm</component-class>
+  </component>
+
+  <component>
+	<component-type>org.apache.myfaces.SelectOneRow</component-type>
+	<component-class>org.apache.myfaces.custom.selectOneRow.SelectOneRow</component-class>
+  </component>
+
+
+  <component>
+	<component-type>org.apache.myfaces.StateChangedNotifier</component-type>
+	<component-class>org.apache.myfaces.custom.statechangednotifier.StateChangedNotifier</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.IfMessage</component-type>
+    <component-class>org.apache.myfaces.custom.ifmessage.IfMessage</component-class>
+  </component>
+
+  <component>
+  	<component-type>org.apache.myfaces.FishEyeList</component-type>
+  	<component-class>org.apache.myfaces.custom.fisheye.HtmlFishEyeNavigationMenu</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.FishEyeCommandLink</component-type>
+    <component-class>org.apache.myfaces.custom.fisheye.FishEyeCommandLink</component-class>
+  </component>
+
+ <component>
+    <component-type>org.apache.myfaces.TimedNotifier</component-type>
+    <component-class>org.apache.myfaces.custom.timednotifier.TimedNotifier</component-class>
+ </component>
+
+  <component>
+    <component-type>org.apache.myfaces.tomahawk.XmlTemplate</component-type>
+    <component-class>org.apache.myfaces.custom.template.XmlTemplate</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.PPRPanelGroup</component-type>
+    <component-class>org.apache.myfaces.custom.ppr.PPRPanelGroup</component-class>
+  </component>
+
+    <component>
+      <component-type>org.apache.myfaces.PPRSubmit</component-type>
+      <component-class>org.apache.myfaces.custom.ppr.PPRSubmit</component-class>
+    </component>
+
+  <component>
+    <component-type>org.apache.myfaces.DojoContentPane</component-type>
+    <component-class>org.apache.myfaces.custom.dojolayouts.DojoContentPane</component-class>
+  </component>
+	
+  <component>
+    <component-type>org.apache.myfaces.DojoSplitPane</component-type>
+    <component-class>org.apache.myfaces.custom.dojolayouts.DojoSplitPane</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.ModalDialog</component-type>
+    <component-class>org.apache.myfaces.custom.dialog.ModalDialog</component-class>
+  </component>
+  
+  <component>
+    <component-type>org.apache.myfaces.TitlePane</component-type>
+    <component-class>org.apache.myfaces.custom.dojolayouts.TitlePane</component-class>
+  </component>
+  
+  <component>
+    <component-type>org.apache.myfaces.SubmitOnEvent</component-type>
+    <component-class>org.apache.myfaces.custom.submitOnEvent.SubmitOnEvent</component-class>
+  </component>
+  
+  <component>
+		<component-type>org.apache.myfaces.ExcelExport</component-type>
+		<component-class>org.apache.myfaces.custom.excelexport.ExcelExport</component-class>
+  </component>
+
+  <component>
+		<component-type>org.apache.myfaces.PDFExport</component-type>
+		<component-class>org.apache.myfaces.custom.pdfexport.PDFExport</component-class>
+  </component>
+
+  <component>
+  	<component-type>org.apache.myfaces.FloatingPaneBase</component-type>
+  	<component-class>org.apache.myfaces.custom.dojolayouts.FloatingPaneBase</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.FilterTable</component-type>
+    <component-class>org.apache.myfaces.custom.table.FilterTable</component-class>
+  </component>
+
+    <component>
+      <component-type>org.apache.myfaces.SortableColumn</component-type>
+      <component-class>org.apache.myfaces.custom.table.SortableColumn</component-class>
+    </component>
+
+  <component>
+    <component-type>org.apache.myfaces.HtmlImageLoop</component-type>
+    <component-class>org.apache.myfaces.custom.imageloop.HtmlImageLoop</component-class>
+  </component>
+  
+  <component>
+    <component-type>org.apache.myfaces.ImageLoopItem</component-type>
+    <component-class>org.apache.myfaces.custom.imageloop.ImageLoopItem</component-class>
+  </component>
+  
+  <component>
+    <component-type>org.apache.myfaces.ImageLoopItems</component-type>
+    <component-class>org.apache.myfaces.custom.imageloop.ImageLoopItems</component-class>
+  </component>
+  
+  <component>
+  	<component-type>org.apache.myfaces.clientvalidation.ValidationScript</component-type>
+  	<component-class>org.apache.myfaces.custom.clientvalidation.validationscript.ValidationScript</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.UILimitRendered</component-type>
+    <component-class>org.apache.myfaces.custom.limitrendered.UILimitRendered</component-class>
+  </component>
+
+  <component>
+    <component-type>org.apache.myfaces.HtmlRoundedDiv</component-type>
+    <component-class>org.apache.myfaces.custom.roundeddiv.HtmlRoundedDiv</component-class>
+  </component>
+  
+  <component>
+	 <component-type>org.apache.myfaces.PasswordStrength</component-type>
+	 <component-class>org.apache.myfaces.custom.passwordStrength.PasswordStrengthComponent</component-class>
+  </component> 
+  
+  <component>
+	 <component-type>org.apache.myfaces.CAPTCHA</component-type>
+	 <component-class>org.apache.myfaces.custom.captcha.CAPTCHAComponent</component-class>
+  </component>   
+
+  <!-- sandbox converters -->
+
+  <converter>
+    <converter-id>org.apache.myfaces.custom.convertboolean.BooleanConverter</converter-id>
+    <converter-class>org.apache.myfaces.custom.convertboolean.BooleanConverter</converter-class>
+  </converter>
+
+  <converter>
+    <converter-id>org.apache.myfaces.custom.convertStringUtils.StringUtilsConverter</converter-id>
+    <converter-class>org.apache.myfaces.custom.convertStringUtils.StringUtilsConverter</converter-class>
+  </converter>
+
+  <converter>
+     <converter-id>org.apache.myfaces.custom.convertDateTime.DateTimeConverter</converter-id>
+     <converter-class>org.apache.myfaces.custom.convertDateTime.DateTimeConverter</converter-class>
+  </converter>
+
+  <converter>
+     <converter-id>org.apache.myfaces.custom.convertNumber.TypedNumberConverter</converter-id>
+     <converter-class>org.apache.myfaces.custom.convertNumber.TypedNumberConverter</converter-class>
+  </converter>
+
+  <!-- sandbox managed beans -->
+  <managed-bean>
+	<managed-bean-name>ScopeContainer</managed-bean-name>
+	<managed-bean-class>org.apache.myfaces.custom.scope.ScopeHolder</managed-bean-class>
+	<managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  
+  <managed-bean>
+		<managed-bean-name>CVCallsHolder</managed-bean-name>
+		<managed-bean-class>org.apache.myfaces.custom.clientvalidation.common.CVCallsHolder
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+  <!-- sandbox renderkit -->
+
+  <render-kit>
+
+    <render-kit-id>HTML_BASIC</render-kit-id>
+
+    <!-- extended standard renderers -->
+     <!-- todo: reenable this on purpose - I don't want freemarker in by default for all outputText's...
+     renderer>
+     	<component-family>javax.faces.Output</component-family>
+     	<renderer-type>javax.faces.Text</renderer-type>
+     	<renderer-class>org.apache.myfaces.renderkit.html.ext.HtmlOutputTextRenderer</renderer-class>
+     </renderer-->
+    
+     <renderer>
+         <component-family>javax.faces.Form</component-family>
+         <renderer-type>javax.faces.Form</renderer-type>
+         <renderer-class>org.apache.myfaces.renderkit.html.ext.HtmlFormRenderer</renderer-class>
+     </renderer>
+
+    <!-- custom component renderers -->
+    <renderer>
+      <component-family>javax.faces.Input</component-family>
+      <renderer-type>org.apache.myfaces.InputSuggest</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.suggest.InputSuggestRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+      <component-family>javax.faces.Input</component-family>
+      <renderer-type>org.apache.myfaces.InputSuggestAjax</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.suggestajax.inputsuggestajax.InputSuggestAjaxRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+      <component-family>javax.faces.Input</component-family>
+      <renderer-type>org.apache.myfaces.TableSuggestAjax</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.suggestajax.tablesuggestajax.TableSuggestAjaxRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+      <component-family>javax.faces.SelectOne</component-family>
+      <renderer-type>org.apache.myfaces.AjaxChildComboBox</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.ajaxchildcombobox.HtmlAjaxChildComboBoxRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+      <component-family>javax.faces.Command</component-family>
+      <renderer-type>org.apache.myfaces.CommandButtonAjax</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.inputAjax.HtmlCommandButtonAjaxRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+        <component-family>javax.faces.Output</component-family>
+        <renderer-type>org.apache.myfaces.Script</renderer-type>
+        <renderer-class>org.apache.myfaces.custom.script.ScriptRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+      <component-family>javax.faces.SelectMany</component-family>
+      <renderer-type>org.apache.myfaces.CheckboxAjax</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.inputAjax.HtmlSelectManyCheckboxAjaxRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+      <component-family>javax.faces.SelectOne</component-family>
+      <renderer-type>org.apache.myfaces.SelectOneRadioAjax</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.inputAjax.HtmlSelectOneRadioAjaxRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+      <component-family>org.apache.myfaces.SelectOneRow</component-family>
+      <renderer-type>org.apache.myfaces.SelectOneRow</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.selectOneRow.SelectOneRowRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+      <component-family>javax.faces.Input</component-family>
+      <renderer-type>org.apache.myfaces.InputTextAjax</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.inputAjax.HtmlInputTextAjaxRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+      <component-family>javax.faces.SelectBoolean</component-family>
+      <renderer-type>org.apache.myfaces.CheckboxAjax</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.inputAjax.HtmlSelectBooleanCheckboxAjaxRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+      <component-family>javax.faces.Data</component-family>
+      <renderer-type>org.apache.myfaces.AutoUpdateDataTable</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.autoupdatedatatable.AutoUpdateDataTableRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+       <component-family>javax.faces.Panel</component-family>
+       <renderer-type>org.apache.myfaces.AccordionPanel</renderer-type>
+       <renderer-class>org.apache.myfaces.custom.accordion.HtmlAccordionPanelRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+       <component-family>javax.faces.Output</component-family>
+       <renderer-type>org.apache.myfaces.Focus</renderer-type>
+       <renderer-class>org.apache.myfaces.custom.focus.HtmlFocusRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+       <component-family>javax.faces.Form</component-family>
+       <renderer-type>org.apache.myfaces.Form</renderer-type>
+       <renderer-class>org.apache.myfaces.custom.form.HtmlFormRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+       <component-family>javax.faces.Output</component-family>
+       <renderer-type>org.apache.myfaces.FieldsetRenderer</renderer-type>
+       <renderer-class>org.apache.myfaces.custom.fieldset.FieldsetRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+       <component-family>javax.faces.Graphic</component-family>
+       <renderer-type>org.apache.myfaces.GraphicImageDynamicRenderer</renderer-type>
+       <renderer-class>org.apache.myfaces.custom.graphicimagedynamic.GraphicImageDynamicRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+       <component-family>javax.faces.Output</component-family>
+       <renderer-type>org.apache.myfaces.OutputLinkDynamicRenderer</renderer-type>
+       <renderer-class>org.apache.myfaces.custom.outputlinkdynamic.OutputLinkDynamicRenderer</renderer-class>
+    </renderer>
+
+   <renderer>
+       <component-family>javax.faces.Panel</component-family>
+       <renderer-type>org.apache.myfaces.TogglePanel</renderer-type>
+       <renderer-class>org.apache.myfaces.custom.toggle.TogglePanelRenderer</renderer-class>
+    </renderer>
+
+   <renderer>
+       <component-family>javax.faces.Panel</component-family>
+       <renderer-type>org.apache.myfaces.ToggleGroup</renderer-type>
+       <renderer-class>org.apache.myfaces.custom.toggle.ToggleGroupRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+       <component-family>javax.faces.Output</component-family>
+       <renderer-type>org.apache.myfaces.ToggleLink</renderer-type>
+       <renderer-class>org.apache.myfaces.custom.toggle.ToggleLinkRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+		<component-family>javax.faces.Output</component-family>
+		<renderer-type>org.apache.myfaces.effect.EffectRenderer</renderer-type>
+		<renderer-class>org.apache.myfaces.custom.effect.EffectRenderer</renderer-class>
+	</renderer>
+
+
+
+    <renderer>
+        <component-family>javax.faces.SelectMany</component-family>
+        <renderer-type>org.apache.myfaces.PicklistRenderer</renderer-type>
+        <renderer-class>org.apache.myfaces.custom.picklist.HtmlPicklistRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+        <component-family>javax.faces.Message</component-family>
+        <renderer-type>org.apache.myfaces.MessageSandbox</renderer-type>
+        <renderer-class>org.apache.myfaces.custom.inputAjax.HtmlMessageRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+        <component-family>org.apache.myfaces.SubForm</component-family>
+        <renderer-type>org.apache.myfaces.SubForm</renderer-type>
+        <renderer-class>org.apache.myfaces.custom.subform.SubFormRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+        <component-family>javax.faces.Input</component-family>
+        <renderer-type>org.apache.myfaces.StateChangedNotifierRenderer</renderer-type>
+        <renderer-class>org.apache.myfaces.custom.statechangednotifier.StateChangedNotifierRenderer</renderer-class>
+    </renderer>
+
+
+
+    <renderer>
+        <component-family>javax.faces.Panel</component-family>
+        <renderer-type>org.apache.myfaces.IfMessageRenderer</renderer-type>
+        <renderer-class>org.apache.myfaces.custom.ifmessage.IfMessageRenderer</renderer-class>
+    </renderer>
+
+    <renderer>
+		<component-family>javax.faces.Data</component-family>
+		<renderer-type>org.apache.myfaces.FishEyeList</renderer-type>
+		<renderer-class>org.apache.myfaces.custom.fisheye.HtmlFishEyeNavigationMenuRenderer</renderer-class>
+	</renderer>
+
+    <renderer>
+        <component-family>javax.faces.Command</component-family>
+        <renderer-type>org.apache.myfaces.FishEyeCommandLink</renderer-type>
+        <renderer-class>org.apache.myfaces.custom.fisheye.HtmlFishEyeNavigationMenuRenderer</renderer-class>
+    </renderer>
+
+	<renderer>
+	    <component-family>javax.faces.Output</component-family>
+	    <renderer-type>org.apache.myfaces.TimedNotifierRenderer</renderer-type>
+	    <renderer-class>org.apache.myfaces.custom.timednotifier.TimedNotifierRenderer</renderer-class>
+	</renderer>
+
+    <renderer>
+	    <component-family>org.apache.myfaces.PPRPanelGroup</component-family>
+	    <renderer-type>org.apache.myfaces.PPRPanelGroup</renderer-type>
+	    <renderer-class>org.apache.myfaces.custom.ppr.PPRPanelGroupRenderer</renderer-class>
+	</renderer>
+
+      <renderer>
+          <component-family>org.apache.myfaces.PPRSubmit</component-family>
+          <renderer-type>org.apache.myfaces.PPRSubmit</renderer-type>
+          <renderer-class>org.apache.myfaces.custom.ppr.PPRSubmitRenderer</renderer-class>
+      </renderer>
+
+    <renderer>
+	    <component-family>javax.faces.Output</component-family>
+	    <renderer-type>org.apache.myfaces.DojoContentPaneRenderer</renderer-type>
+	    <renderer-class>org.apache.myfaces.custom.dojolayouts.DojoContentPaneRenderer</renderer-class>
+	</renderer>
+
+   <renderer>
+	    <component-family>javax.faces.Output</component-family>
+	    <renderer-type>org.apache.myfaces.DojoSplitPaneRenderer</renderer-type>
+	    <renderer-class>org.apache.myfaces.custom.dojolayouts.DojoSplitPaneRenderer</renderer-class>
+	</renderer>
+
+    <renderer>
+        <component-family>javax.faces.Panel</component-family>
+        <renderer-type>org.apache.myfaces.ModalDialog</renderer-type>
+        <renderer-class>org.apache.myfaces.custom.dialog.ModalDialogRenderer</renderer-class>
+    </renderer>
+
+  <renderer>
+     <component-family>javax.faces.Output</component-family>
+     <renderer-type>org.apache.myfaces.TitlePaneRenderer</renderer-type>
+     <renderer-class>org.apache.myfaces.custom.dojolayouts.TitlePaneRenderer</renderer-class>
+  </renderer>
+
+  <renderer>
+    <component-family>org.apache.myfaces.SubmitOnEvent</component-family>
+    <renderer-type>org.apache.myfaces.SubmitOnEvent</renderer-type>
+    <renderer-class>org.apache.myfaces.custom.submitOnEvent.SubmitOnEventRenderer</renderer-class>
+  </renderer>
+  
+  <renderer>
+	<component-family>org.apache.myfaces.Export</component-family>
+	<renderer-type>org.apache.myfaces.ExcelExportRenderer</renderer-type>
+    <renderer-class>org.apache.myfaces.custom.excelexport.ExcelExportRenderer</renderer-class>
+  </renderer>
+  
+  <renderer>
+	<component-family>org.apache.myfaces.Export</component-family>
+	<renderer-type>org.apache.myfaces.PDFExportRenderer</renderer-type>
+    <renderer-class>org.apache.myfaces.custom.pdfexport.PDFExportRenderer</renderer-class>
+  </renderer>  
+
+  <renderer>
+     <component-family>javax.faces.Output</component-family>
+     <renderer-type>org.apache.myfaces.FloatingPaneBaseRenderer</renderer-type>
+     <renderer-class>org.apache.myfaces.custom.dojolayouts.FloatingPaneBaseRenderer</renderer-class>
+  </renderer>
+
+   <renderer>
+      <component-family>javax.faces.Data</component-family>
+      <renderer-type>org.apache.myfaces.FilterTable</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.table.FilterTableRenderer</renderer-class>
+   </renderer>
+  
+
+   <!-- <renderer>
+        <component-family>javax.faces.Messages</component-family>
+        <renderer-type>org.apache.myfaces.MessagesSandbox</renderer-type>
+        <renderer-class>org.apache.myfaces.custom.inputAjax.HtmlMessagesRenderer</renderer-class>
+    </renderer> -->
+    
+    <renderer>
+      <component-family>javax.faces.Output</component-family>
+      <renderer-type>org.apache.myfaces.HtmlImageLoop</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.imageloop.HtmlImageLoopRenderer</renderer-class>
+    </renderer>
+    
+    <renderer>
+    	<component-family>org.apache.myfaces.clientvalidation</component-family>
+    	<renderer-type>org.apache.myfaces.clientvalidation.ValidationScriptRenderer</renderer-type>
+    	<renderer-class>org.apache.myfaces.custom.clientvalidation.validationscript.ValidationScriptRenderer</renderer-class>
+    </renderer>
+    
+	<renderer>
+            <component-family>javax.faces.Command</component-family>
+            <renderer-type>org.apache.myfaces.Button</renderer-type>
+            <renderer-class>org.apache.myfaces.renderkit.html.ext.HtmlButtonExRenderer</renderer-class>
+	</renderer>
+  
+    <renderer>
+      <component-family>javax.faces.Output</component-family>
+      <renderer-type>org.apache.myfaces.HtmlRoundedDiv</renderer-type>
+      <renderer-class>org.apache.myfaces.custom.roundeddiv.HtmlRoundedDivRenderer</renderer-class>
+    </renderer>
+    
+  	<renderer>
+  		<component-family>org.apache.myfaces.PasswordStrength</component-family>
+  		<renderer-type>org.apache.myfaces.PasswordStrength</renderer-type>
+  		<renderer-class>org.apache.myfaces.custom.passwordStrength.PasswordStrengthRenderer</renderer-class>
+  	</renderer>
+  	
+  	<renderer>
+  		<component-family>org.apache.myfaces.CAPTCHA</component-family>
+  		<renderer-type>org.apache.myfaces.CAPTCHA</renderer-type>
+  		<renderer-class>org.apache.myfaces.custom.captcha.CAPTCHARenderer</renderer-class>
+  	</renderer>  	
+  	
+  </render-kit>
+
+  <lifecycle>
+      <phase-listener>org.apache.myfaces.custom.ajax.api.AjaxDecodePhaseListener</phase-listener>
+  	  <phase-listener>org.apache.myfaces.custom.valueChangeNotifier.ValueChangePhaseListener</phase-listener>
+	  <phase-listener>org.apache.myfaces.custom.redirectTracker.RedirectTrackerPhaseListener</phase-listener>
+	  <phase-listener>org.apache.myfaces.custom.ppr.PPRPhaseListener</phase-listener>
+   	  <phase-listener>org.apache.myfaces.custom.excelexport.ExcelExportPhaseListener</phase-listener>
+   	  <phase-listener>org.apache.myfaces.custom.pdfexport.PDFExportPhaseListener</phase-listener>   	  
+  </lifecycle>
+
+  <application>
+    <variable-resolver>org.apache.myfaces.custom.redirectTracker.RedirectTrackerVariableResolver</variable-resolver>
+	<navigation-handler>org.apache.myfaces.custom.redirectTracker.RedirectTrackerNavigationHandler</navigation-handler>
+	<variable-resolver>org.apache.myfaces.custom.security.SecurityContextVariableResolver</variable-resolver>
+	<property-resolver>org.apache.myfaces.custom.security.SecurityContextPropertyResolver</property-resolver>
+  </application>
+
+    <factory>
+        <lifecycle-factory>org.apache.myfaces.custom.ppr.PPRLifecycleFactory</lifecycle-factory>
+    </factory>
+
+  <!--custom validators -->
+  <validator>
+      <validator-id>org.apache.myfaces.validator.Url</validator-id>
+      <validator-class>org.apache.myfaces.custom.urlvalidator.UrlValidator</validator-class>
+  </validator>
+  <validator>
+      <validator-id>org.apache.myfaces.validator.ISBN</validator-id>
+      <validator-class>org.apache.myfaces.custom.isbnvalidator.ISBNValidator</validator-class>
+  </validator>
+  <validator>
+      <description>CompareTo validator</description>
+      <validator-id>org.apache.myfaces.validator.CompareTo</validator-id>
+      <validator-class>org.apache.myfaces.custom.comparetovalidator.CompareToValidator</validator-class>
+  </validator>
+  <validator>
+      <validator-id>org.apache.myfaces.validator.csv</validator-id>
+      <validator-class>org.apache.myfaces.custom.csvvalidator.CSVValidator</validator-class>
+  </validator>
+  
+  <!-- extended converters and validators -->
+	<converter>
+		<converter-id>javax.faces.Integer</converter-id>
+		<converter-class>org.apache.myfaces.convert.ex.IntegerConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Integer</converter-for-class>
+		<converter-class>org.apache.myfaces.convert.ex.IntegerConverter</converter-class>
+	</converter>
+	<converter>
+        <converter-id>javax.faces.Double</converter-id>
+        <converter-class>org.apache.myfaces.convert.ex.DoubleConverter</converter-class>
+    </converter>
+	<converter>
+        <converter-for-class>java.lang.Double</converter-for-class>
+        <converter-class>org.apache.myfaces.convert.ex.DoubleConverter</converter-class>
+    </converter>
+    <converter>
+		<converter-id>javax.faces.Float</converter-id>
+		<converter-class>org.apache.myfaces.convert.ex.FloatConverter</converter-class>
+	</converter>
+    <converter>
+		<converter-for-class>java.lang.Float</converter-for-class>
+		<converter-class>org.apache.myfaces.convert.ex.FloatConverter</converter-class>
+	</converter>
+    <converter>
+		<converter-id>javax.faces.Long</converter-id>
+		<converter-class>org.apache.myfaces.convert.ex.LongConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Long</converter-for-class>
+		<converter-class>org.apache.myfaces.convert.ex.LongConverter</converter-class>
+	</converter>
+	    <converter>
+		<converter-id>javax.faces.Short</converter-id>
+		<converter-class>org.apache.myfaces.convert.ex.ShortConverter</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Short</converter-for-class>
+		<converter-class>org.apache.myfaces.convert.ex.ShortConverter</converter-class>
+	</converter>
+    
+	<validator>
+		<validator-id>javax.faces.Length</validator-id>
+		<validator-class>org.apache.myfaces.validator.ex.LengthValidator</validator-class>
+	</validator>
+	<validator>
+		<validator-id>javax.faces.LongRange</validator-id>
+		<validator-class>org.apache.myfaces.validator.ex.LongRangeValidator</validator-class>
+	</validator>
+	<validator>
+		<validator-id>javax.faces.DoubleRange</validator-id>
+		<validator-class>org.apache.myfaces.validator.ex.DoubleRangeValidator</validator-class>
+	</validator>
+
+</faces-config>

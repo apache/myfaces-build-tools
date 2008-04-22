@@ -1,0 +1,211 @@
+        <attribute>
+            <name>monthYearRowClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                CSS class to be used on the TR element for the header-row
+                showing month and year.
+            </description>
+        </attribute>
+        <attribute>
+            <name>weekRowClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                CSS class to be used on the TR element for the header-row
+                showing the week-days.
+            </description>
+        </attribute>
+        <attribute>
+            <name>dayCellClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                CSS class to be used for the TD element containing a day days.
+            </description>
+        </attribute>
+        <attribute>
+            <name>currentDayCellClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                CSS class to be used for the TD element of the currently
+                selected date.
+            </description>
+        </attribute>
+        <attribute>
+            <name>renderAsPopup</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Render the input-calendar as a java-script popup on client.</description>
+        </attribute>
+        <attribute>
+            <name>popupLeft</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Render the input-calendar left of the button, not right like normally done.</description>
+        </attribute>
+        <attribute>
+            <name>addResources</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Automatically add the input-calendar scripts and css files to
+                the header - set that to false to provide the scripts yourself.
+            </description>
+        </attribute>
+        <attribute>
+            <name>popupDateFormat</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Defines the date format used by the java-script popup on client.</description>
+        </attribute>
+        <attribute>
+            <name>popupButtonString</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Defines the string displayed on the button which leads to the
+                calendar-popup-window (... by default).
+            </description>
+        </attribute>
+        <attribute>
+            <name>popupButtonStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Defines the css style for the button which leads to the
+                calendar-popup-window.
+            </description>
+        </attribute>
+        <attribute>
+            <name>popupButtonStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Defines the css style class for the button which leads to the
+                calendar-popup-window.
+            </description>
+        </attribute>
+        <attribute>
+            <name>popupGotoString</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Set the string for "Go To Current Month"</description>
+        </attribute>
+        <attribute>
+            <name>popupTodayString</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Set the string for "Today is"</description>
+        </attribute>
+        <attribute>
+            <name>popupTodayDateFormat</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Defines the date format used by the java-script popup on client for the today-is string.</description>
+        </attribute>
+        <attribute>
+            <name>popupWeekString</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Set the string for "Wk"</description>
+        </attribute>
+        <attribute>
+            <name>popupScrollLeftMessage</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Set the string for scrolling to the left.</description>
+        </attribute>
+        <attribute>
+            <name>popupScrollRightMessage</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Set the string for scrolling to the right.</description>
+        </attribute>
+        <attribute>
+            <name>popupSelectMonthMessage</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Set the string for "Click to select a month".</description>
+        </attribute>
+        <attribute>
+            <name>popupSelectYearMessage</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Set the string for "Click to select a year".</description>
+        </attribute>
+        <attribute>
+            <name>popupSelectDateMessage</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Set the string for "Select [date] as date" (do not replace
+                [date], it will be replaced by the current date).
+            </description>
+        </attribute>
+        <attribute>
+            <name>popupTheme</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description><![CDATA[
+              <p>
+              When styleLocation is not overridden then this selects one of the
+              built-in themes ("WH" or "DB"); the default is "DB".
+              </p>
+              <p>
+              This also selects the prefix used for the names of style classes attached
+              to generated dom elements; all style names are of form "jscalendar-{popupTheme}-*".
+              </p>
+              ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>popupButtonImageUrl</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Url to the image for this popupButton.
+            </description>
+        </attribute>
+        <attribute>
+            <name>renderPopupButtonAsImage</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>If true, renders a calendar icon instead of the button to pop up the calendar.</description>
+        </attribute>
+        <attribute>
+            <name>helpText</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description><![CDATA[
+              <p>
+              A string that will be rendered into the input text field associated with a popup
+              when there is no date currently selected. This string typically describes the
+              expected date format that should be entered into this field (either directly
+              by the user, or by selecting an entry in the popup calendar).
+              </p>
+              <p>
+              This property has no effect for an inline calendar.
+              </p>
+              ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>popupSelectMode</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description><![CDATA[
+              <p>
+              May be "day", "week", "month" or "none":
+              <ul>
+              <li>day (default): allow the user to select a day.</li>
+              <li>week: only allow the user to select a week.</li>
+              <li>month: only allow the user to select a month.</li> 
+              <li>none: equivalent to "readonly".</li> 
+              </ul>
+              </p>
+              ]]>
+            </description>
+        </attribute>
+

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+
+<body>
+
+<section name="What is the Extensions Filter for?">
+
+	<p>
+		Some MyFaces components do more than include some HTML in the pages.
+	    They may need additional support scripts, style sheets, images, ...<br/>
+	    Those resources are included in the MyFaces' jar file and the Extensions Filter adds
+	    the code and URL needed to provide those resources to the generated HTML.
+	</p>
+	<p>
+		Some other components, like the file upload component (t:inputFileUpload), need to parse
+		Multipart requests.<br/>
+		The extensions filter handles this as well.
+	</p>
+</section>
+<section name="Why is this useful?">
+	<p>
+		
+	This design has several benefits :</p>
+	<ol>
+		<li>It provides a clean separation between MyFaces' components and your webapp.</li>
+		<li>You don't have to include additional MyFaces' components-related code or resources in your pages or webapp.</li>
+		<li>It provides flexibility so that the MyFaces' team can upgrade the components while keeping transparent backward compatibility.</li>
+		<li>It makes it possible for complex components to use many support resources without any burden on the page developer.</li>
+		<li>It loads only the resources useful for the rendered components.</li>
+		<li>It handles the MyFaces' resources caching.</li>
+	</ol>
+</section>
+<section name="How does it work?">
+	
+<p>	When a component needs a resource, it calls one of the org.apache.myfaces.component.html.util.AddResource methods
+	(for example AddResource.addJavaScriptToHeader(InputHtmlRenderer.class, "sarissa.js", context); ).<br/>
+	The AddResource methods add an attribute to the request so that the filter is notified to include the given javascript, stylesheet,
+	or resource link in the generated HTML for your JSF page.<br/>
+	The URL for an embedded resource begins with /faces/myFacesExtensionResource so that it can be intercepted by the filter
+	when the client needs to load the resource.<br/>
+	When the clients fetches the resource, the filter also decodes the URL, and serves the proper resource from the MyFaces' jar.</p>
+</section>
+<section name="How do I configure it?">
+	<p>
+	In your web.xml, map this filter to the path used for the JSF pages (most likely *.jsf)
+	so the filter can update resource links on your JSF pages, and also map the filter to the /faces/myFacesExtensionResource/* path
+	so it can serve page-independent resources like images, javascript files, and stylesheets.
+	Here's one example of configuring the extensions filter:</p>
+	<source xml:space="preserve">
+&lt;filter&gt;
+	&lt;filter-name&gt;MyFacesExtensionsFilter&lt;/filter-name&gt;
+	&lt;filter-class&gt;org.apache.myfaces.webapp.filter.ExtensionsFilter&lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;maxFileSize&lt;/param-name&gt;
+        &lt;param-value&gt;20m&lt;/param-value&gt;
+        &lt;description&gt;Set the size limit for uploaded files.
+            Format: 10 - 10 bytes
+                    10k - 10 KB
+                    10m - 10 MB
+                    1g - 1 GB
+        &lt;/description&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;
+
+&lt;!-- extension mapping for adding &lt;script/&gt;, &lt;link/&gt;, and other resource tags to JSF-pages  --&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;MyFacesExtensionsFilter&lt;/filter-name&gt;
+    &lt;!-- servlet-name must match the name of your javax.faces.webapp.FacesServlet entry --&gt;
+    &lt;servlet-name&gt;Faces Servlet&lt;/servlet-name&gt;
+&lt;/filter-mapping&gt;
+
+&lt;!-- extension mapping for serving page-independent resources (javascript, stylesheets, images, etc.)  --&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;MyFacesExtensionsFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/faces/myFacesExtensionResource/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+	</source>
+	<p>Alternate mapping using a url-pattern instead of a servlet-name (you still need the /faces/myFacesExtensionResource/* mapping as well):</p>
+	<source xml:space="preserve">
+&lt;!-- extension mapping for adding &lt;script/&gt;, &lt;link/&gt;, and other resource tags to JSF-pages  --&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;MyFacesExtensionsFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;*.jsf&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+	</source>
+</section>
+<section name="Under what circumstances am I *required* to use the extensions filter?">
+	<p>
+	If you just use standard JSF component, but don't use any MyFaces' extended component (beginning with t:),
+	then you don't need the Extensions Filter.<br/>
+	However, if you use some of the MyFaces' extended components like t:inputFileUpload, t:inputHtml, t:inputCalendar, ...
+	then you most likely need to have this filter configured in your webapp.
+</p>
+</section>
+<section name="Does this impact performance?">
+	<p>
+	The filter hasn't any significant impact the response time.<br/>
+	However, as the filter has to cache the whole response in memory before writing it out to the client, it slightly increases the memory usage.
+</p></section>
+</body>
+    
+
+
+</document>

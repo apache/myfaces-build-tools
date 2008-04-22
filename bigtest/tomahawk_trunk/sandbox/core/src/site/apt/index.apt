@@ -1,0 +1,16 @@
+ ------
+ Apache MyFaces - Sandbox
+ ------
+
+Summary
+
+	See also the component section of our {{{http://wiki.apache.org/myfaces/MyFacesComponents}WIKI}}	
+	(might be more complete than the information here).
+
+	The sandbox is a MyFaces subproject that is a testing ground for potential new additions to the Tomahawk project.  It 
+	primarily consists of components, but like the Tomahawk project, it can also contain validators and other useful JSF 
+	"goodies."
+
+	These components are a work in progress.  In many cases they are checked in without being 100% feature complete.  Testing 
+	is generally minimal and there is no guarantee that something you use in sandbox will ever be promoted to an official 
+	release in Tomahawk.

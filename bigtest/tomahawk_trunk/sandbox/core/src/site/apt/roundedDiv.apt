@@ -1,0 +1,100 @@
+~~~~~~~~~~~~~~~~~~~~
+Description
+  
+  The <<<roundedDiv>>> component creates a DIV tag that contains images to
+  produce rounded corners. The rounded effect can be either 3D with lighting effects
+  or 2D with a solid color border.
+      
+~~~~~~~~~~~~~~~~~~~~
+Screen Shot
+
+[images/roundedDiv.png]
+
+~~~~~~~~~~~~~~~~~~~~
+API
+  
+*--+--+
+component-family | javax.faces.Output
+*--+--+
+component-type | org.apache.myfaces.HtmlRoundedDiv
+*--+--+
+component-class | org.apache.myfaces.custom.roundeddiv.HtmlRoundedDiv
+*--+--+
+renderer-type | org.apache.myfaces.HtmlRoundedDiv
+*--+--+
+renderer-class | org.apache.myfaces.custom.roundeddiv.HtmlRoundedDivRenderer
+*--+--+
+tag-class | org.apache.myfaces.custom.roundeddiv.HtmlRoundedDivTag
+*--+--+
+  
+~~~~~~~~~~~~~~~~~~~~
+Usage
+	
++--------+	
+<s:roundedDiv
+  id="String"
+  binding="EL"
+  rendered="Boolean"
+  backgroundColor="Color|HEX Color String"
+  borderColor="Color|HEX Color String"
+  color="Color|HEX Color String"
+  borderWidth="Integer"
+  radius="Integer"
+  size="Dimension|String"
+  corners="String"
+  inverse="Boolean"
+  layout="table|div"
+  contentStyle="String"
+  contentStyleClass="String">
+  ...Contents...
+</s:roundedDiv>
++--------+
+
+~~~~~~~~~~~~~~~~~~~~
+Syntax
+
+* \<s:roundedDiv /\>
+
+	<<<backgroundColor>>> - The background color of the corners. If null, a transparent 
+	background is used. Supports <<<java.awt.Color>>> instance or <<<String>>> parsable by
+	<<<java.awt.Color.decode(String)>>>. If the user is using IE6, this has to be set,
+	or the corners will not look good due to IE6's lack of PNG support. (Default: null)
+	
+	<<<borderColor>>> - If set, a 2D border with this solid color will be used as the border. 
+	If null, a 3D border will be created. Supports <<<java.awt.Color>>> instance or 
+	<<<String>>> parsable by <<<java.awt.Color.decode(String)>>>. (Default: null)
+	
+	<<<color>>> (Required) - The foreground color. Supports <<<java.awt.Color>>> instance or 
+	<<<String>>> parsable by <<<java.awt.Color.decode(String)>>>.
+	
+	<<<borderWidth>>> - For 2D border, the size of the border in pixels, for 3D, the size
+	of the area of the lighting effect in pixels. Supports <<<Integer>>> or 
+	<<<String>>> parsable by <<<Integer.parseInt(String)>>>. (Default: 8)
+	
+	<<<radius>>> - The radius of the corners in pixels. Supports <<<Integer>>> or 
+	<<<String>>> parsable by <<<Integer.parseInt(String)>>>. (Default: 8)
+	
+	<<<size>>> - If given, a static size image will be produced. This could be
+  useful for older browsers. If not given, the DIV that will be created
+  will stretch to its contents using CSS2 (and CSS expressions in IE6).
+  Supports <<<java.awt.Dimension>>> or <<<String>>> that consists
+	of 2 numbers (typical format: WxH. Example: 640x480). (Default: null)
+	
+	<<<corners>>> - This allows you to specify a comma-separated list of corners to
+	include. If not given, all four corners will be rendered. The corners
+	include the sides they touch. So for example, if used as a tab for a 
+	tabbed pane, you could specify "topleft,topright" to have everything
+	but the bottom corners and side have the border. Valid values are:
+	topleft, topright, bottomright, bottomleft. (Default: null)
+	
+	<<<inverse>>> - Flips the lightening/darkening effect for 3D borders. 
+	(Default: false)
+	
+	<<<layout>>> - Either "table" or "div". Specifies how the output should be rendered.
+  Size must be null if using "table" (if it is not, a div will be rendered).
+  (Default: div)
+  
+  <<<contentStyle>>> - The CSS style to give to the content DIV or TD (based on layout)
+  
+  <<<contentStyleClass>>> - The CSS style class to give to the content DIV or TD (based on layout)
+  

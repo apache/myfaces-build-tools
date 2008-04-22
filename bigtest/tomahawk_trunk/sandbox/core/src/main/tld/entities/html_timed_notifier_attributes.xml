@@ -1,0 +1,29 @@
+<attribute>
+	<name>confirmationMessage</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>confirmation message to be displayed</description>
+</attribute>
+
+<attribute>
+	<name>disabled</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	
+	<description>HTML: When true, this element cannot receive focus.</description>
+</attribute>
+<attribute>
+	<name>showDelay</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>Delay from show to hide</description>
+</attribute>
+<attribute>
+	<name>hideDelay</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+	<description>Delay to being visible</description>
+</attribute>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                A picklist component is a selection component where a set of items 
+                can be selected from a list that contains all the available items to a list
+                that contains the selected items.
+            </p>
+            <p>
+                The component is based on the t:selectManyListbox component, so it contains
+                the same attributes. Soon, more specific attributes will be added.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/selectManyPicklist.jpg" alt="picklist"/></div>           
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">author</td>
+                    <td colspan="1" rowspan="1">Bruno Aranda</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.SelectMany</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.PicklistRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.picklist.HtmlSelectManyPicklist</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">rg.apache.myfaces.custom.picklist.HtmlPicklistRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.picklist.HtmlSelectManyPicklistTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;s:selectManyPicklist [ Standard selectManyListbox attributes ] /&gt;
+            </source>
+        </section>
+        
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;s:selectManyPicklist/&gt;</h3>
+                <code>
+                    In the current state, this component uses the same attributes than the h:selectManyListBox component. Specific attributes will be added soon.
+                </code>
+                <br/>
+            </blockquote>
+        </section>
+        
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>see sandbox/picklist.jsf for an example.</p>
+        </section>        
+
+    </body>
+    
+
+</document>

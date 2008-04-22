@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN"
+"http://maven.apache.org/dtd/maven-xdoc.dtd">
+<!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+-->
+<document>
+  <body>
+    <!-- Description -->
+
+    <section name="Description">
+      <p>The MyFacesDataTable extends the standard JSF DataTable by two
+      important features:</p>
+
+      <ul>
+        <li>Possiblity to save the state of the DataModel.</li>
+
+        <li>Support for clickable sort headers (see SortHeader
+        component).</li>
+      </ul>
+
+      <p>Extended data_table that adds some additional features to the
+      standard data_table action: see attribute descriptions for
+      preserveDataModel, sortColumn, sortAscending and preserveSort.</p>
+    </section>
+
+    <!-- screen shot -->
+
+    <section name="Screen Shot">
+      <div>
+        <img alt="datatable" src="images/datatable.png" />
+      </div>
+    </section>
+
+    <!-- API -->
+
+    <section name="API">
+      <table>
+        <tr>
+          <td colspan="1" rowspan="1">component-family</td>
+
+          <td colspan="1" rowspan="1">javax.faces.Data</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">renderer-type</td>
+
+          <td colspan="1" rowspan="1">org.apache.myfaces.Table</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">component-class</td>
+
+          <td colspan="1"
+          rowspan="1">org.apache.myfaces.component.html.ext.HtmlDataTable</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">renderer-class</td>
+
+          <td colspan="1"
+          rowspan="1">org.apache.myfaces.renderkit.html.ext.HtmlTableRenderer</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">tag-class</td>
+
+          <td colspan="1"
+          rowspan="1">org.apache.myfaces.taglib.html.ext.HtmlDataTableTag</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Usage -->
+
+    <section name="Usage">
+      <source xml:space="preserve"><![CDATA[
+<t:dataTable [ all standard dataTable attributes allowed ]
+                [ preserveDataModel="{true|false}" ]
+                [ preserveRowStates="{true|false}" ]
+                [ forceIdIndexFormula="value-binding" ]
+                [ sortColumn="value-binding" ]
+                [ sortAscending="value-binding" ]
+                [ preserveSort="{true|false}" ] 
+                [ renderedIfEmpty="{true|false}" ]
+                [ rowIndexVar="variable name" ]
+                [ rowCountVar="variable name" ]
+                [ previousRowDataVar="variable name" ]
+                [ rowId="value-binding" ]
+                [ newspaperColumns="value-binding" ] 
+                [ newspaperOrientation="value-binding" ] 
+                [ rowStyleClass="css styleclass" ]
+                [ rowStyle="inline css style" ]
+                [ rowOnClick="javascript" ]
+                [ rowOnDblClick="javascript" ]
+                [ rowOnMouseDown="javascript" ]
+                [ rowOnMouseUp="javascript" ]
+                [ rowOnMouseOver="javascript" ]
+                [ rowOnMouseMove="javascript" ]
+                [ rowOnMouseOut="javascript" ]
+                [ rowOnKeyPress="javascript" ]
+                [ rowOnKeyDown="javascript" ]
+                [ rowOnKeyUp="javascript" ]>
+    standard dataTable body (<h:column> tags 
+    and optional "header", "footer", and "spacer" facets)
+    <t:column>
+    <t:columns>
+    <t:command_sortheader/> inside column header or footer
+<t:dataTable>
+            ]]></source>
+    </section>
+
+    <!-- Syntax -->
+
+    <section name="Syntax">
+      <blockquote><h3>&lt;t:dataTable&gt;</h3> <code>all standard dataTable
+      attributes allowed</code><br />
+      <code>preserveDataModel="{true|false}"</code> - Indicates whether the state for each row
+		  should not be discarded before the datatable is rendered again.
+		  Setting this to true might be hepful if an input component inside the datatable
+		  has no valuebinding and the value entered in there should be displayed again,
+		  or if the input component model is not updated.  For example,
+		  during validation failure, immediate flag short-circuiting, or subForms.
+		  This will only work reliable if the datamodel of the datatable did not change
+		  either by sorting, removing or inserting rows.
+		  You can use HtmlDataTable.clearRowStates() or
+		  HtmlDataTable.deleteRowStateForRow(int deletedIndex)
+		  to programically modify the saved row states.
+		  Default: false
+		<br />
+      <code>preserveRowStates="{true|false}"</code><br />
+      <code>forceIdIndexFormula="value-binding"</code><br />
+      <code>sortColumn="value-binding"</code><br />
+      <code>sortAscending="value-binding"</code><br />
+      <code>preserveSort="{true|false}"</code><br />
+      <code>renderedIfEmpty="{true|false}"</code> - Indicates whether this
+      table should be rendered if the underlying DataModel is empty.<br />
+      <code>rowIndexVar="variable name"</code> - A parameter name, under which
+      the current rowIndex is set in request scope similar to the var
+      parameter.<br /> <code>rowCountVar="variable name"</code> - A parameter
+      name, under which the rowCount is set in request scope similar to the
+      var parameter.<br /> <code>previousRowDataVar="variable name"</code> - A
+      parameter name, under which the previous RowData Object is set in
+      request scope similar to the rowIndexVar and rowCountVar
+      parameters.<br /> <code>rowId="value-binding"</code> - The id to use for
+      &lt;tr&gt; elements that are generated by the table. <br />
+      <code>newspaperColumns="value-binding"</code> - The number of layout
+      columns to wrap the table through.<br />
+      <code>newspaperOrientation="value-binding"</code> - The orientation of
+      the columns in the table.<br /> <code>rowStyleClass="css style
+      class"</code> - the style class to use for &lt;tr&gt; elements that are
+      generated by the table. Can be a value-binding to assign row-data
+      specific style classes<br /> <code>rowStyle="inline css style"</code> -
+      inline style to use for &lt;tr&gt; elements that are generated by the
+      table. Can be a value-binding to assign row-data specific style<br />
+      <br /> Each event handler must evaluate to a javascript code which is
+      executed on the client side. The event handler are used for the
+      &lt;tr&gt; tag of the row.<br /> You can use value-bindings for row
+      specific event handler.<br /> <code>rowOnClick="javascript"</code><br />
+      <code>rowOnDblClick="javascript"</code><br />
+      <code>rowOnMouseDown="javascript"</code><br />
+      <code>rowOnMouseUp="javascript"</code><br />
+      <code>rowOnMouseOver="javascript"</code><br />
+      <code>rowOnMouseMove="javascript"</code><br />
+      <code>rowOnMouseOut="javascript"</code><br />
+      <code>rowOnKeyPress="javascript"</code><br />
+      <code>rowOnKeyDown="javascript"</code><br />
+      <code>rowOnKeyUp="javascript"</code><br /></blockquote>
+		
+      <br />
+
+      <br />
+    </section>
+
+    <!-- Instructions -->
+
+    <section name="Instructions">
+      <p><strong>Saving the state of the DataModel - the preserveDataModel
+      attribute</strong><br /> When this attribute is "true", the data behind
+      the current DataModel is saved after the render response phase and
+      restored in the restore component tree phase.</p>
+
+      <p><strong>Why and when use this feature?</strong><br /> Whenever you
+      use a DataModel backed by a database connection you could run into
+      problems, when the data in the database has changed since the last
+      request. All Lifecycle phases prior to the render response phase iterate
+      the DataModel and assume that the DataModel is unchanged since the last
+      request. At least the row count must not have changed, because all
+      children of UIData that are bound to the DataModel rely on it. But even
+      if you can assure that row count never changes, a change in the data can
+      have unintentional sideeffects. <br /> Using the preserveDataModel
+      feature prevents such problems. The DataModel (to be more exact: the
+      currently visible part of the DataModel given by the first and the rows
+      attribute) is freezed right after rendering and you can be sure that all
+      lifecycle actions during the next request happen on exactly the same
+      data.</p>
+
+      <p><strong>What data types are supported?</strong><br /> To be able to
+      save the state of the DataModel the row objects must be serializable.
+      All standard DataModel types are supported, except ResultSet, which will
+      follow in one of the next releases,</p>
+
+      <p><strong>Is updating the model supported?</strong><br /> Yes. Just
+      make your bean property that is bound to the DataTable component
+      writable, i.e. give it a setter method.</p>
+
+      <warning label="Attention">To minimize the effort for saving the state
+      of the DataModel only the visible rows are saved and restored. During
+      the update model phase the setter will be called with an Array or List,
+      that contains only these restored rows.</warning>
+
+      <p><strong>Wrapping table layout -- the newspaperColumns attribute and
+      spacer facet</strong><br />The newspaperColumns attribute allows a long,
+      narrow table to be wrapped so that it becomes a short, wide table. This
+      allows more information to be shown on a single screen. This is commonly
+      used to present checkboxes for a long list of items. Use the "spacer"
+      facet to specify a component displayed between layout columns. The
+      newspaperOrientation attribute specifies if the columns will be layed out
+      in a vertical or horizontal manner,<br />
+      Example:<br />
+<source xml:space="preserve"><![CDATA[
+<t:dataTable newspaperColumns="3" value="#{addressBB.states}" newspaperOrientation="horizontal" var="state">
+    <f:facet name="spacer">
+		  <f:verbatim>&amp;#160;</f:verbatim>
+    </f:facet>
+    <h:column>
+		  <h:outputText value="#{state.abbr}"/>
+    </h:column>
+    <h:column>
+        <h:outputText value="#{state.name}"/>
+    </h:column>
+</t:dataTable>]]></source>
+      <br /></p>
+
+      <p><strong>Working with a changing data - the forceIdIndexFormula
+      attribute</strong><br /> The default table assumes that your backing
+      data collection is stable between 2 requests. This assumption can be
+      false in several cases: concurrent accesses, unstable backing data
+      collection order, ... If you have components within that table that
+      update your data, you will get unintended behaviors.<br /> This
+      attribute is meant to fix that problem.<br /> The table's components and
+      the backing data objects are linked by the table's components' ids. By
+      default the changing part of those ids is the row number. So if the
+      backing data positions in the list is changed between the 2 requests
+      (like an element inserted in the head of the list), you will update the
+      wrong element in the backing data's collection.<br /> To fix this, you
+      can set the forceIdIndexFormula to an EL that will be unique and stable
+      for each row. That way, even if your backing data list changes between 2
+      requests, you always update the intended element in the list.<br />
+      <br /> Example : &lt;t:dataTable value="#{mailDAO.userInbox}"
+      var="email" forceIdIndexFormula="#{email.primaryKey}" ...&gt; ... <br />
+      <br /> Warning : make sure that the value-binding evaluates to a unique
+      value for each row.</p>
+    </section>
+  </body>
+</document>

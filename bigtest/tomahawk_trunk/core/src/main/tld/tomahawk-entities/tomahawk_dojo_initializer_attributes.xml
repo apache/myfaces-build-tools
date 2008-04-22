@@ -1,0 +1,82 @@
+<attribute>
+	<name>ioSendTransport</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>debug</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>debugConsole</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>debugAtAllCosts</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>expanded</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+
+
+<attribute>
+	<name>baseScriptUri</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>allowQueryConfig</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>debugContainerId</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>searchIds</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>parseWidgets</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>bindEncoding</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>ignoreClassNames</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>preventBackButtonFix</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>require</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>provide</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>
+<attribute>
+	<name>development</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+</attribute>

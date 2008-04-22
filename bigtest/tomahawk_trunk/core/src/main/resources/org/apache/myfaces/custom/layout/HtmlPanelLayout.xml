@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component>
+    <component-class>org.apache.myfaces.custom.layout.HtmlPanelLayout</component-class>
+    <base-class>javax.faces.component.html.HtmlPanelGroup</base-class>
+    <component-type>org.apache.myfaces.HtmlPanelLayout</component-type>
+    <component-family>javax.faces.Panel</component-family>
+    <renderer-type>org.apache.myfaces.Layout</renderer-type>
+    <field>
+        <name>layout</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>headerClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>navigationClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>bodyClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>footerClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>headerStyle</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>navigationStyle</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>bodyStyle</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>footerStyle</name>
+        <type>java.lang.String</type>
+    </field>
+</component>

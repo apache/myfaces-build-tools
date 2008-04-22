@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN"
+"http://maven.apache.org/dtd/maven-xdoc.dtd">
+<!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+-->
+<document>
+  <body>
+    <!-- Description -->
+
+    <section name="Description">
+      <p>A component that provides an HTML-based tree from data supplied by a
+      backing bean. The tree is highly customizable and allows for
+      fine-grained control over the appearance of each of the nodes depending
+      on their type. Almost any type of JSF component (text, image, checkbox,
+      etc.) can be rendered inside the nodes and there is an option for
+      client-side or server-side toggling of the expand/collapse state.</p>
+    </section>
+
+    <!-- screen shot -->
+
+    <section name="Screen Shot">
+	  <div><img src="images/tree2.jpeg" alt="tree2.jpeg"/></div>
+
+
+      <!-- replace with either a figure or Not Available -->
+
+      <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+    </section>
+
+    <!-- API -->
+
+    <section name="API">
+      <table>
+        <tr>
+          <td colspan="1" rowspan="1">component-family</td>
+
+          <td colspan="1" rowspan="1">org.apache.myfaces.HtmlTree</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">renderer-type</td>
+
+          <td colspan="1" rowspan="1">org.apache.myfaces.Tree</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">component-class</td>
+
+          <td colspan="1"
+          rowspan="1">org.apache.myfaces.custom.tree2.HtmlTree</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">renderer-class</td>
+
+          <td colspan="1"
+          rowspan="1">org.apache.myfaces.custom.tree2.HtmlTreeRenderer</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">tag-class</td>
+
+          <td colspan="1"
+          rowspan="1">org.apache.myfaces.custom.tree2.TreeTag</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Usage -->
+
+    <section name="Usage">
+      <p>See the <a href="http://people.apache.org/builds/myfaces/nightly/">Tomahawk Examples.</a></p>
+      <source xml:space="preserve"><![CDATA[]]></source>
+    </section>
+
+    <!-- Syntax -->
+
+    <section name="Syntax">
+      <p>
+      See the <a href="http://myfaces.apache.org/tomahawk/tagreference.html#tree2">Tag Reference.</a>
+	</p>
+
+      <blockquote>
+        <h3>&lt;t:[TODO]/&gt;</h3>
+
+        <!-- ex. for="reference to UIData"  -->
+
+        <code>[TODO] - [TODO]</code>
+
+        <br />
+      </blockquote>
+    </section>
+
+    <!-- Instructions -->
+
+    <section name="Instructions">
+      <p>[pending]</p>
+    </section>
+
+    <!-- Additional Information -->
+
+    <section name="Additional Information">
+      <p>See the <a href="http://wiki.apache.org/myfaces/Tree2">MyFaces Wiki.</a></p>
+    </section>
+  </body>
+</document>

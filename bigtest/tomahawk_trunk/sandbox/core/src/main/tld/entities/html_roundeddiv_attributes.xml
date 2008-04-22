@@ -1,0 +1,119 @@
+<!-- HtmlRoundedDiv attributes -->
+<attribute>
+    <name>style</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The style to use for this div.
+    </description>
+</attribute>
+<attribute>
+    <name>styleClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The class to use for this div.
+    </description>
+</attribute>
+<attribute>
+    <name>backgroundColor</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        Background color to give the corners. Leave blank (null)
+        to have a transparent background. If the user is using IE6, this has to be set,
+        or the corners will not look good due to IE6's lack of PNG support. 
+    </description>
+</attribute>
+<attribute>
+    <name>borderColor</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The color of the border. If specified, this will cause the DIV
+        to be 2D, if it isn't the border with have a 3D effect with
+        lighting effects to produce the border color.
+    </description>
+</attribute>
+<attribute>
+    <name>borderWidth</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The width of the border in pixels. (Default: 8)
+    </description>
+</attribute>
+<attribute>
+    <name>color</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The foreground color of the DIV
+    </description>
+</attribute>
+<attribute>
+    <name>corners</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        This allows you to specify a comma-separated list of corners to
+        include. If not given, all four corners will be rendered. The corners
+        include the sides they touch. So for example, if used as a tab for a 
+        tabbed pane, you could specify "topleft,topright" to have everything
+        but the bottom corners and side have the border. Valid values are:
+        topleft, topright, bottomright, bottomleft
+    </description>
+</attribute>
+<attribute>
+    <name>radius</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The radius of the corners in pixels. (Default: 8)
+    </description>
+</attribute>
+<attribute>
+    <name>size</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        If given, a static size image will be produced. This could be
+        useful for older browsers. If not given, the DIV that will be created
+        will stretch to its contents using CSS2 (and CSS expressions in IE6).
+        Value must contain two numbers, with width first. Example: 640x480
+    </description>
+</attribute>
+<attribute>
+    <name>inverse</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        Flips the lightening/darkening effect for 3D borders. (Default: false)
+    </description>
+</attribute>
+<attribute>
+    <name>layout</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        Either "table" or "div". Specifies how the output should be rendered.
+        Size must be null if using "table" (if it is not, a div will be rendered).
+        (Default: div)
+    </description>
+</attribute>
+<attribute>
+    <name>contentStyle</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The CSS style to give to the content DIV or TD (based on layout)
+    </description>
+</attribute>
+<attribute>
+    <name>contentStyleClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The CSS style class to give to the content DIV or TD (based on layout)
+    </description>
+</attribute>

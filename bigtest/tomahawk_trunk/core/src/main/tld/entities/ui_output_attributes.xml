@@ -1,0 +1,22 @@
+<!-- UIOutput attributes -->
+&ui_component_attributes;
+<attribute>
+    <name>value</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>The initial value of this component.</description>
+</attribute>
+<attribute>
+    <name>converter</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>
+        The value can either be a static value (ID) or an EL expression.
+        When a static id is specified, an instance of the converter type
+        registered with that id is used. When this is an EL expression,
+        the result of evaluating the expression must be an object that
+        implements the Converter interface.
+    </description>
+</attribute>

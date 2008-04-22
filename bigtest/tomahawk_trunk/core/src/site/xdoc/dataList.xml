@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                Similar to dataTable, but does not render a table. Instead the layout
+                attribute controls how each dataRow is rendered.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/datalist.png" alt="datalist"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Data</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.List</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.datalist.HtmlDataList</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.datalist.HtmlListRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.datalist.HtmlDataListTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:dataList id="String"
+               styleClass="CSSClass1"
+               itemStyleClass="CSSClass2"
+               var="String"
+               value="List"
+               layout="Constant"
+               rowCountVar="int"
+               rowIndexVar="int"&gt;
+    &lt;h:outputText .../&gt;
+&lt;/t:dataList&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:dataList/&gt;</h3>
+                <code>value - the content of the list, supported types see JSF Spec 4.1.3.</code><br/>
+                <code>var - a parameter name, under which the current value is set.</code><br/>
+                <code>rows - the row count.</code><br/>
+                <code>first - the first element of the list.</code><br/>
+                <code>
+                    layout - [simple|unorderedList|orderedList|grid],
+                             simple = for each dataRow all children are simply rendered,
+                             unorderedList = the list is rendered as HTML unordered list (= bullet list),
+                             orderedList = the list is rendered as HTML ordered list,
+                             grid = the list is rendered in a horizontal grid (table)
+                             Default: simple.
+                </code>
+                <br/>
+                <code>
+                    styleClass  - The CSS class used to style the list
+                </code>
+                <br/>
+                <code>
+                    itemStyleClass  - The CSS class used to style each element of the list (not applicable
+                                      when layout = simple)
+                </code>
+                <br/>
+                <code>
+                    rowIndexVar - a parameter name, under which the current rowIndex
+                                  is set in request scope similar to the var parameter.
+                </code>
+                <br/>
+                <code>
+                    rowCountVar - a parameter name, under which the rowCount is set
+                                  in request scope similar to the var parameter.
+                </code>
+                <br/>
+      <code>preserveDataModel="{true|false}"</code> - Indicates whether the state for each row
+		  should not be discarded before the datalist is rendered again.
+		  Setting this to true might be hepful if an input component inside the datalist
+		  has no valuebinding and the value entered in there should be displayed again,
+		  or if the input component model is not updated.  For example,
+		  during validation failure, immediate flag short-circuiting, or subForms.
+		  This will only work reliable if the datamodel of the datalist did not change
+		  either by sorting, removing or inserting rows.
+		  You can use HtmlDataList.clearRowStates() or
+		  HtmlDataList.deleteRowStateForRow(int deletedIndex)
+		  to programically modify the saved row states.
+		  Default: false
+		<br />
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                see examples/dataList.jsp for an example!
+            </p>
+        </section>
+    </body>
+    
+
+</document>

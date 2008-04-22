@@ -1,0 +1,11 @@
+        <!-- jscookMenu attributes -->
+        <attribute>
+            <name>layout</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>theme</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>

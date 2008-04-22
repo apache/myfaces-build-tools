@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component>
+    <component-class>org.apache.myfaces.custom.tabbedpane.HtmlPanelTabbedPane</component-class>
+    <base-class>javax.faces.component.html.HtmlPanelGroup</base-class>
+    <component-type>org.apache.myfaces.HtmlPanelTabbedPane</component-type>
+    <component-family>javax.faces.Panel</component-family>
+    <renderer-type>org.apache.myfaces.TabbedPane</renderer-type>
+    <field>
+        <name>selectedIndex</name>
+        <type>int</type>
+        <default-value>0</default-value>
+    </field>
+    <field>
+        <name>bgcolor</name>
+        <type>java.lang.String</type>
+    </field>
+    <field generateProperty="false" >
+        <name>tabChangeListener</name>
+        <type>javax.faces.el.MethodBinding</type>
+    </field>
+    <field>
+        <name>activeTabStyleClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>inactiveTabStyleClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>disabledTabStyleClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>activeSubStyleClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>inactiveSubStyleClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>tabContentStyleClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>activePanelTabVar</name>
+        <type>java.lang.String</type>
+    </field>
+</component>

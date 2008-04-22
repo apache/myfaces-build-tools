@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                Renders any HTML tag as specified in value attribute.
+            </p>
+
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not available</p> <!-- replace with either a figure or Not Available -->
+            <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">since</td>
+                    <td colspan="1" rowspan="1">1.1.0</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">author</td>
+                    <td colspan="1" rowspan="1">Sylvain Vieujot</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Output</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">"org.apache.myfaces.HtmlTagRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.htmlTag.HtmlTag</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.htmlTag.HtmlTagRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.htmlTag.HtmlTagTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:htmlTag [{all standard UIOutput attributes}] /&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:htmlTag&gt;</h3>
+                <code>value - the tag to output.</code><br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Example">
+            
+            <p>
+&lt;t:htmlTag value="br" /&gt;
+            </p>
+            <p>
+OR<br/>
+&lt;t:htmlTag value="div" &gt;
+[Other JSF tags/content]
+&lt;/t:htmlTag&gt;
+            </p>
+        </section>
+    </body>
+    
+
+</document>

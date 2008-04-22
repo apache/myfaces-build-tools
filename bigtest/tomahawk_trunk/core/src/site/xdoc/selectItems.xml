@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                This is an extended version of javax.faces.component.UISelectItems. By using the component there is no need to manually create a SelectItem collection because component automatically populates SelectItem objects from types like Collection, Map and etc..
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not Available</p> <!-- replace with either a figure or Not Available -->
+            <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+				<tr>
+                    <td colspan="1" rowspan="1">since</td>
+                    <td colspan="1" rowspan="1">1.1.5</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+					<td colspan="1" rowspan="1">javax.faces.SelectItems</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+					<td colspan="1" rowspan="1">-</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+					<td colspan="1" rowspan="1">org.apache.myfaces.custom.selectitems.UISelectItems</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+					<td colspan="1" rowspan="1">-</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+					<td colspan="1" rowspan="1">org.apache.myfaces.custom.selectitems.SelectItemsTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+	    <source xml:space="preserve">&lt;h:selectOneMenu id="menu1" value="#{selectItemsBean.selectedCarColor}"&gt;
+   	&lt;t:selectItems value="#{selectItemsBean.carList}" var="Car" itemLabel="#{Car.type}" itemValue="#{Car.color}" /&gt;
+&lt;/h:selectOneMenu&gt;</source>
+        </section>
+        
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;s:selectItems&gt;</h3>
+                <code>value="value of the selection"</code><br/>
+				<code>var="name of the iterator"</code><br/>
+				<code>itemLabel="label of a selection option"</code><br/>
+				<code>itemValue="value of a selection option"</code><br/>
+            </blockquote>
+        </section>
+
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            
+	    <p>This component can be used with any selection component. Also it's compatible with RI.</p>
+        </section>        
+
+    </body>
+    
+
+</document>

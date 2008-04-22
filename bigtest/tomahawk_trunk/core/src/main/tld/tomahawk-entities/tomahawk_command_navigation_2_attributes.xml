@@ -1,0 +1,33 @@
+<attribute>
+    <name>open</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        Menu node is open.
+    </description>
+</attribute>
+<attribute>
+    <name>active</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        Menu node is active.
+    </description>
+</attribute>
+<attribute>
+    <name>activeOnViewIds</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        A semicolon separated list of viewIds for which this item should be active.
+    </description>
+</attribute>
+<attribute>
+    <name>externalLink</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The external link where to redirect when this is clicked.
+    </description>
+</attribute>
+    &ext_disabled_attribute;

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                Renders a popup which displays on a mouse event.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/popup.png" alt="popup"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Panel</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.Popup</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.popup.HtmlPopup</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.popup.HtmlPopupRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.popup.HtmlPopupTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:popup styleClass="CSSClass"
+            closePopupOnExitingElement="{true|false}"
+            closePopupOnExitingPopup="{true|false}"
+            displayAtDistanceX="int"
+            displayAtDistanceY="int"&gt;
+    &lt;h:outputText value="String"/&gt;
+    &lt;f:facet name="popup"&gt;
+        &lt;h:panelGroup&gt;
+            &lt;h:panelGrid columns="int"&gt;
+                &lt;h:outputText value="String"/&gt;
+            &lt;/h:panelGrid&gt;
+        &lt;/h:panelGroup&gt;
+    &lt;/f:facet&gt;
+&lt;/t:popup&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:popup&gt;</h3>
+                <code>
+                    styleClass - styleClass for popup. Attention! do not try to
+                                 overwrite position:absolute; and display:none;
+                                 Provide a padding for Mozilla-based Browsers
+                </code>
+                <br/>
+                <code>
+                    style - style for popup. Attention! do not try to overwrite
+                            position:absolute; and display:none;
+                            Provide a padding for Mozilla-based Browsers
+                </code>
+                <br/>
+                <code>
+                    displayAtDistanceX - Pop the panel up in horizontal distance
+                                         of x pixels from event.
+                </code>
+                <br/>
+                <code>
+                    displayAtDistanceX - Pop the panel up in vertical distance of
+                                         y pixels from event.
+                </code>
+                <br/>
+                <code>
+                    closePopupOnExitingElement - Close the popup when the triggering
+                                                 element is left.
+                </code>
+                <br/>
+                <code>
+                    closePopupOnExitingPopup - Close the popup when the popup itself
+                                               is left.
+                </code>
+                <br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                see examples/popup.jsp for an example!
+            </p>
+        </section>
+    </body>
+    
+
+</document>

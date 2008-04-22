@@ -1,0 +1,50 @@
+ ------
+ Apache MyFaces - Tomahawk - Buffer
+ ------
+
+Description
+
+  This component allows you to render part of the
+  page to a newly-created String-holding EL variable for later use.
+
+Screen Shot
+            
+  Not available at this time.
+~~<!-- replace with either a figure or Not Available -->
+~~<figure src="jscookmenu.png" alt="jscookmenu"/>
+
+API
+
+*----------------+-----------------------------------------------+
+|component-family|javax.faces.Data                               |
+*----------------+-----------------------------------------------+
+|renderer-type   |org.apache.myfaces.Buffer                      |
+*----------------+-----------------------------------------------+
+|component-class |org.apache.myfaces.custom.buffer.Buffer        |
+*----------------+-----------------------------------------------+
+|renderer-class  |org.apache.myfaces.custom.buffer.BufferRenderer|
+*----------------+-----------------------------------------------+
+|tag-class       |org.apache.myfaces.custom.buffer.BufferTag     |
+*----------------+-----------------------------------------------+
+
+Usage
+
++---
+<t:buffer into="Bean">
+    <t:div>
+        <h:outputText value="String"/>
+    </t:div>
+</t:buffer>
++---
+
+Syntax
+
+* \<t:buffer\>
+
+  <<<into>>> - The JSP variable that will store the buffered content.
+
+Instructions
+            
+  Just nest elements to buffer into a \<t:buffer\> element.
+
+  See examples/buffer.jsp for an example!

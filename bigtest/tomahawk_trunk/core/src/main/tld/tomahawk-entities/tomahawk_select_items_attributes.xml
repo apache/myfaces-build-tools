@@ -1,0 +1,24 @@
+<attribute>
+    <name>var</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+       name of the iterator
+    </description>
+</attribute>
+<attribute>
+    <name>itemLabel</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        name of the selectitem
+    </description>
+</attribute>
+<attribute>
+    <name>itemValue</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+		value of the selectitem
+    </description>
+</attribute>

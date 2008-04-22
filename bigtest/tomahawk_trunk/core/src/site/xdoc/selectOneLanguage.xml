@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                A localized input control for ISO 639 language codes (same as for for java.util.Locale.getLanguage()).
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>TODO</p>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.SelectOne</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.SelectOneLanguageRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.selectOneLanguage.SelectOneLanguage</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.selectOneLanguage.SelectOneLanguageRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.selectOneLanguage.SelectOneLanguageTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:selectOneLanguage maxLength="int"&gt;
+	...(optional f:select* filters)...
+&lt;t:selectOneCountry/&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:inputDate&gt;</h3>
+                <code>
+                    maxLength - Integer equals to the maximum number of characters in the language name.
+                </code>
+                <br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                You can restrict the languages list by adding &lt;f:selectItem*/&gt; tags with the language codes.<br/>
+                Example : &lt;f:selectItem itemValue="de"/&gt; &lt;f:selectItem itemValue="es"/&gt; &lt;f:selectItem itemValue="fr"/&gt; ...
+            </p>
+        </section>
+    </body>
+    
+
+</document>

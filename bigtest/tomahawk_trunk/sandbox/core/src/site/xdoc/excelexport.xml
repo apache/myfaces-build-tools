@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                ExcelExport allows exporting HtmlDataTable contents as an excel file.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not Available</p> <!-- replace with either a figure or Not Available -->
+            <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.Export</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.ExcelExportRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.excelexport.ExcelExport</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.excelexport.ExcelExportRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.excelexport.ExcelExportTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+	    <source xml:space="preserve">
+&lt;s:excelExport for="tbl_cars"&gt;
+	&lt;h:commandButton action="" value="Export"/&gt;
+&lt;/s:excelExport&gt;</source>
+        </section>
+        
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;s:excelExport&gt;</h3>
+                <code>for="Id of the datatable"</code><br/>
+				<code>filename="Optional attribute to specify the filename of the exported excel file"</code><br/>
+            </blockquote>
+        </section>
+
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            
+	    <p>For now this component only works with server side state saving.</p>
+        </section>        
+
+    </body>
+    
+
+</document>

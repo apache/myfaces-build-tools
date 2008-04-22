@@ -1,0 +1,44 @@
+        <attribute>
+            <name>type</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Specifies the type of value to be accepted.  Valid values are:
+                date | time | short_time | both | full
+            </description>
+        </attribute>
+        <attribute>
+            <name>popupCalendar</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>timeZone</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>ampm</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                If true, use 12hr times with AM/PM selector; if false,
+                use 24hr time.  Default false.
+            </description>
+        </attribute>
+        <attribute>
+            <name>emptyMonthSelection</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+				Label to be used when displaying an empty month selection
+            </description>
+        </attribute>
+        <attribute>
+            <name>emptyAmpmSelection</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+				Label to be used when displaying an empty ampm selection
+            </description>
+        </attribute>

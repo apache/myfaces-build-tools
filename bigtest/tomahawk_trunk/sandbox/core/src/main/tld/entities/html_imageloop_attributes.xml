@@ -1,0 +1,42 @@
+<attribute>
+    <name>delay</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+ 
+    <description>The delay between transitions</description>
+</attribute>
+<attribute>
+    <name>minDelay</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+   
+    <description>The minimum delay allowed when decreasing delay time</description>
+</attribute>
+<attribute>
+    <name>maxDelay</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+   
+    <description>The maximum delay allowed when increasing delay time</description>
+</attribute>
+<attribute>
+    <name>transitionTime</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+   
+    <description>Transition time in milliseconds. Set to -1 for immediate image switch.</description>
+</attribute>
+<attribute>
+  <name>width</name>
+  <required>true</required>
+  <rtexprvalue>false</rtexprvalue>
+ 
+  <description>Width</description>
+</attribute>
+<attribute>
+  <name>height</name>
+  <required>true</required>
+  <rtexprvalue>false</rtexprvalue>
+ 
+  <description>Height</description>
+</attribute>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                Renders a Javascript Menu based on the excellent
+                <a href="http://jscook.sourceforge.net/JSCookMenu">JSCookMenu</a>
+                by Heng Yuan, the nested NavigationMenuItem(s) are rendered as Javascript Menu.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/jscookmenu.png" alt="jscookmenu"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">since</td>
+                    <td colspan="1" rowspan="1">1.0.5</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">author</td>
+                    <td colspan="1" rowspan="1">MyFaces Team</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Command</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.JSCookMenu</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.navmenu.jscookmenu.HtmlCommandJSCookMenu</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.navmenu.jscookmenu.HtmlJSCookMenuRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.navmenu.jscookmenu.HtmlJSCookMenuTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:jscookMenu [ user-role-support-attributes ]
+                 [layout="values {hbr, hbl, hur, hul, vbr, vbl, vur, vul}"]
+                 [theme="values {ThemeIE, ThemeMiniBlack, ThemeOffice, ThemePanel}"]
+    Nested &lt;t:navigationMenuItem&gt; or &lt;t:navigationMenuItems&gt; tags (menu items)
+&lt;/t:jscookMenu&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:jscookMenu&gt;</h3>
+                <code>layout - hbr, hbl, hur, hul, vbr, vbl, vur, vul.</code><br/>
+                <code>theme - ThemeIE, ThemeMiniBlack, ThemeOffice, ThemePanel.</code><br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                If you want to use jscookMenu in your application, you will have to:
+            </p>
+            <ul>
+                <li>
+                    Add jscookmenu directory containing css and scripting code to
+                    your web directory (you can find it in the examples application).
+                </li>
+                <li>
+                    Add scripts and stylesheets for the theme you would like to use
+                    to html-header (see also inc/header.inc in the examples application)
+                </li>
+            </ul>
+            <source xml:space="preserve">
+&lt;!-- JSCook Menu --&gt;
+&lt;script language="JavaScript" src="jscookmenu/JSCookMenu.js" type="text/javascript"&gt;
+&lt;script language="JavaScript" src="jscookmenu/ThemeOffice/theme.js"/&gt;
+&lt;link rel="stylesheet" href="jscookmenu/ThemeOffice/theme.css" type="text/css"/&gt;
+&lt;script language="JavaScript" src="jscookmenu/ThemeMiniBlack/theme.js"/&gt;
+&lt;link rel="stylesheet" href="jscookmenu/ThemeMiniBlack/theme.css" type="text/css"/&gt;
+&lt;script language="JavaScript" src="jscookmenu/ThemeIE/theme.js"/&gt;
+&lt;link rel="stylesheet" href="jscookmenu/ThemeIE/theme.css" type="text/css"/&gt;
+&lt;script language="JavaScript" src="jscookmenu/ThemePanel/theme.js"/&gt;
+&lt;link rel="stylesheet" href="jscookmenu/ThemePanel/theme.css" type="text/css"/&gt;
+            </source>
+            <p>
+                see examples/jscookmenu.jsp for an example!
+            </p>
+        </section>
+    </body>
+    
+
+</document>

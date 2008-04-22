@@ -1,0 +1,14 @@
+<attribute>
+    <name>immediate</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>
+        A boolean value that identifies the phase during which action events
+        should fire. During normal event processing, action methods and
+        action listener methods are fired during the "invoke application"
+        phase of request processing. If this attribute is set to "true",
+        these methods are fired instead at the end of the "apply request
+        values" phase.
+    </description>
+</attribute>

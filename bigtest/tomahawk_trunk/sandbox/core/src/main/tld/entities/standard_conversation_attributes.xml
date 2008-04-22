@@ -1,0 +1,8 @@
+<attribute>
+    <name>name</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+       the name of the conversation
+    </description>
+</attribute>

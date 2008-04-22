@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                Myfaces provides an expression language extension that specializes on the application security. By the help of SecurityContextVariableResolver and the SecurityContextPropertyResolver it's easy to retrieve information from the underlying authentication/authorization mechanism that is used in the application.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not Available</p> <!-- replace with either a figure or Not Available -->
+            <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">variable-resolver</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.custom.security.SecurityContextVariableResolver</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">property-resolver</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.custom.security.SecurityContextPropertyResolver</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+	    <source xml:space="preserve">
+&lt;h:outputText value="#{securityContext.remoteUser}" /&gt;
+&lt;h:commandButton action="#{someBean.edit}" value="Edit" rendered="#{securityContext.ifGranted['admin']}" /&gt;
+&lt;h:commandButton action="#{someBean.edit}" value="Edit" disabled="#{securityContext.ifAllGranted['admin,manager']}" /&gt;
+&lt;h:commandButton action="#{someBean.edit}" value="Edit" rendered="#{securityContext.ifAnyGranted['admin,manager,editor']}" /&gt;
+&lt;h:commandButton action="#{someBean.edit}" value="Edit" disabled="#{securityContext.ifNotGranted['guest']}" /&gt;
+		</source>
+        </section>
+        
+        <!-- Syntax -->
+        <section name="Syntax">
+            <blockquote><h3>#{securityContext.authType}</h3>
+                <code>Gives the name of authentication mechanism used like BASIC, FORM or etc.</code><br/>
+            </blockquote>
+			<blockquote><h3>#{securityContext.remoteUser}</h3>
+                <code>Returns the name of the current authenticated user</code><br/>
+            </blockquote>
+			 <blockquote><h3>#{securityContext.ifGranted['rolename']}</h3>
+                <code>If the user is in the role "rolename", returns true or vice versa</code><br/>
+            </blockquote>
+			 <blockquote><h3>#{securityContext.ifAllGranted['rolename1,rolename2']}</h3>
+                <code>Returns true if user is in all of the roles given in the roles list, vice versa</code><br/>
+            </blockquote>
+			<blockquote><h3>#{securityContext.ifAnyGranted['rolename1,rolename2']}</h3>
+                <code>Returns true if user is in any one of the roles given in the roles list, vice versa</code><br/>
+            </blockquote>
+			<blockquote><h3>#{securityContext.ifNotGranted['rolename1,rolename2']}</h3>
+                <code>Returns true if user is not in any of the roles given in the roles list, vice versa</code><br/>
+            </blockquote>
+        </section>
+
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            
+	    <p>SecurityContext is an abstract class that is used when the expressions above are resolved, J2EE container security is used by the default implementation called SecurityContextImpl meaning;
+		ifGranted #{securityContext.ifGranted['rolename']} will yield to FacesContext.getCurrentInstance().getExternalContext().isUserInRole("rolename").
+		</p>
+        </section>
+
+		<section name="Plugin Your Own SecurityContext">
+		<p>
+	It's possible to provide your own implementation of the SecurityContext if you're using another mechanism to manage security other than J2EE container like JAAS or ACEGI. In order to plugin your implementation org.apache.myfaces.SECURITY_CONTEXT context parameter needs to be configured with the class name of your implementation as the param value.
+		</p>
+		 <source xml:space="preserve">
+&lt;context-param&gt;
+	&lt;param-name&gt;org.apache.myfaces.SECURITY_CONTEXT&lt;/param-name&gt;
+	&lt;param-value&gt;com.mycompany.MySecurityContextImpl&lt;/param-value&gt;
+&lt;/context-param&gt;
+		 </source>
+		</section>
+
+    </body>
+    
+
+</document>

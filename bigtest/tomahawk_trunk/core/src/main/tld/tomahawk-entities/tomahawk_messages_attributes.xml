@@ -1,0 +1,54 @@
+        <attribute>
+            <name>summaryFormat</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                If present, instead of rendering the message summary, a MessageFormat with this
+                attribute as pattern is created. The format method of this MessageFormat is
+                called with the message summary as the first argument and the label of the
+                associated component (if any) as the second argument.
+                Example: "{0}:" or "{0} in field {1}"
+            </description>
+        </attribute>
+        <attribute>
+            <name>globalSummaryFormat</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Like summaryFormat, but applies to global messages (i.e. messages not associated
+                with a component). If no globalSummaryFormat is given, the summaryFormat is used for
+                global messages.
+                Example: "{0}:"
+            </description>
+        </attribute>
+        <attribute>
+            <name>detailFormat</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                If present, instead of rendering the message detail, a MessageFormat with this
+                attribute as pattern is created. The format method of this MessageFormat is
+                called with the message detail as the first argument and the label of the
+                associated component (if any) as the second argument.
+                Example: "The input in field {1} is wrong: {0}"
+            </description>
+        </attribute>
+        <attribute>
+            <name>replaceIdWithLabel</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                If present, all occurrences of the id of the component for which the message
+                is rendered will be replaced by the label.
+            </description>
+        </attribute>
+        <attribute>
+            <name>forceSpan</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                If set to true, an empty span element is rendered. Useful if there are
+                a few inputAjax fields on the same page and the corresponding error messages
+                should be shown on one central place.
+            </description>
+        </attribute>

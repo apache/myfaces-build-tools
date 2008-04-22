@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                [TO DO]
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>[TO DO]</p> <!-- replace with either a figure or Not Available -->
+            <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">[TODO]</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">[TODO]</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">[TODO]</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">[TODO]</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">[TODO]</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">[TODO]</source>
+        </section>
+        
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <!-- ex. &lt;s:jsCookMenu> -->
+            <blockquote><h3>&lt;s:[TODO]/&gt;</h3>
+                <!-- ex. for="reference to UIData"  -->
+                <code>[TODO] - [TODO]</code><br/>
+            </blockquote>
+        </section>
+        
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>see [TO DO] for an example!</p>
+        </section>
+
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            
+            <p>[TODO]</p>
+        </section>        
+
+    </body>
+    
+
+</document>

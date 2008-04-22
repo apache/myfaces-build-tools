@@ -1,0 +1,32 @@
+<!-- UILimitRendered attributes -->
+<attribute>
+    <name>type</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>
+        The filter type: count|index.
+        count: the value should evaluate to a Number or a value that can be parsed into an integer. 
+        index: A collection, array or comma-separated list of numbers.
+        (Default: "count")
+    </description>
+</attribute>
+<attribute>
+    <name>value</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>
+      The value valid for the type. If this evaluates to null, all children will be rendered.
+      If the type is count, this value must evaluate to a java Number instance or a value which
+      the toString() method can be used with Integer.parseInt(String). The first number of children
+      that are rendered (isRendered() returns true) up to the given value will be rendered.
+      
+      If the type is index, the value must be a Collection, int[], Object[] or a comma-separated 
+      list of numbers. Each item in the list must be a valid number. If negative, it is taken from
+      then end. If the child at the given index is not rendered, then that component is skipped
+      (so the indexes are absolute).
+      
+      See the documentation on the myfaces website for more information.
+    </description>
+</attribute>

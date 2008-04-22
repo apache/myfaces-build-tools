@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+
+    <body>
+		<section name="Obsolete">
+			<p><strong>
+				On May 17th, the functionality of the newspaperTable component was merged
+				into t:dataTable (Extended DataTable) for the tomahawk-1.1.3-SNAPSHOT.jar.
+				The newspaperTable component will be removed in the future.
+				Please use t:dataTable instead.
+			</strong></p>
+			<p>  
+				Upgrade to t:dataTable by replacing all references to t:newspaperTable with t:dataTable.
+			</p>
+		</section>
+
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                The newspaperTable tag allows a long, narrow table to be wrapped
+                so that it becomes a short, wide table. This allows more information
+                to be shown on a single screen. This is commonly used to present
+                checkboxes for a long list of items.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/newspaperTable.png" alt="Newspaper Table"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Data</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.HtmlNewspaperTable</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.newspaper.HtmlNewspaperTable</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.newspaper.HtmlNewspaperTableRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.newspaper.HtmlNewspaperTableTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:newspaperTable newspaperColumns="3"  value="#{addressBB.states}" var="state"&gt;
+    &lt;f:facet name="spacer"&gt;&lt;f:verbatim&gt;&amp;#160;&lt;/f:verbatim&gt;&lt;/f:facet&gt;
+    &lt;h:column&gt;
+        &lt;h:outputText value="#{state.abbr}"/&gt;
+    &lt;/h:column&gt;
+    &lt;h:column&gt;
+        &lt;h:outputText value="#{state.name}"/&gt;
+    &lt;/h:column&gt;
+&lt;/t:newspaperTable&gt;
+            </source>
+        </section>
+
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:newspaperTable&gt;</h3>
+                <code>
+                    newspaperColumns - The number of columns to wrap the table over. Default: 1
+                </code>
+                <br/>
+            </blockquote>
+        </section>
+
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            
+            <p>
+                see examples/newspaperTable.jsp for an example!
+            </p>
+        </section>        
+
+    </body>
+    
+
+</document>

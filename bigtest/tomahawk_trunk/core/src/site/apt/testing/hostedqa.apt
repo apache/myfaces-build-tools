@@ -1,0 +1,121 @@
+         -----------
+         Hosted QA
+         -----------
+
+Hosted QA
+
+ <<{{{http://www.hostedqa.com}HostedQA}}>> is a web-based quality assurance
+ solution from <<{{{http://www.autoriginate.com/}Autoriginate}}>>, which has
+ generously donated an account to MyFaces.
+
+ MyFaces uses HostedQA to run {{{selenium.html}Selenium}} tests against the
+ example apps.
+
+ The following example apps have Selenium tests available at HostedQA:
+
+  * MyFaces Example Simple
+
+* Configure
+
+ To execute the tests remotely at HostedQA, MyFaces committers will need to
+ supply an email address and a password.
+
+ (If you don't have a password, ask on the developers list.)
+
+ You can add this information to your ~/.m2/settings.xml file.
+
+ settings.xml:
+
++-----+
+       <profile>
+         <id>hostedqa</id>
+         <properties>
+            <myfaces.hostedqa.email>your-id@apache.org</myfaces.hostedqa.email>
+            <myfaces.hostedqa.password>your-password</myfaces.hostedqa.password>
+         </properties>
+       </profile>
++-----+
+
+* Execute Tests
+
+ The {{{http://svn.apache.org/viewvc/myfaces/tomahawk/trunk/examples/pom.xml
+?view=markup}tomahawk-examples-project pom}} includes a 'hostedqa' profile that
+ will
+
+  * upload the example application to HostedQA, and
+
+  * execute the Selenium tests, remotely.
+
+  []
+
+  In addition, the pom for each example app includes a 'hostedqa' profile that
+  defines which resource, client, and application configuration should be used.
+  The 
+
+ With an email address and password configured in settings.xml, execute the tests
+ as follows
+
++-----+
+ $ mvn package -P hostedqa
++-----+
+
+ Alternately, you can supply your email address and password on the command line:
+
++-----+
+ $ mvn package -P hostedqa -Dhostedqa.email=<your-id>@apache.org -Dhostedqa.password=<your-password>
++-----+
+
+* View Results
+
+  All test results are available to the public, here:
+  {{{https://myfaces.hostedqa.com/project/54/session/suite/list}
+  https://myfaces.hostedqa.com/project/54/session/suite/list}}
+
+  Sample build log output:
+
++-----+
+$ mvn package -P hostedqa
+...
+[INFO] Building war: e:\svn\myfaces\current\tomahawk\examples\simple\target\myfaces-example-simple.war
+...
+[INFO] Executing tasks
+   [upload] About to transfer E:\svn\myfaces\current\tomahawk\examples\simple\target\myfaces-example-simple.war
+   [upload] Getting MD5 of current resource on HostedQA
+   [upload] Getting MD5 of last uploaded resource (local)
+   [upload] MD5s match, creating a patch
+   [upload] Patch uploaded
+   [upload] Upload complete
+   [upload] Saving newly uploaded file for future use
+[playsuite] Playing 3 Selenium tests on application configurations 56, and clien
+t configurations 117
+[playsuite] HostedQA tests complete. Results can be found at:
+[playsuite]  - https://myfaces.hostedqa.com/project/54/session/suite/972/view
+[playsuite] The tests have PASSED
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
++-----+
+
+* Add Tests
+
+ See {{{selenium.html}this page}} for more information on adding Selenium tests
+ for the example apps.
+
+ New tests in src/test/selenium will automatically be picked up by the
+ configuration.
+
+ The myfaces-example-simple app is running as context name
+ 'myfaces-example-simple' on port 9090.  The following clients have
+ been configued:
+
+*-----------------+------------------+
+| <<Client Code>> | <<Browser>>      |
+*-----------------+------------------+
+| 117             | Firefox on WinXP |
+*-----------------+------------------+
+| 118             | IE 6 on WinXP    |
+*-----------------+------------------+
+| 316             | IE 7 on WinXP    |
+*-----------------+------------------+
+Available HostedQA Client Codes as configued in <<<pom.xml>>>
