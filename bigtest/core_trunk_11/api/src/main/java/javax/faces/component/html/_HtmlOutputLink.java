@@ -18,30 +18,28 @@
 */
 package javax.faces.component.html;
 
-import javax.faces.component.UICommand;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
- * 
+ *
  * @JSFComponent
- *   name = "h:commandLink"
- *   class = "javax.faces.component.html.HtmlCommandLink"
- *   tagClass = "org.apache.myfaces.taglib.html.HtmlCommandLinkTag"
- *   desc = "h:commandLink"
- *   
+ *   name = "h:outputLink"
+ *   class = "javax.faces.component.html.HtmlOutputLink"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlOutputLinkTag"
+ *   desc = "h:outputLink"
+ * 
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class _HtmlCommandLink extends UICommand 
-    implements _EventProperties, _UniversalProperties, _StyleProperties,
-    _Focus_BlurProperties, _AccesskeyProperty, _TabindexProperty,
-    _LinkProperties
+abstract class _HtmlOutputLink extends UIOutput implements _AccesskeyProperty,
+    _UniversalProperties, _Focus_BlurProperties, _EventProperties, _StyleProperties,
+    _TabindexProperty, _LinkProperties
 {
 
-    public static final String COMPONENT_TYPE = "javax.faces.HtmlCommandLink";
+    public static final String COMPONENT_TYPE = "javax.faces.HtmlOutputLink";
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Link";
-
 
 }

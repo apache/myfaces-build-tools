@@ -18,30 +18,35 @@
 */
 package javax.faces.component.html;
 
-import javax.faces.component.UICommand;
+import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
- * 
+ *
  * @JSFComponent
- *   name = "h:commandLink"
- *   class = "javax.faces.component.html.HtmlCommandLink"
- *   tagClass = "org.apache.myfaces.taglib.html.HtmlCommandLinkTag"
- *   desc = "h:commandLink"
+ *   name = "h:selectOneListbox"
+ *   class = "javax.faces.component.html.HtmlSelectOneListbox"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlSelectOneListboxTag"
+ *   desc = "h:selectOneListbox"
  *   
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class _HtmlCommandLink extends UICommand 
-    implements _EventProperties, _UniversalProperties, _StyleProperties,
-    _Focus_BlurProperties, _AccesskeyProperty, _TabindexProperty,
-    _LinkProperties
+abstract class _HtmlSelectOneListbox extends UISelectOne implements
+    _AccesskeyProperty, _UniversalProperties, _Disabled_ReadonlyProperties,
+    _Focus_BlurProperties, _Change_SelectProperties, _EventProperties,
+    _StyleProperties, _TabindexProperty, _DisabledClass_EnabledClassProperties
 {
 
-    public static final String COMPONENT_TYPE = "javax.faces.HtmlCommandLink";
-    private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Link";
+    public static final String COMPONENT_TYPE = "javax.faces.HtmlSelectOneListbox";
+    private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Listbox";
 
-
+    /**
+     * @JSFProperty
+     *   defaultValue="0"
+     */
+    public abstract int getSize();
+    
 }

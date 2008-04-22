@@ -18,30 +18,44 @@
 */
 package javax.faces.component.html;
 
-import javax.faces.component.UICommand;
+import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
- * 
+ *
  * @JSFComponent
- *   name = "h:commandLink"
- *   class = "javax.faces.component.html.HtmlCommandLink"
- *   tagClass = "org.apache.myfaces.taglib.html.HtmlCommandLinkTag"
- *   desc = "h:commandLink"
- *   
+ *   name = "h:selectManyCheckbox"
+ *   class = "javax.faces.component.html.HtmlSelectManyCheckbox"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlSelectManyCheckboxTag"
+ *   desc = "h:selectManyCheckbox"
+ *
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class _HtmlCommandLink extends UICommand 
-    implements _EventProperties, _UniversalProperties, _StyleProperties,
-    _Focus_BlurProperties, _AccesskeyProperty, _TabindexProperty,
-    _LinkProperties
+abstract class _HtmlSelectManyCheckbox extends UISelectMany implements 
+    _AccesskeyProperty, _UniversalProperties, _Focus_BlurProperties,
+    _Change_SelectProperties, _EventProperties, _StyleProperties,
+    _TabindexProperty, _Disabled_ReadonlyProperties, 
+    _DisabledClass_EnabledClassProperties
 {
 
-    public static final String COMPONENT_TYPE = "javax.faces.HtmlCommandLink";
-    private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Link";
+    public static final String COMPONENT_TYPE = "javax.faces.HtmlSelectManyCheckbox";
+    private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Checkbox";
 
+    private Integer _border = null;
+    private String _layout = null;
+
+    /**
+     * @JSFProperty
+     *   defaultValue="Integer.MIN_VALUE"
+     */
+    public abstract int getBorder();
+    
+    /**
+     * @JSFProperty
+     */
+    public abstract String getLayout();
 
 }

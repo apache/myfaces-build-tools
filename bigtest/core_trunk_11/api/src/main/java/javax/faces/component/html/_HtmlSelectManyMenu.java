@@ -18,30 +18,29 @@
 */
 package javax.faces.component.html;
 
-import javax.faces.component.UICommand;
+import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
- * 
+ *
  * @JSFComponent
- *   name = "h:commandLink"
- *   class = "javax.faces.component.html.HtmlCommandLink"
- *   tagClass = "org.apache.myfaces.taglib.html.HtmlCommandLinkTag"
- *   desc = "h:commandLink"
+ *   name = "h:selectManyMenu"
+ *   class = "javax.faces.component.html.HtmlSelectManyMenu"
+ *   tagClass = "org.apache.myfaces.taglib.html.HtmlSelectManyMenuTag"
+ *   desc = "h:selectManyMenu"
  *   
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class _HtmlCommandLink extends UICommand 
-    implements _EventProperties, _UniversalProperties, _StyleProperties,
-    _Focus_BlurProperties, _AccesskeyProperty, _TabindexProperty,
-    _LinkProperties
+abstract class _HtmlSelectManyMenu extends UISelectMany implements
+    _AccesskeyProperty, _UniversalProperties, _Disabled_ReadonlyProperties,
+    _Focus_BlurProperties, _Change_SelectProperties, _EventProperties,
+    _StyleProperties, _TabindexProperty, _DisabledClass_EnabledClassProperties
 {
 
-    public static final String COMPONENT_TYPE = "javax.faces.HtmlCommandLink";
-    private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Link";
-
+    public static final String COMPONENT_TYPE = "javax.faces.HtmlSelectManyMenu";
+    private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Menu";
 
 }

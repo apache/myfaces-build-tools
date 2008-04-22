@@ -231,7 +231,7 @@ public class MakeComponentsMojo extends AbstractMojo
                                 
                 if (!f.exists() && canGenerateComponent(component))
                 {                
-                    log.info("Generating tag class:"+component.getTagClass());
+                    log.info("Generating component class:"+component.getClassName());
                     _generateComponent(velocityEngine, component,baseContext);
                 }
             }
