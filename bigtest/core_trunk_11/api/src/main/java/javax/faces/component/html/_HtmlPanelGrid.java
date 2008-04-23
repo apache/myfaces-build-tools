@@ -23,6 +23,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * This element renders as an HTML table with specified number of
+ * columns.  Children of this element are rendered as cells in the
+ * table, filling rows from left to right.  Facets named "header"
+ * and "footer" are optional and specify the content of the thead
+ * and tfoot rows, respectively.
+ * 
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
@@ -42,68 +51,104 @@ abstract class _HtmlPanelGrid extends UIPanel implements _EventProperties,
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Grid";
 
     /**
+     * HTML: The background color of this element.
+     * 
      * @JSFProperty
      */
     public abstract String getBgcolor();
 
     /**
+     * HTML: Specifies the width of the border of this element, in pixels.  Deprecated in HTML 4.01.
+     * 
      * @JSFProperty
      *   defaultValue="Integer.MIN_VALUE"
      */
     public abstract int getBorder();
 
     /**
+     * HTML: Specifies the amount of empty space between the cell border and
+     * its contents.  It can be either a pixel length or a percentage.
+     * 
      * @JSFProperty
      */
     public abstract String getCellpadding();
 
     /**
+     * HTML: Specifies the amount of space between the cells of the table.
+     * It can be either a pixel length or a percentage of available 
+     * space.
+     * 
      * @JSFProperty
      */
     public abstract String getCellspacing();
 
     /**
+     * A comma separated list of CSS class names to apply to td elements in
+     * each column.
+     * 
      * @JSFProperty
      */
     public abstract String getColumnClasses();
 
     /**
+     * Specifies the number of columns in the grid.
+     * 
      * @JSFProperty
      *   defaultValue="1"
      */
     public abstract int getColumns();
 
     /**
+     * The CSS class to be applied to footer cells.
+     * 
      * @JSFProperty
      */
     public abstract String getFooterClass();
 
     /**
+     * HTML: Controls what part of the frame that surrounds a table is 
+     * visible.  Values include:  void, above, below, hsides, lhs, 
+     * rhs, vsides, box, and border.
+     * 
      * @JSFProperty
      */
     public abstract String getFrame();
 
     /**
+     * The CSS class to be applied to header cells.
+     * 
      * @JSFProperty
      */
     public abstract String getHeaderClass();
 
     /**
+     * A comma separated list of CSS class names to apply to td elements in
+     * each row.
+     * 
      * @JSFProperty
      */
     public abstract String getRowClasses();
 
     /**
+     * HTML: Controls how rules are rendered between cells.  Values include:
+     * none, groups, rows, cols, and all.
+     * 
      * @JSFProperty
      */
     public abstract String getRules();
 
     /**
+     * HTML: Provides a summary of the contents of the table, for
+     * accessibility purposes.
+     * 
      * @JSFProperty
      */
     public abstract String getSummary();
 
     /**
+     * HTML: Specifies the desired width of the table, as a pixel length or
+     * a percentage of available space.
+     * 
      * @JSFProperty
      */
     public abstract String getWidth();

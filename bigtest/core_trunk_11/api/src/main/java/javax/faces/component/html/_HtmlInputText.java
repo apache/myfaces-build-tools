@@ -23,6 +23,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Renders a HTML input element.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
@@ -45,12 +47,16 @@ abstract class _HtmlInputText extends UIInput implements _AccesskeyProperty,
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Text";
 
     /**
+     * HTML: The maximum number of characters allowed to be entered.
+     * 
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
      */
     public abstract int getMaxlength();
 
     /**
+     * HTML: The initial width of this control, in characters.
+     * 
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
      */

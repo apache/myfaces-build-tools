@@ -23,6 +23,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Renders a HTML textarea element.
+ * 
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
@@ -44,12 +49,16 @@ abstract class _HtmlInputTextarea extends UIInput implements _AccesskeyProperty,
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Textarea";
 
     /**
+     * HTML: The width of this element, in characters.
+     * 
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
      */
     public abstract int getCols();
     
     /**
+     * HTML: The height of this element, in characters.
+     * 
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
      */

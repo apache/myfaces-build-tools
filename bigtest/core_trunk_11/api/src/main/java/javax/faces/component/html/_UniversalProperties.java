@@ -21,16 +21,22 @@ package javax.faces.component.html;
 interface _UniversalProperties
 {
     /**
+     * HTML: The direction of text display, either 'ltr' (left-to-right) or 'rtl' (right-to-left).
+     * 
      * @JSFProperty
      */
     public abstract String getDir();
 
     /**
+     * HTML: The base language of this document.
+     * 
      * @JSFProperty
      */
     public abstract String getLang();
 
     /**
+     * HTML: An advisory title for this element.  Often used by the user agent as a tooltip.
+     * 
      * @JSFProperty
      */
     public abstract String getTitle();

@@ -23,6 +23,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Renders a HTML label element.
+ * 
+ * In addition to the JSF specification, MyFaces allows it to directly
+ * give an output text via the "value" attribute.
+ * 
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
@@ -42,6 +50,8 @@ abstract class _HtmlOutputLabel extends UIOutput implements _Focus_BlurPropertie
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Label";
 
     /**
+     * The client ID of the target input element of this label.
+     * 
      * @JSFProperty
      */
     public abstract String getFor();

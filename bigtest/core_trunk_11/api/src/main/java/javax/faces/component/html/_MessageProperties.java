@@ -21,52 +21,72 @@ package javax.faces.component.html;
 interface _MessageProperties
 {
     /**
+     * CSS class to be used for messages with severity "ERROR".
+     * 
      * @JSFProperty
      */
     public abstract String getErrorClass();
 
     /**
+     * CSS style to be used for messages with severity "ERROR".
+     * 
      * @JSFProperty
      */
     public abstract String getErrorStyle();
 
     /**
+     * CSS class to be used for messages with severity "FATAL".
+     * 
      * @JSFProperty
      */
     public abstract String getFatalClass();
 
     /**
+     * CSS style to be used for messages with severity "FATAL".
+     * 
      * @JSFProperty
      */
     public abstract String getFatalStyle();
 
     /**
+     * CSS class to be used for messages with severity "INFO".
+     * 
      * @JSFProperty
      */
     public abstract String getInfoClass();
 
     /**
+     * CSS style to be used for messages with severity "INFO".
+     * 
      * @JSFProperty
      */
     public abstract String getInfoStyle();
 
     /**
+     * HTML: An advisory title for this element.  Often used by the user agent as a tooltip.
+     * 
      * @JSFProperty
      */
     public abstract String getTitle();
 
     /**
+     * If true, the message summary will be rendered as a tooltip (i.e. HTML title attribute).
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isTooltip();
     
     /**
+     * CSS class to be used for messages with severity "WARN".
+     * 
      * @JSFProperty
      */
     public abstract String getWarnClass();
 
     /**
+     * CSS style to be used for messages with severity "WARN".
+     * 
      * @JSFProperty
      */
     public abstract String getWarnStyle();

@@ -21,6 +21,9 @@ package javax.faces.component.html;
 interface _EscapeProperty
 {
     /**
+     * Indicates whether rendered markup should be escaped.
+     * Default: true
+     * 
      * @JSFProperty
      *   defaultValue = "true"
      */

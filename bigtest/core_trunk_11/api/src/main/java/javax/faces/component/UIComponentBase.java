@@ -1360,6 +1360,9 @@ public abstract class UIComponentBase
     }
 
     /**
+     * A boolean value that indicates whether this component should be rendered.
+     * Default value: true.
+     * 
      * @JSFProperty
      */
     public boolean isRendered()

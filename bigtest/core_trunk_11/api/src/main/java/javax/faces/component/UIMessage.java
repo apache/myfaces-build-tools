@@ -65,6 +65,10 @@ public class UIMessage
     }
 
     /**
+     * An EL expression, returning a String, with the unique ID of the component 
+     * for which messages should be displayed.  This string has the same format
+     * as that accepted by the UIComponent.findComponent() method.
+     * 
      * @JSFProperty
      *   required = "true"
      */
@@ -81,6 +85,9 @@ public class UIMessage
     }
 
     /**
+     * An EL expression, returning a boolean, that controls whether the
+     * detail text of the associated messages is displayed.  Default: false.
+     * 
      * @JSFProperty
      */
     public boolean isShowDetail()
@@ -97,6 +104,9 @@ public class UIMessage
     }
 
     /**
+     * An EL expression, returning a boolean, that controls whether the
+     * summary text of the associated messages is displayed.  Default: true.
+     * 
      * @JSFProperty
      */
     public boolean isShowSummary()

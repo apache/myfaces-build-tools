@@ -21,6 +21,8 @@ package javax.faces.component.html;
 interface _TitleProperty
 {
     /**
+     * HTML: An advisory title for this element.  Often used by the user agent as a tooltip.
+     * 
      * @JSFProperty
      */
     public abstract String getTitle();

@@ -21,6 +21,8 @@ package javax.faces.component.html;
 interface _TabindexProperty
 {
     /**
+     * HTML: Specifies the position of this element within the tab order of the document.
+     * 
      * @JSFProperty
      */
     public abstract String getTabindex();

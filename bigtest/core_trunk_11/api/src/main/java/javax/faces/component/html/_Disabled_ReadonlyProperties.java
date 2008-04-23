@@ -21,12 +21,17 @@ package javax.faces.component.html;
 interface _Disabled_ReadonlyProperties
 {
     /**
+     * HTML: When true, this element cannot receive focus.
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isDisabled();
 
     /**
+     * HTML: When true, indicates that this component cannot be modified by the user.
+     * The element may receive focus unless it has also been disabled.
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */

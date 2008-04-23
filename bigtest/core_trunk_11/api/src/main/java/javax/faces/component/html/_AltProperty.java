@@ -21,6 +21,8 @@ package javax.faces.component.html;
 interface _AltProperty
 {   
     /**
+     * HTML: Specifies alternative text that can be used by a browser that can't show this element.
+     * 
      * @JSFProperty
      */
     public abstract String getAlt();

@@ -23,6 +23,22 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Allow the user to choose one option from a set of options.
+ * &lt;p&gt;
+ * Renders as an HTML table element, containing an input element for
+ * each child f:selectItem or f:selectItems elements.  The input
+ * elements are rendered as type radio.
+ * &lt;p&gt;
+ * The value attribute of this component is read to determine
+ * which of the available options is initially selected; its value should
+ * match the "value" property of one of the child SelectItem objects.
+ * &lt;p&gt;
+ * On submit of the enclosing form, the value attribute's bound property
+ * is updated to contain the "value" property from the chosen SelectItem.
+ * &lt;p&gt;
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
@@ -44,12 +60,18 @@ abstract class _HtmlSelectOneRadio extends UISelectOne implements
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Radio";
 
     /**
+     * Width in pixels of the border to be drawn around the table containing the options list.
+     * 
      * @JSFProperty
      *   defaultValue="Integer.MIN_VALUE"
      */
     public abstract int getBorder();
-    
+ 
     /**
+     * Orientation of the options list. Valid values are 
+     * "pageDirection" for a vertical layout, or "lineDirection" for
+     * horizontal. The default value is "lineDirection". 
+     * 
      * @JSFProperty
      */
     public abstract String getLayout();

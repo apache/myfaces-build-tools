@@ -23,6 +23,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Renders all or some FacesMessages depending on the "for" and
+ * "globalOnly" attributes:&lt;br&gt;
+ * &lt;ul&gt;
+ * &lt;li&gt;If globalOnly = true, only global messages, that have no
+ * associated clientId, will be displayed.&lt;/li&gt;
+ * &lt;li&gt;else if there is a "for" attribute, only messages that are
+ * assigned to the component referenced by the "for" attribute
+ * are displayed.&lt;/li&gt;
+ * &lt;li&gt;else all messages are displayed.&lt;/li&gt;
+ * &lt;/ul&gt;
+ * 
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
@@ -43,6 +57,8 @@ abstract class _HtmlMessages extends UIMessages implements _StyleProperties,
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Messages";
 
     /**
+     * The layout: "table" or "list". Default: list
+     * 
      * @JSFProperty
      *   defaultValue = "list"
      */

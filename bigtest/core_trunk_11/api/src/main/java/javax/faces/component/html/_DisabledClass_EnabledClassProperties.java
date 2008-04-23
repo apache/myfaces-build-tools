@@ -21,11 +21,15 @@ package javax.faces.component.html;
 interface _DisabledClass_EnabledClassProperties
 {
     /**
+     * The CSS class assigned to the label element for enabled choices.
+     * 
      * @JSFProperty
      */
     public String getDisabledClass();
 
     /**
+     * The CSS class assigned to the label element for enabled choices.
+     * 
      * @JSFProperty
      */
     public String getEnabledClass();

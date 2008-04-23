@@ -25,10 +25,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * This component renders as an HTML table element.  It has as its
+ * children h:column entities, which describe the columns of the table.
+ * It can be decorated with facets named "header" and "footer" to
+ * specify header and footer rows.
+ * 
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions. 
+ * 
  * Extend standard UIData component to add support for html-specific features
  * such as CSS style attributes and event handler scripts.
  * <p>
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
+ * </p>
  * 
  * @JSFComponent
  *   name = "h:dataTable"
@@ -104,6 +113,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: The background color of this element.
+     * 
      * @JSFProperty
      */
     public String getBgcolor()
@@ -119,6 +130,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Specifies the width of the border of this element, in pixels.  Deprecated in HTML 4.01.
+     * 
      * @JSFProperty
      */
     public int getBorder()
@@ -135,6 +148,9 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Specifies the amount of empty space between the cell border and
+     * its contents.  It can be either a pixel length or a percentage.
+     * 
      * @JSFProperty
      */
     public String getCellpadding()
@@ -150,6 +166,9 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Specifies the amount of space between the cells of the table.
+     * It can be either a pixel length or a percentage of available 
+     * 
      * @JSFProperty
      */
     public String getCellspacing()
@@ -165,6 +184,9 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * A comma separated list of CSS class names to apply to td elements in
+     * each column.
+     * 
      * @JSFProperty
      */
     public String getColumnClasses()
@@ -180,6 +202,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: The direction of text display, either 'ltr' (left-to-right) or 'rtl' (right-to-left).
+     * 
      * @JSFProperty
      */
     public String getDir()
@@ -195,6 +219,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * The CSS class to be applied to footer cells.
+     * 
      * @JSFProperty
      */
     public String getFooterClass()
@@ -209,7 +235,12 @@ public class HtmlDataTable extends UIData
         _frame = frame;
     }
 
+
     /**
+     * HTML: Controls what part of the frame that surrounds a table is 
+     * visible.  Values include:  void, above, below, hsides, lhs, 
+     * rhs, vsides, box, and border.
+     * 
      * @JSFProperty
      */
     public String getFrame()
@@ -225,6 +256,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * The CSS class to be applied to header cells.
+     * 
      * @JSFProperty
      */
     public String getHeaderClass()
@@ -240,6 +273,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: The base language of this document.
+     * 
      * @JSFProperty
      */
     public String getLang()
@@ -255,6 +290,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Script to be invoked when the element is clicked.
+     * 
      * @JSFProperty
      */
     public String getOnclick()
@@ -270,6 +307,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Script to be invoked when the element is double-clicked.
+     * 
      * @JSFProperty
      */
     public String getOndblclick()
@@ -285,6 +324,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Script to be invoked when a key is pressed down over this element.
+     * 
      * @JSFProperty
      */
     public String getOnkeydown()
@@ -300,6 +341,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Script to be invoked when a key is pressed over this element.
+     * 
      * @JSFProperty
      */
     public String getOnkeypress()
@@ -315,6 +358,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Script to be invoked when a key is released over this element.
+     * 
      * @JSFProperty
      */
     public String getOnkeyup()
@@ -330,6 +375,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Script to be invoked when the pointing device is pressed over this element.
+     * 
      * @JSFProperty
      */
     public String getOnmousedown()
@@ -345,6 +392,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Script to be invoked when the pointing device is moved while it is in this element.
+     * 
      * @JSFProperty
      */
     public String getOnmousemove()
@@ -360,6 +409,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Script to be invoked when the pointing device is moves out of this element.
+     * 
      * @JSFProperty
      */
     public String getOnmouseout()
@@ -375,6 +426,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Script to be invoked when the pointing device is moved into this element.
+     * 
      * @JSFProperty
      */
     public String getOnmouseover()
@@ -390,6 +443,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Script to be invoked when the pointing device is released over this element.
+     * 
      * @JSFProperty
      */
     public String getOnmouseup()
@@ -405,6 +460,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * A comma separated list of CSS class names to apply to td elements in each row.
+
      * @JSFProperty
      */
     public String getRowClasses()
@@ -420,6 +477,9 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Controls how rules are rendered between cells.  Values include:
+     * none, groups, rows, cols, and all.
+     * 
      * @JSFProperty
      */
     public String getRules()
@@ -435,6 +495,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: CSS styling instructions.
+     * 
      * @JSFProperty
      */
     public String getStyle()
@@ -450,6 +512,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * The CSS class for this element.  Corresponds to the HTML 'class' attribute.
+     * 
      * @JSFProperty
      */
     public String getStyleClass()
@@ -465,6 +529,9 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Provides a summary of the contents of the table, for
+     * accessibility purposes.
+     * 
      * @JSFProperty
      */
     public String getSummary()
@@ -480,6 +547,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: An advisory title for this element.  Often used by the user agent as a tooltip.
+     * 
      * @JSFProperty
      */
     public String getTitle()
@@ -495,6 +564,8 @@ public class HtmlDataTable extends UIData
     }
 
     /**
+     * HTML: Specifies the desired width of the table, as a pixel length or
+     * a percentage of available space.
      * @JSFProperty
      */
     public String getWidth()

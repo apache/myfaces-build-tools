@@ -69,7 +69,7 @@
           <execution>
             <id>makehtmltld</id>
             <configuration>
-                <xmlFile>classes/META-INF/myfaces_html_gen.tld</xmlFile>
+                <xmlFile>classes/META-INF/myfaces_html.tld</xmlFile>
                 <xmlBaseFile>src/main/conf/META-INF/myfaces_html-base.tld</xmlBaseFile>
                 <templateFile>myfaces_html.vm</templateFile>
                 
@@ -96,6 +96,7 @@
         </executions>
       </plugin>
  
+      <!-- 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xslt-maven-plugin</artifactId>
@@ -114,6 +115,7 @@
           <destDir>target/classes/META-INF</destDir>
         </configuration>
       </plugin>
+       -->
       <plugin>
         <!--
           - The shared-impl project generates a modified version of the "shared" module
@@ -200,6 +202,7 @@
       <id>generate-site</id>
       <build>
         <plugins>
+          <!-- 
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>xslt-maven-plugin</artifactId>
@@ -231,6 +234,36 @@
               </execution>
             </executions>
           </plugin>
+           -->
+           <!-- 
+	      <plugin>
+	        <groupId>org.apache.myfaces.buildtools</groupId>
+	        <artifactId>myfaces-builder-plugin</artifactId>
+	        <version>1.0.0-SNAPSHOT</version>
+	        <executions>
+	          <execution>
+	            <goals>
+	              <goal>build-metadata</goal>
+	            </goals>
+	          </execution>
+	          <execution>
+	            <id>makehtmltld</id>
+	            <configuration>
+	                <xmlFile>classes/META-INF/myfaces_html.tld</xmlFile>
+	                <xmlBaseFile>src/main/conf/META-INF/myfaces_html-base.tld</xmlBaseFile>
+	                <templateFile>myfaces_html.vm</templateFile>
+	                
+	                <modelIds>
+	                    <modelId>myfaces-api</modelId>
+	                </modelIds>
+	            </configuration>
+	            <goals>
+	                <goal>make-config</goal>
+	            </goals>
+	          </execution>          
+	        </executions>
+	      </plugin>
+	       -->           
         </plugins>
       </build>
       <reporting>
@@ -239,7 +272,7 @@
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
             <configuration>
-              <taglib.src.dir>${basedir}/target/tlddoc-site</taglib.src.dir>
+              <taglib.src.dir>${basedir}/target/classes/META-INF</taglib.src.dir>
               <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
             </configuration>
           </plugin>
@@ -264,6 +297,7 @@
       </activation>
       <build>
         <plugins>
+          <!-- 
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>xslt-maven-plugin</artifactId>
@@ -295,6 +329,7 @@
               </execution>
             </executions>
           </plugin>
+           -->
           <plugin>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>2.3</version>
@@ -320,7 +355,7 @@
               </execution>
             </executions>
             <configuration>
-              <taglib.src.dir>${basedir}/target/tlddoc-site</taglib.src.dir>
+              <taglib.src.dir>${basedir}/target/classes/META-INF</taglib.src.dir>
               <tldDocDir>${basedir}/target/tlddoc</tldDocDir>
             </configuration>
           </plugin>

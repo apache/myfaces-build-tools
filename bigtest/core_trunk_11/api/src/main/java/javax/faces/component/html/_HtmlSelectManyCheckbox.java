@@ -23,6 +23,29 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Allow the user to select zero or more items from a set of
+ * available options. This is presented as a table with one cell per
+ * available option; each cell contains a checkbox and the option's
+ * label. The "layout" attribute determines whether the checkboxes
+ * are laid out horizontally or vertically.
+ * &lt;p&gt;
+ * The set of available options is defined by adding child
+ * f:selectItem or f:selectItems components to this component.
+ * &lt;p&gt;
+ * The value attribute must be a value-binding expression to a
+ * property of type List, Object array or primitive array. That
+ * "collection" is expected to contain objects of the same type as
+ * SelectItem.getValue() returns for the child SelectItem objects.
+ * On rendering, any child whose value is in the list will be
+ * selected initially. During the update phase, the property setter
+ * is called to replace the original collection with a completely
+ * new collection object of the appropriate type. The new collection
+ * object contains the value of each child SelectItem object that
+ * is currently selected.
+ * &lt;p&gt;
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
@@ -48,12 +71,17 @@ abstract class _HtmlSelectManyCheckbox extends UISelectMany implements
     private String _layout = null;
 
     /**
+     * HTML: Specifies the width of the border of this element, in pixels.  Deprecated in HTML 4.01.
+     * 
      * @JSFProperty
      *   defaultValue="Integer.MIN_VALUE"
      */
     public abstract int getBorder();
     
     /**
+     * Controls the layout direction of the child elements.  Values include:  
+     * lineDirection (vertical) and pageDirection (horzontal).
+     * 
      * @JSFProperty
      */
     public abstract String getLayout();

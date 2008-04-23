@@ -39,6 +39,8 @@ public class UIGraphic
     private static final String VALUE_PROPERTY = "value";
 
     /**
+     * An alias for the "value" attribute.
+     * 
      * @JSFProperty
      */
     public String getUrl()
@@ -101,6 +103,9 @@ public class UIGraphic
     }
 
     /**
+     * The URL of the image.  If the URL starts with a '/', it is relative
+     * to the context path of the web application.
+     * 
      * @JSFProperty
      */
     public Object getValue()

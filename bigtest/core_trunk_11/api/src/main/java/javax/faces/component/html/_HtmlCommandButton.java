@@ -23,6 +23,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * This tag renders as an HTML input element.
+ * 
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
@@ -44,11 +49,15 @@ abstract class _HtmlCommandButton
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Button";
             
     /**
+     * HTML: The URL of an image that renders in place of the button.
+     * 
      * @JSFProperty
      */
     public abstract String getImage();
 
     /**
+     * HTML: A hint to the user agent about the content type of the linked resource.
+     * 
      * @JSFProperty
      *   defaultValue = "submit"
      */

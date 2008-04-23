@@ -21,12 +21,16 @@ package javax.faces.component.html;
 interface _Change_SelectProperties
 {
     /**
+     * HTML: Specifies a script to be invoked when the element is modified.
+     * 
      * @JSFProperty
      */
     public abstract String getOnchange();
 
 
     /**
+     * HTML: Specifies a script to be invoked when the element is selected.
+     * 
      * @JSFProperty
      */
     public abstract String getOnselect();

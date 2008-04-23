@@ -133,6 +133,10 @@ public class UIInput
 
     // use javadoc inherited from EditableValueHolder    
     /**
+     * A method binding EL expression, accepting FacesContext, UIComponent,
+     * and Object parameters, and returning void, that validates the
+     * component's local value.
+     * 
      * @JSFProperty
      *   stateHolder="true"
      *   returnSignature="void"
@@ -151,6 +155,11 @@ public class UIInput
 
     // use javadoc inherited from EditableValueHolder
     /**
+     * A method binding EL expression, accepting a ValueChangeEvent parameter
+     * and returning void. The specified method is invoked if this component
+     * is modified. The phase that this handler is fired in can be controlled
+     * via the immediate attribute.
+     * 
      * @JSFProperty
      *   stateHolder="true"
      *   returnSignature="void"
@@ -583,6 +592,12 @@ public class UIInput
     }
 
     /**
+     * A boolean value that identifies the phase during which value change
+     * events should fire. During normal event processing, value change
+     * events are fired during the "process validations" phase of request
+     * processing. If this attribute is set to "true", these methods are
+     * fired instead at the end of the "apply request values" phase.
+     * 
      * @JSFProperty
      */
     public boolean isImmediate()
@@ -599,6 +614,10 @@ public class UIInput
     }
 
     /**
+     * A boolean value that indicates whether an input value is required.
+     * If this value is true, and no input value is provided, the error
+     * message javax.faces.component.UIInput.REQUIRED is posted.
+     * 
      * @JSFProperty
      */
     public boolean isRequired()

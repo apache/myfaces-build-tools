@@ -64,6 +64,9 @@ public class UIMessages
     }
 
     /**
+     * A boolean value that controls whether global messages (those without
+     * IDs) should be displayed. Default: false.
+     * 
      * @JSFProperty
      */
     public boolean isGlobalOnly()
@@ -80,6 +83,9 @@ public class UIMessages
     }
 
     /**
+     * An EL expression, returning a boolean, that controls whether the
+     * detail text of the associated messages is displayed.  Default: false.
+     * 
      * @JSFProperty
      */
     public boolean isShowDetail()
@@ -96,6 +102,9 @@ public class UIMessages
     }
 
     /**
+     * An EL expression, returning a boolean, that controls whether the
+     * summary text of the associated messages is displayed.  Default: true.
+     * 
      * @JSFProperty
      */
     public boolean isShowSummary()

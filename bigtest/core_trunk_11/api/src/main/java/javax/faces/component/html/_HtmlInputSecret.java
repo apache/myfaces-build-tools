@@ -23,6 +23,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Renders as an HTML input tag with its type set to "password".
+ * 
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  * 
  * @JSFComponent
@@ -43,18 +48,25 @@ abstract class _HtmlInputSecret extends UIInput implements _AccesskeyProperty,
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Secret";
 
     /**
+     * HTML: The maximum number of characters allowed to be entered.
+     * 
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
      */
     public abstract int getMaxlength();
     
     /**
+     * If true, the value will be re-sent (in plaintext) when the form
+     * is rerendered (see JSF.7.4.4). Default is false.
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isRedisplay();
     
     /**
+     * HTML: The initial width of this control, in characters.
+     * 
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
      */

@@ -21,6 +21,8 @@ package javax.faces.component.html;
 interface _AccesskeyProperty
 {
     /**
+     * HTML: Sets the access key for this element.
+     * 
      * @JSFProperty
      */
     public abstract String getAccesskey();

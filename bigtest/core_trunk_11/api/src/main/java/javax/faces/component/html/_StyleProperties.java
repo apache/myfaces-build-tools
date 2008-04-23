@@ -21,11 +21,15 @@ package javax.faces.component.html;
 interface _StyleProperties
 {
     /**
+     * HTML: CSS styling instructions.
+     * 
      * @JSFProperty
      */
     public abstract String getStyle();
 
     /**
+     * The CSS class for this element.  Corresponds to the HTML 'class' attribute.
+     * 
      * @JSFProperty
      */
     public abstract String getStyleClass();

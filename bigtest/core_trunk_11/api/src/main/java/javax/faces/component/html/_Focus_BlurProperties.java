@@ -22,11 +22,15 @@ interface _Focus_BlurProperties
 {
 
     /**
+     * HTML: Specifies a script to be invoked when the element loses focus.
+     * 
      * @JSFProperty
      */
     public String getOnblur();
     
     /**
+     * HTML: Specifies a script to be invoked when the element receives focus.
+     * 
      * @JSFProperty
      */
     public String getOnfocus();

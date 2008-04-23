@@ -23,6 +23,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Renders an HTML img element.
+ * 
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
@@ -42,27 +47,37 @@ abstract class _HtmlGraphicImage extends UIGraphic implements _EventProperties,
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Image";
 
     /**
+     * HTML: Overrides the natural height of this image, by specifying height in pixels.
+     * 
      * @JSFProperty
      */
     public abstract String getHeight();
 
     /**
+     * HTML: Specifies server-side image map handling for this image.
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isIsmap();
     
     /**
+     * HTML: A link to a long description of the image.
+     * 
      * @JSFProperty
      */
     public abstract String getLongdesc();
     
     /**
+     * HTML: Specifies an image map to use with this image.
+     * 
      * @JSFProperty
      */
     public abstract String getUsemap();
     
     /**
+     * HTML: Overrides the natural width of this image, by specifying width in pixels.
+     * 
      * @JSFProperty
      */
     public abstract String getWidth();

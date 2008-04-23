@@ -23,6 +23,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Allow the user to choose a "true" or "false" value, presented as a
+ * checkbox.
+ * &lt;p&gt;
+ * Renders as an HTML input tag with its type set to "checkbox", and
+ * its name attribute set to the id. The "checked" attribute is rendered
+ * if the value of this component is true.
+ * &lt;p&gt;
+ * Unless otherwise specified, all attributes accept static values
+ * or EL expressions.
+ * 
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent

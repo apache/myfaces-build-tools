@@ -445,6 +445,8 @@ public class UIData extends UIComponentBase implements NamingContainer
     }
 
     /**
+     * Defines the name of the request-scope variable that will hold the current row during iteration.  This value must be a static value.
+     * 
      * @JSFProperty
      *   literalOnly = "true"
      *   required = "true"
@@ -1010,6 +1012,8 @@ public class UIData extends UIComponentBase implements NamingContainer
     }
 
     /**
+     * The index of the first row to be displayed, where 0 is the first row.
+     * 
      * @JSFProperty
      */
     public int getFirst()
@@ -1022,6 +1026,8 @@ public class UIData extends UIComponentBase implements NamingContainer
     }
 
     /**
+     * The number of rows to be displayed.  Specify zero for all remaining rows in the table.
+     * 
      * @JSFProperty
      */
     public int getRows()
@@ -1034,6 +1040,12 @@ public class UIData extends UIComponentBase implements NamingContainer
     }
 
     /**
+     * An EL expression that specifies the data model that backs this table.  The value can be of any type.
+     * 
+     * A value of type DataModel is used directly.  Array-like parameters of type java.util.List, array of Object, 
+     * java.sql.ResultSet, or javax.servlet.jsp.jstl.sql.Result are wrapped in a DataModel.
+     * 
+     * Other values are wrapped in a DataModel as a single row.
      * @JSFProperty
      */
     public Object getValue()
