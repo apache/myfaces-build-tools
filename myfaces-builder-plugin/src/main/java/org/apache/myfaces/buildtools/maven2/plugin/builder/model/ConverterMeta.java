@@ -19,6 +19,9 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
 import java.lang.reflect.Modifier;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.apache.commons.digester.Digester;
@@ -35,7 +38,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  * <li>implicitly used via its forClass property
  * </ul>
  */
-public class ConverterMeta extends ClassMeta
+public class ConverterMeta extends ClassMeta implements PropertyHolder
 {
     static private final Logger _LOG = Logger.getLogger(ConverterMeta.class
             .getName());
@@ -46,6 +49,7 @@ public class ConverterMeta extends ClassMeta
     private String _converterId;
     private int _converterClassModifiers;
 
+    protected Map _properties;
     /**
      * Write an instance of this class out as xml.
      */
@@ -59,6 +63,12 @@ public class ConverterMeta extends ClassMeta
         out.writeElement("desc", cm._description);
         out.writeElement("longDesc", cm._longDescription);
 
+        for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
+        {
+            PropertyMeta prop = (PropertyMeta) i.next();
+            PropertyMeta.writeXml(out, prop);
+        }
+        
         out.endElement("converter");
     }
 
@@ -79,6 +89,7 @@ public class ConverterMeta extends ClassMeta
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
+        PropertyMeta.addXmlRules(digester, newPrefix);
     }
 
     /**
@@ -93,6 +104,7 @@ public class ConverterMeta extends ClassMeta
 
         _converterId = ModelUtils.merge(this._converterId, other._converterId);
         
+        ModelUtils.mergeProps(this, other);
         // TODO: _converterClassMOdifiers
     }
 
@@ -165,4 +177,48 @@ public class ConverterMeta extends ClassMeta
     {
         return _longDescription;
     }
+    
+    /**
+     * Adds a property to this component.
+     */
+    public void addProperty(PropertyMeta property)
+    {
+        _properties.put(property.getName(), property);
+    }
+
+    public PropertyMeta getProperty(String propertyName)
+    {
+        return (PropertyMeta) _properties.get(propertyName);
+    }
+
+    /**
+     * Number of properties for this component
+     */
+    public int propertiesSize()
+    {
+        return _properties.size();
+    }
+
+    /**
+     * Returns true if this component has any properties.
+     */
+    public boolean hasProperties()
+    {
+        return _properties.size() > 0;
+    }
+
+    /**
+     * Returns an iterator for all properties
+     */
+    public Iterator properties()
+    {
+        return _properties.values().iterator();
+    }
+    
+    //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
+    
+    public Collection getPropertyList(){
+        return _properties.values();
+    }
+
 }

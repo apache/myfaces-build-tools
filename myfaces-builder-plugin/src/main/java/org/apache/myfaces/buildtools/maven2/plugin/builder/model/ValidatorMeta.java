@@ -19,6 +19,9 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
 import java.lang.reflect.Modifier;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.apache.commons.digester.Digester;
@@ -28,7 +31,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  * Store metadata about a class that is either a JSF Validator, or some base
  * class or interface that a Validator can be derived from.
  */
-public class ValidatorMeta extends ClassMeta
+public class ValidatorMeta extends ClassMeta implements PropertyHolder
 {
     static private final Logger _LOG = Logger.getLogger(ValidatorMeta.class
             .getName());
@@ -38,6 +41,8 @@ public class ValidatorMeta extends ClassMeta
 
     private String _validatorId;
     private int _validatorClassModifiers;
+    
+    protected Map _properties;
 
     /**
      * Write an instance of this class out as xml.
@@ -52,6 +57,13 @@ public class ValidatorMeta extends ClassMeta
         out.writeElement("desc", vm._description);
         out.writeElement("longDesc", vm._longDescription);
 
+        for (Iterator i = vm._properties.values().iterator(); i.hasNext();)
+        {
+            PropertyMeta prop = (PropertyMeta) i.next();
+            PropertyMeta.writeXml(out, prop);
+        }
+
+        
         out.endElement("validator");
     }
 
@@ -72,6 +84,7 @@ public class ValidatorMeta extends ClassMeta
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
+        PropertyMeta.addXmlRules(digester, newPrefix);
     }
 
     /**
@@ -86,6 +99,7 @@ public class ValidatorMeta extends ClassMeta
 
         _validatorId = ModelUtils.merge(this._validatorId, other._validatorId);
 
+        ModelUtils.mergeProps(this, other);
         // TODO: _validatorClassMOdifiers
     }
 
@@ -158,4 +172,48 @@ public class ValidatorMeta extends ClassMeta
     {
         return _longDescription;
     }
+    
+    /**
+     * Adds a property to this component.
+     */
+    public void addProperty(PropertyMeta property)
+    {
+        _properties.put(property.getName(), property);
+    }
+
+    public PropertyMeta getProperty(String propertyName)
+    {
+        return (PropertyMeta) _properties.get(propertyName);
+    }
+
+    /**
+     * Number of properties for this component
+     */
+    public int propertiesSize()
+    {
+        return _properties.size();
+    }
+
+    /**
+     * Returns true if this component has any properties.
+     */
+    public boolean hasProperties()
+    {
+        return _properties.size() > 0;
+    }
+
+    /**
+     * Returns an iterator for all properties
+     */
+    public Iterator properties()
+    {
+        return _properties.values().iterator();
+    }
+    
+    //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
+    
+    public Collection getPropertyList(){
+        return _properties.values();
+    }
+    
 }
