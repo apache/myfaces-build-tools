@@ -42,6 +42,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
     private String _name;
     private String _description;
     private String _longDescription;
+    private String _bodyContent;
 
     private String _type;
     private String _family;
@@ -66,6 +67,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
 
         out.writeElement("name", cm._name);
         out.writeElement("type", cm._type);
+        out.writeElement("bodyContent", cm._bodyContent);
         out.writeElement("family", cm._family);
         out.writeElement("tagClass", cm._tagClass);
         out.writeElement("tagSuperclass", cm._tagSuperclass);
@@ -98,6 +100,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
 
         digester.addBeanPropertySetter(newPrefix + "/name");
         digester.addBeanPropertySetter(newPrefix + "/type");
+        digester.addBeanPropertySetter(newPrefix + "/bodyContent");
         digester.addBeanPropertySetter(newPrefix + "/family");
         digester.addBeanPropertySetter(newPrefix + "/tagClass");
         digester.addBeanPropertySetter(newPrefix + "/tagSuperclass");        
@@ -123,6 +126,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
     public void merge(ComponentMeta other)
     {
         _name = ModelUtils.merge(this._name, other._name);
+        _bodyContent = ModelUtils.merge(this._bodyContent, other._bodyContent);
         _description = ModelUtils.merge(this._description, other._description);
         _longDescription = ModelUtils.merge(this._longDescription,
                 other._longDescription);
@@ -219,6 +223,16 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
     public String getLongDescription()
     {
         return _longDescription;
+    }
+
+    public void setBodyContent(String bodyContent)
+    {
+        this._bodyContent = bodyContent;
+    }
+
+    public String getBodyContent()
+    {
+        return _bodyContent;
     }
 
     /**

@@ -39,11 +39,13 @@ public class Model
     private List _converters = new ArrayList(100);
     private List _validators = new ArrayList(100);
     private List _renderKits = new ArrayList(100);
+    private List _tags = new ArrayList(100);    
 
     private Map _componentsByClass = new TreeMap();
     private Map _convertersByClass = new TreeMap();
     private Map _validatorsByClass = new TreeMap();
     private Map _renderKitsById = new TreeMap();
+    private Map _tagsByClass =  new TreeMap();
     
     private String _modelId;
 
@@ -81,6 +83,12 @@ public class Model
         {
             RenderKitMeta c = (RenderKitMeta) i.next();
             RenderKitMeta.writeXml(out, c);
+        }
+        
+        for (Iterator i = model._tags.iterator(); i.hasNext();)
+        {
+            TagMeta c = (TagMeta) i.next();
+            TagMeta.writeXml(out, c);
         }        
 
         out.endElement("model");
@@ -103,6 +111,7 @@ public class Model
         ConverterMeta.addXmlRules(digester, prefix);
         ValidatorMeta.addXmlRules(digester, prefix);
         RenderKitMeta.addXmlRules(digester, prefix);
+        TagMeta.addXmlRules(digester, prefix);
     }
     
     /**
@@ -137,14 +146,23 @@ public class Model
         
         for (Iterator it = other.getValidators().iterator(); it.hasNext();)
         {
-            ValidatorMeta converter = (ValidatorMeta) it.next();
+            ValidatorMeta validator = (ValidatorMeta) it.next();
             
-            if (this.findConverterByClassName(converter.getClassName())== null)
+            if (this.findValidatorByClassName(validator.getClassName())== null)
             {
-                this.addValidator(converter);
+                this.addValidator(validator);
             }
         }
         
+        for (Iterator it = other.getTags().iterator(); it.hasNext();)
+        {
+            TagMeta validator = (TagMeta) it.next();
+            
+            if (this.findTagByClassName(validator.getClassName())== null)
+            {
+                this.addTag(validator);
+            }
+        }        
     }
 
     /**
@@ -277,6 +295,40 @@ public class Model
     {
         return (RenderKitMeta) _renderKitsById.get(id);
     }
+    
+    /**
+     * Adds a tag to this faces config document.
+     * 
+     * @param tag
+     *            the tag to add
+     */
+    public void addTag(TagMeta tag)
+    {
+        _tags.add(tag);
+        _tagsByClass.put(tag.getClassName(), tag);
+    }
+
+    /**
+     * Returns all tags
+     */
+    public List getTags()
+    {
+        return _tags;
+    }
+
+    /**
+     * Returns an iterator for all tags.
+     */
+    public Iterator tags()
+    {
+        return _tags.iterator();
+    }
+
+    public TagMeta findTagByClassName(String className)
+    {
+        return (TagMeta) _tagsByClass.get(className);
+    }
+    
 
     public void setModelId(String _modelId)
     {

@@ -154,7 +154,7 @@ public class PropertyMeta
         _defaultValue = ModelUtils.merge(this._defaultValue, other._defaultValue);
         _signature = (MethodSignatureMeta) ModelUtils.merge(this._signature, other._signature);
         _generated = ModelUtils.merge(this._generated, other._generated);
-        
+        _tagExcluded = ModelUtils.merge(this._tagExcluded, other._tagExcluded);
     }
 
     /**

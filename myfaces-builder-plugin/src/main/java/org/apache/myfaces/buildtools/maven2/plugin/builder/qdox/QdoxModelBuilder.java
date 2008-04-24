@@ -16,6 +16,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelBuilder;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
@@ -24,6 +25,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RenderKitMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RendererMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
@@ -60,6 +62,9 @@ public class QdoxModelBuilder implements ModelBuilder
     //in jsf 1.1 (in 1.2 has component counterpart). In fact, all
     //properties must be defined with JSFProperty
     private static final String DOC_JSP_PROPERTY = "JSFJspProperty";
+    
+    private static final String DOC_TAG = "JSFJspTag";
+    private static final String DOC_JSP_ATTRIBUTE = "JSFJspAttribute";
 
     private static final String ANNOTATION_BASE = "org.apache.myfaces.buildtools.annotation";
 
@@ -130,6 +135,11 @@ public class QdoxModelBuilder implements ModelBuilder
             ValidatorMeta validator = (ValidatorMeta) it.next();
             validator.setModelId(model.getModelId());
         }
+        for (Iterator it = model.getTags().iterator(); it.hasNext();)
+        {
+            TagMeta tag = (TagMeta) it.next();
+            tag.setModelId(model.getModelId());
+        }       
     }
 
     /**
@@ -207,6 +217,20 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             Map props = anno.getNamedParameterMap();
             processComponent(props, anno.getContext(), clazz, model);
+        }
+        
+        //tag
+        tag = clazz.getTagByName(DOC_TAG, false);
+        if (tag != null)
+        {
+            Map props = tag.getNamedParameterMap();
+            processTag(props, tag.getContext(), clazz, model);
+        }
+        anno = getAnnotation(clazz, DOC_TAG);
+        if (anno != null)
+        {
+            Map props = anno.getNamedParameterMap();
+            processTag(props, anno.getContext(), clazz, model);
         }
         
         // renderKit
@@ -510,6 +534,34 @@ public class QdoxModelBuilder implements ModelBuilder
         renderKit.addRenderer(renderer);
     }
     
+    private void processTag(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, Model model) throws MojoExecutionException
+    {
+        String longDescription = clazz.getComment();
+        String descDflt = getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+
+        String tagName = getString(clazz, "name", props, null);
+        String tagClass = getString(clazz, "class", props, clazz
+                .getFullyQualifiedName());
+        
+        String bodyContent = getString(clazz, "bodyContent", props, "JSP");
+
+        TagMeta tag = new TagMeta();
+        tag.setName(tagName);
+        tag.setClassName(tagClass);
+        tag.setBodyContent(bodyContent);
+        tag.setDescription(shortDescription);
+        tag.setLongDescription(longDescription);
+        
+        processTagAttributes(clazz, tag);
+        model.addTag(tag);
+    }
+    
     private void processComponent(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, Model model) throws MojoExecutionException
     {
@@ -568,6 +620,8 @@ public class QdoxModelBuilder implements ModelBuilder
         }
         String shortDescription = getString(clazz, "desc", props, descDflt);
 
+        String bodyContent = getString(clazz, "bodyContent", props, null);
+        
         String componentFamily = getString(clazz, "family", props,
                 componentTypeFamily);
         String componentType = getString(clazz, "type", props,
@@ -583,6 +637,7 @@ public class QdoxModelBuilder implements ModelBuilder
         ComponentMeta component = new ComponentMeta();
         initAncestry(model, clazz, component);
         component.setName(componentName);
+        component.setBodyContent(bodyContent);
         component.setClassName(componentClass);
         component.setParentClassName(componentParentClass);
         component.setDescription(shortDescription);
@@ -614,6 +669,111 @@ public class QdoxModelBuilder implements ModelBuilder
         model.addComponent(component);
     }
 
+    private void processTagAttributes(JavaClass clazz,
+            TagMeta ctag)
+    {
+        JavaMethod[] methods = clazz.getMethods();
+        for (int i = 0; i < methods.length; ++i)
+        {
+            JavaMethod method = methods[i];
+
+            DocletTag tag = method.getTagByName(DOC_JSP_ATTRIBUTE);
+            if (tag != null)
+            {
+                Map props = tag.getNamedParameterMap();
+                processTagAttribute(props, tag.getContext(), clazz,
+                        method, ctag);
+            }
+
+            Annotation anno = getAnnotation(method, DOC_JSP_ATTRIBUTE);
+            if (anno != null)
+            {
+                Map props = anno.getNamedParameterMap();
+                processTagAttribute(props, anno.getContext(), clazz,
+                        method, ctag);
+            }
+        }
+        
+        DocletTag[] jspProperties = clazz.getTagsByName(DOC_JSP_ATTRIBUTE);
+        for (int i = 0; i < jspProperties.length; ++i)
+        {
+            //We have here only doclets, because this part is only for
+            //solve problems with binding property on 1.1
+            DocletTag tag = jspProperties[i];
+            
+            Map props = tag.getNamedParameterMap();
+            processTagAttribute(props, tag.getContext(), clazz,
+                    ctag);
+            
+        }                
+    }
+    
+    private void processTagAttribute(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, JavaMethod method, TagMeta tag)
+    {
+        Boolean required = getBoolean(clazz, "required", props, null);
+        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
+
+        String longDescription = ctx.getComment();
+        String descDflt = getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+                
+        Type returnType = null;
+        
+        if (method.getName().startsWith("set"))
+        {
+            returnType = method.getParameters()[0].getType();
+        }
+        else
+        {
+            returnType = method.getReturns();
+        }
+        
+        AttributeMeta a = new AttributeMeta();
+        a.setName(methodToPropName(method.getName()));
+        a.setClassName(returnType.toString());
+        a.setRequired(required);
+        a.setRtexprvalue(rtexprvalue);
+        a.setDescription(shortDescription);
+        a.setLongDescription(longDescription);
+        
+        tag.addAttribute(a);
+    }
+    
+    private void processTagAttribute(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, TagMeta tag)
+    {
+        Boolean required = getBoolean(clazz, "required", props, null);
+        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
+
+        String longDescription = getString(clazz, "longDescription", props, null);
+        String descDflt = longDescription;
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+                
+        String name = getString(clazz, "name", props, descDflt);
+        String className = getString(clazz, "className", props, descDflt);
+                
+        AttributeMeta a = new AttributeMeta();
+        a.setName(name);
+        a.setClassName(className);
+        a.setRequired(required);
+        a.setRtexprvalue(rtexprvalue);
+        a.setDescription(shortDescription);
+        a.setLongDescription(longDescription);
+        
+        tag.addAttribute(a);
+    }
+    
+
+    
     /**
      * Look for any methods on the specified class that are annotated as being
      * component properties, and add metadata about them to the model.
