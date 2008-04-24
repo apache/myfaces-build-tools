@@ -27,19 +27,11 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -58,10 +50,6 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.codehaus.plexus.util.xml.Xpp3DomWriter;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 //import com.sun.org.apache.xerces.internal.parsers.SAXParser;
 
@@ -122,6 +110,11 @@ public class MakeConfigMojo extends AbstractMojo
      * @parameter expression="faces-config11.vm"
      */
     private String templateFile;
+    
+    /**
+     * @parameter
+     */
+    private Map params;
         
     /**
      * Execute the Mojo.
@@ -134,7 +127,7 @@ public class MakeConfigMojo extends AbstractMojo
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());
             }
-                        
+                                               
             Model model = IOUtils.loadModel(new File(buildDirectory,
                     metadataFile));
             new Flattener(model).flatten();
@@ -196,6 +189,18 @@ public class MakeConfigMojo extends AbstractMojo
         baseContext.put("model", model);
         
         baseContext.put("modelIds", modelIds);
+        
+        if (params != null)
+        {
+            //Load all parameters to the context, so the template can
+            //load it. This allow to generate any config file we want
+            //(faces-config, tld, facelet,....)
+            for (Iterator it = params.keySet().iterator(); it.hasNext();)
+            {
+                String key = (String) it.next();
+                baseContext.put(key,params.get(key));
+            }
+        }
         
         Writer writer = null;
         File outFile = null;

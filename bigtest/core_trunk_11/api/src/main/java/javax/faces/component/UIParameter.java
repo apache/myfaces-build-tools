@@ -25,10 +25,11 @@ import javax.faces.el.ValueBinding;
  * see Javadoc of <a href="http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html">JSF Specification</a>
  *
  * @JSFComponent
- *   type = "javax.faces.Parameter"
- *   family = "javax.faces.Parameter"
+ *   name="f:param"
+ *   bodyContent="empty"
+ *   tagClass = "org.apache.myfaces.taglib.core.ParamTag"
  *   desc = "UIParameter"
- *
+ * @JSFJspProperty name = "rendered" returnType = "boolean" tagExcluded = "true"
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -58,7 +59,10 @@ public class UIParameter
     }
 
     /**
+     * A String containing the name of the parameter.
+     * 
      * @JSFProperty
+     *   required="true"
      */
     public String getName()
     {
@@ -73,7 +77,10 @@ public class UIParameter
     }
 
     /**
+     * The value of this parameter.
+     * 
      * @JSFProperty
+     *   required="true"
      */
     public Object getValue()
     {

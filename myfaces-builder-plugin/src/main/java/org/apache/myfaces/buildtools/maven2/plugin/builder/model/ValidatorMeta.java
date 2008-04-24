@@ -21,6 +21,7 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -42,6 +43,11 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
     private String _validatorId;
     private int _validatorClassModifiers;
     
+    private String _name;
+    private String _bodyContent;
+    private String _tagClass;
+    
+    
     protected Map _properties;
 
     /**
@@ -56,6 +62,9 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
         out.writeElement("validatorId", vm._validatorId);
         out.writeElement("desc", vm._description);
         out.writeElement("longDesc", vm._longDescription);
+        out.writeElement("name", vm._name);        
+        out.writeElement("bodyContent", vm._bodyContent);
+        out.writeElement("tagClass", vm._tagClass);        
 
         for (Iterator i = vm._properties.values().iterator(); i.hasNext();)
         {
@@ -84,7 +93,16 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
+        digester.addBeanPropertySetter(newPrefix + "/name");        
+        digester.addBeanPropertySetter(newPrefix + "/bodyContent");
+        digester.addBeanPropertySetter(newPrefix + "/tagClass");
+        
         PropertyMeta.addXmlRules(digester, newPrefix);
+    }
+    
+    public ValidatorMeta()
+    {
+        _properties = new LinkedHashMap();        
     }
 
     /**
@@ -93,6 +111,8 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
      */
     public void merge(ValidatorMeta other)
     {
+        _name = ModelUtils.merge(this._name, other._name);
+        _bodyContent = ModelUtils.merge(this._bodyContent, other._bodyContent);
         _description = ModelUtils.merge(this._description, other._description);
         _longDescription = ModelUtils.merge(this._longDescription,
                 other._longDescription);
@@ -171,6 +191,48 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
     public String getLongDescription()
     {
         return _longDescription;
+    }
+    
+    /**
+     * Sets the name that the user will refer to instances of this component by.
+     * <p>
+     * In JSP tags, this value will be used as the JSP tag name.
+     * <p>
+     * This property is optional; if not set then this Model instance represents
+     * a base class that components can be derived from, but which cannot itself
+     * be instantiated as a component.
+     */
+    public void setName(String name)
+    {
+        _name = name;
+    }
+
+    public String getName()
+    {
+        return _name;
+    }
+    
+    public void setBodyContent(String bodyContent)
+    {
+        this._bodyContent = bodyContent;
+    }
+
+    public String getBodyContent()
+    {
+        return _bodyContent;
+    }
+
+    /**
+     * Sets the JSP tag handler class for this component.
+     */
+    public void setTagClass(String tagClass)
+    {
+        _tagClass = tagClass;
+    }
+
+    public String getTagClass()
+    {
+        return _tagClass;
     }
     
     /**

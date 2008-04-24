@@ -72,7 +72,12 @@
                 <xmlFile>classes/META-INF/myfaces_html.tld</xmlFile>
                 <xmlBaseFile>src/main/conf/META-INF/myfaces_html-base.tld</xmlBaseFile>
                 <templateFile>myfaces_html.vm</templateFile>
-                
+                <params>
+                   <shortname>h</shortname>
+                   <uri>http://java.sun.com/jsf/html</uri>
+                   <displayname>JSF HTML tag library.</displayname>
+                   <description>This tag library implements the standard JSF HTML tags.</description>
+                </params>
                 <modelIds>
                     <modelId>myfaces-api</modelId>
                 </modelIds>
@@ -80,7 +85,28 @@
             <goals>
                 <goal>make-config</goal>
             </goals>
-          </execution>          
+          </execution>
+          <execution>
+            <id>makecoretld</id>
+            <configuration>
+                <xmlFile>classes/META-INF/myfaces_core.tld</xmlFile>
+                <xmlBaseFile>src/main/conf/META-INF/myfaces_core-base.tld</xmlBaseFile>
+                <templateFile>myfaces_core.vm</templateFile>
+                <modelIds>
+                    <modelId>myfaces-api</modelId>
+                    <modelId>myfaces-impl</modelId>
+                </modelIds>
+                <params>
+                    <shortname>f</shortname>
+                    <uri>http://java.sun.com/jsf/core</uri>
+                    <displayname>JSF core tag library.</displayname>
+                    <description>This tag library implements the standard JSF core tags.</description>
+                </params>
+            </configuration>
+            <goals>
+                <goal>make-config</goal>
+            </goals>
+          </execution>
         </executions>
       </plugin>        
       <plugin>

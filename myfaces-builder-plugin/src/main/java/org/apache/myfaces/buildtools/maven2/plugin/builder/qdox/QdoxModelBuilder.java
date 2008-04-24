@@ -22,6 +22,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyHolder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RenderKitMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RendererMeta;
@@ -436,15 +437,26 @@ public class QdoxModelBuilder implements ModelBuilder
         String converterId = getString(clazz, "id", props, converterIdDflt);
         String converterClass = getString(clazz, "class", props, clazz
                 .getFullyQualifiedName());
+        
+        String componentName = getString(clazz, "name", props, null);
+        String bodyContent = getString(clazz, "bodyContent", props, null);
+        String tagClass = getString(clazz, "tagClass", props, null);
 
         ConverterMeta converter = new ConverterMeta();
+        converter.setName(componentName);
+        converter.setBodyContent(bodyContent);
+        converter.setTagClass(tagClass);
         converter.setClassName(converterClass);
         converter.setConverterId(converterId);
         converter.setDescription(shortDescription);
         converter.setLongDescription(longDescription);
+        
+        // Now here walk the component looking for property annotations.
+        processComponentProperties(clazz, converter);
+        
         model.addConverter(converter);
     }
-
+        
     private void processValidator(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, Model model)
     {
@@ -466,13 +478,24 @@ public class QdoxModelBuilder implements ModelBuilder
         }        
         String validatorId = getString(clazz, "id", props, validatorIdDflt);
         String validatorClass = getString(clazz, "class", props, clazz
-                .getFullyQualifiedName());        
+                .getFullyQualifiedName());
+        
+        String componentName = getString(clazz, "name", props, null);
+        String bodyContent = getString(clazz, "bodyContent", props, null);
+        String tagClass = getString(clazz, "tagClass", props, null);        
 
         ValidatorMeta validator = new ValidatorMeta();
+        validator.setName(componentName);
+        validator.setBodyContent(bodyContent);
+        validator.setTagClass(tagClass);
         validator.setClassName(validatorClass);
         validator.setValidatorId(validatorId);
         validator.setDescription(shortDescription);
         validator.setLongDescription(longDescription);
+        
+        // Now here walk the component looking for property annotations.
+        processComponentProperties(clazz, validator);
+        
         model.addValidator(validator);
     }
     
@@ -779,7 +802,7 @@ public class QdoxModelBuilder implements ModelBuilder
      * component properties, and add metadata about them to the model.
      */
     private void processComponentProperties(JavaClass clazz,
-            ComponentMeta component)
+            PropertyHolder component)
     {
         JavaMethod[] methods = clazz.getMethods();
         for (int i = 0; i < methods.length; ++i)
@@ -856,7 +879,7 @@ public class QdoxModelBuilder implements ModelBuilder
     }
     
     private void processInterfaceComponentProperty(Map props, AbstractJavaEntity ctx,
-    JavaClass clazz, JavaMethod method, ComponentMeta component){
+    JavaClass clazz, JavaMethod method, PropertyHolder component){
         this.processComponentProperty(props, ctx, clazz, method, component);
         
         PropertyMeta property = component.getProperty(methodToPropName(method.getName()));
@@ -873,7 +896,7 @@ public class QdoxModelBuilder implements ModelBuilder
     }
 
     private void processComponentProperty(Map props, AbstractJavaEntity ctx,
-            JavaClass clazz, JavaMethod method, ComponentMeta component)
+            JavaClass clazz, JavaMethod method, PropertyHolder component)
     {
         Boolean required = getBoolean(clazz, "required", props, null);
         Boolean transientProp = getBoolean(clazz, "transient", props, null);
@@ -935,7 +958,7 @@ public class QdoxModelBuilder implements ModelBuilder
     }
     
     private void processComponentJspProperty(Map props, AbstractJavaEntity ctx,
-            JavaClass clazz, ComponentMeta component)
+            JavaClass clazz, PropertyHolder component)
     {
         Boolean required = getBoolean(clazz, "required", props, null);
         Boolean transientProp = getBoolean(clazz, "transient", props, null);

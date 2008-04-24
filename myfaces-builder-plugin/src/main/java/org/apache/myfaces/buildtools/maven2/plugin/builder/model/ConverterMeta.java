@@ -21,6 +21,7 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -48,6 +49,12 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
 
     private String _converterId;
     private int _converterClassModifiers;
+    
+    //Some converters has its own tag class, so it's necessary to
+    //add some properties for this cases (f:convertNumber or f:convertDateTime)
+    private String _name;
+    private String _bodyContent;
+    private String _tagClass;
 
     protected Map _properties;
     /**
@@ -62,6 +69,9 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
         out.writeElement("converterId", cm._converterId);
         out.writeElement("desc", cm._description);
         out.writeElement("longDesc", cm._longDescription);
+        out.writeElement("name", cm._name);        
+        out.writeElement("bodyContent", cm._bodyContent);
+        out.writeElement("tagClass", cm._tagClass);
 
         for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
         {
@@ -89,15 +99,25 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
+        digester.addBeanPropertySetter(newPrefix + "/name");        
+        digester.addBeanPropertySetter(newPrefix + "/bodyContent");
+        digester.addBeanPropertySetter(newPrefix + "/tagClass");
         PropertyMeta.addXmlRules(digester, newPrefix);
     }
-
+    
+    public ConverterMeta()
+    {
+        _properties = new LinkedHashMap();        
+    }
     /**
      * Merge the data in the specified other property into this one, throwing an
      * exception if there is an incompatibility.
      */
     public void merge(ConverterMeta other)
     {
+        _name = ModelUtils.merge(this._name, other._name);
+        _bodyContent = ModelUtils.merge(this._bodyContent, other._bodyContent);
+        
         _description = ModelUtils.merge(this._description, other._description);
         _longDescription = ModelUtils.merge(this._longDescription,
                 other._longDescription);
@@ -176,6 +196,48 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
     public String getLongDescription()
     {
         return _longDescription;
+    }
+    
+    /**
+     * Sets the name that the user will refer to instances of this component by.
+     * <p>
+     * In JSP tags, this value will be used as the JSP tag name.
+     * <p>
+     * This property is optional; if not set then this Model instance represents
+     * a base class that components can be derived from, but which cannot itself
+     * be instantiated as a component.
+     */
+    public void setName(String name)
+    {
+        _name = name;
+    }
+
+    public String getName()
+    {
+        return _name;
+    }
+    
+    public void setBodyContent(String bodyContent)
+    {
+        this._bodyContent = bodyContent;
+    }
+
+    public String getBodyContent()
+    {
+        return _bodyContent;
+    }
+
+    /**
+     * Sets the JSP tag handler class for this component.
+     */
+    public void setTagClass(String tagClass)
+    {
+        _tagClass = tagClass;
+    }
+
+    public String getTagClass()
+    {
+        return _tagClass;
     }
     
     /**
