@@ -31,7 +31,13 @@ public class ${utils.getClassFromFullClass($component.className)} extends $compo
 ##        "$component.family";
     static public final String COMPONENT_TYPE =
         "$component.type";
-    
+
+#if ($innersource)
+    //BEGIN CODE COPIED FROM $component.classSource 
+$innersource
+    //END CODE COPIED FROM $component.classSource
+#end
+
     public ${utils.getClassFromFullClass($component.className)}()
     {
 #if ($component.rendererType)

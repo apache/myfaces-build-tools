@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -43,6 +44,15 @@ import org.apache.velocity.context.Context;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
+
+import com.thoughtworks.qdox.JavaDocBuilder;
+import com.thoughtworks.qdox.model.AbstractJavaEntity;
+import com.thoughtworks.qdox.model.Annotation;
+import com.thoughtworks.qdox.model.DocletTag;
+import com.thoughtworks.qdox.model.JavaClass;
+import com.thoughtworks.qdox.model.JavaField;
+import com.thoughtworks.qdox.model.JavaMethod;
+import com.thoughtworks.qdox.model.Type;
 
 /**
  * Maven goal to generate java source code for Component classes.
@@ -215,6 +225,19 @@ public class MakeComponentsMojo extends AbstractMojo
         // is added to compilation source path 
         //project.addCompileSourceRoot(generatedSourceDirectory.getCanonicalPath());
         
+        //Init Qdox for extract code 
+        JavaDocBuilder builder = new JavaDocBuilder();
+        
+        List sourceDirs = project.getCompileSourceRoots();
+        
+        // need a File object representing the original source tree
+        for (Iterator i = sourceDirs.iterator(); i.hasNext();)
+        {
+            String srcDir = (String) i.next();
+            builder.addSourceTree(new File(srcDir));
+        }        
+        
+        //Init velocity
         VelocityEngine velocityEngine = initVelocity();
 
         VelocityContext baseContext = new VelocityContext();
@@ -232,7 +255,7 @@ public class MakeComponentsMojo extends AbstractMojo
                 if (!f.exists() && canGenerateComponent(component))
                 {                
                     log.info("Generating component class:"+component.getClassName());
-                    _generateComponent(velocityEngine, component,baseContext);
+                    _generateComponent(velocityEngine, builder,component,baseContext);
                 }
             }
         }        
@@ -297,12 +320,31 @@ public class MakeComponentsMojo extends AbstractMojo
      * @param component
      *            the parsed component metadata
      */
-    private void _generateComponent(VelocityEngine velocityEngine, ComponentMeta component, VelocityContext baseContext)
+    private void _generateComponent(VelocityEngine velocityEngine,
+            JavaDocBuilder builder,
+            ComponentMeta component, VelocityContext baseContext)
             throws MojoExecutionException
     {
         Context context = new VelocityContext(baseContext);
         context.put("component", component);
 
+        //Part of the content source in the source class should be
+        //included only if this class is not its parent class and is
+        //not the same class (class outside the hierarchy).
+        //One example of why is useful do this is in 
+        //javax.faces.component.HtmlDataTable (myfaces 1.1),
+        //in this class it is overriden encodeBegin.
+        if (!component.getClassSource().equals(component.getClassName()) &&
+            !component.getClassSource().equals(component.getParentClassName()))
+        {
+            String source = this.getInnerSourceCode(builder, component);
+            
+            if (source != null && !"".equals(source))
+            {
+                context.put("innersource", source);
+            }
+        }        
+        
         Writer writer = null;
         File outFile = null;
 
@@ -335,7 +377,133 @@ public class MakeComponentsMojo extends AbstractMojo
             writer = null;
         }
     }
+        
+    /**
+     * This method extract from component scanned sourceClass, the parts
+     * which we need to move to generated class as a single String using Qdox.
+     * 
+     * Ignore code that has a \@JSFExclude or \@JSFProperty Doclet or Annotation
+     * 
+     * @param component
+     * @return
+     */
+    private String getInnerSourceCode(JavaDocBuilder builder, ComponentMeta component)
+    {   
+        StringWriter writer = new StringWriter();
+        
+        JavaClass sourceClass = builder.getClassByName(component.getClassSource());
+        
+        JavaField [] fields = sourceClass.getFields();
 
+        //Include the fields defined
+        for (int i = 0; i < fields.length; i++)
+        {            
+            JavaField field = fields[i];
+            
+            DocletTag tag = field.getTagByName("JSFExclude");
+            Annotation anno = getAnnotation(field, "JSFExclude");
+            
+            if (!(tag == null && anno == null))
+                continue;
+                        
+            if (!isExcludedField(field.getName()))
+            {
+                writer.append("    ");
+                writer.append(field.getDeclarationSignature(true));
+                writer.append(';');
+                writer.append('\n');
+                writer.append('\n');
+            }
+        }
+        
+        JavaMethod [] methods = sourceClass.getMethods();
+        for (int i = 0; i < methods.length; i++)
+        {
+            JavaMethod method = methods[i];
+
+            DocletTag tag = method.getTagByName("JSFExclude");
+            Annotation anno = getAnnotation(method, "JSFExclude");
+            
+            if (!(tag == null && anno == null))
+                continue;
+            
+            tag = method.getTagByName("JSFProperty", false);
+            anno = getAnnotation(method, "JSFProperty");
+            
+            if (tag == null && anno == null)
+            {              
+                //Get declaration signature in a way that we don't need
+                //to declare imports.
+                String declaration = method.getDeclarationSignature(true);
+                
+                //Fix for qdox 1.6.3: remove code 
+                int index = declaration.indexOf(')');
+                if (index != -1){
+                    declaration = declaration.substring(0,index+1);
+                }
+                
+                //Append exception in full form
+                Type [] exceptions = method.getExceptions();
+                if (exceptions != null && exceptions.length != 0)
+                {
+                    declaration = declaration + " throws ";                    
+                    for (int j = 0; j < exceptions.length; j++)
+                    {
+                        declaration = declaration + exceptions[i].getJavaClass().getFullyQualifiedName();
+                    }
+                }
+                
+                writer.append("    ");
+                writer.append(declaration);
+                writer.append('\n');
+                writer.append("    ");
+                writer.append('{');
+                writer.append(method.getSourceCode());
+                writer.append('}');
+                writer.append('\n');
+                writer.append('\n');
+            }            
+        }
+                
+        return writer.toString();
+    }
+    
+    private boolean isExcludedField(String name)
+    {
+        return (name.equals("COMPONENT_TYPE") || 
+                name.equals("DEFAULT_RENDERER_TYPE") ||
+                name.equals("COMPONENT_FAMILY") );
+    }
+    
+    private Annotation getAnnotation(AbstractJavaEntity entity, String annoName)
+    {
+        Annotation[] annos = entity.getAnnotations();
+        if (annos == null)
+        {
+            return null;
+        }
+        // String wanted = ANNOTATION_BASE + "." + annoName;
+        for (int i = 0; i < annos.length; ++i)
+        {
+            Annotation thisAnno = annos[i];
+            // Ideally, here we would check whether the fully-qualified name of
+            // the annotation
+            // class matches ANNOTATION_BASE + "." + annoName. However it
+            // appears that qdox 1.6.3
+            // does not correctly expand @Foo using the class import statements;
+            // method
+            // Annotation.getType.getJavaClass.getFullyQualifiedName still just
+            // returns the short
+            // class name. So for now, just check for the short name.
+            String thisAnnoName = thisAnno.getType().getJavaClass().getName();
+            if (thisAnnoName.equals(annoName))
+            {
+                return thisAnno;
+            }
+        }
+        return null;
+    }
+    
     private String _getTemplateName(){
         if (templateComponentName != null){
             if (_is12()){

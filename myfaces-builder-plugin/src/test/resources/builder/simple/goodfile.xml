@@ -3,6 +3,7 @@
 <model>
   <component>
     <className>Foo</className>
+    <classSource>Foo</classSource>
     <name>foo</name>
     <type>foo</type>
     <family>foo</family>

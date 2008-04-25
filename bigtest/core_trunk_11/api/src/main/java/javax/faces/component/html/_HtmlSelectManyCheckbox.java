@@ -67,9 +67,6 @@ abstract class _HtmlSelectManyCheckbox extends UISelectMany implements
     public static final String COMPONENT_TYPE = "javax.faces.HtmlSelectManyCheckbox";
     private static final String DEFAULT_RENDERER_TYPE = "javax.faces.Checkbox";
 
-    private Integer _border = null;
-    private String _layout = null;
-
     /**
      * HTML: Specifies the width of the border of this element, in pixels.  Deprecated in HTML 4.01.
      * 

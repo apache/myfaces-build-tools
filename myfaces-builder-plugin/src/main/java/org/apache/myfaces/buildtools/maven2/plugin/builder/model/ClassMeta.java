@@ -39,6 +39,7 @@ public class ClassMeta
     private String _parentClassName;
     private List _interfaceClassNames = new ArrayList();
     private String _modelId;
+    private String _classSource;
 
     /**
      * Write this model out as xml.
@@ -48,6 +49,7 @@ public class ClassMeta
         out.writeElement("className", mi._className);
         out.writeElement("parentClassName", mi._parentClassName);
         out.writeElement("modelId", mi._modelId);
+        out.writeElement("classSource", mi._classSource);
 
         if (!mi._interfaceClassNames.isEmpty())
         {
@@ -71,6 +73,7 @@ public class ClassMeta
     {
         digester.addBeanPropertySetter(prefix + "/className");
         digester.addBeanPropertySetter(prefix + "/parentClassName");
+        digester.addBeanPropertySetter(prefix + "/classSource");
         digester.addBeanPropertySetter(prefix + "/modelId");
         digester.addCallMethod(prefix + "/interfaces/interface",
                 "addInterfaceClassName", 1);
@@ -144,5 +147,15 @@ public class ClassMeta
     public String getPackageName()
     {
         return StringUtils.substring(getClassName(), 0, StringUtils.lastIndexOf(getClassName(), '.'));
+    }
+
+    public void setClassSource(String classSource)
+    {
+        this._classSource = classSource;
+    }
+
+    public String getClassSource()
+    {
+        return _classSource;
     }
 }

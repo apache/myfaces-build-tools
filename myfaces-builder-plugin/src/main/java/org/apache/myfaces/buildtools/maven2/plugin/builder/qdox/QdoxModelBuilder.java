@@ -446,6 +446,7 @@ public class QdoxModelBuilder implements ModelBuilder
         converter.setName(componentName);
         converter.setBodyContent(bodyContent);
         converter.setTagClass(tagClass);
+        converter.setClassSource(clazz.getFullyQualifiedName());
         converter.setClassName(converterClass);
         converter.setConverterId(converterId);
         converter.setDescription(shortDescription);
@@ -488,6 +489,7 @@ public class QdoxModelBuilder implements ModelBuilder
         validator.setName(componentName);
         validator.setBodyContent(bodyContent);
         validator.setTagClass(tagClass);
+        validator.setClassSource(clazz.getFullyQualifiedName());
         validator.setClassName(validatorClass);
         validator.setValidatorId(validatorId);
         validator.setDescription(shortDescription);
@@ -662,6 +664,7 @@ public class QdoxModelBuilder implements ModelBuilder
         component.setName(componentName);
         component.setBodyContent(bodyContent);
         component.setClassName(componentClass);
+        component.setClassSource(clazz.getFullyQualifiedName());
         component.setParentClassName(componentParentClass);
         component.setDescription(shortDescription);
         component.setLongDescription(longDescription);
