@@ -34,7 +34,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  * Store metadata about a class that is either a JSF UIComponent, or some base
  * class or interface that a UIComponent can be derived from.
  */
-public class ComponentMeta extends ClassMeta implements PropertyHolder
+public class ComponentMeta extends ClassMeta implements 
+    PropertyHolder, FacetHolder
 {
     static private final Logger _LOG = Logger.getLogger(ComponentMeta.class
             .getName());
@@ -53,8 +54,10 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
     private String _tagSuperclass;
     private Boolean _namingContainer;
     private Boolean _children;
+    private Boolean _configExcluded;
     
     protected Map _properties;
+    protected Map _facets;
 
     /**
      * Write an instance of this class out as xml.
@@ -72,6 +75,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         out.writeElement("tagClass", cm._tagClass);
         out.writeElement("tagSuperclass", cm._tagSuperclass);
         out.writeElement("rendererType", cm._rendererType);
+        out.writeElement("configExcluded", cm._configExcluded);
 
         out.writeElement("desc", cm._description);
         out.writeElement("longDesc", cm._longDescription);
@@ -80,6 +84,12 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         {
             PropertyMeta prop = (PropertyMeta) i.next();
             PropertyMeta.writeXml(out, prop);
+        }
+        
+        for (Iterator i = cm._facets.values().iterator(); i.hasNext();)
+        {
+            FacetMeta facet = (FacetMeta) i.next();
+            FacetMeta.writeXml(out, facet);
         }
 
         out.endElement("component");
@@ -108,7 +118,9 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
+        digester.addBeanPropertySetter(newPrefix + "/configExcluded");
         PropertyMeta.addXmlRules(digester, newPrefix);
+        FacetMeta.addXmlRules(digester, prefix);
     }
 
     /**
@@ -117,6 +129,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
     public ComponentMeta()
     {
         _properties = new LinkedHashMap();
+        _facets = new LinkedHashMap();
     }
 
     /**
@@ -158,6 +171,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         _children = ModelUtils.merge(this._children, other._children);
 
         ModelUtils.mergeProps(this, other);
+        ModelUtils.mergeFacets(this, other);
         
         if (inheritParentTag)
         {
@@ -331,6 +345,16 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         return ModelUtils.defaultOf(_namingContainer, false);
     }
 
+    public void setConfigExcluded(Boolean configExcluded)
+    {
+        _configExcluded = configExcluded;
+    }
+
+    public Boolean isConfigExcluded()
+    {
+        return ModelUtils.defaultOf(_configExcluded,false);
+    }
+
     /**
      * Specifies if the component supports child components.
      */
@@ -381,10 +405,29 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
         return _properties.values().iterator();
     }
     
+    public void addFacet(FacetMeta prop)
+    {
+        _facets.put(prop.getName(), prop);
+    }
+
+    public Iterator facets()
+    {
+        return _facets.values().iterator();
+    }
+
+    public FacetMeta getFacet(String name)
+    {
+        return (FacetMeta) _facets.get(name);
+    }
+            
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
     
     public Collection getPropertyList(){
         return _properties.values();
+    }
+    
+    public Collection getFacetList(){
+        return _facets.values();
     }
     
     private List _propertyTagList = null; 
@@ -411,7 +454,7 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
             _propertyComponentList = new ArrayList();
             for (Iterator it = _properties.values().iterator(); it.hasNext();){
                 PropertyMeta prop = (PropertyMeta) it.next();
-                if (!prop.isInherited().booleanValue()){
+                if (!prop.isInherited().booleanValue() && prop.isGenerated().booleanValue()){
                     _propertyComponentList.add(prop);
                 }
             }
@@ -429,6 +472,6 @@ public class ComponentMeta extends ClassMeta implements PropertyHolder
     public String getTagPackage(){
         return StringUtils.substring(getTagClass(), 0, StringUtils.lastIndexOf(getTagClass(), '.'));
     }
-        
+
     //END
 }

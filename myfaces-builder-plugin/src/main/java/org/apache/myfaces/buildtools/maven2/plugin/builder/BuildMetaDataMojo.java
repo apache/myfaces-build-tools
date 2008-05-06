@@ -186,7 +186,7 @@ public class BuildMetaDataMojo extends AbstractMojo
             
             if (comp.getTagClass() == null)
             {
-                break;
+                continue;
             }
             if (comp.getTagClass().startsWith(replacePackagePrefixTagFrom))
             {

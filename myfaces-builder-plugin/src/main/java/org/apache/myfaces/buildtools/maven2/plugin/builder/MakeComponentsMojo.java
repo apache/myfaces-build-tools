@@ -335,7 +335,7 @@ public class MakeComponentsMojo extends AbstractMojo
         //javax.faces.component.HtmlDataTable (myfaces 1.1),
         //in this class it is overriden encodeBegin.
         if (!component.getClassSource().equals(component.getClassName()) &&
-            !component.getClassSource().equals(component.getParentClassName()))
+            !component.getClassSource().equals(component.getSuperClassName()))
         {
             String source = this.getInnerSourceCode(builder, component);
             
@@ -410,6 +410,10 @@ public class MakeComponentsMojo extends AbstractMojo
             {
                 writer.append("    ");
                 writer.append(field.getDeclarationSignature(true));
+                if (field.getInitializationExpression() != null){
+                    writer.append(" = ");
+                    writer.append(field.getInitializationExpression());
+                }                
                 writer.append(';');
                 writer.append('\n');
                 writer.append('\n');

@@ -20,6 +20,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FacetHolder;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FacetMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyHolder;
@@ -56,7 +58,8 @@ public class QdoxModelBuilder implements ModelBuilder
     private static final String DOC_RENDERER = "JSFRenderer";
     private static final String DOC_RENDERKIT = "JSFRenderKit";
 
-    private static final String DOC_PROPERTY = "JSFProperty";   
+    private static final String DOC_PROPERTY = "JSFProperty";
+    private static final String DOC_FACET = "JSFFacet";   
     
     //This property is used in special cases where properties 
     //does not have methods defined on component class, like binding
@@ -624,6 +627,10 @@ public class QdoxModelBuilder implements ModelBuilder
                 clazz.getSuperJavaClass()!= null?
                         clazz.getSuperJavaClass().getFullyQualifiedName():null);
         
+        String superClassName = getString(clazz,"superClass",props,null);
+        
+        
+        
         if (componentParentClass != null && componentParentClass.startsWith("java.lang"))
         {
             componentParentClass = null;
@@ -654,6 +661,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String rendererType = getString(clazz, "defaultRendererType", props,
                 rendererTypeDflt);
         Boolean canHaveChildren = getBoolean(clazz, "canHaveChildren", props, null);
+        Boolean configExcluded = getBoolean(clazz,"configExcluded",props,null);        
 
         String tagClass = getString(clazz, "tagClass", props, null);
         String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
@@ -666,8 +674,10 @@ public class QdoxModelBuilder implements ModelBuilder
         component.setClassName(componentClass);
         component.setClassSource(clazz.getFullyQualifiedName());
         component.setParentClassName(componentParentClass);
+        component.setSuperClassName(superClassName);
         component.setDescription(shortDescription);
         component.setLongDescription(longDescription);
+        component.setConfigExcluded(configExcluded);
         component.setType(componentType);
         component.setFamily(componentFamily);
         component.setRendererType(rendererType);
@@ -690,6 +700,7 @@ public class QdoxModelBuilder implements ModelBuilder
 
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, component);
+        processComponentFacets(clazz, component);
 
         validateComponent(component);
         model.addComponent(component);
@@ -877,10 +888,71 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = tag.getNamedParameterMap();
             processComponentJspProperty(props, tag.getContext(), clazz,
                     component);
-            
         }        
     }
     
+    private void processComponentFacets(JavaClass clazz,
+            FacetHolder component)
+    {
+        JavaMethod[] methods = clazz.getMethods();
+        for (int i = 0; i < methods.length; ++i)
+        {
+            JavaMethod method = methods[i];
+
+            DocletTag tag = method.getTagByName(DOC_FACET);
+            if (tag != null)
+            {
+                Map props = tag.getNamedParameterMap();
+                processComponentFacet(props, tag.getContext(), clazz,
+                        method, component);
+            }
+
+            Annotation anno = getAnnotation(method, DOC_FACET);
+            if (anno != null)
+            {
+                Map props = anno.getNamedParameterMap();
+                processComponentFacet(props, anno.getContext(), clazz,
+                        method, component);
+            }
+        }
+        
+        Type [] interfaces = clazz.getImplements();
+        
+        //Scan interfaces for properties to be added to this component
+        //This feature allow us to have groups of functions.
+        for (int i = 0; i < interfaces.length;++i)
+        {
+            JavaClass intf = interfaces[i].getJavaClass();
+
+            //If the interfaces has a JSFComponent Doclet,
+            //this is managed in other way
+            if (intf.getTagByName(DOC_COMPONENT, false) == null)
+            {
+                JavaMethod[] intfmethods = intf.getMethods();
+                for (int j = 0; j < intfmethods.length; ++j)
+                {
+                    JavaMethod intfmethod = intfmethods[j];
+
+                    DocletTag tag = intfmethod.getTagByName(DOC_FACET);
+                    if (tag != null)
+                    {
+                        Map props = tag.getNamedParameterMap();
+                        processInterfaceComponentFacet(props, tag.getContext(), 
+                                clazz, intfmethod, component);
+                    }
+
+                    Annotation anno = getAnnotation(intfmethod, DOC_FACET);
+                    if (anno != null)
+                    {
+                        Map props = anno.getNamedParameterMap();
+                        processInterfaceComponentFacet(props, anno.getContext(),
+                                clazz, intfmethod, component);
+                    }
+                }
+            }
+        }
+    }
+        
     private void processInterfaceComponentProperty(Map props, AbstractJavaEntity ctx,
     JavaClass clazz, JavaMethod method, PropertyHolder component){
         this.processComponentProperty(props, ctx, clazz, method, component);
@@ -898,6 +970,23 @@ public class QdoxModelBuilder implements ModelBuilder
         }            
     }
 
+    private void processInterfaceComponentFacet(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, JavaMethod method, FacetHolder component){
+                this.processComponentFacet(props, ctx, clazz, method, component);
+                
+                FacetMeta facet = component.getFacet(methodToPropName(method.getName()));
+                
+                //Try to get the method from the component clazz to see if this
+                //has an implementation
+                JavaMethod clazzMethod = clazz.getMethodBySignature(method.getName(), null , false);
+                
+                if (clazzMethod == null)
+                {
+                    //The method should be generated!
+                    facet.setGenerated(Boolean.TRUE);
+                }            
+            }
+    
     private void processComponentProperty(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, PropertyHolder component)
     {
@@ -906,6 +995,11 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean stateHolder = getBoolean(clazz, "stateHolder", props, null);
         Boolean literalOnly = getBoolean(clazz, "literalOnly", props, null);
         Boolean tagExcluded = getBoolean(clazz, "tagExcluded", props, null);
+        Boolean localMethod = getBoolean(clazz, "localMethod",props,null);
+        Boolean setMethod = getBoolean(clazz, "setMethod",props,null);
+        String localMethodScope = getString(clazz, "localMethodScope",props,null);
+        String setMethodScope = getString(clazz, "setMethodScope",props,null);
+        
 
         String longDescription = ctx.getComment();
         String descDflt = getFirstSentence(longDescription);
@@ -918,7 +1012,17 @@ public class QdoxModelBuilder implements ModelBuilder
         String methodSignature = getString(clazz, "methodSignature", props, null);
         String defaultValue = getString(clazz,"defaultValue",props,null);
 
-        Type returnType = method.getReturns();
+        Type returnType = null;
+        
+        if (method.getName().startsWith("set"))
+        {
+            returnType = method.getParameters()[0].getType();
+        }
+        else
+        {
+            returnType = method.getReturns();
+        }
+        
         
         PropertyMeta p = new PropertyMeta();
         p.setName(methodToPropName(method.getName()));
@@ -931,6 +1035,10 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setDescription(shortDescription);
         p.setLongDescription(longDescription);
         p.setDefaultValue(defaultValue);
+        p.setLocalMethod(localMethod);
+        p.setLocalMethodScope(localMethodScope);
+        p.setSetMethod(setMethod);
+        p.setSetMethodScope(setMethodScope);
         
         if (returnSignature != null)
         {
@@ -959,6 +1067,34 @@ public class QdoxModelBuilder implements ModelBuilder
 
         component.addProperty(p);
     }
+    
+    private void processComponentFacet(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, JavaMethod method, FacetHolder component)
+    {
+        Boolean required = getBoolean(clazz, "required", props, null);
+
+        String longDescription = ctx.getComment();
+        String descDflt = getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+        
+        FacetMeta p = new FacetMeta();
+        p.setName(methodToPropName(method.getName()));
+        p.setRequired(required);
+        p.setDescription(shortDescription);
+        p.setLongDescription(longDescription);
+        
+        //If the method is abstract this should be generated
+        if (method.isAbstract()){
+            p.setGenerated(Boolean.TRUE);
+        }
+
+        component.addFacet(p);
+    }
+    
     
     private void processComponentJspProperty(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, PropertyHolder component)

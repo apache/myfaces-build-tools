@@ -37,6 +37,8 @@ public class ClassMeta
 {
     private String _className;
     private String _parentClassName;
+    private String _superClassName;
+    
     private List _interfaceClassNames = new ArrayList();
     private String _modelId;
     private String _classSource;
@@ -48,6 +50,7 @@ public class ClassMeta
     {
         out.writeElement("className", mi._className);
         out.writeElement("parentClassName", mi._parentClassName);
+        out.writeElement("superClassName", mi._superClassName);
         out.writeElement("modelId", mi._modelId);
         out.writeElement("classSource", mi._classSource);
 
@@ -73,6 +76,7 @@ public class ClassMeta
     {
         digester.addBeanPropertySetter(prefix + "/className");
         digester.addBeanPropertySetter(prefix + "/parentClassName");
+        digester.addBeanPropertySetter(prefix + "/superClassName");
         digester.addBeanPropertySetter(prefix + "/classSource");
         digester.addBeanPropertySetter(prefix + "/modelId");
         digester.addCallMethod(prefix + "/interfaces/interface",
@@ -110,6 +114,35 @@ public class ClassMeta
     public void setParentClassName(String className)
     {
         _parentClassName = className;
+    }
+
+    /**
+     * The superClassName is the fully qualified name of
+     * the class that should be parent of the class representing
+     * this component. The difference between this and 
+     * the parentClassName is that the parent reference
+     * the class that is a full component which is inside the
+     * hierarchy and extends the properties. One useful example 
+     * about why this semantic is important is use the abstract
+     * pattern to generate classes. The abstract class is not
+     * a full component (never instantiated, just a holder of
+     * code) but usually parent class of the abstract
+     * is a full component.
+     * 
+     */
+    public void setSuperClassName(String superClassName)
+    {
+        this._superClassName = superClassName;
+    }
+
+    public String getSuperClassName()
+    {
+        if (_superClassName == null){
+            //return the parent class name instead.
+            return getParentClassName();
+        }else{
+            return _superClassName;            
+        }        
     }
 
     /**

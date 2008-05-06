@@ -106,4 +106,25 @@ public class ModelUtils
             }
         }
     }
+    
+    public static void mergeFacets(FacetHolder dst, FacetHolder src)
+    {
+        for (Iterator i = src.facets(); i.hasNext();)
+        {
+            FacetMeta srcProp = (FacetMeta) i.next();
+            FacetMeta dstProp = dst.getFacet(srcProp.getName());
+            if (dstProp == null)
+            {
+                // Just copy the whole property unaltered
+                dstProp = new FacetMeta(srcProp);
+                dstProp.setInherited(Boolean.TRUE);
+                dst.addFacet(dstProp);
+            }
+            else
+            {
+                // merge the two property objects together
+                dstProp.merge(srcProp);
+            }
+        }
+    }    
 }

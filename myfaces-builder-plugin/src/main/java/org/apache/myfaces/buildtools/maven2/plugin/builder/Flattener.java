@@ -74,14 +74,30 @@ public class Flattener
             // already done
             return;
         }
-
         String parentClassName = component.getParentClassName();
         if (parentClassName != null)
         {
             ComponentMeta parent = model
                     .findComponentByClassName(parentClassName);
-            flattenComponent(parent);
-            component.merge(parent);
+            if (parent != null)
+            {
+                flattenComponent(parent);
+                component.merge(parent);
+            }
+            else
+            {
+                //How to manage a component that its
+                //parent class is not a real component?
+                //Use UIComponent instead and log a warn
+                //so if needed we can fix this.
+                log.warn("Component:"+component.getClassName()+
+                        " without a parent defined as component, using " +
+                        "UIComponent");
+                parent = model
+                    .findComponentByClassName("javax.faces.component.UIComponent");
+                flattenComponent(parent);
+                component.merge(parent);                
+            }
         }
 
         List interfaceClassNames = component.getInterfaceClassNames();

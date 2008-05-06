@@ -47,6 +47,12 @@ public class PropertyMeta
     private Boolean _tagExcluded; //Define if this property is excluded from tag and tld
     
     private Boolean _generated;
+    
+    private String _localMethodScope;
+    private Boolean _localMethod; //generate method that returns local value without evaluate EL
+    private String _setMethodScope;
+    private Boolean _setMethod; //Generate method to define if is set a value or not
+    
 
     public PropertyMeta()
     {
@@ -73,6 +79,11 @@ public class PropertyMeta
         _tagExcluded = pm._tagExcluded;
         
         _generated = pm._generated;
+        _localMethodScope = pm._localMethodScope;
+        _localMethod = pm._localMethod;
+        _setMethodScope = pm._setMethodScope;
+        _setMethod = pm._setMethod;
+        
     }
     
     /**
@@ -100,6 +111,10 @@ public class PropertyMeta
         out.writeElement("inheritedTag", pm._inheritedTag);
         out.writeElement("tagExcluded", pm._tagExcluded);
         out.writeElement("generated",pm._generated);
+        out.writeElement("localMethodScope", pm._localMethodScope);
+        out.writeElement("localMethod", pm._localMethod);
+        out.writeElement("setMethodScope", pm._setMethodScope);
+        out.writeElement("setMethod", pm._setMethod);
         out.endElement("property");
     }
 
@@ -129,7 +144,10 @@ public class PropertyMeta
         digester.addBeanPropertySetter(newPrefix + "/inheritedTag", "inheritedTag");
         digester.addBeanPropertySetter(newPrefix + "/tagExcluded", "tagExcluded");
         digester.addBeanPropertySetter(newPrefix + "/generated", "generated");
-        
+        digester.addBeanPropertySetter(newPrefix + "/localMethodScope", "localMethodScope");
+        digester.addBeanPropertySetter(newPrefix + "/localMethod", "localMethod");
+        digester.addBeanPropertySetter(newPrefix + "/setMethodScope", "setMethodScope");
+        digester.addBeanPropertySetter(newPrefix + "/setMethod", "setMethod");
         MethodSignatureMeta.addXmlRules(digester, newPrefix);
         
     }
@@ -154,6 +172,10 @@ public class PropertyMeta
         _defaultValue = ModelUtils.merge(this._defaultValue, other._defaultValue);
         _signature = (MethodSignatureMeta) ModelUtils.merge(this._signature, other._signature);
         _generated = ModelUtils.merge(this._generated, other._generated);
+        _localMethod = ModelUtils.merge(this._localMethod, other._localMethod);
+        _localMethodScope = ModelUtils.merge(this._localMethodScope, other._localMethodScope);
+        _setMethodScope = ModelUtils.merge(this._setMethodScope, other._setMethodScope);
+        _setMethod = ModelUtils.merge(this._setMethod, other._setMethod);
         _tagExcluded = ModelUtils.merge(this._tagExcluded, other._tagExcluded);
     }
 
@@ -319,7 +341,7 @@ public class PropertyMeta
 
       return _fieldName;
     }
-    
+            
     /**
      * Sets the method binding signature of this property.
      *
@@ -382,7 +404,7 @@ public class PropertyMeta
      * 
      * @return
      */
-    public Boolean getGenerated()
+    public Boolean isGenerated()
     {
         return ModelUtils.defaultOf(_generated, false);
     }
@@ -395,6 +417,46 @@ public class PropertyMeta
     public Boolean isStateHolder()
     {
         return ModelUtils.defaultOf(_stateHolder, false);
+    }
+
+    public void setLocalMethodScope(String localMethodScope)
+    {
+        _localMethodScope = localMethodScope;
+    }
+
+    public String getLocalMethodScope()
+    {
+        return _localMethodScope == null ? "protected" : _localMethodScope;
+    }
+
+    public void setLocalMethod(Boolean localMethod)
+    {
+        _localMethod = localMethod;
+    }
+
+    public Boolean isLocalMethod()
+    {
+        return ModelUtils.defaultOf(_localMethod,false);
+    }
+
+    public void setSetMethodScope(String setMethodScope)
+    {
+        _setMethodScope = setMethodScope;
+    }
+
+    public String getSetMethodScope()
+    {
+        return _setMethodScope == null ? "protected" : _setMethodScope;
+    }
+
+    public void setSetMethod(Boolean setMethod)
+    {
+        _setMethod = setMethod;
+    }
+
+    public Boolean isSetMethod()
+    {
+        return ModelUtils.defaultOf(_setMethod,false);
     }
 
     /**
