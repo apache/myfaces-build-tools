@@ -30,7 +30,8 @@ $baseContent
 #set ($componentList = ${model.getComponents()})
 #foreach( $component in $componentList )
 #if ($modelIds.contains($component.modelId) 
-    && !($component.className.contains("UIComponent")))
+    && !($component.className.contains("UIComponent"))
+    && !(@component.isConfigExcluded()))
   <component>
     <component-type>$component.type</component-type>
     <component-class>$component.className</component-class>
