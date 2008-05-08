@@ -52,6 +52,11 @@ import org.apache.myfaces.custom.tree.model.TreePath;
  * <code>rootNode</code>.
  * </p>
  *
+ * @JSFComponent
+ *   name = "t:tree"
+ *   tagClass = "org.apache.myfaces.custom.tree.taglib.TreeTag"
+ *   type = "org.apache.myfaces.HtmlTree"
+ *
  * @author <a href="mailto:oliver@rossmueller.com">Oliver Rossmueller </a>
  * @version $Revision$ $Date$
  */

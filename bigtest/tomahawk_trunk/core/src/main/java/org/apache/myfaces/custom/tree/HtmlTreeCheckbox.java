@@ -23,6 +23,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * 
+ * @JSFComponent
+ *   name = "t:treeCheckbox"
+ *   tagClass = "org.apache.myfaces.custom.tree.taglib.TreeCheckboxTag"
+ *   
  * @author <a href="mailto:dlestrat@yahoo.com">David Le Strat</a>
  */
 public class HtmlTreeCheckbox extends UISelectItem

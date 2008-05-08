@@ -25,6 +25,11 @@ import javax.faces.component.UIColumn;
  * Tree column model. This column is used to provide the place holder for the
  * tree.  This is used in conjunction with the table format display.
  * </p>
+ * 
+ * @JSFComponent
+ *   name = "t:treeColumn"
+ *   tagClass = "org.apache.myfaces.custom.tree.taglib.TreeColumnTag"
+ * 
  * @author <a href="mailto:dlestrat@apache.org">David Le Strat</a>
  */
 public class HtmlTreeColumn extends UIColumn
