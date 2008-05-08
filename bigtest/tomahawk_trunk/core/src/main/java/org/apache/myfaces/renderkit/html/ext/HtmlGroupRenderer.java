@@ -33,6 +33,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.Group"
+ * 
  * @author Martin Marinschek (latest modification by $Author: mmarinschek $)
  * @version $Revision: 167446 $ $Date: 2004-12-23 13:03:09Z $
  */

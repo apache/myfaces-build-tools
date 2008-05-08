@@ -31,6 +31,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlTextareaRendererBas
 
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.Textarea"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

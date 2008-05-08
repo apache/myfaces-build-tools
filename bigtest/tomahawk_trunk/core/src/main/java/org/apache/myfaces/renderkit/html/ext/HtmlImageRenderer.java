@@ -22,6 +22,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlImageRendererBase;
 
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Graphic"
+ *   type = "org.apache.myfaces.Image"
+ * 
  * @author Martin Marinschek (latest modification by $Author: mmarinschek $)
  * @author Bruno Aranda
  * @version $Revision: 167446 $ $Date: 2004-12-23 13:03:09Z $

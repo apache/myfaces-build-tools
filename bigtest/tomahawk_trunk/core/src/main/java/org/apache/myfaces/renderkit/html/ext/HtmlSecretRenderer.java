@@ -33,6 +33,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlSecretRendererBase;
 
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.Secret"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @author Bruno Aranda
  * @version $Revision$ $Date$

@@ -37,6 +37,16 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.util.JavascriptUtils;
 
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.Text"
+ *   
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.Text"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

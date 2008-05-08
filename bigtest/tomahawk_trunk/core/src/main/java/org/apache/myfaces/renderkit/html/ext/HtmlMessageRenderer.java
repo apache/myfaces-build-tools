@@ -42,6 +42,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Message"
+ *   type = "org.apache.myfaces.Message"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

@@ -52,6 +52,11 @@ import java.util.Set;
 /**
  * Renderer for the Tomahawk extended HtmlDataTable component.
  *
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Data"
+ *   type = "org.apache.myfaces.Table" 
+ *   
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

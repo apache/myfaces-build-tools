@@ -31,6 +31,11 @@ import java.io.IOException;
 import java.text.MessageFormat;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Messages"
+ *   type = "org.apache.myfaces.Messages"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

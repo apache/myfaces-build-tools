@@ -29,6 +29,16 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.SelectOne"
+ *   type = "org.apache.myfaces.Listbox"
+ *   
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.SelectMany"
+ *   type = "org.apache.myfaces.Listbox"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

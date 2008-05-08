@@ -38,6 +38,17 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "org.apache.myfaces.Radio"
+ *   type = "org.apache.myfaces.Radio"
+ *    
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.SelectOne"
+ *   type = "org.apache.myfaces.Radio"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @author Thomas Spiegl
  * @version $Revision$ $Date$

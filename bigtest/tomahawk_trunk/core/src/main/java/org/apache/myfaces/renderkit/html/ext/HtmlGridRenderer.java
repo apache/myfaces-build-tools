@@ -29,6 +29,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlGridRendererBase;
 /**
  * X-CHECKED: tlddoc h:panelGrid 1.0 final
  *
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.Grid"
+ *
  * @author Martin Marinschek (latest modification by $Author: grantsmith $)
  * @version $Revision: 169655 $ $Date: 2005-05-11 18:45:06 +0200 (Wed, 11 May 2005) $
  */
