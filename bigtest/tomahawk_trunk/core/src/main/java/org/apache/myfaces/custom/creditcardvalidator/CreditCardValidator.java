@@ -26,6 +26,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
 /**
+ * @JSFValidator
+ *   name = "t:validateCreditCard"
+ *   bodyContent = "empty"
+ *   tagClass = "org.apache.myfaces.custom.creditcardvalidator.ValidateCreditCardTag"
+ * 
+ * @JSFJspProperty name = "message" returnType = "java.lang.String"
+ * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String"
+ * @JSFJspProperty name = "summaryMessage" returnType = "java.lang.String" 
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -125,26 +133,42 @@ public class CreditCardValidator extends ValidatorBase {
 	}
 
 	//GETTER & SETTER
+	
+	/**
+	 * @JSFProperty
+	 */
 	public boolean isAmex() {
 		if (_amex!= null) return _amex.booleanValue();
 		return _amex != null ? _amex.booleanValue() : DEFAULT_AMEX;
 	}
 
+    /**
+     * @JSFProperty
+     */
 	public boolean isDiscover() {
 		if (_discover!= null) return _discover.booleanValue();
 		return _discover != null ? _discover.booleanValue() : DEFAULT_DISCOVER;
 	}
 
+    /**
+     * @JSFProperty
+     */
 	public boolean isMastercard() {
 		if (_mastercard!= null) return _mastercard.booleanValue();
 		return _mastercard != null ? _mastercard.booleanValue() : DEFAULT_MASTERCARD;
 	}
 
+    /**
+     * @JSFProperty
+     */
 	public boolean isNone() {
 		if (_none!= null) return _none.booleanValue();
 		return _none != null ? _none.booleanValue() : DEFAULT_NONE;
 	}
 
+    /**
+     * @JSFProperty
+     */
 	public boolean isVisa() {
 		if (_visa!= null) return _visa.booleanValue();
 		return _visa != null ? _visa.booleanValue() : DEFAULT_VISA;
