@@ -196,6 +196,7 @@ public class UICommand
      * values" phase.
      * 
      * @JSFProperty
+     *   defaultValue="false"
      */
     public boolean isImmediate()
     {
