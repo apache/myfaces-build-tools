@@ -107,7 +107,7 @@
     <dependency>
       <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-api</artifactId>
-      <version>1.1.5</version>
+      <version>1.1.6-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
 
@@ -241,13 +241,69 @@
       <resource>
         <directory>src/main/resources</directory>
       </resource>
+      <!-- 
       <resource>
         <directory>src/main/resources-facesconfig</directory>
       </resource>
+       -->
     </resources>
 
     <plugins>
-
+      <plugin>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <artifactId>myfaces-builder-plugin</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <!-- A hierarchy of different tag classes must be created, 
+            because this classes are not part of the public api. The
+            generation of all html package is the same. Please note that
+            we need only a subset -->
+            <configuration>
+                <replacePackagePrefixTagFrom>org.apache.myfaces.taglib</replacePackagePrefixTagFrom>
+                <replacePackagePrefixTagTo>org.apache.myfaces.shared_tomahawk.taglib</replacePackagePrefixTagTo>
+            </configuration>
+            <goals>
+              <goal>build-metadata</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>makefacesconfig</id>
+            <configuration>
+                <xmlFile>classes/META-INF/faces-config.xml</xmlFile>
+            </configuration>
+            <goals>
+                <goal>make-config</goal>
+            </goals>
+          </execution>          
+          <execution>
+            <id>makecomp</id>
+            <goals>
+              <goal>make-components</goal>
+            </goals>
+          </execution>          
+          <execution>
+            <id>make_tags_myfaces_core</id>
+            <configuration>
+                <packageContains>org.apache.myfaces.shared_tomahawk.taglib</packageContains>
+                <typePrefix>javax.faces</typePrefix>
+                <modelIds>
+                    <!-- All the info needed is on myfaces-api package -->
+                    <modelId>myfaces-api</modelId>
+                </modelIds>
+            </configuration>
+            <goals>
+                <goal>make-tags</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>make_tags_tomahawk</id>
+            <goals>
+                <goal>make-tags</goal>
+            </goals>
+          </execution>          
+        </executions>
+      </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.4.2</version>
