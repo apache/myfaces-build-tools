@@ -32,6 +32,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlCheckboxRendererBase;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.HtmlTreeCheckbox"
+ *   type = "org.apache.myfaces.HtmlTreeCheckbox"
+ *   
  * @author <a href="mailto:dlestrat@apache.org">David Le Strat </a>
  */
 public class HtmlTreeCheckboxRenderer extends HtmlCheckboxRendererBase

@@ -44,6 +44,11 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.HtmlTree"
+ *   type = "org.apache.myfaces.HtmlTree"
+ * 
  * @author <a href="mailto:oliver@rossmueller.com">Oliver Rossmueller </a>
  * @version $Revision$ $Date$
  */
