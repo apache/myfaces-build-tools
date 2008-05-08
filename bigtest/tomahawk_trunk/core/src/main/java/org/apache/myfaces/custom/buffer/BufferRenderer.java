@@ -32,6 +32,12 @@ import org.apache.myfaces.renderkit.html.util.HtmlBufferResponseWriterWrapper;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Data"
+ *   type = "org.apache.myfaces.Buffer" 
+ * 
  * @author Sylvain Vieujot (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
