@@ -317,6 +317,12 @@ public class QdoxModelBuilder implements ModelBuilder
         String src = srcObj.toString();
         int start = 0;
         int end = src.length();
+        
+        if (end == 0)
+            return src;
+        
+        if (src.equals("\"\""))
+            return "\"\"";
 
         while (start <= end)
         {
