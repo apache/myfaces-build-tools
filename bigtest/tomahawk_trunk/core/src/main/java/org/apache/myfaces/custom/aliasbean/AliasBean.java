@@ -64,6 +64,20 @@ import javax.faces.event.FacesEvent;
  * then the alias (temporary name) is active until the end of the parent
  * component, rather than the end of this component.
  *
+ * @JSFComponent
+ *   name = "t:aliasBean"
+ *   tagClass = "org.apache.myfaces.custom.aliasbean.AliasBeanTag"
+ * 
+ * @JSFJspProperty 
+ *   name = "rendered"
+ *   returnType = "boolean" 
+ *   tagExcluded = "true"
+ *   
+ * @JSFJspProperty
+ *   name = "binding"
+ *   returnType = "java.lang.String"
+ *   tagExcluded = "true"
+ * 
  * @author Sylvain Vieujot (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -103,6 +117,7 @@ public class AliasBean extends UIComponentBase implements BindingAware
      * of this component as an alias to the "real" object specified
      * by the value attribute of this component.
      *
+     * @JSFProperty
      * @param aliasBeanExpression
      */
     public void setAlias(String aliasBeanExpression)
@@ -110,6 +125,9 @@ public class AliasBean extends UIComponentBase implements BindingAware
         alias.setAliasBeanExpression(aliasBeanExpression);
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getValue()
     {
         String valueExpression = alias.getValueExpression();
