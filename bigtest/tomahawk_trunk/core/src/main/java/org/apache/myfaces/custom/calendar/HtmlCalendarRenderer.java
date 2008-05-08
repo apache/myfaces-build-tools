@@ -88,6 +88,12 @@ import java.util.*;
  * calendar component to be configured to force a specific firstDayOfWeek
  * to be used for all users.
  * <p>
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.Calendar"
+ * 
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
