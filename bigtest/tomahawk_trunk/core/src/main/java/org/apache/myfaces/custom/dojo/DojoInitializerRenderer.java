@@ -30,6 +30,11 @@ import javax.faces.context.FacesContext;
 
 /**
  * Dojointializerrenderer
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.DojoInitializerRenderer"
  *
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$

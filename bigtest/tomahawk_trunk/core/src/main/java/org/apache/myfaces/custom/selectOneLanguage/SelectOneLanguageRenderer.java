@@ -34,6 +34,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 import org.apache.myfaces.renderkit.html.ext.HtmlMenuRenderer;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.SelectOne"
+ *   type = "org.apache.myfaces.SelectOneLanguageRenderer"
+ * 
  * @author Sylvain Vieujot (latest modification by $Author$)
  * @version $Revision$ $Date: 2005-05-11 12:14:23 -0400 (Wed, 11 May 2005) $
  */

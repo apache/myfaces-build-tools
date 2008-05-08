@@ -28,6 +28,10 @@ import org.apache.myfaces.validator.ValidatorBase;
 
 
 /**
+ * @JSFValidator
+ *   name = "t:validateEmail"
+ *   tagClass = "org.apache.myfaces.custom.ValidateEmailTag"
+ * 
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

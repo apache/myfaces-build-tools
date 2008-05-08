@@ -38,6 +38,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 /**
  * Renderer for the HtmlDataScroller component.
  * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.DataScroller"
+ * 
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

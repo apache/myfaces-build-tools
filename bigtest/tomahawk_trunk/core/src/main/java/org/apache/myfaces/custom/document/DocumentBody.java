@@ -24,6 +24,10 @@ import javax.faces.el.ValueBinding;
  * Document to enclose the document body. If not otherwise possible you can use
  * state="start|end" to demarkate the document boundaries
  * 
+ * @JSFComponent
+ *   name = "t:documentBody"
+ *   tagClass = "org.apache.myfaces.custom.document.DocumentBodyTag"
+ *   
  * @author Mario Ivankovits (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

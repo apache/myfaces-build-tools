@@ -26,6 +26,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "t:swapImage"
+ *   tagClass = "org.apache.myfaces.custom.swapimage.HtmlSwapImageTag"
+ * 
  * @author Thomas Spiegl
  * @version $Revision$ $Date$
  */

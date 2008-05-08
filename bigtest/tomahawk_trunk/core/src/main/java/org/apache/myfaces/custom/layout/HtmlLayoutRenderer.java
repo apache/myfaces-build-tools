@@ -32,6 +32,11 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.Layout"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

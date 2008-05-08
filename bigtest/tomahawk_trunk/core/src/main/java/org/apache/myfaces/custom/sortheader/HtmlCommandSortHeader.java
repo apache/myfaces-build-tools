@@ -32,6 +32,10 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.FacesEvent;
 
 /**
+ * @JSFComponent
+ *   name = "t:commandSortHeader"
+ *   tagClass = "org.apache.myfaces.custom.sortheader.HtmlCommandSortHeaderTag"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

@@ -26,6 +26,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "t:inputTextHelp"
+ *   tagClass = "org.apache.myfaces.custom.inputTextHelp.HtmlInputTextHelpTag"
+ * 
  * @author Thomas Obereder
  * @version $Date: 2005-07-02 15:32:34 +01:00 (Thu, 09 Jun 2005)
  */

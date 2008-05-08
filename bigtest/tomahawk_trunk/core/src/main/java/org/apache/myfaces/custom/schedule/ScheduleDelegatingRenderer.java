@@ -33,6 +33,11 @@ import org.apache.myfaces.custom.schedule.model.ScheduleModel;
  * Renderer for the Schedule component that delegates the actual rendering
  * to a compact or detailed renderer, depending on the mode of the ScheduleModel
  * </p>
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.Schedule"
  *
  * @author Jurgen Lust (latest modification by $Author: skitching $)
  * @author Bruno Aranda (adaptation of Jurgen's code to myfaces)

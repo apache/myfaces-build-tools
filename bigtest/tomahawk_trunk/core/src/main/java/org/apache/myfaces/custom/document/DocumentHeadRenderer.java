@@ -30,6 +30,11 @@ import org.apache.myfaces.renderkit.html.util.AddResourceFactory;
  * Document to enclose the document head. If not otherwise possible you can use
  * state="start|end" to demarkate the document boundaries
  * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Data"
+ *   type = "org.apache.myfaces.DocumentHead"
+ * 
  * @author Mario Ivankovits (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

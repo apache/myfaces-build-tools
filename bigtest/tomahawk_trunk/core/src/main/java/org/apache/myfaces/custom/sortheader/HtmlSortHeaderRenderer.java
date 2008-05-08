@@ -48,6 +48,11 @@ import org.apache.myfaces.renderkit.html.ext.HtmlLinkRenderer;
  * Revision 1.2  2004/04/22 09:20:55  manolito
  * derive from HtmlLinkRendererBase instead of HtmlLinkRenderer
  *
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Command"
+ *   type = "org.apache.myfaces.SortHeader"
+ *
  */
 public class HtmlSortHeaderRenderer
         extends HtmlLinkRenderer

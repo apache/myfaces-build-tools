@@ -26,6 +26,10 @@ import javax.faces.el.ValueBinding;
 /**
  * Model for a table in multiple balanced columns.
  *
+ * @JSFComponent
+ *   name = "t:newspaperTable"
+ *   tagClass = "org.apache.myfaces.custom.newspaper.HtmlNewspaperTableTag"
+ *
  * @author <a href="mailto:jesse@odel.on.ca">Jesse Wilson</a>
  */
 public class HtmlNewspaperTable

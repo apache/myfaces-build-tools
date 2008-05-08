@@ -44,6 +44,16 @@ import java.util.List;
  * Many thanks to the guys from Swiss Federal Institute of Intellectual Property & Marc Bouquet
  * for helping to develop this component.
  *
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.NavigationMenu"
+ *   
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Command"
+ *   type = "org.apache.myfaces.NavigationMenu"
+ *
  * @author Thomas Spiegl
  * @author Manfred Geiler
  */

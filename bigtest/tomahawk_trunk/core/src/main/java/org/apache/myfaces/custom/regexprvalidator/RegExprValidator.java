@@ -29,6 +29,10 @@ import org.apache.myfaces.shared_tomahawk.util._ComponentUtils;
 import org.apache.myfaces.validator.ValidatorBase;
 
 /**
+ * @JSFValidator
+ *   name = "t:validateRegExpr"
+ *   tagClass = "org.apache.myfaces.custom.regexprvalidator.ValidateRegExprTag"
+ * 
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

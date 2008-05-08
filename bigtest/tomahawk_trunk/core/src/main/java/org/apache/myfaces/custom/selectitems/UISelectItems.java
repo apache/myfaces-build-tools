@@ -31,6 +31,10 @@ import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
 /**
+ * @JSFComponent
+ *   name = "t:selectItems"
+ *   tagClass = "org.apache.myfaces.custom.selectitems.SelectItemsTag"
+ * 
  * @author cagatay (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

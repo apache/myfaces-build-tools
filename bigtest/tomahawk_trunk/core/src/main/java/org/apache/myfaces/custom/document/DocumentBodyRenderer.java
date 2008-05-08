@@ -29,6 +29,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
  * Document to enclose the whole document. If not otherwise possible you can use
  * state="start|end" to demarkate the document boundaries
  *
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Data"
+ *   type = "org.apache.myfaces.DocumentBody"
+ *
  * @author Mario Ivankovits (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

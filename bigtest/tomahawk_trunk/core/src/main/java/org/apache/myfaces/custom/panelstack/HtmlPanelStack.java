@@ -30,6 +30,10 @@ import javax.faces.el.ValueBinding;
  * is similar to the CardLayout of Java Swing. Property <code>selectedPanel</code> defines the id of the child
  * to be rendered. If no child panel is selected or if the selected panel can not be found the first child is rendered.
  *
+ * @JSFComponent
+ *   name = "t:panelStack"
+ *   tagClass = "org.apache.myfaces.custom.panelstack.PanelStackTag"
+ *
  * @author <a href="mailto:oliver@rossmueller.com">Oliver Rossmueller</a>
  * @version $Revision$ $Date$
  */

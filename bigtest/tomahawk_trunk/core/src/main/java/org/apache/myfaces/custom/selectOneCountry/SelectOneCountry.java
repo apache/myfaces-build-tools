@@ -36,6 +36,10 @@ import org.apache.myfaces.component.html.ext.HtmlSelectOneMenu;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
 /**
+ * @JSFComponent
+ *   name = "t:selectOneCountry"
+ *   tagClass = "org.apache.myfaces.custom.selectOneCountry.SelectOneCountryTag"
+ * 
  * @author Sylvain Vieujot (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

@@ -29,6 +29,10 @@ import org.apache.myfaces.custom.schedule.util.ScheduleUtil;
 /**
  * This class holds all properties specific to the HTML version of the Schedule component.
  *
+ * @JSFComponent
+ *   name = "t:schedule"
+ *   tagClass = "org.apache.myfaces.custom.schedule.ScheduleTag"
+ *
  * @author Bruno Aranda (latest modification by $Author: jlust $)
  * @author Jurgen Lust
  * 
@@ -39,6 +43,10 @@ public class HtmlSchedule extends UISchedule implements UserRoleAware,
 {
 
     private static final long serialVersionUID = 5859593107442371656L;
+    
+    public static final String COMPONENT_FAMILY = "javax.faces.Panel";
+    public static final String COMPONENT_TYPE = "org.apache.myfaces.Schedule";
+    public static final String RENDERER_TYPE = "org.apache.myfaces.Schedule";
 
     //UserRoleAware properties
     private String _enabledOnUserRole = null;

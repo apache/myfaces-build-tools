@@ -41,6 +41,11 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.FileUpload"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

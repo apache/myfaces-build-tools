@@ -34,6 +34,16 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.Navigation"
+ *   
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Command"
+ *   type = "org.apache.myfaces.Navigation"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

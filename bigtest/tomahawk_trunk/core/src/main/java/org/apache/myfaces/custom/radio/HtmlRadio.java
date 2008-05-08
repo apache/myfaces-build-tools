@@ -26,6 +26,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "t:radio"
+ *   tagClass = "org.apache.myfaces.custom.radio.HtmlRadioTag"
+ * 
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -38,12 +42,12 @@ public class HtmlRadio
     public static final String INDEX_ATTR = "index".intern();
 
 
-    //------------------ GENERATED CODE BEGIN (do not modify!) --------------------
-
     public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlRadio";
     public static final String COMPONENT_FAMILY = "org.apache.myfaces.Radio";
     private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.Radio";
 
+    //------------------ GENERATED CODE BEGIN (do not modify!) --------------------
+    
     private String _for = null;
     private Integer _index = null;
     private String _enabledOnUserRole = null;

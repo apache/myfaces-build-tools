@@ -26,6 +26,10 @@ import javax.faces.context.FacesContext;
 /**
  * Default component for the dojo intializer
  *
+ * @JSFComponent
+ *   name = "t:dojoInitializer"
+ *   tagClass = "org.apache.myfaces.custom.dojo.DojoInitializerTag"
+ *
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

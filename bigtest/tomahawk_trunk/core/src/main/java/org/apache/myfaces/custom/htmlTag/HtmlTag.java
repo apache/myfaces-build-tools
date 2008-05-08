@@ -28,6 +28,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "t:htmlTag"
+ *   tagClass = "org.apache.myfaces.custom.htmlTag.HtmlTagTag"
+ * 
  * @author bdudney (latest modification by $Author$)
  * @version $Revision$ $Date: 2005-05-11 11:47:12 -0400 (Wed, 11 May 2005) $
  */

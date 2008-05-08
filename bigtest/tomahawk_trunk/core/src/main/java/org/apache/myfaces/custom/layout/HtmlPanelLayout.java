@@ -24,6 +24,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "t:panelLayout"
+ *   tagClass = "org.apache.myfaces.custom.layout.HtmlPanelLayoutTag"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

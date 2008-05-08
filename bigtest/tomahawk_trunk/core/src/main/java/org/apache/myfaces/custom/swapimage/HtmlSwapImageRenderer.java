@@ -36,6 +36,11 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Graphic"
+ *   type = "org.apache.myfaces.SwapImage"
+ * 
  * @author Thomas Spiegl
  * @version $Revision$ $Date$
  */

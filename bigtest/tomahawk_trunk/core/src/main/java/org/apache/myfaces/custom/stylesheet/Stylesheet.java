@@ -27,6 +27,10 @@ import javax.faces.el.ValueBinding;
 
 
 /**
+ * @JSFComponent
+ *   name = "t:stylesheet"
+ *   tagClass = "org.apache.myfaces.custom.stylesheet.StylesheetTag"
+ * 
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

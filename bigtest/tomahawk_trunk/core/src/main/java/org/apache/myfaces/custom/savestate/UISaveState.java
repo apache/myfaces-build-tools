@@ -56,6 +56,11 @@ import javax.faces.el.ValueBinding;
  * then the object will simply be saved into the new view, thus extending
  * its lifetime.
  * <p>
+ * 
+ * @JSFComponent
+ *   name = "t:saveState"
+ *   tagClass = "org.apache.myfaces.custom.savestate.SaveStateTag"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

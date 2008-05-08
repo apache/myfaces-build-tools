@@ -36,6 +36,10 @@ import org.apache.myfaces.component.html.ext.HtmlSelectOneMenu;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
 /**
+ * @JSFComponent
+ *   name = "t:selectOneLanguage"
+ *   tagClass = "org.apache.myfaces.custom.selectOneLanguage.SelectOneLanguageTag"
+ * 
  * @author Sylvain Vieujot (latest modification by $Author$)
  * @version $Revision$ $Date: 2005-05-11 12:14:23 -0400 (Wed, 11 May 2005) $
  */

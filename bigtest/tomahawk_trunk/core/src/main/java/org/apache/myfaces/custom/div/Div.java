@@ -21,6 +21,10 @@ package org.apache.myfaces.custom.div;
 import org.apache.myfaces.custom.htmlTag.HtmlTag;
 
 /**
+ * @JSFComponent
+ *   name = "t:div"
+ *   tagClass = "org.apache.myfaces.custom.div.DivTag"
+ * 
  * @author bdudney (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

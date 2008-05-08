@@ -32,6 +32,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.Popup"
+ * 
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

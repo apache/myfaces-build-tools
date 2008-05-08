@@ -36,6 +36,11 @@ import javax.faces.el.ValueBinding;
 /**
  * Many thanks to the guys from Swiss Federal Institute of Intellectual Property & Marc Bouquet
  * for helping to develop this component.
+ * 
+ * @JSFComponent
+ *   name = "t:panelNavigation2"
+ *   tagClass = "org.apache.myfaces.custom.navmenu.htmlnavmenu.HtmlPanelNavigationMenuTag"
+ * 
  * @author Manfred Geiler
  * @author Thomas Spiegl
  */

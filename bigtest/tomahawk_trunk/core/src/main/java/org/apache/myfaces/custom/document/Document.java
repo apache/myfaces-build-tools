@@ -20,8 +20,13 @@ package org.apache.myfaces.custom.document;
 
 
 /**
+ * 
  * Document to enclose the whole document. If not otherwise possible you can use
  * state="start|end" to demarkate the document boundaries
+ * 
+ * @JSFComponent
+ *   name = "t:document"
+ *   tagClass = "org.apache.myfaces.custom.document.DocumentTag"
  * 
  * @author Mario Ivankovits (latest modification by $Author$)
  * @version $Revision$ $Date$

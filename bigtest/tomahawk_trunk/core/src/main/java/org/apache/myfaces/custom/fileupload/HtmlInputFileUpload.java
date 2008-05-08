@@ -29,6 +29,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "t:inputFileUpload"
+ *   tagClass = "org.apache.myfaces.custom.fileupload.HtmlInputFileUploadTag"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

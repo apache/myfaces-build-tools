@@ -35,6 +35,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 import org.apache.myfaces.renderkit.html.ext.HtmlTextRenderer;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.TextHelp"
+ * 
  * @author Thomas Obereder
  * @version Date: 09.06.2005, 22:50:48
  */

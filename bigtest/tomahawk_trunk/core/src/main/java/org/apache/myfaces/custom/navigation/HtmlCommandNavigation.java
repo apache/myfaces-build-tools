@@ -36,6 +36,10 @@ import java.util.List;
 /**
  * Command, that represents a navigation item.
  *
+ * @JSFComponent
+ *   name = "t:commandNavigation"
+ *   tagClass = "org.apache.myfaces.custom.navigation.HtmlCommandNavigationTag"
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

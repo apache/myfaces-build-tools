@@ -32,6 +32,11 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.JsValueChangeListener"
+ * 
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

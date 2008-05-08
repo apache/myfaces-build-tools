@@ -49,6 +49,11 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Command"
+ *   type = "org.apache.myfaces.JSCookMenu"
+ * 
  * @author Thomas Spiegl
  * @version $Revision$ $Date$
  */

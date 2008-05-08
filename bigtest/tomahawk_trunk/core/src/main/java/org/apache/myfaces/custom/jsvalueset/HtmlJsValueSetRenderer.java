@@ -33,6 +33,11 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.JsValueSet"
+ * 
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

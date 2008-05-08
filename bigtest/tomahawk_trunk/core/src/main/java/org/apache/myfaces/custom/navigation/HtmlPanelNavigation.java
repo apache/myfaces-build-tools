@@ -36,6 +36,10 @@ import javax.faces.el.ValueBinding;
  * Panel, that includes navigation items ({@link HtmlCommandNavigation}) and other
  * components (separators).
  * 
+ * @JSFComponent
+ *   name = "t:panelNavigation"
+ *   tagClass = "org.apache.myfaces.custom.navigation.HtmlPanelNavigationTag"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -148,11 +152,11 @@ public class HtmlPanelNavigation
     private String _onmouseup = null;
     private String _title = null;
 
-    //------------------ GENERATED CODE BEGIN (do not modify!) --------------------
-
     public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlPanelNavigation";
     public static final String COMPONENT_FAMILY = "javax.faces.Panel";
     private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.Navigation";
+    
+    //------------------ GENERATED CODE BEGIN (do not modify!) --------------------
 
     private String _itemClass = null;
     private String _openItemClass = null;

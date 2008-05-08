@@ -26,6 +26,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "t:jsValueSet"
+ *   tagClass = "org.apache.myfaces.custom.jsvalueset.HtmlJsValueSetTag"
+ * 
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

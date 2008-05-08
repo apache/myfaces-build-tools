@@ -39,6 +39,10 @@ import java.util.Iterator;
 import java.util.StringTokenizer;
 
 /**
+ * @JSFComponent
+ *   name = "t:navigationMenuItem"
+ *   tagClass = "org.apache.myfaces.custom.navmenu.HtmlNavigationMenuItemTag"
+ * 
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

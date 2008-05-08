@@ -29,6 +29,10 @@ import org.apache.myfaces.validator.ValidatorBase;
 
 
 /**
+ * @JSFValidator
+ *   name = "t:validateEqual"
+ *   tagClass = "org.apache.myfaces.custom.equalvalidator.ValidateEqualTag"
+ * 
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

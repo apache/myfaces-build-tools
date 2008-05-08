@@ -41,6 +41,11 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Renderer for a table in multiple balanced columns.
  *
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Data"
+ *   type = "org.apache.myfaces.HtmlNewspaperTable"
+ *
  * @author <a href="mailto:jesse@odel.on.ca">Jesse Wilson</a>
  */
 public class HtmlNewspaperTableRenderer

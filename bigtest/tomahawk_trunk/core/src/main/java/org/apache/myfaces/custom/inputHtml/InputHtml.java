@@ -31,6 +31,10 @@ import javax.faces.el.ValueBinding;
  * HTML Editor using the kupu library.
  * http://kupu.oscom.org/
  *
+ * @JSFComponent
+ *   name = "t:inputHtml"
+ *   tagClass = "org.apache.myfaces.custom.inputHtml.InputHtmlTag"
+ *
  * @author Sylvain Vieujot (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

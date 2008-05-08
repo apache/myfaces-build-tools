@@ -25,6 +25,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "t:jsValueChangeListener"
+ *   tagClass = "org.apache.myfaces.custom.jslistener.JsValueChangeListenerTag"
+ * 
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

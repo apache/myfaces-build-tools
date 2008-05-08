@@ -47,6 +47,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.util.JavascriptUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.util.FormInfo;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.InputHtml"
+ * 
  * @author Sylvain Vieujot (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

@@ -36,6 +36,10 @@ import java.util.*;
  * Many thanks to the guys from Swiss Federal Institute of Intellectual Property & Marc Bouquet
  * for helping to develop this component.
  *
+ * @JSFComponent
+ *   name = "t:commandNavigation2"
+ *   tagClass = "org.apache.myfaces.custom.navmenu.htmlnavmenu.HtmlCommandNavigationItemTag"
+ *    
  * @author Manfred Geiler
  * @author Thomas Spiegl
  */
