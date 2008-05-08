@@ -51,6 +51,10 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
+ * @JSFComponent
+ *   name = "t:dataTable"
+ *   tagClass = "org.apache.myfaces.generated.taglib.html.ext.HtmlDataTableTag"
+ * 
  * @author Thomas Spiegl (latest modification by $Author$)
  * @author Manfred Geiler
  * @version $Revision$ $Date$
@@ -742,6 +746,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         }
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getFirst()
     {
         if (_preservedDataModel != null)
@@ -765,6 +772,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         super.setFirst(first);
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getRows()
     {
         if (_preservedDataModel != null)
@@ -1053,6 +1063,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         }
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getForceIdIndexFormula()
     {
         if (_forceIdIndexFormula != null)
@@ -1092,6 +1105,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         setSortColumnIndex(columnNameToIndex(sortColumn));
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getSortColumn()
     {
         if (_sortColumn != null) return _sortColumn;
@@ -1112,6 +1128,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         }
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isSortAscending()
     {
         if (_sortAscending != null)
@@ -1126,6 +1145,10 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _sortProperty = sortProperty;
     }
 
+    /**
+     * @JSFProperty
+     *   literalOnly="true"
+     */
     public String getSortProperty()
     {
         return _sortProperty;
@@ -1136,6 +1159,10 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _sortable = sortable ? Boolean.TRUE : Boolean.FALSE;
     }
 
+    /**
+     * @JSFProperty
+     *   defaultValue="false"
+     */
     public boolean isSortable()
     {
         if (_sortable != null) return _sortable.booleanValue();
@@ -1149,6 +1176,10 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
 		_embedded = embedded ? Boolean.TRUE : Boolean.FALSE;
 	}
 
+    /**
+     * @JSFProperty
+     *   defaultValue="false"
+     */
 	public boolean isEmbedded()
 	{
 		if (_embedded != null) return _embedded.booleanValue();
@@ -1162,6 +1193,10 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
 		_detailStampExpandedDefault = detailStampExpandedDefault ? Boolean.TRUE : Boolean.FALSE;
 	}
 
+    /**
+     * @JSFProperty
+     *   defaultValue="false"
+     */
 	public boolean isDetailStampExpandedDefault()
 	{
 		if (_detailStampExpandedDefault != null) return _detailStampExpandedDefault.booleanValue();
@@ -1175,6 +1210,10 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
 		_detailStampLocation = detailStampLocation;
 	}
 
+    /**
+     * @JSFProperty
+     *   defaultValue="after"
+     */
 	public String getDetailStampLocation()
 	{
 		if (_detailStampLocation != null) return _detailStampLocation;
@@ -1188,6 +1227,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowOnMouseOver = rowOnMouseOver;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowOnMouseOver()
     {
         if (_rowOnMouseOver != null)
@@ -1201,6 +1243,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowOnMouseOut = rowOnMouseOut;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowOnMouseOut()
     {
         if (_rowOnMouseOut != null)
@@ -1214,6 +1259,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowOnClick = rowOnClick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowOnClick()
     {
         if (_rowOnClick != null)
@@ -1227,6 +1275,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowOnDblClick = rowOnDblClick;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowOnDblClick()
     {
         if (_rowOnDblClick != null)
@@ -1235,6 +1286,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         return vb != null ? (String) vb.getValue(getFacesContext()) : null;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowOnKeyDown()
     {
         if (_rowOnKeyDown != null)
@@ -1248,6 +1302,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowOnKeyDown = rowOnKeyDown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowOnKeyPress()
     {
         if (_rowOnKeyPress != null)
@@ -1261,6 +1318,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowOnKeyPress = rowOnKeyPress;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowOnKeyUp()
     {
         if (_rowOnKeyUp != null)
@@ -1274,6 +1334,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowOnKeyUp = rowOnKeyUp;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowStyleClass()
     {
 	if (_rowStyleClass != null)
@@ -1298,6 +1361,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowStyleClass = rowStyleClass;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowStyle()
     {
         if (_rowStyle != null)
@@ -1322,6 +1388,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowStyle = rowStyle;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowOnMouseDown()
     {
         if (_rowOnMouseDown != null)
@@ -1335,6 +1404,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowOnMouseDown = rowOnMouseDown;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowOnMouseMove()
     {
         if (_rowOnMouseMove != null)
@@ -1348,6 +1420,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowOnMouseMove = rowOnMouseMove;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowOnMouseUp()
     {
         if (_rowOnMouseUp != null)
@@ -1361,6 +1436,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowOnMouseUp = rowOnMouseUp;
     }
 
+    /**
+     * @JSFProperty
+     */
     protected boolean isValidChildren()
     {
         return _isValidChildren;
@@ -1398,6 +1476,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _varDetailToggler = varDetailToggler;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getVarDetailToggler()
     {
         if (_varDetailToggler != null)
@@ -1406,6 +1487,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         return vb != null ? (String) vb.getValue(getFacesContext()) : null;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowGroupStyle()
     {
         if (_rowGroupStyle != null)
@@ -1419,6 +1503,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowGroupStyle = rowGroupStyle;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowGroupStyleClass()
     {
         if (_rowGroupStyleClass != null)
@@ -1431,7 +1518,10 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
     {
         _rowGroupStyleClass = rowGroupStyleClass;
     }
-
+    
+    /**
+     * @JSFProperty
+     */
     public String getBodyStyle()
     {
         if (_bodyStyle != null)
@@ -1445,6 +1535,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _bodyStyle = bodyStyle;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getBodyStyleClass()
     {
         if (_bodyStyleClass != null)
@@ -1537,6 +1630,8 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
     }
 
     /**
+     * @JSFProperty
+     * 
      * Set the number of columns the table will be divided over.
      */
     public int getNewspaperColumns() {
@@ -1559,6 +1654,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         this._newspaperOrientation = newspaperOrientation;
     }
 
+    /**
+     * @JSFProperty
+     */
 	public String getNewspaperOrientation() {
 		if(_newspaperOrientation != null)
 			return _newspaperOrientation;
@@ -1570,6 +1668,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
 
     /**
      * Gets the spacer facet, between each pair of newspaper columns.
+     * 
+     * @JSFFacet
+     *   name="spacer"
      */
     public UIComponent getSpacer()
     {
@@ -1656,6 +1757,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _preserveDataModel = Boolean.valueOf(preserveDataModel);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isPreserveDataModel()
     {
         if (_preserveDataModel != null)
@@ -1670,6 +1774,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _preserveSort = Boolean.valueOf(preserveSort);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isPreserveSort()
     {
         if (_preserveSort != null)
@@ -1684,6 +1791,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _enabledOnUserRole = enabledOnUserRole;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getEnabledOnUserRole()
     {
         if (_enabledOnUserRole != null)
@@ -1697,6 +1807,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _visibleOnUserRole = visibleOnUserRole;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getVisibleOnUserRole()
     {
         if (_visibleOnUserRole != null)
@@ -1710,6 +1823,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _renderedIfEmpty = Boolean.valueOf(renderedIfEmpty);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isRenderedIfEmpty()
     {
         if (_renderedIfEmpty != null)
@@ -1724,6 +1840,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _rowIndexVar = rowIndexVar;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowIndexVar()
     {
         if (_rowIndexVar != null)
@@ -1731,12 +1850,15 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         ValueBinding vb = getValueBinding("rowIndexVar");
         return vb != null ? (String) vb.getValue(getFacesContext()) : null;
     }
-
+    
     public void setRowCountVar(String rowCountVar)
     {
         _rowCountVar = rowCountVar;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getRowCountVar()
     {
         if (_rowCountVar != null)
@@ -1750,6 +1872,9 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _previousRowDataVar = previousRowDataVar;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getPreviousRowDataVar()
     {
         if (_previousRowDataVar != null)
@@ -1763,12 +1888,125 @@ public class HtmlDataTable extends HtmlDataTableHack implements UserRoleAware, N
         _sortedColumnVar = sortedColumnVar;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getSortedColumnVar()
     {
         if (_sortedColumnVar != null) return _sortedColumnVar;
         ValueBinding vb = getValueBinding("sortedColumnVar");
         return vb != null ? (String) vb.getValue(getFacesContext()) : null;
     }
-
+    
     //------------------ GENERATED CODE END ---------------------------------------
+    
+    private String _align = null;
+    
+    public void setAlign(String align)
+    {
+        _align = align;
+    }
+
+    /**
+     * @JSFProperty
+     */
+    public String getAlign()
+    {
+        if (_align != null)
+            return _align;
+        ValueBinding vb = getValueBinding("align");
+        return vb != null ? (String) vb.getValue(getFacesContext()) : null;
+    }
+
+    private String _rowId = null;
+    
+    public void setRowId(String rowId)
+    {
+        _rowId = rowId;
+    }
+
+    /**
+     * @JSFProperty
+     */
+    public String getRowId()
+    {
+        if (_rowId != null)
+            return _rowId;
+        ValueBinding vb = getValueBinding("rowId");
+        return vb != null ? (String) vb.getValue(getFacesContext()) : null;
+    }
+    
+    // Property: datafld
+    private String _datafld;
+    
+    /**
+     * @JSFProperty
+     */
+    public String getDatafld()
+    {
+        if (_datafld != null)
+        {
+            return _datafld;
+        }
+        ValueBinding vb = getValueBinding("datafld");
+        if (vb != null)
+        {
+            return (String) vb.getValue(getFacesContext());
+        }
+        return null;
+    }
+
+    public void setDatafld(String datafld)
+    {
+        this._datafld = datafld;
+    }
+    // Property: datasrc
+    private String _datasrc;
+    
+    /**
+     * @JSFProperty
+     */
+    public String getDatasrc()
+    {
+        if (_datasrc != null)
+        {
+            return _datasrc;
+        }
+        ValueBinding vb = getValueBinding("datasrc");
+        if (vb != null)
+        {
+            return (String) vb.getValue(getFacesContext());
+        }
+        return null;
+    }
+
+    public void setDatasrc(String datasrc)
+    {
+        this._datasrc = datasrc;
+    }
+    // Property: dataformatas
+    private String _dataformatas;
+    
+    /**
+     * @JSFProperty
+     */
+    public String getDataformatas()
+    {
+        if (_dataformatas != null)
+        {
+            return _dataformatas;
+        }
+        ValueBinding vb = getValueBinding("dataformatas");
+        if (vb != null)
+        {
+            return (String) vb.getValue(getFacesContext());
+        }
+        return null;
+    }
+
+    public void setDataformatas(String dataformatas)
+    {
+        this._dataformatas = dataformatas;
+    }
+    
 }

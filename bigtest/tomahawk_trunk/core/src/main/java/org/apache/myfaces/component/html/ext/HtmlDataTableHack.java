@@ -41,17 +41,22 @@ import javax.faces.model.ResultSetDataModel;
 import javax.faces.model.ScalarDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 
+import org.apache.myfaces.component.ForceIdAware;
 import org.apache.myfaces.custom.ExtendedComponentBase;
 
 /**
  * Reimplement all UIData functionality to be able to have (protected) access
  * the internal DataModel.
  *
+ * @JSFComponent
+ *  configExcluded = "true"
+ *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 public abstract class HtmlDataTableHack extends
-                javax.faces.component.html.HtmlDataTable implements ExtendedComponentBase
+                javax.faces.component.html.HtmlDataTable 
+                
 {
     private Map _dataModelMap = new HashMap();
 
@@ -73,7 +78,6 @@ public abstract class HtmlDataTableHack extends
     private static final boolean DEFAULT_PRESERVEROWSTATES = false;
 
     private int _rowIndex = -1;
-    private Boolean _forceId;
 
     private Boolean _preserveRowStates;
 
@@ -177,6 +181,10 @@ public abstract class HtmlDataTableHack extends
         _preserveRowStates = Boolean.valueOf(preserveRowStates);
     }
 
+    /**
+     * @JSFProperty
+     *   defaultValue="false"
+     */
     public boolean isPreserveRowStates()
     {
         if (_preserveRowStates != null)
@@ -472,9 +480,11 @@ public abstract class HtmlDataTableHack extends
     
     public Object saveState(FacesContext context)
     {
-        Object[] values = new Object[2];
+        Object[] values = new Object[4];
         values[0] = super.saveState(context);
         values[1] = _preserveRowStates;
+        values[2] = _forceId;
+        values[3] = _forceIdIndex;
         return values;
     }
     
@@ -483,6 +493,8 @@ public abstract class HtmlDataTableHack extends
         Object[] values = (Object[])state;
         super.restoreState(context, values[0]);
         _preserveRowStates = (Boolean) values[1];
+        _forceId = (Boolean) values[2];
+        _forceIdIndex = (Boolean) values[3];
     }
 
     private static final DataModel EMPTY_DATA_MODEL = new _SerializableDataModel()
@@ -550,19 +562,46 @@ public abstract class HtmlDataTableHack extends
             evh.setSubmittedValue(_submittedValue);
         }
     }
-
-    public void setForceId(boolean b)
+    
+    // Property: forceId
+    private Boolean _forceId  = Boolean.valueOf(false);
+    
+    /**
+     * @JSFProperty
+     *   literalOnly = "true"
+     *   defaultValue = "false"
+     *   
+     * @return
+     */
+    public Boolean getForceId()
     {
-        _forceId = Boolean.valueOf(b);
+        return _forceId;
     }
 
-    public boolean isForceId()
+    public void setForceId(Boolean forceId)
     {
-        if (_forceId != null) return _forceId.booleanValue();
-        ValueBinding vb = getValueBinding("forceId");
-        return vb != null && booleanFromObject(vb.getValue(getFacesContext()), false);
+        this._forceId = forceId;
+    }
+    // Property: forceIdIndex
+    private Boolean _forceIdIndex  = Boolean.valueOf(true);
+    
+    /**
+     * @JSFProperty
+     *   literalOnly = "true"
+     *   defaultValue = "true"
+     *   
+     * @return
+     */
+    public Boolean getForceIdIndex()
+    {
+        return _forceIdIndex;
     }
 
+    public void setForceIdIndex(Boolean forceIdIndex)
+    {
+        this._forceIdIndex = forceIdIndex;
+    }
+    
     private static boolean booleanFromObject(Object obj, boolean defaultValue)
     {
         if(obj instanceof Boolean)
