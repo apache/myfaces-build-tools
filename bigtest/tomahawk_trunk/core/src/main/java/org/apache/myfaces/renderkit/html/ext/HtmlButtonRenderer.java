@@ -27,6 +27,12 @@ import javax.faces.context.FacesContext;
 
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.Command"
+ *   type = "org.apache.myfaces.Button"
+ *   
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
