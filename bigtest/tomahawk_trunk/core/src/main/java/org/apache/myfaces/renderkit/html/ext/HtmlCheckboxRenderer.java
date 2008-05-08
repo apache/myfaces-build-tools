@@ -46,6 +46,21 @@ import java.util.Set;
 
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "org.apache.myfaces.Checkbox"
+ *   type = "org.apache.myfaces.Checkbox"
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.SelectBoolean"
+ *   type = "org.apache.myfaces.Checkbox"
+ *   
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC"
+ *   family = "javax.faces.SelectMany"
+ *   type = "org.apache.myfaces.Checkbox"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
