@@ -38,6 +38,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.CollapsiblePanel"
+ *   
  * @author Kalle Korhonen (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
