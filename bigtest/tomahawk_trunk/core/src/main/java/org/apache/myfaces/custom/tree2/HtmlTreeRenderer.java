@@ -45,6 +45,11 @@ import javax.servlet.http.Cookie;
 import java.util.HashMap;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.HtmlTree2"
+ *   type = "org.apache.myfaces.HtmlTree2"
+ *   
  * @author Sean Schofield
  * @author Chris Barlow
  * @author Hans Bergsten (Some code taken from an example in his O'Reilly JavaServer Faces book. Copied with permission)

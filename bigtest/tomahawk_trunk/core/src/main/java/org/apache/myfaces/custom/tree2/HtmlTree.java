@@ -29,6 +29,10 @@ import java.util.Map;
  * Represents "tree data" in an HTML format.  Also provides a mechanism for maintaining expand/collapse
  * state of the nodes in the tree.
  *
+ * @JSFComponent
+ *   name = "t:tree2"
+ *   tagClass = "org.apache.myfaces.custom.tree2.TreeTag"
+ *
  * @author Sean Schofield
  */
 public class HtmlTree extends UITreeData
