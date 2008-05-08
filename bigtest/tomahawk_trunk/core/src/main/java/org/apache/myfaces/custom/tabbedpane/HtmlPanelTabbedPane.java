@@ -35,6 +35,10 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 
 /**
+ * @JSFComponent
+ *   name = "t:panelTabbedPane"
+ *   tagClass = "org.apache.myfaces.custom.tabbedpane.HtmlPanelTabbedPaneTag"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

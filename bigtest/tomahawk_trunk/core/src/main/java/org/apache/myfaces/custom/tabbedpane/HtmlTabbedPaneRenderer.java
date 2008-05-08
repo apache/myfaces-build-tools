@@ -42,6 +42,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRenderer;
 
 /**
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.TabbedPane"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

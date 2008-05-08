@@ -27,6 +27,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "t:panelTab"
+ *   tagClass = "org.apache.myfaces.custom.tabbedpane.HtmlPanelTabTag"
+ * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
