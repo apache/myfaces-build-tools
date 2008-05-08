@@ -18,28 +18,32 @@
  */
 package org.apache.myfaces.component.html.ext;
 
+import org.apache.myfaces.component.ForceIdAware;
+import org.apache.myfaces.component.UserRoleAware;
+import org.apache.myfaces.component.UserRoleUtils;
 import org.apache.myfaces.component.html.util.HtmlComponentUtils;
+import org.apache.myfaces.shared_tomahawk.util._ComponentUtils;
 
 import javax.faces.context.FacesContext;
-
+import javax.faces.el.ValueBinding;
 
 /**
- * Extended version of {@link HtmlInputHidden} that provides additional MyFaces functionality.
- *
- * @author Sean Schofield
+ * @JSFComponent
+ *   name = "t:outputLabel"
+ *   class = "org.apache.myfaces.component.html.ext.HtmlOutputLabel"
+ *   superClass = "org.apache.myfaces.component.html.ext.AbstractHtmlOutputLabel"
+ *   tagClass = "org.apache.myfaces.generated.taglib.html.ext.HtmlOutputLabelTag"
+ *   
+ * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-public class HtmlInputHidden
-    extends javax.faces.component.html.HtmlInputHidden
+abstract class AbstractHtmlOutputLabel
+        extends javax.faces.component.html.HtmlOutputLabel
+        implements UserRoleAware, ForceIdAware
 {
-    public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlInputHidden";
-    public static final String DEFAULT_RENDERER_TYPE = "javax.faces.Hidden";
+    public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlOutputLabel";
+    public static final String DEFAULT_RENDERER_TYPE = "javax.faces.Label";
 
-    public HtmlInputHidden()
-    {
-        setRendererType(DEFAULT_RENDERER_TYPE);
-    }
-    
     public String getClientId(FacesContext context)
     {
         String clientId = HtmlComponentUtils.getClientId(this, getRenderer(context), context);
@@ -50,5 +54,11 @@ public class HtmlInputHidden
 
         return clientId;
     }
-}
 
+    public boolean isRendered()
+    {
+        if (!UserRoleUtils.isVisibleOnUserRole(this)) return false;
+        return super.isRendered();
+    }
+
+}
