@@ -235,7 +235,7 @@
     <!-- commandButton -->
     <tag>
         <name>commandButton</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlCommandButtonTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlCommandButtonTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard commandButton by user role support.
@@ -251,7 +251,7 @@
     <!-- commandLink -->
     <tag>
         <name>commandLink</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlCommandLinkTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlCommandLinkTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard commandLink by user role support and the HTML target attribute.
@@ -277,7 +277,7 @@
     <!-- dataTable -->
     <tag>
         <name>dataTable</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlDataTableTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlDataTableTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extended data_table that adds some additional features to the standard
@@ -297,7 +297,7 @@
     <!-- inputHidden -->
     <tag>
         <name>inputHidden</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlInputHiddenTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlInputHiddenTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard inputHidden by providing additional MyFaces goodies.
@@ -311,7 +311,7 @@
     <!-- inputSecret -->
     <tag>
         <name>inputSecret</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlInputSecretTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlInputSecretTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard inputSecret, adding the "redisplay" property.
@@ -332,7 +332,7 @@
     <!-- inputText -->
     <tag>
         <name>inputText</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlInputTextTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlInputTextTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard inputText by user role support.
@@ -397,7 +397,7 @@
     <!-- inputTextarea -->
     <tag>
         <name>inputTextarea</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlInputTextareaTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlInputTextareaTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard inputTextarea by user role support.
@@ -414,7 +414,7 @@
      <!-- graphicImage -->
     <tag>
         <name>graphicImage</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlGraphicImageTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlGraphicImageTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard graphicImage.
@@ -433,7 +433,7 @@
     <!-- message -->
     <tag>
         <name>message</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlMessageTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlMessageTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             MyFaces extension to the standard messages tag: see summaryDetailSeparator attribute.
@@ -450,7 +450,7 @@
     <!-- messages -->
     <tag>
         <name>messages</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlMessagesTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlMessagesTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             MyFaces extension to the standard messages tag: see showInputLabel attribute.
@@ -467,7 +467,7 @@
     <!-- outputLabel -->
     <tag>
         <name>outputLabel</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlOutputLabelTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlOutputLabelTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard outputLabel with user role support.
@@ -482,7 +482,7 @@
     <!-- outputText -->
     <tag>
         <name>outputText</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlOutputTextTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlOutputTextTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard outputText with user role support.
@@ -497,7 +497,7 @@
     <!-- panelGrid -->
     <tag>
         <name>panelGrid</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlPanelGridTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlPanelGridTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard panelGrid with user role support.
@@ -513,7 +513,7 @@
     <!-- panelGroup -->
     <tag>
         <name>panelGroup</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlPanelGroupTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlPanelGroupTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard panelGroup with user role support.
@@ -530,7 +530,7 @@
     <!-- selectOneMenu -->
     <tag>
         <name>selectOneMenu</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlSelectOneMenuTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectOneMenuTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard selectOneMenu with user role support.
@@ -547,7 +547,7 @@
     <!-- selectManyMenu -->
     <tag>
         <name>selectManyMenu</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlSelectManyMenuTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectManyMenuTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard selectManyMenu with user role support.
@@ -564,7 +564,7 @@
     <!-- selectOneRadio -->
     <tag>
         <name>selectOneRadio</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlSelectOneRadioTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectOneRadioTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Implements the standard html selectOneRadio tag, with additional features.
@@ -621,7 +621,7 @@
     <!-- selectBooleanCheckbox -->
     <tag>
         <name>selectBooleanCheckbox</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlSelectBooleanCheckboxTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectBooleanCheckboxTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard selectBooleanCheckbox with user role support.
@@ -637,7 +637,7 @@
     <!-- selectManyCheckbox -->
     <tag>
         <name>selectManyCheckbox</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlSelectManyCheckboxTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectManyCheckboxTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard selectManyCheckbox with user role support.
@@ -657,7 +657,7 @@
     <!-- selectOneListbox -->
     <tag>
         <name>selectOneListbox</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlSelectOneListboxTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectOneListboxTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard selectOneListbox with user role support.
@@ -674,7 +674,7 @@
     <!-- selectManyListbox -->
     <tag>
         <name>selectManyListbox</name>
-        <tag-class>org.apache.myfaces.taglib.html.ext.HtmlSelectManyListboxTag</tag-class>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectManyListboxTag</tag-class>
         <body-content>JSP</body-content>
         <description>
             Extends standard selectManyListbox with user role support.
