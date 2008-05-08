@@ -31,7 +31,10 @@ import org.apache.myfaces.validator.ValidatorBase;
  * @JSFValidator
  *   name = "t:validateEmail"
  *   tagClass = "org.apache.myfaces.custom.ValidateEmailTag"
- * 
+ *   
+ * @JSFJspProperty name = "message" returnType = "java.lang.String"
+ * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String"
+ * @JSFJspProperty name = "summaryMessage" returnType = "java.lang.String" 
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

@@ -18,27 +18,28 @@
  */
 package org.apache.myfaces.custom.fileupload;
 
-import org.apache.myfaces.component.UserRoleAware;
-import org.apache.myfaces.component.UserRoleUtils;
-import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
-import org.apache.myfaces.shared_tomahawk.util._ComponentUtils;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
+
+import org.apache.myfaces.component.AlignProperty;
+import org.apache.myfaces.component.UserRoleAware;
+import org.apache.myfaces.component.UserRoleUtils;
+import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
 
 /**
  * @JSFComponent
  *   name = "t:inputFileUpload"
+ *   class = "org.apache.myfaces.custom.fileupload.HtmlInputFileUpload"
+ *   superClass = "org.apache.myfaces.custom.fileupload.AbstractHtmlInputFileUpload"
  *   tagClass = "org.apache.myfaces.custom.fileupload.HtmlInputFileUploadTag"
  * 
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-public class HtmlInputFileUpload
+abstract class AbstractHtmlInputFileUpload
         extends HtmlInputText
-        implements UserRoleAware
+        implements UserRoleAware, AlignProperty
 {
     private static final String SIZE_LIMIT_EXCEEDED = "sizeLimitExceeded";
     private static final String FILEUPLOAD_MAX_SIZE = "org.apache.myfaces.custom.fileupload.maxSize";
@@ -47,13 +48,7 @@ public class HtmlInputFileUpload
     public static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.FileUpload";
     public static final String SIZE_LIMIT_MESSAGE_ID = "org.apache.myfaces.FileUpload.SIZE_LIMIT";
 
-    private String _accept = null;
-    private String _enabledOnUserRole = null;
-    private String _visibleOnUserRole = null;
-
-    private String _storage = null;
-
-    public HtmlInputFileUpload()
+    public AbstractHtmlInputFileUpload()
     {
         setRendererType(DEFAULT_RENDERER_TYPE);
     }
@@ -68,53 +63,14 @@ public class HtmlInputFileUpload
         return (UploadedFile)getValue();
     }
     
-	public String getStorage() {
-		if (_storage != null) return _storage;
-		ValueBinding vb = getValueBinding("storage");
-		return vb != null ? _ComponentUtils.getStringValue(getFacesContext(), vb) : null;
-
-	}
-
-	public void setStorage(String string) {
-		_storage = string;
-	}
-
-    public void setAccept(String accept)
-    {
-        _accept = accept;
-    }
-
-    public String getAccept()
-    {
-        if (_accept != null) return _accept;
-        ValueBinding vb = getValueBinding("accept");
-        return vb != null ? _ComponentUtils.getStringValue(getFacesContext(), vb) : null;
-    }
-
-    public void setEnabledOnUserRole(String enabledOnUserRole)
-    {
-        _enabledOnUserRole = enabledOnUserRole;
-    }
-
-    public String getEnabledOnUserRole()
-    {
-        if (_enabledOnUserRole != null) return _enabledOnUserRole;
-        ValueBinding vb = getValueBinding("enabledOnUserRole");
-        return vb != null ? _ComponentUtils.getStringValue(getFacesContext(), vb) : null;
-    }
-
-    public void setVisibleOnUserRole(String visibleOnUserRole)
-    {
-        _visibleOnUserRole = visibleOnUserRole;
-    }
-
-    public String getVisibleOnUserRole()
-    {
-        if (_visibleOnUserRole != null) return _visibleOnUserRole;
-        ValueBinding vb = getValueBinding("visibleOnUserRole");
-        return vb != null ? _ComponentUtils.getStringValue(getFacesContext(), vb) : null;
-    }
-
+    /**
+     * @JSFProperty
+     */
+	public abstract String getStorage();
+    /**
+     * @JSFProperty
+     */
+    public abstract String getAccept();
 
     public boolean isRendered()
     {
@@ -147,24 +103,4 @@ public class HtmlInputFileUpload
          }
      }
     
-    public Object saveState(FacesContext context)
-    {
-        Object values[] = new Object[5];
-        values[0] = super.saveState(context);
-        values[1] = _accept;
-        values[2] = _enabledOnUserRole;
-        values[3] = _visibleOnUserRole;
-        values[4] = _storage;
-        return ((Object) (values));
-    }
-
-    public void restoreState(FacesContext context, Object state)
-    {
-        Object values[] = (Object[])state;
-        super.restoreState(context, values[0]);
-        _accept = (String)values[1];
-        _enabledOnUserRole = (String)values[2];
-        _visibleOnUserRole = (String)values[3];
-        _storage = (String)values[4];
-    }
 }

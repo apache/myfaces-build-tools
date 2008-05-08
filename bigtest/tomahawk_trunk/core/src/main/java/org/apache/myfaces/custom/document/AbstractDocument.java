@@ -23,7 +23,11 @@ import javax.faces.context.FacesContext;
 
 /**
  * Base class to handle the document family
- *
+ * 
+ * @JSFComponent
+ *   tagClass = "org.apache.myfaces.custom.document.AbstractDocumentTag"
+ *   configExcluded = "true"
+ *   
  * @author Mario Ivankovits (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -48,6 +52,10 @@ public class AbstractDocument extends UIComponentBase
 		_state = state;
 	}
 
+	/**
+	 * @JSFProperty
+	 *   literalOnly = "true"
+	 */
 	public String getState()
 	{
 		return _state;

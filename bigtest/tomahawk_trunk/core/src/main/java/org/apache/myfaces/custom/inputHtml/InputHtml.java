@@ -118,6 +118,9 @@ public class InputHtml extends HtmlInputText {
         _showDebugToolBox = toolBoxes[6];
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getFallback(){
         if (_fallback != null)
             return _fallback;
@@ -128,6 +131,9 @@ public class InputHtml extends HtmlInputText {
         this._fallback = _fallback;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getType(){
         if (_type != null)
             return _type;
@@ -141,6 +147,9 @@ public class InputHtml extends HtmlInputText {
         return getType().equals("document");
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isAllowEditSource(){
    		if (_allowEditSource != null)
    		    return _allowEditSource.booleanValue();
@@ -151,6 +160,9 @@ public class InputHtml extends HtmlInputText {
         this._allowEditSource = Boolean.valueOf(allowEditSource);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isAllowExternalLinks(){
         if (_allowExternalLinks != null)
             return _allowExternalLinks.booleanValue();
@@ -161,6 +173,9 @@ public class InputHtml extends HtmlInputText {
         this._allowExternalLinks = Boolean.valueOf(allowExternalLinks);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isAddKupuLogo(){
    		if (_addKupuLogo != null)
    		    return _addKupuLogo.booleanValue();
@@ -171,6 +186,9 @@ public class InputHtml extends HtmlInputText {
         this._addKupuLogo = Boolean.valueOf(addKupuLogo);
     }
 
+    /**
+     * @JSFProperty
+     */
 	public boolean isShowAllToolBoxes(){
    		if (_showAllToolBoxes != null)
    		    return _showAllToolBoxes.booleanValue();
@@ -181,6 +199,9 @@ public class InputHtml extends HtmlInputText {
         this._showAllToolBoxes = Boolean.valueOf(showAllToolBoxes);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isShowPropertiesToolBox(){
 		if( isShowAllToolBoxes() )
 			return true;
@@ -190,10 +211,14 @@ public class InputHtml extends HtmlInputText {
     	ValueBinding vb = getValueBinding("showPropertiesToolBox");
     	return vb != null ? ((Boolean)vb.getValue(getFacesContext())).booleanValue() : false;
     }
+
     public void setShowPropertiesToolBox(boolean showPropertiesToolBox){
         this._showPropertiesToolBox = Boolean.valueOf(showPropertiesToolBox);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isShowLinksToolBox(){
 		if( isShowAllToolBoxes() )
 			return true;
@@ -203,10 +228,14 @@ public class InputHtml extends HtmlInputText {
     	ValueBinding vb = getValueBinding("showLinksToolBox");
     	return vb != null ? ((Boolean)vb.getValue(getFacesContext())).booleanValue() : false;
     }
+    
     public void setShowLinksToolBox(boolean showLinksToolBox){
         this._showLinksToolBox = Boolean.valueOf(showLinksToolBox);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isShowImagesToolBox(){
 		if( isShowAllToolBoxes() )
 			return true;
@@ -220,6 +249,9 @@ public class InputHtml extends HtmlInputText {
         this._showImagesToolBox = Boolean.valueOf(showImagesToolBox);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isShowTablesToolBox(){
 		if( isShowAllToolBoxes() )
 			return true;
@@ -233,6 +265,9 @@ public class InputHtml extends HtmlInputText {
         this._showTablesToolBox = Boolean.valueOf(showTablesToolBox);
     }
 
+    /**
+     * @JSFProperty
+     */
 	public boolean isShowCleanupExpressionsToolBox(){
 		if( isShowAllToolBoxes() )
 			return true;
@@ -246,6 +281,9 @@ public class InputHtml extends HtmlInputText {
         this._showCleanupExpressionsToolBox = Boolean.valueOf(showCleanupExpressionsToolBox);
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isShowDebugToolBox(){
 		if( isShowAllToolBoxes() )
 			return true;

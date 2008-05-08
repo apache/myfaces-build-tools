@@ -35,7 +35,7 @@ import org.apache.myfaces.component.UserRoleUtils;
 import org.apache.myfaces.custom.calendar.HtmlCalendarRenderer;
 import org.apache.myfaces.custom.calendar.FunctionCallProvider;
 import org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.CalendarDateTimeConverter;
-import org.apache.myfaces.custom.date.HtmlInputDate.UserData;
+import org.apache.myfaces.custom.date.AbstractHtmlInputDate.UserData;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.JSFAttr;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.util.JavascriptUtils;

@@ -32,7 +32,10 @@ import org.apache.myfaces.validator.ValidatorBase;
  * @JSFValidator
  *   name = "t:validateEqual"
  *   tagClass = "org.apache.myfaces.custom.equalvalidator.ValidateEqualTag"
- * 
+ *   
+ * @JSFJspProperty name = "message" returnType = "java.lang.String"
+ * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String"
+ * @JSFJspProperty name = "summaryMessage" returnType = "java.lang.String" 
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -107,6 +110,7 @@ public class EqualValidator extends ValidatorBase {
 	// -------------------------------------------------------- GETTER & SETTER
 
 	/**
+	 * @JSFProperty
 	 * @return the foreign component_id, on which a value should be validated
 	 */
 	public String getFor() {

@@ -31,6 +31,10 @@ import org.apache.myfaces.custom.htmlTag.HtmlTag;
 public class Div extends HtmlTag {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.Div";
 
+  /**
+   * @JSFProperty
+   *   tagExcluded = "true"
+   */
   public Object getValue() {
 	return "div";
   }
