@@ -114,7 +114,8 @@ public class MyfacesUtils
         for (Iterator it = component.properties(); it.hasNext();)
         {
             PropertyMeta property = (PropertyMeta) it.next();
-            if (!PRIMITIVE_TYPES.contains(property.getClassName()))
+            if (property.getClassName() != null && 
+                    !PRIMITIVE_TYPES.contains(property.getClassName()))
             {
                 if (!property.getClassName().startsWith("java.lang"))
                 {

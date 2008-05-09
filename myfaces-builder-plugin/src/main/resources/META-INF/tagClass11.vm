@@ -125,11 +125,7 @@ public class $utils.getClassFromFullClass($component.tagClass) extends ${utils.g
 #if ($property.isLiteralOnly())##                         3
 #set ($className = $utils.getPrimitiveType($property.className))
 #if ($utils.isPrimitiveClass($className))##               4
-#if ($utils.isPrimitiveClass($property.className))##        5
             comp.getAttributes().put("$property.name", ${utils.getBoxedClass($className)}.valueOf($field));
-#else##                                                     5
-            comp.getAttributes().put("$property.name", $field);
-#end##                                                      5
 #else##                                                   4
             comp.getAttributes().put("$property.name", $field);
 #end##                                                    4
@@ -143,11 +139,7 @@ public class $utils.getClassFromFullClass($component.tagClass) extends ${utils.g
             {
 #set ($className = $utils.getPrimitiveType($property.className))
 #if ($utils.isPrimitiveClass($className))##               4
-#if ($utils.isPrimitiveClass($property.className))##        5
                 comp.getAttributes().put("$property.name", ${utils.getBoxedClass($className)}.valueOf($field));
-#else##                                                     5
-                comp.getAttributes().put("$property.name", $field);
-#end##                                                      5
 #else##                                                   4
                 comp.getAttributes().put("$property.name", $field);
 #end##                                                    4
