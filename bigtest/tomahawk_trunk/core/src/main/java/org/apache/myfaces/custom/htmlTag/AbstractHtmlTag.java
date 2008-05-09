@@ -42,7 +42,7 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
  * @author bdudney (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlTag extends UIOutput 
+public abstract class AbstractHtmlTag extends UIOutput 
     implements UserRoleAware, StyleAware, ForceIdAware
 {
     public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlTag";

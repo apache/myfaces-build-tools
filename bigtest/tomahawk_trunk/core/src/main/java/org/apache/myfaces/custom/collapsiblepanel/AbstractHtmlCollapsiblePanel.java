@@ -41,7 +41,7 @@ import org.apache.myfaces.component.UserRoleAware;
  * @version $Revision$ $Date$
  *
  */
-abstract class AbstractHtmlCollapsiblePanel extends UIInput
+public abstract class AbstractHtmlCollapsiblePanel extends UIInput
      implements StyleAware, UniversalProperties, EventAware,
      UserRoleAware
 {

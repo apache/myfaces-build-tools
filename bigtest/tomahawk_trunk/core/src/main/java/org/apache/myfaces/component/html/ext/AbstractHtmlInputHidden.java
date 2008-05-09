@@ -36,7 +36,7 @@ import javax.faces.context.FacesContext;
  * @author Sean Schofield
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlInputHidden
+public abstract class AbstractHtmlInputHidden
     extends javax.faces.component.html.HtmlInputHidden
     implements ForceIdAware
 {

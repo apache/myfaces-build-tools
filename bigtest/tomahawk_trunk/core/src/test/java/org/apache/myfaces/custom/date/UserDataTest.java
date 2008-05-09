@@ -7,7 +7,7 @@ import java.util.TimeZone;
 import java.util.Date;
 import java.util.Locale;
 
-import org.apache.myfaces.custom.date.HtmlInputDate.UserData;
+import org.apache.myfaces.custom.date.AbstractHtmlInputDate.UserData;
 
 import junit.framework.TestCase;
 

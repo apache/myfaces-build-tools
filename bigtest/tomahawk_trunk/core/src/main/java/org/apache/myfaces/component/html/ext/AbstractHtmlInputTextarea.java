@@ -38,7 +38,7 @@ import org.apache.myfaces.shared_tomahawk.component.DisplayValueOnlyCapable;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlInputTextarea
+public abstract class AbstractHtmlInputTextarea
         extends javax.faces.component.html.HtmlInputTextarea
         implements UserRoleAware, DisplayValueOnlyCapable,
         ForceIdAware, DisplayValueOnlyAware, DataProperties

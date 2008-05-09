@@ -37,7 +37,7 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlMessage
+public abstract class AbstractHtmlMessage
         extends javax.faces.component.html.HtmlMessage
         implements UserRoleAware, MessageProperties, ForceIdAware,
         EventAware, UniversalProperties

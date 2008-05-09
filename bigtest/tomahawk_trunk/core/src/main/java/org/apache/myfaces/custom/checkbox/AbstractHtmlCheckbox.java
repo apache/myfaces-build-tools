@@ -32,7 +32,7 @@ import org.apache.myfaces.component.UserRoleAware;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlCheckbox
+public abstract class AbstractHtmlCheckbox
     extends UIComponentBase implements UserRoleAware
 {
 

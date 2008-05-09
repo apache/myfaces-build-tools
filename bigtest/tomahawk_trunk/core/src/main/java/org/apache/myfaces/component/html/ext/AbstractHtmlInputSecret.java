@@ -39,7 +39,7 @@ import org.apache.myfaces.shared_tomahawk.component.DisplayValueOnlyCapable;
  * @author Bruno Aranda
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlInputSecret
+public abstract class AbstractHtmlInputSecret
         extends javax.faces.component.html.HtmlInputSecret
         implements UserRoleAware, ForceIdAware, DisplayValueOnlyCapable,
         DisplayValueOnlyAware, DataProperties, AlignProperty

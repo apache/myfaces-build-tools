@@ -42,7 +42,7 @@ import javax.faces.el.ValueBinding;
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlSelectManyListbox
+public abstract class AbstractHtmlSelectManyListbox
         extends javax.faces.component.html.HtmlSelectManyListbox
         implements UserRoleAware, DisplayValueOnlyCapable, EscapeCapable,
         EscapeAware, DisplayValueOnlyAware, ForceIdAware, DataProperties

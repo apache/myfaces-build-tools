@@ -69,7 +69,7 @@ import javax.faces.el.ValueBinding;
  * @author Sylvain Vieujot (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractBuffer extends UIComponentBase{
+public abstract class AbstractBuffer extends UIComponentBase{
 
     public static final String COMPONENT_TYPE = "org.apache.myfaces.Buffer";
     public static final String COMPONENT_FAMILY = "javax.faces.Data";

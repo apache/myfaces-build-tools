@@ -60,7 +60,7 @@ import javax.faces.el.ValueBinding;
  * @JSFComponent
  *   name = "t:saveState"
  *   tagClass = "org.apache.myfaces.custom.savestate.SaveStateTag"
- * 
+ * @JSFJspProperty name = "name" returnType = "java.lang.String" tagExcluded = "true"
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

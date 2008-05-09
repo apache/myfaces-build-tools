@@ -42,7 +42,7 @@ import javax.faces.el.ValueBinding;
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlSelectOneListbox
+public abstract class AbstractHtmlSelectOneListbox
         extends javax.faces.component.html.HtmlSelectOneListbox
         implements UserRoleAware, DisplayValueOnlyCapable,
         EscapeCapable, DisplayValueOnlyAware, EscapeAware,

@@ -30,7 +30,7 @@ import javax.faces.component.UIColumn;
  * @author Mathias Broekelmann (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlSimpleColumn extends UIColumn implements HtmlColumn
+public abstract class AbstractHtmlSimpleColumn extends UIColumn implements HtmlColumn
 {
     public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlColumn";
 

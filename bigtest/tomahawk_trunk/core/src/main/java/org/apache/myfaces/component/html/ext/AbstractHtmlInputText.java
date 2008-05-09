@@ -39,7 +39,7 @@ import org.apache.myfaces.shared_tomahawk.component.DisplayValueOnlyCapable;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlInputText
+public abstract class AbstractHtmlInputText
         extends javax.faces.component.html.HtmlInputText
         implements UserRoleAware, DisplayValueOnlyCapable,
         ForceIdAware, DisplayValueOnlyAware, DataProperties, AlignProperty

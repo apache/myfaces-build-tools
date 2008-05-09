@@ -35,7 +35,7 @@ import javax.faces.lifecycle.LifecycleFactory;
 
 import org.apache.cactus.ServletTestCase;
 import org.apache.cactus.WebRequest;
-import org.apache.myfaces.custom.date.HtmlInputDate.UserData;
+import org.apache.myfaces.custom.date.AbstractHtmlInputDate.UserData;
 
 public class HtmlDateRenderCactus extends ServletTestCase {
   private FacesContext facesContext;

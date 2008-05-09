@@ -25,8 +25,13 @@ import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 $utils.importTagClasses($component)
 
-public class $utils.getClassFromFullClass($component.tagClass) extends ${component.tagSuperclass}{
-
+public class $utils.getClassFromFullClass($component.tagClass)
+#if (${component.tagSuperclass})
+    extends ${component.tagSuperclass}
+#else
+    extends javax.faces.webapp.UIComponentTag
+#end
+{
     public $utils.getClassFromFullClass($component.tagClass)()
     {    
     }
@@ -124,11 +129,7 @@ public class $utils.getClassFromFullClass($component.tagClass) extends ${compone
 #if ($property.isLiteralOnly())##                         3
 #set ($className = $utils.getPrimitiveType($property.className))
 #if ($utils.isPrimitiveClass($className))##               4
-#if ($utils.isPrimitiveClass($property.className))##        5
             comp.getAttributes().put("$property.name", ${utils.getBoxedClass($className)}.valueOf($field));
-#else##                                                     5
-            comp.getAttributes().put("$property.name", $field);
-#end##                                                      5
 #else##                                                   4
             comp.getAttributes().put("$property.name", $field);
 #end##                                                    4
@@ -142,11 +143,7 @@ public class $utils.getClassFromFullClass($component.tagClass) extends ${compone
             {
 #set ($className = $utils.getPrimitiveType($property.className))
 #if ($utils.isPrimitiveClass($className))##               4
-#if ($utils.isPrimitiveClass($property.className))##        5
                 comp.getAttributes().put("$property.name", ${utils.getBoxedClass($className)}.valueOf($field));
-#else##                                                     5
-                comp.getAttributes().put("$property.name", $field);
-#end##                                                      5
 #else##                                                   4
                 comp.getAttributes().put("$property.name", $field);
 #end##                                                    4

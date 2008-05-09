@@ -35,7 +35,7 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlCommandButton
+public abstract class AbstractHtmlCommandButton
         extends javax.faces.component.html.HtmlCommandButton
         implements UserRoleAware, ForceIdAware
 {

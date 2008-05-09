@@ -41,7 +41,7 @@ import javax.faces.el.ValueBinding;
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlPanelGrid
+public abstract class AbstractHtmlPanelGrid
         extends javax.faces.component.html.HtmlPanelGrid
         implements UserRoleAware, DisplayValueOnlyCapable,
         DisplayValueOnlyAware, ForceIdAware, DataProperties, AlignProperty

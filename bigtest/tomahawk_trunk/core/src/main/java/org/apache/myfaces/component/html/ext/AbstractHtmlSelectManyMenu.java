@@ -42,7 +42,7 @@ import javax.faces.el.ValueBinding;
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlSelectManyMenu
+public abstract class AbstractHtmlSelectManyMenu
         extends javax.faces.component.html.HtmlSelectManyMenu
         implements UserRoleAware, DisplayValueOnlyCapable,
         EscapeCapable, DisplayValueOnlyAware, EscapeAware,

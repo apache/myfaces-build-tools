@@ -41,7 +41,7 @@ import javax.faces.el.ValueBinding;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlPanelGroup
+public abstract class AbstractHtmlPanelGroup
         extends javax.faces.component.html.HtmlPanelGroup
         implements UserRoleAware, DisplayValueOnlyCapable,
         DisplayValueOnlyAware, ForceIdAware, EventAware, UniversalProperties

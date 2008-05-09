@@ -56,7 +56,7 @@ import java.util.Iterator;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlSelectOneRadio
+public abstract class AbstractHtmlSelectOneRadio
         extends javax.faces.component.html.HtmlSelectOneRadio
         implements UserRoleAware, DisplayValueOnlyCapable,
         EscapeCapable, EscapeAware, DisplayValueOnlyAware, 

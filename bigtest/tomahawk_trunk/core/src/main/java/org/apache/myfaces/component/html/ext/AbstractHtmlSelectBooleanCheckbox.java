@@ -41,7 +41,7 @@ import org.apache.myfaces.shared_tomahawk.component.EscapeCapable;
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlSelectBooleanCheckbox
+public abstract class AbstractHtmlSelectBooleanCheckbox
         extends javax.faces.component.html.HtmlSelectBooleanCheckbox
         implements UserRoleAware, DisplayValueOnlyCapable, 
         EscapeCapable, DisplayValueOnlyAware, EscapeAware,

@@ -41,7 +41,7 @@ import org.apache.myfaces.shared_tomahawk.component.EscapeCapable;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlSelectManyCheckbox
+public abstract class AbstractHtmlSelectManyCheckbox
         extends javax.faces.component.html.HtmlSelectManyCheckbox
         implements UserRoleAware, DisplayValueOnlyCapable,  
         EscapeCapable, DisplayValueOnlyAware, EscapeAware,

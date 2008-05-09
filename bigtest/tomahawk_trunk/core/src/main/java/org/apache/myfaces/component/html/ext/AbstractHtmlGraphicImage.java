@@ -36,7 +36,7 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
  * @author Bruno Aranda
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlGraphicImage
+public abstract class AbstractHtmlGraphicImage
         extends javax.faces.component.html.HtmlGraphicImage
         implements UserRoleAware, ForceIdAware, AlignProperty
 {

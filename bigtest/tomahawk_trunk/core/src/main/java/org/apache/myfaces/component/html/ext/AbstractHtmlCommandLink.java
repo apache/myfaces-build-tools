@@ -37,7 +37,7 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
  * @author Manfred Geiler
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlCommandLink
+public abstract class AbstractHtmlCommandLink
         extends javax.faces.component.html.HtmlCommandLink
         implements UserRoleAware, ForceIdAware
 {

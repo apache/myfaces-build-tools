@@ -39,7 +39,7 @@ import javax.faces.el.ValueBinding;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlOutputText
+public abstract class AbstractHtmlOutputText
         extends javax.faces.component.html.HtmlOutputText
         implements UserRoleAware, ForceIdAware, EventAware,UniversalProperties
 {

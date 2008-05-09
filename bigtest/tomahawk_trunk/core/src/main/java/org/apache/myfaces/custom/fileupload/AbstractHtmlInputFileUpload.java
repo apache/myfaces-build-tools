@@ -37,7 +37,7 @@ import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlInputFileUpload
+public abstract class AbstractHtmlInputFileUpload
         extends HtmlInputText
         implements UserRoleAware, AlignProperty
 {

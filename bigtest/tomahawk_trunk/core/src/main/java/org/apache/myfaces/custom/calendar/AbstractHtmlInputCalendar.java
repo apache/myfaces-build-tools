@@ -33,7 +33,7 @@ import org.apache.myfaces.component.html.ext.HtmlInputText;
  * @author Martin Marinschek (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlInputCalendar
+public abstract class AbstractHtmlInputCalendar
         extends HtmlInputText implements UserRoleAware, LocationAware
 {
 

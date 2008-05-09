@@ -35,7 +35,7 @@ import javax.faces.render.RenderKitFactory;
 import junit.framework.TestCase;
 
 import org.apache.myfaces.application.ApplicationFactoryImpl;
-import org.apache.myfaces.custom.date.HtmlInputDate.UserData;
+import org.apache.myfaces.custom.date.AbstractHtmlInputDate.UserData;
 import org.easymock.MockControl;
 import org.easymock.classextension.MockClassControl;
 

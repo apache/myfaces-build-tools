@@ -40,7 +40,7 @@ import org.apache.myfaces.shared_tomahawk.component.EscapeCapable;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlSelectOneMenu
+public abstract class AbstractHtmlSelectOneMenu
         extends javax.faces.component.html.HtmlSelectOneMenu
         implements UserRoleAware, DisplayValueOnlyCapable, 
         EscapeCapable, DisplayValueOnlyAware, EscapeAware,

@@ -51,7 +51,7 @@ import org.apache.myfaces.shared_tomahawk.util._ComponentUtils;
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlDataScroller extends HtmlPanelGroup 
+public abstract class AbstractHtmlDataScroller extends HtmlPanelGroup 
     implements ActionSource
 {
     

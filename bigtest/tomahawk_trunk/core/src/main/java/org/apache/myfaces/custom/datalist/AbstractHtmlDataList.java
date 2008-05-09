@@ -41,7 +41,7 @@ import javax.faces.el.ValueBinding;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlDataList
+public abstract class AbstractHtmlDataList
         extends org.apache.myfaces.component.html.ext.HtmlDataTableHack
         implements UserRoleAware
 {

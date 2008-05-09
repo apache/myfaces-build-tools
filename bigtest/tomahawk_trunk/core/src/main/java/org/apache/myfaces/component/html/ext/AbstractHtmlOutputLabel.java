@@ -37,7 +37,7 @@ import javax.faces.el.ValueBinding;
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-abstract class AbstractHtmlOutputLabel
+public abstract class AbstractHtmlOutputLabel
         extends javax.faces.component.html.HtmlOutputLabel
         implements UserRoleAware, ForceIdAware
 {

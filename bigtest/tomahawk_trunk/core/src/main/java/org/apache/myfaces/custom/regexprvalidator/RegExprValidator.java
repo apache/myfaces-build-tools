@@ -33,6 +33,9 @@ import org.apache.myfaces.validator.ValidatorBase;
  *   name = "t:validateRegExpr"
  *   tagClass = "org.apache.myfaces.custom.regexprvalidator.ValidateRegExprTag"
  * 
+ * @JSFJspProperty name = "message" returnType = "java.lang.String"
+ * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String"
+ * @JSFJspProperty name = "summaryMessage" returnType = "java.lang.String" 
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -94,6 +97,7 @@ public class RegExprValidator extends ValidatorBase {
 	// -------------------------------------------------------- GETTER & SETTER
 
 	/**
+	 * @JSFProperty
 	 * @return the pattern, on which a value should be validated
 	 */
     public String getPattern()
