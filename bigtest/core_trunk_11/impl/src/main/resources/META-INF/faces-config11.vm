@@ -31,7 +31,7 @@ $baseContent
 #foreach( $component in $componentList )
 #if ($modelIds.contains($component.modelId) 
     && !($component.className.contains("UIComponent"))
-    && !(@component.isConfigExcluded()))
+    && !($component.isConfigExcluded()))
   <component>
     <component-type>$component.type</component-type>
     <component-class>$component.className</component-class>

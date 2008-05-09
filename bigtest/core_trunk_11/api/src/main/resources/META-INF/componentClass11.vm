@@ -131,7 +131,7 @@ $innersource
 #set ($arrayIndex = $arrayIndex + 1)
 #if ($property.jspName == "validator" && $property.isMethodBinding() )
         values[$arrayIndex] = saveAttachedState(facesContext,${field}List);
-#elseif ( $property.stateHolder )## || $utils.isConverter($type)
+#elseif ( $property.isStateHolder() )## || $utils.isConverter($type)
         values[$arrayIndex] = saveAttachedState(facesContext,$field);
 #elseif($utils.isPrimitiveClass($type))
         values[$arrayIndex] = ${utils.getBoxedClass($type)}.valueOf($field);
@@ -155,7 +155,7 @@ $innersource
 #set ($field = $property.fieldName)
 #set ($type = $property.className)
 #set ($arrayIndex = $arrayIndex + 1)
-#if ( $property.stateHolder )
+#if ( $property.isStateHolder() )
 #if ($property.jspName == "validator" && $property.isMethodBinding() )
         ${field}List = (List<Validator>) restoreAttachedState(facesContext,values[$arrayIndex]);
 #elseif ($utils.isList($type))
