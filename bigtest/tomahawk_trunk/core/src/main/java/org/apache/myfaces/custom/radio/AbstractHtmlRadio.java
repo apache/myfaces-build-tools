@@ -47,12 +47,14 @@ public abstract class AbstractHtmlRadio
 
     /**
      * @JSFProperty
+     *   required="true"
      */
     public abstract String getFor();
     
     /**
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
+     *   required="true"
      */
     public abstract int getIndex();
 

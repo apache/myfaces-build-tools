@@ -106,6 +106,7 @@ public abstract class AbstractHtmlCommandSortHeader
 
     /**
      * @JSFProperty
+     *   required="true"
      */
     public abstract String getColumnName();
 

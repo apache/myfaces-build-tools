@@ -74,6 +74,8 @@ import javax.servlet.jsp.jstl.sql.Result;
  * child components can be used with rendered attributes selecting the
  * appropriate one depending upon the current column object's data.
  * 
+ * @JSFComponent
+ * 
  * @author Mathias Broekelmann (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

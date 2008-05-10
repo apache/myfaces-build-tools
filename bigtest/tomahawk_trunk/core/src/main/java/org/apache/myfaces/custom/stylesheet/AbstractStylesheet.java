@@ -43,6 +43,7 @@ public abstract class AbstractStylesheet extends UIOutput
 
 	/**
 	 * @JSFProperty
+	 *   required="true"
 	 */
 	public abstract String getPath();
 

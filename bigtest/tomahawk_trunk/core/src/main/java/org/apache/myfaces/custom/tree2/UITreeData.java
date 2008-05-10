@@ -291,6 +291,7 @@ public class UITreeData extends UIComponentBase implements NamingContainer, Tree
      * Gets the value of the TreeData.
      *
      * @JSFProperty
+     *   required="true"
      * @return The value
      *
      * @deprecated

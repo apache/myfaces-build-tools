@@ -60,6 +60,7 @@ import org.apache.myfaces.custom.tree.model.TreePath;
  * @JSFJspProperty name = "headerClass" returnType = "java.lang.String"
  * @JSFJspProperty name = "footerClass" returnType = "java.lang.String"
  * @JSFJspProperty name = "expandRoot" returnType = "java.lang.String"
+ * @JSFJspProperty name = "style" tagExcluded = "true"
  * @author <a href="mailto:oliver@rossmueller.com">Oliver Rossmueller </a>
  * @version $Revision$ $Date$
  */

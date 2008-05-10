@@ -21,6 +21,7 @@ package org.apache.myfaces.custom.swapimage;
 import javax.faces.component.UIGraphic;
 
 import org.apache.myfaces.component.AlignProperty;
+import org.apache.myfaces.component.StyleAware;
 import org.apache.myfaces.component.UniversalProperties;
 import org.apache.myfaces.component.UserRoleUtils;
 
@@ -35,7 +36,7 @@ import org.apache.myfaces.component.UserRoleUtils;
  * @version $Revision$ $Date$
  */
 public abstract class AbstractHtmlSwapImage extends UIGraphic
-    implements UniversalProperties, AlignProperty
+    implements UniversalProperties, AlignProperty, StyleAware
 {
     public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlSwapImage";
     public static final String COMPONENT_FAMILY = "javax.faces.Graphic";
@@ -60,6 +61,7 @@ public abstract class AbstractHtmlSwapImage extends UIGraphic
     
     /**
      * @JSFProperty
+     *   required="true"
      */
     public abstract String getSwapImageUrl();
 
@@ -113,16 +115,6 @@ public abstract class AbstractHtmlSwapImage extends UIGraphic
      * @JSFProperty
      */
     public abstract String getOnkeyup();
-
-    /**
-     * @JSFProperty
-     */
-    public abstract String getStyle();
-
-    /**
-     * @JSFProperty
-     */
-    public abstract String getStyleClass();
 
     /**
      * @JSFProperty

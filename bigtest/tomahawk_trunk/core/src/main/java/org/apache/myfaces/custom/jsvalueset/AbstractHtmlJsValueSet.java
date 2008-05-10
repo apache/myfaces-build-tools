@@ -46,7 +46,10 @@ public abstract class AbstractHtmlJsValueSet extends UIOutput
     private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.JsValueSet";
 
     /**
+     * javascript variable to be set.
+     * 
      * @JSFProperty
+     *   required="true"
      */
     public abstract String getName();
 
@@ -54,6 +57,17 @@ public abstract class AbstractHtmlJsValueSet extends UIOutput
     {
         if (!UserRoleUtils.isVisibleOnUserRole(this)) return false;
         return super.isRendered();
+    }
+    
+    /**
+     * value to be set in the variable.
+     * 
+     * @JSFProperty
+     *   required="true"
+     */
+    public Object getValue()
+    {
+        return super.getValue();
     }
 
 }

@@ -62,6 +62,7 @@ public class UpdateActionListenerTag
 
     /**
      * @JSFJspAttribute
+     *   required="true"
      */
     public void setValue(String value)
     {

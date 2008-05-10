@@ -34,6 +34,7 @@
                   var="example_messages"/>
 
     <t:div id="hNav_outer">
+    <h:form id="form1">    
         <t:panelNavigation2 id="nav1" layout="list" itemClass="off" activeItemClass="on" openItemClass="on"
                             renderAll="true">
             <t:commandNavigation2 value="#{example_messages['panelnav_products']}" style="padding-left: 0px;">
@@ -65,6 +66,7 @@
             <t:commandNavigation2 value="#{example_messages['panelnav_contact']}" externalLink="http://mail.yahoo.com"
                                   target="_blank"/>
         </t:panelNavigation2>
+    </h:form>
     </t:div>
 
     <jsp:include page="inc/mbean_source.jsp"/>

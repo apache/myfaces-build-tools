@@ -39,8 +39,10 @@ public class ${utils.getClassFromFullClass($component.className)} extends $compo
     static public final String COMPONENT_TYPE =
         "$component.type";
 #if ($component.rendererType)
+#if (!($component.rendererType == ""))
     static public final String DEFAULT_RENDERER_TYPE = 
         "$component.rendererType";
+#end
 #end
 
 #if ($innersource)
@@ -52,7 +54,11 @@ $innersource
     public ${utils.getClassFromFullClass($component.className)}()
     {
 #if ($component.rendererType)
+#if ($component.rendererType == "")
+        setRendererType(null);
+#else
         setRendererType("$component.rendererType");
+#end
 #else
         setRendererType(null);
 #end

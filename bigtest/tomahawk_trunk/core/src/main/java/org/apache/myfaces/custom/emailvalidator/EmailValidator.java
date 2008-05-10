@@ -30,7 +30,7 @@ import org.apache.myfaces.validator.ValidatorBase;
 /**
  * @JSFValidator
  *   name = "t:validateEmail"
- *   tagClass = "org.apache.myfaces.custom.ValidateEmailTag"
+ *   tagClass = "org.apache.myfaces.custom.emailvalidator.ValidateEmailTag"
  *   
  * @JSFJspProperty name = "message" returnType = "java.lang.String"
  * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String"

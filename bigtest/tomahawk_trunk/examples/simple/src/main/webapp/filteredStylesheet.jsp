@@ -44,7 +44,7 @@
 		<pre>
 .tableBack
 {
-	background-image: url(#{environmentInfo.requestContextPath}/images/logo.jpg)
+	background-image: url(&#35;{environmentInfo.requestContextPath}/images/logo.jpg)
 }
 		</pre>
 	</p>

@@ -20,16 +20,15 @@ package org.apache.myfaces.custom.crosstable;
 
 import org.apache.myfaces.custom.column.HtmlColumn;
 
-import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 
 /**
  * @JSFComponent
  *   name = "t:columns" 
  *   class = "org.apache.myfaces.custom.crosstable.HtmlColumns"
- *   parent = "javax.faces.component.UIData"
  *   superClass = "org.apache.myfaces.custom.crosstable.AbstractHtmlColumns"
  *   tagClass = "org.apache.myfaces.custom.crosstable.HtmlColumnsTag"
+ *   implements = "org.apache.myfaces.custom.column.HtmlColumn"
+ *   defaultRendererType = ""
  * 
  * @author Mathias Broekelmann (latest modification by $Author$)
  * @version $Revision$ $Date$

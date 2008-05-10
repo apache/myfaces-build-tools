@@ -39,7 +39,7 @@
     </p>
     <p>
 	    In this example, the customerAddress bean is a managed bean, but the address bean isn't defined anywhere.<br/>
-	    After the aliasBean tag, we can use #{address.*} in place of #{custommerAddress.*}, so making it possible to have
+	    After the aliasBean tag, we can use &#35;{address.*} in place of &#35;{custommerAddress.*}, so making it possible to have
 	    generic address subforms (ok, this one is a very simple form, but you get the idea).
     </p>
 

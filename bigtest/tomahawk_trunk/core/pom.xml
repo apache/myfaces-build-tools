@@ -240,8 +240,11 @@
     <resources>
       <resource>
         <directory>src/main/resources</directory>
+        <excludes>
+           <exclude>**/*.vm</exclude>
+        </excludes>
       </resource>
-      <!-- 
+      <!--       
       <resource>
         <directory>src/main/resources-facesconfig</directory>
       </resource>
@@ -275,7 +278,7 @@
             <goals>
                 <goal>make-config</goal>
             </goals>
-          </execution>          
+          </execution>
           <execution>
             <id>makecomp</id>
             <goals>
@@ -301,7 +304,27 @@
             <goals>
                 <goal>make-tags</goal>
             </goals>
-          </execution>          
+          </execution>
+          <execution>
+            <id>maketomahawktld</id>
+            <configuration>
+                <xmlFile>classes/META-INF/tomahawk.tld</xmlFile>
+                <xmlBaseFile>src/main/conf/META-INF/tomahawk-base.tld</xmlBaseFile>
+                <templateFile>tomahawk.vm</templateFile>
+                <params>
+                   <shortname>t</shortname>
+                   <uri>http://myfaces.apache.org/tomahawk</uri>
+                   <displayname>Tomahawk tag library.</displayname>
+                   <description> MyFaces subproject that contains components and other goodies to be used with any JSF implementation.</description>
+                </params>
+                <modelIds>
+                    <modelId>tomahawk</modelId>
+                </modelIds>
+            </configuration>
+            <goals>
+                <goal>make-config</goal>
+            </goals>
+          </execution>        
         </executions>
       </plugin>
       <plugin>
@@ -315,7 +338,7 @@
           </excludes>
         </configuration>
       </plugin>
-
+      <!-- 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xslt-maven-plugin</artifactId>
@@ -334,7 +357,7 @@
           </execution>
         </executions>
       </plugin>
-
+       -->
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
         <version>2.0</version>
@@ -465,6 +488,7 @@
       <id>generate-site</id>
       <build>
         <plugins>
+          <!-- 
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>xslt-maven-plugin</artifactId>
@@ -496,8 +520,8 @@
               </execution>
             </executions>
           </plugin>
+          -->
         </plugins>
-
       </build>
       <reporting>
         <plugins>
@@ -505,7 +529,7 @@
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
             <configuration>
-              <taglib.src.dir>${basedir}/target/tlddoc-site</taglib.src.dir>
+              <taglib.src.dir>${basedir}/target/classes/META-INF</taglib.src.dir>
               <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
             </configuration>
           </plugin>
@@ -522,6 +546,7 @@
       </activation>
       <build>
         <plugins>
+          <!-- 
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>xslt-maven-plugin</artifactId>
@@ -553,6 +578,7 @@
               </execution>
             </executions>
           </plugin>
+           -->
           <plugin>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>2.4</version>
@@ -567,7 +593,7 @@
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
             <configuration>
-              <taglib.src.dir>${basedir}/target/tlddoc-site</taglib.src.dir>
+              <taglib.src.dir>${basedir}/target/classes/META-INF</taglib.src.dir>
               <tldDocDir>${basedir}/target/tlddoc</tldDocDir>
             </configuration>
             <executions>

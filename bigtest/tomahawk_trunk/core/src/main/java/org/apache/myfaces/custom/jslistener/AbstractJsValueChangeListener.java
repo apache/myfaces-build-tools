@@ -44,6 +44,7 @@ public abstract class AbstractJsValueChangeListener extends UIOutput
 
     /**
      * @JSFProperty
+     *   required="true"
      */
     public abstract String getExpressionValue();
 

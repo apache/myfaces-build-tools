@@ -44,6 +44,7 @@ public abstract class AbstractHtmlPanelStack extends HtmlPanelGroup
 
     /**
      * @JSFProperty
+     *   required="true"
      */
     public abstract String getSelectedPanel();
     
