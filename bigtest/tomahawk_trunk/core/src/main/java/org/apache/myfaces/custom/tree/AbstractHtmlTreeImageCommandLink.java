@@ -26,58 +26,23 @@ import javax.faces.el.ValueBinding;
 /**
  * HTML image link.
  *
+ * @JSFComponent
+ *   class = "org.apache.myfaces.custom.tree.HtmlTreeImageCommandLink"
+ *   superClass = "org.apache.myfaces.custom.tree.AbstractHtmlTreeImageCommandLink"
+ *   
  * @author <a href="mailto:oliver@rossmueller.com">Oliver Rossmueller</a>
  * @version $Revision$ $Date$
  */
-public class HtmlTreeImageCommandLink
+public abstract class AbstractHtmlTreeImageCommandLink
         extends HtmlCommandLink
 {
 
     public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlTreeImageCommandLink";
     private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.HtmlTreeImageCommandLink";
 
-    private String image;
-
-
-    public HtmlTreeImageCommandLink()
-    {
-        setRendererType(DEFAULT_RENDERER_TYPE);
-    }
-
-
-    public String getFamily()
-    {
-        return "org.apache.myfaces.HtmlTree";
-    }
-
-
-    public String getImage()
-    {
-        if (image != null) return image;
-        ValueBinding vb = getValueBinding("image");
-        return vb != null ? (String) vb.getValue(getFacesContext()) : null;
-    }
-
-
-    public void setImage(String image)
-    {
-        this.image = image;
-    }
-
-
-    public Object saveState(FacesContext context)
-    {
-        Object values[] = new Object[2];
-        values[0] = super.saveState(context);
-        values[1] = image;
-        return ((Object)(values));
-    }
-
-
-    public void restoreState(FacesContext context, Object state)
-    {
-        Object values[] = (Object[])state;
-        super.restoreState(context, values[0]);
-        image = (String)values[1];
-    }
+    /**
+     * @JSFProperty
+     */
+    public abstract String getImage();
+    
 }

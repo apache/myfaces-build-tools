@@ -62,7 +62,6 @@ public class UIParameter
      * A String containing the name of the parameter.
      * 
      * @JSFProperty
-     *   required="true"
      */
     public String getName()
     {

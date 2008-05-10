@@ -32,6 +32,10 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 
 /**
+ * @JSFJspTag
+ *   name="t:iconProvider"
+ *   bodyContent="empty"
+ *   
  * @author <a href="mailto:oliver@rossmueller.com">Oliver Rossmueller</a>
  * @version $Revision$ $Date$
  */
@@ -46,7 +50,10 @@ public class IconProviderTag
     {
     }
 
-
+    /**
+     * @JSFJspAttribute
+     *   required = "true"
+     */
     public void setType(String type)
     {
         this.type = type;

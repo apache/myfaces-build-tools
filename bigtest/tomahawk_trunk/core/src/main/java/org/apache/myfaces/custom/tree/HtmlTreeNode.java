@@ -31,6 +31,7 @@ import java.util.List;
  * Represents a single node of a three. A custom html link component representing the expand/collapse icon
  * is held as a facet named <code>expandCollapse</code>.
  *
+ * @JSFComponent
  * @author <a href="mailto:oliver@rossmueller.com">Oliver Rossmueller</a>
  * @version $Revision$ $Date$
  */

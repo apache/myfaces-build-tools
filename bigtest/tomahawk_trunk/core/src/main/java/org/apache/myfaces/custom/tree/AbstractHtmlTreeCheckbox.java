@@ -26,14 +26,14 @@ import javax.faces.el.ValueBinding;
  * 
  * @JSFComponent
  *   name = "t:treeCheckbox"
+ *   class = "org.apache.myfaces.custom.tree.HtmlTreeCheckbox"
+ *   superClass = "org.apache.myfaces.custom.tree.AbstractHtmlTreeCheckbox"
  *   tagClass = "org.apache.myfaces.custom.tree.taglib.TreeCheckboxTag"
  *   
  * @author <a href="mailto:dlestrat@yahoo.com">David Le Strat</a>
  */
-public class HtmlTreeCheckbox extends UISelectItem
+public abstract class AbstractHtmlTreeCheckbox extends UISelectItem
 {
-    /** The for attribute. */
-    private String forAttr = null;
     
     /** The for attribute declaration. */
     public static final String FOR_ATTR = "for".intern();
@@ -46,62 +46,11 @@ public class HtmlTreeCheckbox extends UISelectItem
     
     /** The default renderer type. */
     private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.HtmlTreeCheckbox";
-    
+        
     /**
-     * <p>
-     * Default Constructor.
-     * </p>
-     */
-    public HtmlTreeCheckbox()
-    {
-        setRendererType(DEFAULT_RENDERER_TYPE);
-    }
-    
-    /**
-     * @see javax.faces.component.UIComponent#getFamily()
-     */
-    public String getFamily()
-    {
-        return COMPONENT_FAMILY;
-    }
-    
-    /**
+     * @JSFProperty
      * @return The for attribute.
      */
-    public String getFor()
-    {
-        if (forAttr != null) return forAttr;
-        ValueBinding vb = getValueBinding(FOR_ATTR);
-        return vb != null ? (String) vb.getValue(getFacesContext()) : null;
-    }
+    public abstract String getFor();
     
-    /**
-     * @param forAttr The for attribute.
-     */
-    public void setFor(String forAttr)
-    {
-        this.forAttr = forAttr;
-    }
-    
-    /**
-     * @see javax.faces.component.StateHolder#saveState(javax.faces.context.FacesContext)
-     */
-    public Object saveState(FacesContext context)
-    {
-        Object values[] = new Object[2];
-        values[0] = super.saveState(context);
-        values[1] = forAttr;
-        return ((Object) (values));
-    }
-
-    /**
-     * @see javax.faces.component.StateHolder#restoreState(javax.faces.context.FacesContext, java.lang.Object)
-     */
-    public void restoreState(FacesContext context, Object state)
-    {
-        Object values[] = (Object[])state;
-        super.restoreState(context, values[0]);
-        forAttr = (String)values[1];
-    }
-
 }

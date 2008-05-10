@@ -25,7 +25,14 @@ import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 $utils.importTagClasses($component)
 
-public class ${utils.getClassFromFullClass($component.className)} extends $component.superClassName{
+public class ${utils.getClassFromFullClass($component.className)} extends $component.superClassName
+#if ($component.implements)
+    implements $component.implements
+#end
+{
+#if ($component.serialuid)
+    private static final long serialVersionUID = ${component.serialuid}; 
+#end  
 
     static public final String COMPONENT_FAMILY =
         "$component.family";

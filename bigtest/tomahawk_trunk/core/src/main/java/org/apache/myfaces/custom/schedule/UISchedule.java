@@ -38,12 +38,17 @@ import org.apache.myfaces.custom.schedule.model.ScheduleEntry;
  * This class contains all 'interactive' stuff for the Schedule component, meaning
  * actions and actionListeners.
  * 
+ * @JSFComponent
+ *   parent = "org.apache.myfaces.custom.schedule.UIScheduleBase"
+ * 
  * @author Jurgen Lust
  * @version $Revision$
  */
 public class UISchedule extends UIScheduleBase implements
         Serializable, ActionSource
 {
+    public static final String COMPONENT_TYPE = "org.apache.myfaces.UISchedule";
+    
     private class ScheduleActionListener implements ActionListener
     {
         //~ Methods ------------------------------------------------------------
@@ -153,11 +158,20 @@ public class UISchedule extends UIScheduleBase implements
         return null;
     }
 
+    /**
+     * @JSFProperty
+     *   returnSignature="java.lang.String"
+     */
     public MethodBinding getAction()
     {
         return _action;
     }
 
+    /**
+     * @JSFProperty
+     *   returnSignature="void"
+     *   methodSignature="javax.faces.event.ActionEvent"
+     */
     public MethodBinding getActionListener()
     {
         return _actionListener;
@@ -172,6 +186,8 @@ public class UISchedule extends UIScheduleBase implements
      * The last date and time of day that was clicked. This is set when
      * submitOnClick is true, and the schedule is clicked by the user.
      * 
+     * @JSFProperty
+     *   tagExcluded = "true"
      * @return the last clicked date and time
      */
     public Date getLastClickedDateAndTime()
@@ -180,6 +196,11 @@ public class UISchedule extends UIScheduleBase implements
     }
 
     /**
+     * @JSFProperty
+     *   returnSignature="void"
+     *   methodSignature="org.apache.myfaces.custom.schedule.ScheduleMouseEvent"
+     *   stateHolder="true"
+     *   
      * @return the method binding to the mouse listener method
      */
     public MethodBinding getMouseListener()

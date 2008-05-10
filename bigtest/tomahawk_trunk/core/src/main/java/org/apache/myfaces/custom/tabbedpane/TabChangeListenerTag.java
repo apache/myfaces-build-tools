@@ -32,6 +32,10 @@ import org.apache.myfaces.shared_tomahawk.util.ClassUtils;
 /**
  * Tag to add a tab change listeners to a {@link org.apache.myfaces.custom.tabbedpane.HtmlPanelTabbedPane}
  *
+ * @JSFJspTag
+ *   name="t:tabChangeListener"
+ *   bodyContent="empty"
+ *   
  * @author <a href="mailto:oliver@rossmueller.com">Oliver Rossmueller</a>
  * @version $Revision$ $Date$
  */
@@ -45,7 +49,10 @@ public class TabChangeListenerTag extends TagSupport
     {
     }
 
-
+    /**
+     * @JSFJspAttribute
+     *   required = "true"
+     */
     public void setType(String type)
     {
         this.type = type;

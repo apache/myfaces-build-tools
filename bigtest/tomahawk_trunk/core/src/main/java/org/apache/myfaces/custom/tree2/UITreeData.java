@@ -50,6 +50,7 @@ import org.apache.commons.logging.LogFactory;
  * specified by the <code>var</code> property.  {@link javax.faces.render.Renderer}s of this
  * component should use the appropriate facet to assist in rendering.
  *
+ * @JSFComponent
  * @author Sean Schofield
  * @author Hans Bergsten (Some code taken from an example in his O'Reilly JavaServer Faces book. Copied with permission)
  * @version $Revision$ $Date$
@@ -57,9 +58,9 @@ import org.apache.commons.logging.LogFactory;
 public class UITreeData extends UIComponentBase implements NamingContainer, Tree {
     private Log log = LogFactory.getLog(UITreeData.class);
 
-    public static final String COMPONENT_TYPE = "org.apache.myfaces.Tree2";
+    public static final String COMPONENT_TYPE = "org.apache.myfaces.UITree2";
     public static final String COMPONENT_FAMILY = "org.apache.myfaces.HtmlTree2";
-    private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.Tree2";
+    //private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.Tree2";
     private static final String MISSING_NODE = "org.apache.myfaces.tree2.MISSING_NODE";
     private static final int PROCESS_DECODES = 1;
     private static final int PROCESS_VALIDATORS = 2;
@@ -80,7 +81,7 @@ public class UITreeData extends UIComponentBase implements NamingContainer, Tree
      */
     public UITreeData()
     {
-        setRendererType(DEFAULT_RENDERER_TYPE);
+        //setRendererType(DEFAULT_RENDERER_TYPE);
     }
 
 
@@ -289,6 +290,7 @@ public class UITreeData extends UIComponentBase implements NamingContainer, Tree
     /**
      * Gets the value of the TreeData.
      *
+     * @JSFProperty
      * @return The value
      *
      * @deprecated
@@ -315,7 +317,8 @@ public class UITreeData extends UIComponentBase implements NamingContainer, Tree
     /**
      * Return the request-scope attribute under which the data object for the current node will be exposed
      * when iterating. This property is not enabled for value binding expressions.
-     *
+     * 
+     * @JSFProperty
      * @return The iterator attribute
      */
     public String getVar()

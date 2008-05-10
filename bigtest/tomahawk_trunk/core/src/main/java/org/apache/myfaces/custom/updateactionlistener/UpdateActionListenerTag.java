@@ -31,6 +31,10 @@ import javax.servlet.jsp.tagext.TagSupport;
 /**
  * JSF 1.2 introduces a "setPropertyActionListener" with the same functionality like this. 
  *
+ * @JSFJspTag
+ *   name="t:updateActionListener"
+ *   bodyContent="JSP"
+ *   
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -47,16 +51,26 @@ public class UpdateActionListenerTag
     {
     }
 
+    /**
+     * @JSFJspAttribute
+     *   required="true"
+     */
     public void setProperty(String property)
     {
         _property = property;
     }
 
+    /**
+     * @JSFJspAttribute
+     */
     public void setValue(String value)
     {
         _value = value;
     }
 
+    /**
+     * @JSFJspAttribute
+     */
     public void setConverter(String converter)
     {
         _converter = converter;

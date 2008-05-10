@@ -42,14 +42,17 @@ public abstract class AbstractHtmlCommandJSCookMenu
 
     public static final String COMPONENT_TYPE = "org.apache.myfaces.JSCookMenu";
     public static final String COMPONENT_FAMILY = "javax.faces.Command";
-
+    private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.JSCookMenu";
+    
     /**
      * @JSFProperty
+     *   required = "true"
      */
     public abstract String getLayout();
 
     /**
      * @JSFProperty
+     *   required = "true"
      */
     public abstract String getTheme();
 

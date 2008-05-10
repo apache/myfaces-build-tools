@@ -34,6 +34,10 @@ import org.apache.myfaces.shared_tomahawk.util.ClassUtils;
 /**
  * Tag to add a tree selection listeners to a {@link HtmlTree}
  *
+ * @JSFJspTag
+ *   name="t:treeSelectionListener"
+ *   bodyContent="empty"
+ *   
  * @author <a href="mailto:oliver@rossmueller.com">Oliver Rossmueller</a>
  * @version $Revision$ $Date$
  */
@@ -48,6 +52,10 @@ public class TreeSelectionListenerTag extends TagSupport
     }
 
 
+    /**
+     * @JSFJspAttribute
+     *   required = "true"
+     */
     public void setType(String type)
     {
         this.type = type;
