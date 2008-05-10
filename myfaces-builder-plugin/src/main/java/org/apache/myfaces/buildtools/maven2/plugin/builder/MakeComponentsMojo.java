@@ -247,7 +247,7 @@ public class MakeComponentsMojo extends AbstractMojo
         {
             ComponentMeta component = (ComponentMeta) it.next();
             
-            if (component.getTagClass() != null)
+            if (component.getClassName() != null)
             {
                 File f = new File(mainSourceDirectory, StringUtils.replace(
                     component.getClassName(), ".", "/")+".java");
@@ -279,7 +279,7 @@ public class MakeComponentsMojo extends AbstractMojo
     {
         if (packageContains != null)
         {
-            if (component.getTagPackage().startsWith(packageContains))
+            if (MyfacesUtils.getPackageFromFullClass(component.getClassName()).startsWith(packageContains))
             {
                 return true;
             }

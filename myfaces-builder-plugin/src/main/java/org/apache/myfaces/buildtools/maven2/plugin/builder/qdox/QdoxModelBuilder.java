@@ -672,6 +672,8 @@ public class QdoxModelBuilder implements ModelBuilder
         String tagClass = getString(clazz, "tagClass", props, null);
         String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
         String tagHandler = getString(clazz, "tagHandler", props, null);
+        String serialuid = getString(clazz, "serialuid", props, null);
+        String implementsValue = getString(clazz, "implements", props, null);
 
         ComponentMeta component = new ComponentMeta();
         initAncestry(model, clazz, component);
@@ -688,7 +690,9 @@ public class QdoxModelBuilder implements ModelBuilder
         component.setFamily(componentFamily);
         component.setRendererType(rendererType);
         component.setChildren(canHaveChildren);
-
+        component.setSerialuid(serialuid);
+        component.setImplements(implementsValue);
+        
         JavaClass[] interfaces = clazz.getImplementedInterfaces();
         for (int i = 0; i < interfaces.length; ++i)
         {
@@ -1017,6 +1021,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String returnSignature = getString(clazz, "returnSignature", props, null);
         String methodSignature = getString(clazz, "methodSignature", props, null);
         String defaultValue = getString(clazz,"defaultValue",props,null);
+        String jspName = getString(clazz,"jspName",props,null);
 
         Type returnType = null;
         
@@ -1045,6 +1050,7 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setLocalMethodScope(localMethodScope);
         p.setSetMethod(setMethod);
         p.setSetMethodScope(setMethodScope);
+        p.setJspName(jspName);
         
         if (returnSignature != null)
         {

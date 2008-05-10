@@ -55,6 +55,8 @@ public class ComponentMeta extends ClassMeta implements
     private Boolean _namingContainer;
     private Boolean _children;
     private Boolean _configExcluded;
+    private String _serialuid;
+    private String _implements;
     
     protected Map _properties;
     protected Map _facets;
@@ -79,7 +81,9 @@ public class ComponentMeta extends ClassMeta implements
 
         out.writeElement("desc", cm._description);
         out.writeElement("longDesc", cm._longDescription);
-
+        out.writeElement("serialuid", cm._serialuid);
+        out.writeElement("implements", cm._implements);
+        
         for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
         {
             PropertyMeta prop = (PropertyMeta) i.next();
@@ -119,6 +123,9 @@ public class ComponentMeta extends ClassMeta implements
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
+        digester.addBeanPropertySetter(newPrefix + "/serialuid");
+        digester.addBeanPropertySetter(newPrefix + "/implements");
+        
         PropertyMeta.addXmlRules(digester, newPrefix);
         FacetMeta.addXmlRules(digester, prefix);
     }
@@ -353,6 +360,27 @@ public class ComponentMeta extends ClassMeta implements
     public Boolean isConfigExcluded()
     {
         return ModelUtils.defaultOf(_configExcluded,false);
+    }
+    
+    public void setSerialuid(String serialuid)
+    {
+        _serialuid = serialuid;
+    }
+
+    public String getSerialuid()
+    {
+        return _serialuid;
+    }
+    
+
+    public void setImplements(String implementsValue)
+    {
+        _implements = implementsValue;
+    }
+
+    public String getImplements()
+    {
+        return _implements;
     }
 
     /**
