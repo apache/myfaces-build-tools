@@ -30,6 +30,10 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 import org.apache.myfaces.shared_tomahawk.component.DisplayValueOnlyCapable;
 
 /**
+ * Extends standard inputText by user role support. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:inputText"
  *   class = "org.apache.myfaces.component.html.ext.HtmlInputText"
@@ -77,11 +81,17 @@ public abstract class AbstractHtmlInputText
     }
     
     /**
+     *  If true the input is rendered disabled on the client side and 
+     *  a hidden input is used to actualy submit his value back to 
+     *  the server.
+     *  
      * @JSFProperty
      */
     public abstract boolean isDisabledOnClientSide();
     
     /**
+     * Non HTML standard attribute to disable browser's autocomplete function.
+     * 
      * @JSFProperty
      */
     public abstract String getAutocomplete();

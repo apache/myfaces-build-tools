@@ -182,6 +182,17 @@ public abstract class HtmlDataTableHack extends
     }
 
     /**
+     * Indicates whether the state for each row should not be 
+     * discarded before the datatable is rendered again. 
+     * 
+     * Setting this to true might be hepful if an input 
+     * component inside the datatable has no valuebinding and 
+     * the value entered in there should be displayed again.
+     *  
+     * This will only work reliable if the datamodel of the 
+     * datatable did not change either by sorting, removing or 
+     * adding rows. Default: false
+     * 
      * @JSFProperty
      *   defaultValue="false"
      */
@@ -567,6 +578,8 @@ public abstract class HtmlDataTableHack extends
     private Boolean _forceId  = Boolean.valueOf(false);
     
     /**
+     * If true, this component will force the use of the specified id when rendering.
+     * 
      * @JSFProperty
      *   literalOnly = "true"
      *   defaultValue = "false"
@@ -586,6 +599,12 @@ public abstract class HtmlDataTableHack extends
     private Boolean _forceIdIndex  = Boolean.valueOf(true);
     
     /**
+     * If false, this component will not append a '[n]' suffix 
+     * (where 'n' is the row index) to components that are 
+     * contained within a "list." This value will be true by 
+     * default and the value will be ignored if the value of 
+     * forceId is false (or not specified.)
+     * 
      * @JSFProperty
      *   literalOnly = "true"
      *   defaultValue = "true"

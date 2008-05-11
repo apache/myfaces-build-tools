@@ -27,6 +27,11 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 
 
 /**
+ * Extends standard commandLink by user role support and the HTML 
+ * target attribute. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:commandLink"
  *   class = "org.apache.myfaces.component.html.ext.HtmlCommandLink"
@@ -63,22 +68,34 @@ public abstract class AbstractHtmlCommandLink
     }
 
     /**
+     *  Comma separated list of subForm-ids for which validation 
+     *  and model update should take place when this command is 
+     *  executed. You need to wrap your input components in 
+     *  org.apache.myfaces.custom.subform.SubForm instances for 
+     *  this to work.
+     *  
      * @JSFProperty
      */
     public abstract String getActionFor();
 
     /**
+     * When set instead of a Hyperlink a span tag is rendered in the corresponding Component
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isDisabled();
 
     /**
+     * CSS-Style Attribute to render when disabled is true
+     * 
      * @JSFProperty
      */
     public abstract String getDisabledStyle();
 
     /**
+     * CSS-Style Class to use when disabled is true
+     * 
      * @JSFProperty
      */
     public abstract String getDisabledStyleClass();

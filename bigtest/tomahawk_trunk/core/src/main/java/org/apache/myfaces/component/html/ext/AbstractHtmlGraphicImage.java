@@ -27,6 +27,9 @@ import org.apache.myfaces.component.UserRoleUtils;
 import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 
 /**
+ * Extends standard graphicImage. Unless otherwise specified, 
+ * all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:graphicImage"
  *   class = "org.apache.myfaces.component.html.ext.HtmlGraphicImage"
@@ -61,16 +64,22 @@ public abstract class AbstractHtmlGraphicImage
     }
     
     /**
+     *  HTML: Specifies the width of the border of this element, in pixels. Deprecated in HTML 4.01.
+     * 
      * @JSFProperty 
      */
     public abstract String getBorder();
     
     /**
+     * HTML: The amount of white space to be inserted to the left and right of this element, in undefined units. Deprecated in HTML 4.01.
+     * 
      * @JSFProperty 
      */
     public abstract String getHspace();
     
     /**
+     * HTML: The amount of white space to be inserted above and below this element, in undefined units. Deprecated in HTML 4.01.
+     * 
      * @JSFProperty 
      */
     public abstract String getVspace();

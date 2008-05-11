@@ -47,6 +47,15 @@ import javax.faces.validator.ValidatorException;
 import java.util.Iterator;
 
 /**
+ * Implements the standard html selectOneRadio tag, with additional features. 
+ * 
+ * Supports user roles. Supports the "spread" layout value, which 
+ * gives developer control over radio button positioning. 
+ * See the "layout" attribute and the "radio" tag for further 
+ * information. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:selectOneRadio"
  *   class = "org.apache.myfaces.component.html.ext.HtmlSelectOneRadio"

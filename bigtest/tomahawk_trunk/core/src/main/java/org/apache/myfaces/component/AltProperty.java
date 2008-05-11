@@ -18,10 +18,17 @@
  */
 package org.apache.myfaces.component;
 
+/**
+ * @author Leonardo Uribe (latest modification by $Author$)
+ * @version $Revision$ $Date$
+ */
 public interface AltProperty
 {
     
     /**
+     * HTML: Specifies alternative text that can be used by a 
+     * browser that can't show this element.
+     * 
      * @JSFProperty 
      */
     public String getAlt();

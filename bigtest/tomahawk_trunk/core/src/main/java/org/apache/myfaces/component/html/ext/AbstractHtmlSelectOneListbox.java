@@ -33,6 +33,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Extends standard selectOneListbox with user role support. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:selectOneListbox"
  *   class = "org.apache.myfaces.component.html.ext.HtmlSelectOneListbox"

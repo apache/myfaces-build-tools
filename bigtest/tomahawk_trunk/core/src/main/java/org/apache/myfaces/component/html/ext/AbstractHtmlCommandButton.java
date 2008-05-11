@@ -26,6 +26,10 @@ import org.apache.myfaces.component.UserRoleUtils;
 import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 
 /**
+ * Extends standard commandButton by user role support. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:commandButton"
  *   class = "org.apache.myfaces.component.html.ext.HtmlCommandButton"
@@ -61,6 +65,12 @@ public abstract class AbstractHtmlCommandButton
     }
 
     /**
+     *  Comma separated list of subForm-ids for which validation 
+     *  and model update should take place when this command is 
+     *  executed. You need to wrap your input components in 
+     *  org.apache.myfaces.custom.subform.SubForm instances for 
+     *  this to work.
+     *  
      * @JSFProperty
      */
     public abstract String getActionFor();

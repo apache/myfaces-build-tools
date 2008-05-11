@@ -22,6 +22,15 @@ public interface MessageProperties
 {
 
     /**
+     *  If present, instead of rendering the message summary, 
+     *  a MessageFormat with this attribute as pattern is created. 
+     *  
+     *  The format method of this MessageFormat is called with the 
+     *  message summary as the first argument and the label of the 
+     *  associated component (if any) as the second argument. 
+     *  
+     *  Example: "{0}:"
+     * 
      * @JSFProperty
      */
     public String getSummaryFormat();
@@ -29,6 +38,15 @@ public interface MessageProperties
     public void setSummaryFormat(String summaryFormat);
     
     /**
+     * If present, instead of rendering the message detail, 
+     * a MessageFormat with this attribute as pattern is created. 
+     * 
+     * The format method of this MessageFormat is called with the 
+     * message detail as the first argument and the label of the 
+     * associated component (if any) as the second argument. 
+     * 
+     * Example: "The input in field {1} is wrong: {0}"
+     * 
      * @JSFProperty
      */
     public String getDetailFormat();
@@ -36,6 +54,11 @@ public interface MessageProperties
     public void setDetailFormat(String detailFormat);
     
     /**
+     *  If present, all occurrences of the id of the component for 
+     *  which the message is rendered will be replaced by the label. 
+     *  
+     *  Default: true.
+     * 
      * @JSFProperty
      *   defaultValue="false"
      */
@@ -44,6 +67,10 @@ public interface MessageProperties
     public void setReplaceIdWithLabel(boolean replaceIdWithLabel);
     
     /**
+     * If set to true, an empty span element is rendered. 
+     * Useful if there is an inputAjax field and the corresponding 
+     * error message is displayed there.
+     * 
      * @JSFProperty
      *   defaultValue="false"
      */    

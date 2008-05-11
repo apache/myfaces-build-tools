@@ -32,6 +32,9 @@ package org.apache.myfaces.component;
 public interface DisplayValueOnlyAware
 {
     /**
+     *  If true, renders only the value of the component, 
+     *  but no input widget. Default is false.
+     * 
      * @JSFProperty
      */
     public Boolean getDisplayValueOnly();
@@ -39,6 +42,8 @@ public interface DisplayValueOnlyAware
     public void setDisplayValueOnly(Boolean b);
     
     /**
+     * Style used when displayValueOnly is true.
+     * 
      * @JSFProperty
      */
     public String getDisplayValueOnlyStyle();
@@ -46,6 +51,8 @@ public interface DisplayValueOnlyAware
     public void setDisplayValueOnlyStyle(String displayValueOnlyStyle);
     
     /**
+     * Style class used when displayValueOnly is true.
+     * 
      * @JSFProperty
      */
     public String getDisplayValueOnlyStyleClass();

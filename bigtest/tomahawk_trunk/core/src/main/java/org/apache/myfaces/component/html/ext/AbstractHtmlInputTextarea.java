@@ -29,6 +29,10 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 import org.apache.myfaces.shared_tomahawk.component.DisplayValueOnlyCapable;
 
 /**
+ * Extends standard inputTextarea by user role support. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:inputTextarea"
  *   class = "org.apache.myfaces.component.html.ext.HtmlInputTextarea"
@@ -76,6 +80,10 @@ public abstract class AbstractHtmlInputTextarea
     }
     
     /**
+     * None standard HTML attribute. 
+     * 
+     * Possible values are: soft, hard, virtual, physical and off.
+     * 
      * @JSFProperty
      */
     public abstract String getWrap();

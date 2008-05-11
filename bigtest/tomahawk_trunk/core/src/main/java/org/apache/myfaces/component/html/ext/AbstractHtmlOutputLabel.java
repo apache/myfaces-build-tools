@@ -28,6 +28,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Extends standard outputLabel with user role support. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:outputLabel"
  *   class = "org.apache.myfaces.component.html.ext.HtmlOutputLabel"

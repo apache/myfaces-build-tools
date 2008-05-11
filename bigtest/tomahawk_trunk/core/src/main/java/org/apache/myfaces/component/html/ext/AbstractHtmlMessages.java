@@ -28,6 +28,10 @@ import org.apache.myfaces.component.UserRoleUtils;
 import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 
 /**
+ * MyFaces extension to the standard messages tag: see showInputLabel attribute.
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:messages"
  *   class = "org.apache.myfaces.component.html.ext.HtmlMessages"
@@ -68,6 +72,11 @@ public abstract class AbstractHtmlMessages
     }
     
     /**
+     *  Like summaryFormat, but applies to global messages 
+     *  (i.e. messages not associated with a component). If no 
+     *  globalSummaryFormat is given, the summaryFormat is used 
+     *  for global messages. Example: "{0}:"
+     * 
      * @JSFProperty 
      */
     public abstract String getGlobalSummaryFormat();

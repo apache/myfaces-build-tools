@@ -18,20 +18,37 @@
  */
 package org.apache.myfaces.component;
 
+/**
+ * @author Leonardo Uribe (latest modification by $Author$)
+ * @version $Revision$ $Date$
+ */
 public interface LocationAware
 {
 
     /**
+     *  An alternate location to find javascript resources. 
+     *  If no values is specified, javascript will be loaded 
+     *  from the resources directory using AddResource and 
+     *  ExtensionsFilter.
+     * 
      * @JSFProperty 
      */
     public String getJavascriptLocation();
     
     /**
+     * An alternate location to find image resources. If no 
+     * values is specified, images will be loaded from the 
+     * resources directory using AddResource and ExtensionsFilter.
+     * 
      * @JSFProperty 
      */
     public String getImageLocation();
     
     /**
+     * An alternate location to find stylesheet resources. If no 
+     * values is specified, stylesheets will be loaded from the 
+     * resources directory using AddResource and ExtensionsFilter.
+     * 
      * @JSFProperty 
      */
     public String getStyleLocation();

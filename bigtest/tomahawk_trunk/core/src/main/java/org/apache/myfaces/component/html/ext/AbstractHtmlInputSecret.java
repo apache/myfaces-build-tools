@@ -30,6 +30,10 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 import org.apache.myfaces.shared_tomahawk.component.DisplayValueOnlyCapable;
 
 /**
+ * Extends standard inputSecret, adding the "redisplay" property. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:inputSecret"
  *   class = "org.apache.myfaces.component.html.ext.HtmlInputSecret"

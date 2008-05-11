@@ -30,6 +30,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Extends standard outputText with user role support.
+ *  
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:outputText"
  *   class = "org.apache.myfaces.component.html.ext.HtmlOutputText"

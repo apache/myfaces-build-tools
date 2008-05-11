@@ -18,10 +18,16 @@
  */
 package org.apache.myfaces.component;
 
+/**
+ * @author Leonardo Uribe (latest modification by $Author$)
+ * @version $Revision$ $Date$
+ */
 public interface AlignProperty
 {
     
     /**
+     * HTML: Specifies the horizontal alignment of this element. Deprecated in HTML 4.01.
+     * 
      * @JSFProperty 
      */
     public String getAlign();

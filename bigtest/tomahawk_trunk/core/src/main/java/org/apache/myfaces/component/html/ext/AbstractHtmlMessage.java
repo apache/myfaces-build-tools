@@ -28,6 +28,10 @@ import org.apache.myfaces.component.UserRoleUtils;
 import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 
 /**
+ * MyFaces extension to the standard messages tag: see summaryDetailSeparator attribute. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:message"
  *   class = "org.apache.myfaces.component.html.ext.HtmlMessage"

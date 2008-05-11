@@ -31,6 +31,10 @@ import org.apache.myfaces.shared_tomahawk.component.DisplayValueOnlyCapable;
 import org.apache.myfaces.shared_tomahawk.component.EscapeCapable;
 
 /**
+ * Extends standard selectOneMenu with user role support. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:selectOneMenu"
  *   class = "org.apache.myfaces.component.html.ext.HtmlSelectOneMenu"

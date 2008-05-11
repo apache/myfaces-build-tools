@@ -32,6 +32,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Extends standard panelGroup with user role support. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:panelGroup"
  *   class = "org.apache.myfaces.component.html.ext.HtmlPanelGroup"
@@ -82,12 +86,18 @@ public abstract class AbstractHtmlPanelGroup
     }
 
     /**
+     * Determines the type of layout that is used when rendering a 
+     * panelGroup: when 'block' is specified, an HTML div is rendered 
+     * instead of the default HTML span.
+     * 
      * @JSFProperty
      *   defaultValue = "block" 
      */
     public abstract String getLayout(); 
 
     /**
+     * standard html colspan attribute for table cell
+     * 
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
      */

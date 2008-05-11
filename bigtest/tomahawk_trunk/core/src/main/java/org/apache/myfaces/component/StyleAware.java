@@ -18,6 +18,10 @@
 */
 package org.apache.myfaces.component;
 
+/**
+ * @author Leonardo Uribe (latest modification by $Author$)
+ * @version $Revision$ $Date$
+ */
 public interface StyleAware
 {
     /**

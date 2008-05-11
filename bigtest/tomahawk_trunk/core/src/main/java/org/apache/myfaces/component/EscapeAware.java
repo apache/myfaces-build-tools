@@ -18,9 +18,15 @@
  */
 package org.apache.myfaces.component;
 
+/**
+ * @author Leonardo Uribe (latest modification by $Author$)
+ * @version $Revision$ $Date$
+ */
 public interface EscapeAware
 {
     /**
+     * Indicates whether rendered markup should be escaped. Default: true
+     * 
      * @JSFProperty
      *   defaultValue = "true"
      */

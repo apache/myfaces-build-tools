@@ -18,20 +18,30 @@
  */
 package org.apache.myfaces.component;
 
+/**
+ * @author Leonardo Uribe (latest modification by $Author$)
+ * @version $Revision$ $Date$
+ */
 public interface DataProperties
 {
 
     /**
+     * Reserved for future use.
+     * 
      * @JSFProperty 
      */
     public String getDatafld();
     
     /**
+     * Reserved for future use.
+     * 
      * @JSFProperty 
      */
     public String getDatasrc();
     
     /**
+     * Reserved for future use.
+     * 
      * @JSFProperty 
      */
     public String getDataformatas();

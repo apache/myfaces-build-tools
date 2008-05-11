@@ -32,6 +32,10 @@ import org.apache.myfaces.shared_tomahawk.component.DisplayValueOnlyCapable;
 import org.apache.myfaces.shared_tomahawk.component.EscapeCapable;
 
 /**
+ * Extends standard selectBooleanCheckbox with user role support. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:selectBooleanCheckbox"
  *   class = "org.apache.myfaces.component.html.ext.HtmlSelectBooleanCheckbox"

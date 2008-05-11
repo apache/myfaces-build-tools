@@ -32,6 +32,13 @@ import org.apache.myfaces.shared_tomahawk.component.DisplayValueOnlyCapable;
 import org.apache.myfaces.shared_tomahawk.component.EscapeCapable;
 
 /**
+ * Extends standard selectManyCheckbox with user role support. 
+ * 
+ * Additionally this extended selectManyCheckbox accepts a layout 
+ * attribute of value "spread" (see custom checkbox tag).
+ *  
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:selectManyCheckbox"
  *   class = "org.apache.myfaces.component.html.ext.HtmlSelectManyCheckbox"
@@ -80,6 +87,10 @@ public abstract class AbstractHtmlSelectManyCheckbox
     }
 
     /**
+     * A integer representing the number of checkbox rows if the 
+     * layout is lineDirection and checkbox columns if the layout 
+     * is pageDirection.
+     * 
      * @JSFProperty
      */
     public abstract String getLayoutWidth();

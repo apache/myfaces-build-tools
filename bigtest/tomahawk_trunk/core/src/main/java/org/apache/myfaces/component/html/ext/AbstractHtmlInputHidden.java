@@ -25,7 +25,8 @@ import javax.faces.context.FacesContext;
 
 
 /**
- * Extended version of {@link AbstractHtmlInputHidden} that provides additional MyFaces functionality.
+ * Extended version of {@link javax.faces.component.html.HtmlInputHidden} 
+ * that provides additional MyFaces functionality.
  *
  * @JSFComponent
  *   name = "t:inputHidden"
