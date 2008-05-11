@@ -30,6 +30,10 @@ import javax.faces.model.SelectItem;
 import javax.faces.model.SelectItemGroup;
 
 /**
+ * An extended version of the standard UISelectItems. Populates the 
+ * SelectItem collection from the given value automatically using 
+ * the itemLabel and itemValue attributes.
+ * 
  * @JSFComponent
  *   name = "t:selectItems"
  *   class = "org.apache.myfaces.custom.selectitems.UISelectItems"
@@ -44,16 +48,22 @@ public abstract class AbstractUISelectItems extends javax.faces.component.UISele
     public static final String COMPONENT_TYPE = "org.apache.myfaces.UISelectItems";
     
     /**
+     * name of the iterator
+     * 
      * @JSFProperty
      */
 	public abstract String getVar();
 	
 	/**
+	 * name of the selectitem
+	 * 
 	 * @JSFProperty
 	 */
 	public abstract Object getItemLabel();
 
     /**
+     * value of the selectitem
+     * 
      * @JSFProperty
      */
 	public abstract Object getItemValue();

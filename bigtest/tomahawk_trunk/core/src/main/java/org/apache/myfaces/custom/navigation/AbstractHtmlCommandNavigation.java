@@ -35,6 +35,14 @@ import org.apache.myfaces.component.html.ext.HtmlCommandLink;
 /**
  * Command, that represents a navigation item.
  *
+ * Must be nested inside a panel_navigation action and renders a 
+ * clickable navigation item. This action is derived from the 
+ * standard command_link action and has equal attributes. 
+ * (Replaces former "navigation_item" tag.) 
+ * 
+ * Unless otherwise specified, all attributes accept static values 
+ * or EL expressions.
+ *
  * @JSFComponent
  *   name = "t:commandNavigation"
  *   class = "org.apache.myfaces.custom.navigation.HtmlCommandNavigation"
@@ -108,6 +116,7 @@ public abstract class AbstractHtmlCommandNavigation
 
     /**
      * @JSFProperty
+     *   tagExcluded="true"
      */
     public abstract boolean isOpen();
     
@@ -115,6 +124,7 @@ public abstract class AbstractHtmlCommandNavigation
 
     /**
      * @JSFProperty
+     *   tagExcluded="true"
      */
     public abstract boolean isActive();
     

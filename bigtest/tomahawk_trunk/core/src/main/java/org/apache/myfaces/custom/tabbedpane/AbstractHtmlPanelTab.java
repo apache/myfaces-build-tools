@@ -30,6 +30,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * TODO: Document this component.
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:panelTab"
  *   class = "org.apache.myfaces.custom.tabbedpane.HtmlPanelTab"
@@ -51,11 +55,15 @@ public abstract class AbstractHtmlPanelTab
     private static final boolean DEFAULT_DISABLED = false;
 
     /**
+     * Label of this tab.
+     * 
      * @JSFProperty
      */
     public abstract String getLabel();
 
     /**
+     * HTML: When true, this element cannot receive focus.
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */

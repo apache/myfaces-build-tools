@@ -38,6 +38,10 @@ import org.apache.myfaces.custom.navmenu.htmlnavmenu.HtmlCommandNavigationItem;
 import org.apache.myfaces.custom.navmenu.htmlnavmenu.HtmlPanelNavigationMenu;
 
 /**
+ * A menu item. Used by navigationMenu, jscookMenu. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:navigationMenuItem"
  *   bodyContent = "JSP"
@@ -160,17 +164,23 @@ public abstract class AbstractUINavigationMenuItem extends UISelectItem implemen
     // Action Source
 
     /**
+     * 
      * @JSFProperty 
      */
     public abstract String getTarget();
 
     /**
+     * When set instead of a Hyperlink a span tag is rendered in 
+     * the corresponding Component
+     * 
      * @JSFProperty
      *   defaultValue="false" 
      */
     public abstract boolean isDisabled();
 
     /**
+     * CSS-Style Attribute to render when disabled is true
+     * 
      * @JSFProperty 
      */
     public abstract String getDisabledStyle();
@@ -211,6 +221,8 @@ public abstract class AbstractUINavigationMenuItem extends UISelectItem implemen
     }
 
     /**
+     * CSS-Style Class to use when disabled is true
+     * 
      * @JSFProperty 
      */
     public abstract String getDisabledStyleClass();

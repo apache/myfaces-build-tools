@@ -29,6 +29,14 @@ import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
+ * Registers an org.apache.myfaces.custom.updateactionlistener.UpdateActionListener 
+ * at the parent component (which must be an ActionSource). 
+ * 
+ * When the parent's action fires the specified value is evaluated, 
+ * then written into the specified property. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions. 
+ * 
  * JSF 1.2 introduces a "setPropertyActionListener" with the same functionality like this. 
  *
  * @JSFJspTag
@@ -52,6 +60,9 @@ public class UpdateActionListenerTag
     }
 
     /**
+     * A value-binding that specifies a property to be updated when 
+     * the parent's action occurs.
+     * 
      * @JSFJspAttribute
      *   required="true"
      */
@@ -61,6 +72,10 @@ public class UpdateActionListenerTag
     }
 
     /**
+     *  A literal value or value-binding that specifies what 
+     *  will be assigned to the destination specified by the 
+     *  property attribute.
+     * 
      * @JSFJspAttribute
      *   required="true"
      */
@@ -70,6 +85,11 @@ public class UpdateActionListenerTag
     }
 
     /**
+     * The name of a registered Converter object which will be 
+     * invoked to convert the value into an appropriate datatype 
+     * for assigning to the specified property. If not specified 
+     * then an appropriate converter will be selected automatically.
+     * 
      * @JSFJspAttribute
      */
     public void setConverter(String converter)

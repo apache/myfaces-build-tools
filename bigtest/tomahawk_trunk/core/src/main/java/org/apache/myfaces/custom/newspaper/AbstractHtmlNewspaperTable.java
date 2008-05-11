@@ -26,6 +26,11 @@ import org.apache.myfaces.component.DataProperties;
 
 /**
  * Model for a table in multiple balanced columns.
+ * 
+ * A data table for rendering long skinny tables as short wide 
+ * table by wrapping the table over a specified number of columns. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
  *
  * @JSFComponent
  *   name = "t:newspaperTable"
@@ -50,6 +55,7 @@ public abstract class AbstractHtmlNewspaperTable
 
     /**
      * Set the number of columns the table will be divided over.
+     * In other words, the number of columns to wrap the table over. Default: 1
      * 
      * @JSFProperty
      *   defaultValue = "1"
@@ -57,6 +63,9 @@ public abstract class AbstractHtmlNewspaperTable
     public abstract int getNewspaperColumns();
     
     /**
+     * The orientation of the newspaper columns in the newspaper 
+     * table - "horizontal" or "vertical". Default: vertical
+     * 
      * @JSFProperty
      */
     public abstract String getNewspaperOrientation();    

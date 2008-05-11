@@ -22,6 +22,14 @@ import org.apache.myfaces.custom.column.HtmlColumn;
 
 
 /**
+ * The tag allows dynamic columns in a datatable. 
+ * 
+ * The UIColumns component is used below a t:datatable to create a 
+ * dynamic count of columns. It is used like a UIData component 
+ * which iterates through a datamodel to create the columns. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:columns" 
  *   class = "org.apache.myfaces.custom.crosstable.HtmlColumns"
@@ -38,29 +46,44 @@ public abstract class AbstractHtmlColumns extends UIColumns implements HtmlColum
     public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlColumns";
 
     /**
+     * This attribute tells the datatable to group by data in this column
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isGroupBy();
 
     /**
+     *  Optional - Allows you configure where to get the value to 
+     *  check for the group change condition. Default: all children 
+     *  of the column cell will be checked
+     * 
      * @JSFProperty
      */
     public abstract Object getGroupByValue();
 
     /**
+     * This attribute tells the datatable to make this column the 
+     * default sorted, when sortable=true
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isDefaultSorted();
 
     /**
+     * This attribute makes this column automaticaly sortable 
+     * by a row object's property
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isSortable();
 
     /**
+     *  This attribute tells row object's property by which 
+     *  sorting will be performed on this column
+     * 
      * @JSFProperty
      */    
     public abstract String getSortPropertyName();

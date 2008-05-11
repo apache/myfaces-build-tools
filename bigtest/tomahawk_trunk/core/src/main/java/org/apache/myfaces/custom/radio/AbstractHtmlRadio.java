@@ -23,6 +23,15 @@ import javax.faces.component.UIComponentBase;
 import org.apache.myfaces.component.UserRoleAware;
 
 /**
+ * This tag is used in conjunction with the extended selectOneRadio 
+ * tag when the "spread" layout is selected. It specifies the 
+ * position within the document that the radio button corresponding 
+ * to a specific SelectItem should be rendered. All HTML pass-through 
+ * attributes for this input are taken from the associated 
+ * selectOneRadio. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:radio"
  *   class = "org.apache.myfaces.custom.radio.HtmlRadio"
@@ -46,12 +55,18 @@ public abstract class AbstractHtmlRadio
     private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.Radio";
 
     /**
+     * The id of the referenced extended selectOneRadio component. 
+     * This value is resolved to the particular component using 
+     * the standard UIComponent.findComponent() searching algorithm.
+     * 
      * @JSFProperty
      *   required="true"
      */
     public abstract String getFor();
     
     /**
+     * The index of the corresponding SelectItem, where 0 represents the first SelectItem.
+     * 
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
      *   required="true"

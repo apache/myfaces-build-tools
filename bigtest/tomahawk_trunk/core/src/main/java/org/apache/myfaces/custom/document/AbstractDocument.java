@@ -53,6 +53,8 @@ public class AbstractDocument extends UIComponentBase
 	}
 
 	/**
+	 * state="start|end". Used to demarkate the document boundaries
+	 * 
 	 * @JSFProperty
 	 *   literalOnly = "true"
 	 */

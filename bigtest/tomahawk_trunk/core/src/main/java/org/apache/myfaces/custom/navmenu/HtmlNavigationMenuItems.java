@@ -21,6 +21,10 @@ package org.apache.myfaces.custom.navmenu;
 import javax.faces.component.UISelectItems;
 
 /**
+ * A tree of menu items as returned by a value-expression. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:navigationMenuItems"
  *   bodyContent = "JSP"

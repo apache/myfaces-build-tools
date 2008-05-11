@@ -39,6 +39,8 @@ import org.apache.myfaces.custom.tree.model.TreePath;
 
 
 /**
+ * A tree data component. 
+ * Unless otherwise specified, all attributes accept static values or EL expressions. h
  * <p/>
  * Tree implementation based on javax.swing.JTree.
  * </p>
@@ -475,6 +477,9 @@ public class HtmlTree extends HtmlPanelGroup implements TreeModelListener
 
 
     /**
+     * Time interval the tree will remain registered as a TreeModelListener 
+     * without being accessed
+     * 
      * @JSFProperty
      */
     public long getExpireListeners()

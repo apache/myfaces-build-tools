@@ -26,14 +26,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
 /**
+ * A custom validator for creditCards, based upon Jakarta Commons. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions
+ * 
  * @JSFValidator
  *   name = "t:validateCreditCard"
  *   bodyContent = "empty"
  *   tagClass = "org.apache.myfaces.custom.creditcardvalidator.ValidateCreditCardTag"
  * 
- * @JSFJspProperty name = "message" returnType = "java.lang.String"
- * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String"
- * @JSFJspProperty name = "summaryMessage" returnType = "java.lang.String" 
+ * @JSFJspProperty name = "message" returnType = "java.lang.String" longDesc = "alternate validation error detail message format string (use 'message' and 'detailMessage' alternatively)"
+ * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String" longDesc = "alternate validation error detail message format string (use 'message' and 'detailMessage' alternatively)"
+ * @JSFJspProperty name = "summaryMessage" returnType = "java.lang.String" longDesc = "alternate validation error summary message format string"
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -135,6 +139,8 @@ public class CreditCardValidator extends ValidatorBase {
 	//GETTER & SETTER
 	
 	/**
+	 * american express cards
+	 * 
 	 * @JSFProperty
 	 */
 	public boolean isAmex() {
@@ -143,6 +149,8 @@ public class CreditCardValidator extends ValidatorBase {
 	}
 
     /**
+     * validation for discover
+     * 
      * @JSFProperty
      */
 	public boolean isDiscover() {
@@ -151,6 +159,8 @@ public class CreditCardValidator extends ValidatorBase {
 	}
 
     /**
+     * validation for mastercard
+     * 
      * @JSFProperty
      */
 	public boolean isMastercard() {
@@ -159,6 +169,8 @@ public class CreditCardValidator extends ValidatorBase {
 	}
 
     /**
+     * none of the given cardtypes is allowed.
+     * 
      * @JSFProperty
      */
 	public boolean isNone() {
@@ -167,6 +179,8 @@ public class CreditCardValidator extends ValidatorBase {
 	}
 
     /**
+     * validation for visa
+     * 
      * @JSFProperty
      */
 	public boolean isVisa() {

@@ -25,6 +25,10 @@ import javax.faces.context.FacesContext;
 
 /**
  * Default component for the dojo intializer
+ * 
+ * Dojo initializer helper tag for debugging and communication flags. 
+ * This tag encapsules the Dojo DjConfig meta configuration and also 
+ * adds the needed dojo required functionality.
  *
  * @JSFComponent
  *   name = "t:dojoInitializer"

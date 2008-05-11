@@ -39,6 +39,10 @@ import org.apache.myfaces.component.UniversalProperties;
 import org.apache.myfaces.component.UserRoleAware;
 
 /**
+ * TODO: Document this component.
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:panelTabbedPane"
  *   class = "org.apache.myfaces.custom.tabbedpane.HtmlPanelTabbedPane"
@@ -227,11 +231,17 @@ public abstract class AbstractHtmlPanelTabbedPane
     public abstract String getActiveTabVar();
     
     /**
+     * Boolean Variable that is set in request scope when 
+     * rendering a panelTab. True means that the currently 
+     * rendered panelTab is active.
+     * 
      * @JSFProperty
      */
     public abstract Boolean getActivePanelTabVar();
 
     /**
+     * Index of tab that is selected by default.
+     * 
      * @JSFProperty
      *   defaultValue = "0"
      */
@@ -240,36 +250,50 @@ public abstract class AbstractHtmlPanelTabbedPane
     public abstract void setSelectedIndex(int selectedIndex);
 
     /**
+     * Style class of the active tab cell.
+     * 
      * @JSFProperty
      */
     public abstract String getActiveTabStyleClass();
 
     /**
+     * Style class of the inactive tab cells.
+     * 
      * @JSFProperty
      */
     public abstract String getInactiveTabStyleClass();
 
     /**
+     * Style class of the active tab sub cell.
+     * 
      * @JSFProperty
      */
     public abstract String getActiveSubStyleClass();
 
     /**
+     * Style class of the inactive tab sub cells.
+     * 
      * @JSFProperty
      */
     public abstract String getInactiveSubStyleClass();
 
     /**
+     * Style class of the active tab content cell.
+     * 
      * @JSFProperty
      */
     public abstract String getTabContentStyleClass();
 
     /**
+     * Style class of the disabled tab cells.
+     * 
      * @JSFProperty
      */
     public abstract String getDisabledTabStyleClass();
 
     /**
+     * Toggle client-side/server-side tab switches.
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */

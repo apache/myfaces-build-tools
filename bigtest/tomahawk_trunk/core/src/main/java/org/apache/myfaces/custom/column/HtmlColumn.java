@@ -116,6 +116,8 @@ public interface HtmlColumn
     void setFooterstyle(String footerstyle);
 
     /**
+     * Corresponds to the HTML class attribute.
+     * 
      * @JSFProperty
      */
     String getFooterstyleClass();
@@ -221,6 +223,8 @@ public interface HtmlColumn
     void setHeaderstyle(String headerstyle);
 
     /**
+     * Corresponds to the HTML class attribute.
+     * 
      * @JSFProperty
      */
     String getHeaderstyleClass();
@@ -235,6 +239,9 @@ public interface HtmlColumn
     void setHeadertitle(String headertitle);
 
     /**
+     * HTML: The direction of text display, either 'ltr' 
+     * (left-to-right) or 'rtl' (right-to-left).
+     * 
      * @JSFProperty
      */
     String getDir();
@@ -242,6 +249,8 @@ public interface HtmlColumn
     void setDir(String dir);
 
     /**
+     * HTML: The base language of this document.
+     * 
      * @JSFProperty
      */
     String getLang();
@@ -249,76 +258,98 @@ public interface HtmlColumn
     void setLang(String lang);
 
     /**
+     * HTML: Script to be invoked when the element is clicked.
+     * 
      * @JSFProperty
      */
-    String getOnclick();
+    public String getOnclick();
 
     void setOnclick(String onclick);
-
+    
     /**
+     * HTML: Script to be invoked when the element is double-clicked.
+     * 
      * @JSFProperty
      */
-    String getOndblclick();
+    public String getOndblclick();
 
     void setOndblclick(String ondblclick);
 
     /**
+     * HTML: Script to be invoked when a key is pressed down over this element.
+     * 
      * @JSFProperty
      */
-    String getOnkeydown();
+    public String getOnkeydown();
 
     void setOnkeydown(String onkeydown);
 
     /**
+     * HTML: Script to be invoked when a key is pressed over this element.
+     * 
      * @JSFProperty
      */
-    String getOnkeypress();
+    public String getOnkeypress();
 
     void setOnkeypress(String onkeypress);
 
     /**
+     * HTML: Script to be invoked when a key is released over this element.
+     * 
      * @JSFProperty
      */
-    String getOnkeyup();
+    public String getOnkeyup();
 
     void setOnkeyup(String onkeyup);
 
     /**
+     * HTML: Script to be invoked when the pointing device is pressed over this element.
+     * 
      * @JSFProperty
      */
-    String getOnmousedown();
+    public String getOnmousedown();
 
     void setOnmousedown(String onmousedown);
 
     /**
+     * HTML: Script to be invoked when the pointing device is moved while it is in this element.
+     * 
      * @JSFProperty
      */
-    String getOnmousemove();
+    public String getOnmousemove();
 
     void setOnmousemove(String onmousemove);
 
     /**
+     * HTML: Script to be invoked when the pointing device is moves out of this element.
+     * 
      * @JSFProperty
      */
-    String getOnmouseout();
+    public String getOnmouseout();
 
     void setOnmouseout(String onmouseout);
 
     /**
+     * HTML: Script to be invoked when the pointing device is moved into this element.
+     * 
      * @JSFProperty
      */
-    String getOnmouseover();
+    public String getOnmouseover();
 
     void setOnmouseover(String onmouseover);
 
     /**
+     * HTML: Script to be invoked when the pointing device is released over this element.
+     * 
      * @JSFProperty
      */
-    String getOnmouseup();
-
+    public String getOnmouseup();
+    
     void setOnmouseup(String onmouseup);
 
     /**
+     * HTML: CSS styling instructions.
+     * 
      * @JSFProperty
      */
     String getStyle();
@@ -326,6 +357,8 @@ public interface HtmlColumn
     void setStyle(String style);
 
     /**
+     * The CSS class for this element. Corresponds to the HTML 'class' attribute.
+     * 
      * @JSFProperty
      */
     String getStyleClass();
@@ -333,6 +366,9 @@ public interface HtmlColumn
     void setStyleClass(String styleClass);
 
     /**
+     *  HTML: An advisory title for this element. Often used by 
+     *  the user agent as a tooltip.
+     * 
      * @JSFProperty
      */
     String getTitle();
@@ -340,6 +376,8 @@ public interface HtmlColumn
     void setTitle(String title);
 
     /**
+     * This attribute can be used to set the width of the elements.
+     * 
      * @JSFProperty
      */
     String getWidth();
@@ -347,6 +385,8 @@ public interface HtmlColumn
     void setWidth(String width);
 
     /**
+     * This attribute specifies the colspan attribute for the cell
+     * 
      * @JSFProperty
      */
     String getColspan();
@@ -368,6 +408,11 @@ public interface HtmlColumn
     void setFootercolspan(String footercolspan);
 
     /**
+     * The columnId which will be used as id for the column header. 
+     * Notice: As the rowId on t:datatable this will not add 
+     * any namespace to the id. The id will be rendered exactly 
+     * as you provide it.
+     * 
      * @JSFProperty
      */
     String getColumnId();

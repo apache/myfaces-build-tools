@@ -36,6 +36,10 @@ import org.apache.myfaces.component.UserRoleUtils;
 import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 
 /**
+ * Custom input control for dates and times. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:inputDate"
  *   class = "org.apache.myfaces.custom.date.HtmlInputDate"
@@ -276,12 +280,17 @@ public abstract class AbstractHtmlInputDate extends HtmlInputText
     public abstract String getTimeZone();
     
     /**
+     * Specifies the type of value to be accepted. 
+     * Valid values are: date | time | short_time | both | full
+     * 
      * @JSFProperty
      *   defaultValue = "date"
      */
     public abstract String getType();
     
     /**
+     *  If true, use 12hr times with AM/PM selector; if false, use 24hr time. Default false.
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
@@ -294,23 +303,32 @@ public abstract class AbstractHtmlInputDate extends HtmlInputText
     public abstract boolean isPopupCalendar();
         
     /**
+     * Label to be used when displaying an empty month selection
+     * 
      * @JSFProperty
      *   defaultValue = "\"\""
      */ 
 	public abstract String getEmptyMonthSelection();
 		
     /**
+     * Label to be used when displaying an empty ampm selection
+     * 
      * @JSFProperty
      *   defaultValue = "\"\""
      */	
 	public abstract String getEmptyAmpmSelection();
 
     /**
+     * HTML: When true, indicates that this component cannot be modified by the user. 
+     * The element may receive focus unless it has also been disabled.
+     * 
      * @JSFProperty
      */
     public abstract boolean isReadonly();
 
     /**
+     * HTML: When true, this element cannot receive focus.
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */    

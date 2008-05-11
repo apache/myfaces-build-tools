@@ -24,7 +24,9 @@ import java.io.Serializable;
 import org.apache.myfaces.component.UserRoleAware;
 
 /**
- * This class holds all properties specific to the HTML version of the Schedule component.
+ * A schedule component similar to the ones found in Outlook or Evolution
+ * 
+ * AbstractHtmlSchedule class holds all properties specific to the HTML version of the Schedule component.
  *
  * @JSFComponent
  *   name = "t:schedule"

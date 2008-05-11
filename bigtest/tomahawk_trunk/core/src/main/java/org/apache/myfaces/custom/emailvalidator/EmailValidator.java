@@ -28,13 +28,17 @@ import org.apache.myfaces.validator.ValidatorBase;
 
 
 /**
+ * A custom validator for email address format, based upons Jakarta Commons.
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFValidator
  *   name = "t:validateEmail"
  *   tagClass = "org.apache.myfaces.custom.emailvalidator.ValidateEmailTag"
  *   
- * @JSFJspProperty name = "message" returnType = "java.lang.String"
- * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String"
- * @JSFJspProperty name = "summaryMessage" returnType = "java.lang.String" 
+ * @JSFJspProperty name = "message" returnType = "java.lang.String" longDesc = "alternate validation error detail message format string (use 'message' and 'detailMessage' alternatively)"
+ * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String" longDesc = "alternate validation error detail message format string (use 'message' and 'detailMessage' alternatively)"
+ * @JSFJspProperty name = "summaryMessage" returnType = "java.lang.String" longDesc = "alternate validation error summary message format string"
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

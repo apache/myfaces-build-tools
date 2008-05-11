@@ -19,10 +19,19 @@
 package org.apache.myfaces.custom.tree;
 
 import javax.faces.component.UISelectItem;
-import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 
 /**
+ * Renders a HTML input of type "treeCheckbox". 
+ * 
+ * The associated comes from the treeCheckbox itemLabel and itemValue. 
+ * The selected items come from an extended selectManyCheckbox 
+ * component with layout "spread". The selectManyCheckbox is 
+ * referenced by the "for" attribute. 
+ * 
+ * All HTML pass-through attributes for this input are taken from 
+ * the associated selectManyCheckbox. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
  * 
  * @JSFComponent
  *   name = "t:treeCheckbox"
@@ -48,6 +57,8 @@ public abstract class AbstractHtmlTreeCheckbox extends UISelectItem
     private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.HtmlTreeCheckbox";
         
     /**
+     * id of the referenced extended selectManyCheckbox component
+     * 
      * @JSFProperty
      * @return The for attribute.
      */

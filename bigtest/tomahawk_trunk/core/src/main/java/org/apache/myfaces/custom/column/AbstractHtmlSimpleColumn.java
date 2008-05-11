@@ -21,6 +21,12 @@ package org.apache.myfaces.custom.column;
 import javax.faces.component.UIColumn;
 
 /**
+ * A tag that extend h:column to provide HTML passthrough attributes. 
+ * Tag t:column can be used instead of h:column in a t:datatable. 
+ * It provides HTML passthrough attributes for header (th), footer 
+ * (td) and row cells (td). Unless otherwise specified, all 
+ * attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:column"
  *   class = "org.apache.myfaces.custom.column.HtmlSimpleColumn"
@@ -41,6 +47,8 @@ public abstract class AbstractHtmlSimpleColumn extends UIColumn implements HtmlC
     }
     
     /**
+     * This attribute tells the datatable to group by data in this column
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
@@ -48,23 +56,36 @@ public abstract class AbstractHtmlSimpleColumn extends UIColumn implements HtmlC
 
 
     /**
+     *  Optional - Allows you configure where to get the value to 
+     *  check for the group change condition. Default: all children 
+     *  of the column cell will be checked
+     * 
      * @JSFProperty
      */
 	public abstract Object getGroupByValue();
 
     /**
+     * This attribute tells the datatable to make this column the 
+     * default sorted, when sortable=true
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isDefaultSorted();
 
     /**
+     * This attribute makes this column automaticaly sortable 
+     * by a row object's property
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isSortable();
 
     /**
+     *  This attribute tells row object's property by which 
+     *  sorting will be performed on this column
+     * 
      * @JSFProperty
      */    
     public abstract String getSortPropertyName();

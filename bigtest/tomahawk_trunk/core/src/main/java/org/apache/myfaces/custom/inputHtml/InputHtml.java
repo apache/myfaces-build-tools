@@ -31,6 +31,16 @@ import javax.faces.el.ValueBinding;
  * HTML Editor using the kupu library.
  * http://kupu.oscom.org/
  *
+ * An inline HTML based word processor based on the Kupu library. 
+ * 
+ * See http://kupu.oscom.org 
+ * 
+ * Right now, the support is limited to one editor per page 
+ * (but you can use tabs to have multiple editors, but only 
+ * one rendered at a time). 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ *
  * @JSFComponent
  *   name = "t:inputHtml"
  *   tagClass = "org.apache.myfaces.custom.inputHtml.InputHtmlTag"
@@ -119,6 +129,10 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Use a text area instead of the javascript HTML editor. 
+     * 
+     * Default is false. Use with caution.
+     * 
      * @JSFProperty
      */
     public String getFallback(){
@@ -132,6 +146,10 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * The type of the value. It can be either fragment for an HTML 
+     * fragment (default) or document for a full HTML document, with 
+     * head, title, body, ... tags.
+     * 
      * @JSFProperty
      */
     public String getType(){
@@ -148,6 +166,8 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Allows the user to edit the HTML source code. Default is true.
+     * 
      * @JSFProperty
      */
     public boolean isAllowEditSource(){
@@ -161,6 +181,8 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Allows the user to insert external links. Default is true.
+     * 
      * @JSFProperty
      */
     public boolean isAllowExternalLinks(){
@@ -174,6 +196,8 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Show the Kupu Logo in the buttons bar. Default is true.
+     * 
      * @JSFProperty
      */
     public boolean isAddKupuLogo(){
@@ -187,6 +211,8 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Shortcut to avoid setting all the showXXToolBox to true. Default is false.
+     * 
      * @JSFProperty
      */
 	public boolean isShowAllToolBoxes(){
@@ -200,6 +226,8 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Show the Properties tool box next to the text. Default is false.
+     * 
      * @JSFProperty
      */
     public boolean isShowPropertiesToolBox(){
@@ -217,6 +245,8 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Show the Links tool box next to the text. Default is false.
+     * 
      * @JSFProperty
      */
     public boolean isShowLinksToolBox(){
@@ -234,6 +264,8 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Show the Images tool box next to the text. Default is false.
+     * 
      * @JSFProperty
      */
     public boolean isShowImagesToolBox(){
@@ -250,6 +282,8 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Show the Tables tool box next to the text. Default is false.
+     * 
      * @JSFProperty
      */
     public boolean isShowTablesToolBox(){
@@ -266,6 +300,8 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Show the Cleanup Expressions tool box next to the text. Default is false.
+     * 
      * @JSFProperty
      */
 	public boolean isShowCleanupExpressionsToolBox(){
@@ -282,6 +318,8 @@ public class InputHtml extends HtmlInputText {
     }
 
     /**
+     * Show the Debug tool box next to the text. Default is false.
+     * 
      * @JSFProperty
      */
     public boolean isShowDebugToolBox(){

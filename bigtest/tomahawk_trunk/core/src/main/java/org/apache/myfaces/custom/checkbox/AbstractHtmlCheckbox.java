@@ -23,6 +23,16 @@ import javax.faces.component.UIComponentBase;
 import org.apache.myfaces.component.UserRoleAware;
 
 /**
+ * Renders a HTML input of type "checkbox". 
+ * The associated SelectItem comes from an extended selectManyCheckbox 
+ * component with layout "spread". The selectManyCheckbox is 
+ * referenced by the "for" attribute.
+ * 
+ * All HTML pass-through attributes for this input 
+ * are taken from the associated selectManyCheckbox. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:checkbox"
  *   class = "org.apache.myfaces.custom.checkbox.HtmlCheckbox"
@@ -44,12 +54,16 @@ public abstract class AbstractHtmlCheckbox
     private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.Checkbox";
 
     /**
+     * id of the referenced extended selectManyCheckbox component
+     * 
      * @JSFProperty
      *   required="true"
      */
     public abstract String getFor();
     
     /**
+     * n-th SelectItem of referenced UISelectMany starting with 0.
+     * 
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
      *   required="true"

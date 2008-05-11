@@ -32,6 +32,17 @@ import java.util.Map;
  * Represents "tree data" in an HTML format.  Also provides a mechanism for maintaining expand/collapse
  * state of the nodes in the tree.
  *
+ * A component that provides an HTML-based tree from data supplied by a 
+ * backing bean. The tree is highly customizable and allows for 
+ * fine-grained control over the appearance of each of the nodes 
+ * depending on their type. 
+ * 
+ * Almost any type of JSF component (text, image, checkbox, etc.) can 
+ * be rendered inside the nodes and there is an option for client-side 
+ * or server-side toggling of the expand/collapse state. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:tree2"
  *   class = "org.apache.myfaces.custom.tree2.HtmlTree"
@@ -55,7 +66,8 @@ public abstract class AbstractHtmlTree extends UITreeData
     private boolean _clientSideToggleSet;
 
     /**
-     * Gets 
+     * Perform client-side toggling of expand/collapse state via javascript (default is true.)
+     * 
      * @JSFProperty
      *   defaultValue = "true"
      * @return  the new clientSideToggle value
@@ -174,24 +186,34 @@ public abstract class AbstractHtmlTree extends UITreeData
     }
         
     /**
+     * Show the "plus" and "minus" navigation icons (default is true.) 
+     * Value is ignored if clientSideToggle is true.
+     * 
      * @JSFProperty
      *   defaultValue = "true"
      */
     public abstract boolean isShowNav();
 
     /**
+     * Show the connecting lines (default is true.)
+     * 
      * @JSFProperty
      *   defaultValue = "true"
      */
     public abstract boolean isShowLines();
 
     /**
+     * Include the root node when rendering the tree (default is true.)
+     * 
      * @JSFProperty
      *   defaultValue = "true"
      */
     public abstract boolean isShowRootNode();
 
     /**
+     * Preserve changes in client-side toggle information between 
+     * requests (default is true.)
+     * 
      * @JSFProperty
      *   defaultValue = "true"
      */

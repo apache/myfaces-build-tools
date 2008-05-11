@@ -28,6 +28,20 @@ import org.apache.myfaces.component.UserRoleUtils;
 import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 
 /**
+ * Creates an arbitrary HTML tag which encloses any child components. 
+ * The value attribute specifies the name of the generated tag.
+ * 
+ * If value is an empty string then no tag will be generated, but 
+ * the child components will be rendered. This differs from setting 
+ * rendered=false, which prevents child components from being 
+ * rendered at all.
+ * 
+ * There is currently no facility for adding attributes to the 
+ * generated html tag other than those explicitly supported by 
+ * the attributes on this JSF component.
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:htmlTag"
  *   class = "org.apache.myfaces.custom.htmlTag.HtmlTag"

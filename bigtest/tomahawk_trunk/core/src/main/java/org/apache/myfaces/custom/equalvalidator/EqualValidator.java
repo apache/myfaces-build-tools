@@ -29,13 +29,17 @@ import org.apache.myfaces.validator.ValidatorBase;
 
 
 /**
+ * A custom validator for validations against foreign component values. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFValidator
  *   name = "t:validateEqual"
  *   tagClass = "org.apache.myfaces.custom.equalvalidator.ValidateEqualTag"
  *   
- * @JSFJspProperty name = "message" returnType = "java.lang.String"
- * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String"
- * @JSFJspProperty name = "summaryMessage" returnType = "java.lang.String" 
+ * @JSFJspProperty name = "message" returnType = "java.lang.String" longDesc = "alternate validation error detail message format string (use 'message' and 'detailMessage' alternatively)"
+ * @JSFJspProperty name = "detailMessage" returnType = "java.lang.String" longDesc = "alternate validation error detail message format string (use 'message' and 'detailMessage' alternatively)"
+ * @JSFJspProperty name = "summaryMessage" returnType = "java.lang.String" longDesc = "alternate validation error summary message format string"
  * @author mwessendorf (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -110,6 +114,8 @@ public class EqualValidator extends ValidatorBase {
 	// -------------------------------------------------------- GETTER & SETTER
 
 	/**
+	 * the id of the foreign component, which is needed for the validation
+	 * 
 	 * @JSFProperty
 	 * @return the foreign component_id, on which a value should be validated
 	 */

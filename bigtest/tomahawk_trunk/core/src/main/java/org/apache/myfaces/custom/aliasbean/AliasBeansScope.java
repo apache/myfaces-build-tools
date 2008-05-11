@@ -47,6 +47,7 @@ import org.apache.myfaces.shared_tomahawk.component.BindingAware;
  * empty bodies added as direct children of this component. The scope of the AliasBean
  * tag still starts when the tag begins, but instead of ending when the tag ends
  * the scope of the nested AliasBean tags extends to the end of this component.
+ * 
  * @JSFComponent
  *   name = "t:aliasBeansScope"
  *   tagClass = "org.apache.myfaces.custom.aliasbean.AliasBeansScopeTag"

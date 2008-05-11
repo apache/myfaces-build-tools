@@ -28,6 +28,13 @@ import org.apache.myfaces.component.UserRoleUtils;
 import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
 
 /**
+ * You must enable the MultiPart Filter to make this component work (see web.xml). 
+ * 
+ * Also, don't forget to set the form's attribute "enctype" to "multipart/form-data". 
+ * See "examples/web/fileupload.jsp" for an example! 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:inputFileUpload"
  *   class = "org.apache.myfaces.custom.fileupload.HtmlInputFileUpload"

@@ -39,6 +39,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Renders a vertical menu structure with support for nested menu items. 
+ * 
+ * The menu is rendered as unordered List. The menu-tree can be 
+ * dynamically build using NavigationMenuItem(s). 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * Many thanks to the guys from Swiss Federal Institute of Intellectual Property & Marc Bouquet
  * for helping to develop this component.
  * 
@@ -129,46 +136,64 @@ public abstract class AbstractHtmlPanelNavigationMenu extends HtmlPanelGroup
     }
     
     /**
+     * The CSS class of closed navigation items.
+     * 
      * @JSFProperty
      */
     public abstract String getItemClass();
 
     /**
+     * The CSS class of open navigation items.
+     * 
      * @JSFProperty
      */
     public abstract String getOpenItemClass();
 
     /**
+     * The CSS class of open navigation items.
+     * 
      * @JSFProperty
      */
     public abstract String getActiveItemClass();
 
     /**
+     * The CSS class for the td element of a separator.
+     * 
      * @JSFProperty
      */
     public abstract String getSeparatorClass();
 
     /**
+     * The CSS Style of closed navigation items.
+     * 
      * @JSFProperty
      */
     public abstract String getItemStyle();
 
     /**
+     * The CSS Style of open navigation items.
+     * 
      * @JSFProperty
      */
     public abstract String getOpenItemStyle();
 
     /**
+     * The CSS Style of the active navigation item.
+     * 
      * @JSFProperty
      */
     public abstract String getActiveItemStyle();
 
     /**
+     * The CSS Style for the td element of a separator.
+     * 
      * @JSFProperty
      */
     public abstract String getSeparatorStyle();
     
     /**
+     * 'table' or 'list' Layout (default is 'table')
+     * 
      * @JSFProperty
      */
     public abstract String getLayout();
@@ -182,29 +207,40 @@ public abstract class AbstractHtmlPanelNavigationMenu extends HtmlPanelGroup
     public abstract Boolean getPreprocessed();
 
     /**
+     * If set to true all Items are expanded from the beginning and never closed.
+     * 
      * @JSFProperty
      *   defaultValue="false"
      */
     public abstract boolean isExpandAll();
     
     /**
+     *  If set to true all Items are rendered and other methods, like 
+     *  CSS should be used to hide them as necessary
+     * 
      * @JSFProperty
      *   defaultValue="false"
      */
     public abstract boolean isRenderAll();
 
     /**
+     * When set instead of a Hyperlink a span tag is rendered in the corresponding Component
+     * 
      * @JSFProperty
      *   defaultValue="false"
      */
     public abstract boolean isDisabled();
 
     /**
+     * CSS-Style Attribute to render when disabled is true
+     * 
      * @JSFProperty
      */
     public abstract String getDisabledStyle();
 
     /**
+     * CSS-Style Class to use when disabled is true
+     * 
      * @JSFProperty
      */
     public abstract String getDisabledStyleClass();

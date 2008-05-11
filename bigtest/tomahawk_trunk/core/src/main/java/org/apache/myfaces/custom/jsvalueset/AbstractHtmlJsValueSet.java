@@ -26,6 +26,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Setting a value from the model in java-script so that it can be 
+ * used (e.g. by the value change listener) afterwards. 
+ * 
+ * Unless otherwise specified, all attributes accept static values 
+ * or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:jsValueSet"
  *   class = "org.apache.myfaces.custom.jsvalueset.HtmlJsValueSet"

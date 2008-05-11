@@ -35,9 +35,15 @@ import javax.faces.event.PhaseId;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.component.html.ext.HtmlPanelGroup;
-import org.apache.myfaces.shared_tomahawk.util._ComponentUtils;
 
 /**
+ * Scroller for UIData components eg. dataTable 
+ * 
+ * Must be nested inside footer facet of dataTable OR for 
+ * attribute must be given so that corresponding uiData can be found. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * A component which works together with a UIData component to allow a
  * user to view a large list of data one "page" at a time, and navigate
  * between pages.
@@ -548,6 +554,8 @@ public abstract class AbstractHtmlDataScroller extends HtmlPanelGroup
     }
 
     /**
+     * MethodBinding pointing at method acception an ActionEvent with return type void.
+     * 
      * @JSFProperty
      *   returnSignature="void"
      *   methodSignature="javax.faces.event.ActionEvent"   
@@ -598,131 +606,195 @@ public abstract class AbstractHtmlDataScroller extends HtmlPanelGroup
     }
     
     /**
+     * The JSF id of a UIData component that this scroller will affect.
+     *  
+     * If this attribute is not present then the datascroller must be 
+     * a child of a UIData component.
+     * 
      * @JSFProperty
      */
     public abstract String getFor();
 
     /**
+     * step (pages) used for fastforward and fastrewind
+     * 
      * @JSFProperty
      *   defaultValue="Integer.MIN_VALUE"
      */
     public abstract int getFastStep();
 
     /**
+     * A parameter name, under which the actual page index is set 
+     * in request scope similar to the var parameter.
+     * 
      * @JSFProperty
      */
     public abstract String getPageIndexVar();
 
     /**
+     * A parameter name, under which the actual page count is set 
+     * in request scope similar to the var parameter.
+     * 
      * @JSFProperty
      */
     public abstract String getPageCountVar();
 
     /**
+     * A parameter name, under which the actual rows count is set 
+     * in request scope similar to the var parameter.
+     * 
      * @JSFProperty
      */
     public abstract String getRowsCountVar();
 
     /**
+     * A parameter name, under which the actual displayed rows count 
+     * is set in request scope similar to the var parameter.
+     * 
      * @JSFProperty
      */
     public abstract String getDisplayedRowsCountVar();
 
     /**
+     * A parameter name, under which the actual first displayed row 
+     * index is set in request scope similar to the var parameter.
+     * 
      * @JSFProperty
      */
     public abstract String getFirstRowIndexVar();
 
     /**
+     * A parameter name, under which the actual last displayed row 
+     * index is set in request scope similar to the var parameter.
+     * 
      * @JSFProperty
      */
     public abstract String getLastRowIndexVar();
 
     /**
+     * If set true, then the paginator gets rendered
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract boolean isPaginator();
 
     /**
+     * The maximum amount of pages to be displayed in the paginator.
+     * 
      * @JSFProperty
      *   defaultValue = "Integer.MIN_VALUE"
      */
     public abstract int getPaginatorMaxPages();
 
     /**
+     * styleclass for pagingator
+     * 
      * @JSFProperty
      */
     public abstract String getPaginatorTableClass();
 
     /**
+     * style for pagingator
+     * 
      * @JSFProperty
      */
     public abstract String getPaginatorTableStyle();
 
     /**
+     * styleClass for paginator's column
+     * 
      * @JSFProperty
      */
     public abstract String getPaginatorColumnClass();
 
     /**
+     * style for paginator's column
+     * 
      * @JSFProperty
      */
     public abstract String getPaginatorColumnStyle();
 
     /**
+     * styleClass for paginator's column with pageIndex = currentPageIndex
+     * 
      * @JSFProperty
      */
     public abstract String getPaginatorActiveColumnClass();
 
     /**
+     * 'true' - render a link for the paginator's column with 
+     * pageIndex = currentPageIndex. Default-value is 'true'.
+     * 
      * @JSFProperty
      *   defaultValue = "true"
      */
     public abstract boolean isPaginatorRenderLinkForActive();
 
     /**
+     * style-class for data-scroller first-element
+     * 
      * @JSFProperty
      */
     public abstract String getFirstStyleClass();
 
     /**
+     * style-class for data-scroller last-element
+     * 
      * @JSFProperty
      */
     public abstract String getLastStyleClass();
 
     /**
+     * style-class for data-scroller previous-element
+     * 
      * @JSFProperty
      */
     public abstract String getPreviousStyleClass();
 
     /**
+     * style-class for dataScroller next-element
+     * 
      * @JSFProperty
      */
     public abstract String getNextStyleClass();
 
     /**
+     * style-class for data-scroller fast-forward-element
+     * 
      * @JSFProperty
      */
     public abstract String getFastfStyleClass();
 
     /**
+     * style-class for data-scroller fast-rewind-element
+     * 
      * @JSFProperty
      */
     public abstract String getFastrStyleClass();
 
     /**
+     * style for paginator's column with pageIndex = currentPageIndex
+     * 
      * @JSFProperty
      */
     public abstract String getPaginatorActiveColumnStyle();
 
     /**
+     * If set to false, the facets aren't renderd if all the 
+     * lines are contained on a single page. Default is true.
+     * 
      * @JSFProperty
      *   defaultValue="true"
      */
     public abstract boolean isRenderFacetsIfSinglePage();
 
     /**
+     * True means that the default ActionListener should be 
+     * executed immediately (i.e. during Apply Request 
+     * Values phase of the request processing lifecycle), 
+     * rather than waiting until the Invoke Application phase.
+     * 
      * @JSFProperty
      *   defaultValue="false"
      */    

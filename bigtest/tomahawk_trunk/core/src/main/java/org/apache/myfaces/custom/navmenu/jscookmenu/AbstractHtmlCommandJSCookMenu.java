@@ -25,6 +25,11 @@ import org.apache.myfaces.component.UserRoleAware;
 import org.apache.myfaces.component.UserRoleUtils;
 
 /**
+ * Renders a Javascript Menu. Nested NavigationMenuItem(s) are rendered 
+ * as Javascript Menu. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:jscookMenu"
  *   class = "org.apache.myfaces.custom.navmenu.jscookmenu.HtmlCommandJSCookMenu"

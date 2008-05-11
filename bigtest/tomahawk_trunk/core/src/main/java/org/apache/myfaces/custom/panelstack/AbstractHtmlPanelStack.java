@@ -22,9 +22,13 @@ import javax.faces.component.html.HtmlPanelGroup;
 
 
 /**
+ * A stack of panels, to switch panels dynamically. 
+ * 
  * Manage a stack of JSF components and allow for one child component to be choosen for rendering. The behaviour
  * is similar to the CardLayout of Java Swing. Property <code>selectedPanel</code> defines the id of the child
  * to be rendered. If no child panel is selected or if the selected panel can not be found the first child is rendered.
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
  *
  * @JSFComponent
  *   name = "t:panelStack"

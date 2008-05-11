@@ -126,6 +126,10 @@ public class AliasBean extends UIComponentBase implements BindingAware
     }
 
     /**
+     * The existing value that the alias can be set to. This can be 
+     * a literal string (like "toto") or a reference to an existing 
+     * bean (like "#{myBean.member1}").
+     * 
      * @JSFProperty
      */
     public String getValue()

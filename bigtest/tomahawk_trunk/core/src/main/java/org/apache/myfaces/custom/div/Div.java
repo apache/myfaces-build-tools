@@ -21,6 +21,9 @@ package org.apache.myfaces.custom.div;
 import org.apache.myfaces.custom.htmlTag.HtmlTag;
 
 /**
+ * Places a div around its children. Unless otherwise specified, 
+ * all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:div"
  *   tagClass = "org.apache.myfaces.custom.div.DivTag"

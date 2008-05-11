@@ -21,6 +21,10 @@ package org.apache.myfaces.custom.jslistener;
 import javax.faces.component.UIOutput;
 
 /**
+ * Value change listener on client side. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:jsValueChangeListener"
  *   class = "org.apache.myfaces.custom.jslistener.JsValueChangeListener"
@@ -54,6 +58,10 @@ public abstract class AbstractJsValueChangeListener extends UIOutput
     public abstract String getProperty();
 
     /**
+     *  If specified this JavaScript event will be inserted in the 
+     *  body tag. JavaScript code will be the same like it is 
+     *  rendered in the parent component.
+     * 
      * @JSFProperty
      */
     public abstract String getBodyTagEvent();

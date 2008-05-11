@@ -21,6 +21,10 @@ package org.apache.myfaces.custom.inputTextHelp;
 import org.apache.myfaces.component.html.ext.HtmlInputText;
 
 /**
+ * Extends standard inputText by helptext support. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:inputTextHelp"
  *   class = "org.apache.myfaces.custom.inputTextHelp.HtmlInputTextHelp"

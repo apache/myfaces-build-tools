@@ -29,6 +29,23 @@ import org.apache.myfaces.component.html.ext.HtmlCommandLink;
 import org.apache.myfaces.component.html.ext.HtmlDataTable;
 
 /**
+ * Clickable sort column header. 
+ * 
+ * Must be nested inside an extended data_table tag. This tag is 
+ * derived from the standard command_link tag and has the additional 
+ * attributes columnName and arrow. 
+ * 
+ * Note: In contrast to normal command links, the default for the 
+ * "immediate" attribute is "true". This is desirable as it avoids 
+ * validating all input fields in the enclosing form when the column 
+ * sort order changes. HOWEVER when the table contains input 
+ * components "immediate" must be set to false; otherwise input 
+ * fields will render blank after a sort, or will show their old 
+ * values (ie will not appear to sort though output fields in the 
+ * table will sort) when sort ordering is changed. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:commandSortHeader"
  *   class = "org.apache.myfaces.custom.sortheader.HtmlCommandSortHeader"
@@ -105,17 +122,32 @@ public abstract class AbstractHtmlCommandSortHeader
     }
 
     /**
+     * The name of this column. This name must uniquely identify this 
+     * column among all other (sortable) columns in the same 
+     * data_table. The sortColumn attribute of the embedding 
+     * data_table reflects the current sort column (see extended 
+     * data_table).
+     * 
      * @JSFProperty
      *   required="true"
      */
     public abstract String getColumnName();
 
     /**
+     * The property name associated with this column. This name must 
+     * be one of the properties of the row object by which the sorting 
+     * should be performed. The sortProperty attribute of the 
+     * embedding data_table reflects the current sort property 
+     * (see extended data_table).
+     * 
      * @JSFProperty
      */
     public abstract String getPropertyName();
 
     /**
+     * Indicates whether an arrow, that shows the sort direction 
+     * should be rendered. Default: false
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */

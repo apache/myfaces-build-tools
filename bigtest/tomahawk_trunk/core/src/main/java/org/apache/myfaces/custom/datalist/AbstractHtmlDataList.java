@@ -21,17 +21,21 @@ package org.apache.myfaces.custom.datalist;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.component.UserRoleAware;
 import org.apache.myfaces.component.html.util.HtmlComponentUtils;
-import org.apache.myfaces.shared_tomahawk.util._ComponentUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 
 /**
+ * Similar to dataTable, but does not render a table. 
+ * 
+ * Instead the layout attribute controls how each dataRow is rendered. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:dataList"
  *   class = "org.apache.myfaces.custom.datalist.HtmlDataList"
@@ -216,21 +220,37 @@ public abstract class AbstractHtmlDataList
     }
     
     /**
+     * A parameter name, under which the rowCount is set in request 
+     * scope similar to the var parameter.
+     * 
      * @JSFProperty
      */
     public abstract String getRowCountVar();
     
     /**
+     *  A parameter name, under which the current rowIndex is set in 
+     *  request scope similar to the var parameter.
+     * 
      * @JSFProperty
      */
     public abstract String getRowIndexVar();
-    
+
     /**
+     * simple|unorderedList|orderedList
+     * <ul>
+     *   <li>simple = for each dataRow all children are simply rendered</li>
+     *   <li>unorderedList = the list is rendered as HTML unordered list (= bullet list)</li>
+     *   <li>orderedList = the list is rendered as HTML ordered list</li>
+     * </ul>
+     * Default: simple
+     * 
      * @JSFProperty
      */
     public abstract String getLayout();
     
     /**
+     * CSS class to be applied to individual items in the list
+     * 
      * @JSFProperty
      */
     public abstract String getItemStyleClass();

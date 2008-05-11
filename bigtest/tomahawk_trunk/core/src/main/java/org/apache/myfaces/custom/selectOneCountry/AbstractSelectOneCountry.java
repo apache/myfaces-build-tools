@@ -36,6 +36,15 @@ import org.apache.myfaces.component.html.ext.HtmlSelectOneMenu;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
 /**
+ * A localized list of countries choose box. The value binds to the 
+ * country ISO 3166 code. This is the same code as for 
+ * java.util.Locale.getCountry(). The official codes list is 
+ * available here : 
+ * 
+ * http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:selectOneCountry"
  *   class = "org.apache.myfaces.custom.selectOneCountry.SelectOneCountry"
@@ -54,11 +63,15 @@ public abstract class AbstractSelectOneCountry extends HtmlSelectOneMenu {
     }
 
     /**
+     * Integer equals to the maximum number of characters in the country name.
+     * 
      * @JSFProperty
      */
     public abstract Integer getMaxLength();
     
     /**
+     * Integer equals to the maximum number of characters in the country name.
+     * 
      * @JSFProperty
      */
     public abstract String getEmptySelection();

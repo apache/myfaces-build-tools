@@ -35,6 +35,15 @@ import org.apache.myfaces.component.html.ext.HtmlSelectOneMenu;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
 /**
+ * A localized list of languages choose box. The value binds to the 
+ * language ISO 639 code (lowercase). This is the same code as 
+ * for java.util.Locale.getLanguage(). The official codes 
+ * list is available here : 
+ * 
+ * http://www.loc.gov/standards/iso639-2/englangn.html 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFComponent
  *   name = "t:selectOneLanguage"
  *   class = "org.apache.myfaces.custom.selectOneLanguage.SelectOneLanguage"
@@ -57,11 +66,15 @@ public abstract class AbstractSelectOneLanguage extends HtmlSelectOneMenu {
     }
 
     /**
+     * Integer equals to the maximum number of characters in the language name.
+     * 
      * @JSFProperty
      */
     public abstract Integer getMaxLength();
     
     /**
+     * Label and value to be used when displaying an empty selection
+     * 
      * @JSFProperty
      */
     public abstract String getEmptySelection();

@@ -93,6 +93,11 @@ public abstract class AbstractBuffer extends UIComponentBase{
     }
     
     /**
+     * An EL expression that specifies where to store a String holding 
+     * the results of rendering all the children of this component; 
+     * this is assigned to after rendering of this component (and its 
+     * children) is complete.
+     * 
      * @JSFProperty
      *   required = "true"
      *   localMethod = "true"    

@@ -36,6 +36,11 @@ import org.apache.myfaces.component.UniversalProperties;
 import org.apache.myfaces.component.html.ext.HtmlPanelGroup;
 
 /**
+ * 
+ * Renders a vertical menu structure with support for nested menu 
+ * items. Unless otherwise specified, all attributes accept 
+ * static values or EL expressions.
+ * 
  * Panel, that includes navigation items ({@link HtmlCommandNavigation}) and other
  * components (separators).
  * 
@@ -137,41 +142,57 @@ public abstract class AbstractHtmlPanelNavigation
     }
             
     /**
+     * The CSS class of closed navigation items.
+     * 
      * @JSFProperty
      */
     public abstract String getItemClass();
 
     /**
+     * The CSS class of open navigation items.
+     * 
      * @JSFProperty
      */
     public abstract String getOpenItemClass();
 
     /**
+     * The CSS class of the active navigation item.
+     * 
      * @JSFProperty
      */
     public abstract String getActiveItemClass();
 
     /**
+     * The CSS class for the td element of a separator.
+     * 
      * @JSFProperty
      */
     public abstract String getSeparatorClass();
 
     /**
+     * The CSS Style of closed navigation items.
+     * 
      * @JSFProperty
      */
     public abstract String getItemStyle();
 
     /**
+     * The CSS Style of open navigation items.
+     * 
      * @JSFProperty
      */
     public abstract String getOpenItemStyle();
 
     /**
+     * The CSS Style of the active navigation item.
+     * 
      * @JSFProperty
      */
     public abstract String getActiveItemStyle();
 
     /**
+     * The CSS Style for the td element of a separator.
+     * 
      * @JSFProperty
      */
     public abstract String getSeparatorStyle();

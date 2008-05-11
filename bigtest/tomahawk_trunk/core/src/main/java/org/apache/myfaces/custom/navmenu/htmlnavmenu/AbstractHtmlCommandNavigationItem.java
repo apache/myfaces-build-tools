@@ -33,6 +33,16 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.component.html.ext.HtmlCommandLink;
 
 /**
+ * Must be nested inside a panel_navigation action and renders a 
+ * clickable navigation item. 
+ * 
+ * This action is derived from the standard command_link action 
+ * and has equal attributes. (Replaces former "navigation_item" 
+ * tag.) 
+ * 
+ * Unless otherwise specified, all attributes accept static 
+ * values or EL expressions.
+ * 
  * Many thanks to the guys from Swiss Federal Institute of Intellectual Property & Marc Bouquet
  * for helping to develop this component.
  *
@@ -67,6 +77,8 @@ public abstract class AbstractHtmlCommandNavigationItem extends HtmlCommandLink 
     }
 
     /**
+     * Menu node is open.
+     * 
      * @JSFProperty
      *   localMethod="true"
      *   setMethod="true"
@@ -95,6 +107,8 @@ public abstract class AbstractHtmlCommandNavigationItem extends HtmlCommandLink 
     }    
 
     /**
+     * Menu node is active.
+     * 
      * @JSFProperty
      *   localMethod="true"
      *   setMethod="true"
@@ -109,11 +123,16 @@ public abstract class AbstractHtmlCommandNavigationItem extends HtmlCommandLink 
     public abstract void setActive(boolean active);
     
     /**
+     * A semicolon separated list of viewIds for which this item 
+     * should be active.
+     * 
      * @JSFProperty
      */
     public abstract String getActiveOnViewIds();
     
     /**
+     * The external link where to redirect when this is clicked.
+     * 
      * @JSFProperty
      */    
     public abstract String getExternalLink();

@@ -31,6 +31,12 @@ import org.apache.myfaces.component.UniversalProperties;
 import org.apache.myfaces.component.UserRoleAware;
 
 /**
+ * A component which just renders as a single icon (with optional label) when "collapsed", hiding all child components. 
+ * 
+ * When open, the child components can be seen.
+ * 
+ * The title attribute defines the label shown for the collapsible panel.
+ * 
  * @JSFComponent
  *   name = "t:collapsiblePanel"
  *   class = "org.apache.myfaces.custom.collapsiblepanel.HtmlCollapsiblePanel"
@@ -204,11 +210,19 @@ public abstract class AbstractHtmlCollapsiblePanel extends UIInput
     }
 
     /**
+     * The variable which you can use to check for the collapsed 
+     * state of the enclosing component. This is especially useful 
+     * for custom headers you define in a facet with name 'header'.
+     * 
      * @JSFProperty
      */
     public abstract String getVar();
 
     /**
+     * This variable is defined to hold the value of the title 
+     * component - you can use it for accessing this value in 
+     * custom headers you define in a facet with name 'header'.
+     * 
      * @JSFProperty
      */    
     public abstract String getTitleVar();
