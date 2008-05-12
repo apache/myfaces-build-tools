@@ -54,6 +54,14 @@ import org.apache.myfaces.component.html.ext.HtmlPanelGroup;
  *   superClass = "org.apache.myfaces.custom.datascroller.AbstractHtmlDataScroller"
  *   tagClass = "org.apache.myfaces.custom.datascroller.HtmlDataScrollerTag"
  *  
+ * @JSFJspProperty name = "onkeydown" tagExcluded = "true"
+ * @JSFJspProperty name = "onkeypress" tagExcluded = "true"
+ * @JSFJspProperty name = "onkeyup" tagExcluded = "true"
+ * @JSFJspProperty name = "onmousedown" tagExcluded = "true"
+ * @JSFJspProperty name = "onmousemove" tagExcluded = "true"
+ * @JSFJspProperty name = "onmouseout" tagExcluded = "true"
+ * @JSFJspProperty name = "onmouseover" tagExcluded = "true"
+ * @JSFJspProperty name = "onmouseup" tagExcluded = "true"
  * @author Thomas Spiegl (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

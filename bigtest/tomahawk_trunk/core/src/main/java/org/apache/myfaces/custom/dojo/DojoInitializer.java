@@ -34,6 +34,8 @@ import javax.faces.context.FacesContext;
  *   name = "t:dojoInitializer"
  *   tagClass = "org.apache.myfaces.custom.dojo.DojoInitializerTag"
  *
+ * @JSFJspProperty name = "converter" tagExcluded = "true"
+ * @JSFJspProperty name = "value" tagExcluded = "true"
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

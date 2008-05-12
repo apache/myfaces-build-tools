@@ -33,6 +33,7 @@ import javax.faces.component.html.HtmlPanelGroup;
  * @JSFComponent
  *   name = "t:panelStack"
  *   class = "org.apache.myfaces.custom.panelstack.HtmlPanelStack"
+ *   parent = "javax.faces.component.UIPanel"
  *   superClass = "org.apache.myfaces.custom.panelstack.AbstractHtmlPanelStack"
  *   tagClass = "org.apache.myfaces.custom.panelstack.PanelStackTag"
  *

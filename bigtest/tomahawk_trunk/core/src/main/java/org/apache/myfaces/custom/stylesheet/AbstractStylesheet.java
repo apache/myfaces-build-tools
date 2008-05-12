@@ -30,6 +30,7 @@ import org.apache.myfaces.component.UserRoleUtils;
  * @JSFComponent
  *   name = "t:stylesheet"
  *   class = "org.apache.myfaces.custom.stylesheet.Stylesheet"
+ *   parent = "javax.faces.component.UIComponentBase"
  *   superClass = "org.apache.myfaces.custom.stylesheet.AbstractStylesheet"
  *   tagClass = "org.apache.myfaces.custom.stylesheet.StylesheetTag"
  * 
