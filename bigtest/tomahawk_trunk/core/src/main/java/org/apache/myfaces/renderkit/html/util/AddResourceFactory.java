@@ -19,24 +19,22 @@
 
 package org.apache.myfaces.renderkit.html.util;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.shared_tomahawk.config.MyfacesConfig;
 import org.apache.myfaces.shared_tomahawk.util.ClassUtils;
 import org.apache.myfaces.shared_tomahawk.webapp.webxml.FilterMapping;
 import org.apache.myfaces.shared_tomahawk.webapp.webxml.WebXml;
+import org.apache.myfaces.tomahawk.util.ExternalContextUtils;
 import org.apache.myfaces.webapp.filter.ExtensionsFilter;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.portlet.PortletContext;
+import javax.portlet.PortletResponse;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 /**
  * This class provides the ability to instantiate AddResource objects. By
@@ -179,7 +177,7 @@ public class AddResourceFactory
 	 *            class name of a class implementing the
 	 * @link AddResource interface
 	 */
-	static AddResource getInstance(Map cacheMap, String contextPath,
+	static AddResource getInstance(Object context, Map cacheMap, String contextPath,
 			String addResourceClassName)
 	{
 		AddResource instance = null;
@@ -194,9 +192,15 @@ public class AddResourceFactory
 			if (addResourceClassName == null)
 			{
 				// For efficiency don't use reflection unless it is necessary
-				instance = new DefaultAddResource();
-				instance.setContextPath(contextPath);
-			}
+                if(context instanceof PortletContext) {
+                    instance = new NonBufferingAddResource();
+                    instance.setContextPath(contextPath);
+                }
+                else {
+                    instance = new DefaultAddResource();
+                    instance.setContextPath(contextPath);
+                }
+            }
 			else
 			{
 				try
@@ -265,10 +269,12 @@ public class AddResourceFactory
 
 	public static AddResource getInstance(FacesContext context)
 	{
-		AddResource addResource = getInstance(context
-			.getExternalContext().getRequestMap(), context
-			.getExternalContext().getRequestContextPath(), MyfacesConfig
-			.getCurrentInstance(context.getExternalContext())
+        ExternalContext externalContext = context
+			.getExternalContext();
+
+        AddResource addResource = getInstance(externalContext.getContext(), externalContext.getRequestMap(),
+                externalContext.getRequestContextPath(), MyfacesConfig
+			.getCurrentInstance(externalContext)
 			.getAddResourceClass());
 		checkEnvironment(context, addResource);
 		return addResource;
@@ -279,7 +285,7 @@ public class AddResourceFactory
 		ServletContext servletContext = request
 			.getSession().getServletContext();
 		Map requestMap = new RequestMapWrapper(request);
-		AddResource addResource = getInstance(requestMap, request
+		AddResource addResource = getInstance(servletContext, requestMap, request
 			.getContextPath(), MyfacesConfig
 			.getAddResourceClassFromServletContext(servletContext));
 		//
@@ -295,51 +301,60 @@ public class AddResourceFactory
 	private static void checkEnvironment(FacesContext context, AddResource addResource)
 	{
     	ExternalContext extctx = context.getExternalContext();
-    	
-    	if (extctx.getApplicationMap().containsKey(ENV_CHECKED_KEY))
-    	{
-    		// already checked
-    		return;
-    	}
-    	
-    	if (!MyfacesConfig.getCurrentInstance(extctx).isCheckExtensionsFilter())
-    	{
-    		// checks disabled by user request
-	    	extctx.getApplicationMap().put(ENV_CHECKED_KEY, Boolean.TRUE);
-	    	return;
-    	}
-    	
-    	synchronized (extctx.getApplicationMap())
-		{
-	    	if (addResource.requiresBuffer())
-	    	{
-	    		if (!extctx.getRequestMap().containsKey(ExtensionsFilter.DOFILTER_CALLED))
-	    		{
-	    			throwExtensionsFilterMissing("JSF mapping missing. JSF pages not covered.");
-	    		}
-	    	}
 
-	    	boolean foundMapping = false;
-	    	
-	    	List facesServletMappings = WebXml.getWebXml(extctx).getFacesExtensionsFilterMappings();
-	    	for (Iterator iterServletMappings = facesServletMappings.iterator(); iterServletMappings.hasNext();)
-	    	{
-	    		FilterMapping filterMapping = (FilterMapping) iterServletMappings.next();
-	    		if (checkFilterPattern(extctx, filterMapping))
-	    		{
-	    			foundMapping = true;
-	    			break;
-	    		}
-	    	}
-	    	
-	    	if (!foundMapping)
-	    	{
-	    		throwExtensionsFilterMissing("Resource mapping missing. Resources cant be delivered.");
-	    	}
-	    	
-	    	extctx.getApplicationMap().put(ENV_CHECKED_KEY, Boolean.TRUE);
-		}
-	}
+        //a check for a servlet-filter only makes sense in a servlet-environment....
+        //attention: checking for servlet-response doesn't work here - quite often, the portlet-response
+        //is implemented as a servlet-response, and therefore the check is implemented inversely
+    	
+        //if(extctx.getResponse() instanceof PortletResponse) {    	
+    	if(ExternalContextUtils.getRequestType(extctx).isPortlet()) {
+            return;
+        }
+
+        if (extctx.getApplicationMap().containsKey(ENV_CHECKED_KEY))
+        {
+            // already checked
+            return;
+        }
+
+        if (!MyfacesConfig.getCurrentInstance(extctx).isCheckExtensionsFilter())
+        {
+            // checks disabled by user request
+            extctx.getApplicationMap().put(ENV_CHECKED_KEY, Boolean.TRUE);
+            return;
+        }
+
+        synchronized (extctx.getApplicationMap())
+        {
+            if (addResource.requiresBuffer())
+            {
+                if (!extctx.getRequestMap().containsKey(ExtensionsFilter.DOFILTER_CALLED))
+                {
+                    throwExtensionsFilterMissing("JSF mapping missing. JSF pages not covered.");
+                }
+            }
+
+            boolean foundMapping = false;
+
+            List facesServletMappings = WebXml.getWebXml(extctx).getFacesExtensionsFilterMappings();
+            for (Iterator iterServletMappings = facesServletMappings.iterator(); iterServletMappings.hasNext();)
+            {
+                FilterMapping filterMapping = (FilterMapping) iterServletMappings.next();
+                if (checkFilterPattern(extctx, filterMapping))
+                {
+                    foundMapping = true;
+                    break;
+                }
+            }
+
+            if (!foundMapping)
+            {
+                throwExtensionsFilterMissing("Resource mapping missing. Resources cant be delivered.");
+            }
+
+            extctx.getApplicationMap().put(ENV_CHECKED_KEY, Boolean.TRUE);
+        }
+    }
 
     protected static boolean checkFilterPattern(ExternalContext extCtxt, FilterMapping filterMapping)
 	{

@@ -844,21 +844,7 @@ public class StreamingAddResource implements AddResource
     public void writeMyFacesJavascriptBeforeBodyEnd(HttpServletRequest request,
                                                     HttpServletResponse response) throws IOException
     {
-        throw new UnsupportedOperationException();
-        /*
-        if (beforeBodyEndPosition >= 0)
-        {
-            String myFacesJavascript = (String) request.getAttribute("org.apache.myfaces.myFacesJavascript");
-            if(myFacesJavascript != null)
-            {
-            	originalResponse.insert(beforeBodyEndPosition, myFacesJavascript);
-            }
-            else
-            {
-                log.warn("MyFaces special javascript could not be retrieved from request-map.");
-            }
-        }
-        */
+        throw new UnsupportedOperationException();       
     }
 
     /**

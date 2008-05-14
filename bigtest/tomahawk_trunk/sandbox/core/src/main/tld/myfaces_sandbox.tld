@@ -139,7 +139,7 @@ Sandbox-related entities.
 <!ENTITY xml_template_attributes SYSTEM "entities/xml_template_attributes.xml">
 <!ENTITY csvvalidator_attributes SYSTEM "entities/csvvalidator_attributes.xml">
 <!ENTITY submit_on_event_attributes	SYSTEM "entities/submit_on_event_attributes.xml">
-<!ENTITY excel_export_attributes	SYSTEM "entities/excel_export_attributes.xml">
+<!ENTITY exporter_attributes	SYSTEM "entities/exporter_attributes.xml">
 <!ENTITY dojowidget_attributes	SYSTEM "entities/dojowidget_attributes.xml">
 <!ENTITY floatingpane_base_attributes	SYSTEM "entities/floatingpane_base_attributes.xml">
 <!ENTITY filter_table_attributes  	SYSTEM "entities/filter_table_attributes.xml">
@@ -1695,24 +1695,14 @@ Sandbox-related entities.
     </tag>
 
     <tag>
-        <name>excelExport</name>
-        <tag-class>org.apache.myfaces.custom.excelexport.ExcelExportTag</tag-class>
+        <name>exporter</name>
+        <tag-class>org.apache.myfaces.custom.exporter.ExporterTag</tag-class>
         <body-content>JSP</body-content>
-        <description>Export datatable contents to an excel file
+        <description>Export datatable contents to an excel file or a pdf file.
         </description>
         &ui_component_attributes;
-        &excel_export_attributes;
+        &exporter_attributes;
     </tag>
-    
-    <tag>
-        <name>pdfExport</name>
-        <tag-class>org.apache.myfaces.custom.pdfexport.PDFExportTag</tag-class>
-        <body-content>JSP</body-content>
-        <description>Export datatable contents to a pdf file
-        </description>
-        &ui_component_attributes;
-        &excel_export_attributes;
-    </tag>    
 
 	<tag>
 		<name>floatingPane</name>
@@ -1876,17 +1866,80 @@ Sandbox-related entities.
         <tag-class>org.apache.myfaces.custom.captcha.CAPTCHATag</tag-class>
         <body-content>JSP</body-content>
         &ui_component_attributes;
-        &user_role_attributes;
       <attribute>
          <name>captchaSessionKeyName</name>
          <required>true</required>
          <rtexprvalue>true</rtexprvalue>
 	     <type>java.lang.String</type>
 	      <description>
-		Determines the CAPTCHA session key name.
+			Determines the CAPTCHA session key name.
 	      </description>
       </attribute>
+      <attribute>
+         <name>imageWidth</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue> 
+	      <description>
+			Integer to indicate the CAPTCHA width. default is 290.
+	      </description>
+      </attribute>
+      <attribute>
+         <name>imageHeight</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>    
+	      <description>
+			Integer to indicate the CAPTCHA height. default is 81.
+	      </description>
+      </attribute>                  
     </tag>
+    
+    <tag>
+        <name>media</name>
+        <tag-class>org.apache.myfaces.custom.media.MediaTag</tag-class>
+        <body-content>JSP</body-content>
+        &ui_component_attributes;
+      <attribute>
+         <name>source</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+	     <type>java.lang.String</type>
+	      <description>
+			Determines the path of the media file.
+	      </description>
+      </attribute>
+      <attribute>
+         <name>contentType</name>
+         <required>true</required>
+         <rtexprvalue>true</rtexprvalue>
+	     <type>java.lang.String</type>
+	      <description>
+			Determines the media content type.
+	      </description>
+      </attribute> 
+      <attribute>
+         <name>width</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue> 
+	      <description>
+			Integer to indicate the media weight.
+	      </description>
+      </attribute>
+      <attribute>
+         <name>height</name>
+         <required>false</required>
+         <rtexprvalue>true</rtexprvalue>    
+	      <description>
+			Integer to indicate the media height.
+	      </description>
+      </attribute>                  
+    </tag>    
 
+    <tag>
+        <name>exporterActionListener</name>
+        <tag-class>org.apache.myfaces.custom.exporter.ExporterActionListenerTag</tag-class>
+        <body-content>JSP</body-content>
+        &ui_component_attributes;        
+        &exporter_attributes;
+    </tag>    
 
 </taglib>

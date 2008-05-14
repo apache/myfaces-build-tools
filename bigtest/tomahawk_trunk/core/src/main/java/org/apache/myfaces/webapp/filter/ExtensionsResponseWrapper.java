@@ -18,19 +18,13 @@
  */
 package org.apache.myfaces.webapp.filter;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
+import org.xml.sax.InputSource;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-
-import org.xml.sax.InputSource;
+import java.io.*;
+import java.nio.charset.Charset;
 
 /**
  * @author Sylvain Vieujot (latest modification by $Author$)
@@ -40,10 +34,11 @@ public class ExtensionsResponseWrapper extends HttpServletResponseWrapper {
     private ByteArrayOutputStream stream = null;
     private PrintWriter printWriter = null;
     private String contentType;
+    private HttpServletResponse delegate;
 
     public ExtensionsResponseWrapper(HttpServletResponse response){
         super( response );
-
+        this.delegate = response;
         stream = new ByteArrayOutputStream();
     }
 
@@ -115,6 +110,10 @@ public class ExtensionsResponseWrapper extends HttpServletResponseWrapper {
         } catch (IOException e) {
 			e.printStackTrace();
         }
+    }
+
+    public HttpServletResponse getDelegate() {
+        return delegate;
     }
 
     /** Used in the <code>getOutputStream()</code> method.

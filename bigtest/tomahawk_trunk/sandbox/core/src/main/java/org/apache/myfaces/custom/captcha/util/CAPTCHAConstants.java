@@ -22,15 +22,9 @@ package org.apache.myfaces.custom.captcha.util;
  * This interface holds all the CAPTCHA related constants.
  */
 public interface CAPTCHAConstants {
-	
-	public static final int CAPTCHA_WIDTH = 290;
-
-	public static final int CAPTCHA_HEIGHT = 81;
-
+	public static final int DEFAULT_CAPTCHA_WIDTH = 290;
+	public static final int DEFAULT_CAPTCHA_HEIGHT = 81;
 	public static final double PI = 3.1415926535897932384626433832795;
-
 	public static final int TEXT_X_COORDINATE = 50;
-
 	public static final int TEXT_Y_COORDINATE = 60;
-	
 }

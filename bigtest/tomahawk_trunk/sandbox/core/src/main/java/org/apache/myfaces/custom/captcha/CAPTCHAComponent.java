@@ -25,36 +25,80 @@ import javax.faces.el.ValueBinding;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
 
-public class CAPTCHAComponent extends UIComponentBase { 
+public class CAPTCHAComponent extends UIComponentBase {
 
-    public static final String ATTRIBUTE_CAPTCHASESSIONKEYNAME = "captchaSessionKeyName";
-	public static String COMPONENT_TYPE = "org.apache.myfaces.CAPTCHA";
-	public static String RENDERER_TYPE = "org.apache.myfaces.CAPTCHA";
-	private String _captchaSessionKeyName;
-	
-	public String getFamily() {
-		return "org.apache.myfaces.CAPTCHA";
-	}
-	
-	public String getCaptchaSessionKeyName() {
-		if (_captchaSessionKeyName != null)
-			return _captchaSessionKeyName;
+    public static String COMPONENT_TYPE = "org.apache.myfaces.CAPTCHA";
+    public static String RENDERER_TYPE = "org.apache.myfaces.CAPTCHA";
+    
+    // Value binding constants
+    public static final String ATTRIBUTE_CAPTCHA_SESSION_KEY_NAME = "captchaSessionKeyName";
+    public static final String ATTRIBUTE_IMAGE_WIDTH = "imageWidth";
+    public static final String ATTRIBUTE_IMAGE_HEIGHT = "imageHeight";
+    
+    private String _captchaSessionKeyName;
+    private String _imageWidth;
+    private String _imageHeight;    
 
-		ValueBinding vb = getValueBinding("captchaSessionKeyName");
-		return vb != null ? RendererUtils.getStringValue(getFacesContext(), vb)
-				: null;
-	}
+    public String getFamily() {
+	return "org.apache.myfaces.CAPTCHA";
+    }
 
-	public Object saveState(FacesContext context) {
-		Object values[] = new Object[2];
-		values[0] = super.saveState(context);
-		values[1] = _captchaSessionKeyName;	
-		return ((values));
+    public String getCaptchaSessionKeyName() {
+	if (_captchaSessionKeyName != null)
+	{
+	    return _captchaSessionKeyName;
 	}
 
-	public void restoreState(FacesContext context, Object state) {
-		Object values[] = (Object[]) state;
-		super.restoreState(context, values[0]);
-		_captchaSessionKeyName = (String) values[1];
-	}	
+	ValueBinding vb = getValueBinding(ATTRIBUTE_CAPTCHA_SESSION_KEY_NAME);
+	return vb != null ? RendererUtils.getStringValue(getFacesContext(), vb)
+		: null;
+    }
+    
+    public String getImageWidth() {
+	if (_imageWidth != null) 
+	{
+	    return _imageWidth;
+	}
+
+	ValueBinding vb = getValueBinding(ATTRIBUTE_IMAGE_WIDTH);
+	return vb != null ? RendererUtils.getStringValue(getFacesContext(), vb)
+		: null;
+    }
+
+    public String getImageHeight() {
+	if (_imageHeight != null) 
+	{
+	    return _imageHeight;
+	}
+
+	ValueBinding vb = getValueBinding(ATTRIBUTE_IMAGE_HEIGHT);
+	return vb != null ? RendererUtils.getStringValue(getFacesContext(), vb)
+		: null;
+    }      
+
+    public void setImageWidth(String width) {
+	this._imageWidth = width;
+    }       
+    
+    public void setImageHeight(String height) {
+	this._imageHeight = height;
+    }    
+   
+
+    public Object saveState(FacesContext context) {
+	Object values[] = new Object[4];
+	values[0] = super.saveState(context);
+	values[1] = _captchaSessionKeyName;
+	values[2] = _imageWidth;
+	values[3] = _imageHeight;	
+	return ((values));
+    }
+
+    public void restoreState(FacesContext context, Object state) {
+	Object values[] = (Object[]) state;
+	super.restoreState(context, values[0]);
+	_captchaSessionKeyName = (String) values[1];
+	_imageWidth = (String) values[2];
+	_imageHeight = (String) values[3];	
+    }
 }

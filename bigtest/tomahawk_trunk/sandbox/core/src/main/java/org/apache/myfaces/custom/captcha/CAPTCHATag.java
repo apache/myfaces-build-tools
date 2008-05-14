@@ -24,42 +24,64 @@ import org.apache.myfaces.shared_tomahawk.taglib.UIComponentTagBase;
 
 public class CAPTCHATag extends UIComponentTagBase {
 
-	/**
-	 * return the component class ...
-	 */
-	public String getComponentType() {
-		return CAPTCHAComponent.COMPONENT_TYPE;
-	}
+    /**
+     * return the component class ...
+     */
+    public String getComponentType() {
+	return CAPTCHAComponent.COMPONENT_TYPE;
+    }
 
-	/**
-	 * Returns the component renderer ...
-	 */
-	public String getRendererType() {
-		return CAPTCHAComponent.RENDERER_TYPE;
-	}
+    /**
+     * Returns the component renderer ...
+     */
+    public String getRendererType() {
+	return CAPTCHAComponent.RENDERER_TYPE;
+    }
 
-	/**
-	 * release the used resources ...
-	 */
-	public void release() {
-		super.release();
-		_captchaSessionKeyName = null;
-	}
+    /**
+     * release the used resources ...
+     */
+    public void release() {
+	super.release();
+	_captchaSessionKeyName = null;
+	_imageHeight = null;
+	_imageWidth = null;
+    }
 
-	protected void setProperties(UIComponent component) {
-		super.setProperties(component);
-		setStringProperty(component, "captchaSessionKeyName",
-				_captchaSessionKeyName);	
-	}
+    protected void setProperties(UIComponent component) {
+	super.setProperties(component);
+	setStringProperty(component, CAPTCHAComponent.ATTRIBUTE_CAPTCHA_SESSION_KEY_NAME,
+		_captchaSessionKeyName);
+	setStringProperty(component, CAPTCHAComponent.ATTRIBUTE_IMAGE_WIDTH, _imageWidth);
+	setStringProperty(component, CAPTCHAComponent.ATTRIBUTE_IMAGE_HEIGHT, _imageHeight);	
+    }
 
-	public String getCaptchaSessionKeyName() {
-		return _captchaSessionKeyName;
-	}
+    public String getCaptchaSessionKeyName() {
+	return _captchaSessionKeyName;
+    }
 
-	public void setCaptchaSessionKeyName(String captchaSessionKeyName) {
-		this._captchaSessionKeyName = captchaSessionKeyName;
-	}
+    public void setCaptchaSessionKeyName(String captchaSessionKeyName) {
+	this._captchaSessionKeyName = captchaSessionKeyName;
+    }
+    
+    public String getImageWidth() {
+	return _imageWidth;
+    }
 
-	//Attributes ...
-	private String _captchaSessionKeyName;
+    public void setImageWidth(String width) {
+	this._imageWidth = width;
+    }   
+    
+    public String getImageHeight() {
+	return _imageHeight;
+    }
+
+    public void setImageHeight(String height) {
+	this._imageHeight = height;
+    }      
+
+    // Attributes ...
+    private String _captchaSessionKeyName;
+    private String _imageWidth;
+    private String _imageHeight;    
 }

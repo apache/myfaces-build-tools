@@ -147,8 +147,10 @@ public class JsValueChangeListenerRenderer
 
         if (!propName.equals("onchange") && value != null)
         {
-            AddResourceFactory.getInstance(context).
-                    addJavaScriptToBodyTag(context,jsValueChangeListener.getBodyTagEvent(), value);
+            //TODO: this should be refactored to register a javascript-event-wrapper the java-script way
+            //in the current version of AddResource, this would not work anymore
+            /*AddResourceFactory.getInstance(context).
+                    addJavaScriptToBodyTag(context,jsValueChangeListener.getBodyTagEvent(), value);*/
         }
         else if(value != null)
         {

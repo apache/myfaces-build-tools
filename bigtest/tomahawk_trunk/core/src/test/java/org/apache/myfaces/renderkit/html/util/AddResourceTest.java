@@ -48,7 +48,7 @@ public class AddResourceTest extends TestCase
 
        Map cacheMap = new LinkedHashMap();
 
-        AddResource instance1 = AddResourceFactory.getInstance(cacheMap, "/test1", null);
+        AddResource instance1 = AddResourceFactory.getInstance(null,cacheMap, "/test1", null);
         assertNotNull(instance1);
 
         /* no longer true
@@ -56,7 +56,7 @@ public class AddResourceTest extends TestCase
         assertNotSame(instance1, instance2);
         */
 
-        AddResourceFactory.getInstance(cacheMap, "/test1", null);
+        AddResourceFactory.getInstance(null,cacheMap, "/test1", null);
     }
 
     public void setUp()
@@ -179,7 +179,7 @@ public class AddResourceTest extends TestCase
         mockState.setup();
 
         // now start the test
-        AddResource instance1 = AddResourceFactory.getInstance(null,"/test", null);
+        AddResource instance1 = AddResourceFactory.getInstance(null,null,"/test", null);
         instance1.addJavaScriptHere(mockState._facesContext, "/scripts/script1");
 
         // verify that our mock objects got the expected callbacks
@@ -210,7 +210,7 @@ public class AddResourceTest extends TestCase
         String originalResponse =
             "<html><head></head><body></body></html>";
 
-        AddResource ar = AddResourceFactory.getInstance(null,"/test", null);
+        AddResource ar = AddResourceFactory.getInstance(null,null,"/test", null);
         ar.parseResponse(mockState._servletRequest,originalResponse,mockState._servletResponse);
         ar.writeWithFullHeader(mockState._servletRequest,mockState._servletResponse);
         ar.writeResponse(mockState._servletRequest,mockState._servletResponse);

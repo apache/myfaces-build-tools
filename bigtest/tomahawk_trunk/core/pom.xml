@@ -138,6 +138,14 @@
       <version>1.0</version>
       <scope>provided</scope>
     </dependency>
+    
+    <!-- Required for wrapper of FacesContext (compatible with 1.2) -->
+    <dependency>
+      <groupId>javax.el</groupId>
+      <artifactId>el-api</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>    
+    </dependency>    
 
     <!-- test dependencies -->
 
@@ -234,6 +242,15 @@
     </dependency>   
 
   </dependencies>
+
+  <repositories>
+    <!-- Repository for el-api -->
+    <repository>
+      <id>java.net</id>
+      <url>http://download.java.net/maven/1</url>
+      <layout>legacy</layout>
+    </repository>
+  </repositories>
 
   <build>
 

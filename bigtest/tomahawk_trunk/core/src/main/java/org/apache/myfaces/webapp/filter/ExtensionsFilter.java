@@ -202,7 +202,7 @@ public class ExtensionsFilter implements Filter {
 
         try
         {
-            addResource=AddResourceFactory.getInstance(httpRequest);
+            addResource = AddResourceFactory.getInstance(httpRequest);
             if( addResource.isResourceUri(_servletContext, httpRequest ) ){
                 addResource.serveResource(_servletContext, httpRequest, httpResponse);
                 return;
@@ -214,65 +214,7 @@ public class ExtensionsFilter implements Filter {
             throw new ServletException(th);
         }
 
-        try
-        {
-        	addResource.responseStarted();
-        	
-	        if (addResource.requiresBuffer())
-	        {
-		        ExtensionsResponseWrapper extendedResponse = new ExtensionsResponseWrapper((HttpServletResponse) response);
-		
-		        // Standard request
-		        chain.doFilter(extendedRequest, extendedResponse);
-		
-		        extendedResponse.finishResponse();
-		
-		        // write the javascript stuff for myfaces and headerInfo, if needed
-		        HttpServletResponse servletResponse = (HttpServletResponse)response;
-		
-		        // only parse HTML responses
-		        if (extendedResponse.getContentType() != null && isValidContentType(extendedResponse.getContentType()))
-		        {
-		            addResource.parseResponse(extendedRequest, extendedResponse.toString(),
-		                    servletResponse);
-		
-		            addResource.writeMyFacesJavascriptBeforeBodyEnd(extendedRequest,
-		                    servletResponse);
-		
-		            if( ! addResource.hasHeaderBeginInfos() ){
-		                // writes the response if no header info is needed
-		                addResource.writeResponse(extendedRequest, servletResponse);
-		                return;
-		            }
-		
-		            // Some headerInfo has to be added
-		            addResource.writeWithFullHeader(extendedRequest, servletResponse);
-		
-		            // writes the response
-		            addResource.writeResponse(extendedRequest, servletResponse);
-		        }
-		        else
-		        {
-
-		        	byte[] responseArray = extendedResponse.getBytes();
-
-                    if(responseArray.length > 0)
-                    {
- 			        	// When not filtering due to not valid content-type, deliver the byte-array instead of a charset-converted string.
- 			        	// Otherwise a binary stream gets corrupted.
- 			            servletResponse.getOutputStream().write(responseArray);
- 		        	}
-                }
-	        }
-	        else
-	        {
-		        chain.doFilter(extendedRequest, response);
-	        }
-        }
-        finally
-        {
-        	addResource.responseFinished();        	
-        }
+        chain.doFilter(extendedRequest, response);
     }
 
     public boolean isValidContentType(String contentType)

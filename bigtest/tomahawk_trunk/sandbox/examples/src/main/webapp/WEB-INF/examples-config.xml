@@ -491,16 +491,11 @@
     </managed-bean>
 
     <managed-bean>
-    	<managed-bean-name>excelExportBean</managed-bean-name>
-    	<managed-bean-class>org.apache.myfaces.examples.excelexport.ExcelExportBean</managed-bean-class>
+    	<managed-bean-name>exporterBean</managed-bean-name>
+    	<managed-bean-class>org.apache.myfaces.examples.exporter.ExporterBean</managed-bean-class>
     	<managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     
-    <managed-bean>
-    	<managed-bean-name>pdfExportBean</managed-bean-name>
-    	<managed-bean-class>org.apache.myfaces.examples.pdfexport.PDFExportBean</managed-bean-class>
-    	<managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>    
 
     <!-- XMLTemplate -->
     <managed-bean>

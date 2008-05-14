@@ -149,13 +149,13 @@ org_apache_myfaces_PopupCalendar.prototype._showPopupPostProcess = function(over
     if (this.ie)
     {
         // The iframe created here is a hack to work around an IE bug. In IE,
-        // "windowws controls" (esp selectboxes) do not respect the z-index
+        // "windowed controls" (esp selectboxes) do not respect the z-index
         // setting of "non-windowed controls", meaning they will be drawn on
         // top of components that they should theoretically be underneath.
         // However a selectbox will NOT be drawn on top of an iframe, so the
-        // workaround is to create an iframe is created with no content, then
-        // in function _recalculateElement position the iframe under the
-        // "popup" div. 
+        // workaround is to create an iframe with no content, then in function
+        // _recalculateElement position the iframe under the "popup" div to
+        // "mask out" the unwanted elements. 
         var iframe = document.getElementById(overDiv.id + "_IFRAME");
 
         if (iframe == null)
@@ -168,7 +168,7 @@ org_apache_myfaces_PopupCalendar.prototype._showPopupPostProcess = function(over
               + " style='visibility:hidden; position: absolute; top:0px;left:0px;'"
               + "/>");
             //we can append it lazily since we are late here anyway and everything is rendered
-            document.appendChild(iframe);
+            document.body.appendChild(iframe);
         }
 
         // now put the iframe at the appropriate location, and make it visible.
@@ -411,6 +411,13 @@ org_apache_myfaces_PopupCalendar.prototype.init = function(containerCtl)
 
             this.containerCtl.appendChild(this.selectYearDiv);
 
+            // Catch global keypresses and clicks, so that entering data into any field
+            // outside the calendar, or clicking anywhere outside the calendar, will
+            // close it.
+            //
+            // This is ugly, as it's quite a load on the client to check this for every
+            // keystroke/click. It would be nice to find an alternative...maybe register
+            // these listeners only when a calendar is open?
             Event.observe(document, "keypress", this._keypresshandler.bind(this), false);
             Event.observe(document, "click", this._clickhandler.bind(this), false);
         }

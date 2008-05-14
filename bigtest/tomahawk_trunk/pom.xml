@@ -77,7 +77,7 @@
   <profiles>
     <profile>
       <activation>
-        <jdk>1.5</jdk>
+        <jdk>!1.4</jdk>
       </activation>
       <modules>
         <module>sandbox15</module>

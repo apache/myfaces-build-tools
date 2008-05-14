@@ -1,4 +1,4 @@
-﻿<%@ page session="false" contentType="text/html;charset=utf-8"%>
+<%@ page session="false" contentType="text/html;charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 
@@ -107,8 +107,7 @@
                 <h:outputLink value="filterTable.jsf" ><f:verbatim>Filter Table</f:verbatim></h:outputLink>
             	<h:outputLink value="autoUpdateDataTable.jsf" ><f:verbatim>Automatically updated dataTable per AJAX</f:verbatim></h:outputLink>
             	<h:outputLink value="selectOneRow.jsf"><f:verbatim>selectOneRow - a DataTable Enhancement</f:verbatim></h:outputLink>
-            	<h:outputLink value="excelExport.jsf"><f:verbatim>ExcelExport - Export datatable contents as an excel file</f:verbatim></h:outputLink>
-            	<h:outputLink value="pdfExport.jsf"><f:verbatim>PDFExport - Export datatable contents as a PDF file</f:verbatim></h:outputLink>            	
+			<h:outputLink value="exporter.jsf"><f:verbatim>Exporter - Export datatable contents as an excel file or as a pdf file</f:verbatim></h:outputLink>
             </h:panelGrid>
 
             <h:outputText value="Selection Lists"/>
@@ -197,6 +196,13 @@
 	                <f:verbatim>CAPTCHA - component to generate random text images for security purposes</f:verbatim>
 	            </h:outputLink>
          </h:panelGrid>
+         
+         <h:outputText value="Media"/>
+         <h:panelGrid style="padding-left:25px">
+	            <h:outputLink value="media.jsf" >
+	                <f:verbatim>Media - component to display media content, such as audio, video, or image in a player embedded in the user agent.</f:verbatim>
+	            </h:outputLink>
+         </h:panelGrid>         
         
         <f:verbatim><br/><br/><br/><br/><br/><br/><br/></f:verbatim>
     </h:form>

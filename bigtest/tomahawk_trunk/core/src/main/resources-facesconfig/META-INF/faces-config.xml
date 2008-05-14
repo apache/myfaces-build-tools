@@ -25,11 +25,16 @@
 
 <faces-config xmlns="http://java.sun.com/JSF/Configuration">
 
-  <lifecycle>
+    <lifecycle>
+      <phase-listener>org.apache.myfaces.webapp.filter.ServeResourcePhaseListener</phase-listener>
       <phase-listener>org.apache.myfaces.renderkit.html.util.ExtensionsPhaseListener</phase-listener>
       <!-- This PhaseListener is only necessary if the autoscroll feature is used -->
       <phase-listener>org.apache.myfaces.renderkit.html.util.AutoScrollPhaseListener</phase-listener>
-  </lifecycle>
+    </lifecycle>
+
+    <factory>
+      <faces-context-factory>org.apache.myfaces.webapp.filter.TomahawkFacesContextFactory</faces-context-factory>
+    </factory>
 
     <!-- MyFaces extended standard components (in alphabetical order) -->
 
