@@ -24,10 +24,6 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.custom.dojo.DojoWidget;
 
-/**
- * TitlePane Component class
- */
-
 /*
  * //faces config definition, please cut/paste it into your faces-config
  * <component> <component-type>org.apache.myfaces.TitlePane</component-type>
@@ -39,6 +35,14 @@ import org.apache.myfaces.custom.dojo.DojoWidget;
  * 
  */
 
+/**
+ * TitlePane Component class
+ *  
+ * @JSFComponent
+ *   name = "s:layoutingTitlePane"
+ *   tagClass = "org.apache.myfaces.custom.dojolayouts.TitlePaneTag"
+ *   
+ */
 public class TitlePane extends DojoContentPane implements DojoWidget {
     // ------------------ GENERATED CODE BEGIN (do not modify!)
     // --------------------

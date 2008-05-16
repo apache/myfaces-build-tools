@@ -23,6 +23,10 @@ import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 
 /**
+ * @JSFComponent
+ *   name = "s:filterTable"
+ *   tagClass = "org.apache.myfaces.custom.table.FilterTableTag"
+ *   
  * @author Thomas Spiegl
  */
 public class FilterTable extends UIData {

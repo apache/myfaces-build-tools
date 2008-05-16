@@ -41,6 +41,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 /**
  * Basic HTML Renderer for the inputSuggest component.
  *
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.InputSuggest"
+ * 
  * @author Sean Schofield
  * @author Matt Blum
  * @version $Revision: $ $Date: $

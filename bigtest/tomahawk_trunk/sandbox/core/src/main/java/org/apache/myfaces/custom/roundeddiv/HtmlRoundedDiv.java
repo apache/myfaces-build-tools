@@ -35,6 +35,10 @@ import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
  * Component that generates a DIV tag with rounded corners that may
  * be either 3D or 2D in appearence.
  *
+ * @JSFComponent
+ *   name = "s:roundedDiv"
+ *   tagClass = "org.apache.myfaces.custom.roundeddiv.HtmlRoundedDivTag"
+ *   
  * @author Andrew Robinson (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

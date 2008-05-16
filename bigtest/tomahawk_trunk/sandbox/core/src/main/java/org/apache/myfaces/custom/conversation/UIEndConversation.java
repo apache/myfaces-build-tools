@@ -31,6 +31,10 @@ import java.util.Collection;
 /**
  * end a conversation
  *
+ * @JSFComponent
+ *   name = "s:endConversation"
+ *   tagClass = "org.apache.myfaces.custom.conversation.EndConversationTag"
+ *   
  * @author imario@apache.org
  */
 public class UIEndConversation extends AbstractConversationComponent

@@ -38,6 +38,14 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
 
+/**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.PasswordStrength"
+ *   type = "org.apache.myfaces.PasswordStrength"
+ * 
+ */
 public class PasswordStrengthRenderer extends Renderer {
 
 	private void addResources(FacesContext context, UIComponent component,

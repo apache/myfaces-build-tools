@@ -28,6 +28,16 @@ import org.apache.myfaces.custom.exporter.util.ExporterConstants;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRenderer;
 
+/**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.Export"
+ *   type = "org.apache.myfaces.ExporterRenderer"
+ *
+ * @author Hazem Saleh
+ *
+ */
 public class ExporterRenderer extends HtmlRenderer {
 
 	public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException{

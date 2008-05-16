@@ -55,6 +55,12 @@ import org.apache.myfaces.renderkit.html.util.ResourceLoader;
 import org.apache.myfaces.shared_tomahawk.util.ClassUtils;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.OutputLinkDynamicRenderer"
+ *
  * @author Sylvain Vieujot
  * @version $Revision$ $Date$
  */

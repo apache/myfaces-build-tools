@@ -45,6 +45,10 @@ import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
  * to be rendered. If index, it will render the given indexes.</p>
  * <p>See the taglib for more documentation</p>
  * 
+ * @JSFComponent
+ *   name = "s:limitRendered"
+ *   tagClass = "org.apache.myfaces.custom.limitrendered.UILimitRenderedTag"
+ *   
  * @author Andrew Robinson (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

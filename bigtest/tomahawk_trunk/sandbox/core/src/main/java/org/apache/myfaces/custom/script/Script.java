@@ -26,6 +26,10 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 import org.apache.myfaces.shared_tomahawk.util._ComponentUtils;
 
 /**
+ * @JSFComponent
+ *   name = "s:script"
+ *   tagClass = "org.apache.myfaces.custom.script.ScriptTag"
+ *   
  * @author Matthias Wessendorf (changed by $Author$)
  * @version $Revision$ $Date$
  */

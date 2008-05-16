@@ -28,6 +28,10 @@ import javax.faces.el.ValueBinding;
 import java.io.IOException;
 
 /**
+ * @JSFComponent
+ *   name = "s:autoUpdateDataTable"
+ *   tagClass = "org.apache.myfaces.custom.autoupdatedatatable.AutoUpdateDataTableTag"
+ *   
  * @author J&ouml;rg Artaker
  * @author Thomas Huber
  * @version $Revision: $ $Date: $

@@ -31,6 +31,10 @@ import java.io.IOException;
  * When the selected value of the latter changes, it executes an ajax call to the 
  * specified method to refresh its contents based on the new selected value. 
  * 
+ * @JSFComponent
+ *   name = "s:ajaxChildComboBox"
+ *   tagClass = "org.apache.myfaces.custom.ajaxchildcombobox.AjaxChildComboBoxTag"
+ *   
  * @author Sharath Reddy
  */
 public class AjaxChildComboBox extends HtmlSelectOneMenu implements AjaxComponent

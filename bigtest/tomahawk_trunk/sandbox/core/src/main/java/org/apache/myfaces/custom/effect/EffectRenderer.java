@@ -44,6 +44,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
  * For the fade, we only need a simple renderer and a backend javascript
  * inclusion so that we can serve it out of the jar
  *
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.effect.EffectRenderer"
+ *
  * @author Werner Punz werpu@gmx.at
  * @version $Revision$ $Date$
  */

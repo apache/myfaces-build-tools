@@ -34,6 +34,12 @@ import javax.faces.component.UIComponent;
 import java.io.IOException;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Command"
+ *   type = "org.apache.myfaces.CommandButtonAjax"
+ *
  * User: Travis Reeder
  * Date: Mar 22, 2006
  * Time: 4:38:13 PM

@@ -24,6 +24,10 @@ import javax.faces.el.ValueBinding;
 import org.apache.myfaces.custom.htmlTag.HtmlTag;
 
 /**
+ * @JSFComponent
+ *   name = "s:fieldset"
+ *   tagClass = "org.apache.myfaces.custom.fieldset.FieldsetTag"
+ *   
  * @author svieujot (latest modification by $Author$)
  * @version $Revision$ $Date: 2005-06-09 02:27:56 -0400 (Thu, 09 Jun 2005) $
  */
@@ -42,6 +46,9 @@ public class Fieldset extends HtmlTag {
 	return "fieldset";
   }
   
+  /**
+   * @JSFProperty
+   */
   public String getLegend(){
       if (legend != null)
           return legend;

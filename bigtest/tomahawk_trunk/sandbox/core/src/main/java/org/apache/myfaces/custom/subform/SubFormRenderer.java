@@ -25,6 +25,12 @@ import javax.faces.context.FacesContext;
 import java.util.Map;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.SubForm"
+ *   type = "org.apache.myfaces.SubForm"
+ * 
  * @author Gerald Muellan
  *         Date: 19.01.2006
  *         Time: 14:01:35

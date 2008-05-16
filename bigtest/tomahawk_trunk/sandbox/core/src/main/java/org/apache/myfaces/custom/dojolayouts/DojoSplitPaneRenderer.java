@@ -34,6 +34,16 @@ import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 
+/**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.DojoSplitPaneRenderer"
+ *
+ * @author werpu
+ *
+ */
 public class DojoSplitPaneRenderer extends DojoContentPaneRenderer {
     protected void encodeJavascriptBegin(FacesContext context, UIComponent component) throws IOException {
         super.encodeJavascriptBegin(context, component);

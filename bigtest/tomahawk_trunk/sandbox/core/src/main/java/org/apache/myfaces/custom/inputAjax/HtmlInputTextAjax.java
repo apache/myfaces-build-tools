@@ -31,6 +31,10 @@ import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 import org.apache.myfaces.custom.ajax.api.DeprecatedAjaxComponent;
 
 /**
+ * @JSFComponent
+ *   name = "s:inputTextAjax"
+ *   tagClass = "org.apache.myfaces.custom.inputAjax.HtmlInputTextAjaxTag"
+ *   
  * User: treeder
  * Date: Oct 28, 2005
  * Time: 7:48:57 PM

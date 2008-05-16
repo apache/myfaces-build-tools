@@ -31,6 +31,12 @@ import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 /**
  * Renderer for component HtmlAjaxChildComboBox
  * 
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.ToggleLink"
+ * 
  * @author Sharath Reddy
  */
 public class ToggleLinkRenderer extends HtmlLinkRenderer {

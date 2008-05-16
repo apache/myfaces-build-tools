@@ -32,6 +32,10 @@ import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 import org.apache.myfaces.custom.ajax.api.DeprecatedAjaxComponent;
 
 /**
+ * @JSFComponent
+ *   name = "s:selectOneRadioAjax"
+ *   tagClass = "org.apache.myfaces.custom.inputAjax.HtmlSelectOneRadioAjaxTag"
+ *   
  * User: treeder
  * Date: Nov 10, 2005
  * Time: 4:45:09 PM

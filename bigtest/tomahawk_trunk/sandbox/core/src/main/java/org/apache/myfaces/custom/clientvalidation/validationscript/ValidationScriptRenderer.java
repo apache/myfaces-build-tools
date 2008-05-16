@@ -28,6 +28,12 @@ import org.apache.myfaces.custom.clientvalidation.common.CVUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.clientvalidation"
+ *   type = "org.apache.myfaces.clientvalidation.ValidationScriptRenderer"
+ *
  * @author cagatay (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

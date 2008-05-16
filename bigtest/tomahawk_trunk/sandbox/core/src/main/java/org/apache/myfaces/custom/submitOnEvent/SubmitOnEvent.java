@@ -28,6 +28,10 @@ import javax.faces.context.FacesContext;
  * Attach an event handler to an input element or use a global event handler to
  * submit a form by "clicking" on a link or button
  *
+ * @JSFComponent
+ *   name = "s:submitOnEvent"
+ *   tagClass = "org.apache.myfaces.custom.submitOnEvent.SubmitOnEventTag"
+ *   
  * @author Mario Ivankovits (imario -at - apache.org)
  */
 public class SubmitOnEvent extends UIComponentBase

@@ -27,6 +27,10 @@ import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
 import org.apache.myfaces.validator.ValidatorBase;
 
 /**
+ * @JSFValidator
+ *   name = "s:validateISBN"
+ *   tagClass = "org.apache.myfaces.custom.isbnvalidator.ValidateISBNTag"
+ *   
  * @author <a href="mailto:matzew@apache.org">Matthias We&szlig;endorf</a> (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

@@ -16,42 +16,28 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.myfaces.custom.fieldset;
 
-import javax.faces.component.UIComponent;
+package org.apache.myfaces.test;
 
-import org.apache.myfaces.custom.htmlTag.HtmlTagTag;
 /**
- * @author svieujot (latest modification by $Author$)
- * @version $Revision$ $Date: 2005-06-09 02:27:56 -0400 (Thu, 09 Jun 2005) $
+ * @author Dennis C. Byrne
  */
-public class FieldsetTag extends HtmlTagTag {
 
-	private String legend = null;
-	
-	public FieldsetTag() {
-		super();
-	}
+public class MyFacesTagLibTestCase extends AbstractTagLibTestCase {
 
-	public String getComponentType() {
-		return Fieldset.COMPONENT_TYPE;
-	}
-	
-	public String getRendererType() {
-		return FieldsetRenderer.RENDERER_TYPE;
-	}
+	protected static final String META_INF = "META-INF/";
 
-	public void release() {
-		super.release();
-		this.legend = null;
+	public MyFacesTagLibTestCase(){
+
+		// TODO get the sandbox in here
+
+		tldPaths = new String[3];
+		tldPaths[0] = META_INF + "myfaces_html.tld";
+		tldPaths[1] = META_INF + "myfaces_core.tld";
+		tldPaths[2] = META_INF + "tomahawk.tld";
+		tldPaths[2] = META_INF + "myfaces_sandbox.tld";
+		// tldPaths[3] = META_INF + "myfaces_sandbox.tld";
+
 	}
 
-	protected void setProperties(UIComponent component) {
-		super.setProperties(component);
-		setStringProperty(component, "legend", legend);
-	}
-
-	public void setLegend(String legend) {
-		this.legend = legend;
-	}
 }

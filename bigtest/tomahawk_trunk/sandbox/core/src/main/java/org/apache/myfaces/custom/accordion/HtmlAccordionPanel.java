@@ -28,6 +28,10 @@ import org.apache.myfaces.component.html.ext.HtmlPanelGroup;
 
 
 /**
+ * @JSFComponent
+ *   name = "s:accordionPanel"
+ *   tagClass = "org.apache.myfaces.custom.accordion.HtmlAccordionPanelTag"
+ *   
  * @author Martin Marinschek
  * @version $Revision: $ $Date: $
  *          <p/>

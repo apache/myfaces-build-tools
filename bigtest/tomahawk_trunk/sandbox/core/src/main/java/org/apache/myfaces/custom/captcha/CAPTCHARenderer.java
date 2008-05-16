@@ -47,7 +47,16 @@ import org.apache.myfaces.renderkit.html.util.AddResource;
 import org.apache.myfaces.renderkit.html.util.AddResourceFactory;
 import org.apache.myfaces.renderkit.html.util.ResourceLoader;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
-
+/**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.CAPTCHA"
+ *   type = "org.apache.myfaces.CAPTCHA"
+ *
+ * @author Hazem Saleh
+ *
+ */
 public class CAPTCHARenderer extends Renderer implements ResourceLoader {
 
     public void encodeBegin(FacesContext context, UIComponent component)

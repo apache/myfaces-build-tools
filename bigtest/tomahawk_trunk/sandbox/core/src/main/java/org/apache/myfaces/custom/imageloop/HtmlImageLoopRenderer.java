@@ -33,6 +33,12 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.HtmlImageLoop"
+ *
  * HTML image loop renderer. 
  * @author Felix Röthenbacher (latest modification by $Author:$)
  * @version $Revision:$ $Date:$

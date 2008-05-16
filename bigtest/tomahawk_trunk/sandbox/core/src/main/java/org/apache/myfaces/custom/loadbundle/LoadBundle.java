@@ -44,6 +44,10 @@ import java.util.*;
  * on rendering - this load-bundle does it on every life-cycle,
  * and optionally whenever the method loadBundle is called.
  *
+ * @JSFComponent
+ *   name = "s:loadBundle"
+ *   tagClass = "org.apache.myfaces.custom.loadbundle.LoadBundleTag"
+ *   
  * @author Martin Marinschek
  */
 public class LoadBundle extends UIComponentBase implements StateHolder {

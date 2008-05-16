@@ -39,6 +39,12 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 import org.apache.myfaces.renderkit.html.ext.HtmlCheckboxRenderer;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.SelectBoolean"
+ *   type = "org.apache.myfaces.CheckboxAjax"
+ *
  * User: treeder
  * Date: Nov 21, 2005
  * Time: 9:09:20 AM

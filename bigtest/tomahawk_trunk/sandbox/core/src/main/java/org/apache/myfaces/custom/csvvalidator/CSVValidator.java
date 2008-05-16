@@ -27,6 +27,9 @@ import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
 import org.apache.myfaces.validator.ValidatorBase;
 
 /**
+ * @JSFValidator
+ *   name = "s:validateCSV"
+ *   tagClass = "org.apache.myfaces.custom.csvvalidator.ValidateCSVTag"
 *
 * @author Lance Frohman
 *

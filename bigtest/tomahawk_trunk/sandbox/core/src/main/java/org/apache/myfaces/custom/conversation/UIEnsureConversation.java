@@ -33,6 +33,10 @@ import java.io.IOException;
  * check this before ANY rendering - and maybe to invoke a navigation then
  * </p>
  *
+ * @JSFComponent
+ *   name = "s:ensureConversation"
+ *   tagClass = "org.apache.myfaces.custom.conversation.EnsureConversationTag"
+ *   
  * @author imario@apache.org
  */
 public class UIEnsureConversation extends AbstractConversationComponent

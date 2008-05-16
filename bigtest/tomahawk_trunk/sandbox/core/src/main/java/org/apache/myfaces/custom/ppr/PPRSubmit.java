@@ -32,6 +32,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @JSFComponent
+ *   name = "s:pprSubmit"
+ *   tagClass = "org.apache.myfaces.custom.ppr.PPRSubmitTag"
+ *   
  * @author Thomas Spiegl
  */
 public class PPRSubmit extends UIComponentBase

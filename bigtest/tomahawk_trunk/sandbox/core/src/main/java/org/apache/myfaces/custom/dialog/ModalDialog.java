@@ -25,6 +25,14 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
+/**
+ * 
+ * @JSFComponent
+ *   name = "s:modalDialog"
+ *   tagClass = "org.apache.myfaces.custom.dialog.ModalDialogTag"
+ *   
+ *
+ */
 public class ModalDialog extends UIPanel implements DojoWidget {
 
     public static final String COMPONENT_TYPE = "org.apache.myfaces.ModalDialog";

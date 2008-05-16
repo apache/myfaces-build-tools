@@ -27,6 +27,9 @@ import javax.faces.validator.ValidatorException;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.myfaces.validator.ValidatorBase;
 /**
+ * @JSFValidator
+ *   name = "s:validateUrl"
+ *   tagClass = "org.apache.myfaces.custom.urlvalidator.ValidateUrlTag"
  *
  * @author Fabian Frederick
  *

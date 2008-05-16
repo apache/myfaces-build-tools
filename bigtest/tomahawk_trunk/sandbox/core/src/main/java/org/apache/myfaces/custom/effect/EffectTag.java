@@ -20,7 +20,7 @@ package org.apache.myfaces.custom.effect;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.custom.div.DivTag;
+import org.apache.myfaces.shared_tomahawk.taglib.html.HtmlOutputTextTagBase;
 
 /**
  * The tag for the fade, it wont have any attributes just a plain tag, which
@@ -36,8 +36,8 @@ import org.apache.myfaces.custom.div.DivTag;
  * @version $Revision$ $Date$
  */
 
-public class EffectTag extends DivTag {
-
+public class EffectTag extends HtmlOutputTextTagBase {
+    //DivTag
     public static final String	TAG_PARAM_FADECOLOR		= "fadeColor";
 
     public static final String	TAG_PARAM_FADE			= "fade";
@@ -108,7 +108,7 @@ public class EffectTag extends DivTag {
     }
 
     public String getComponentType() {
-        return super.getComponentType();
+        return Effect.COMPONENT_TYPE;
     }
 
     public String getRendererType() {

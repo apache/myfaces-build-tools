@@ -27,6 +27,10 @@ import org.apache.myfaces.custom.dynamicResources.ResourceRenderer;
 import org.apache.myfaces.shared_tomahawk.util.ClassUtils;
 
 /**
+ * @JSFComponent
+ *   name = "s:outputLinkDynamic"
+ *   tagClass = "org.apache.myfaces.custom.outputlinkdynamic.OutputLinkDynamicTag"
+ *   
  * @author Sylvain Vieujot (latest modification by $Author$)
  *
  * @version $Revision$ $Date$
@@ -40,6 +44,8 @@ import org.apache.myfaces.shared_tomahawk.util.ClassUtils;
 
 public class OutputLinkDynamic extends HtmlOutputLink
 {
+    
+    public static final String COMPONENT_TYPE = "org.apache.myfaces.OutputLinkDynamic";
     private static final String DEFAULT_RENDERER_TYPE = OutputLinkDynamicRenderer.RENDERER_TYPE;
 
     public OutputLinkDynamic()

@@ -26,6 +26,10 @@ import javax.faces.el.ValueBinding;
 import java.io.IOException;
 
 /**
+ * @JSFComponent
+ *   name = "s:inputSuggestAjax"
+ *   tagClass = "org.apache.myfaces.custom.suggestajax.inputsuggestajax.InputSuggestAjaxTag"
+ *   
  * @author Gerald Muellan (latest modification by $Author: svieujot $)
  * @author Martin Marinschek
  *

@@ -122,6 +122,10 @@ import org.apache.myfaces.validator.ValidatorBase;
  *   - Operator names should be localized.
  *   - The default message key should be localized.
  *   - Perhaps an exception should be thrown if the two values are not Comparable and no Comparator is specified.
+ *   
+ * @JSFValidator
+ *   name = "s:validateCompareTo"
+ *   tagClass = "org.apache.myfaces.custom.comparetovalidator.ValidateCompareToTag"
  * 
  */
 public class CompareToValidator extends ValidatorBase {

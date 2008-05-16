@@ -40,6 +40,12 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 
 /**
  * 
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.TimedNotifierRenderer"
+ * 
  * @author werpu
  * The html renderer for the timed notifier
  *

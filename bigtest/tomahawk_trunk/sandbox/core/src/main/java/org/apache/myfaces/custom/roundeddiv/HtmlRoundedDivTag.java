@@ -25,7 +25,7 @@ import java.awt.Color;
 import javax.faces.component.UIComponent;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.custom.div.DivTag;
+import org.apache.myfaces.shared_tomahawk.taglib.html.HtmlOutputTextTagBase;
 
 /**
  * The Tag implementation for the {@link HtmlRoundedDiv} component and those sorry
@@ -34,8 +34,9 @@ import org.apache.myfaces.custom.div.DivTag;
  * @author Andrew Robinson (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
-public class HtmlRoundedDivTag extends DivTag
+public class HtmlRoundedDivTag extends HtmlOutputTextTagBase
 {
+    //DivTag
     private String color;
     private String backgroundColor;
     private String borderColor;
@@ -64,6 +65,20 @@ public class HtmlRoundedDivTag extends DivTag
         return HtmlRoundedDiv.COMPONENT_TYPE;
     }
 
+    private String _enabledOnUserRole;
+    
+    public void setEnabledOnUserRole(String enabledOnUserRole)
+    {
+        _enabledOnUserRole = enabledOnUserRole;
+    }
+ 
+    private String _visibleOnUserRole;
+    
+    public void setVisibleOnUserRole(String visibleOnUserRole)
+    {
+        _visibleOnUserRole = visibleOnUserRole;
+    }
+    
     /**
      * @param inverse the inverse to set
      */
@@ -168,6 +183,8 @@ public class HtmlRoundedDivTag extends DivTag
         setStringProperty(component, "contentStyle", this.contentStyle);
         setStringProperty(component, "contentStyleClass", this.contentStyleClass);
         setStringProperty(component, "layout", this.layout);
+        setStringProperty(component, "enabledOnUserRole", this._enabledOnUserRole);
+        setStringProperty(component, "visibleOnUserRole", this._visibleOnUserRole);
         setBooleanProperty(component, "inverse", this.inverse);
     }
 

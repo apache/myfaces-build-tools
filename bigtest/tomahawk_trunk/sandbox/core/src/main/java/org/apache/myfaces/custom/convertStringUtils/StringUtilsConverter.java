@@ -40,10 +40,15 @@ import org.apache.commons.lang.WordUtils;
  * </h:outputText>
  * </code>
  * <p>
+ * @JSFConverter
+ *   name = "s:convertStringUtils"
+ *   tagClass = "org.apache.myfaces.custom.convertStringUtils.StringUtilsConverterTag" 
+ *   
  * @author Julian Ray
  */
 public class StringUtilsConverter implements Converter, StateHolder {
-    public static final String CONVERTER_ID = org.apache.myfaces.custom.convertStringUtils.StringUtilsConverter.class.getName();
+    
+    public static final String CONVERTER_ID = "org.apache.myfaces.custom.convertStringUtils.StringUtilsConverter";
 
     protected boolean _transient;
     

@@ -24,7 +24,14 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
-
+/**
+ * 
+ * @JSFComponent
+ *   name = "s:media"
+ *   tagClass = "org.apache.myfaces.custom.media.MediaTag"
+ *   
+ *
+ */
 public class MediaComponent extends UIComponentBase {
 
     public static String COMPONENT_TYPE = "org.apache.myfaces.media";

@@ -30,6 +30,10 @@ import javax.faces.render.Renderer;
 import java.io.IOException;
 
 /**
+ * @JSFComponent
+ *   name = "s:commandButtonAjax"
+ *   tagClass = "org.apache.myfaces.custom.inputAjax.HtmlCommandButtonAjaxTag"
+ *   
  * User: Travis Reeder
  * Date: Mar 22, 2006
  * Time: 4:37:53 PM

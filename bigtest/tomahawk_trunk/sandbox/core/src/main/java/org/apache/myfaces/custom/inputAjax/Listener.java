@@ -28,6 +28,10 @@ import javax.faces.context.FacesContext;
  *
  * NOTE: eventType and action are NOT implemented yet
  *
+ * @JSFComponent
+ *   name = "s:listener"
+ *   tagClass = "org.apache.myfaces.custom.inputAjax.ListenerTag"
+ *   
  * User: Travis Reeder
  * Date: Apr 5, 2006
  * Time: 4:33:10 PM

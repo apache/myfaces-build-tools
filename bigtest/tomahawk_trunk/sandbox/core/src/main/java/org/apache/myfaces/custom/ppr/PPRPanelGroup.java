@@ -30,6 +30,10 @@ import java.util.List;
  * AJAX component which supports updating its children via AJAX calls. These
  * updates can occur regularly or based on triggering input components.
  *
+ * @JSFComponent
+ *   name = "s:pprPanelGroup"
+ *   tagClass = "org.apache.myfaces.custom.ppr.PPRPanelGroupTag"
+ *   
  * @author Ernst Fastl
  */
 public class PPRPanelGroup extends HtmlPanelGroup

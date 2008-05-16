@@ -29,6 +29,10 @@ import java.util.Iterator;
  * 
  * @see <a href="http://dojotoolkit.org/">http://dojotoolkit.org/</a>
  * 
+ * @JSFComponent
+ *   name = "s:fishEyeNavigationMenu"
+ *   tagClass = "org.apache.myfaces.custom.fisheye.HtmlFishEyeNavigationMenuTag"
+ *   
  * @author Jurgen Lust (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

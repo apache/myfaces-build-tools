@@ -43,6 +43,11 @@ import java.io.PrintWriter;
 
 /**
  * Renderer for component HtmlAjaxChildComboBox
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.SelectOne"
+ *   type = "org.apache.myfaces.AjaxChildComboBox"
  *
  * @author Sharath Reddy
  */

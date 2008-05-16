@@ -21,6 +21,10 @@ package org.apache.myfaces.custom.clientvalidation.validationscript;
 import javax.faces.component.UIComponentBase;
 
 /**
+ * @JSFComponent
+ *   name = "s:validationScript"
+ *   tagClass = "org.apache.myfaces.custom.clientvalidation.validationscript.ValidationScriptTag"
+ * 
  * @author cagatay (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

@@ -36,6 +36,10 @@ import org.apache.myfaces.custom.util.ComponentUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 
 /**
+ * @JSFComponent
+ *   name = "s:outputText"
+ *   tagClass = "org.apache.myfaces.custom.suggestajax.tablesuggestajax.HtmlOutputTextTag"
+ *   
  * @author Gerald Muellan
  *         Date: 15.02.2006
  *         Time: 13:30:43

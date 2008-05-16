@@ -24,6 +24,14 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.custom.dojo.DojoWidget;
 
+/**
+ * 
+ * @JSFComponent
+ *   name = "s:layoutingSplitPane"
+ *   tagClass = "org.apache.myfaces.custom.dojolayouts.DojoSplitPaneTag"
+ *   
+ *
+ */
 public class DojoSplitPane extends DojoContentPane implements DojoWidget {
 
     public static final String COMPONENT_TYPE        = "org.apache.myfaces.DojoSplitPane";

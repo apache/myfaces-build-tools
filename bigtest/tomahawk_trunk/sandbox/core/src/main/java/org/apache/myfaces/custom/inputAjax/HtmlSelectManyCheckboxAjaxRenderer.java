@@ -40,6 +40,12 @@ import org.apache.myfaces.renderkit.html.ext.HtmlCheckboxRenderer;
 /**
  * For onSuccess, onFailure, onStart functions, they should accept (elname, elvalue) attributes for the specific item
  * <p/>
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.SelectMany"
+ *   type = "org.apache.myfaces.CheckboxAjax"
+ *
  * User: treeder
  * Date: Oct 20, 2005
  * Time: 3:28:04 PM

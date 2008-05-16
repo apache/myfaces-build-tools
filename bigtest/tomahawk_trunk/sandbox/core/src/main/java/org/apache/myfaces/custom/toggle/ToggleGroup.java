@@ -24,6 +24,10 @@ import javax.faces.component.html.HtmlPanelGroup;
 /**
  * Container class allows user to toggle between view/edit mode.
  * 
+ * @JSFComponent
+ *   name = "s:toggleGroup"
+ *   tagClass = "org.apache.myfaces.custom.toggle.ToggleGroupTag"
+ *   
  * @author Sharath
  * 
  */

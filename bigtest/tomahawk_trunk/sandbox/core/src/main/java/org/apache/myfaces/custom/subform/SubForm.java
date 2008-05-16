@@ -47,6 +47,10 @@ import java.util.List;
  *
  *
  *
+ * @JSFComponent
+ *   name = "s:subForm"
+ *   tagClass = "org.apache.myfaces.custom.subform.SubFormTag"
+ *   
  * @author Gerald Muellan
  * @author Martin Marinschek
  *         Date: 19.01.2006

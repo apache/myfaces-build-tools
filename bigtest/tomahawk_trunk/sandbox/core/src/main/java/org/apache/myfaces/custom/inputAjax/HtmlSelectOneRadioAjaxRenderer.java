@@ -38,6 +38,12 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.SelectOne"
+ *   type = "org.apache.myfaces.SelectOneRadioAjax"
+ *
  * User: treeder
  * Date: Nov 10, 2005
  * Time: 4:48:15 PM

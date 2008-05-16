@@ -102,7 +102,7 @@ public class DojoContentPaneTag extends HtmlOutputTextTagBase {
     }
 
     public String getComponentType() {
-        return DojoContentPane.DEFAULT_COMPONENT_TYPE;
+        return DojoContentPane.COMPONENT_TYPE;
     }
 
     public String getRendererType() {

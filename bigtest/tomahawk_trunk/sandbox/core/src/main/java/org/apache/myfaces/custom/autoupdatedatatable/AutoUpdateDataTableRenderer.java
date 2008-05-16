@@ -34,6 +34,12 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Data"
+ *   type = "org.apache.myfaces.AutoUpdateDataTable"
+ *
  * @author J&ouml;rg Artaker
  * @author Thomas Huber
  * @version $Revision: $ $Date: $

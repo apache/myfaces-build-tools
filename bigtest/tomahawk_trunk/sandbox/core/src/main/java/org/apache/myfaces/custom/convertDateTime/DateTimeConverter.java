@@ -25,14 +25,17 @@ import java.util.TimeZone;
  * Simple convert that overrides the spec DateTimeConverter and uses TimeZone.getDefault() as the 
  * base timezone, rather than GMT.
  *
- *
+ * @JSFConverter
+ *   name = "s:convertDateTime"
+ *   tagClass = "org.apache.myfaces.custom.convertDateTime.ConvertDateTimeTag" 
+ *   
  * User: treeder
  * Date: Oct 28, 2005
  * Time: 7:19:01 PM
  */
 public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 {
-    public static final String CONVERTER_ID = org.apache.myfaces.custom.convertDateTime.DateTimeConverter.class.getName();
+    public static final String CONVERTER_ID = "org.apache.myfaces.custom.convertDateTime.DateTimeConverter";
 
     public DateTimeConverter()
     {

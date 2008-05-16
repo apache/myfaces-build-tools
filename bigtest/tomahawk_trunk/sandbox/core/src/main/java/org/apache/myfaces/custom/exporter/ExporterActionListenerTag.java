@@ -26,6 +26,11 @@ import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
 /**
+ * 
+ * @JSFJspTag
+ *   name="s:exporterActionListener"
+ *   bodyContent="JSP" 
+ * 
  * This class is acting as the tag handler for the Exporter ActionListener.
  */
 public class ExporterActionListenerTag extends TagSupport {
@@ -91,6 +96,9 @@ public class ExporterActionListenerTag extends TagSupport {
         return _fileName;
     }
 
+    /**
+     * @JSFJspAttribute
+     */
     public void setFilename(String _filename) {
         this._fileName = _filename;
     }
@@ -99,6 +107,9 @@ public class ExporterActionListenerTag extends TagSupport {
         return _fileType;
     }
 
+    /**
+     * @JSFJspAttribute
+     */
     public void setFileType(String type) {
         _fileType = type;
     }
@@ -107,6 +118,9 @@ public class ExporterActionListenerTag extends TagSupport {
         return _for;
     }
 
+    /**
+     * @JSFJspAttribute
+     */
     public void setFor(String _for) {
         this._for = _for;
     }    

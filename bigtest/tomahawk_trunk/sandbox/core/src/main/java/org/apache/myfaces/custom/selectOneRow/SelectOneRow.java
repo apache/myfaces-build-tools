@@ -21,6 +21,14 @@ package org.apache.myfaces.custom.selectOneRow;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
+/**
+ * 
+ * @JSFComponent
+ *   name = "s:selectOneRow"
+ *   tagClass = "org.apache.myfaces.custom.selectOneRow.SelectOneRowTag"
+ *   
+ *
+ */
 public class SelectOneRow extends UIInput
 {
     private String groupName;

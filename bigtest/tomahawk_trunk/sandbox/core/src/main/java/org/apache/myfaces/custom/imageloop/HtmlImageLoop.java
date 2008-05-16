@@ -26,6 +26,11 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 
 /**
  * HTML image loop component.
+ * 
+ * @JSFComponent
+ *   name = "s:imageLoop"
+ *   tagClass = "org.apache.myfaces.custom.imageloop.HtmlImageLoopTag"
+ *   
  * @author Felix Röthenbacher (latest modification by $Author:$)
  * @version $Revision:$ $Date:$
  */

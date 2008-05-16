@@ -26,6 +26,10 @@ import javax.faces.el.ValueBinding;
 
 /**
  * 
+ * @JSFComponent
+ *   name = "s:timedNotifier"
+ *   tagClass = "org.apache.myfaces.custom.timednotifier.TimedNotifierTag"
+ *   
  * @author werpu
  * Shows a Timed notifier
  * 
@@ -57,6 +61,9 @@ public class TimedNotifier extends UIOutput {
         return (UIComponent) getFacets().get(CONFIRM_FACET_NAME);
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getConfirmationMessage() {
 
         if (confirmationMessage != null)
@@ -67,10 +74,16 @@ public class TimedNotifier extends UIOutput {
         return (vb != null) ? (String) vb.getValue(getFacesContext()) : null;
     }
 
+    /**
+     * @JSFFacet
+     */
     public UIComponent getContent() {
         return (UIComponent) getFacets().get(CONTENT_FACET_NAME);
     }
 
+    /**
+     * @JSFProperty
+     */
     public Boolean getDisabled() {
 
         if (disabled != null)
@@ -81,6 +94,9 @@ public class TimedNotifier extends UIOutput {
         return (vb != null) ? (Boolean) vb.getValue(getFacesContext()) : null;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getHeight() {
 
         if (height != null)
@@ -92,6 +108,9 @@ public class TimedNotifier extends UIOutput {
 
     }
 
+    /**
+     * @JSFProperty
+     */
     public Integer getHideDelay() {
 
         if (hideDelay != null)
@@ -102,6 +121,9 @@ public class TimedNotifier extends UIOutput {
         return (vb != null) ? (Integer) vb.getValue(getFacesContext()) : new Integer(-1);
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getOkText() {
 
         if (okText != null)
@@ -112,6 +134,9 @@ public class TimedNotifier extends UIOutput {
         return (vb != null) ? (String) vb.getValue(getFacesContext()) : "Ok";
     }
 
+    /**
+     * @JSFProperty
+     */
     public Integer getShowDelay() {
 
         if (showDelay != null)
@@ -122,6 +147,9 @@ public class TimedNotifier extends UIOutput {
         return (vb != null) ? (Integer) vb.getValue(getFacesContext()) : new Integer(0);
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getStyleClass() {
 
         if (styleClass != null)
@@ -132,6 +160,9 @@ public class TimedNotifier extends UIOutput {
         return (vb != null) ? (String) vb.getValue(getFacesContext()) : "dojoTimedNotifierDialog";
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getWidth() {
 
         if (width != null)

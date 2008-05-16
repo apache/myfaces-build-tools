@@ -39,7 +39,10 @@ import java.util.Map;
 /**
  * @author Martin Marinschek
  *
- *
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.AccordionPanel"
  *
  * @version $Revision: $ $Date: $
  *          <p/>

@@ -26,6 +26,10 @@ import javax.faces.el.ValueBinding;
 /**
  * Container class allows user to toggle between view/edit mode.
  * 
+ * @JSFComponent
+ *   name = "s:togglePanel"
+ *   tagClass = "org.apache.myfaces.custom.toggle.TogglePanelTag"
+ *   
  * @author Sharath
  * 
  */

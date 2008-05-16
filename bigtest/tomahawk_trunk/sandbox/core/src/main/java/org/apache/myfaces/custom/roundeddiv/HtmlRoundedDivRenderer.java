@@ -56,6 +56,12 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 /**
  * Renderer for the {@link HtmlRoundedDiv} component.
  *
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.HtmlRoundedDiv"
+ * 
  * @author Andrew Robinson (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

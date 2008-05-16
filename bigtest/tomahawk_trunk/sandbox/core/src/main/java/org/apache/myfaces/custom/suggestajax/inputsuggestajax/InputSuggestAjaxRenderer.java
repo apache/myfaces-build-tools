@@ -39,6 +39,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.InputSuggestAjax"
+ * 
  * @author Gerald Müllan
  * @author Martin Marinschek
  * @version $Revision: 177984 $ $Date: 2005-05-23 19:39:37 +0200 (Mon, 23 May 2005) $

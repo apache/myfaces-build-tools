@@ -54,6 +54,12 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Graphic"
+ *   type = "org.apache.myfaces.GraphicImageDynamicRenderer"
+ *
  * @author Sylvain Vieujot
  */
 public class GraphicImageDynamicRenderer extends HtmlImageRenderer implements

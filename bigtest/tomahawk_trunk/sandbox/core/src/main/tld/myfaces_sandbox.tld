@@ -1938,7 +1938,7 @@ Sandbox-related entities.
         <name>exporterActionListener</name>
         <tag-class>org.apache.myfaces.custom.exporter.ExporterActionListenerTag</tag-class>
         <body-content>JSP</body-content>
-        &ui_component_attributes;        
+        <!-- &ui_component_attributes; -->        
         &exporter_attributes;
     </tag>    
 

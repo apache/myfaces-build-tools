@@ -28,6 +28,16 @@ import org.apache.myfaces.custom.dojo.DojoConfig;
 import org.apache.myfaces.custom.dojo.DojoUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.JSFAttr;
 
+/**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.TitlePaneRenderer"
+ *
+ * @author werpu
+ *
+ */
 public class TitlePaneRenderer extends DojoContentPaneRenderer {
 
     public void decode(FacesContext context, UIComponent component) {

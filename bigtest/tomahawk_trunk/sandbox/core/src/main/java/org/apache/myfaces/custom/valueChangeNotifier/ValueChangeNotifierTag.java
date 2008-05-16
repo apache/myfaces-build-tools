@@ -41,6 +41,10 @@ import org.apache.commons.logging.LogFactory;
  * valueChangeListener attached</li>
  * </ul>
  * 
+ * @JSFJspTag
+ *   name="s:valueChangeNotifier"
+ *   bodyContent="JSP" 
+ * 
  * @author Mario Ivankovits <imario - at - apache.org>  (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -58,6 +62,8 @@ public class ValueChangeNotifierTag extends TagSupport
 	 * The bean.method name of your valueChange method<br />
 	 * Currently only methods listeners are supported.<br />
 	 * e.g. myBean.myListenerMethod
+	 * 
+	 * @JSFJspAttribute
 	 */
 	public void setMethod(String method)
 	{

@@ -25,6 +25,10 @@ import javax.faces.el.ValueBinding;
 import java.io.IOException;
 
 /**
+ * @JSFComponent
+ *   name = "s:tableSuggestAjax"
+ *   tagClass = "org.apache.myfaces.custom.suggestajax.tablesuggestajax.TableSuggestAjaxTag"
+ *   
  * @author Gerald Muellan
  *         Date: 25.03.2006
  *         Time: 17:04:58

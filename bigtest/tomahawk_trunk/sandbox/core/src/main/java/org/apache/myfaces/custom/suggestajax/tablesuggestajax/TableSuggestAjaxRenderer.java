@@ -40,6 +40,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.TableSuggestAjax"
+ * 
  * @author Gerald Muellan
  *         Date: 25.03.2006
  *         Time: 17:05:38

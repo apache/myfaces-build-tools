@@ -37,6 +37,11 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
  * javascripted initializer we do not use the dojo taglib mechanism here due to
  * the fact that the dojo tag system is incompatible with adf and other projects
  * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.DojoContentPaneRenderer"
+ *
  * @author werpu
  * 
  */

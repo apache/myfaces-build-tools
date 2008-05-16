@@ -24,7 +24,14 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
-
+/**
+ * @JSFComponent
+ *   name = "s:captcha"
+ *   tagClass = "org.apache.myfaces.custom.captcha.CAPTCHATag"
+ * 
+ * @author Hazem Saleh
+ *
+ */
 public class CAPTCHAComponent extends UIComponentBase {
 
     public static String COMPONENT_TYPE = "org.apache.myfaces.CAPTCHA";

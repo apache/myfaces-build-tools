@@ -24,6 +24,11 @@ import javax.faces.el.ValueBinding;
 
 /**
  * Image loop items.
+ * 
+ * @JSFComponent
+ *   name = "s:imageLoopItems"
+ *   tagClass = "org.apache.myfaces.custom.imageloop.ImageLoopItemsTag"
+ *   
  * @author Felix Röthenbacher (latest modification by $Author:$)
  * @version $Revision:$ $Date:$
  */

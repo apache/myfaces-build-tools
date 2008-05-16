@@ -24,6 +24,12 @@ import javax.faces.component.UIComponent;
 import java.io.IOException;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Message"
+ *   type = "org.apache.myfaces.MessageSandbox"
+ *
  * User: treeder
  * Date: Nov 22, 2005
  * Time: 2:17:13 PM

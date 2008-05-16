@@ -41,6 +41,15 @@ import java.util.*;
 /**
  * Renderer for the FishEyeList component
  * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Data"
+ *   type = "org.apache.myfaces.FishEyeList"
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Command"
+ *   type = "org.apache.myfaces.FishEyeCommandLink"
+ *
  * @author Jurgen Lust (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

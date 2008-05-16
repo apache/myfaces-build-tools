@@ -29,6 +29,10 @@ import javax.faces.el.ValueBinding;
 /**
  * Renders children if any of the component(s) specified in "for" has a message in the context.
  * 
+ * @JSFComponent
+ *   name = "s:ifMessage"
+ *   tagClass = "org.apache.myfaces.custom.ifmessage.IfMessageTag"
+ *   
  * @author Mike Youngstrom (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

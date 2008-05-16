@@ -29,6 +29,12 @@ import org.apache.myfaces.custom.clientvalidation.common.CVUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlFormRendererBase;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Form"
+ *   type = "org.apache.myfaces.Form"
+ *
  * @author Mathias Broekelmann (latest modification by $Author$)
  * @version $Revision$ $Date$
  *

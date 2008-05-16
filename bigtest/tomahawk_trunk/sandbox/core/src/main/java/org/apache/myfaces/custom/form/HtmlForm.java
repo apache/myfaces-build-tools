@@ -24,6 +24,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "s:form"
+ *   tagClass = "org.apache.myfaces.custom.form.HtmlFormTag"
+ *   
  * @author Mathias Broekelmann (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

@@ -37,6 +37,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.ModalDialog"
+ *
+ */
 public class ModalDialogRenderer extends HtmlRenderer {
     public static final String RENDERER_TYPE = "org.apache.myfaces.ModalDialog";
 

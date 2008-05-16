@@ -30,6 +30,10 @@ import javax.faces.component.UIComponent;
 /**
  * add a bean under context control
  *
+ * @JSFComponent
+ *   name = "s:conversation"
+ *   tagClass = "org.apache.myfaces.custom.conversation.ConversationTag"
+ *   
  * @author imario@apache.org
  */
 public class UIConversation extends AbstractConversationComponent

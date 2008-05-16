@@ -30,6 +30,10 @@ import java.util.List;
 /**
  * start a conversation
  *
+ * @JSFComponent
+ *   name = "s:startConversation"
+ *   tagClass = "org.apache.myfaces.custom.conversation.StartConversationTag"
+ *   
  * @author imario@apache.org
  */
 public class UIStartConversation extends AbstractConversationComponent

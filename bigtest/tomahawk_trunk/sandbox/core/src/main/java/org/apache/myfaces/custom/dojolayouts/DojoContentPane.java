@@ -31,14 +31,18 @@ import org.apache.myfaces.custom.dojo.DojoWidget;
  * @see http://www.dojotoolkit.org for further references to this control and
  *      its parameters
  * 
+ * @JSFComponent
+ *   name = "s:layoutingContentPane"
+ *   tagClass = "org.apache.myfaces.custom.dojolayouts.DojoContentPaneTag"
+ *   
  * @author werpu
  * 
  */
 public class DojoContentPane extends UIOutput implements DojoWidget {
 
-    public static final String DEFAULT_COMPONENT_FAMILY = "javax.faces.Output";
+    public static final String COMPONENT_FAMILY = "javax.faces.Output";
 
-    public static final String DEFAULT_COMPONENT_TYPE   = "org.apache.myfaces.DojoContentPane";
+    public static final String COMPONENT_TYPE   = "org.apache.myfaces.DojoContentPane";
 
     public static final String DEFAULT_RENDERER_TYPE    = "org.apache.myfaces.DojoContentPaneRenderer";
 
@@ -106,7 +110,7 @@ public class DojoContentPane extends UIOutput implements DojoWidget {
     }
 
     public String getFamily() {
-        return DEFAULT_COMPONENT_FAMILY;
+        return COMPONENT_FAMILY;
     }
 
     public String getHandler() {

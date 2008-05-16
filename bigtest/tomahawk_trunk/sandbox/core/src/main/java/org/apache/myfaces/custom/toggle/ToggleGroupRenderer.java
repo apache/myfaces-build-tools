@@ -29,6 +29,14 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlGroupRendererBase;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 
+/**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.ToggleGroup"
+ * 
+ */
 public class ToggleGroupRenderer extends HtmlGroupRendererBase {
 
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {

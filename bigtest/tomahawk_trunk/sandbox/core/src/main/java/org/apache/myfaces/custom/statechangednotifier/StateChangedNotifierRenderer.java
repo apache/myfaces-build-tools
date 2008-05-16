@@ -43,6 +43,12 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.util.FormInfo;
 
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.StateChangedNotifierRenderer"
+ * 
  * @author Bruno Aranda (latest modification by $Author$)
  * @version $Revision$ $Date: 2006-04-02 22:03:33 +0200 (So, 02 Apr
  *          2006) $

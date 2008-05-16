@@ -26,6 +26,10 @@ import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 
 /**
+ * @JSFComponent
+ *   name = "s:fishEyeCommandLink"
+ *   tagClass = "org.apache.myfaces.custom.fisheye.FishEyeCommandLinkTag"
+ *   
  * @author Thomas Spiegl
  */
 public class FishEyeCommandLink extends UICommand {

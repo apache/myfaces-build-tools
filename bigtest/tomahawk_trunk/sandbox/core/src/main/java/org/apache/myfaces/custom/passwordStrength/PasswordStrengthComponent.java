@@ -24,7 +24,13 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
-
+/**
+ * 
+ * @JSFComponent
+ *   name = "s:passwordStrength"
+ *   tagClass = "org.apache.myfaces.custom.passwordStrength.PasswordStrengthTag"
+ *   
+ */
 public class PasswordStrengthComponent extends UIInput { 
 
 	public static String COMPONENT_TYPE = "org.apache.myfaces.PasswordStrength";

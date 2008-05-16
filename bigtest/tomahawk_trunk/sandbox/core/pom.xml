@@ -139,7 +139,14 @@
             <artifactId>myfaces-impl</artifactId>
             <scope>test</scope>
         </dependency>
-
+        
+		<dependency>
+		  <groupId>maven-taglib</groupId>
+		  <artifactId>maven-taglib-plugin</artifactId>
+		  <version>1.4.2</version>
+		  <scope>test</scope>
+		</dependency>        
+        
         <dependency>
             <groupId>org.apache.shale</groupId>
             <artifactId>shale-test</artifactId>
@@ -171,12 +178,59 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <excludes>
+                   <exclude>**/*.vm</exclude>
+                </excludes>
             </resource>
+            <!-- 
             <resource>
                 <directory>src/main/resources-facesconfig</directory>
             </resource>
+             -->
         </resources>
         <plugins>
+			<plugin>
+			  <groupId>org.apache.myfaces.buildtools</groupId>
+			  <artifactId>myfaces-builder-plugin</artifactId>
+			  <version>1.0.0-SNAPSHOT</version>
+			  <executions>
+			    <execution>
+			      <!-- A hierarchy of different tag classes must be created, 
+			      because this classes are not part of the public api. The
+			      generation of all html package is the same. Please note that
+			      we need only a subset -->
+			      <configuration>
+			          <replacePackagePrefixTagFrom>org.apache.myfaces.taglib</replacePackagePrefixTagFrom>
+			          <replacePackagePrefixTagTo>org.apache.myfaces.shared_tomahawk.taglib</replacePackagePrefixTagTo>
+			      </configuration>
+			      <goals>
+			        <goal>build-metadata</goal>
+			      </goals>
+			    </execution>
+			    <execution>
+			      <id>makefacesconfig</id>
+			      <configuration>
+			          <xmlFile>classes/META-INF/faces-config.xml</xmlFile>
+			      </configuration>
+			      <goals>
+			          <goal>make-config</goal>
+			      </goals>
+			    </execution>
+			    <execution>
+			      <id>makecomp</id>
+			      <goals>
+			        <goal>make-components</goal>
+			      </goals>
+			    </execution>          
+			    <execution>
+			      <id>make_tags_tomahawk</id>
+			      <goals>
+			          <goal>make-tags</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			</plugin>
+        
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xslt-maven-plugin</artifactId>

@@ -35,6 +35,12 @@ import java.util.List;
  * to process (validate/update-model) during a ppr request.
  *
  * TODO: document why this component helps with UIData too ... why does it?
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.PPRSubmit"
+ *   type = "org.apache.myfaces.PPRSubmit"
+ * 
  */
 public class PPRSubmitRenderer extends Renderer
 {

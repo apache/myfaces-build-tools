@@ -37,6 +37,12 @@ import java.util.List;
 import java.util.Iterator;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Data"
+ *   type = "org.apache.myfaces.FilterTable"
+ * 
  * @author Thomas Spiegl
  */
 public class FilterTableRenderer extends HtmlRenderer {

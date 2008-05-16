@@ -29,6 +29,12 @@ import org.apache.myfaces.custom.util.ComponentUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlFormRendererBase;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Form"
+ *   type = "javax.faces.Form"
+ * 
  * @author cagatay (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

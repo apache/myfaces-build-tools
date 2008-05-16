@@ -28,6 +28,10 @@ import javax.faces.el.ValueBinding;
  * component (within the parent HtmlToggleGroup) will be displayed in 'edit'
  * mode.
  * 
+ * @JSFComponent
+ *   name = "s:toggleLink"
+ *   tagClass = "org.apache.myfaces.custom.toggle.ToggleLinkTag"
+ *   
  * @author Sharath Reddy
  */
 public class ToggleLink extends HtmlOutputLink

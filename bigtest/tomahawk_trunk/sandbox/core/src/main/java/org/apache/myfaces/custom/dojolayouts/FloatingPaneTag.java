@@ -103,7 +103,7 @@ public class FloatingPaneTag extends DojoContentPaneTag {
     //private String              _visible                        = null;
     
     public String getComponentType() {
-        return FloatingPaneBase.DEFAULT_COMPONENT_TYPE;
+        return FloatingPaneBase.COMPONENT_TYPE;
     }
 
     public String getRendererType() {

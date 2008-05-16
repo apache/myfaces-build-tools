@@ -34,6 +34,12 @@ import org.apache.myfaces.custom.dojo.DojoUtils;
 import org.apache.myfaces.custom.dojo.DojoConfig;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.Focus"
+ *
  * @author Rogerio Pereira Araujo (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

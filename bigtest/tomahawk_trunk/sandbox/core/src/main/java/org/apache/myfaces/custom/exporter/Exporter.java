@@ -24,6 +24,13 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
+/**
+ * 
+ * @JSFComponent
+ *   name = "s:exporter"
+ *   tagClass = "org.apache.myfaces.custom.exporter.ExporterTag"
+ *
+ */
 public class Exporter extends UIComponentBase {
 
 	public static final String COMPONENT_TYPE = "org.apache.myfaces.Exporter";

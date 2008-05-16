@@ -27,6 +27,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "s:focus"
+ *   tagClass = "org.apache.myfaces.custom.focus.HtmlFocusTag"
+ *   
  * @author Rogerio Pereira Araujo (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

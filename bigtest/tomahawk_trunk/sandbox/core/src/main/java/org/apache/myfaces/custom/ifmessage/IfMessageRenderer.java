@@ -19,9 +19,16 @@
 package org.apache.myfaces.custom.ifmessage;
 
 import javax.faces.render.Renderer;
+
 /**
  * Dummy default Renderer used for its default encodeChildren()
  * implementation.
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Panel"
+ *   type = "org.apache.myfaces.IfMessageRenderer"
+ *
  * 
  * @author Mike Youngstrom (latest modification by $Author$)
  * @version $Revision$ $Date$

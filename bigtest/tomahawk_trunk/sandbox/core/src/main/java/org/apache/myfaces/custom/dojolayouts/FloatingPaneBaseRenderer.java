@@ -32,6 +32,16 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRenderer;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 
+/**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.FloatingPaneBaseRenderer"
+ *
+ * @author werpu
+ *
+ */
 public class FloatingPaneBaseRenderer extends HtmlRenderer {
 
     public void decode(FacesContext context, UIComponent component) {

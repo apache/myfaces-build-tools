@@ -26,6 +26,11 @@ import org.apache.myfaces.shared_tomahawk.util._ComponentUtils;
 
 /**
  * Shows a confirmation window if some of the input fields of the form have changed its value
+ * 
+ * @JSFComponent
+ *   name = "s:stateChangedNotifier"
+ *   tagClass = "org.apache.myfaces.custom.statechangednotifier.StateChangedNotifierTag"
+ *   
  * @author Bruno Aranda (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

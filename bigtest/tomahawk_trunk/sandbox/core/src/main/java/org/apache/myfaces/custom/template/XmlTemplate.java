@@ -34,6 +34,10 @@ import java.net.URI;
  * Used to transform XML (from either a String or URL) using either XSLT or
  * Velocity.
  *
+ * @JSFComponent
+ *   name = "s:xmlTemplate"
+ *   tagClass = "org.apache.myfaces.custom.template.XmlTemplateTag"
+ *   
  * @author Sean Schofield
  */
 public class XmlTemplate extends UIComponentBase

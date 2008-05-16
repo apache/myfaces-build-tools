@@ -23,6 +23,10 @@ import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 
 /**
+ * @JSFComponent
+ *   name = "s:sortableColumn"
+ *   tagClass = "org.apache.myfaces.custom.table.SortableColumnTag"
+ *   
  * @author Thomas Spiegl
  */
 public class SortableColumn extends UIColumn {

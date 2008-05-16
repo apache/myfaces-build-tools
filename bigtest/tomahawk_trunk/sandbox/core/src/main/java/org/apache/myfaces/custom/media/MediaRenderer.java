@@ -31,6 +31,16 @@ import org.apache.myfaces.shared_tomahawk.renderkit.JSFAttr;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 
+/**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.media"
+ *   type = "org.apache.myfaces.media"
+ *
+ * @author Hazem Saleh
+ *
+ */
 public class MediaRenderer extends Renderer {
 
     public void encodeBegin(FacesContext context, UIComponent component)

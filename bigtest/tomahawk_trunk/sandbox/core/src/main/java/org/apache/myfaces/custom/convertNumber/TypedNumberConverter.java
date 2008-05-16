@@ -40,6 +40,10 @@ import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
  * converter which uses either the manually set <code>destType</code> or the value binding to determine the 
  * correct destination type to convert the number to
  *  
+ * @JSFConverter
+ *   name = "s:convertNumber"
+ *   tagClass = "org.apache.myfaces.custom.convertNumber.TypedNumberConverterTag" 
+ *   
  * @author imario@apache.org
  */
 public class TypedNumberConverter implements javax.faces.convert.Converter, StateHolder

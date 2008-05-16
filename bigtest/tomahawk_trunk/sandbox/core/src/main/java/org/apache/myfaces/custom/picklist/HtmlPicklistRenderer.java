@@ -44,6 +44,12 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlListboxRendererBase;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.SelectMany"
+ *   type = "org.apache.myfaces.PicklistRenderer"
+ * 
  * @author Bruno Aranda (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

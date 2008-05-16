@@ -44,6 +44,12 @@ import java.util.TreeSet;
  * Attach an event handler to an input element or use a global event handler to
  * submit a form by "clicking" on a link or button
  *
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.SubmitOnEvent"
+ *   type = "org.apache.myfaces.SubmitOnEvent"
+ * 
  * @version $Id$
  */
 public class SubmitOnEventRenderer extends HtmlRenderer

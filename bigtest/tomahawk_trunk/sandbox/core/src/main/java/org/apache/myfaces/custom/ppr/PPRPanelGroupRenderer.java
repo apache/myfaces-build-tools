@@ -30,6 +30,12 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.PPRPanelGroup"
+ *   type = "org.apache.myfaces.PPRPanelGroup"
+ * 
  * @author Ernst Fastl
  */
 public class PPRPanelGroupRenderer extends HtmlGroupRenderer

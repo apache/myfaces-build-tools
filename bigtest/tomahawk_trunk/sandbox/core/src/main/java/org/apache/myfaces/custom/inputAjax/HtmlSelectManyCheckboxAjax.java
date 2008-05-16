@@ -37,6 +37,10 @@ import org.apache.myfaces.custom.ajax.api.DeprecatedAjaxComponent;
  * Current limitations
  * - Bound value must be a Collection of Strings!
  *
+ * @JSFComponent
+ *   name = "s:selectManyCheckboxAjax"
+ *   tagClass = "org.apache.myfaces.custom.inputAjax.HtmlSelectManyCheckboxAjaxTag"
+ *   
  * @author Travis Reeder (latest modification by $Author: mmarinschek $)
  * @version $Revision: 290397 $ $Date: 2005-09-20 10:35:09 +0200 (Di, 20 Sep 2005) $
  */

@@ -30,6 +30,14 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "org.apache.myfaces.SelectOneRow"
+ *   type = "org.apache.myfaces.SelectOneRow"
+ * 
+ */
 public class SelectOneRowRenderer extends HtmlRenderer
 {
 

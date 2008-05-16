@@ -6,7 +6,7 @@
     <description>Id of the datatable component whose values to be exported</description>
 </attribute>
 <attribute>
-    <name>fileName</name>
+    <name>filename</name>
     <required>false</required>
     <rtexprvalue>false</rtexprvalue>
     <type>java.lang.String</type>

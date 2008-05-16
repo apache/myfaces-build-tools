@@ -28,6 +28,12 @@ import org.apache.myfaces.custom.htmlTag.HtmlTagRenderer;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.apache.myfaces.FieldsetRenderer"
+ *
  * @author svieujot (latest modification by $Author$)
  * @version $Revision$ $Date: 2005-05-11 11:47:12 -0400 (Wed, 11 May 2005) $
  */

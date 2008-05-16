@@ -28,6 +28,10 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.ValueBinding;
 
 /**
+ * @JSFComponent
+ *   name = "s:graphicImageDynamic"
+ *   tagClass = "org.apache.myfaces.custom.graphicimagedynamic.GraphicImageDynamicTag"
+ *   
  * @author Sylvain Vieujot (latest modification by $Author$)
  *
  * @version $Revision$ $Date: 2005-05-11 19:57:24 +0200 (Wed, 11 May 2005) $

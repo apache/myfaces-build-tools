@@ -24,11 +24,19 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.custom.dojo.DojoWidget;
 
+/**
+ * 
+ * @JSFComponent
+ *   name = "s:floatingPane"
+ *   tagClass = "org.apache.myfaces.custom.dojolayouts.FloatingPaneTag"
+ *   
+ *
+ */
 public class FloatingPaneBase extends DojoContentPane implements DojoWidget {
 
-    public static final String DEFAULT_COMPONENT_FAMILY = "javax.faces.Output";
+    public static final String COMPONENT_FAMILY = "javax.faces.Output";
 
-    public static final String DEFAULT_COMPONENT_TYPE   = "org.apache.myfaces.FloatingPaneBase";
+    public static final String COMPONENT_TYPE   = "org.apache.myfaces.FloatingPaneBase";
 
     public static final String DEFAULT_RENDERER_TYPE    = "org.apache.myfaces.FloatingPaneBaseRenderer";
 
@@ -67,7 +75,7 @@ public class FloatingPaneBase extends DojoContentPane implements DojoWidget {
     }
 
     public String getComponentType() {
-        return FloatingPaneBase.DEFAULT_COMPONENT_TYPE;
+        return FloatingPaneBase.COMPONENT_TYPE;
     }
 
     public Boolean getConstrainToContainer() {
@@ -92,7 +100,7 @@ public class FloatingPaneBase extends DojoContentPane implements DojoWidget {
     }
 
     public String getFamily() {
-        return FloatingPaneBase.DEFAULT_COMPONENT_FAMILY;
+        return FloatingPaneBase.COMPONENT_FAMILY;
     }
 
     public Boolean getHasShadow() {

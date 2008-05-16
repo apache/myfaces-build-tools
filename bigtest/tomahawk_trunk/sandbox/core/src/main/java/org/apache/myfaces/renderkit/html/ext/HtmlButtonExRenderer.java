@@ -30,6 +30,11 @@ import org.apache.myfaces.custom.util.ComponentUtils;
 /**
  * Sandbox version of extended tomahawk button renderer, this must be merge in case client validation goes in tomahawk
  * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Command"
+ *   type = "org.apache.myfaces.Button"
+ * 
  * @author cagatay (latest modification by $Author$)
  * @version $Revision$ $Date$
  */

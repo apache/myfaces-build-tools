@@ -29,6 +29,10 @@ import javax.faces.el.ValueBinding;
  * savestate but bypasses the serialization
  * and utilizes the session directly
  *
+ * @JSFComponent
+ *   name = "s:scope"
+ *   tagClass = "org.apache.myfaces.custom.scope.ScopeTag"
+ *   
  * @author Werner Punz werpu@gmx.at
  * @version $Revision$ $Date$
  */

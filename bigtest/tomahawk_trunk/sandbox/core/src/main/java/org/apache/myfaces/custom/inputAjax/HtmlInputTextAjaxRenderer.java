@@ -36,6 +36,12 @@ import javax.faces.component.UIComponent;
 import java.io.IOException;
 
 /**
+ * 
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Input"
+ *   type = "org.apache.myfaces.InputTextAjax"
+ *
  * User: treeder
  * Date: Oct 28, 2005
  * Time: 7:54:08 PM
