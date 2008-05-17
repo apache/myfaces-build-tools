@@ -235,13 +235,12 @@ org_apache_myfaces_PopupCalendar.prototype._swapImage = function(srcImg, destImg
 
 org_apache_myfaces_PopupCalendar.prototype._keypresshandler = function()
 {
-    try
+    // This method is intended for use on IE browsers only; they are the only
+    // browsers that define window.event and window.event.keyCode.
+    // Q: Why is this done only for IE?
+    if (window["event"] && window.event["keyCode"] && (window.event.keyCode == 27))
     {
-        if (event && event.keyCode == 27)
-            this._hideCalendar();
-    }
-    catch(ex)
-    {
+        this._hideCalendar();
     }
 }
 

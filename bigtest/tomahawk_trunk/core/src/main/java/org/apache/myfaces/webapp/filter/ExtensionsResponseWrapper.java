@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.webapp.filter;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.xml.sax.InputSource;
 
 import javax.servlet.ServletOutputStream;
@@ -35,6 +37,8 @@ public class ExtensionsResponseWrapper extends HttpServletResponseWrapper {
     private PrintWriter printWriter = null;
     private String contentType;
     private HttpServletResponse delegate;
+    
+    private static final Log log = LogFactory.getLog(ExtensionsResponseWrapper.class);
 
     public ExtensionsResponseWrapper(HttpServletResponse response){
         super( response );
@@ -108,7 +112,7 @@ public class ExtensionsResponseWrapper extends HttpServletResponseWrapper {
                 }
             }
         } catch (IOException e) {
-			e.printStackTrace();
+            log.error(e.getMessage(),e);
         }
     }
 

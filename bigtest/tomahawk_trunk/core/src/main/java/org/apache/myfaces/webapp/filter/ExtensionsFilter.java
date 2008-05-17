@@ -38,9 +38,11 @@ import java.io.IOException;
  * requires response buffering then a response wrapper is created which
  * buffers the entire output from the current request in memory.
  * <p>
- * Tomahawk provides at least two "resource managers":
+ * Tomahawk provides at least three "resource managers":
  * <ul>
- * <li> DefaultAddResources (the default) does require response buffering
+ * <li> DefaultAddResources (the default) does require response buffering.
+ * <li> NonBufferingAddResource does not require response buffering, but it
+ * renders javascript on body and offer support in portlets enviroments. 
  * <li> StreamingAddResources does not, but only provides a subset of the
  * features of DefaultAddResources and therefore does not work with all
  * Tomahawk components.
@@ -183,6 +185,7 @@ public class ExtensionsFilter implements Filter {
         request.setAttribute(DOFILTER_CALLED,"true");
 
         if (!(response instanceof HttpServletResponse)) {
+            //If this is a portlet request, just continue the chaining
             chain.doFilter(request, response);
             return;
         }
@@ -214,7 +217,73 @@ public class ExtensionsFilter implements Filter {
             throw new ServletException(th);
         }
 
-        chain.doFilter(extendedRequest, response);
+        try
+        {
+            addResource.responseStarted();
+            
+            //This case is necessary when is used            
+            //org.apache.myfaces.renderkit.html.util.DefaultAddResource
+            //Buffers the output and add to the header the necessary stuff
+            //In other case this is simply ignored (NonBufferingAddResource and
+            //StreamingAddResource), because this not require buffering
+            //and the chaining continues.
+            if (addResource.requiresBuffer())
+            {
+                ExtensionsResponseWrapper extendedResponse = new ExtensionsResponseWrapper((HttpServletResponse) response);
+        
+                // Standard request
+                chain.doFilter(extendedRequest, extendedResponse);
+        
+                extendedResponse.finishResponse();
+        
+                // write the javascript stuff for myfaces and headerInfo, if needed
+                HttpServletResponse servletResponse = (HttpServletResponse)response;
+        
+                // only parse HTML responses
+                if (extendedResponse.getContentType() != null && isValidContentType(extendedResponse.getContentType()))
+                {
+                    addResource.parseResponse(extendedRequest, extendedResponse.toString(),
+                            servletResponse);
+        
+                    addResource.writeMyFacesJavascriptBeforeBodyEnd(extendedRequest,
+                            servletResponse);
+        
+                    if( ! addResource.hasHeaderBeginInfos() ){
+                        // writes the response if no header info is needed
+                        addResource.writeResponse(extendedRequest, servletResponse);
+                        return;
+                    }
+        
+                    // Some headerInfo has to be added
+                    addResource.writeWithFullHeader(extendedRequest, servletResponse);
+        
+                    // writes the response
+                    addResource.writeResponse(extendedRequest, servletResponse);
+                }
+                else
+                {
+
+                    byte[] responseArray = extendedResponse.getBytes();
+
+                    if(responseArray.length > 0)
+                    {
+                        // When not filtering due to not valid content-type, deliver the byte-array instead of a charset-converted string.
+                        // Otherwise a binary stream gets corrupted.
+                        servletResponse.getOutputStream().write(responseArray);
+                    }
+                }
+            }
+            else
+            {
+                chain.doFilter(extendedRequest, response);
+            }
+        }
+        finally
+        {
+            addResource.responseFinished();         
+        }
+        
+        //chain.doFilter(extendedRequest, response);
     }
 
     public boolean isValidContentType(String contentType)

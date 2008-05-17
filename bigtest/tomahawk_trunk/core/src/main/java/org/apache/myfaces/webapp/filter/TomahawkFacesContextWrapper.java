@@ -31,7 +31,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
-import javax.portlet.PortletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -61,7 +60,9 @@ public class TomahawkFacesContextWrapper extends FacesContext {
 
 	        if (addResource.requiresBuffer())
 	        {
-                throw new IllegalStateException("buffering not supported in the portal environment.");
+                throw new IllegalStateException("buffering not supported in the portal environment. "+
+                        " Use for org.apache.myfaces.ADD_RESOURCE_CLASS the value"+
+                        " org.apache.myfaces.renderkit.html.util.NonBufferingAddResource.");
             }
         }
         else {
@@ -91,6 +92,13 @@ public class TomahawkFacesContextWrapper extends FacesContext {
         }
     }
 
+    /**
+     * This method uses reflection to call the method of the delegated
+     * FacesContext getELContext, present on 1.2. This should be done
+     * since we need compatibility between 1.1 and 1.2 for tomahawk
+     * 
+     * @return
+     */
     public javax.el.ELContext getELContext() {
         ;
         try
@@ -99,30 +107,34 @@ public class TomahawkFacesContextWrapper extends FacesContext {
         }
         catch (IllegalArgumentException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            //If the method is called with jsf 1.2, this should not 
+            //be thrown
+            throw new RuntimeException(e);
         }
         catch (SecurityException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            //If the method is called with jsf 1.2, this should not 
+            //be thrown
+            throw new RuntimeException("JSF 1.2 method not implemented: "+e.getMessage());
         }
         catch (IllegalAccessException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            //If the method is called with jsf 1.2, this should not 
+            //be thrown
+            throw new RuntimeException("JSF 1.2 method not implemented: "+e.getMessage());
         }
         catch (InvocationTargetException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            //If the method is called with jsf 1.2, this should not 
+            //be thrown
+            throw new RuntimeException("JSF 1.2 method not implemented: "+e.getMessage());
         }
         catch (NoSuchMethodException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            //If the method is called with jsf 1.2, this should not 
+            //be thrown
+            throw new RuntimeException("JSF 1.2 method not implemented: "+e.getMessage());            
         }
-        return null;
     }
 
     public Application getApplication() {
@@ -248,11 +260,19 @@ public class TomahawkFacesContextWrapper extends FacesContext {
         }
         finally
         {
-            if(addResource!=null)
-                addResource.responseFinished();
+            try
+            {
+                if(addResource!=null)
+                {
+                    addResource.responseFinished();
+                }
+            }
+            finally
+            {
+                delegate.release();
+            }
         }
 
-        delegate.release();
     }
 
     public boolean isValidContentType(String contentType)
