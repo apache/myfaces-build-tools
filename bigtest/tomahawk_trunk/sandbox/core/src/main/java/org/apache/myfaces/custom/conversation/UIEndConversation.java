@@ -127,6 +127,10 @@ public class UIEndConversation extends AbstractConversationComponent
 			};
 	}
 
+	/**
+	 * @JSFProperty
+	 * @return
+	 */
 	public String getOnOutcome()
 	{
 		if (onOutcome != null)
@@ -146,6 +150,10 @@ public class UIEndConversation extends AbstractConversationComponent
 		this.onOutcome = onOutcome;
 	}
 
+	/**
+	 * @JSFProperty
+	 * @return
+	 */
 	public String getErrorOutcome()
 	{
 		if (errorOutcome != null)
@@ -165,6 +173,10 @@ public class UIEndConversation extends AbstractConversationComponent
 		this.errorOutcome = errorOutcome;
 	}
 
+	/**
+	 * @JSFProperty
+	 * @return
+	 */
 	public Boolean getRestart()
 	{
 		if (restart != null)
@@ -184,6 +196,13 @@ public class UIEndConversation extends AbstractConversationComponent
 		this.restart = restart;
 	}
 
+	/**
+	 * @JSFProperty
+	 *   methodSignature = "java.lang.String"
+	 *   returnSignature = "void"
+	 *   stateHolder = "true"
+	 * @return
+	 */
 	public MethodBinding getRestartAction()
 	{
 		return restartAction;

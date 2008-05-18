@@ -30,12 +30,12 @@ import org.apache.myfaces.validator.ValidatorBase;
  * @JSFValidator
  *   name = "s:validateCSV"
  *   tagClass = "org.apache.myfaces.custom.csvvalidator.ValidateCSVTag"
-*
-* @author Lance Frohman
-*
-* @version $Revision: $ $Date: $
-*/
-
+ *
+ * @JSFJspProperty name = "message" returnType = "java.lang.String" longDesc = "alternate validation error message format string"
+ * @author Lance Frohman
+ *
+ * @version $Revision: $ $Date: $
+ */
 public class CSVValidator extends ValidatorBase {
 	/**
 	 * <p>The standard converter id for this converter.</p>
@@ -57,6 +57,7 @@ public class CSVValidator extends ValidatorBase {
 	protected String _separator;
 
 	/**
+	 * @JSFProperty
 	 * @return the VALIDATOR_ID of the actual validator to be used
 	 */
     public String getSubvalidatorId()
@@ -72,6 +73,7 @@ public class CSVValidator extends ValidatorBase {
 	}
 
 	/**
+	 * @JSFProperty
 	 * @return the separator character to separate values
 	 */
 	public String getSeparator() {

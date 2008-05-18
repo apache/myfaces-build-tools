@@ -140,6 +140,10 @@ public class UIEnsureConversation extends AbstractConversationComponent
 		}
 	}
 
+	/**
+	 * @JSFProperty
+	 * @return
+	 */
 	public String getRedirectTo()
 	{
 		if (redirectTo != null)
@@ -158,4 +162,28 @@ public class UIEnsureConversation extends AbstractConversationComponent
 	{
 		this.redirectTo = redirectTo;
 	}
+	
+    /**
+     * @JSFProperty
+     * @return
+     */
+    public Boolean getPreCheck()
+    {
+        if (preCheck != null)
+        {
+            return preCheck;
+        }
+        ValueBinding vb = getValueBinding("preCheck");
+        if (vb == null)
+        {
+            return null;
+        }
+        return (Boolean) vb.getValue(getFacesContext());
+    }
+
+    public void setPreCheck(Boolean preCheck)
+    {
+        this.preCheck = preCheck;
+    }
+
 }

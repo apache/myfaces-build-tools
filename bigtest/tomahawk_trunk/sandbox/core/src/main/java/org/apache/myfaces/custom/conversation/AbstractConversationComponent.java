@@ -24,6 +24,11 @@ import javax.faces.el.ValueBinding;
 
 /**
  * base class for all the conversation components
+ * 
+ * @JSFComponent
+ *   configExcluded = "true"
+ *   tagClass = "org.apache.myfaces.custom.conversation.AbstractConversationTag"
+ *   
  * @author imario@apache.org
  */
 public class AbstractConversationComponent extends UICommand
@@ -61,6 +66,8 @@ public class AbstractConversationComponent extends UICommand
 
 	/**
 	 * the conversation name
+	 * 
+	 * @JSFProperty
 	 */
 	public String getName()
 	{

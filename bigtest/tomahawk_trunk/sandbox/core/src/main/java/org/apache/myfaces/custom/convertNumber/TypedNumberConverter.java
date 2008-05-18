@@ -106,6 +106,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
 		                  };
 	}
 
+    /**
+     * @JSFProperty
+     */
 	public Class getDestType()
 	{
 		return destType;
@@ -326,6 +329,10 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     // GETTER & SETTER
+    
+    /**
+     * @JSFProperty
+     */
     public String getCurrencyCode()
     {
         return _currencyCode != null ?
@@ -338,6 +345,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
         _currencyCode = currencyCode;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getCurrencySymbol()
     {
         return _currencySymbol != null ?
@@ -350,6 +360,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
         _currencySymbol = currencySymbol;
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isGroupingUsed()
     {
         return _groupingUsed;
@@ -360,6 +373,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
         _groupingUsed = groupingUsed;
     }
 
+    /**
+     * @JSFProperty
+     */
     public boolean isIntegerOnly()
     {
         return _integerOnly;
@@ -370,6 +386,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
         _integerOnly = integerOnly;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Locale getLocale()
     {
         if (_locale != null) return _locale;
@@ -382,6 +401,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
         _locale = locale;
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getMaxFractionDigits()
     {
         return _maxFractionDigits;
@@ -393,6 +415,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
         _maxFractionDigits = maxFractionDigits;
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getMaxIntegerDigits()
     {
         return _maxIntegerDigits;
@@ -404,6 +429,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
         _maxIntegerDigits = maxIntegerDigits;
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getMinFractionDigits()
     {
         return _minFractionDigits;
@@ -415,6 +443,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
         _minFractionDigits = minFractionDigits;
     }
 
+    /**
+     * @JSFProperty
+     */
     public int getMinIntegerDigits()
     {
         return _minIntegerDigits;
@@ -426,6 +457,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
         _minIntegerDigits = minIntegerDigits;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getPattern()
     {
         return _pattern;
@@ -446,6 +480,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
         _transient = aTransient;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getType()
     {
         return _type;

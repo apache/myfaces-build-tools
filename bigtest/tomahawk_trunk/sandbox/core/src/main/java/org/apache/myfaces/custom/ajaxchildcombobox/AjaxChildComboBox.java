@@ -18,13 +18,15 @@
  */
 package org.apache.myfaces.custom.ajaxchildcombobox;
 
-import org.apache.myfaces.custom.ajax.api.AjaxComponent;
-import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
-import javax.faces.component.html.HtmlSelectOneMenu;
+import java.io.IOException;
+
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.render.Renderer;
-import java.io.IOException;
+
+import org.apache.myfaces.component.html.ext.HtmlSelectOneMenu;
+import org.apache.myfaces.custom.ajax.api.AjaxComponent;
+import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 
 /**
  * This component is to be used in conjunction with a regular combo box or list box. 
@@ -93,6 +95,12 @@ public class AjaxChildComboBox extends HtmlSelectOneMenu implements AjaxComponen
        _ajaxSelectItemsMethod = ajaxSelectItemsMethod;
     }
 
+    /**
+     * @JSFProperty
+     *   methodSignature = "java.lang.String"
+     *   returnSignature = "javax.faces.model.SelectItem []"
+     *   stateHolder = "true"    
+     */
     public MethodBinding getAjaxSelectItemsMethod()
     {
         return _ajaxSelectItemsMethod;
@@ -103,6 +111,10 @@ public class AjaxChildComboBox extends HtmlSelectOneMenu implements AjaxComponen
         this._parentComboBox = parentComboBox;
     }
     
+    /**
+     * @JSFProperty
+     *   literalOnly="true"
+     */
     public String getParentComboBox() 
     {
         return this._parentComboBox;

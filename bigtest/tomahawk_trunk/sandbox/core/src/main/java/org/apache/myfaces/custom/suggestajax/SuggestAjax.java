@@ -29,6 +29,9 @@ import javax.faces.render.Renderer;
 import java.io.IOException;
 
 /**
+ * 
+ * @JSFComponent
+ *   configExcluded = "true"
  * @author Gerald Muellan
  *         Date: 25.03.2006
  *         Time: 17:06:04
@@ -98,11 +101,19 @@ public class SuggestAjax extends HtmlInputText implements AjaxComponent
        _suggestedItemsMethod = suggestedItemsMethod;
     }
 
+    /**
+     * @JSFProperty
+     * @return
+     */
     public MethodBinding getSuggestedItemsMethod()
     {
         return _suggestedItemsMethod;
     }
 
+    /**
+     * @JSFProperty
+     * @return
+     */
     public Integer getMaxSuggestedItems() {
         if (_maxSuggestedItems != null)
             return _maxSuggestedItems;
@@ -114,6 +125,11 @@ public class SuggestAjax extends HtmlInputText implements AjaxComponent
         _maxSuggestedItems = suggestedItems;
     }
     
+    /**
+     * @JSFProperty
+     *   literalOnly = "true"
+     * @return
+     */
     public String getCharset() {
         return _charset;
     }
@@ -122,4 +138,77 @@ public class SuggestAjax extends HtmlInputText implements AjaxComponent
         _charset = charset;
     }
 
+    // Property: javascriptLocation
+    private String _javascriptLocation;
+    
+    /**
+     * @JSFProperty
+     */
+    public String getJavascriptLocation()
+    {
+        if (_javascriptLocation != null)
+        {
+            return _javascriptLocation;
+        }
+        ValueBinding vb = getValueBinding("javascriptLocation");
+        if (vb != null)
+        {
+            return (String) vb.getValue(getFacesContext());
+        }
+        return null;
+    }
+
+    public void setJavascriptLocation(String javascriptLocation)
+    {
+        this._javascriptLocation = javascriptLocation;
+    }
+    // Property: imageLocation
+    private String _imageLocation;
+    
+    /**
+     * @JSFProperty
+     */
+    public String getImageLocation()
+    {
+        if (_imageLocation != null)
+        {
+            return _imageLocation;
+        }
+        ValueBinding vb = getValueBinding("imageLocation");
+        if (vb != null)
+        {
+            return (String) vb.getValue(getFacesContext());
+        }
+        return null;
+    }
+
+    public void setImageLocation(String imageLocation)
+    {
+        this._imageLocation = imageLocation;
+    }
+    // Property: styleLocation
+    private String _styleLocation;
+    
+    /**
+     * @JSFProperty
+     */
+    public String getStyleLocation()
+    {
+        if (_styleLocation != null)
+        {
+            return _styleLocation;
+        }
+        ValueBinding vb = getValueBinding("styleLocation");
+        if (vb != null)
+        {
+            return (String) vb.getValue(getFacesContext());
+        }
+        return null;
+    }
+
+    public void setStyleLocation(String styleLocation)
+    {
+        this._styleLocation = styleLocation;
+    }
+    
 }

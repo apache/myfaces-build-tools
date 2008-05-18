@@ -28,7 +28,14 @@ import java.util.TimeZone;
  * @JSFConverter
  *   name = "s:convertDateTime"
  *   tagClass = "org.apache.myfaces.custom.convertDateTime.ConvertDateTimeTag" 
- *   
+ * 
+ * @JSFJspProperty name = "dateStyle" returnType = "java.lang.String"
+ * @JSFJspProperty name = "locale" returnType = "java.util.Locale"
+ * @JSFJspProperty name = "pattern" returnType = "java.lang.String"
+ * @JSFJspProperty name = "timeStyle" returnType = "java.lang.String"
+ * @JSFJspProperty name = "timeZone" returnType = "java.util.TimeZone"
+ * @JSFJspProperty name = "type" returnType = "java.lang.String"
+ * 
  * User: treeder
  * Date: Oct 28, 2005
  * Time: 7:19:01 PM

@@ -186,6 +186,10 @@ public class UIStartConversation extends AbstractConversationComponent
 		                  };
 	}
 
+	/**
+	 * @JSFProperty
+	 * @return
+	 */
 	public Boolean getPersistence()
 	{
         if (persistence != null)

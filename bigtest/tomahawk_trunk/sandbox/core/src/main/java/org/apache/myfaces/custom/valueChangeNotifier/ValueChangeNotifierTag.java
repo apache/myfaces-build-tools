@@ -64,6 +64,7 @@ public class ValueChangeNotifierTag extends TagSupport
 	 * e.g. myBean.myListenerMethod
 	 * 
 	 * @JSFJspAttribute
+	 *   required = "true"
 	 */
 	public void setMethod(String method)
 	{

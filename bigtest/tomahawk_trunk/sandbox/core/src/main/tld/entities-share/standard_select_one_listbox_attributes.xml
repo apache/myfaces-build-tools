@@ -4,6 +4,7 @@
 &html_select_attributes;
 
 <!-- ListboxRenderer attributes -->
+<!-- 
 <attribute>
     <name>size</name>
     <required>false</required>
@@ -11,6 +12,7 @@
     <type>java.lang.String</type>
     <description>see JSF Spec.</description>
 </attribute>
+ -->
 <attribute>
     <name>enabledClass</name>
     <required>false</required>

@@ -31,6 +31,7 @@ import org.apache.myfaces.validator.ValidatorBase;
  *   name = "s:validateUrl"
  *   tagClass = "org.apache.myfaces.custom.urlvalidator.ValidateUrlTag"
  *
+ * @JSFJspProperty name = "message" returnType = "java.lang.String" longDesc = "alternate validation error message format string"
  * @author Fabian Frederick
  *
  * @version $Revision: $ $Date: $

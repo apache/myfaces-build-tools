@@ -34,6 +34,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -873,6 +875,18 @@ public class HtmlRoundedDivRenderer extends HtmlTagRenderer implements
                 .append("px;");
     }
 
+    protected Dimension _getSize(HtmlRoundedDiv component){
+        String size = component.getSize();
+        
+        Matcher m = Pattern.compile("(\\d+)\\D+(\\d+)").matcher(size);
+        if (!m.find())
+        {
+            throw new IllegalArgumentException("Invalid dimension");
+        }
+        return new Dimension(Integer.parseInt(m.group(1)), Integer
+                .parseInt(m.group(2)));       
+    }
+    
     /**
      * Build a set of parameters as a map that are needed for the rendering
      * 
@@ -883,24 +897,29 @@ public class HtmlRoundedDivRenderer extends HtmlTagRenderer implements
     protected Map buildParameterMap(HtmlRoundedDiv component, String area)
     {
         Map map = new HashMap(7);
-        map.put("c", colorToHtml(component.getColor()));
-        Color c;
-        if ((c = component.getBackgroundColor()) != null)
-        {
-            map.put("bgc", colorToHtml(component.getBackgroundColor()));
+        if (component.getColor() != null){
+            map.put("c", colorToHtml(Color.decode(component.getColor())));
         }
-        if ((c = component.getBorderColor()) != null)
+        Color c;
+        if (component.getBackgroundColor() != null)
         {
-            map.put("bc", colorToHtml(component.getBorderColor()));
+            c = Color.decode(component.getBackgroundColor());
+            map.put("bgc", colorToHtml(c));
+        }
+        if ( component.getBorderColor() != null)
+        {
+            c = Color.decode(component.getBorderColor());
+            map.put("bc", colorToHtml(c));
         }
 
         map.put("bw", component.getBorderWidth().toString());
         map.put("r", component.getRadius().toString());
         Dimension d;
-        if ((d = component.getSize()) != null)
+        if ( component.getSize() != null)
         {
-            map.put("s", component.getSize().width + "x"
-                    + component.getSize().height);
+            d = _getSize(component);
+            map.put("s", d.width + "x"
+                    + d.height);
         }
         if (area != null)
         {

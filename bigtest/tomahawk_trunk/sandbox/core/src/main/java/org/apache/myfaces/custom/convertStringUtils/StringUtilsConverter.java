@@ -138,6 +138,9 @@ public class StringUtilsConverter implements Converter, StateHolder {
         this._transient = _transient;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getFormat() {
 		return format;
 	}
@@ -146,6 +149,9 @@ public class StringUtilsConverter implements Converter, StateHolder {
 		this.format = format;
 	}
 
+    /**
+     * @JSFProperty
+     */
     public Integer getMaxLength() {
         return maxLength;
     }
@@ -154,6 +160,9 @@ public class StringUtilsConverter implements Converter, StateHolder {
 		this.maxLength = maxLength;
 	}
 
+    /**
+     * @JSFProperty
+     */
     public Boolean isAppendEllipsesDuringOutput() {
         return appendEllipsesDuringOutput;
     }
@@ -162,6 +171,9 @@ public class StringUtilsConverter implements Converter, StateHolder {
         this.appendEllipsesDuringOutput = appendEllipsesDuringOutput;
     }
 
+    /**
+     * @JSFProperty
+     */
     public Boolean isAppendEllipsesDuringInput() {
         return appendEllipsesDuringInput;
     }
@@ -170,6 +182,9 @@ public class StringUtilsConverter implements Converter, StateHolder {
         this.appendEllipsesDuringInput = appendEllipsesDuringInput;
     }
 
+    /**
+     * @JSFProperty
+     */
 	public Boolean getTrim() {
 		return trim;
 	}

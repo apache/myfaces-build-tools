@@ -51,7 +51,7 @@ public class GraphicImageDynamic extends HtmlGraphicImage
 	public static final String VALUE_PARAM = "_value";
 	public static final String WIDTH_PARAM = "_width";
 	public static final String HEIGHT_PARAM = "_height";    
-    private static final String DEFAULT_RENDERER_TYPE = GraphicImageDynamicRenderer.RENDERER_TYPE;	
+    private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.GraphicImageDynamicRenderer";	
     
 
     public GraphicImageDynamic()
@@ -76,6 +76,9 @@ public class GraphicImageDynamic extends HtmlGraphicImage
         _imageRendererClass = (Class) values[1];
     }
 
+    /**
+     * @JSFProperty
+     */
     public void setImageRendererClass(Class imageRendererClass)
     {
         if (imageRendererClass != null && !ImageRenderer.class.isAssignableFrom(imageRendererClass))

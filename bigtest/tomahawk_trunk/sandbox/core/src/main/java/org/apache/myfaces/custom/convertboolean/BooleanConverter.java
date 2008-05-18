@@ -60,6 +60,9 @@ public class BooleanConverter implements Converter, StateHolder
         // Default constructor
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getFalseValue()
     {
         return falseValue;
@@ -70,6 +73,9 @@ public class BooleanConverter implements Converter, StateHolder
         this.falseValue = falseValue;
     }
 
+    /**
+     * @JSFProperty
+     */
     public String getTrueValue()
     {
         return trueValue;
