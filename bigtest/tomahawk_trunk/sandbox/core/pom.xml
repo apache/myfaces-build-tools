@@ -228,9 +228,32 @@
 			          <goal>make-tags</goal>
 			      </goals>
 			    </execution>
+				<execution>
+				  <id>makesandboxtld</id>
+				  <configuration>
+				      <xmlFile>classes/META-INF/myfaces_sandbox.tld</xmlFile>
+				      <xmlBaseFile>src/main/conf/META-INF/myfaces_sandbox-base.tld</xmlBaseFile>
+				      <!-- use the same as tomahawk -->
+				      <templateFile>tomahawk.vm</templateFile>
+				      <params>
+				         <shortname>s</shortname>
+				         <uri>http://myfaces.apache.org/sandbox</uri>
+				         <displayname>Tomahawk sandbox tag library.</displayname>
+				         <description>Enhanced standard JSP actions and custom MyFaces actions.</description>
+				      </params>
+				      <modelIds>
+				          <modelId>tomahawk-sandbox</modelId>
+				      </modelIds>
+				  </configuration>
+				  <goals>
+				      <goal>make-config</goal>
+				  </goals>
+				</execution>        
+			    
 			  </executions>
 			</plugin>
-        
+
+            <!--         
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xslt-maven-plugin</artifactId>
@@ -249,6 +272,7 @@
                     </execution>
                 </executions>
             </plugin>
+             -->
         </plugins>
     </build>
 
@@ -344,7 +368,7 @@
                         <groupId>net.sourceforge.maven-taglib</groupId>
                         <artifactId>maven-taglib-plugin</artifactId>
                         <configuration>
-                            <taglib.src.dir>${basedir}/target/tlddoc-site</taglib.src.dir>
+                            <taglib.src.dir>${basedir}/target/classes/META-INF</taglib.src.dir>
                             <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
                         </configuration>
                     </plugin>
@@ -406,7 +430,7 @@
                         <groupId>net.sourceforge.maven-taglib</groupId>
                         <artifactId>maven-taglib-plugin</artifactId>
                         <configuration>
-                            <taglib.src.dir>${basedir}/target/tlddoc-site</taglib.src.dir>
+                            <taglib.src.dir>${basedir}/target/classes/META-INF</taglib.src.dir>
                             <tldDocDir>${basedir}/target/tlddoc</tldDocDir>
                         </configuration>
                         <executions>
