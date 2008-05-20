@@ -32,6 +32,7 @@ import java.io.IOException;
  * 
  * @JSFComponent
  *   configExcluded = "true"
+ *   tagClass = "org.apache.myfaces.custom.suggestajax.SuggestAjaxTag"
  * @author Gerald Muellan
  *         Date: 25.03.2006
  *         Time: 17:06:04

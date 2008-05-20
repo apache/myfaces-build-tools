@@ -21,11 +21,12 @@ package org.apache.myfaces.custom.suggestajax;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.custom.suggestajax.inputsuggestajax.InputSuggestAjax;
-import org.apache.myfaces.taglib.html.ext.HtmlInputTextTag;
+import org.apache.myfaces.generated.taglib.html.ext.HtmlInputTextTag;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
+import javax.faces.el.ValueBinding;
 
 /**
  * @author Gerald Muellan
@@ -65,11 +66,74 @@ public class SuggestAjaxTag extends HtmlInputTextTag
     protected void setProperties(UIComponent component) {
 
         super.setProperties(component);
+        
+        FacesContext context = getFacesContext();
 
-        setIntegerProperty(component,"maxSuggestedItems", _maxSuggestedItems);
+        SuggestAjax comp = (SuggestAjax) component;
+        
+        if (_maxSuggestedItems != null)
+        {
+            if (isValueReference(_maxSuggestedItems))
+            {
+                ValueBinding vb = context.getApplication().createValueBinding(_maxSuggestedItems);
+                comp.setValueBinding("maxSuggestedItems", vb);
+            }
+            else
+            {
+                comp.getAttributes().put("maxSuggestedItems", Integer.valueOf(_maxSuggestedItems));
+            }
+        } 
+
+        if (_charset != null)
+        {
+            if (isValueReference(_charset))
+            {
+                ValueBinding vb = context.getApplication().createValueBinding(_charset);
+                comp.setValueBinding("charset", vb);
+            }
+            else
+            {
+                comp.getAttributes().put("charset", _charset);
+            }
+        } 
+        if (_javascriptLocation != null)
+        {
+            if (isValueReference(_javascriptLocation))
+            {
+                ValueBinding vb = context.getApplication().createValueBinding(_javascriptLocation);
+                comp.setValueBinding("javascriptLocation", vb);
+            }
+            else
+            {
+                comp.getAttributes().put("javascriptLocation", _javascriptLocation);
+            }
+        } 
+        if (_imageLocation != null)
+        {
+            if (isValueReference(_imageLocation))
+            {
+                ValueBinding vb = context.getApplication().createValueBinding(_imageLocation);
+                comp.setValueBinding("imageLocation", vb);
+            }
+            else
+            {
+                comp.getAttributes().put("imageLocation", _imageLocation);
+            }
+        } 
+        if (_styleLocation != null)
+        {
+            if (isValueReference(_styleLocation))
+            {
+                ValueBinding vb = context.getApplication().createValueBinding(_styleLocation);
+                comp.setValueBinding("styleLocation", vb);
+            }
+            else
+            {
+                comp.getAttributes().put("styleLocation", _styleLocation);
+            }
+        } 
 
         SuggestAjaxTag.setSuggestedItemsMethodProperty(getFacesContext(),component,_suggestedItemsMethod);
-        setStringProperty(component,"charset",_charset);
     }
 
     public static void setSuggestedItemsMethodProperty(FacesContext context,
@@ -114,4 +178,25 @@ public class SuggestAjaxTag extends HtmlInputTextTag
         _charset = charset;
     }
 
+    private String _javascriptLocation;
+    
+    public void setJavascriptLocation(String javascriptLocation)
+    {
+        _javascriptLocation = javascriptLocation;
+    }
+ 
+    private String _imageLocation;
+    
+    public void setImageLocation(String imageLocation)
+    {
+        _imageLocation = imageLocation;
+    }
+ 
+    private String _styleLocation;
+    
+    public void setStyleLocation(String styleLocation)
+    {
+        _styleLocation = styleLocation;
+    }
+    
 }
