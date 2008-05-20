@@ -18,18 +18,17 @@
  */
 package org.apache.myfaces.custom.ppr;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
-import javax.faces.event.FacesEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @JSFComponent

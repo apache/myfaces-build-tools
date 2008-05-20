@@ -131,7 +131,16 @@ $innersource
 #if ($utils.isPrimitiveClass($type))
             return ($utils.castIfNecessary($type) vb.getValue(getFacesContext())).${type}Value();
 #else
+#set ($pritype = $utils.getPrimitiveType($property.className))
+#if ($utils.isPrimitiveClass($pritype))
+            Object value = vb == null ? null : vb.getValue(getFacesContext());
+            if (!(value instanceof $type)){
+                value = ${type}.valueOf(value.toString());
+            }            
+            return $utils.castIfNecessary($type) value;
+#else
             return $utils.castIfNecessary($type) vb.getValue(getFacesContext());
+#end
 #end
         }
 #if ($defaultValue)

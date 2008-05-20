@@ -33,7 +33,7 @@ import org.apache.myfaces.custom.htmlTag.HtmlTag;
 public abstract class AbstractFieldset extends HtmlTag {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.Fieldset";
   public static final String COMPONENT_FAMILY = "javax.faces.Output";
-  private static final String DEFAULT_RENDERER_TYPE = FieldsetRenderer.RENDERER_TYPE;
+  private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.FieldsetRenderer";
 
   /**
    * @JSFProperty

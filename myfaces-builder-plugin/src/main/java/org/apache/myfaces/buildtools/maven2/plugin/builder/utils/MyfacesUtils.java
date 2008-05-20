@@ -566,7 +566,7 @@ public class MyfacesUtils
     {
         String def =  getDefaultValue(property);
 
-        if (property.getClassName().endsWith("Boolean")){
+        if (property.getClassName().endsWith("Boolean") && def != null){
                 def = "Boolean.valueOf("+def+")";
         }
         return def;

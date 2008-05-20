@@ -18,50 +18,42 @@
  */
 package org.apache.myfaces.custom.suggestajax;
 
-import org.apache.myfaces.component.html.ext.HtmlInputText;
-import org.apache.myfaces.custom.ajax.api.AjaxComponent;
-import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
+import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
-import javax.faces.el.ValueBinding;
 import javax.faces.render.Renderer;
-import java.io.IOException;
+
+import org.apache.myfaces.component.LocationAware;
+import org.apache.myfaces.component.html.ext.HtmlInputText;
+import org.apache.myfaces.custom.ajax.api.AjaxComponent;
+import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 
 /**
  * 
  * @JSFComponent
  *   configExcluded = "true"
+ *   class = "org.apache.myfaces.custom.suggestajax.SuggestAjax"
+ *   superClass = "org.apache.myfaces.custom.suggestajax.AbstractSuggestAjax"
  *   tagClass = "org.apache.myfaces.custom.suggestajax.SuggestAjaxTag"
+ *   tagSuperclass = "org.apache.myfaces.custom.suggestajax.AbstractSuggestAjaxTag"
  * @author Gerald Muellan
  *         Date: 25.03.2006
  *         Time: 17:06:04
  */
-public class SuggestAjax extends HtmlInputText implements AjaxComponent
+public abstract class AbstractSuggestAjax extends HtmlInputText 
+    implements AjaxComponent, LocationAware
 {
     public static final String COMPONENT_TYPE = "org.apache.myfaces.SuggestAjax";
     public static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.SuggestAjax";
 
     private MethodBinding _suggestedItemsMethod;
 
-    private String _charset;
-
-    private Integer _maxSuggestedItems;
-
-    public SuggestAjax()
-    {
-        super();
-
-        setRendererType(SuggestAjax.DEFAULT_RENDERER_TYPE);
-    }
-
     public Object saveState(FacesContext context)
     {
         Object[] values = new Object[4];
         values[0] = super.saveState(context);
         values[1] = saveAttachedState(context, _suggestedItemsMethod);
-        values[2] = _maxSuggestedItems;
-        values[3] = _charset;
 
         return values;
     }
@@ -71,8 +63,6 @@ public class SuggestAjax extends HtmlInputText implements AjaxComponent
         Object values[] = (Object[])state;
         super.restoreState(context, values[0]);
         _suggestedItemsMethod = (MethodBinding) restoreAttachedState(context, values[1]);
-        _maxSuggestedItems = (Integer) values[2];
-        _charset = (String) values[3];
     }
     
     public void encodeAjax(FacesContext context)
@@ -104,6 +94,7 @@ public class SuggestAjax extends HtmlInputText implements AjaxComponent
 
     /**
      * @JSFProperty
+     *   inheritedTag = "true"
      * @return
      */
     public MethodBinding getSuggestedItemsMethod()
@@ -113,103 +104,46 @@ public class SuggestAjax extends HtmlInputText implements AjaxComponent
 
     /**
      * @JSFProperty
+     *   inheritedTag = "true"
      * @return
      */
-    public Integer getMaxSuggestedItems() {
-        if (_maxSuggestedItems != null)
-            return _maxSuggestedItems;
-        ValueBinding vb = getValueBinding("maxSuggestedItems");
-        return vb != null ? (Integer) vb.getValue(getFacesContext()) : null;
-    }
+    public abstract Integer getMaxSuggestedItems();
 
-    public void setMaxSuggestedItems(Integer suggestedItems) {
-        _maxSuggestedItems = suggestedItems;
-    }
     
     /**
      * @JSFProperty
      *   literalOnly = "true"
      * @return
      */
-    public String getCharset() {
-        return _charset;
-    }
-    
-    public void setCharset(String charset) {
-        _charset = charset;
-    }
+    public abstract String getCharset();
 
-    // Property: javascriptLocation
-    private String _javascriptLocation;
+    /**
+     *  An alternate location to find javascript resources. 
+     *  If no values is specified, javascript will be loaded 
+     *  from the resources directory using AddResource and 
+     *  ExtensionsFilter.
+     * 
+     * @JSFProperty 
+     */
+    public abstract String getJavascriptLocation();
     
     /**
-     * @JSFProperty
+     * An alternate location to find image resources. If no 
+     * values is specified, images will be loaded from the 
+     * resources directory using AddResource and ExtensionsFilter.
+     * 
+     * @JSFProperty 
      */
-    public String getJavascriptLocation()
-    {
-        if (_javascriptLocation != null)
-        {
-            return _javascriptLocation;
-        }
-        ValueBinding vb = getValueBinding("javascriptLocation");
-        if (vb != null)
-        {
-            return (String) vb.getValue(getFacesContext());
-        }
-        return null;
-    }
-
-    public void setJavascriptLocation(String javascriptLocation)
-    {
-        this._javascriptLocation = javascriptLocation;
-    }
-    // Property: imageLocation
-    private String _imageLocation;
+    public abstract String getImageLocation();
     
     /**
-     * @JSFProperty
+     * An alternate location to find stylesheet resources. If no 
+     * values is specified, stylesheets will be loaded from the 
+     * resources directory using AddResource and ExtensionsFilter.
+     * 
+     * @JSFProperty 
      */
-    public String getImageLocation()
-    {
-        if (_imageLocation != null)
-        {
-            return _imageLocation;
-        }
-        ValueBinding vb = getValueBinding("imageLocation");
-        if (vb != null)
-        {
-            return (String) vb.getValue(getFacesContext());
-        }
-        return null;
-    }
+    public abstract String getStyleLocation();
 
-    public void setImageLocation(String imageLocation)
-    {
-        this._imageLocation = imageLocation;
-    }
-    // Property: styleLocation
-    private String _styleLocation;
-    
-    /**
-     * @JSFProperty
-     */
-    public String getStyleLocation()
-    {
-        if (_styleLocation != null)
-        {
-            return _styleLocation;
-        }
-        ValueBinding vb = getValueBinding("styleLocation");
-        if (vb != null)
-        {
-            return (String) vb.getValue(getFacesContext());
-        }
-        return null;
-    }
-
-    public void setStyleLocation(String styleLocation)
-    {
-        this._styleLocation = styleLocation;
-    }
     
 }

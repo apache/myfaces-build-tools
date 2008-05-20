@@ -1009,7 +1009,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean setMethod = getBoolean(clazz, "setMethod",props,null);
         String localMethodScope = getString(clazz, "localMethodScope",props,null);
         String setMethodScope = getString(clazz, "setMethodScope",props,null);
-        
+        Boolean inheritedTag = getBoolean(clazz, "inheritedTag",props,null);
 
         String longDescription = ctx.getComment();
         String descDflt = getFirstSentence(longDescription);
@@ -1022,6 +1022,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String methodSignature = getString(clazz, "methodSignature", props, null);
         String defaultValue = getString(clazz,"defaultValue",props,null);
         String jspName = getString(clazz,"jspName",props,null);
+        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue",props,null);
 
         Type returnType = null;
         
@@ -1051,6 +1052,8 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setSetMethod(setMethod);
         p.setSetMethodScope(setMethodScope);
         p.setJspName(jspName);
+        p.setRtexprvalue(rtexprvalue);
+        p.setInheritedTag(inheritedTag);
         
         if (returnSignature != null)
         {

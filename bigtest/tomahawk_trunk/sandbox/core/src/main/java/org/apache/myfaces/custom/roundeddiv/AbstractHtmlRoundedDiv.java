@@ -69,12 +69,6 @@ public abstract class AbstractHtmlRoundedDiv extends Div
 
     /**
      * @JSFProperty
-     * @see org.apache.myfaces.custom.htmlTag.HtmlTag#getStyle()
-     */
-    public abstract String getStyle();
-
-    /**
-     * @JSFProperty
      * @return the backgroundColor
      */
     public abstract String getBackgroundColor();
@@ -124,6 +118,26 @@ public abstract class AbstractHtmlRoundedDiv extends Div
      */
     public abstract String getSize();
 
+    /**
+     * @see org.apache.myfaces.custom.htmlTag.HtmlTag#getStyle()
+     */
+    public String getStyle()
+    {
+        String style = super.getStyle();
+        StringBuffer sb = (style == null) ? new StringBuffer() : new StringBuffer(style).append(';');
+        
+        if (style == null || style.indexOf("position:") < 0)
+        {
+            sb.append("position: relative;");
+        }
+        if ("table".equals(getValue()))
+        {
+            sb.append("border-collapse: collapse;");
+        }
+        
+        return sb.toString();
+    }
+    
     /**
      * @JSFProperty
      * @see org.apache.myfaces.custom.div.Div#getValue()

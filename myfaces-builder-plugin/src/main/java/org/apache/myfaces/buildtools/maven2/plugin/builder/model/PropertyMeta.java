@@ -53,6 +53,7 @@ public class PropertyMeta
     private String _setMethodScope;
     private Boolean _setMethod; //Generate method to define if is set a value or not
     
+    private Boolean _rtexprvalue;
 
     public PropertyMeta()
     {
@@ -83,6 +84,7 @@ public class PropertyMeta
         _localMethod = pm._localMethod;
         _setMethodScope = pm._setMethodScope;
         _setMethod = pm._setMethod;
+        _rtexprvalue = pm._rtexprvalue;
         
     }
     
@@ -115,6 +117,7 @@ public class PropertyMeta
         out.writeElement("localMethod", pm._localMethod);
         out.writeElement("setMethodScope", pm._setMethodScope);
         out.writeElement("setMethod", pm._setMethod);
+        out.writeElement("rtexprvalue", pm._rtexprvalue);
         out.endElement("property");
     }
 
@@ -148,6 +151,7 @@ public class PropertyMeta
         digester.addBeanPropertySetter(newPrefix + "/localMethod", "localMethod");
         digester.addBeanPropertySetter(newPrefix + "/setMethodScope", "setMethodScope");
         digester.addBeanPropertySetter(newPrefix + "/setMethod", "setMethod");
+        digester.addBeanPropertySetter(newPrefix + "/rtexprvalue", "rtexprvalue");
         MethodSignatureMeta.addXmlRules(digester, newPrefix);
         
     }
@@ -179,6 +183,7 @@ public class PropertyMeta
         _setMethodScope = ModelUtils.merge(this._setMethodScope, other._setMethodScope);
         _setMethod = ModelUtils.merge(this._setMethod, other._setMethod);
         _tagExcluded = ModelUtils.merge(this._tagExcluded, other._tagExcluded);
+        _rtexprvalue = ModelUtils.merge(this._rtexprvalue, other._rtexprvalue);
     }
 
     /**
@@ -455,6 +460,17 @@ public class PropertyMeta
     {
         _setMethod = setMethod;
     }
+    
+    public void setRtexprvalue(Boolean rtexprvalue)
+    {
+        _rtexprvalue = rtexprvalue;
+    }
+
+    public Boolean isRtexprvalue()
+    {
+        return _rtexprvalue;
+    }
+    
 
     public Boolean isSetMethod()
     {

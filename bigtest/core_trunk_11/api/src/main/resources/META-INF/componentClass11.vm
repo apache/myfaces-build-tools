@@ -25,7 +25,14 @@ import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 $utils.importTagClasses($component)
 
-public class ${utils.getClassFromFullClass($component.className)} extends $component.parentClassName{
+public class ${utils.getClassFromFullClass($component.className)} extends $component.superClassName
+#if ($component.implements)
+    implements $component.implements
+#end
+{
+#if ($component.serialuid)
+    private static final long serialVersionUID = ${component.serialuid}; 
+#end  
 
 ##    static public final String COMPONENT_FAMILY =
 ##        "$component.family";
@@ -41,7 +48,11 @@ $innersource
     public ${utils.getClassFromFullClass($component.className)}()
     {
 #if ($component.rendererType)
+#if ($component.rendererType == "")
+        setRendererType(null);
+#else
         setRendererType("$component.rendererType");
+#end
 #else
         setRendererType(null);
 #end
@@ -71,8 +82,26 @@ $innersource
 #end
 #if($utils.isPrimitiveClass($type) && !$property.isTagExcluded() )
     private boolean ${field}Set;
+    
+#if ($property.isSetMethod())
+    $property.setMethodScope boolean $utils.getPrefixedPropertyName("isSet", $property.name)()
+    {
+        return ${field}Set;
+    }
 #end
-
+#end
+#if($property.isLocalMethod())
+#if("boolean" == $type)
+#set ($methodName = $utils.getPrefixedPropertyName("isLocal", $property.name))
+#else
+#set ($methodName = $utils.getPrefixedPropertyName("getLocal", $property.name))
+#end
+    final $property.localMethodScope $type ${methodName}()
+    {
+        return $field;
+    }
+     
+#end
     public $type $utils.getMethodReaderFromProperty($property.name, $type)()
     {
 #if ($property.isTagExcluded() || $property.isLiteralOnly())
@@ -92,7 +121,16 @@ $innersource
 #if ($utils.isPrimitiveClass($type))
             return ($utils.castIfNecessary($type) vb.getValue(getFacesContext())).${type}Value();
 #else
+#set ($pritype = $utils.getPrimitiveType($property.className))
+#if ($utils.isPrimitiveClass($pritype))
+            Object value = vb == null ? null : vb.getValue(getFacesContext());
+            if (!(value instanceof $type)){
+                value = ${type}.valueOf(value.toString());
+            }            
+            return $utils.castIfNecessary($type) value;
+#else
             return $utils.castIfNecessary($type) vb.getValue(getFacesContext());
+#end
 #end
         }
 #if ($defaultValue)

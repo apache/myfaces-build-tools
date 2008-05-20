@@ -35,7 +35,7 @@ public abstract class AbstractEffect extends Div
 {
     public static final String COMPONENT_TYPE = "org.apache.myfaces.Effect";
     static public final String DEFAULT_RENDERER_TYPE = 
-        "org.apache.myfaces.EffectRenderer";
+        "org.apache.myfaces.effect.EffectRenderer";
     
     /**
      * @JSFProperty
