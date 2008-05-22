@@ -25,6 +25,10 @@ import javax.faces.context.FacesContext;
 /**
  * Container class allows user to toggle between view/edit mode.
  * 
+ * Extends PanelGroup. Allows user to toggle between 'view' mode and 'edit' mode. 
+ * In the togglePanel, include a toggleLink. When the toggleLink is clicked, 
+ * the rest of the group is shown, and the link is hidden.
+ * 
  * @JSFComponent
  *   name = "s:togglePanel"
  *   class = "org.apache.myfaces.custom.toggle.TogglePanel"
@@ -42,6 +46,9 @@ public abstract class AbstractTogglePanel extends HtmlPanelGroup
     public static final boolean DEFAULT_TOGGLED = false;
 
     /**
+     * You can set toggled to true to force the toggleGroup to always be in toggle 
+     * mode. Default is false.
+     * 
      * @JSFProperty
      *   defaultValue="false"
      * @return

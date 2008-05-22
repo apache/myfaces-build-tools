@@ -21,6 +21,8 @@ package org.apache.myfaces.custom.picklist;
 import org.apache.myfaces.component.html.ext.HtmlSelectManyListbox;
 
 /**
+ * A picklist component that allows to select items from one list to another
+ * 
  * @JSFComponent
  *   name = "s:selectManyPicklist"
  *   class = "org.apache.myfaces.custom.picklist.HtmlSelectManyPicklist"

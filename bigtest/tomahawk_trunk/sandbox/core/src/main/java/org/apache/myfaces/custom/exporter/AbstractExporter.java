@@ -21,6 +21,7 @@ package org.apache.myfaces.custom.exporter;
 import javax.faces.component.UIComponentBase;
 
 /**
+ * Export datatable contents to an excel file or a pdf file.
  * 
  * @JSFComponent
  *   name = "s:exporter"
@@ -40,16 +41,22 @@ public abstract class AbstractExporter extends UIComponentBase {
 	}
 
 	/**
+	 * Id of the datatable component whose values to be exported
+	 * 
 	 * @JSFProperty
 	 */
 	public abstract String getFor();
 	
     /**
+     * Default name of the generated excel or pdf file, if not specified value of the "for" attribute will be used
+     * 
      * @JSFProperty
      */
 	public abstract String getFilename();
 	
     /**
+     * "PDF" or "XLS"
+     * 
      * @JSFProperty
      */
 	public abstract String getFileType();

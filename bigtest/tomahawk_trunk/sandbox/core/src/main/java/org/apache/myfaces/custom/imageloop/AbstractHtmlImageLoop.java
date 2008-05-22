@@ -26,14 +26,26 @@ import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 /**
  * HTML image loop component.
  * 
+ * Image loop/slide show component. 
+ * 
+ * Provides Javascript methods to control image loop behaviour. 
+ * Methods: getImageLoop(id) - get image loop object with id, 
+ * play() - play loop, 
+ * stop() - stop loop, 
+ * accelerate() - accelerate loop until minDelay reached, 
+ * decelerate() - decelerate loop until maxDelay reached, 
+ * setImageIndex(index) - show image with index, 
+ * reset() - reset settings to origin values, 
+ * getImageCount() - get number of images loaded
+ * 
  * @JSFComponent
  *   name = "s:imageLoop"
  *   class = "org.apache.myfaces.custom.imageloop.HtmlImageLoop"
  *   superClass = "org.apache.myfaces.custom.imageloop.AbstractHtmlImageLoop"
  *   tagClass = "org.apache.myfaces.custom.imageloop.HtmlImageLoopTag"
  *   
- * @author Felix Röthenbacher (latest modification by $Author:$)
- * @version $Revision:$ $Date:$
+ * @author Felix Röthenbacher (latest modification by $Author$)
+ * @version $Revision$ $Date$
  */
 public abstract class AbstractHtmlImageLoop extends UIComponentBase {
 
@@ -63,31 +75,43 @@ public abstract class AbstractHtmlImageLoop extends UIComponentBase {
     }
     
     /**
+     * The delay between transitions
+     * 
      * @JSFProperty
      */
     public abstract Integer getDelay();
     
     /**
+     * The minimum delay allowed when decreasing delay time
+     * 
      * @JSFProperty
      */
     public abstract Integer getMinDelay();
 
     /**
+     * The maximum delay allowed when increasing delay time
+     * 
      * @JSFProperty
      */
     public abstract Integer getMaxDelay();
 
     /**
+     * Transition time in milliseconds. Set to -1 for immediate image switch.
+     * 
      * @JSFProperty
      */
     public abstract Integer getTransitionTime();
     
     /**
+     * Width
+     * 
      * @JSFProperty
      */
     public abstract Integer getWidth();
 
     /**
+     * Height
+     * 
      * @JSFProperty
      */
     public abstract Integer getHeight();

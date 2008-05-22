@@ -26,6 +26,8 @@ import javax.faces.el.MethodBinding;
 import org.apache.myfaces.custom.suggestajax.SuggestAjax;
 
 /**
+ * Provides an input textbox with "suggest" functionality, using an ajax request to the server.
+ * 
  * @JSFComponent
  *   name = "s:inputSuggestAjax"
  *   class = "org.apache.myfaces.custom.suggestajax.inputsuggestajax.InputSuggestAjax"
@@ -61,6 +63,10 @@ public abstract class AbstractInputSuggestAjax extends SuggestAjax
     }
 
     /**
+     * If false, the input field is not automatically populated with the first suggested value. 
+     * 
+     * Default: true
+     * 
      * @JSFProperty
      *   defaultValue = "true"
      * @return
@@ -68,6 +74,11 @@ public abstract class AbstractInputSuggestAjax extends SuggestAjax
     public abstract Boolean getAutoComplete();
 
     /**
+     * Method which gets a suggested Object as an argument and returns a 
+     * calculated String label. With this attribute it is possible to 
+     * achieve the same mechanism as it can be found at select menues 
+     * with the label/value pair.
+     * 
      * @JSFProperty
      *   methodSignature = "java.lang.Object"
      *   returnSignature = "java.lang.String"

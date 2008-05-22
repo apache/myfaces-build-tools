@@ -34,6 +34,8 @@ import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 import org.apache.myfaces.custom.ajax.api.DeprecatedAjaxComponent;
 
 /**
+ * Extends standard selectManyCheckbox allowing for dynamic ajax submitting.
+ * 
  * Current limitations
  * - Bound value must be a Collection of Strings!
  *
@@ -51,10 +53,6 @@ public abstract class AbstractHtmlSelectManyCheckboxAjax extends HtmlSelectManyC
     private static final Log log = LogFactory.getLog(AbstractHtmlSelectManyCheckboxAjax.class);
     public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlSelectManyCheckboxAjax";
     public static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.CheckboxAjax";
-
-    private String onSuccess;
-    private String onFailure;
-    private String onStart;
 
     public AbstractHtmlSelectManyCheckboxAjax()
     {
@@ -151,16 +149,22 @@ public abstract class AbstractHtmlSelectManyCheckboxAjax extends HtmlSelectManyC
     }
 
     /**
+     * Javascript method to call on successful ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnSuccess();
 
     /**
+     * Javascript method to call on failed ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnFailure();
 
     /**
+     * Javascript method to call on start of ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnStart();

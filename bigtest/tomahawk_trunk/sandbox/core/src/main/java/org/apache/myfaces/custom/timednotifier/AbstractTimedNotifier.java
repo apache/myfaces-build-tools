@@ -23,6 +23,7 @@ import javax.faces.component.UIOutput;
 
 
 /**
+ * Displays a timed notifier tag
  * 
  * @JSFComponent
  *   name = "s:timedNotifier"
@@ -49,6 +50,8 @@ public abstract class AbstractTimedNotifier extends UIOutput {
     }
 
     /**
+     * confirmation message to be displayed
+     * 
      * @JSFProperty
      *   defaultValue = "Ok"
      */
@@ -62,16 +65,21 @@ public abstract class AbstractTimedNotifier extends UIOutput {
     }
 
     /**
+     * HTML: When true, this element cannot receive focus.
+     * 
      * @JSFProperty
      */
     public abstract Boolean getDisabled();
 
     /**
      * @JSFProperty
+     *   tagExcluded = "true"
      */
     public abstract String getHeight();
 
     /**
+     * Delay to being visible
+     * 
      * @JSFProperty
      *   defaultValue="Integer.valueOf(-1)"
      */
@@ -79,11 +87,14 @@ public abstract class AbstractTimedNotifier extends UIOutput {
 
     /**
      * @JSFProperty
+     *   tagExcluded = "true"
      *   defaultValue="Ok"
      */
     public abstract String getOkText();
 
     /**
+     * Delay from show to hide
+     * 
      * @JSFProperty
      *   defaultValue="Integer.valueOf(0)"
      */
@@ -91,12 +102,14 @@ public abstract class AbstractTimedNotifier extends UIOutput {
 
     /**
      * @JSFProperty
+     *   tagExcluded = "true"
      *   defaultValue="dojoTimedNotifierDialog"
      */
     public abstract String getStyleClass();
 
     /**
      * @JSFProperty
+     *   tagExcluded = "true"
      *   defaultValue="\"\""
      */
     public abstract String getWidth();

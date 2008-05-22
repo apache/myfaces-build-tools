@@ -26,6 +26,8 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
 /**
+ * Provide a component that will optionally render its children if the specified component(s) specified has a message.
+ * 
  * Renders children if any of the component(s) specified in "for" has a message in the context.
  * 
  * @JSFComponent

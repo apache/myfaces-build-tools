@@ -28,6 +28,8 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Extends standard graphicImage.
+ * 
  * @JSFComponent
  *   name = "s:graphicImageDynamic"
  *   tagClass = "org.apache.myfaces.custom.graphicimagedynamic.GraphicImageDynamicTag"
@@ -77,6 +79,16 @@ public class GraphicImageDynamic extends HtmlGraphicImage
     }
 
     /**
+     * The class which implements 
+     * org.apache.myfaces.custom.graphicimagedynamic.ImageRenderer. 
+     * The image renderer is responsible for loading the image. 
+     * The class must have a default constructor. 
+     * Any request scoped attribute or managed bean is not available 
+     * when this image renderer is instantiated and used. 
+     * The image renderer must render the binary data for the image by 
+     * using the parameters passed by nested f:param elements and/or 
+     * using session or application scoped beans.
+     * 
      * @JSFProperty
      */
     public void setImageRendererClass(Class imageRendererClass)
@@ -131,5 +143,16 @@ public class GraphicImageDynamic extends HtmlGraphicImage
             return clazz;
         }
         return null;
+    }
+
+    /**
+     *  A value binding which will be called to get the instance of an 
+     *  org.apache.myfaces.custom.graphicimagedynamic.ImageRenderer.
+     * 
+     * @JSFProperty
+     */
+    public Object getValue()
+    {
+        return super.getValue();
     }
 }

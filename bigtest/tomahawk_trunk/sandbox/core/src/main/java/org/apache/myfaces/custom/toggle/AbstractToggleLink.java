@@ -21,6 +21,8 @@ package org.apache.myfaces.custom.toggle;
 import javax.faces.component.html.HtmlOutputLink;
 
 /**
+ * Extends standard outputLink but links to a dynamically rendered resource (image, file, ...).
+ * 
  * Should be nested within an HtmlToggleGroup component. Controls nested within
  * this component will be displayed in 'view' mode, controls outside this
  * component (within the parent HtmlToggleGroup) will be displayed in 'edit'
@@ -41,6 +43,16 @@ public abstract class AbstractToggleLink extends HtmlOutputLink
     private static final boolean DEFAULT_DISABLED = false;
 
     /**
+     * The class which implements 
+     * org.apache.myfaces.custom.dynamicResources.ResourceRenderer. 
+     * The resource renderer is responsible for resource the image. 
+     * The class must have a default constructor. 
+     * Any request scoped attribute or managed bean is not available when 
+     * this resource renderer is instantiated and used. 
+     * The resource renderer must render the binary data for the resource 
+     * by using the parameters passed by nested f:param elements and/or 
+     * using session or application scoped beans.
+     * 
      * @JSFProperty
      *   literalOnly = "true"
      * @return
@@ -48,6 +60,8 @@ public abstract class AbstractToggleLink extends HtmlOutputLink
     public abstract String getFor();
 
     /**
+     * HTML: When true, this element cannot receive focus.
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      * @return

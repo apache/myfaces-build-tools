@@ -26,6 +26,9 @@ import java.io.IOException;
 
 /**
  * <p>
+ * Ensures a named conversation is running
+ * </p>
+ * <p>
  * check if a conversation is active.
  * </p>
  * <p>
@@ -36,6 +39,8 @@ import java.io.IOException;
  * @JSFComponent
  *   name = "s:ensureConversation"
  *   tagClass = "org.apache.myfaces.custom.conversation.EnsureConversationTag"
+ *   
+ * @JSFJspProperty name="action" longDesc = "the action which should be called in case of a not running conversation"
  *   
  * @author imario@apache.org
  */
@@ -141,6 +146,8 @@ public class UIEnsureConversation extends AbstractConversationComponent
 	}
 
 	/**
+	 * redirect to the given view if the conversation is not running
+	 * 
 	 * @JSFProperty
 	 * @return
 	 */
@@ -164,6 +171,9 @@ public class UIEnsureConversation extends AbstractConversationComponent
 	}
 	
     /**
+     * Delegate the check to the action method at all. The user has to check if 
+     * a conversation is running. A action method is mandatory.
+     * 
      * @JSFProperty
      * @return
      */

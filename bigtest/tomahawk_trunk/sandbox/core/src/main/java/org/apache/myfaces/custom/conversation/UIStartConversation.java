@@ -187,6 +187,8 @@ public class UIStartConversation extends AbstractConversationComponent
 	}
 
 	/**
+	 * true|false - if this conversation requires a persistence manager. Default: false
+	 * 
 	 * @JSFProperty
 	 * @return
 	 */

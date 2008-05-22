@@ -29,8 +29,8 @@ import javax.faces.component.UIComponentBase;
  *   superClass = "org.apache.myfaces.custom.imageloop.AbstractImageLoopItems"
  *   tagClass = "org.apache.myfaces.custom.imageloop.ImageLoopItemsTag"
  *   
- * @author Felix Röthenbacher (latest modification by $Author:$)
- * @version $Revision:$ $Date:$
+ * @author Felix Röthenbacher (latest modification by $Author$)
+ * @version $Revision$ $Date$
  */
 public abstract class AbstractImageLoopItems extends UIComponentBase {
     
@@ -41,6 +41,15 @@ public abstract class AbstractImageLoopItems extends UIComponentBase {
     private static final String VB_VALUE = "value";
 
     /**
+     * An EL expression that specifies the elements of the image loop.
+     * The expression can refer to one of the following:
+     * <ol>
+     *     <li>A single GraphicItem</li>
+     *     <li>An array or Collection of GraphicItem instances</li>
+     * </ol>
+     * The value properties of each of the ImageLoopItems must be of the same
+     * basic type as the parent component's value.
+     * 
      * @JSFProperty
      */
     public abstract Object getValue();

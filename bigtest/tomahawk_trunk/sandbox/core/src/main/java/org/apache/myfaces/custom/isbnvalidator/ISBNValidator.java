@@ -27,6 +27,8 @@ import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
 import org.apache.myfaces.validator.ValidatorBase;
 
 /**
+ * A custom validator for isbn codes, based upons Jakarta Commons.
+ * 
  * @JSFValidator
  *   name = "s:validateISBN"
  *   tagClass = "org.apache.myfaces.custom.isbnvalidator.ValidateISBNTag"

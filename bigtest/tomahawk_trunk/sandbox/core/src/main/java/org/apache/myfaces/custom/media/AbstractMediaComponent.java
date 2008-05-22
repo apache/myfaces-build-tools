@@ -41,21 +41,29 @@ public abstract class AbstractMediaComponent extends UIComponentBase {
     public static final String ATTRIBUTE_CONTENT_TYPE = "contentType";    
     
     /**
+     * Integer to indicate the media weight.
+     * 
      * @JSFProperty
      */
     public abstract String getWidth();
 
     /**
+     * Integer to indicate the media height.
+     * 
      * @JSFProperty
      */
     public abstract String getHeight();
     
     /**
+     * Determines the media content type.
+     * 
      * @JSFProperty
      */
     public abstract String getContentType();
     
     /**
+     * Determines the path of the media file.
+     * 
      * @JSFProperty
      */
     public abstract String getSource();

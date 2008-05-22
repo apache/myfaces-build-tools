@@ -61,6 +61,8 @@ public class BooleanConverter implements Converter, StateHolder
     }
 
     /**
+     * Value representing a boolean false, e.g. FALSE, no, 0, etc.
+     * 
      * @JSFProperty
      */
     public String getFalseValue()
@@ -74,6 +76,8 @@ public class BooleanConverter implements Converter, StateHolder
     }
 
     /**
+     * Value representing a boolean true, e.g. TRUE, yes, 1, etc.
+     * 
      * @JSFProperty
      */
     public String getTrueValue()

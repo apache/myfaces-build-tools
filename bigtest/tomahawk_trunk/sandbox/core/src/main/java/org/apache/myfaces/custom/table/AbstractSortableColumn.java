@@ -34,41 +34,57 @@ public abstract class AbstractSortableColumn extends UIColumn {
     public static final String COMPONENT_TYPE = "org.apache.myfaces.SortableColumn";
 
     /**
+     * see http://dojotoolkit.org org filterTable
+     * 
      * @JSFProperty
      */
     public abstract String getField();
 
     /**
+     * default=String {Number,Date,html,String} see http://dojotoolkit.org org filterTable
+     * 
      * @JSFProperty
      */
     public abstract String getDataType();
 
     /**
+     * {asc, desc} see http://dojotoolkit.org org filterTable
+     * 
      * @JSFProperty
      */
     public abstract String getSort();
 
     /**
+     * {asc, desc} see http://dojotoolkit.org org filterTable
+     * 
      * @JSFProperty
      */
     public abstract String getFormat();
 
     /**
+     * {asc, desc} see http://dojotoolkit.org org filterTable
+     * 
      * @JSFProperty
      */
     public abstract String getAlign();
 
     /**
+     * {asc, desc} see http://dojotoolkit.org org filterTable
+     * 
      * @JSFProperty
      */
     public abstract String getValign();
 
     /**
+     * column header text
+     * 
      * @JSFProperty
      */
     public abstract String getText();
 
     /**
+     * default=true escape text
+     * 
      * @JSFProperty
      */
     public abstract Boolean getEscape();

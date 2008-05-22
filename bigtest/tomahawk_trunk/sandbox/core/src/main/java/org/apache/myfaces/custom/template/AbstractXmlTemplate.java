@@ -37,6 +37,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 /**
+ * Transforms XML using and XSL stylesheet.
+ * 
  * Used to transform XML (from either a String or URL) using either XSLT or
  * Velocity.
  *
@@ -155,16 +157,22 @@ public abstract class AbstractXmlTemplate extends UIComponentBase
     {}
 
     /**
+     * String containing the XML content to be transformed.
+     * 
      * @JSFProperty
      */
     public abstract String getContent();
 
     /**
+     * String containing the location of the XML content to be transformed.
+     * 
      * @JSFProperty
      */
     public abstract String getContentLocation();
 
     /**
+     * String containing the XSL information to use in the transformation.
+     * 
      * @JSFProperty
      */
     public abstract String getStylesheet();
@@ -175,6 +183,8 @@ public abstract class AbstractXmlTemplate extends UIComponentBase
     }
 
     /**
+     * Value binding expression referencing an InputStream from which the XML content is to be read.
+     * 
      * @JSFProperty
      */
     public Object getContentStream()
@@ -187,6 +197,8 @@ public abstract class AbstractXmlTemplate extends UIComponentBase
     
 
     /**
+     * String containing the location of the XSL stylesheet to use in the transformation.
+     * 
      * @JSFProperty
      */
     public abstract String getStylesheetLocation();
@@ -197,6 +209,8 @@ public abstract class AbstractXmlTemplate extends UIComponentBase
     }
 
     /**
+     * Value binding expression referencing an InputStream from which the XSL stylesheet is to be read.
+     * 
      * @JSFProperty
      */
     public Object getStyleStream()

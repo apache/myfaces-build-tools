@@ -24,6 +24,7 @@ import org.apache.myfaces.component.ForceIdAware;
 import org.apache.myfaces.component.LocationAware;
 
 /**
+ * Provides an input textbox with "suggest" functionality.
  * 
  * @JSFComponent
  *   name = "s:inputSuggest"

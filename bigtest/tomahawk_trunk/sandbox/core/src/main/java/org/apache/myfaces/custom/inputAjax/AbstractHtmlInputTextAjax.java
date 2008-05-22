@@ -31,6 +31,8 @@ import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 import org.apache.myfaces.custom.ajax.api.DeprecatedAjaxComponent;
 
 /**
+ * Extends standard inputText allowing for dynamic ajax submitting.
+ * 
  * @JSFComponent
  *   name = "s:inputTextAjax"
  *   class = "org.apache.myfaces.custom.inputAjax.HtmlInputTextAjax"
@@ -82,48 +84,68 @@ public abstract class AbstractHtmlInputTextAjax extends HtmlInputText implements
     }
 
     /**
+     * Javascript method to call on successful ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnSuccess();
 
     /**
+     * Javascript method to call on failed ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnFailure();
 
     /**
+     * Javascript method to call on start of ajax update
+     *  
      * @JSFProperty
      */
     public abstract String getOnStart();
 
     /**
+     * Whether to show an ok button before sending update.
+     * 
      * @JSFProperty
      *   defaultValue = "false"
      */
     public abstract Boolean getShowOkButton();
 
     /**
+     * Test for button
+     * 
      * @JSFProperty
      */
     public abstract String getOkText();
 
     /**
+     * Whether to show cancel button
+     * 
      * @JSFProperty
      *   defaultValue = "true"
      */
     public abstract Boolean getShowCancelButton();
 
     /**
+     * Text for cancel
+     * 
      * @JSFProperty
      */
     public abstract String getCancelText();
 
     /**
+     * StyleClass for the input field where the error occures. 
+     * Useful if there is only one messages area for a few inputTextAjax fields
+     * 
      * @JSFProperty
      */
     public abstract String getErrorStyleClass();
 
     /**
+     * Style for the input field where the error occures. Useful if there is 
+     * only one messages area for a few inputTextAjax fields
+     * 
      * @JSFProperty
      */
     public abstract String getErrorStyle();

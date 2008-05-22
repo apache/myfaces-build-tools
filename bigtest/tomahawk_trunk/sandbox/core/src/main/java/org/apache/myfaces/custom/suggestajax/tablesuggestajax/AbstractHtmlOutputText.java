@@ -35,6 +35,8 @@ import org.apache.myfaces.custom.util.ComponentUtils;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 
 /**
+ * Extending the outputText component in order to introduce the for attribute.
+ * 
  * @JSFComponent
  *   name = "s:outputText"
  *   tagClass = "org.apache.myfaces.custom.suggestajax.tablesuggestajax.HtmlOutputTextTag"
@@ -115,16 +117,25 @@ public abstract class AbstractHtmlOutputText extends org.apache.myfaces.componen
     }
 
     /**
+     * Specify the id of the dom element where the label should be put in
+     * 
      * @JSFProperty
      */
     public abstract String getFor();
 
     /**
+     * Specify the id of the dom element where the value should be put in. 
+     * This value is also included in the suggested table, but only in a 
+     * hidden span element following the span for the label in one row.
+     * 
      * @JSFProperty
      */
     public abstract String getForValue();
 
     /**
+     * To provide a second value in form of a label. Usage like SelectItem. 
+     * Label is brought to client in a hidden span element near the value.
+     * 
      * @JSFProperty
      */
     public abstract String getLabel();

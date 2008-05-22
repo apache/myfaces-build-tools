@@ -25,6 +25,10 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.custom.suggestajax.SuggestAjax;
 
 /**
+ * Provides an input textbox with "suggest" functionality, using an ajax request 
+ * to the server. The popUp contains a table where each column value can be set 
+ * to a specific dom node (through dom node id).
+ * 
  * @JSFComponent
  *   name = "s:tableSuggestAjax"
  *   class = "org.apache.myfaces.custom.suggestajax.tablesuggestajax.TableSuggestAjax"
@@ -62,56 +66,86 @@ public abstract class AbstractTableSuggestAjax extends SuggestAjax {
     }
 
     /**
+     * If the time between two keyup events is lower than this given value, 
+     * the ajax request will not be fired. In milliseconds. Prevents stressing 
+     * the server with too much user inputs. In driven tests the component 
+     * seems to be more stable if this value is set. A recommended value 
+     * in which case the component works very well is about 300ms.
+     * 
      * @JSFProperty
      */
     public abstract Integer getBetweenKeyUp();
 
     /**
+     * The AJAX Request is only triggered if the number of chars typed in is 
+     * equal or greater than this given value.
+     * 
      * @JSFProperty
      */
     public abstract Integer getStartRequest();
 
     /**
+     * Same principle as it can be found in dataTable. SuggestedItemsMethod returns 
+     * a list of objects, where the class variables can be accessed with the 
+     * alias after the dot of the var.
+     * 
      * @JSFProperty
      */
     public abstract String getVar();
 
     /**
+     * StyleClass for the suggested table.
+     * 
      * @JSFProperty
      */
     public abstract String getTableStyleClass();
 
     /**
+     * Id for the pop up window
+     * 
      * @JSFProperty
      */
     public abstract String getPopupId();
 
     /**
+     * StyleClass for the window with a suggested list of items;
+     * pop up for each incoming Ajax response
+     * 
      * @JSFProperty
      */
     public abstract String getPopupStyleClass();
 
     /**
+     * StyleClass for dropdown box and arrow.
+     * 
      * @JSFProperty
      */
     public abstract String getComboBoxStyleClass();
 
     /**
+     * StyleClass which applies to every row in the suggested table.
+     * 
      * @JSFProperty
      */
     public abstract String getRowStyleClass();
 
     /**
+     * StyleClass which only applies to even rows in the suggested table.
+     * 
      * @JSFProperty
      */
     public abstract String getEvenRowStyleClass();
 
     /**
+     * StyleClass which only applies to odd rows in the suggested table.
+     * 
      * @JSFProperty
      */
     public abstract String getOddRowStyleClass();
 
     /**
+     * StyleClass for the rows for onmouseover events.
+     * 
      * @JSFProperty
      */
     public abstract String getHoverRowStyleClass();

@@ -31,6 +31,8 @@ import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 import org.apache.myfaces.custom.ajax.api.DeprecatedAjaxComponent;
 
 /**
+ * Extends standard commandButton allowing for dynamic ajax submitting of the form.
+ * 
  * @JSFComponent
  *   name = "s:commandButtonAjax"
  *   class = "org.apache.myfaces.custom.inputAjax.HtmlCommandButtonAjax"
@@ -90,29 +92,25 @@ public abstract class AbstractHtmlCommandButtonAjax extends HtmlCommandButton im
     }
 
     /**
+     * Javascript method to call on successful ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnSuccess();
 
     /**
+     * Javascript method to call on failed ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnFailure();
 
     /**
+     * Javascript method to call on start of ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnStart();
 
-
-    /**
-     * @JSFProperty
-     */
-    public abstract String getErrorStyleClass();
-
-    /**
-     * @JSFProperty
-     */
-    public abstract String getErrorStyle();
     
 }

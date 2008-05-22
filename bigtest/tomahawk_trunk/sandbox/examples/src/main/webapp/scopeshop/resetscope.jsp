@@ -4,20 +4,15 @@
 <%@ taglib uri="http://myfaces.apache.org/sandbox" prefix="s"%>
 
 <html>
-<%@include file="../inc/head.inc" %>
+<head>
+  <meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8" />
+  <title>MyFaces - the free JSF Implementation</title>
+  <link rel="stylesheet" type="text/css" href="css/basic.css" />
+</head>
 <body>
 <f:view>
+   <h:form>
 	<h:panelGroup>
-		<t:div id="Header">
-			<f:subview id="head">
-				<jsp:include page="../inc/head.jsp" />
-			</f:subview>
-		</t:div>
-		<t:div id="Menu">
-			<f:subview id="nav">
-				<jsp:include page="../inc/navigation.jsp" />
-			</f:subview>
-		</t:div>
 
 		<t:div id="Content">
 			<h:panelGrid columns="1">
@@ -26,6 +21,7 @@
 			</h:panelGrid>
 		</t:div>
 	</h:panelGroup>
+    </h:form>
 </f:view>
 </body>
 <%@include file="../inc/page_footer.jsp" %>

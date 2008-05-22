@@ -29,47 +29,29 @@ import org.apache.myfaces.custom.ajax.api.AjaxComponent;
 import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 
 /**
+ * Refreshes contents through an ajax call when the parent combo box's value is changed.
+ * 
  * This component is to be used in conjunction with a regular combo box or list box. 
  * When the selected value of the latter changes, it executes an ajax call to the 
  * specified method to refresh its contents based on the new selected value. 
  * 
  * @JSFComponent
  *   name = "s:ajaxChildComboBox"
+ *   class = "org.apache.myfaces.custom.ajaxchildcombobox.AjaxChildComboBox"
+ *   superClass = "org.apache.myfaces.custom.ajaxchildcombobox.AbstractAjaxChildComboBox"
  *   tagClass = "org.apache.myfaces.custom.ajaxchildcombobox.AjaxChildComboBoxTag"
  *   
  * @author Sharath Reddy
  */
-public class AjaxChildComboBox extends HtmlSelectOneMenu implements AjaxComponent
+public abstract class AbstractAjaxChildComboBox extends HtmlSelectOneMenu implements AjaxComponent
 {
     public static final String COMPONENT_TYPE = "org.apache.myfaces.AjaxChildComboBox";
     public static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.AjaxChildComboBox";
         
-    private MethodBinding _ajaxSelectItemsMethod;
-    //This is not a 'Parent' in terms of the component heirarchy; This is the component 
-    //whose 'onchange' event triggers a refresh.
-    private String _parentComboBox;
-
-    public AjaxChildComboBox()
+    public AbstractAjaxChildComboBox()
     {
         super();
-        setRendererType(AjaxChildComboBox.DEFAULT_RENDERER_TYPE);
-    }
-
-    public Object saveState(FacesContext context)
-    {
-        Object[] values = new Object[3];
-        values[0] = super.saveState(context);
-        values[1] = saveAttachedState(context, _ajaxSelectItemsMethod);
-        values[2] = _parentComboBox;
-        return values;
-    }
-
-    public void restoreState(FacesContext context, Object state)
-    {
-        Object values[] = (Object[])state;
-        super.restoreState(context, values[0]);
-        _ajaxSelectItemsMethod = (MethodBinding) restoreAttachedState(context, values[1]);
-        _parentComboBox = (String) values[2];
+        setRendererType(AbstractAjaxChildComboBox.DEFAULT_RENDERER_TYPE);
     }
     
     public void encodeAjax(FacesContext context)
@@ -90,35 +72,29 @@ public class AjaxChildComboBox extends HtmlSelectOneMenu implements AjaxComponen
         //Do Nothing
     }
 
-    public void setAjaxSelectItemsMethod(MethodBinding ajaxSelectItemsMethod)
-    {
-       _ajaxSelectItemsMethod = ajaxSelectItemsMethod;
-    }
-
     /**
+     * Method to call via ajax to reload the combo box
+     * 
      * @JSFProperty
      *   methodSignature = "java.lang.String"
      *   returnSignature = "javax.faces.model.SelectItem []"
      *   stateHolder = "true"    
      */
-    public MethodBinding getAjaxSelectItemsMethod()
-    {
-        return _ajaxSelectItemsMethod;
-    }
-    
-    public void setParentComboBox(String parentComboBox) 
-    {
-        this._parentComboBox = parentComboBox;
-    }
+    public abstract MethodBinding getAjaxSelectItemsMethod();
+
+    //
     
     /**
+     * id of the parent combo box
+     * 
+     * This is not a 'Parent' in terms of the component heirarchy; 
+     * This is the component whose 'onchange' event triggers a refresh.
+     *  
      * @JSFProperty
      *   literalOnly="true"
      */
-    public String getParentComboBox() 
-    {
-        return this._parentComboBox;
-    }
+    public abstract String getParentComboBox();
+    
     
     /**
      * We cannot verify that the result of converting the newly submitted value 

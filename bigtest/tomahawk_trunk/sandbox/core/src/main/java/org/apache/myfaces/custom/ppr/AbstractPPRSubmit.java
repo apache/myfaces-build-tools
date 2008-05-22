@@ -31,6 +31,8 @@ import javax.faces.event.FacesEvent;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * PPRSubmitTag can be attached to command components, enabling PPR-request inside UIData components
+ * 
  * @JSFComponent
  *   name = "s:pprSubmit"
  *   class = "org.apache.myfaces.custom.ppr.PPRSubmit"
@@ -48,6 +50,9 @@ public abstract class AbstractPPRSubmit extends UIComponentBase
     public static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.PPRSubmit";
 
     /**
+     * comma separated List of component ids to process. As usual the whole form will be transmitted and
+     * rerendered, but only for the components configured validation and update-model will happen.
+     * 
      * @JSFProperty
      */
     public abstract String getProcessComponentIds();

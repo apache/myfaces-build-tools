@@ -22,6 +22,8 @@ package org.apache.myfaces.custom.fisheye;
 import javax.faces.component.UICommand;
 
 /**
+ * CommandLink component that can be used in nodeStamp facet
+ * 
  * @JSFComponent
  *   name = "s:fishEyeCommandLink"
  *   class = "org.apache.myfaces.custom.fisheye.FishEyeCommandLink"

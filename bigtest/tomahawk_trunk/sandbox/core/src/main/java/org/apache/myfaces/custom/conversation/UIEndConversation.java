@@ -128,6 +128,10 @@ public class UIEndConversation extends AbstractConversationComponent
 	}
 
 	/**
+	 * end the conversation only if the action outcome matches the given onOutcome. 
+	 * 
+	 * This can be a comma separated list.
+	 * 
 	 * @JSFProperty
 	 * @return
 	 */
@@ -151,6 +155,8 @@ public class UIEndConversation extends AbstractConversationComponent
 	}
 
 	/**
+	 * on exception use the given outcome for further navigation
+	 * 
 	 * @JSFProperty
 	 * @return
 	 */
@@ -174,6 +180,8 @@ public class UIEndConversation extends AbstractConversationComponent
 	}
 
 	/**
+	 * true|false|valueBinding - true if the conversation should be restarted immediately
+	 * 
 	 * @JSFProperty
 	 * @return
 	 */
@@ -197,6 +205,8 @@ public class UIEndConversation extends AbstractConversationComponent
 	}
 
 	/**
+	 * the action which should be called in case of a restart
+	 * 
 	 * @JSFProperty
 	 *   methodSignature = "java.lang.String"
 	 *   returnSignature = "void"

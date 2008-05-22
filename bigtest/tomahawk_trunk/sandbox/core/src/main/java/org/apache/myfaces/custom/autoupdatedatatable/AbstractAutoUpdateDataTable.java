@@ -28,6 +28,12 @@ import org.apache.myfaces.custom.ajax.api.AjaxComponent;
 import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 
 /**
+ * Extended data_table that adds some additional features to the standard 
+ * data_table action: see attribute descriptions for preserveDataModel, 
+ * sortColumn, sortAscending and preserveSort.
+ * 
+ * NOTE: This component is deprecated. Use periodicalUpdate mechanism of partial page rendering instead
+ * 
  * @JSFComponent
  *   name = "s:autoUpdateDataTable"
  *   class = "org.apache.myfaces.custom.autoupdatedatatable.AutoUpdateDataTable"
@@ -65,12 +71,16 @@ public abstract class AbstractAutoUpdateDataTable extends HtmlDataTable implemen
 	}   
 
     /**
+     * Defines in seconds the interval of reloads. if no value is specified 2 seconds will be default.
+     * 
      * @JSFProperty
      * @return the frequency String
      */
     public abstract String getFrequency();
 
     /**
+     * Define javascript function to call after successful refresh.
+     * 
      * @JSFProperty
      * @return
      */

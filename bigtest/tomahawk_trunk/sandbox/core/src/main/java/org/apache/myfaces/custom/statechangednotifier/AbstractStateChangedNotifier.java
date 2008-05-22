@@ -21,6 +21,8 @@ package org.apache.myfaces.custom.statechangednotifier;
 
 
 /**
+ * A component that listens to changes in the components
+ * 
  * Shows a confirmation window if some of the input fields of the form have changed its value
  * 
  * @JSFComponent
@@ -48,17 +50,24 @@ public abstract class AbstractStateChangedNotifier extends javax.faces.component
     }
 
     /**
+     * Confirmation message to show if something in the form has changed
+     * 
      * @JSFProperty
      *   defaultValue="Are you sure?"
      */
     public abstract String getConfirmationMessage();
 
     /**
+     * If disabled, the confirmation window will not be shown
+     * 
      * @JSFProperty
      */
     public abstract Boolean getDisabled();
 
     /**
+     * Comma-separated list of cliend id of the commands which will be excluded 
+     * from the confirmation message
+     * 
      * @JSFProperty
      */
     public abstract String getExcludedIds();

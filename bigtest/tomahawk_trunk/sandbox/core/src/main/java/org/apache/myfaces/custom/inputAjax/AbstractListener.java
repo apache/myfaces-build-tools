@@ -22,6 +22,8 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
 /**
+ * Allows a component to listen for events on another component with AJAX input elements.
+ * 
  * On is the id of the component you want to listen on.
  * eventType is what happened to the component, for instance "onChange"
  * action is what to do if the event occurs, default is "update".  Will be able to call arbitrary javascript functions too.
@@ -59,17 +61,23 @@ public abstract class AbstractListener extends UIComponentBase
     }
 
     /**
+     * Id of another component.
+     * 
      * @JSFProperty
      */
     public abstract String getOn();
 
     /**
+     * NOT IMPLEMENTED - Type of event (ie: onchange, onclick)
+     * 
      * @JSFProperty
      *   defaultValue = "onChange"
      */
     public abstract String getEventType();
 
     /**
+     * NOT IMPLEMENTED - Action to take (ie: update, submit, call (call a javascript function))
+     * 
      * @JSFProperty
      *   defaultValue = "update"
      */

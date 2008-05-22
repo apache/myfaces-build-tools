@@ -21,6 +21,8 @@ package org.apache.myfaces.custom.effect;
 import org.apache.myfaces.custom.div.Div;
 
 /**
+ * provides javascript effects which are from the script.aculo.us library 
+ * and from the fat fade anything technique library
  * 
  * @JSFComponent
  *   name = "s:effect"

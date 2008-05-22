@@ -32,20 +32,31 @@ import javax.faces.event.PhaseId;
 import java.util.Iterator;
 import java.util.List;
 
-/**A SubForm which will allow for partial validation
+/**
+ * A SubForm which will allow for partial validation
  * and model update.
- *
+ * <p>
+ * A subform to an existing form. Inputs in this form will only be 
+ * validated and updated, if a t:commandButton or t:commandLink 
+ * has been clicked with an actionFor attribute which references 
+ * the client-id of this subform. Optionally, the validation will 
+ * trigger if a commandButton or commandLink embedded in this 
+ * subform has been clicked, except if this command is a 
+ * t:commandButton or t:commandLink with an actionFor attribute 
+ * which doesn't reference the client-id of this subform.
+ * </p>
+ * <p>
  * Components will be validated and updated only if
  * either a child-component of this form caused
  * the submit of the form, or an extended commandLink
  * or commandButton with the actionFor attribute set
  * to the client-id of this component was used.
- *
+ * </p>
+ * <p>
  * You can have several comma-separated entries in
  * the actionFor-attribute - with this it's possible to
  * validate and update more than one subForm at once.
- *
- *
+ * </p>
  *
  * @JSFComponent
  *   name = "s:subForm"
@@ -91,6 +102,9 @@ public abstract class AbstractSubForm extends UIComponentBase
     }
 
     /**
+     * true|false - set to false if you submit other subforms and would like to 
+     * have your subform reflecting any model update. Default: true
+     * 
      * @JSFProperty
      * @return
      */

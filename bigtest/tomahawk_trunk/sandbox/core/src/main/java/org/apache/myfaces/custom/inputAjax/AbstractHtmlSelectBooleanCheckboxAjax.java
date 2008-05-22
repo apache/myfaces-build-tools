@@ -34,6 +34,8 @@ import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 import org.apache.myfaces.custom.ajax.api.DeprecatedAjaxComponent;
 
 /**
+ * Extends standard selectBooleanCheckbox by user role support.
+ * 
  * @JSFComponent
  *   name = "s:selectBooleanCheckboxAjax"
  *   class = "org.apache.myfaces.custom.inputAjax.HtmlSelectBooleanCheckboxAjax"
@@ -51,12 +53,6 @@ public abstract class AbstractHtmlSelectBooleanCheckboxAjax extends HtmlSelectBo
     private static final Log log = LogFactory.getLog(AbstractHtmlSelectBooleanCheckboxAjax.class);
     public static final String COMPONENT_TYPE = "org.apache.myfaces.SelectBooleanCheckboxAjax";
     public static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.CheckboxAjax";
-
-    private String onSuccess;
-    private String onFailure;
-    private String onStart;
-    private String onImage;
-    private String offImage;
 
     public AbstractHtmlSelectBooleanCheckboxAjax()
     {
@@ -133,26 +129,36 @@ public abstract class AbstractHtmlSelectBooleanCheckboxAjax extends HtmlSelectBo
     }
 
     /**
+     * Javascript method to call on successful ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnSuccess();
 
     /**
+     * Javascript method to call on failed ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnFailure();
 
     /**
+     * Javascript method to call on start of ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnStart();
 
     /**
+     * Image to show instead of checkox when boolean value is true
+     * 
      * @JSFProperty
      */
     public abstract String getOnImage();
 
     /**
+     * Image to show instead of checkox when boolean value is false
+     * 
      * @JSFProperty
      */
     public abstract String getOffImage();

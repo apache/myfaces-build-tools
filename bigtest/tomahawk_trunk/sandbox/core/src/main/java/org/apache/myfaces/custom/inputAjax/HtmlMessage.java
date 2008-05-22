@@ -19,6 +19,7 @@
 package org.apache.myfaces.custom.inputAjax;
 
 /**
+ * MyFaces extension to the standard messages tag: see summaryDetailSeparator attribute
  * 
  * @JSFComponent
  *   name = "s:message"

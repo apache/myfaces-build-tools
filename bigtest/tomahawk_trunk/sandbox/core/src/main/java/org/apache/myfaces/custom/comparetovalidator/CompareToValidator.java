@@ -39,8 +39,6 @@ import org.apache.myfaces.shared_tomahawk.util._ComponentUtils;
 import org.apache.myfaces.validator.ValidatorBase;
 
 /**
- * @author Mike Kienenberger (latest modification by $Author$)
- * @version $Revision$ $Date$
  * 
  * Validates this component against another component.
  * 
@@ -126,7 +124,11 @@ import org.apache.myfaces.validator.ValidatorBase;
  * @JSFValidator
  *   name = "s:validateCompareTo"
  *   tagClass = "org.apache.myfaces.custom.comparetovalidator.ValidateCompareToTag"
+ *   
+ * @JSFJspProperty name = "message" returnType = "java.lang.String" longDesc = "alternate validation error message format string"
  * 
+ * @author Mike Kienenberger (latest modification by $Author$)
+ * @version $Revision$ $Date$
  */
 public class CompareToValidator extends ValidatorBase {
     /**
@@ -360,6 +362,9 @@ public class CompareToValidator extends ValidatorBase {
     // -------------------------------------------------------- GETTER & SETTER
 
     /**
+     * The JSF id of the component with which to compare values.
+     * 
+     * @JSFProperty
      * @return the foreign component_id, on which a value should be validated
      */
     public String getFor() {
@@ -375,6 +380,12 @@ public class CompareToValidator extends ValidatorBase {
         _foreignComponentName = string;
     }
 
+    /**
+     * Operator for comparison: equals: eq, ==, =, not equals: ne, !=, greater than: gt, >, less than: lt, <, greater than or equals: ge, >=, less than or equals: le, <=
+     * 
+     * @JSFProperty
+     * @return
+     */
     public String getOperator()
     {
         if (_operator != null) return _operator;
@@ -387,6 +398,13 @@ public class CompareToValidator extends ValidatorBase {
         this._operator = operator;
     }
 
+    /**
+     * Value binding for an alternate java.util.Comparator object if component 
+     * values don't implement Comparable
+     * 
+     * @JSFProperty
+     * @return
+     */
     public Object getComparator()
     {
         if (_comparator != null) return _comparator;
@@ -399,6 +417,12 @@ public class CompareToValidator extends ValidatorBase {
         this._comparator = comparator;
     }
 
+    /**
+     * custom operator name in error message (ie "after" instead of "greater than" for dates)
+     * 
+     * @JSFProperty
+     * @return
+     */
     public String getAlternateOperatorName()
     {
         if (_alternateOperatorName != null) return _alternateOperatorName;

@@ -37,9 +37,15 @@ import org.apache.commons.beanutils.Converter;
 import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
 
 /**
- * converter which uses either the manually set <code>destType</code> or the value binding to determine the 
+ * Converter which uses either the manually set <code>destType</code> or the value binding to determine the 
  * correct destination type to convert the number to
- *  
+ * 
+ * This tag creates a number formatting converter and associates it with the nearest 
+ * parent UIComponent. It uses either the manually set destType or the value 
+ * binding to determine the correct destination type to convert the number to. 
+ * 
+ * Unless otherwise specified, all attributes accept static values or EL expressions.
+ * 
  * @JSFConverter
  *   name = "s:convertNumber"
  *   tagClass = "org.apache.myfaces.custom.convertNumber.TypedNumberConverterTag" 
@@ -107,6 +113,10 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
 	}
 
     /**
+     * The java class name the value should be converted to. 
+     * 
+     * Default: automatically determined through valueBinding
+     * 
      * @JSFProperty
      */
 	public Class getDestType()
@@ -331,6 +341,8 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     // GETTER & SETTER
     
     /**
+     * ISO 4217 currency code
+     * 
      * @JSFProperty
      */
     public String getCurrencyCode()
@@ -346,6 +358,10 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     /**
+     * The currency symbol used to format a currency value. 
+     * 
+     * Defaults to the currency symbol for locale.
+     * 
      * @JSFProperty
      */
     public String getCurrencySymbol()
@@ -361,6 +377,10 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     /**
+     * Specifies whether output will contain grouping separators. 
+     * 
+     * Default: true.
+     * 
      * @JSFProperty
      */
     public boolean isGroupingUsed()
@@ -374,6 +394,10 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     /**
+     * Specifies whether only the integer part of the input will be parsed. 
+     * 
+     * Default: false.
+     * 
      * @JSFProperty
      */
     public boolean isIntegerOnly()
@@ -387,6 +411,9 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     /**
+     * The name of the locale to be used, instead of the default as specified 
+     * in the faces configuration file.
+     * 
      * @JSFProperty
      */
     public Locale getLocale()
@@ -402,6 +429,8 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     /**
+     * The maximum number of digits in the fractional portion of the number.
+     * 
      * @JSFProperty
      */
     public int getMaxFractionDigits()
@@ -416,6 +445,8 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     /**
+     * The maximum number of digits in the integer portion of the number.
+     * 
      * @JSFProperty
      */
     public int getMaxIntegerDigits()
@@ -430,6 +461,8 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     /**
+     * The minimum number of digits in the fractional portion of the number.
+     * 
      * @JSFProperty
      */
     public int getMinFractionDigits()
@@ -444,6 +477,8 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     /**
+     * The minimum number of digits in the integer portion of the number.
+     * 
      * @JSFProperty
      */
     public int getMinIntegerDigits()
@@ -458,6 +493,8 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     /**
+     * A custom Date formatting pattern, in the format used by java.text.SimpleDateFormat.
+     * 
      * @JSFProperty
      */
     public String getPattern()
@@ -481,6 +518,10 @@ public class TypedNumberConverter implements javax.faces.convert.Converter, Stat
     }
 
     /**
+     * The type of formatting/parsing to be performed. 
+     * 
+     * Values include: number, currency, and percentage. Default: number.
+     * 
      * @JSFProperty
      */
     public String getType()

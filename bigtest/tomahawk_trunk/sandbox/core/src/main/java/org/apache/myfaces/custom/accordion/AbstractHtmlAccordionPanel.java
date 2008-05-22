@@ -27,6 +27,11 @@ import org.apache.myfaces.component.html.ext.HtmlPanelGroup;
 
 
 /**
+ * A group of panels, which can be opened and closed. See attribute layout for 
+ * further description on how opening and closing works. 
+ * 
+ * Extends standard panelGroup by user role support.
+ * 
  * @JSFComponent
  *   name = "s:accordionPanel"
  *   class = "org.apache.myfaces.custom.accordion.HtmlAccordionPanel"
@@ -77,52 +82,76 @@ public abstract class AbstractHtmlAccordionPanel extends HtmlPanelGroup
     }
 
     /**
+     * Defines the layout of this accordionPanel. If you set this to 
+     * 'accordion', opening a panel will close all other panels. 
+     * If you set this to 'toggling', opening a panel doesn't 
+     * affect the state of the other panels. You can close 
+     * a panel by clicking on the header of this panel a second time.
+     * 
      * @JSFProperty
      *   defaultValue="accordion"
      */
     public abstract String getLayout();
 
     /**
+     * Defines the background color for expanded state.
+     * 
      * @JSFProperty
      */
     public abstract String getExpandedBackColor();
 
     /**
+     * Defines the text color for expanded state.
+     * 
      * @JSFProperty
      */
     public abstract String getExpandedTextColor();
 
     /**
+     * Defines the font weight for expanded state.
+     * 
      * @JSFProperty
      */
     public abstract String getExpandedFontWeight();
 
     /**
+     * Defines the background color for collapsed state.
+     * 
      * @JSFProperty
      */
     public abstract String getCollapsedBackColor();
 
     /**
+     * Defines the text color for collapsed state.
+     * 
      * @JSFProperty
      */
     public abstract String getCollapsedTextColor();
 
     /**
+     * Defines the font weight for collapsed state.
+     * 
      * @JSFProperty
      */
     public abstract String getCollapsedFontWeight();
 
     /**
+     * Defines the background color on hover.
+     * 
      * @JSFProperty
      */
     public abstract String getHoverBackColor();
 
     /**
+     * Defines the text color on hover.
+     * 
      * @JSFProperty
      */
     public abstract String getHoverTextColor();
 
     /**
+     * Defines the color of the border.
+     * 
      * @JSFProperty
      */
     public abstract String getBorderColor();

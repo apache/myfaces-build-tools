@@ -21,12 +21,17 @@ package org.apache.myfaces.custom.fieldset;
 import org.apache.myfaces.custom.htmlTag.HtmlTag;
 
 /**
+ * Renders an HTML Fieldset
+ * 
  * @JSFComponent
  *   name = "s:fieldset"
  *   class = "org.apache.myfaces.custom.fieldset.Fieldset"
  *   superClass = "org.apache.myfaces.custom.fieldset.AbstractFieldset"
  *   tagClass = "org.apache.myfaces.custom.fieldset.FieldsetTag"
  *   
+ * @JSFJspProperty name="value" tagExcluded = "true"
+ * @JSFJspProperty name="converter" tagExcluded = "true"
+ * 
  * @author svieujot (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
@@ -44,6 +49,8 @@ public abstract class AbstractFieldset extends HtmlTag {
   }
   
   /**
+   * The fieldset's legend.
+   * 
    * @JSFProperty
    */
   public abstract String getLegend();

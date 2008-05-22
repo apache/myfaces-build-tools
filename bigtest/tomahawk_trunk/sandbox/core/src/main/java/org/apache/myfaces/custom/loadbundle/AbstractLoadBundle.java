@@ -41,6 +41,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
+ * Extended loadbundle which does its job in all life-cycle phases or even on calling LoadBundle.loadBundle() - not only when rendering happens...
+ * 
  * A load-bundle alternative which allows to use load-bundle
  * even on AJAX-enabled pages.
  * <p/>
@@ -71,6 +73,8 @@ public abstract class AbstractLoadBundle extends UIComponentBase implements Stat
     private boolean alreadyLoaded = false;
 
     /**
+     * Path to the bundle-file in the class-path, e.g.: org.apache.myfaces.i18n.myprops
+     * 
      * @JSFProperty
      */
     public abstract String getBasename();
@@ -78,6 +82,9 @@ public abstract class AbstractLoadBundle extends UIComponentBase implements Stat
     public abstract void setBasename(String basename);
 
     /**
+     * Variable this bundle will be stored under, e.g. mybundle. Use #{mybundle.propertykey} 
+     * or #{mybundle['propertykey']} to access the keys of the bundle.
+     * 
      * @JSFProperty
      */
     public abstract String getVar();

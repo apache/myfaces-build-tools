@@ -168,12 +168,12 @@ to prevent some ui glitches visibility hidden does not work*/
 <s:modalDialog dialogId="updatedDialogContent"
 dialogVar="updatedDojoDialog"
               dialogAttr="bgColor='white' bgOpacity='0.5' "
-              hiderIds="cancel1" styleClass="dojoDialog">
+              hiderIds="cancel11" styleClass="dojoDialog">
 
    <h:panelGrid columns="1">
        <t:outputText id="msg" forceId="true"
                      value="Berechnung kann einige Minuten dauern, wollen Sie trotzdem fortsetzen?"/>
-       <t:commandButton id="cancel1" value="Cancel"
+       <t:commandButton id="cancel11" value="Cancel"
                         styleClass="Btn2" onclick="dojo.widget.byId('updatedDialogContent').hide();"/>
        <t:commandButton id="ok1" value="OK" styleClass="Btn2" immediate="true"
                         action="#{dojoDialogBean.startAction}"/>

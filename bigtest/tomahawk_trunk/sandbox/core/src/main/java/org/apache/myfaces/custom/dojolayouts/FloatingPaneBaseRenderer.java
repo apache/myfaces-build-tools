@@ -33,6 +33,7 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRenderer;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 
 /**
+ * PanelGroup which supports a partialTriggers Attribute similar to the one in Trinidad
  * 
  * @JSFRenderer
  *   renderKitId = "HTML_BASIC" 

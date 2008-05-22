@@ -93,6 +93,8 @@ public abstract class AbstractSuggestAjax extends HtmlInputText
     }
 
     /**
+     * Reference to the method which returns the suggested items
+     * 
      * @JSFProperty
      *   inheritedTag = "true"
      * @return
@@ -103,6 +105,9 @@ public abstract class AbstractSuggestAjax extends HtmlInputText
     }
 
     /**
+     * optional attribute to identify the max size of suggested Values. 
+     * If specified in tableSuggestAjax, paginator functionality is used.
+     * 
      * @JSFProperty
      *   inheritedTag = "true"
      * @return
@@ -111,6 +116,8 @@ public abstract class AbstractSuggestAjax extends HtmlInputText
 
     
     /**
+     * Force the charset of the Response
+     * 
      * @JSFProperty
      *   literalOnly = "true"
      * @return

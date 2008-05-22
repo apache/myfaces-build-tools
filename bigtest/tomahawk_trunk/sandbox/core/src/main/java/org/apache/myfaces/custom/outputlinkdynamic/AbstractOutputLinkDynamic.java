@@ -29,6 +29,8 @@ import org.apache.myfaces.custom.dynamicResources.ResourceRenderer;
 import org.apache.myfaces.shared_tomahawk.util.ClassUtils;
 
 /**
+ * Extends standard outputLink but links to a dynamically rendered resource (image, file, ...).
+ * 
  * @JSFComponent
  *   name = "s:outputLinkDynamic"
  *   class = "org.apache.myfaces.custom.outputlinkdynamic.OutputLinkDynamic"
@@ -87,6 +89,15 @@ public abstract class AbstractOutputLinkDynamic extends HtmlOutputLink
     }
 
     /**
+     *  The class which implements 
+     *  org.apache.myfaces.custom.dynamicResources.ResourceRenderer. The resource 
+     *  renderer is responsible for resource the image. The class must have a 
+     *  default constructor. Any request scoped attribute or managed bean is 
+     *  not available when this resource renderer is instantiated and used. 
+     *  The resource renderer must render the binary data for the resource 
+     *  by using the parameters passed by nested f:param elements and/or 
+     *  using session or application scoped beans.
+     *  
      * @JSFProperty
      * @return
      */

@@ -23,13 +23,13 @@ import javax.faces.component.UIInput;
 import org.apache.myfaces.component.AlignProperty;
 
 /**
+ * Enhancement for a data-table to select one Row with a radio button. The row-index is stored in the vealu-binding
  * 
  * @JSFComponent
  *   name = "s:selectOneRow"
  *   class = "org.apache.myfaces.custom.selectOneRow.SelectOneRow"
  *   superClass = "org.apache.myfaces.custom.selectOneRow.AbstractSelectOneRow"
  *   tagClass = "org.apache.myfaces.custom.selectOneRow.SelectOneRowTag"
- *   
  *
  */
 public abstract class AbstractSelectOneRow extends UIInput 
@@ -43,6 +43,8 @@ public abstract class AbstractSelectOneRow extends UIInput
     public static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.SelectOneRow";
 
     /**
+     * The Name of the radio-button-group to use
+     * 
      * @JSFProperty
      *   literalOnly = "true"
      */

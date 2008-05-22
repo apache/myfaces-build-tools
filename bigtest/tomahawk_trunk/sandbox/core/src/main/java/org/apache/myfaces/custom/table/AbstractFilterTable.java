@@ -36,46 +36,64 @@ public abstract class AbstractFilterTable extends UIData {
     public static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.FilterTable";
 
     /**
+     * CSS style class attribute
+     * 
      * @JSFProperty
      */
     public abstract String getStyleClass();
 
     /**
+     * default=fixedHeader see http://dojotoolkit.org filterTable
+     * 
      * @JSFProperty
      */
     public abstract String getHeadClass();
 
     /**
+     * default=scrollContent see http://dojotoolkit.org filterTable
+     * 
      * @JSFProperty
      */
     public abstract String getTbodyClass();
 
     /**
+     * default=true see http://dojotoolkit.org filterTable
+     * 
      * @JSFProperty
      */
     public abstract Boolean getMultiple();
 
     /**
+     * default=true see http://dojotoolkit.org filterTable
+     * 
      * @JSFProperty
      */
     public abstract Boolean getAlternateRows();
 
     /**
+     * default=1 see http://dojotoolkit.org filterTable
+     * 
      * @JSFProperty
      */
     public abstract Integer getMaxSortable();
 
     /**
+     * default=0
+     * 
      * @JSFProperty
      */
     public abstract Integer getCellpadding();
 
     /**
+     * default=0
+     * 
      * @JSFProperty
      */
     public abstract Integer getCellspacing();
 
     /**
+     * default=0
+     * 
      * @JSFProperty
      */
     public abstract Integer getBorder();

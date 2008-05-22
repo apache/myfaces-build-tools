@@ -27,6 +27,8 @@ import org.apache.myfaces.shared_tomahawk.util.MessageUtils;
 import org.apache.myfaces.validator.ValidatorBase;
 
 /**
+ * Validation by validating comma separated values individually.
+ * 
  * @JSFValidator
  *   name = "s:validateCSV"
  *   tagClass = "org.apache.myfaces.custom.csvvalidator.ValidateCSVTag"

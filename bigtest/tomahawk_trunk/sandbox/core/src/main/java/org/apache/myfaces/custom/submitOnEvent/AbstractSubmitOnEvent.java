@@ -39,16 +39,23 @@ public abstract class AbstractSubmitOnEvent extends UIComponentBase
     public static final String COMPONENT_FAMILY = "org.apache.myfaces.SubmitOnEvent";
 
     /**
+     * The component (commandLink or commandButton) to "click" on
+     * 
      * @JSFProperty
      */
     public abstract String getFor();
 
     /**
+     * The event: keypress|keydown|keyup|change|focus|blur|click|mousedown|mouseup|mousemove|mouseover|mouseout|select (Default: keypress)
+     * 
      * @JSFProperty
      */
     public abstract String getEvent();
 
     /**
+     * User defined javascript callback function. This function will be called to 
+     * decide if the event should trigger the submit. (Default: fire on "Enter")
+     * 
      * @JSFProperty
      */
     public abstract String getCallback();

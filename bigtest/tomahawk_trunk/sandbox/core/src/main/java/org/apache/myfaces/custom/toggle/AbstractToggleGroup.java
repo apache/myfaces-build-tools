@@ -24,6 +24,9 @@ import javax.faces.component.html.HtmlPanelGroup;
 /**
  * Container class allows user to toggle between view/edit mode.
  * 
+ * Extends PanelGroup. Allows user to have several toggleLink in a group. 
+ * When the togglePanel is toggled, the toggleGroup will be hidden.
+ * 
  * @JSFComponent
  *   name = "s:toggleGroup"
  *   class = "org.apache.myfaces.custom.toggle.ToggleGroup"

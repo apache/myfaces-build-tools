@@ -28,6 +28,8 @@ import javax.faces.el.ValueBinding;
  *   type = "javax.faces.SelectBoolean"
  *   family = "javax.faces.SelectBoolean"
  *   desc = "UISelectBoolean"
+ *   
+ * @JSFJspProperty name = "value" returnType = "java.lang.Boolean"
  *
  * @author Manfred Geiler (latest modification by $Author$)
  * @version $Revision$ $Date$

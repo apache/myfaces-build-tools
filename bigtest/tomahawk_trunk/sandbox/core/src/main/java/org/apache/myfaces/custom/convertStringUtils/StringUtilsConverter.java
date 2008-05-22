@@ -30,6 +30,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 
 /**
+ * Converts the format of a string
+ * 
  * Provides runtime modification of a string. Uses Apache Lang StringUtils and WordUtils
  * to peform operations.
  * <p>
@@ -139,6 +141,8 @@ public class StringUtilsConverter implements Converter, StateHolder {
     }
 
     /**
+     * Specifies the output case of the string. One of uppercase | lowercase | capitalize
+     * 
      * @JSFProperty
      */
     public String getFormat() {
@@ -150,6 +154,10 @@ public class StringUtilsConverter implements Converter, StateHolder {
 	}
 
     /**
+     * Integer value for the maximum length of the rendered string. 
+     * Strings longer than maxValue will be truncated at (maxValue - 3) 
+     * and an ellipsis '...' will be appended.
+     * 
      * @JSFProperty
      */
     public Integer getMaxLength() {
@@ -161,6 +169,9 @@ public class StringUtilsConverter implements Converter, StateHolder {
 	}
 
     /**
+     * Boolean value determining if data should be truncated with ellipses 
+     * during output conversion. Default = false
+     * 
      * @JSFProperty
      */
     public Boolean isAppendEllipsesDuringOutput() {
@@ -172,6 +183,9 @@ public class StringUtilsConverter implements Converter, StateHolder {
     }
 
     /**
+     * Boolean value determining if data should be truncated with ellipses 
+     * during input conversion. Default = false
+     * 
      * @JSFProperty
      */
     public Boolean isAppendEllipsesDuringInput() {
@@ -183,6 +197,9 @@ public class StringUtilsConverter implements Converter, StateHolder {
     }
 
     /**
+     * Boolean value determining is the string should be trimmed before any 
+     * other formatting takes place. Default = false
+     * 
      * @JSFProperty
      */
 	public Boolean getTrim() {

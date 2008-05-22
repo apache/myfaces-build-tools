@@ -35,6 +35,8 @@ import javax.faces.el.ValueBinding;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
 /**
+ * Tag that allows for selective rendering based on a count or by child index
+ * 
  * Component that only renders a subset of its children components. Provides
  * functionality that the JSTL choose tag has, but leverages the 
  * {@link javax.faces.component.UIComponent#isRendered()} method instead
@@ -60,6 +62,10 @@ public abstract class AbstractUILimitRendered extends UIComponentBase
     public static final String COMPONENT_TYPE = "org.apache.myfaces.UILimitRendered";
             
     /**
+     * The filter type: count|index. count: the value should evaluate to a Number 
+     * or a value that can be parsed into an integer. index: A collection, 
+     * array or comma-separated list of numbers. (Default: "count")
+     * 
      * @JSFProperty
      * @return the type
      */
@@ -71,6 +77,17 @@ public abstract class AbstractUILimitRendered extends UIComponentBase
     public abstract void setType(String type);
 
     /**
+     *  The value valid for the type. If this evaluates to null, all children will 
+     *  be rendered. If the type is count, this value must evaluate to a java 
+     *  Number instance or a value which the toString() method can be used with 
+     *  Integer.parseInt(String). The first number of children that are rendered 
+     *  (isRendered() returns true) up to the given value will be rendered. If the 
+     *  type is index, the value must be a Collection, int[], Object[] or a 
+     *  comma-separated list of numbers. Each item in the list must be a valid 
+     *  number. If negative, it is taken from then end. If the child at the given 
+     *  index is not rendered, then that component is skipped (so the indexes are 
+     *  absolute). See the documentation on the myfaces website for more information.
+     * 
      * @JSFProperty
      * @return the value
      */

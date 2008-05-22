@@ -21,12 +21,17 @@ package org.apache.myfaces.custom.script;
 import javax.faces.component.UIOutput;
 
 /**
+ * Adds (java)script to the browser
+ * 
  * @JSFComponent
  *   name = "s:script"
  *   class = "org.apache.myfaces.custom.script.Script"
  *   superClass = "org.apache.myfaces.custom.script.AbstractScript"
  *   tagClass = "org.apache.myfaces.custom.script.ScriptTag"
- *   
+ * 
+ * @JSFJspProperty name="value" tagExcluded = "true"
+ * @JSFJspProperty name="converter" tagExcluded = "true"
+ * 
  * @author Matthias Wessendorf (changed by $Author$)
  * @version $Revision$ $Date$
  */
@@ -37,17 +42,23 @@ public abstract class AbstractScript extends UIOutput {
     private static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.Script";
     
     /**
+     * URL for script file.
+     * 
      * @JSFProperty
      */
     public abstract String getSrc();
 
     /**
+     * type of script source
+     * 
      * @JSFProperty
      *   defaultValue="text/javascript"
      */
     public abstract String getType();
 
     /**
+     * script language
+     * 
      * @JSFProperty
      */
 	public abstract String getLanguage();

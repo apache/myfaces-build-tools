@@ -21,6 +21,7 @@ package org.apache.myfaces.custom.captcha;
 import javax.faces.component.UIComponentBase;
 
 /**
+ * 
  * @JSFComponent
  *   name = "s:captcha"
  *   class = "org.apache.myfaces.custom.captcha.CAPTCHAComponent"
@@ -42,17 +43,23 @@ public abstract class AbstractCAPTCHAComponent extends UIComponentBase {
     public static final String ATTRIBUTE_IMAGE_HEIGHT = "imageHeight";
     
     /**
+     * Determines the CAPTCHA session key name.
+     * 
      * @JSFProperty
      * @return
      */
     public abstract String getCaptchaSessionKeyName();
     
     /**
+     * Integer to indicate the CAPTCHA width. default is 290.
+     * 
      * @JSFProperty
      */
     public abstract String getImageWidth();
 
     /**
+     * Integer to indicate the CAPTCHA height. default is 81.
+     * 
      * @JSFProperty
      */
     public abstract String getImageHeight();      

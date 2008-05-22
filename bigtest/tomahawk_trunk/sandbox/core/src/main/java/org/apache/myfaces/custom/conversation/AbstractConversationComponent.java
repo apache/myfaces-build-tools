@@ -65,7 +65,7 @@ public class AbstractConversationComponent extends UICommand
 	}
 
 	/**
-	 * the conversation name
+	 * the name of the conversation. Notice: required if tag not as child of startConversation tag.
 	 * 
 	 * @JSFProperty
 	 */

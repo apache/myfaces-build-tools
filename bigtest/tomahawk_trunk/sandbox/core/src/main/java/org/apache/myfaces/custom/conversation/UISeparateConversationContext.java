@@ -26,6 +26,9 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
 
 /**
+ * Separates the current context from the children. e.g. commandLinks will start a 
+ * new conversation context
+ * 
  * separate the current context from the to be rendered children.
  * E.g. when you render commandLinks they will start a new conversationContext
  * 

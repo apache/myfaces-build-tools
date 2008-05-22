@@ -45,6 +45,8 @@ public abstract class AbstractHtmlFocus extends UIInput
     private static Log log = LogFactory.getLog(AbstractHtmlFocus.class);
 
 	/**
+	 * The JSF id of the component to receive focus.
+	 * 
 	 * @JSFProperty
 	 */
 	public abstract String getFor();

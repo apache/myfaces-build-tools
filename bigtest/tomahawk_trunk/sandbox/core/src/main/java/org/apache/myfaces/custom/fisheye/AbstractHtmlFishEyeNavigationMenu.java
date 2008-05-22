@@ -26,6 +26,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /**
+ * Provide a FishEye toolbar component from the DOJO toolkit
+ * 
  * A Mac OSX-style toolbar, using the DOJO toolkit.
  * 
  * @see <a href="http://dojotoolkit.org/">http://dojotoolkit.org/</a>

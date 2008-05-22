@@ -32,6 +32,8 @@ import org.apache.myfaces.custom.ajax.api.AjaxRenderer;
 import org.apache.myfaces.custom.ajax.api.DeprecatedAjaxComponent;
 
 /**
+ * Extends standard selectOneRadio allowing for dynamic ajax submitting.
+ * 
  * @JSFComponent
  *   name = "s:selectOneRadioAjax"
  *   class = "org.apache.myfaces.custom.inputAjax.HtmlSelectOneRadioAjax"
@@ -47,10 +49,6 @@ public abstract class AbstractHtmlSelectOneRadioAjax extends HtmlSelectOneRadio 
     private static final Log log = LogFactory.getLog(AbstractHtmlSelectOneRadioAjax.class);
     public static final String COMPONENT_TYPE = "org.apache.myfaces.HtmlSelectOneRadioAjax";
     public static final String DEFAULT_RENDERER_TYPE = "org.apache.myfaces.SelectOneRadioAjax";
-
-    private String onSuccess;
-    private String onFailure;
-    private String onStart;
 
     public AbstractHtmlSelectOneRadioAjax()
     {
@@ -93,18 +91,24 @@ public abstract class AbstractHtmlSelectOneRadioAjax extends HtmlSelectOneRadio 
     }
 
     /**
+     * Javascript method to call on successful ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnSuccess();
 
     /**
+     * Javascript method to call on failed ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnFailure();
 
     /**
+     * Javascript method to call on start of ajax update
+     * 
      * @JSFProperty
      */
     public abstract String getOnStart();
-
+    
 }

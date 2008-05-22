@@ -24,6 +24,9 @@ import org.apache.myfaces.component.ForceIdAware;
 import org.apache.myfaces.component.html.util.HtmlComponentUtils;
 
 /**
+ * Renders a HTML form element which allow defining a different scheme, 
+ * servername or port for the action url to which the form is submited
+ * 
  * @JSFComponent
  *   name = "s:form"
  *   class = "org.apache.myfaces.custom.form.HtmlForm"
@@ -56,26 +59,38 @@ public abstract class AbstractHtmlForm extends javax.faces.component.html.HtmlFo
     }
 
     /**
+     * This attribute can be used to set the port for the action attribute
+     * 
      * @JSFProperty
      */
     public abstract Integer getPort();
 
     /**
+     * This attribute can be used to set the url scheme for the action attribute
+     * 
      * @JSFProperty
      */
     public abstract String getScheme();
 
     /**
+     *  This attribute can be used to set the url server name or ip address for the action attribute
+     * 
      * @JSFProperty
      */
     public abstract String getServerName();
 
     /**
+     * This attribute can be used to set an entirely different action 
+     * (might be something JSF-unspecific) to the form.
+     * 
      * @JSFProperty
      */
     public abstract String getAction();
 
     /**
+     * This attribute can be used to set a method to the form which is 
+     * different to the regular POST method used.
+     * 
      * @JSFProperty
      */
     public abstract String getMethod();

@@ -28,6 +28,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.component.UIComponent;
 
 /**
+ * puts a bean into the conversation context
+ * 
  * add a bean under context control
  *
  * @JSFComponent
