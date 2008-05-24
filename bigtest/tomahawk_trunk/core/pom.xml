@@ -290,7 +290,7 @@
           <execution>
             <id>makefacesconfig</id>
             <configuration>
-                <xmlFile>classes/META-INF/faces-config.xml</xmlFile>
+                <xmlFile>META-INF/faces-config.xml</xmlFile>
             </configuration>
             <goals>
                 <goal>make-config</goal>
@@ -325,7 +325,7 @@
           <execution>
             <id>maketomahawktld</id>
             <configuration>
-                <xmlFile>classes/META-INF/tomahawk.tld</xmlFile>
+                <xmlFile>META-INF/tomahawk.tld</xmlFile>
                 <xmlBaseFile>src/main/conf/META-INF/tomahawk-base.tld</xmlBaseFile>
                 <templateFile>tomahawk.vm</templateFile>
                 <params>

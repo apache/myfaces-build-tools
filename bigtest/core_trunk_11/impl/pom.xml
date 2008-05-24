@@ -56,7 +56,7 @@
           <execution>
           	<id>makefacesconfig</id>
           	<configuration>
-          		<xmlFile>classes/org/apache/myfaces/resource/standard-faces-config.xml</xmlFile>
+          		<xmlFile>org/apache/myfaces/resource/standard-faces-config.xml</xmlFile>
           		<modelIds>
           		    <modelId>myfaces-api</modelId>
           		    <modelId>myfaces-impl</modelId>
@@ -69,7 +69,7 @@
           <execution>
             <id>makehtmltld</id>
             <configuration>
-                <xmlFile>classes/META-INF/myfaces_html.tld</xmlFile>
+                <xmlFile>META-INF/myfaces_html.tld</xmlFile>
                 <xmlBaseFile>src/main/conf/META-INF/myfaces_html-base.tld</xmlBaseFile>
                 <templateFile>myfaces_html.vm</templateFile>
                 <params>
@@ -89,7 +89,7 @@
           <execution>
             <id>makecoretld</id>
             <configuration>
-                <xmlFile>classes/META-INF/myfaces_core.tld</xmlFile>
+                <xmlFile>META-INF/myfaces_core.tld</xmlFile>
                 <xmlBaseFile>src/main/conf/META-INF/myfaces_core-base.tld</xmlBaseFile>
                 <templateFile>myfaces_core.vm</templateFile>
                 <modelIds>

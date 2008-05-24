@@ -210,7 +210,7 @@
 			    <execution>
 			      <id>makefacesconfig</id>
 			      <configuration>
-			          <xmlFile>classes/META-INF/faces-config.xml</xmlFile>
+			          <xmlFile>META-INF/faces-config.xml</xmlFile>
 			      </configuration>
 			      <goals>
 			          <goal>make-config</goal>
@@ -231,7 +231,7 @@
 				<execution>
 				  <id>makesandboxtld</id>
 				  <configuration>
-				      <xmlFile>classes/META-INF/myfaces_sandbox.tld</xmlFile>
+				      <xmlFile>META-INF/myfaces_sandbox.tld</xmlFile>
 				      <xmlBaseFile>src/main/conf/META-INF/myfaces_sandbox-base.tld</xmlBaseFile>
 				      <templateFile>tomahawk.vm</templateFile>
 				      <params>
