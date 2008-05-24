@@ -71,7 +71,7 @@ public class MakeConfigMojo extends AbstractMojo
     private MavenProject project;
 
     /**
-     * @parameter expression="${project.build.directory}"
+     * @parameter expression="${project.build.directory}/maven-faces-plugin/main/resources"
      * @readonly
      */
     private File buildDirectory;
@@ -81,12 +81,12 @@ public class MakeConfigMojo extends AbstractMojo
      * 
      * @parameter
      */
-    private String metadataFile = "classes/META-INF/myfaces-metadata.xml";
+    private String metadataFile = "META-INF/myfaces-metadata.xml";
 
     /**
      * @parameter
      */
-    private String xmlFile = "classes/META-INF/faces-config.xml";
+    private String xmlFile = "META-INF/faces-config.xml";
     
     /**
      * modelIds to be applied this goal

@@ -65,7 +65,7 @@ public class MakeTagsMojo extends AbstractMojo
     private MavenProject project;
 
     /**
-     * @parameter expression="${project.build.directory}"
+     * @parameter expression="${project.build.directory}/maven-faces-plugin/main/resources"
      * @readonly
      */
     private File buildDirectory;
@@ -75,7 +75,7 @@ public class MakeTagsMojo extends AbstractMojo
      * 
      * @parameter
      */
-    private String metadataFile = "classes/META-INF/myfaces-metadata.xml";
+    private String metadataFile = "META-INF/myfaces-metadata.xml";
 
     /**
      * @parameter expression="src/main/resources/META-INF"

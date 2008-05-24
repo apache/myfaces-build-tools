@@ -31,6 +31,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RendererMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
+
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
 import com.thoughtworks.qdox.model.Annotation;
@@ -128,6 +130,17 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             ComponentMeta component = (ComponentMeta) it.next();
             component.setModelId(model.getModelId());
+            //Check if the component class file exists
+            if (!IOUtils.existsSourceFile(StringUtils.replace(
+                    component.getClassName(),".","/")+".java", sourceDirs)){
+                component.setGeneratedComponentClass(Boolean.TRUE);
+            }
+            //Check if the component tag class file exists
+            if (component.getTagClass() != null && 
+                    !IOUtils.existsSourceFile(StringUtils.replace(
+                    component.getTagClass(),".","/")+".java", sourceDirs)){
+                component.setGeneratedTagClass(Boolean.TRUE);
+            }            
         }
         for (Iterator it = model.getConverters().iterator(); it.hasNext();)
         {

@@ -39,6 +39,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.digester.Digester;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -137,6 +138,103 @@ public class IOUtils
                 }
             }
         }
+    }
+    
+    public static boolean existsSourceFile(String filename, List sourceDirs)
+    {
+        boolean existsFile = false;            
+        for (int i = 0; i < sourceDirs.size(); i++)
+        {
+            String srcDir = (String) sourceDirs.get(i);
+            
+            //This directory prefix is banned, all here is generated
+            //so we don't take a look at this directory
+            if (srcDir.contains("maven-faces-plugin"))
+                continue;
+            
+            File f = new File(srcDir,filename);
+            if (f.exists()){
+                existsFile=true;
+                break;
+            }
+        }
+        return existsFile;
+    }
+    
+    public static Model getModelFromArtifact(Artifact artifact) 
+        throws MojoExecutionException
+    {
+        Model model = null;
+        File jarFile = artifact.getFile();
+
+        URLClassLoader archetypeJarLoader;
+
+        InputStream is = null;
+        try
+        {
+            URL[] urls = new URL[1];
+            urls[0] = jarFile.toURI().toURL();
+            archetypeJarLoader = new URLClassLoader(urls);
+
+            is = getStream(MYFACES_METADATA, archetypeJarLoader);
+
+            if (is != null)
+            {
+                Reader r = null;
+                try
+                {
+                    r = new InputStreamReader(is);
+                    model = readModel(r);
+                    r.close();
+                }
+                catch (IOException e)
+                {
+                    throw new MojoExecutionException(
+                            "Error reading myfaces-metadata.xml form "
+                                    + artifact.getFile().getName(), e);
+                }
+                finally
+                {
+                    if (r != null)
+                    {
+                        try
+                        {
+                            r.close();
+                        }
+                        catch (IOException e)
+                        {
+                            //ignore
+                        }
+                    }
+                }
+
+                System.out.println("Artifact: "
+                        + artifact.getFile().getName()
+                        + " have META-INF/myfaces-metadata.xml");
+            }
+        }
+        catch (IOException e)
+        {
+            throw new MojoExecutionException(
+                    "Error reading myfaces-metadata.xml form "
+                            + artifact.getFile().getName(), e);
+        }
+        finally
+        {
+            if (is != null)
+            {
+                try
+                {
+                    is.close();
+                }
+                catch (IOException ex)
+                {
+                    //ignore
+                }
+            }
+        }
+
+        return model;
     }
     
     public static List getModelsFromArtifacts(MavenProject project)

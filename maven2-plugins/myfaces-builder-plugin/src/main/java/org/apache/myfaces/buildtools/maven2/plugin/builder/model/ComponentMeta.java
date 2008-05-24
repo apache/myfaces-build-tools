@@ -58,6 +58,9 @@ public class ComponentMeta extends ClassMeta implements
     private String _serialuid;
     private String _implements;
     
+    private Boolean _generatedComponentClass;
+    private Boolean _generatedTagClass;
+    
     protected Map _properties;
     protected Map _facets;
 
@@ -83,6 +86,8 @@ public class ComponentMeta extends ClassMeta implements
         out.writeElement("longDesc", cm._longDescription);
         out.writeElement("serialuid", cm._serialuid);
         out.writeElement("implements", cm._implements);
+        out.writeElement("generatedComponentClass", cm._generatedComponentClass);
+        out.writeElement("generatedTagClass", cm._generatedTagClass);
         
         for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
         {
@@ -125,6 +130,8 @@ public class ComponentMeta extends ClassMeta implements
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
         digester.addBeanPropertySetter(newPrefix + "/serialuid");
         digester.addBeanPropertySetter(newPrefix + "/implements");
+        digester.addBeanPropertySetter(newPrefix + "/generatedComponentClass");
+        digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
         
         PropertyMeta.addXmlRules(digester, newPrefix);
         FacetMeta.addXmlRules(digester, prefix);
@@ -381,6 +388,26 @@ public class ComponentMeta extends ClassMeta implements
     public String getImplements()
     {
         return _implements;
+    }
+
+    public void setGeneratedComponentClass(Boolean generatedComponentClass)
+    {
+        _generatedComponentClass = generatedComponentClass;
+    }
+
+    public Boolean isGeneratedComponentClass()
+    {
+        return ModelUtils.defaultOf(_generatedComponentClass,false);
+    }
+
+    public void setGeneratedTagClass(Boolean generatedTagClass)
+    {
+        _generatedTagClass = generatedTagClass;
+    }
+
+    public Boolean isGeneratedTagClass()
+    {
+        return ModelUtils.defaultOf(_generatedTagClass,false);
     }
 
     /**

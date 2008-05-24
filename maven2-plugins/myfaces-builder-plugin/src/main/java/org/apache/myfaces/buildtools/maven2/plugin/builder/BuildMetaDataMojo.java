@@ -19,6 +19,7 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
@@ -62,7 +64,7 @@ public class BuildMetaDataMojo extends AbstractMojo
     /**
      * Injected build directory for all generated stuff.
      * 
-     * @parameter expression="${project.build.directory}"
+     * @parameter expression="${project.build.directory}/maven-faces-plugin/main/resources"
      */
     private File targetDirectory;
 
@@ -71,7 +73,7 @@ public class BuildMetaDataMojo extends AbstractMojo
      * 
      * @parameter
      */
-    private String outputFile = "classes/META-INF/myfaces-metadata.xml";
+    private String outputFile = "META-INF/myfaces-metadata.xml";
 
     /**
      * 
@@ -109,6 +111,12 @@ public class BuildMetaDataMojo extends AbstractMojo
      */
     public void execute() throws MojoExecutionException
     {
+        try {
+            addResourceRoot(project, targetDirectory.getCanonicalPath());
+        }catch(IOException e){
+            throw new MojoExecutionException("Error during generation", e);
+        }
+        
         Model model = buildModel(project);
         List models = null;
         if (dependencyModelIds != null)
@@ -216,5 +224,13 @@ public class BuildMetaDataMojo extends AbstractMojo
         {
             throw new MojoExecutionException("Unable to build metadata", e);
         }
+    }
+    
+    protected void addResourceRoot(MavenProject project, String resourceRoot)
+    {
+        List resources = project.getBuild().getResources();
+        Resource resource = new Resource();
+        resource.setDirectory(resourceRoot);
+        resources.add(resource);
     }
 }

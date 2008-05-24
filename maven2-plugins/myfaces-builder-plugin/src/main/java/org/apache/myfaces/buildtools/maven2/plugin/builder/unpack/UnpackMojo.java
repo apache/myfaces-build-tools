@@ -1,0 +1,400 @@
+package org.apache.myfaces.buildtools.maven2.plugin.builder.unpack;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.dependency.utils.DependencyUtil;
+import org.apache.maven.plugin.dependency.utils.filters.ArtifactItemFilter;
+import org.apache.maven.plugin.dependency.utils.filters.MarkerFileFilter;
+import org.apache.maven.plugin.dependency.utils.markers.MarkerHandler;
+import org.apache.maven.plugin.dependency.utils.markers.UnpackFileMarkerHandler;
+import org.apache.maven.plugin.logging.Log;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
+import org.codehaus.plexus.archiver.manager.ArchiverManager;
+import org.codehaus.plexus.util.StringUtils;
+
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
+
+/**
+ * Goal that retrieves a list of artifacts from the repository and unpacks them
+ * in a defined location.
+ * 
+ * This mojo reutilize org.apache.maven.plugin.dependency.fromConfiguration.UnpackMojo
+ * from maven-dependency-plugin.
+ * 
+ * The idea of this plugin, instead just unpack a list of artifacts is add some new 
+ * features necessary to make easier maintain 1.1 and 1.2 code on myfaces projects like
+ * tomahawk.
+ * 
+ * This plugin works as unpack goal of maven-dependency-plugin with 2 additional 
+ * enhancements:
+ * 
+ * 1. If some file exists on the base directories, it is added as excluded, so it is
+ * not copied to the output directory. This makes easier to manage the code and maintain it.
+ * 2. If a file is generated from the model (reading the myfaces-metadata.xml) it is not
+ * copied, since this should be generated again.
+ * 
+ * 
+<execution>
+<id>unpack-tomahawk</id>
+<phase>process-resources</phase>
+<goals>
+  <goal>unpack</goal>
+</goals>
+<configuration>
+  <artifactItems>
+    <artifactItem>
+      <groupId>org.apache.myfaces.tomahawk</groupId>
+      <artifactId>tomahawk</artifactId>
+      <version>1.1.7-SNAPSHOT</version>
+      <!-- 
+      <groupId>org.apache.myfaces.core</groupId>                   
+      <artifactId>myfaces-api</artifactId>
+      <version>1.1.6-SNAPSHOT</version>
+       -->
+      <classifier>sources</classifier>                   
+      <outputDirectory>${basedir}/target/unpackmyfaces</outputDirectory>
+    </artifactItem>
+  </artifactItems>
+</configuration>
+</execution>
+ 
+ * @since 1.0
+ * @goal unpack
+ * @phase process-sources
+ * @author Leonardo Uribe
+ * @version $Id$
+ */
+public class UnpackMojo extends AbstractFromConfigurationMojo
+{
+    /**
+     * Directory where he should check if a file exists or not. If 
+     * exists, he does not copy to , if not he copy it to the output
+     * directory.
+     * 
+     * This is possible because all files on this directory are added
+     * as excluded param.
+     * 
+     * @parameter expression="src/main/java"
+     */
+    private File baseDirectory1;
+    
+    /**
+     * Directory where he should check if a file exists or not. If 
+     * exists, he does not copy to , if not he copy it to the output
+     * directory.
+     * 
+     * This is possible because all files on this directory are added
+     * as excluded param.
+     * 
+     * @parameter 
+     */    
+    private File baseDirectory2;
+        
+    /**
+     * If the plugin should scan the model
+     * 
+     * @optional
+     * @parameter expression="${scanModel}"
+     *            default-value="true"
+     */    
+    private boolean scanModel;
+    
+    /**
+     * Directory to store flag files after unpack
+     * 
+     * @parameter expression="${project.build.directory}/dependency-maven-plugin-markers"
+     */
+    private File markersDirectory;
+    
+    /**
+     * A comma separated list of file patterns to include when unpacking the
+     * artifact.  i.e.  **\/*.xml,**\/*.properties
+     *  @since 2.0-alpha-5
+     * @parameter expression="${mdep.unpack.includes}"
+     */
+    private String includes;
+
+    /**
+     * A comma separated list of file patterns to exclude when unpacking the
+     * artifact.  i.e.  **\/*.xml,**\/*.properties
+     * @since 2.0-alpha-5
+     * @parameter expression="${mdep.unpack.excludes}"
+     */
+    private String excludes;
+
+    /**
+     * Main entry into mojo. This method gets the ArtifactItems and iterates
+     * through each one passing it to unpackArtifact.
+     * 
+     * @throws MojoExecutionException
+     *             with a message if an error occurs.
+     * 
+     * @see ArtifactItem
+     * @see #getArtifactItems
+     * @see #unpackArtifact(ArtifactItem)
+     */
+    public void execute()
+        throws MojoExecutionException
+    {
+        String existingFiles = scanAndAddExistingFilesAsExcluded(
+                baseDirectory1, baseDirectory2);
+        
+        String excludedFiles = null;
+        
+        ArrayList processedItems = getProcessedArtifactItems( false );
+        Iterator iter = processedItems.iterator();
+        while ( iter.hasNext() )
+        {
+            ArtifactItem artifactItem = (ArtifactItem) iter.next();
+            
+            if ( artifactItem.isNeedsProcessing() )
+            {
+                if (scanModel)
+                {
+                    String generatedFiles = this.scanModelAndAddGeneratedFiles(artifactItem);                    
+                    excludedFiles = existingFiles + ','+ generatedFiles;
+                }
+                else
+                {
+                    excludedFiles = existingFiles;
+                }
+                
+                //Exclude existing files on baseDirectory1 and baseDirectory2
+                if (artifactItem.getExcludes() != null)
+                {
+                    artifactItem.setExcludes(artifactItem.getExcludes()+','+excludedFiles);
+                }
+                else
+                {
+                    artifactItem.setExcludes(excludedFiles);
+                }
+                //Unpack
+                unpackArtifact( artifactItem );
+            }
+            else
+            {
+                this.getLog().info( artifactItem.getArtifact().getFile().getName() + " already unpacked." );
+            }
+        }
+    }
+
+    /**
+     * This method gets the Artifact object and calls DependencyUtil.unpackFile.
+     * 
+     * @param artifactItem
+     *            containing the information about the Artifact to unpack.
+     * 
+     * @throws MojoExecutionException
+     *             with a message if an error occurs.
+     * 
+     * @see #getArtifact
+     * @see DependencyUtil#unpackFile(Artifact, File, File, ArchiverManager,
+     *      Log)
+     */
+    private void unpackArtifact( ArtifactItem artifactItem )
+        throws MojoExecutionException
+    {
+        MarkerHandler handler = new UnpackFileMarkerHandler( artifactItem, this.markersDirectory );
+        
+        unpack( artifactItem.getArtifact().getFile(), artifactItem.getOutputDirectory(), artifactItem.getIncludes(), artifactItem.getExcludes() );
+        handler.setMarker();
+
+    }
+
+    ArtifactItemFilter getMarkedArtifactFilter( ArtifactItem item )
+    {
+        MarkerHandler handler = new UnpackFileMarkerHandler( item, this.markersDirectory );
+
+        return new MarkerFileFilter( this.isOverWriteReleases(), this.isOverWriteSnapshots(),
+                                     this.isOverWriteIfNewer(), handler );
+    }
+    
+    protected ArrayList getProcessedArtifactItems(boolean removeVersion)
+        throws MojoExecutionException 
+    {
+        ArrayList items = super.getProcessedArtifactItems( removeVersion );
+        Iterator iter = items.iterator();
+        while ( iter.hasNext() )
+        {
+            ArtifactItem artifactItem = (ArtifactItem) iter.next();
+            if ( StringUtils.isEmpty(artifactItem.getIncludes()) )
+            {
+                artifactItem.setIncludes( getIncludes() );
+            }
+            if ( StringUtils.isEmpty(artifactItem.getExcludes()) )
+            {
+                artifactItem.setExcludes( getExcludes() );
+            }
+        }
+        return items;
+    }
+    
+    protected String scanModelAndAddGeneratedFiles(ArtifactItem artifactItem)
+        throws MojoExecutionException{
+        
+        ArrayList exclusions = new ArrayList();
+        
+        Model model = IOUtils.getModelFromArtifact(artifactItem.getArtifact());
+        
+        if (model != null)
+        {
+            for (Iterator it = model.components(); it.hasNext();)
+            {
+                ComponentMeta component = (ComponentMeta) it.next();
+
+                if (component.getModelId().equals(model.getModelId())){
+                    
+                    getLog().info("Component:"+component.getClassName()+" "+component.getModelId());
+                    
+                    if (component.isGeneratedComponentClass().booleanValue())
+                    {
+                        getLog().info("Adding Generated: "+ component.getClassName());
+                        exclusions.add(StringUtils.replace(
+                                component.getClassName(), ".", "/")
+                                + ".java");
+                    }
+                    if (component.isGeneratedTagClass().booleanValue())
+                    {
+                        getLog().info("Adding Generated: "+ component.getTagClass());
+                        exclusions.add(StringUtils.replace(component.getTagClass(),
+                                ".", "/")
+                                + ".java");
+                    }                
+                }
+            }
+        }
+        else
+        {
+            getLog().info("No myfaces-metadata.xml found on artifact.");
+        }
+
+        StringBuilder existingFiles = new StringBuilder();
+        for (int i = 0; i < exclusions.size(); i++)
+        {
+            existingFiles.append(exclusions.get(i));
+            if (i != exclusions.size() - 1)
+                existingFiles.append(',');
+        }
+        
+        return existingFiles.toString();
+    }
+    
+    /**
+     * This method scan on both directories and add all files as excluded files to be 
+     * unpacked. Return the resulting filter.
+     * 
+     * @param exclusions
+     * @param dir1
+     * @param dir2
+     * @return
+     */
+    protected String scanAndAddExistingFilesAsExcluded(File dir1, File dir2)
+    {
+        ArrayList exclusions = new ArrayList();
+        
+        if (dir1 != null)
+        {
+            addExcludes(dir1.getPath()+"\\", dir1, exclusions);
+        }
+        
+        if (dir2 != null)
+        {
+            addExcludes(dir2.getPath()+"\\", dir2, exclusions);
+        }
+        
+        StringBuilder existingFiles = new StringBuilder();
+        for (int i = 0; i < exclusions.size(); i++)
+        {
+            existingFiles.append(exclusions.get(i));
+            if (i != exclusions.size() - 1)
+                existingFiles.append(',');
+        }
+        
+        return existingFiles.toString();
+    }
+    
+    protected void addExcludes(String basePath, File f, List exclusions)
+    {
+        
+        if ( f.isDirectory() )
+        {
+            File [] fileList = f.listFiles();
+
+            for (int i = 0; i < fileList.length; ++i)
+            {
+                if (!fileList[i].getName().equals(".svn"))
+                {
+                    addExcludes(basePath,fileList[i], exclusions);
+                }
+            }
+        }
+        else
+        {
+            String path = f.getPath();
+            path = path.replace(basePath,"");
+            path = StringUtils.replace( path, "\\", "/" );
+            exclusions.add(path);
+            getLog().info("Adding: "+path);
+        }        
+    }
+
+    /**
+     * @return Returns the markersDirectory.
+     */
+    public File getMarkersDirectory()
+    {
+        return this.markersDirectory;
+    }
+
+    /**
+     * @param theMarkersDirectory
+     *            The markersDirectory to set.
+     */
+    public void setMarkersDirectory( File theMarkersDirectory )
+    {
+        this.markersDirectory = theMarkersDirectory;
+    }
+    
+   
+    /**
+     * @return Returns a comma separated list of excluded items
+     */
+    public String getExcludes ()
+    {
+        return this.excludes;
+    }
+    
+    /**
+     * @param excludes 
+     *          A comma separated list of items to exclude 
+     *          i.e.  **\/*.xml, **\/*.properties
+     */
+    public void setExcludes ( String excludes )
+    {
+        this.excludes = excludes;
+    }
+    
+    /**
+     * @return Returns a comma separated list of included items
+     */
+    public String getIncludes()
+    {
+        return this.includes;
+    }
+
+    /**
+     * @param includes
+     *          A comma separated list of items to include 
+     *          i.e.  **\/*.xml, **\/*.properties
+     */
+    public void setIncludes ( String includes )
+    {
+        this.includes = includes;
+    }
+}
