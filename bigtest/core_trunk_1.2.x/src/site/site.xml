@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<!--
+  - Note regarding relative and absolute urls: each pom file has an optional
+  - <url> element. If specified, then any absolute url in this file which
+  - starts with the project's url is converted into a relative url. Other
+  - urls are left unaltered.
+  -->
+<project name="MyFaces Core JSF-1.2">
+    <bannerLeft>
+        <name>Apache MyFaces</name>
+        <src>img/banners/MyFaces_logo.jpg</src>
+        <href>http://myfaces.apache.org/index.html</href>
+    </bannerLeft>
+    
+    <bannerRight>
+        <name>Apache Banner</name>
+        <src>img/banners/apache_banner.png</src>
+        <href>http://www.apache.org</href>
+    </bannerRight>
+    
+    <publishDate format="dd MMM yyyy" />
+    
+    <skin>
+      	<groupId>org.apache.myfaces.maven</groupId>
+      	<artifactId>myfaces-site-skin</artifactId>
+      	<version>1-SNAPSHOT</version>
+    </skin>
+    
+    <body>
+        <links>
+            <item name="Apache"         href="http://www.apache.org/"/>
+            <item name="MyFaces"        href="http://myfaces.apache.org/index.html"/>
+        </links>
+
+        <menu name="Apache MyFaces" inherit="top">
+            <item name="Overview"       href="http://myfaces.apache.org/index.html"/>
+            <item name="Download"       href="http://myfaces.apache.org/download.html" />
+        </menu>
+
+        <menu name="MyFaces Projects" inherit="top">
+            <item name="Core JSF-1.1"   href="http://myfaces.apache.org/core11/index.html" collapse="true">
+              <item name="dummy"        href="dummy"/>
+            </item>
+            <item name="Core JSF-1.2"   href="http://myfaces.apache.org/core12/index.html" collapse="false">
+              <item name="API"          href="http://myfaces.apache.org/core12/myfaces-api/index.html"/>
+              <item name="Impl"         href="http://myfaces.apache.org/core12/myfaces-impl/index.html"/>
+            </item>
+            <item name="Trinidad"       href="http://myfaces.apache.org/trinidad/index.html"/>
+            <item name="Tobago"         href="http://myfaces.apache.org/tobago/index.html"/>
+            <item name="Tomahawk"       href="http://myfaces.apache.org/tomahawk/index.html"/>
+            <item name="Sandbox"        href="http://myfaces.apache.org/sandbox/index.html"/>
+            <item name="Orchestra"      href="http://myfaces.apache.org/orchestra/index.html"/>
+            <item name="Portlet Bridge" href="http://myfaces.apache.org/portlet-bridge/index.html"/>
+        </menu>
+        
+        <menu name="Documentation" inherit="top">
+            <item name="Getting Started" href="http://myfaces.apache.org/core12/gettingstarted.html"/>
+            <item name="MyFaces and RI"  href="http://myfaces.apache.org/core12/risamples.html"/>
+            <item name="Tomcat Config"   href="http://myfaces.apache.org/core12/tomcat.html"/>
+            <item name="Javadocs"        href="http://myfaces.apache.org/core12/javadoc.html"/>
+            <item name="FAQ"             href="http://myfaces.apache.org/core12/faq.html"/>
+        </menu>
+
+        <menu ref="reports" inherit="top"/>
+
+        <menu name="Foundation" inherit="top">
+            <item name="ASF"            href="http://www.apache.org/" />
+            <item name="Sponsorship"    href="http://www.apache.org/foundation/sponsorship.html" />
+            <item name="Thanks"         href="http://www.apache.org/foundation/thanks.html" />
+        </menu>
+    </body>
+</project>
