@@ -141,6 +141,7 @@
   </scm>
 
   <modules>
+    <module>myfaces-builder-annotations</module>
     <module>myfaces-builder-plugin</module>
     <module>myfaces-faces-plugin</module>
     <module>myfaces-i18n-plugin</module>
