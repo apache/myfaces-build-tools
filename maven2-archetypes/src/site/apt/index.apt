@@ -1,0 +1,37 @@
+ ------
+ Myfaces Archetypes
+ ------
+
+Overview
+
+  The archetype subprojects define Maven plugins that can build a directory tree containing
+  the files needed to quickly get started on a new JSF project.
+
+  Different archetypes create different initial setups, such as including different libraries
+  in the created pom.xml file, and adding different configuration to the created web.xml file.
+
+Archetypes
+
+* HelloWorld Basic Archetype
+
+  Sets up a webapp project that uses MyFaces Core 1.2.x with JSP as the page templating system.
+  The webapp contains a single .jsp file is created which renders an HTML page saying 
+  "hello world".
+
+* HelloWorld-Facelets Archetype
+
+  As for the HelloWorld archetype, but configured to use the Facelets page templating system.
+
+* HelloWorld-Portlet Archetype
+
+  Sets up a simple portlet-enabled webapp. 
+
+* Trinidad Archetype
+
+  Sets up a webapp that uses MyFaces Core 1.2.x and MyFaces Trinidad.
+
+* JSF-Component Library Archetype
+
+  Sets up a project that is intended to define new JSF components (rather than just use them).
+  If you want to create a jar that defines a set of new custom JSF components then this
+  archetype is a good starting point.

@@ -129,11 +129,11 @@
   </scm>
 
   <modules>
-    <module>myfaces-archetype-jsfcomponents</module>
-    <module>myfaces-archetype-trinidad</module>
     <module>myfaces-archetype-helloworld</module>
     <module>myfaces-archetype-helloworld-facelets</module>
     <module>myfaces-archetype-helloworld-portlets</module>
+    <module>myfaces-archetype-trinidad</module>
+    <module>myfaces-archetype-jsfcomponents</module>
   </modules>
 
   <distributionManagement>
