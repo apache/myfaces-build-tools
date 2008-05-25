@@ -30,7 +30,7 @@
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-archetype-helloworld-facelets</artifactId>
   <packaging>maven-plugin</packaging>
-  <name>MyFaces Archetype Facelets</name>
-  <description>Archetype to ease the burden of creating a new application based in myfaces and facelets</description>
+  <name>MyFaces Facelets Archetype</name>
+  <description>Archetype to create a new webapp based on MyFaces and Facelets</description>
 
 </project>

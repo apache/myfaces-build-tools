@@ -10,7 +10,7 @@
     <groupId>org.apache.myfaces.buildtools</groupId>
     <artifactId>myfaces-archetype-helloworld</artifactId>
     <packaging>maven-plugin</packaging>
-    <name>MyFaces Archetype</name>
-    <description>Archetype to ease the burden of creating a new application based in myfaces</description>
+    <name>MyFaces Basic Archetype</name>
+    <description>Archetype to create a new webapp based on myfaces</description>
 
 </project>

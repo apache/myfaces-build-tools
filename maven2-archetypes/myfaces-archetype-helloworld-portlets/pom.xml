@@ -11,6 +11,6 @@
     <artifactId>myfaces-archetype-helloworld-portlets</artifactId>
     <packaging>maven-plugin</packaging>
     <name>MyFaces Portlet Archetype</name>
-    <description>Archetype to ease the burden of creating a new portlet application based in myfaces</description>
+    <description>Archetype to create a new portlet webapp based on myfaces</description>
 
 </project>
