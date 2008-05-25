@@ -14,6 +14,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+
+<!--
+  - The archetpes project defines a set of maven archetype plugins that can be
+  - used to create an initial directory tree of files when starting a new JSF
+  - project.
+  -
+  - This pom is used:
+  - * as the parent pom for all individual archetype modules, to define common settings
+  - * to define the common archetype website
+  - * as a convenient tool for building all the archetype projects.
+  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -134,7 +145,7 @@
     </snapshotRepository>
     <site>
       <id>apache-site</id>
-      <url>scpexe://people.apache.org/www/myfaces.apache.org/myfaces/plugins/</url>
+      <url>scpexe://people.apache.org/www/myfaces.apache.org/build-tools/archetypes</url>
     </site>
   </distributionManagement>
 
