@@ -306,6 +306,13 @@ public class QdoxModelBuilder implements ModelBuilder
             // returns the short
             // class name. So for now, just check for the short name.
             String thisAnnoName = thisAnno.getType().getJavaClass().getName();
+            
+            //Make short name for recognizing, if returns long
+            int containsPoint = thisAnnoName.lastIndexOf('.');
+            if (containsPoint != -1)
+            {
+                thisAnnoName = thisAnnoName.substring(containsPoint+1);
+            }
             if (thisAnnoName.equals(annoName))
             {
                 return thisAnno;
@@ -459,6 +466,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String converterId = getString(clazz, "id", props, converterIdDflt);
         String converterClass = getString(clazz, "class", props, clazz
                 .getFullyQualifiedName());
+        converterClass = getString(clazz,"clazz",props,converterClass);
         
         String componentName = getString(clazz, "name", props, null);
         String bodyContent = getString(clazz, "bodyContent", props, null);
@@ -502,6 +510,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String validatorId = getString(clazz, "id", props, validatorIdDflt);
         String validatorClass = getString(clazz, "class", props, clazz
                 .getFullyQualifiedName());
+        validatorClass = getString(clazz,"clazz",props,validatorClass);
         
         String componentName = getString(clazz, "name", props, null);
         String bodyContent = getString(clazz, "bodyContent", props, null);
@@ -529,7 +538,8 @@ public class QdoxModelBuilder implements ModelBuilder
 
         String renderKitId = getString(clazz, "renderKitId", props, null);
         String renderKitClass = getString(clazz, "class", props, clazz
-                .getFullyQualifiedName());        
+                .getFullyQualifiedName());
+        renderKitClass = getString(clazz,"clazz",props,renderKitClass);
 
         RenderKitMeta renderKit = model.findRenderKitById(renderKitId);
         
@@ -561,6 +571,8 @@ public class QdoxModelBuilder implements ModelBuilder
         String renderKitId = getString(clazz, "renderKitId", props, null);
         String rendererClass = getString(clazz, "class", props, clazz
                 .getFullyQualifiedName());
+        rendererClass = getString(clazz,"clazz",props,rendererClass);
+        
         String componentFamily = getString(clazz,"family", props,null);
         String rendererType = getString(clazz,"type", props,null);
         
@@ -595,6 +607,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String tagName = getString(clazz, "name", props, null);
         String tagClass = getString(clazz, "class", props, clazz
                 .getFullyQualifiedName());
+        tagClass = getString(clazz,"clazz",props,tagClass);
         
         String bodyContent = getString(clazz, "bodyContent", props, "JSP");
 
@@ -641,6 +654,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String componentName = getString(clazz, "name", props, null);
         String componentClass = getString(clazz, "class", props, clazz
                 .getFullyQualifiedName());
+        componentClass = getString(clazz,"clazz",props,componentClass);
         
         String componentParentClass = getString(clazz, "parent", props, 
                 clazz.getSuperJavaClass()!= null?
@@ -687,6 +701,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String tagHandler = getString(clazz, "tagHandler", props, null);
         String serialuid = getString(clazz, "serialuid", props, null);
         String implementsValue = getString(clazz, "implements", props, null);
+        implementsValue = getString(clazz, "implementz", props, implementsValue);
 
         ComponentMeta component = new ComponentMeta();
         initAncestry(model, clazz, component);
@@ -1015,6 +1030,7 @@ public class QdoxModelBuilder implements ModelBuilder
     {
         Boolean required = getBoolean(clazz, "required", props, null);
         Boolean transientProp = getBoolean(clazz, "transient", props, null);
+        transientProp = getBoolean(clazz, "istransient", props, transientProp);
         Boolean stateHolder = getBoolean(clazz, "stateHolder", props, null);
         Boolean literalOnly = getBoolean(clazz, "literalOnly", props, null);
         Boolean tagExcluded = getBoolean(clazz, "tagExcluded", props, null);
