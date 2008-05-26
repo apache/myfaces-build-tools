@@ -40,33 +40,33 @@ public @interface JSFJspAttribute
     /**
      * The name of the attribute. This is the name on the tld
      */
-    String name();
+    String name() default "";
     
     /**
      * The class or type the component must refer on the tag class. 
      * On 1.1 is java.lang.String always and on 1.2 is 
      * javax.el.ValueExpression or javax.el.MethodExpression.
      */
-    String className();
+    String className() default "";
     
     /**
      * Long description. By default, it takes what is inside comment area.
      */
-    String longDescription();
+    String longDescription() default "";
     
     /**
      * (true|false) Define if the property is required or not. Default:false
      */
-    boolean required();
+    boolean required() default false;
     
     /**
      * (true|false) This value is put on the tld when applies.
      */
-    boolean rtexprvalue();
+    boolean rtexprvalue() default false;
     
     /**
      * Short description
      */
-    String desc();
+    String desc() default "";
 
 }

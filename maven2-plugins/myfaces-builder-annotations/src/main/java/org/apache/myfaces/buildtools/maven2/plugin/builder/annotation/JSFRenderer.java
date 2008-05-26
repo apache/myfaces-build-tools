@@ -38,21 +38,21 @@ public @interface JSFRenderer
     /**
      * The renderKitId that belongs this renderer. If no custom renderkit defined you should use HTML_BASIC.
      */
-    String renderKitId();
+    String renderKitId() default "";
     
     /**
      * The component family that this renderer should be applied.
      */
-    String family();
+    String family() default "";
     
     /**
      * The renderer type that is applied this renderer.
      */
-    String type();
+    String type() default "";
     
     /**
      * Short description
      */
-    String desc();
+    String desc() default "";
 
 }

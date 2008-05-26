@@ -39,83 +39,83 @@ public @interface JSFProperty
     /**
      * (true|false) Define if the property is required or not. Default:false
      */
-    boolean required();
+    boolean required() default false;
     
     /**
      * Indicate if the property is not saved and restored its state.
      */
-    boolean istransient();
+    boolean istransient() default false;
     
     /**
      * Use saveAttachedXXX and restoreAttachedXXX to save and restore state
      */
-    boolean stateHolder();
+    boolean stateHolder() default false;
     
     /**
      * Indicate that the getter and setter does not evaluate EL or ValueBinding expressions.
      */
-    boolean literalOnly();
+    boolean literalOnly() default false;
     
     /**
      * Define if this tag is excluded from tld.
      */
-    boolean tagExcluded();
+    boolean tagExcluded() default false;
     
     /**
      * 
      */
-    boolean localMethod();
+    boolean localMethod() default false;
     
     /**
      * 
      */
-    String localMethodScope();
+    String localMethodScope() default "";
     
     /**
      * 
      */
-    boolean setMethod();
+    boolean setMethod() default false;
     
     /**
      * 
      */
-    String setMethodScope();
+    String setMethodScope() default "";
     
     /**
      * 
      */
-    String jspName();
+    String jspName() default "";
     
     /**
      * (true|false) This value is put on the tld when applies.
      */
-    boolean rtexprvalue();
+    boolean rtexprvalue() default false;
     
     /**
      * Short description
      */
-    String desc();
+    String desc() default "";
     
     /**
      * Indicate if this property is inherited from a parent tag class or not.
      * 
      * @return
      */
-    boolean inheritTag();
+    boolean inheritTag() default false;
     
     /**
      * The full name of the return type for MethodBinding or MethodExpression it uses
      */
-    String returnSignature();
+    String returnSignature() default "";
 
     /**
      * CSV full names of the types that are params for methods using this MethodBinding or MethodExpression param
      */
-    String methodSignature();
+    String methodSignature() default "";
     
     /**
      * The default value to set if this property is generated.
      */
-    String defaultValue();
+    String defaultValue() default "";
 
 }

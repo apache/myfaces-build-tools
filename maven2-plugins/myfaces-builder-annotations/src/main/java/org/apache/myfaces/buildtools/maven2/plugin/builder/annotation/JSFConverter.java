@@ -37,25 +37,25 @@ public @interface JSFConverter
     /**
      * Indicate the converterId which identifies this class. If not defined, it try to get the value of the field CONVERTER_ID. 
      */
-    String id();
+    String id() default "";
 
     /**
      * The name of the component in a page (ex: x:mycomp).
      */
-    String name();
+    String name() default "";
 
     /**
      * The tag class used for this converter, if applies.
      */
-    String tagClass();
+    String tagClass() default "";
     
     /**
      * Indicate if the element accept inner elements or not.
      */
-    String bodyContent();
+    String bodyContent() default "";
     
     /**
      * Short description
      */
-    String desc();
+    String desc() default "";
 }

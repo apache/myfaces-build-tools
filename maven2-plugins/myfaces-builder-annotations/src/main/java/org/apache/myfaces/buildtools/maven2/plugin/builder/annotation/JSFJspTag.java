@@ -38,11 +38,11 @@ public @interface JSFJspTag
     /**
      * Indicate if the element accept inner elements or not.
      */
-    String bodyContent();
+    String bodyContent() default "";
     
     /**
      * Short description
      */
-    String desc();
+    String desc() default "";
 
 }

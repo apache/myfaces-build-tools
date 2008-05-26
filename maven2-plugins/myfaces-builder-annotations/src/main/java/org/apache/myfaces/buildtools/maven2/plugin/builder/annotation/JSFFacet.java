@@ -39,7 +39,7 @@ public @interface JSFFacet
     /**
      * (true|false) Define if the property is required or not. Default:false
      */
-    String required();
+    boolean required() default false;
     
     /**
      * Short description

@@ -47,30 +47,30 @@ public @interface JSFJspProperty
     /**
      * The name that identifies this property. (ex:border, id, value)
      */
-    String name();
+    String name() default "";
     
     /**
      * The full type or primitive that this property has defined on tag class.
      */
-    String returnType();
+    String returnType() default "";
     
     /**
      * (true|false) Define if the property is required or not. Default:false
      */
-    String required();
+    boolean required() default false;
     
     /**
      * Define if this tag is excluded from tld.
      */
-    String tagExcluded();
+    boolean tagExcluded() default false;
     
     /**
      * Long description
      */
-    String longDesc();
+    String longDesc() default "";
     
     /**
      * Short description
      */
-    String desc();
+    String desc() default "";
 }
