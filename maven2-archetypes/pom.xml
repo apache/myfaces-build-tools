@@ -16,7 +16,7 @@
 -->
 
 <!--
-  - The archetpes project defines a set of maven archetype plugins that can be
+  - The archetypes project defines a set of maven archetype plugins that can be
   - used to create an initial directory tree of files when starting a new JSF
   - project.
   -
@@ -39,6 +39,7 @@
   <version>1.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Apache MyFaces Buildtools Maven2 Archetype Parent</name>
+  <url>http://myfaces.apache.org/build-tools/archetypes</url>
 
   <issueManagement>
     <system>jira</system>
