@@ -14,7 +14,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+<!--
+  - Parent pom of all the myfaces custom maven-plugin subprojects that help
+    to build other myfaces projects.
+  -
+  - This project also builds a common build-tools site.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -28,6 +38,7 @@
   <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Apache MyFaces Buildtools Maven2 Plugin Parent</name>
+  <url>http://myfaces.apache.org/build-tools/plugins</url>
 
   <issueManagement>
     <system>jira</system>
@@ -162,7 +173,7 @@
     </snapshotRepository>
     <site>
       <id>apache-site</id>
-      <url>scpexe://people.apache.org/www/myfaces.apache.org/myfaces/plugins/</url>
+      <url>scpexe://people.apache.org/www/myfaces.apache.org/build-tools/plugins</url>
     </site>
   </distributionManagement>
 
