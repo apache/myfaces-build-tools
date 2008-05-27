@@ -8,7 +8,7 @@ Overview
   the standard maven plugins are not enough for the special requirements of MyFaces projects.
   Therefore a number of custom Maven plugins have been created.
 
-Archetypes
+Plugins
 
 * MyFaces-Builder-Plugin
 
