@@ -89,7 +89,15 @@ public class MakeTagsMojo extends AbstractMojo
      * @parameter expression="src/main/java"
      */    
     private File mainSourceDirectory;
-    
+
+    /**
+     * This param is used to search in this folder if some file to
+     * be generated exists and avoid generation and duplicate exception.
+     * 
+     * @parameter
+     */        
+    private File mainSourceDirectory2;
+
     /**
      * @parameter 
      */
@@ -228,7 +236,16 @@ public class MakeTagsMojo extends AbstractMojo
                     component.getTagClass(), ".", "/")+".java");
                 
                 if (!f.exists() && canGenerateComponentTag(component))
-                {                
+                {
+                    if (mainSourceDirectory2 != null){
+                        File f2 = new File(mainSourceDirectory2, StringUtils.replace(
+                                component.getTagClass(), ".", "/")+".java");
+                        if (f2.exists())
+                        {
+                            //Skip
+                            continue;
+                        }
+                    }
                     log.info("Generating tag class:"+component.getTagClass());
                     _generateComponent(velocityEngine, component,baseContext);
                 }

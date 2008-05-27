@@ -85,6 +85,19 @@ public class MyfacesUtils
 
     public static String getJspPropertyType12(PropertyMeta property)
     {
+        if (property.getJspName().equals("actionListener"))
+        {
+            return "javax.el.MethodExpression";
+        }
+        if (property.getJspName().equals("validator"))
+        {
+            return "javax.el.MethodExpression";
+        }
+        if (property.getJspName().equals("valueChangeListener"))
+        {
+            return "javax.el.MethodExpression";
+        }
+        
         if (property.isMethodExpression())
             return "MethodExpression";
 
@@ -137,6 +150,46 @@ public class MyfacesUtils
 
         return value.toString();
     }
+    
+    public static String importTagClasses12(ComponentMeta component)
+    {
+        Set imports = new HashSet();
+        for (Iterator it = component.properties(); it.hasNext();)
+        {
+            PropertyMeta property = (PropertyMeta) it.next();
+            if (property.getClassName() != null && 
+                    !PRIMITIVE_TYPES.contains(property.getClassName()))
+            {
+                if (!property.getClassName().startsWith("java.lang"))
+                {
+                    imports.add(property.getClassName());
+                }
+            }
+            if (property.getJspName().equals("actionListener")){
+                imports.add("javax.faces.event.MethodExpressionActionListener");
+            }
+            if (property.getJspName().equals("valueChangeListener")){
+                imports.add("javax.faces.event.MethodExpressionValueChangeListener");
+            }
+            if (property.getJspName().equals("validator")){
+                imports.add("javax.faces.validator.MethodExpressionValidator");
+            }
+        }
+
+        StringBuilder value = new StringBuilder();
+
+        for (Iterator importIterator = imports.iterator(); importIterator
+                .hasNext();)
+        {
+            value.append("import ");
+            value.append((String) importIterator.next());
+            value.append(';');
+            value.append('\n');
+        }
+
+        return value.toString();
+    }
+    
 
     public static boolean isConverter(String propClass)
     {

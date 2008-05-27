@@ -3,6 +3,7 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.qdox;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -41,6 +42,7 @@ import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
 import com.thoughtworks.qdox.model.Type;
+import com.thoughtworks.qdox.parser.structs.AnnoDef;
 
 /**
  * An implementation of the ModelBuilder interface that uses the Qdox java
@@ -926,7 +928,122 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = tag.getNamedParameterMap();
             processComponentJspProperty(props, tag.getContext(), clazz,
                     component);
-        }        
+        }
+        
+        Annotation jspPropertyAnno = getAnnotation(clazz, DOC_JSP_PROPERTY);
+        if (jspPropertyAnno != null)
+        {
+            Map props = jspPropertyAnno.getNamedParameterMap();
+            processComponentJspProperty(props, jspPropertyAnno.getContext(),
+                    clazz, component);
+        }
+        
+        
+        Annotation jspAnno = getAnnotation(clazz, "JSFJspProperties");        
+        if (jspAnno != null){
+            Object jspProps = jspAnno.getNamedParameter("properties");
+            
+            if (jspProps instanceof AnnoDef){
+                AnnoDef jspPropertiesAnno = (AnnoDef) jspProps;                
+                Map props = new NonParentesisMap(jspPropertiesAnno.args);
+                processComponentJspProperty(props, jspAnno.getContext(), clazz,
+                        component);               
+            }else{
+                List jspPropsList = (List) jspProps;
+                for (int i = 0; i < jspPropsList.size();i++)
+                {
+                    AnnoDef anno = (AnnoDef) jspPropsList.get(i);
+                    
+                    Map props = new NonParentesisMap(anno.args);
+                    processComponentJspProperty(props, jspAnno.getContext(), clazz,
+                            component);                    
+                }
+            }
+            
+        }
+    }
+    
+    /**
+     * This class uses delegate pattern to remove square parentesis 
+     * that appear when you get the arguments from an AnnoDef. I think
+     * is a design problem in the annotation feature of qdox (1.6.3).
+     * 
+     * TODO: change this on a future version of qdox!  
+     *
+     */
+    public class NonParentesisMap implements Map{
+
+        Map _delegate = null;
+        public NonParentesisMap(Map delegate){
+            _delegate = delegate;
+        }
+        public void clear()
+        {
+            _delegate.clear();
+        }
+
+        public boolean containsKey(Object key)
+        {
+            return _delegate.containsKey(key);
+        }
+
+        public boolean containsValue(Object value)
+        {
+            return _delegate.containsValue(value);
+        }
+
+        public Set entrySet()
+        {
+            return _delegate.entrySet();
+        }
+
+        public Object get(Object key)
+        {
+            Object value = _delegate.get(key);
+            if (value == null)
+                return null;
+            if (value instanceof List)
+            {
+                return ((List) value).get(0);
+            }            
+            return value; 
+        }
+
+        public boolean isEmpty()
+        {
+            return _delegate.isEmpty();
+        }
+
+        public Set keySet()
+        {
+            return _delegate.keySet();
+        }
+
+        public Object put(Object arg0, Object arg1)
+        {
+            return _delegate.put(arg0, arg1);
+        }
+
+        public void putAll(Map arg0)
+        {
+            _delegate.putAll(arg0);
+        }
+
+        public Object remove(Object key)
+        {
+            return _delegate.remove(key);
+        }
+
+        public int size()
+        {
+            return _delegate.size();
+        }
+
+        public Collection values()
+        {
+            return _delegate.values();
+        }
+        
     }
     
     private void processComponentFacets(JavaClass clazz,

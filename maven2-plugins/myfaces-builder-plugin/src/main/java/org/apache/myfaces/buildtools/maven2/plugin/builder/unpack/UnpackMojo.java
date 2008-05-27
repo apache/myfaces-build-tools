@@ -101,7 +101,7 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
      * 
      * @optional
      * @parameter expression="${scanModel}"
-     *            default-value="true"
+     *            default-value="false"
      */    
     private boolean scanModel;
     

@@ -138,7 +138,15 @@ public class MakeComponentsMojo extends AbstractMojo
      * 
      * @parameter expression="src/main/java"
      */    
-    private File mainSourceDirectory;    
+    private File mainSourceDirectory;
+    
+    /**
+     * This param is used to search in this folder if some file to
+     * be generated exists and avoid generation and duplicate exception.
+     * 
+     * @parameter
+     */        
+    private File mainSourceDirectory2;
 
     /**
      * Execute the Mojo.
@@ -253,7 +261,16 @@ public class MakeComponentsMojo extends AbstractMojo
                     component.getClassName(), ".", "/")+".java");
                                 
                 if (!f.exists() && canGenerateComponent(component))
-                {                
+                {
+                    if (mainSourceDirectory2 != null){
+                        File f2 = new File(mainSourceDirectory2, StringUtils.replace(
+                                component.getClassName(), ".", "/")+".java");
+                        if (f2.exists())
+                        {
+                            //Skip
+                            continue;
+                        }
+                    }
                     log.info("Generating component class:"+component.getClassName());
                     _generateComponent(velocityEngine, builder,component,baseContext);
                 }
