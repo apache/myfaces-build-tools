@@ -79,6 +79,14 @@ public @interface JSFComponent
     boolean canHaveChildren() default false;
     
     /**
+     * Indicate that this component should not be defined on faces-config.xml.
+     * Anyway, if this is true or false does not have any significative impact. 
+     * 
+     * @return
+     */
+    boolean configExcluded() default false;
+    
+    /**
      * Tag class that match this component
      */
     String tagClass() default "";
@@ -112,4 +120,6 @@ public @interface JSFComponent
      * Interfaces that should implement this component
      */
     String implementz() default "";
+    
+    
 }
