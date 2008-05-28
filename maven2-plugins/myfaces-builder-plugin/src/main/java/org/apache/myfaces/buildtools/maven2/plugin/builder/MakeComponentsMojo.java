@@ -526,14 +526,17 @@ public class MakeComponentsMojo extends AbstractMojo
     }
     
     private String _getTemplateName(){
-        if (templateComponentName != null){
+        if (templateComponentName == null){
             if (_is12()){
                 return "componentClass12.vm";
             }else{
                 return "componentClass11.vm";
             }
         }
-        return "componentClass11.vm";
+        else
+        {
+            return templateComponentName;
+        }
     }
     
     private boolean _is12()

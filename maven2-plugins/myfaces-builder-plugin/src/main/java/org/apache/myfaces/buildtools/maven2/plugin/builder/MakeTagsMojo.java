@@ -354,14 +354,16 @@ public class MakeTagsMojo extends AbstractMojo
     }
     
     private String _getTemplateTagName(){
-        if (templateTagName != null){
+        if (templateTagName == null){
             if (_is12()){
                 return "tagClass12.vm";
             }else{
                 return "tagClass11.vm";
             }
-        }
-        return "tagClass11.vm";
+        }else
+        {
+            return templateTagName;            
+        }        
     }
 
     private boolean _is12()
