@@ -82,6 +82,19 @@ public class MethodSignatureMeta extends Object
     {
         return (String[]) _parameterTypes.toArray(new String[0]);
     }
+    
+    public String getParameterTypesAsString()
+    {
+        String[] params = this.getParameterTypes();
+        StringBuilder resp = new StringBuilder(); 
+        for (int i = 0; i < params.length; i++)
+        {
+          if (i > 0)
+            resp.append(", ");
+          resp.append(params[i]);
+        }
+        return resp.toString();
+    }
 
     /**
      * Sets the return type of this method signature.

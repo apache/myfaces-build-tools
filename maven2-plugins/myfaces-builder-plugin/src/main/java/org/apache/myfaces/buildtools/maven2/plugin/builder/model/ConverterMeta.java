@@ -19,9 +19,11 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -55,6 +57,10 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
     private String _name;
     private String _bodyContent;
     private String _tagClass;
+    private String _tagSuperclass;
+    private String _serialuidtag;
+    
+    private Boolean _generatedTagClass;
 
     protected Map _properties;
     /**
@@ -72,6 +78,9 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
         out.writeElement("name", cm._name);        
         out.writeElement("bodyContent", cm._bodyContent);
         out.writeElement("tagClass", cm._tagClass);
+        out.writeElement("tagSuperclass", cm._tagSuperclass);
+        out.writeElement("serialuidtag", cm._serialuidtag);
+        out.writeElement("generatedTagClass", cm._generatedTagClass);
 
         for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
         {
@@ -102,6 +111,10 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
         digester.addBeanPropertySetter(newPrefix + "/name");        
         digester.addBeanPropertySetter(newPrefix + "/bodyContent");
         digester.addBeanPropertySetter(newPrefix + "/tagClass");
+        digester.addBeanPropertySetter(newPrefix + "/tagSuperclass");
+        digester.addBeanPropertySetter(newPrefix + "/serialuidtag");
+        digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
+
         PropertyMeta.addXmlRules(digester, newPrefix);
     }
     
@@ -112,6 +125,10 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
     /**
      * Merge the data in the specified other property into this one, throwing an
      * exception if there is an incompatibility.
+     * 
+     * Not used right now since theorically there is very few inheritance
+     * on converters
+     * 
      */
     public void merge(ConverterMeta other)
     {
@@ -241,6 +258,39 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
     }
     
     /**
+     * Sets the JSP tag handler superclass for this component.
+     */
+    public void setTagSuperclass(String tagSuperclass)
+    {
+        _tagSuperclass = tagSuperclass;
+    }
+
+    public String getTagSuperclass()
+    {
+        return _tagSuperclass;
+    }
+    
+    public void setSerialuidtag(String serialuidtag)
+    {
+        _serialuidtag = serialuidtag;
+    }
+
+    public String getSerialuidtag()
+    {
+        return _serialuidtag;
+    }
+    
+    public void setGeneratedTagClass(Boolean generatedTagClass)
+    {
+        _generatedTagClass = generatedTagClass;
+    }
+
+    public Boolean isGeneratedTagClass()
+    {
+        return ModelUtils.defaultOf(_generatedTagClass,false);
+    }
+        
+    /**
      * Adds a property to this component.
      */
     public void addProperty(PropertyMeta property)
@@ -281,6 +331,23 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
     
     public Collection getPropertyList(){
         return _properties.values();
+    }
+    
+    private List _propertyTagList = null; 
+    
+    public Collection getPropertyTagList(){
+        if (_propertyTagList == null){
+            _propertyTagList = new ArrayList();
+            for (Iterator it = _properties.values().iterator(); it.hasNext();){
+                PropertyMeta prop = (PropertyMeta) it.next();
+                if (!prop.isTagExcluded().booleanValue() &&
+                        !prop.isInheritedTag().booleanValue()){
+                    _propertyTagList.add(prop);
+                }
+            }
+            
+        }
+        return _propertyTagList;
     }
 
 }

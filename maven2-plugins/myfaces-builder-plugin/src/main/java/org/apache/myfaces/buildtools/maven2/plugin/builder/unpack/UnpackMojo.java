@@ -14,11 +14,13 @@ import org.apache.maven.plugin.dependency.utils.markers.MarkerHandler;
 import org.apache.maven.plugin.dependency.utils.markers.UnpackFileMarkerHandler;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
 import org.codehaus.plexus.util.StringUtils;
 
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
 /**
  * Goal that retrieves a list of artifacts from the repository and unpacks them
@@ -250,8 +252,6 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
 
                 if (component.getModelId().equals(model.getModelId())){
                     
-                    getLog().info("Component:"+component.getClassName()+" "+component.getModelId());
-                    
                     if (component.isGeneratedComponentClass().booleanValue())
                     {
                         getLog().info("Adding Generated: "+ component.getClassName());
@@ -268,6 +268,37 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
                     }                
                 }
             }
+            for (Iterator it = model.converters(); it.hasNext();)
+            {
+                ConverterMeta converter = (ConverterMeta) it.next();
+
+                if (converter.getModelId().equals(model.getModelId())){
+                    
+                    if (converter.isGeneratedTagClass().booleanValue())
+                    {
+                        getLog().info("Adding Generated: "+ converter.getTagClass());
+                        exclusions.add(StringUtils.replace(converter.getTagClass(),
+                                ".", "/")
+                                + ".java");
+                    }                
+                }
+            }
+            for (Iterator it = model.validators(); it.hasNext();)
+            {
+                ValidatorMeta validator = (ValidatorMeta) it.next();
+
+                if (validator.getModelId().equals(model.getModelId())){
+                    
+                    if (validator.isGeneratedTagClass().booleanValue())
+                    {
+                        getLog().info("Adding Generated: "+ validator.getTagClass());
+                        exclusions.add(StringUtils.replace(validator.getTagClass(),
+                                ".", "/")
+                                + ".java");
+                    }                
+                }
+            }
+            
         }
         else
         {

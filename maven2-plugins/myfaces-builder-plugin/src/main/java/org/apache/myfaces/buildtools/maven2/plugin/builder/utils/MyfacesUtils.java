@@ -31,6 +31,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyHolder;
+
 public class MyfacesUtils
 {
     public MyfacesUtils()
@@ -121,7 +123,7 @@ public class MyfacesUtils
         return name;
     }
 
-    public static String importTagClasses(ComponentMeta component)
+    public static String importTagClasses(PropertyHolder component)
     {
         Set imports = new HashSet();
         for (Iterator it = component.properties(); it.hasNext();)

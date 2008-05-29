@@ -148,11 +148,23 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             ConverterMeta converter = (ConverterMeta) it.next();
             converter.setModelId(model.getModelId());
+            //Check if the converter tag class file exists
+            if (converter.getTagClass() != null && 
+                    !IOUtils.existsSourceFile(StringUtils.replace(
+                    converter.getTagClass(),".","/")+".java", sourceDirs)){
+                converter.setGeneratedTagClass(Boolean.TRUE);
+            }            
         }
         for (Iterator it = model.getValidators().iterator(); it.hasNext();)
         {
             ValidatorMeta validator = (ValidatorMeta) it.next();
             validator.setModelId(model.getModelId());
+            //Check if the validator tag class file exists
+            if (validator.getTagClass() != null && 
+                    !IOUtils.existsSourceFile(StringUtils.replace(
+                    validator.getTagClass(),".","/")+".java", sourceDirs)){
+                validator.setGeneratedTagClass(Boolean.TRUE);
+            }            
         }
         for (Iterator it = model.getTags().iterator(); it.hasNext();)
         {
@@ -473,17 +485,20 @@ public class QdoxModelBuilder implements ModelBuilder
         String componentName = getString(clazz, "name", props, null);
         String bodyContent = getString(clazz, "bodyContent", props, null);
         String tagClass = getString(clazz, "tagClass", props, null);
+        String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
+        String serialuidtag = getString(clazz, "serialuidtag", props, null);
 
         ConverterMeta converter = new ConverterMeta();
         converter.setName(componentName);
         converter.setBodyContent(bodyContent);
         converter.setTagClass(tagClass);
+        converter.setTagSuperclass(tagSuperclass);
         converter.setClassSource(clazz.getFullyQualifiedName());
         converter.setClassName(converterClass);
         converter.setConverterId(converterId);
         converter.setDescription(shortDescription);
         converter.setLongDescription(longDescription);
-        
+        converter.setSerialuidtag(serialuidtag);
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, converter);
         
@@ -517,16 +532,20 @@ public class QdoxModelBuilder implements ModelBuilder
         String componentName = getString(clazz, "name", props, null);
         String bodyContent = getString(clazz, "bodyContent", props, null);
         String tagClass = getString(clazz, "tagClass", props, null);        
+        String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
+        String serialuidtag = getString(clazz, "serialuidtag", props, null);
 
         ValidatorMeta validator = new ValidatorMeta();
         validator.setName(componentName);
         validator.setBodyContent(bodyContent);
         validator.setTagClass(tagClass);
+        validator.setTagSuperclass(tagSuperclass);
         validator.setClassSource(clazz.getFullyQualifiedName());
         validator.setClassName(validatorClass);
         validator.setValidatorId(validatorId);
         validator.setDescription(shortDescription);
         validator.setLongDescription(longDescription);
+        validator.setSerialuidtag(serialuidtag);
         
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, validator);
@@ -1265,6 +1284,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean stateHolder = getBoolean(clazz, "stateHolder", props, null);
         Boolean literalOnly = getBoolean(clazz, "literalOnly", props, null);
         Boolean tagExcluded = getBoolean(clazz, "tagExcluded", props, null);
+        Boolean inheritedTag = getBoolean(clazz, "inheritedTag", props, null);
 
         String longDescription = getString(clazz, "longDesc", props, null);
         
@@ -1285,6 +1305,7 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setStateHolder(stateHolder);
         p.setLiteralOnly(literalOnly);
         p.setTagExcluded(tagExcluded);
+        p.setInheritedTag(inheritedTag);
         p.setDescription(shortDescription);
         p.setLongDescription(longDescription);
         
