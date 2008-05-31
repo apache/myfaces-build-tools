@@ -44,6 +44,7 @@ import org.codehaus.plexus.util.StringUtils;
  * xml file for use by other goals of this plugin.
  * <p>
  * By default, the generated file is named "META-INF/myfaces-metadata.xml".
+ * </p>
  * 
  * @requiresDependencyResolution compile
  * @goal build-metadata
