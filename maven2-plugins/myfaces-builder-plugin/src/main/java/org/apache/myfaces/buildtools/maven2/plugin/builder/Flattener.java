@@ -25,10 +25,8 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 
 /**
  */

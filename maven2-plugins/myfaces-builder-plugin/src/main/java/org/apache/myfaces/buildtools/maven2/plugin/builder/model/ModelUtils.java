@@ -20,8 +20,6 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
 import java.util.Iterator;
 
-import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
-
 /**
  * Simple static helper methods.
  */
