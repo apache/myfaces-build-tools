@@ -17,7 +17,10 @@
     under the License.
 	   
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
+
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -31,7 +34,7 @@
   <packaging>maven-plugin</packaging>
   <name>Apache MyFaces Buildtools Maven2 Builder Plugin</name>
   <description>
-    A maven plugin that uses javadoc annotations to generate the necessary JSF configuration
+    A maven plugin that uses annotations (java15 or doclet style) to generate the necessary JSF configuration
     files (.tld, faces-config.xml, etc) and optionally Tag, Validator and Component classes.
   </description>
 
