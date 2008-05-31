@@ -17,6 +17,13 @@
  Myfaces Builder Plugin 
  ------
  
+Summary
+
+  This is a maven plugin that uses javadoc annotations to generate the necessary JSF configuration
+  files (.tld, faces-config.xml, etc) and optionally Tag, Validator and Component classes.
+
+  See the documentation menu in the left-hand navigation pane for more information.
+
 Introduction
 
   A JSF component library needs to provide hand-written:
@@ -157,4 +164,4 @@ Representing MetaData internally
 
   * the builder plugin can re-read the file from the META-INF of a published jar, allowing
     libraries to easily *extend* classes declared in a published jar and still have access
-    to the metadata for those ancestor classes. 
+    to the metadata for those ancestor classes.  ------
