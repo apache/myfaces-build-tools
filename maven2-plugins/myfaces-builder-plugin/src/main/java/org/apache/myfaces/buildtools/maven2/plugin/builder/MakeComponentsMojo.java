@@ -496,6 +496,13 @@ public class MakeComponentsMojo extends AbstractMojo
                 name.equals("COMPONENT_FAMILY") );
     }
     
+    /**
+     * TODO: Copied from QdoxModelBuilder!
+     * 
+     * @param entity
+     * @param annoName
+     * @return
+     */
     private Annotation getAnnotation(AbstractJavaEntity entity, String annoName)
     {
         Annotation[] annos = entity.getAnnotations();
@@ -517,14 +524,20 @@ public class MakeComponentsMojo extends AbstractMojo
             // returns the short
             // class name. So for now, just check for the short name.
             String thisAnnoName = thisAnno.getType().getJavaClass().getName();
+            
+            //Make short name for recognizing, if returns long
+            int containsPoint = thisAnnoName.lastIndexOf('.');
+            if (containsPoint != -1)
+            {
+                thisAnnoName = thisAnnoName.substring(containsPoint+1);
+            }
             if (thisAnnoName.equals(annoName))
             {
                 return thisAnno;
             }
         }
         return null;
-    }
-    
+    }    
     private String _getTemplateName(){
         if (templateComponentName == null){
             if (_is12()){
