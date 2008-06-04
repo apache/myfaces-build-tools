@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                [TO DO]
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/inputSuggest.png" alt="inputSuggest"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">[TODO]</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">[TODO]</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">[TODO]</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">[TODO]</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">[TODO]</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">[TODO]</source>
+        </section>
+        
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            
+            <p>[TODO]</p>
+        </section>        
+
+    </body>
+    
+
+</document>

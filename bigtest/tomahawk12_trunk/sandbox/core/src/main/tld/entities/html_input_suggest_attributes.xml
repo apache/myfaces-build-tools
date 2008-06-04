@@ -1,0 +1,14 @@
+        <!--
+        This attribute indicates that the component should be forced to use the specified id instead of
+        using the one that faces generates.  Components contained within a "list" will include a '[n]'
+        suffix where 'n' is the row index (unless the forceIdIndex attribute is set to false).
+        -->
+        <!--
+        <attribute>
+            <name>forceId</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>If true, this component will force the use of the specified id when rendering.</description>
+        </attribute>
+        -->

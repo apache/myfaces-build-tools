@@ -1,0 +1,23 @@
+<attribute>
+    <name>for</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>The component (commandLink or commandButton) to "click" on</description>
+</attribute>
+<attribute>
+    <name>event</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>The event: keypress|keydown|keyup|change|focus|blur|click|mousedown|mouseup|mousemove|mouseover|mouseout|select (Default: keypress)</description>
+</attribute>
+<attribute>
+    <name>callback</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>User defined javascript callback function.
+        This function will be called to decide if the event should trigger the submit.
+        (Default: fire on "Enter") </description>
+</attribute>

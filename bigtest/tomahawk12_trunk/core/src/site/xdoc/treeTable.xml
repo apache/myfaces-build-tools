@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                A table with a tree column.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/treetable.png" alt="treetable"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">
+                        org.apache.myfaces.HtmlTree
+                        org.apache.myfaces.HtmlTreeColumn
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">
+                        org.apache.myfaces.HtmlTree
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">
+                        org.apache.myfaces.custom.tree.HtmlTree
+                        org.apache.myfaces.custom.tree.HtmlTreeColumn
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.tree.renderkit.html.HtmlTreeRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">
+                        org.apache.myfaces.custom.tree.taglib.TreeTag
+                        org.apache.myfaces.custom.tree.taglib.TreeColumnTag
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:tree id="String"
+           value="TreeModel"
+           var="String"
+           expandRoot="{true|false}"&gt;
+    &lt;t:treeColumn header="UIComponent"
+                     footer="UIComponent"&gt;
+        ...(anyComponent)...
+    &lt;/t:treeColumn&gt;
+&lt;/t:tree&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:treeColumn&gt;</h3>
+                <code>header - the header uicomponent.</code><br/>
+                <code>footer - the footer uicomponent.</code><br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                Just nest a treeColumn inside of a tree element,
+                see doc of tree for help about attributes.
+            </p>
+            <p>
+                &lt;t:tree&gt; defines the tree.
+                <br/>
+                &lt;t:treeColumn&gt; outlines the column where the tree structure
+                                     will be render as part of the tree table.
+            </p>
+            <p>
+                see examples/treeTable.jsp for an example!
+            </p>
+        </section>
+    </body>
+    
+
+</document>

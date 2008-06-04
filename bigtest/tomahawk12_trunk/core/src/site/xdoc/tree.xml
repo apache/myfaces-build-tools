@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                A tree data component.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/tree.png" alt="tree"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.HtmlTree</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.HtmlTree</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.tree.HtmlTree</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.tree.renderkit.html.HtmlTreeRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.tree.taglib.TreeTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+ value="TreeModel"
+           styleClass="CSSClass"
+           nodeClass="CSSClass"
+           selectedNodeClass="CSSClass"
+           expandRoot="{true|false}"&gt;
+&lt;/t:tree&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:tree&gt;</h3>
+                <code>value - the tree model.</code><br/>
+                <code>var - a variable to hold current selection.</code><br/>
+                <code>styleClass - CSSClass for tree.</code><br/>
+                <code>nodeClass - CSSClass for tree nodes.</code><br/>
+                <code>selectedNodeClass - CSSClass for selected tree node.</code><br/>
+                <code>headerClass - CSSClass for header.</code><br/>
+                <code>footerClass - CSSClass for footer.</code><br/>
+                <code>rowClasses - CSSClass for rows.</code><br/>
+                <code>columnClasses - CSSClass for columns.</code><br/>
+                <code>iconClass - CSSClass for icons.</code><br/>
+                <code>iconLine - the icon for node with line.</code><br/>
+                <code>iconNoline - the icon for node with no line.</code><br/>
+                <code>iconChildFirst - the icon for first child.</code><br/>
+                <code>iconChildMiddle - the icon for middle child.</code><br/>
+                <code>iconChildLast - the icon for last child.</code><br/>
+                <code>iconNodeOpen - the icon for expanded node.</code><br/>
+                <code>iconNodeOpenFirst - the icon for first expanded node.</code><br/>
+                <code>iconNodeOpenMiddle - the icon for middle expanded node.</code><br/>
+                <code>iconNodeOpenLast - the icon for last expanded node.</code><br/>
+                <code>iconNodeClose - the icon for collapsed node.</code><br/>
+                <code>iconNodeCloseFirst - the icon for first collapsed node.</code><br/>
+                <code>iconNodeCloseMiddle - the icon for middle collapsed node.</code><br/>
+                <code>iconNodeCloseLast - the icon for last collapsed node.</code><br/>
+                <code>expandRoot - if true root node is expanded.</code><br/>
+                <code>
+                    expireListeners - Time interval the tree will remain registered
+                                      as a TreeModelListener without being accessed.
+                </code>
+                <br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                see examples/tree.jsp for an example!
+            </p>
+        </section>
+    </body>
+    
+
+</document>

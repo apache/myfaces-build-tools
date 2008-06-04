@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hOutputLink</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">hOutputLink</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/home.jsf</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/hOutputLink.jsf</td>
+	<td></td>
+</tr>
+<!--Test basicForm-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//a[@id='hOutputLink']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//span[@id='hOutputText']</td>
+	<td></td>
+</tr>
+<!--Test attributes-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//span[@id='hOutputText']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//a[@id='hOutputLink']@target</td>
+	<td>targetWindow</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//a[@id='hOutputLink']@type</td>
+	<td>contentType</td>
+</tr>
+<!-- Using glob: and ? instead or &amp; for second parameter due to IE -->
+<tr>
+	<td>assertAttribute</td>
+	<td>//a[@id='hOutputLink']@href</td>
+	<td>glob:http://myfaces.apache.org/index.html?param1=value1?param2=value2</td>
+</tr>
+<!-- Does not work with IE
+<tr>
+	<td>assertAttribute</td>
+	<td>//a[@id='hOutputLink']@onblur</td>
+	<td>glob:*Alert('onBlur');*</td>
+</tr>
+-->
+<!-- Does not work with IE
+<tr>
+	<td>assertAttribute</td>
+	<td>//a[@id='hOutputLink']@onfocus</td>
+	<td>glob:*Alert('onFocust');*</td>
+</tr>
+-->
+<tr>
+	<td>assertAttribute</td>
+	<td>//a[@id='hOutputLink']@coords</td>
+	<td>1,2</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//a[@id='hOutputLink']@hreflang</td>
+	<td>en</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//a[@id='hOutputLink']@rev</td>
+	<td>http://foo.bar.com</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//a[@id='hOutputLink']@shape</td>
+	<td>square</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

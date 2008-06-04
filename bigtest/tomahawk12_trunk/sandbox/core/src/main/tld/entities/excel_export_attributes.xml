@@ -1,0 +1,14 @@
+<attribute>
+    <name>for</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>Id of the datatable component whose values to be exported</description>
+</attribute>
+<attribute>
+    <name>filename</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>Default name of the generated excel file, if not specified value of the "for" attribute will be used</description>
+</attribute>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                A tag that defines an autosuggest control complete with Ajax binding.<br/>
+				This allows you to do real time autocompletion via asynchronous
+				server requests. Note, this control is experimental and it is currently
+				located in the MyFaces sandbox and can be subject to
+				alteration in the immediate future. So use it with care.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/inputsuggestajax.jpg" alt="InputSuggestAjax"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Input</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.InputSuggestAjax</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.inputsuggestAjax.InputSuggestAjax</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.inputsuggestAjax.InputSuggestAjaxRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.inputsuggestAjax.InputSuggestAjaxTag</td>
+                </tr>
+            </table>
+        </section>
+                <section name="Syntax">
+            
+            <source xml:space="preserve">&lt;s:inputSuggestAjax id="id" binding="control binding"
+                            suggestedItemsMethod="backend bean callback method" value="Bean"/&gt;
+            </source>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                <code>
+                id - defines the id of the control
+                </code>
+                <br/>
+                <code>
+				suggestedItemsMethod - defines the method call for the backend bean which delivers the preview data
+                </code>
+                <br/>
+                <code>
+				maxSuggestedItems - defines the number of maximal suggested entries (optional)
+                </code>
+                <br/>
+                <code>
+                value - standard bean value for the result
+                </code>
+                <br/>
+                <code>
+                binding - the binding into a control object, this binding is needed because the control object does all the
+						needed data transformation between the Ajax control and the backend/frontend
+                </code>
+            </p>
+            <p>
+            	Note - This component is different to others, it uses Ajax mechanisms
+            	to fetch preview data from the server, thus the backend binding can
+            	and will be used outside of the standard JSF lifecycle to deliver the data.
+            	
+            	<br/><br/>
+            	Description of the call order:<br/> 
+            	<code>
+            	control -&gt; Ajax request -&gt; suggestionMethod in backend bean -&gt; values pushed into the control binding -&gt; result sent back to the client -&gt; control shows suggestion drop down
+            	</code>
+            	<br/><br/>
+            	On the backend side, a callback method - the suggestion method, has to be implemented, 
+            	which is called by the Ajax request and
+            	fetches the data from a data source. The data then is pushed into the control binding similarly
+            	to drop down menus and other controls which use the SelectItem object as data holder.
+            	The rest is done automatically. 
+            </p>
+        </section>
+    </body>
+    
+</document>

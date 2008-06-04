@@ -1,0 +1,257 @@
+        <attribute>
+            <name>for</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+              The JSF id of a UIData component that this scroller will affect.
+              If this attribute is not present then the datascroller must be
+              a child of a UIData comopnent.
+            </description>
+        </attribute>
+        <attribute>
+            <name>layout</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The layout this scroller should render with. Default is 'table',
+                'list' is implemented as well. Additionally you can use 'singleList' -
+                then the data-scroller will render a list, but not the paginator - same with the
+                value 'singleTable'.
+            </description>
+        </attribute>
+        <attribute>
+            <name>fastStep</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>step (pages) used for fastforward and fastrewind</description>
+        </attribute>
+        <attribute>
+            <name>pageIndexVar</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                A parameter name, under which the actual page index is set in request scope
+                similar to the var parameter.
+            </description>
+        </attribute>
+        <attribute>
+            <name>pageCountVar</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                A parameter name, under which the actual page count is set in request scope
+                similar to the var parameter.
+            </description>
+        </attribute>
+        <attribute>
+            <name>rowsCountVar</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                A parameter name, under which the actual rows count is set in request scope
+                similar to the var parameter.
+            </description>
+        </attribute>
+        <attribute>
+            <name>displayedRowsCountVar</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                A parameter name, under which the actual displayed rows count is set in request scope
+                similar to the var parameter.
+            </description>
+        </attribute>
+        <attribute>
+            <name>firstRowIndexVar</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                A parameter name, under which the actual first displayed row index is set in request scope
+                similar to the var parameter.
+            </description>
+        </attribute>
+        <attribute>
+            <name>lastRowIndexVar</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                A parameter name, under which the actual last displayed row index is set in request scope
+                similar to the var parameter.
+            </description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                styleClass for scroller table
+            </description>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                style for scroller table
+            </description>
+        </attribute>
+        <attribute>
+            <name>paginator</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                If set true, then the paginator gets rendered
+            </description>
+        </attribute>
+        <attribute>
+            <name>paginatorMaxPages</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The maximum amount of pages to be displayed in the paginator.
+            </description>
+        </attribute>
+        <attribute>
+            <name>paginatorTableClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                styleclass for pagingator
+            </description>
+        </attribute>
+        <attribute>
+            <name>paginatorTableStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                style for pagingator
+            </description>
+        </attribute>
+        <attribute>
+            <name>paginatorColumnClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                styleClass for paginator's column
+            </description>
+        </attribute>
+        <attribute>
+            <name>paginatorColumnStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                style for paginator's column
+            </description>
+        </attribute>
+       <attribute>
+            <name>paginatorActiveColumnClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                styleClass for paginator's column with pageIndex = currentPageIndex
+            </description>
+        </attribute>
+        <attribute>
+            <name>paginatorActiveColumnStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                style for paginator's column with pageIndex = currentPageIndex
+            </description>
+        </attribute>
+        <attribute>
+            <name>paginatorRenderLinkForActive</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                'true' - render a link for the paginator's column with pageIndex = currentPageIndex. Default-value is 'true'.
+            </description>
+        </attribute>
+        <attribute>
+            <name>renderFacetsIfSinglePage</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                If set to false, the facets aren't renderd if all the lines are contained on a single page.
+                Default is true.
+            </description>
+        </attribute>
+        <attribute>
+            <name>nextStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                style-class for dataScroller next-element
+            </description>
+        </attribute>
+        <attribute>
+            <name>lastStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                style-class for data-scroller last-element
+            </description>
+        </attribute>
+        <attribute>
+            <name>fastfStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                style-class for data-scroller fast-forward-element
+            </description>
+        </attribute>
+        <attribute>
+            <name>fastrStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                style-class for data-scroller fast-rewind-element
+            </description>
+        </attribute>
+        <attribute>
+            <name>firstStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                style-class for data-scroller first-element
+            </description>
+        </attribute>
+        <attribute>
+            <name>previousStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                style-class for data-scroller previous-element
+            </description>
+        </attribute>
+        <attribute>
+            <name>immediate</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>
+                True means that the default ActionListener should be executed
+                immediately (i.e. during Apply Request Values phase of the
+                request processing lifecycle), rather than waiting until the
+                Invoke Application phase.
+            </description>
+        </attribute>
+        <attribute>
+            <name>actionListener</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>MethodBinding pointing at method acception an ActionEvent with return type void.</description>
+        </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>HTML: Script to be invoked when the element is clicked.</description>
+        </attribute>
+        <attribute>
+            <name>ondblclick</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>HTML: Script to be invoked when the element is double-clicked.</description>
+        </attribute> 

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+    <body>
+        <section name="Description">
+            
+            <p>
+A component to run over the pages of an UIData (eg. &lt;h:dataTable&gt;).
+            </p>
+            <p>
+Renders a DataScroller, which should work with any UIData. The facets are getting rendered in the following order: first, fastrewind, previous, next, fastforward, last 
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/datascroller.png" alt="DataScroller"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Panel</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.DataScroller</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.datascroller.HtmlDataScroller</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.datascroller.HtmlDataScrollerRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.datascroller.HtmlDataScrollerTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:dataScroller [ user-role-support-attributes ]
+                   [for="reference to UIData"]
+                   [fastStep="values {ThemeIE, ThemeMiniBlack, ThemeOffice, ThemePanel}"]
+                   [pageIndexVar="A parameter name, under which the actual page index is set in request scope
+                                  similar to the var parameter."]
+                   [pageCountVar="A parameter name, under which the actual page count is set in request scope
+                                  similar to the var parameter."]&gt;
+    Nested Facets: first, previous, next, last, fastforward, fastrewind
+&lt;/t:dataScroller&gt;
+            </source>
+        </section>
+
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:dataScroller&gt;</h3>
+                <code>user-role-support-attributes</code><br/>
+                <code>for="reference to UIData"</code><br/>
+                <code>fastStep="values {ThemeIE, ThemeMiniBlack, ThemeOffice, ThemePanel}"</code><br/>
+                <code>
+                    pageIndexVar="A parameter name, under which the actual page index is set in request scope
+                                  similar to the var parameter."
+                </code>
+                <br/>
+                <code>
+                    pageCountVar="A parameter name, under which the actual page count is set in request scope
+                                  similar to the var parameter."
+                </code>
+                <br/>
+            </blockquote>
+        </section>
+
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            
+            <p>
+                DataScroller must be nested inside of an UIData component,
+                or attribute "for" must be given so that corresponding uiData can be found.
+                <br/>
+                The "row" attribute must be specified on the corresponding uiData.
+                <br/>
+                The scope of pageIndexVar and pageCountVar is limited, and only
+                direct children of DataScroller may see them.
+            </p>
+        </section>        
+
+    </body>
+    
+
+</document>

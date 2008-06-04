@@ -1,0 +1,13 @@
+        <attribute>
+            <name>actionFor</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Comma separated list of subForm-ids for which
+                validation and model update should take place when
+                this command is executed.
+                You need to wrap your input components in
+                org.apache.myfaces.custom.subform.SubForm instances
+                for this to work.
+            </description>
+        </attribute>

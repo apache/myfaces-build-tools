@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component generateUserRoleMethods="true" >
+    <component-class>org.apache.myfaces.custom.fileupload.HtmlInputFileUpload</component-class>
+    <base-class>javax.faces.component.html.HtmlInputText</base-class>
+    <component-type>org.apache.myfaces.HtmlInputFileUpload</component-type>
+    <component-family>javax.faces.Input</component-family>
+    <renderer-type>org.apache.myfaces.FileUpload</renderer-type>
+    <field>
+        <name>accept</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>enabledOnUserRole</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>visibleOnUserRole</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>storage</name>
+        <type>java.lang.String</type>
+    </field>
+</component>

@@ -1,0 +1,1702 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+  "misc/web-jsptaglibrary_1_2.dtd" [
+<!ENTITY display_value_only_attributes  SYSTEM "entities/display_value_only_attributes.xml">
+<!ENTITY ext_forceId_attribute          SYSTEM "entities/ext_forceId_attribute.xml">
+<!ENTITY ext_textarea_attribute         SYSTEM "entities/ext_textarea_attribute.xml">
+<!ENTITY ext_actionfor_attribute        SYSTEM "entities/ext_actionfor_attribute.xml">
+<!ENTITY ext_escape_attribute           SYSTEM "entities/ext_escape_attribute.xml">
+<!ENTITY ext_disabled_attribute         SYSTEM "entities/ext_disabled_attribute.xml">
+<!ENTITY ext_validator_base_attributes  SYSTEM "entities/ext_validator_base_attributes.xml">
+<!ENTITY faces_binding_attribute        SYSTEM "entities/faces_binding_attribute.xml">
+<!ENTITY faces_id_optional_attribute    SYSTEM "entities/faces_id_optional_attribute.xml">
+<!ENTITY faces_id_required_attribute    SYSTEM "entities/faces_id_required_attribute.xml">
+<!ENTITY faces_rendered_attribute       SYSTEM "entities/faces_rendered_attribute.xml">
+<!ENTITY faces_immediate_attribute      SYSTEM "entities/faces_immediate_attribute.xml">
+<!ENTITY html_anchor_attributes         SYSTEM "entities/html_anchor_attributes.xml">
+<!ENTITY html_button_attributes         SYSTEM "entities/html_button_attributes.xml">
+<!ENTITY html_event_handler_attributes  SYSTEM "entities/html_event_handler_attributes.xml">
+<!ENTITY html_form_attributes           SYSTEM "entities/html_form_attributes.xml">
+<!ENTITY spec_img_attributes            SYSTEM "entities/spec_img_attributes.xml">
+<!ENTITY html_img_attributes            SYSTEM "entities/html_img_attributes.xml">
+<!ENTITY html_input_attributes          SYSTEM "entities/html_input_attributes.xml">
+<!ENTITY html_input_help_attributes     SYSTEM "entities/html_input_help_attributes.xml">
+<!ENTITY html_input_checkbox_attributes SYSTEM "entities/html_input_checkbox_attributes.xml">
+<!ENTITY html_input_radio_attributes    SYSTEM "entities/html_input_radio_attributes.xml">
+<!ENTITY html_label_attributes          SYSTEM "entities/html_label_attributes.xml">
+<!ENTITY html_select_attributes         SYSTEM "entities/html_select_attributes.xml">
+<!ENTITY html_table_attributes          SYSTEM "entities/html_table_attributes.xml">
+<!ENTITY html_textarea_attributes       SYSTEM "entities/html_textarea_attributes.xml">
+<!ENTITY html_universal_attributes      SYSTEM "entities/html_universal_attributes.xml">
+<!ENTITY html_accesskey_attribute       SYSTEM "entities/html_attributes/accesskey.xml">
+<!ENTITY html_align_attribute           SYSTEM "entities/html_attributes/align.xml">
+<!ENTITY html_alt_attribute             SYSTEM "entities/html_attributes/alt.xml">
+<!ENTITY html_bgcolor_attribute         SYSTEM "entities/html_attributes/bgcolor.xml">
+<!ENTITY html_border_attribute          SYSTEM "entities/html_attributes/border.xml">
+<!ENTITY html_charset_attribute         SYSTEM "entities/html_attributes/charset.xml">
+<!ENTITY html_datafld_datasrc_dataformatas_attributes       SYSTEM "entities/html_attributes/datafld_datasrc_dataformatas.xml">
+<!ENTITY html_disabled_attribute        SYSTEM "entities/html_attributes/disabled.xml">
+<!ENTITY html_focus_blur_attributes     SYSTEM "entities/html_attributes/focus_blur.xml">
+<!ENTITY html_onchange_attribute        SYSTEM "entities/html_attributes/onchange.xml">
+<!ENTITY html_onselect_attribute        SYSTEM "entities/html_attributes/onselect.xml">
+<!ENTITY html_readonly_attribute        SYSTEM "entities/html_attributes/readonly.xml">
+<!ENTITY html_tabindex_attribute        SYSTEM "entities/html_attributes/tabindex.xml">
+<!ENTITY html_target_attribute          SYSTEM "entities/html_attributes/target.xml">
+<!ENTITY html_type_attribute            SYSTEM "entities/html_attributes/type.xml">
+<!ENTITY ui_column_attributes           SYSTEM "entities/ui_column_attributes.xml">
+<!ENTITY ui_command_attributes          SYSTEM "entities/ui_command_attributes.xml">
+<!ENTITY ui_component_attributes        SYSTEM "entities/ui_component_attributes.xml">
+<!ENTITY ui_form_attributes             SYSTEM "entities/ui_form_attributes.xml">
+<!ENTITY ui_graphic_attributes          SYSTEM "entities/ui_graphic_attributes.xml">
+<!ENTITY ui_input_attributes            SYSTEM "entities/ui_input_attributes.xml">
+<!ENTITY ui_message_attributes          SYSTEM "entities/ui_message_attributes.xml">
+<!ENTITY ui_messages_attributes         SYSTEM "entities/ui_messages_attributes.xml">
+<!ENTITY ui_output_attributes           SYSTEM "entities/ui_output_attributes.xml">
+<!ENTITY ui_panel_attributes            SYSTEM "entities/ui_panel_attributes.xml">
+<!ENTITY ui_parameter_attributes        SYSTEM "entities/ui_parameter_attributes.xml">
+<!ENTITY ui_select_boolean_attributes   SYSTEM "entities/ui_select_boolean_attributes.xml">
+<!ENTITY ui_select_item_attributes      SYSTEM "entities/ui_select_item_attributes.xml">
+<!ENTITY ui_select_items_attributes     SYSTEM "entities/ui_select_items_attributes.xml">
+<!ENTITY ui_select_many_attributes      SYSTEM "entities/ui_select_many_attributes.xml">
+<!ENTITY ui_select_one_attributes       SYSTEM "entities/ui_select_one_attributes.xml">
+<!ENTITY ui_table_renderer_attributes SYSTEM "entities/ui_table_renderer_attributes.xml">
+<!ENTITY user_role_attributes           SYSTEM "entities/user_role_attributes.xml">
+<!ENTITY standard_command_button_attributes  SYSTEM "entities/standard_command_button_attributes.xml">
+<!ENTITY standard_command_link_attributes    SYSTEM "entities/standard_command_link_attributes.xml">
+<!ENTITY extended_command_link_attributes    SYSTEM "entities/extended_command_link_attributes.xml">
+<!ENTITY standard_data_table_attributes      SYSTEM "entities/standard_data_table_attributes.xml">
+<!ENTITY extended_data_table_attributes      SYSTEM "entities/extended_data_table_attributes.xml">
+<!ENTITY standard_input_text_attributes      SYSTEM "entities/standard_input_text_attributes.xml">
+<!ENTITY standard_input_textarea_attributes  SYSTEM "entities/standard_input_textarea_attributes.xml">
+<!ENTITY standard_message_attributes         SYSTEM "entities/standard_message_attributes.xml">
+<!ENTITY standard_messages_attributes        SYSTEM "entities/standard_messages_attributes.xml">
+<!ENTITY standard_output_label_attributes    SYSTEM "entities/standard_output_label_attributes.xml">
+<!ENTITY standard_output_text_attributes     SYSTEM "entities/standard_output_text_attributes.xml">
+<!ENTITY standard_panel_grid_attributes     SYSTEM "entities/standard_panel_grid_attributes.xml">
+<!ENTITY standard_panel_group_attributes     SYSTEM "entities/standard_panel_group_attributes.xml">
+<!ENTITY standard_select_boolean_checkbox_attributes  SYSTEM "entities/standard_select_boolean_checkbox_attributes.xml">
+<!ENTITY standard_select_many_checkbox_attributes SYSTEM "entities/standard_select_many_checkbox_attributes.xml">
+<!ENTITY standard_select_many_listbox_attributes SYSTEM "entities/standard_select_many_listbox_attributes.xml">
+<!ENTITY standard_select_many_menu_attributes SYSTEM "entities/standard_select_many_menu_attributes.xml">
+<!ENTITY standard_select_one_listbox_attributes SYSTEM "entities/standard_select_one_listbox_attributes.xml">
+<!ENTITY standard_select_one_menu_attributes SYSTEM "entities/standard_select_one_menu_attributes.xml">
+<!ENTITY standard_select_one_radio_attributes SYSTEM "entities/standard_select_one_radio_attributes.xml">
+<!ENTITY alt_location_attributes             SYSTEM "entities/alt_location_attributes.xml">
+
+
+<!ENTITY tomahawk_input_secret_attributes
+      SYSTEM "tomahawk-entities/tomahawk_input_secret_attributes.xml">
+<!ENTITY tomahawk_message_attributes
+      SYSTEM "tomahawk-entities/tomahawk_message_attributes.xml">
+<!ENTITY tomahawk_messages_attributes
+      SYSTEM "tomahawk-entities/tomahawk_messages_attributes.xml">
+<!ENTITY tomahawk_select_many_checkbox_attributes
+      SYSTEM "tomahawk-entities/tomahawk_select_many_checkbox_attributes.xml">
+<!ENTITY tomahawk_input_calendar_attributes
+      SYSTEM "tomahawk-entities/tomahawk_input_calendar_attributes.xml">
+<!ENTITY tomahawk_js_value_change_listener_attributes
+      SYSTEM "tomahawk-entities/tomahawk_js_value_change_listener_attributes.xml">
+<!ENTITY tomahawk_js_value_set_attributes
+      SYSTEM "tomahawk-entities/tomahawk_js_value_set_attributes.xml">
+<!ENTITY tomahawk_checkbox_attributes
+      SYSTEM "tomahawk-entities/tomahawk_checkbox_attributes.xml">
+<!ENTITY tomahawk_command_navigation_2_attributes
+      SYSTEM "tomahawk-entities/tomahawk_command_navigation_2_attributes.xml">
+<!ENTITY tomahawk_command_sort_header_attributes
+      SYSTEM "tomahawk-entities/tomahawk_command_sort_header_attributes.xml">
+<!ENTITY tomahawk_data_list_attributes
+      SYSTEM "tomahawk-entities/tomahawk_data_list_attributes.xml">
+<!ENTITY tomahawk_data_scroller_attributes
+      SYSTEM "tomahawk-entities/tomahawk_data_scroller_attributes.xml">
+<!ENTITY tomahawk_input_date_attributes
+      SYSTEM "tomahawk-entities/tomahawk_input_date_attributes.xml">
+<!ENTITY tomahawk_input_file_upload_attributes
+      SYSTEM "tomahawk-entities/tomahawk_input_file_upload_attributes.xml">
+<!ENTITY tomahawk_input_html_attributes
+      SYSTEM "tomahawk-entities/tomahawk_input_html_attributes.xml">
+<!ENTITY tomahawk_navigation_menu_item_attributes
+      SYSTEM "tomahawk-entities/tomahawk_navigation_menu_item_attributes.xml">
+<!ENTITY tomahawk_js_cook_menu_attributes
+      SYSTEM "tomahawk-entities/tomahawk_js_cook_menu_attributes.xml">
+<!ENTITY tomahawk_panel_group_attributes
+      SYSTEM "tomahawk-entities/tomahawk_panel_group_attributes.xml">
+<!ENTITY tomahawk_panel_layout_attributes
+      SYSTEM "tomahawk-entities/tomahawk_panel_layout_attributes.xml">
+<!ENTITY tomahawk_panel_navigation_2_attributes
+      SYSTEM "tomahawk-entities/tomahawk_panel_navigation_2_attributes.xml">
+<!ENTITY tomahawk_panel_navigation_attributes
+      SYSTEM "tomahawk-entities/tomahawk_panel_navigation_attributes.xml">
+<!ENTITY tomahawk_panel_tab_attributes
+      SYSTEM "tomahawk-entities/tomahawk_panel_tab_attributes.xml">
+<!ENTITY tomahawk_panel_tabbed_pane_attributes
+      SYSTEM "tomahawk-entities/tomahawk_panel_tabbed_pane_attributes.xml">
+<!ENTITY tomahawk_tab_change_listener_attributes
+      SYSTEM "tomahawk-entities/tomahawk_tab_change_listener_attributes.xml">
+<!ENTITY tomahawk_collapsible_panel_attributes
+      SYSTEM "tomahawk-entities/tomahawk_collapsible_panel_attributes.xml">
+<!ENTITY tomahawk_select_one_country_attributes
+      SYSTEM "tomahawk-entities/tomahawk_select_one_country_attributes.xml">
+<!ENTITY tomahawk_select_one_language_attributes
+      SYSTEM "tomahawk-entities/tomahawk_select_one_language_attributes.xml">
+<!ENTITY tomahawk_stylesheet_attributes
+      SYSTEM "tomahawk-entities/tomahawk_stylesheet_attributes.xml">
+<!ENTITY tomahawk_div_attributes
+      SYSTEM "tomahawk-entities/tomahawk_div_attributes.xml">
+<!ENTITY tomahawk_html_tag_attributes
+      SYSTEM "tomahawk-entities/tomahawk_html_tag_attributes.xml">
+<!ENTITY tomahawk_radio_attributes
+      SYSTEM "tomahawk-entities/tomahawk_radio_attributes.xml">
+<!ENTITY tomahawk_tree_attributes
+      SYSTEM "tomahawk-entities/tomahawk_tree_attributes.xml">
+<!ENTITY tomahawk_tree_selection_listener_attributes
+      SYSTEM "tomahawk-entities/tomahawk_tree_selection_listener_attributes.xml">
+<!ENTITY tomahawk_icon_provider_attributes
+      SYSTEM "tomahawk-entities/tomahawk_icon_provider_attributes.xml">
+<!ENTITY tomahawk_tree_checkbox_attributes
+      SYSTEM "tomahawk-entities/tomahawk_tree_checkbox_attributes.xml">
+<!ENTITY tomahawk_tree2_attributes
+      SYSTEM "tomahawk-entities/tomahawk_tree2_attributes.xml">
+<!ENTITY tomahawk_panel_stack_attributes
+      SYSTEM "tomahawk-entities/tomahawk_panel_stack_attributes.xml">
+<!ENTITY tomahawk_popup_attributes
+      SYSTEM "tomahawk-entities/tomahawk_popup_attributes.xml">
+<!ENTITY tomahawk_newspaper_table_attributes
+      SYSTEM "tomahawk-entities/tomahawk_newspaper_table_attributes.xml">
+<!ENTITY tomahawk_alias_bean_attributes
+      SYSTEM "tomahawk-entities/tomahawk_alias_bean_attributes.xml">
+<!ENTITY tomahawk_buffer_attributes
+      SYSTEM "tomahawk-entities/tomahawk_buffer_attributes.xml">
+<!ENTITY tomahawk_document_attributes
+      SYSTEM "tomahawk-entities/tomahawk_document_attributes.xml">
+<!ENTITY tomahawk_document_head_attributes
+      SYSTEM "tomahawk-entities/tomahawk_document_head_attributes.xml">
+<!ENTITY tomahawk_document_body_attributes
+      SYSTEM "tomahawk-entities/tomahawk_document_body_attributes.xml">
+<!ENTITY tomahawk_save_state_attributes
+      SYSTEM "tomahawk-entities/tomahawk_save_state_attributes.xml">
+<!ENTITY tomahawk_update_action_listener_attributes
+      SYSTEM "tomahawk-entities/tomahawk_update_action_listener_attributes.xml">
+<!ENTITY tomahawk_validate_credit_card_attributes
+      SYSTEM "tomahawk-entities/tomahawk_validate_credit_card_attributes.xml">
+<!ENTITY tomahawk_validate_regexpr_attributes
+      SYSTEM "tomahawk-entities/tomahawk_validate_regexpr_attributes.xml">
+<!ENTITY tomahawk_validate_equal_attributes
+      SYSTEM "tomahawk-entities/tomahawk_validate_equal_attributes.xml">
+<!ENTITY tomahawk_swap_image_attributes
+      SYSTEM "tomahawk-entities/tomahawk_swap_image_attributes.xml">
+<!ENTITY tomahawk_columns_attributes
+      SYSTEM "tomahawk-entities/tomahawk_columns_attributes.xml">
+<!ENTITY tomahawk_column_attributes
+      SYSTEM "tomahawk-entities/tomahawk_column_attributes.xml">
+<!ENTITY tomahawk_ui_schedule_attributes
+	  SYSTEM "tomahawk-entities/tomahawk_ui_schedule_attributes.xml">
+<!ENTITY tomahawk_html_schedule_attributes
+      SYSTEM "tomahawk-entities/tomahawk_html_schedule_attributes.xml">
+<!ENTITY tomahawk_dojo_intializer_attributes
+      SYSTEM "tomahawk-entities/tomahawk_dojo_initializer_attributes.xml">
+<!ENTITY tomahawk_select_items_attributes
+      SYSTEM "tomahawk-entities/tomahawk_select_items_attributes.xml">
+
+]>
+
+<taglib>
+
+    <tlib-version>1.3</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>t</short-name>
+    <uri>http://myfaces.apache.org/tomahawk</uri>
+    <description>
+        MyFaces subproject that contains components and other goodies to be used with any JSF implementation.
+    </description>
+
+<!--     Extended standard components     -->
+
+    <!-- commandButton -->
+    <tag>
+        <name>commandButton</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlCommandButtonTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard commandButton by user role support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_command_button_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &ext_actionfor_attribute;
+    </tag>
+
+    <!-- commandLink -->
+    <tag>
+        <name>commandLink</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlCommandLinkTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard commandLink by user role support and the HTML target attribute.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &extended_command_link_attributes;
+    </tag>
+
+    <!-- headerLink -->
+    <tag>
+        <name>headerLink</name>
+        <tag-class>org.apache.myfaces.custom.collapsiblepanel.HtmlHeaderLinkTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard commandLink by user role support and the HTML target attribute.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &extended_command_link_attributes;
+    </tag>
+
+    <!-- dataTable -->
+    <tag>
+        <name>dataTable</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlDataTableTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extended data_table that adds some additional features to the standard
+            data_table action: see attribute descriptions for preserveDataModel,
+            sortColumn, sortAscending and preserveSort.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_data_table_attributes;
+        <!-- MyFaces extensions -->
+        &extended_data_table_attributes;
+        &ext_forceId_attribute;
+        &user_role_attributes;
+        &tomahawk_newspaper_table_attributes;
+     </tag>
+
+    <!-- inputHidden -->
+    <tag>
+        <name>inputHidden</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlInputHiddenTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard inputHidden by providing additional MyFaces goodies.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_input_attributes;
+        &ext_forceId_attribute;
+    </tag>
+
+    <!-- inputSecret -->
+    <tag>
+        <name>inputSecret</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlInputSecretTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard inputSecret, adding the "redisplay" property.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &html_datafld_datasrc_dataformatas_attributes;
+        &ui_input_attributes;
+        &html_input_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+        &tomahawk_input_secret_attributes;
+    </tag>
+
+    <!-- inputText -->
+    <tag>
+        <name>inputText</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlInputTextTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard inputText by user role support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+         <attribute>
+            <name>autocomplete</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>
+                Non HTML standard attribute to disable browser's autocomplete
+                function.
+            </description>
+        </attribute>
+         <attribute>
+            <name>disabledOnClientSide</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>
+                If true the input is rendered disabled on the client side
+                and a hidden input is used to actualy submit his value back
+                to the server.
+            </description>
+        </attribute>
+        &html_datafld_datasrc_dataformatas_attributes;
+        &standard_input_text_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+    <!-- inputTextHelp -->
+    <tag>
+        <name>inputTextHelp</name>
+        <tag-class>org.apache.myfaces.custom.inputTextHelp.HtmlInputTextHelpTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard inputText by helptext support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+		<attribute>
+		   <name>autocomplete</name>
+		   <required>false</required>
+		   <rtexprvalue>false</rtexprvalue>
+		   <type>java.lang.String</type>
+		   <description>
+			   Non HTML standard attribute to disable browser's autocomplete
+			   function.
+		   </description>
+	   </attribute>
+        &standard_input_text_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+        &html_input_help_attributes;
+    </tag>
+
+    <!-- inputTextarea -->
+    <tag>
+        <name>inputTextarea</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlInputTextareaTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard inputTextarea by user role support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_input_textarea_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &ext_textarea_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+     <!-- graphicImage -->
+    <tag>
+        <name>graphicImage</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlGraphicImageTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard graphicImage.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_graphic_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &html_img_attributes;
+        &spec_img_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+    </tag>
+
+    <!-- message -->
+    <tag>
+        <name>message</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlMessageTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            MyFaces extension to the standard messages tag: see summaryDetailSeparator attribute.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_message_attributes;
+        <!-- MyFaces extensions -->
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &tomahawk_message_attributes;
+    </tag>
+
+    <!-- messages -->
+    <tag>
+        <name>messages</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlMessagesTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            MyFaces extension to the standard messages tag: see showInputLabel attribute.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_messages_attributes;
+        <!-- MyFaces extensions -->
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &tomahawk_messages_attributes;
+    </tag>
+
+    <!-- outputLabel -->
+    <tag>
+        <name>outputLabel</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlOutputLabelTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard outputLabel with user role support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_output_label_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+    </tag>
+
+    <!-- outputText -->
+    <tag>
+        <name>outputText</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlOutputTextTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard outputText with user role support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_output_text_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+    </tag>
+
+    <!-- panelGrid -->
+    <tag>
+        <name>panelGrid</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlPanelGridTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard panelGrid with user role support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_panel_grid_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+    <!-- panelGroup -->
+    <tag>
+        <name>panelGroup</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlPanelGroupTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard panelGroup with user role support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_panel_group_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+		&tomahawk_panel_group_attributes;
+    </tag>
+
+    <!-- selectOneMenu -->
+    <tag>
+        <name>selectOneMenu</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectOneMenuTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard selectOneMenu with user role support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_select_one_menu_attributes;
+        &ext_escape_attribute;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+    <!-- selectManyMenu -->
+    <tag>
+        <name>selectManyMenu</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectManyMenuTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard selectManyMenu with user role support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_select_many_menu_attributes;
+        &ext_escape_attribute;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+    <!-- selectOneRadio -->
+    <tag>
+        <name>selectOneRadio</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectOneRadioTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Implements the standard html selectOneRadio tag, with additional features.
+
+            Supports user roles.
+
+            Supports the "spread" layout value, which gives developer control
+            over radio button positioning.  See the "layout" attribute and
+            the "radio" tag for further information.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+
+        <!-- Standard attributes -->
+        &ui_select_one_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &html_input_radio_attributes;
+
+        <!-- extension attributes -->
+        &ext_escape_attribute;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+
+        <!-- overridden attributes from standard tag. -->
+        <attribute>
+            <name>layout</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>
+                Orientation of the options list. Valid values are
+                "pageDirection" for a vertical layout, "lineDirection" for
+                 horizontal, or "spread" for developer placement. The default
+                 value is "lineDirection".
+
+                 If the "spread" option is selected, this tag does not render HTML.
+                 Instead, the developer uses "radio" tags to position radio
+                 buttons for each of the SelectItem instances.
+
+                 See the "radio" tag for further information.
+            </description>
+        </attribute>
+        <attribute>
+            <name>border</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Width in pixels of the border to be drawn around the table containing the options list.</description>
+        </attribute>
+    </tag>
+
+    <!-- selectBooleanCheckbox -->
+    <tag>
+        <name>selectBooleanCheckbox</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectBooleanCheckboxTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard selectBooleanCheckbox with user role support.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_select_boolean_checkbox_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+    <!-- selectManyCheckbox -->
+    <tag>
+        <name>selectManyCheckbox</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectManyCheckboxTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard selectManyCheckbox with user role support.
+            Additionally this extended selectManyCheckbox accepts a layout attribute
+            of value "spread" (see custom checkbox tag).
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_select_many_checkbox_attributes;
+        &ext_escape_attribute;
+        &tomahawk_select_many_checkbox_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+    <!-- selectOneListbox -->
+    <tag>
+        <name>selectOneListbox</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectOneListboxTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard selectOneListbox with user role support.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_select_one_listbox_attributes;
+        &ext_escape_attribute;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+    <!-- selectManyListbox -->
+    <tag>
+        <name>selectManyListbox</name>
+        <tag-class>org.apache.myfaces.generated.taglib.html.ext.HtmlSelectManyListboxTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Extends standard selectManyListbox with user role support.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_select_many_listbox_attributes;
+        &ext_escape_attribute;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+<!--     Custom components     -->
+
+    <!-- calendar -->
+    <tag>
+        <name>inputCalendar</name>
+        <tag-class>org.apache.myfaces.custom.calendar.HtmlInputCalendarTag</tag-class>
+        <body-content>JSP</body-content>
+        <description><![CDATA[
+          <p>
+          Provides a calendar. The calendar can be "inline", or a button can be rendered
+          that displays the calendar in a "popup window" when clicked. Javascript is
+          required for the popup window.
+          </p>
+          <p>
+          The two forms of calendar are unfortunately not well integrated; this component is
+          effectively two components that happen to use the same component class. Some
+          attributes on the component are applicable only to the inline form while others
+          are applicable only to the popup form.
+          </p>
+          <p>
+          The appearance of the inline calendar can be controlled via attributes
+          such as currentDayCellClass, dayCellClass, weekRowClass, monthYearRowClass. 
+          Attributes "styleLocation", "javascriptLocation", "imageLocation" and all
+          attributes starting with "popup" have no effect on an inline calendar.
+          <ul>
+          <p>
+          The appearance of the popup calendar can be controlled via attributes
+          popupTheme, styleLocation, javascriptLocation and imageLocation:
+          <ul>
+            <li>popupTheme: When styleLocation is not overridden then this selects one of the
+            built-in themes ("WH" or "DB"); the default is "DB". This also selects the prefix
+            used for the names of style classes attached to generated dom elements; all style
+            names are of form "jscalendar-{popupTheme}-*".  
+            </li>
+            <li>styleLocation: specifies the URL of a directory in which a "theme.css" file exists.
+              A reference to this theme.css file will automatically be output. Specifying "none" as the
+              location prevents the generation of this stylesheet reference; it is assumed that the
+              necessary style rules will be loaded via some other mechanism. Defaults to a reference
+              to a location within the tomahawk jarfile which varies based on popupTheme.
+            <li>javascriptLocation: specifies the URL of a directory in which all the necessary script
+               files can be found. A reference to scripts "prototype.js", "date.js" and "popcalendar.js"
+               will automatically be output. Specifying "none" prevents generation of these references;
+               it is assumed that the necessary javascript functions will be loaded via some other
+               mechanism. Defaults to a reference to a location within the tomahawk jarfile.</li>
+            <li>imageLocation: specifies the URL of a directory in which all the necessary icons are
+               defined. Defaults to a reference to a location within the tomahawk jarfile which
+               varies depending on popupTheme.</li>
+          </ul>
+          Other styling attributes (eg dayCellClass, weekRowClass) are ignored for the popup calendar.
+          </p>
+          <p>
+          Unless otherwise specified, all attributes accept static values or EL expressions.
+          </p>
+        ]]>
+        </description>
+        &ui_input_attributes;
+        &html_event_handler_attributes;
+        &html_universal_attributes;
+        &html_input_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &tomahawk_input_calendar_attributes;
+        &alt_location_attributes;
+        &display_value_only_attributes;
+    </tag>
+
+    <!-- jsValueChangeListener -->
+    <tag>
+        <name>jsValueChangeListener</name>
+        <tag-class>org.apache.myfaces.custom.jslistener.JsValueChangeListenerTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            Value change listener on client side.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_js_value_change_listener_attributes;
+    </tag>
+
+    <!-- jsValueSet -->
+    <tag>
+        <name>jsValueSet</name>
+        <tag-class>org.apache.myfaces.custom.jsvalueset.HtmlJsValueSetTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            Setting a value from the model in java-script so that it can be
+            used (e.g. by the value change listener) afterwards.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_js_value_set_attributes;
+    </tag>
+
+    <!-- checkbox -->
+    <tag>
+        <name>checkbox</name>
+        <tag-class>org.apache.myfaces.custom.checkbox.HtmlCheckboxTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Renders a HTML input of type "checkbox". The associated SelectItem comes from
+            an extended selectManyCheckbox component with layout "spread". The selectManyCheckbox
+            is referenced by the "for" attribute.
+            All HTML pass-through attributes for this input are taken from the associated
+            selectManyCheckbox.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_component_attributes;
+        &user_role_attributes;
+        &tomahawk_checkbox_attributes;
+    </tag>
+
+    <!-- commandNavigation2 -->
+    <tag>
+        <name>commandNavigation2</name>
+        <tag-class>org.apache.myfaces.custom.navmenu.htmlnavmenu.HtmlCommandNavigationItemTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Must be nested inside a panel_navigation action and renders a
+            clickable navigation item. This action is derived from the standard
+            command_link action and has equal attributes.
+            (Replaces former "navigation_item" tag.)
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_command_navigation_2_attributes;
+        &ui_command_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &html_anchor_attributes;
+        &user_role_attributes;
+        <!-- TODO attributes image, label - old todo.. still necessary?-->
+    </tag>
+
+    <!-- commandNavigation -->
+    <tag>
+        <name>commandNavigation</name>
+        <tag-class>org.apache.myfaces.custom.navigation.HtmlCommandNavigationTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Must be nested inside a panel_navigation action and renders a
+            clickable navigation item.
+            This action is derived from the standard command_link action and
+            has equal attributes.
+            (Replaces former "navigation_item" tag.)
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_command_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &html_anchor_attributes;
+        &user_role_attributes;
+        <!-- TODO attributes image, label - old todo.. still necessary?-->
+    </tag>
+
+    <!-- commandSortHeader -->
+    <tag>
+        <name>commandSortHeader</name>
+        <tag-class>org.apache.myfaces.custom.sortheader.HtmlCommandSortHeaderTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Clickable sort column header.
+            Must be nested inside an extended data_table tag.
+            This tag is derived from the standard command_link tag and
+            has the additional attributes columnName and arrow.
+            Note: In contrast to normal command links, the default for the "immediate"
+            attribute is "true". This is desirable as it avoids validating all input
+            fields in the enclosing form when the column sort order changes. HOWEVER
+            when the table contains input components "immediate" must be
+            set to false; otherwise input fields will render blank after a sort, or
+            will show their old values (ie will not appear to sort though output
+            fields in the table will sort) when sort ordering is changed.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+         </description>
+        &ui_command_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &html_anchor_attributes;
+        &user_role_attributes;
+        &tomahawk_command_sort_header_attributes;
+    </tag>
+
+    <!-- dataList -->
+    <tag>
+        <name>dataList</name>
+        <tag-class>org.apache.myfaces.custom.datalist.HtmlDataListTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Similar to dataTable, but does not render a table. Instead the layout
+            attribute controls how each dataRow is rendered.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_panel_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &ext_forceId_attribute;
+        &tomahawk_data_list_attributes;
+     </tag>
+
+    <!-- dataScroller -->
+    <tag>
+        <name>dataScroller</name>
+        <tag-class>org.apache.myfaces.custom.datascroller.HtmlDataScrollerTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Scroller for UIData components eg. dataTable
+            Must be nested inside footer facet of dataTable OR for attribute must be given
+            so that corresponding uiData can be found.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_component_attributes;
+        &user_role_attributes;
+        &tomahawk_data_scroller_attributes;
+     </tag>
+
+    <!-- inputDate -->
+    <tag>
+        <name>inputDate</name>
+        <tag-class>org.apache.myfaces.custom.date.HtmlInputDateTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>Custom input control for dates and times.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.</description>
+        &ui_input_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &html_input_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &tomahawk_input_date_attributes;
+    </tag>
+
+    <!-- inputFileUpload -->
+    <tag>
+        <name>inputFileUpload</name>
+        <tag-class>org.apache.myfaces.custom.fileupload.HtmlInputFileUploadTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            You must enable the MultiPart Filter to make this component
+            work (see web.xml). Also, don't forget to set the form's attribute
+            "enctype" to "multipart/form-data".
+            See "examples/web/fileupload.jsp" for an example!
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_input_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &html_input_attributes;
+        &tomahawk_input_file_upload_attributes;
+    </tag>
+
+    <!-- inputHtml -->
+    <tag>
+        <name>inputHtml</name>
+        <tag-class>org.apache.myfaces.custom.inputHtml.InputHtmlTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            An inline HTML based word processor based on the Kupu library. See http://kupu.oscom.org
+            Right now, the support is limited to one editor per page
+            (but you can use tabs to have multiple editors, but only one rendered at a time).
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_input_attributes;
+        &user_role_attributes;
+        &display_value_only_attributes;
+        &tomahawk_input_html_attributes;
+    </tag>
+
+    <!-- navigationMenu, jscookMenu -->
+    <tag>
+        <name>navigationMenuItem</name>
+        <tag-class>org.apache.myfaces.custom.navmenu.HtmlNavigationMenuItemTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A menu item.  Used by navigationMenu, jscookMenu.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_select_item_attributes;
+        &user_role_attributes;
+        &faces_rendered_attribute;
+        &tomahawk_navigation_menu_item_attributes;
+    </tag>
+    <tag>
+        <name>navigationMenuItems</name>
+        <tag-class>org.apache.myfaces.custom.navmenu.HtmlNavigationMenuItemsTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            A tree of menu items as returned by a value-expression.
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_select_items_attributes;
+    </tag>
+    <tag>
+        <name>jscookMenu</name>
+        <tag-class>org.apache.myfaces.custom.navmenu.jscookmenu.HtmlJSCookMenuTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Renders a Javascript Menu.  Nested NavigationMenuItem(s) are rendered as Javascript Menu.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_component_attributes;
+        &user_role_attributes;
+        &alt_location_attributes;
+        &faces_immediate_attribute;
+        &tomahawk_js_cook_menu_attributes;
+    </tag>
+
+    <!-- panelLayout -->
+    <tag>
+        <name>panelLayout</name>
+        <tag-class>org.apache.myfaces.custom.layout.HtmlPanelLayoutTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Determines where its children are positioned within the page
+            relative to each other, similar to a Swing layout component.
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_panel_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &html_table_attributes;
+        &tomahawk_panel_layout_attributes;
+    </tag>
+
+    <!-- panelNavigation2 -->
+    <tag>
+        <name>panelNavigation2</name>
+        <tag-class>org.apache.myfaces.custom.navmenu.htmlnavmenu.HtmlPanelNavigationMenuTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Renders a vertical menu structure with support for nested menu items.
+            The menu is rendered as unordered List.  The menu-tree can be
+            dynamically build using NavigationMenuItem(s).
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        <!--
+        commenting this out for TOMAHAWK-405 - dennisbyrne
+         <attribute>
+            <name>renderAll</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>
+                If set to true all Items are rendered and other methods, like CSS
+                should be used to hide them as necesary
+            </description>
+        </attribute> -->
+        &ui_panel_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+	&html_table_attributes;
+        &tomahawk_panel_navigation_2_attributes;
+    </tag>
+
+    <!-- panelNavigation -->
+    <tag>
+        <name>panelNavigation</name>
+        <tag-class>org.apache.myfaces.custom.navigation.HtmlPanelNavigationTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>Renders a vertical menu structure with support for nested menu items.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.</description>
+        &ui_panel_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &html_table_attributes;
+        &tomahawk_panel_navigation_attributes;
+    </tag>
+
+    <!-- panelTab -->
+    <tag>
+        <name>panelTab</name>
+        <tag-class>org.apache.myfaces.custom.tabbedpane.HtmlPanelTabTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            TODO: Document this component
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_panel_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &user_role_attributes;
+        &tomahawk_panel_tab_attributes;
+    </tag>
+
+    <!-- panelTabbedPane -->
+    <tag>
+        <name>panelTabbedPane</name>
+        <tag-class>org.apache.myfaces.custom.tabbedpane.HtmlPanelTabbedPaneTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            TODO: Document this component
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_panel_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &html_table_attributes;
+        &user_role_attributes;
+        &tomahawk_panel_tabbed_pane_attributes;
+    </tag>
+
+    <!-- tab change listener -->
+    <tag>
+        <name>tabChangeListener</name>
+        <tag-class>org.apache.myfaces.custom.tabbedpane.TabChangeListenerTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            TODO: Document this component
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_tab_change_listener_attributes;
+    </tag>
+
+
+    <!-- collapsiblePanel -->
+    <tag>
+        <name>collapsiblePanel</name>
+        <tag-class>org.apache.myfaces.custom.collapsiblepanel.HtmlCollapsiblePanelTag</tag-class>
+        <body-content>JSP</body-content>
+        <description><![CDATA[
+            A component which just renders as a single icon (with optional label)
+            when "collapsed", hiding all child components. When open, the child
+            components can be seen.
+            <p>
+            The title attribute defines the label shown for the collapsible panel.
+            ]]>
+        </description>
+        &ui_panel_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &user_role_attributes;
+        &tomahawk_collapsible_panel_attributes;
+    </tag>
+
+    <!-- selectOneCountry -->
+    <tag>
+        <name>selectOneCountry</name>
+        <tag-class>org.apache.myfaces.custom.selectOneCountry.SelectOneCountryTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A localized list of countries choose box.
+            The value binds to the country ISO 3166 code.
+            This is the same code as for java.util.Locale.getCountry().
+            The official codes list is available here :
+            http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_select_one_country_attributes;
+        &standard_select_one_menu_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+    <!-- selectOneLanguage -->
+    <tag>
+        <name>selectOneLanguage</name>
+        <tag-class>org.apache.myfaces.custom.selectOneLanguage.SelectOneLanguageTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A localized list of languages choose box.
+            The value binds to the language ISO 639 code (lowercase).
+            This is the same code as for java.util.Locale.getLanguage().
+            The official codes list is available here :
+            http://www.loc.gov/standards/iso639-2/englangn.html
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_select_one_language_attributes;
+        &standard_select_one_menu_attributes;
+        &user_role_attributes;
+        &ext_forceId_attribute;
+        &display_value_only_attributes;
+    </tag>
+
+    <!-- stylesheet -->
+
+    <tag>
+        <name>stylesheet</name>
+        <tag-class>org.apache.myfaces.custom.stylesheet.StylesheetTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>Renders the path to a common CSS-file</description>
+        &ui_component_attributes;
+        &user_role_attributes;
+        &tomahawk_stylesheet_attributes;
+    </tag>
+
+    <!-- div -->
+
+    <tag>
+        <name>div</name>
+        <tag-class>org.apache.myfaces.custom.div.DivTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Places a div around its children.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_component_attributes;
+        &ext_forceId_attribute;
+        &user_role_attributes;
+        &tomahawk_div_attributes;
+    </tag>
+
+    <tag>
+        <name>htmlTag</name>
+        <tag-class>org.apache.myfaces.custom.htmlTag.HtmlTagTag</tag-class>
+        <body-content>JSP</body-content>
+        <description><![CDATA[
+            Creates an arbitrary HTML tag which encloses any child components.
+            The value attribute specifies the name of the generated tag.
+            <p>
+            If value is an empty string then no tag will be generated, but
+            the child components will be rendered. This differs from setting
+            rendered=false, which prevents child components from being rendered
+            at all.
+            <p>
+            There is currently no facility for adding attributes to the
+            generated html tag other than those explicitly supported by the
+            attributes on this JSF component.
+            <p>
+            Unless otherwise specified, all attributes accept static values
+            or EL expressions.
+            ]]>
+        </description>
+        &ui_component_attributes;
+        &ext_forceId_attribute;
+        &user_role_attributes;
+        &tomahawk_html_tag_attributes;
+    </tag>
+
+
+    <!-- radio -->
+    <tag>
+        <name>radio</name>
+        <tag-class>org.apache.myfaces.custom.radio.HtmlRadioTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            This tag is used in conjunction with the extended selectOneRadio tag
+            when the "spread" layout is selected.  It specifies the position within
+            the document that the radio button corresponding to a specific SelectItem
+            should be rendered.
+
+            All HTML pass-through attributes for this input are taken from the associated
+            selectOneRadio.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_component_attributes;
+        &user_role_attributes;
+        &tomahawk_radio_attributes;
+    </tag>
+
+   <!-- tree -->
+    <tag>
+        <name>tree</name>
+        <tag-class>org.apache.myfaces.custom.tree.taglib.TreeTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A tree data component.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+h        </description>
+		&ui_component_attributes;
+        &tomahawk_tree_attributes;
+    </tag>
+
+    <tag>
+        <name>treeSelectionListener</name>
+        <tag-class>org.apache.myfaces.custom.tree.taglib.TreeSelectionListenerTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            TODO: Document this component
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_tree_selection_listener_attributes;
+    </tag>
+
+    <tag>
+        <name>iconProvider</name>
+        <tag-class>org.apache.myfaces.custom.tree.taglib.IconProviderTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            TODO: Document this component
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_icon_provider_attributes;
+    </tag>
+
+    <!-- tree column -->
+    <tag>
+        <name>treeColumn</name>
+        <tag-class>org.apache.myfaces.custom.tree.taglib.TreeColumnTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Renders a HTML input of type "treeColumn". This tag outlines the column where
+            the tree structure will be render as part of the tree table.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_component_attributes;
+    </tag>
+
+    <!-- tree checkbox -->
+    <tag>
+        <name>treeCheckbox</name>
+        <tag-class>org.apache.myfaces.custom.tree.taglib.TreeCheckboxTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+            Renders a HTML input of type "treeCheckbox". The associated comes from
+            the treeCheckbox itemLabel and itemValue.  The selected items come from an extended
+            selectManyCheckbox component with layout "spread". The selectManyCheckbox
+            is referenced by the "for" attribute.
+            All HTML pass-through attributes for this input are taken from the associated
+            selectManyCheckbox.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_select_item_attributes;
+        &tomahawk_tree_checkbox_attributes;
+    </tag>
+
+   <!-- tree2 -->
+    <tag>
+        <name>tree2</name>
+        <tag-class>org.apache.myfaces.custom.tree2.TreeTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A component that provides an HTML-based tree from data supplied
+            by a backing bean. The tree is highly customizable and allows
+            for fine-grained control over the appearance of each of the
+            nodes depending on their type. Almost any type of JSF component
+            (text, image, checkbox, etc.) can be rendered inside the nodes
+            and there is an option for client-side or server-side toggling
+            of the expand/collapse state.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_tree2_attributes;
+        &alt_location_attributes;
+        &ui_component_attributes;
+    </tag>
+
+    <!-- panelStack -->
+    <tag>
+        <name>panelStack</name>
+        <tag-class>org.apache.myfaces.custom.panelstack.PanelStackTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A stack of panels, to switch panels dynamically.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_panel_stack_attributes;
+    </tag>
+
+    <!-- popup -->
+    <tag>
+        <name>popup</name>
+        <tag-class>org.apache.myfaces.custom.popup.HtmlPopupTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Renders a popup which displays on a mouse event.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_popup_attributes;
+        &ui_panel_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &user_role_attributes;
+     </tag>
+
+
+    <!-- newspaperTable -->
+    <tag>
+        <name>newspaperTable</name>
+        <tag-class>org.apache.myfaces.custom.newspaper.HtmlNewspaperTableTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A data table for rendering long skinny tables as short wide table by
+            wrapping the table over a specified number of columns.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &standard_data_table_attributes;
+        &tomahawk_newspaper_table_attributes;
+     </tag>
+
+
+
+<!--     Custom non-component tags     -->
+
+    <!-- aliasBean -->
+    <tag>
+        <name>aliasBean</name>
+        <tag-class>org.apache.myfaces.custom.aliasbean.AliasBeanTag</tag-class>
+        <body-content>JSP</body-content>
+        <description><![CDATA[
+            <p>
+            Defines a new temporary name for an existing bean (or other object). The name
+            is visible only to the children of this tag.
+            </p>
+            <p>
+            One use of this feature is to pass "parameters" from an including page to an
+            included one. The included page can use any name it desires for beans it needs to
+            reference, and the including page can then use aliasBean to make those names
+            refer to the beans it wishes to "pass" as parameters.
+            </p>
+            <p>
+            When used within an aliasBeansScope tag, this tag adds the alias to the aliasBeansScope;
+            the temporary name then lasts until the end of the parent aliasBeansScope tag rather
+            than just to the end of the aliasBean tag. This makes configuration with multiple
+            aliasBeans easier to write.
+            </p>
+            <p>
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+            </p>
+            <p>
+            See class org.apache.myfaces.custom.aliasbean.AliasBean for further details.
+            </p>
+            ]]>
+        </description>
+        &tomahawk_alias_bean_attributes;
+    </tag>
+
+    <tag>
+        <name>aliasBeansScope</name>
+        <tag-class>org.apache.myfaces.custom.aliasbean.AliasBeansScopeTag</tag-class>
+        <body-content>JSP</body-content>
+        <description><![CDATA[
+            <p>Extends the scope of an AliasBean component.</p> 
+            <p>
+            The aliasBean tag must enclose all the components that are within the scope
+            of the alias. When multiple aliasas are defined, this makes the page structure
+            very clumsy; for example defining 5 aliases means the content must be nested
+            5 indentation levels deep. This tag instead allows the content block to be
+            wrapped in just one AliasBeansScope tag, and then have AliasBean tags with
+            empty bodies added as direct children of this component. The scope of the AliasBean
+            tag still starts when the tag begins, but instead of ending when the tag ends
+            the scope of the nested AliasBean tags extends to the end of this component.
+            </p>
+            <p>
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+            </p>
+            <p>
+            See org.apache.myfaces.custom.aliasbean.AliasBeansScopeTag for further details.
+            </p>
+            ]]>
+        </description>
+        &faces_id_optional_attribute;
+    </tag>
+
+    <!-- bufferBean -->
+    <tag>
+        <name>buffer</name>
+        <tag-class>org.apache.myfaces.custom.buffer.BufferTag</tag-class>
+        <body-content>JSP</body-content>
+        <description><![CDATA[
+          <p>
+          Renders its child components into an in-memory buffer rather than render them directly to the
+          response stream.
+          </p>
+          <p>
+          Typically, an h:outputText tag is then used later in the same page to output the buffer contents.
+          </p>
+          <p>
+          This can be useful with JSF1.1/JSP2.0 to work around the well-known problem where
+          on first render of a page, a component "A" cannot reference a component "B" which is
+          defined later in the page because it has not yet been created. A solution is to define
+          "B" before "A", but wrapped in a Buffer component. Component A can then be rendered
+          and successfully reference "B" because it now exists. And later in the page, the buffer
+          contents can then be output, preserving the original layout.
+          </p>
+          <p>
+          This can also be useful when rendering the same data block multiple times within a page.
+          For example, a datatable can be rendered with a datascroller both before and after it;
+          first render the table into a buffer B1, then render the datascroller into a buffer B2,
+          then output buffers B2,B1,B2.
+          </p>
+          ]]>
+        </description>
+        &tomahawk_buffer_attributes;
+    </tag>
+
+    <!-- document -->
+    <tag>
+        <name>document</name>
+        <tag-class>org.apache.myfaces.custom.document.DocumentTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+        	Encapsulates the whole document. Equivalent to htmls &lt;html&gt; tag
+        </description>
+        &tomahawk_document_attributes;
+    </tag>
+
+    <!-- document head -->
+    <tag>
+        <name>documentHead</name>
+        <tag-class>org.apache.myfaces.custom.document.DocumentHeadTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+        	Encapsulates the head of your document. Equivalent to htmls &lt;head&gt; tag
+        </description>
+        &tomahawk_document_head_attributes;
+    </tag>
+
+    <!-- document body -->
+    <tag>
+        <name>documentBody</name>
+        <tag-class>org.apache.myfaces.custom.document.DocumentBodyTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+        	Encapsulates the body of your document. Equivalent to htmls &lt;body&gt; tag
+        </description>
+        &tomahawk_document_body_attributes;
+    </tag>
+
+    <!-- saveState -->
+    <tag>
+        <name>saveState</name>
+        <tag-class>org.apache.myfaces.custom.savestate.SaveStateTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            saveState enables you to persist beans and values longer than
+            request scope, but shorter than session scope. It is ideal for
+            persisting backing beans and values with the same scope as your view
+            components. It does this by saving the target state with the
+            component tree.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &faces_id_optional_attribute;
+        &tomahawk_save_state_attributes;
+    </tag>
+
+    <!-- updateActionListener -->
+    <tag>
+        <name>updateActionListener</name>
+        <tag-class>org.apache.myfaces.custom.updateactionlistener.UpdateActionListenerTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            Registers an org.apache.myfaces.custom.updateactionlistener.UpdateActionListener at the
+            parent component (which must be an ActionSource). When the parent's action fires the
+            specified value is evaluated, then written into the specified property.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        In JSF 1.2 there will be a setPropertyActionListener tag, which brings the same functionality on the
+        table.
+        </description>
+        &tomahawk_update_action_listener_attributes;
+    </tag>
+
+    <tag>
+        <name>validateCreditCard</name>
+        <tag-class>org.apache.myfaces.custom.creditcardvalidator.ValidateCreditCardTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A custom validator for creditCards, based upon Jakarta Commons.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ext_validator_base_attributes;
+        &tomahawk_validate_credit_card_attributes;
+    </tag>
+
+     <tag>
+        <name>validateEmail</name>
+        <tag-class>org.apache.myfaces.custom.emailvalidator.ValidateEmailTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A custom validator for email address format, based upons Jakarta Commons.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ext_validator_base_attributes;
+    </tag>
+
+    <tag>
+        <name>validateRegExpr</name>
+        <tag-class>org.apache.myfaces.custom.regexprvalidator.ValidateRegExprTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A custom validator for reg. expr., based upons Jakarta Commons.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ext_validator_base_attributes;
+        &tomahawk_validate_regexpr_attributes;
+    </tag>
+
+     <tag>
+        <name>validateEqual</name>
+        <tag-class>org.apache.myfaces.custom.equalvalidator.ValidateEqualTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A custom validator for validations against foreign component values.
+
+        Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ext_validator_base_attributes;
+        &tomahawk_validate_equal_attributes;
+    </tag>
+
+    <tag>
+        <name>swapImage</name>
+        <tag-class>org.apache.myfaces.custom.swapimage.HtmlSwapImageTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &tomahawk_swap_image_attributes;
+        &ui_graphic_attributes;
+        &html_universal_attributes;
+        &html_img_attributes;
+        &spec_img_attributes;
+    </tag>
+
+    <tag>
+        <name>columns</name>
+        <tag-class>org.apache.myfaces.custom.crosstable.HtmlColumnsTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            The tag allows dynamic columns in a datatable. The UIColumns
+            component is used below a t:datatable to create a dynamic count
+            of columns. It is used like a UIData component which iterates
+            through a datamodel to create the columns.
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_component_attributes;
+        &ui_column_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &tomahawk_columns_attributes;
+        &tomahawk_column_attributes;
+     </tag>
+
+    <tag>
+        <name>column</name>
+        <tag-class>org.apache.myfaces.custom.column.HtmlColumnTag</tag-class>
+        <body-content>JSP</body-content>
+        <description>
+            A tag that extend h:column to provide HTML passthrough attributes.
+            Tag t:column can be used instead of h:column in a t:datatable. It
+            provides HTML passthrough attributes for header (th), footer (td)
+            and row cells (td).
+
+            Unless otherwise specified, all attributes accept static values or EL expressions.
+        </description>
+        &ui_component_attributes;
+        &ui_column_attributes;
+        &html_universal_attributes;
+        &html_event_handler_attributes;
+        &tomahawk_column_attributes;
+     </tag>
+
+	<!-- schedule -->
+	<tag>
+		<name>schedule</name>
+		<tag-class>org.apache.myfaces.custom.schedule.ScheduleTag</tag-class>
+		<body-content>empty</body-content>
+		<display-name>Schedule component</display-name>
+		<description>A schedule component similar to the ones found in Outlook or Evolution</description>
+		&ui_command_attributes;
+        &user_role_attributes;
+		&tomahawk_ui_schedule_attributes;
+		&tomahawk_html_schedule_attributes;
+	</tag>
+
+
+	<tag>
+		<name>dojoInitializer</name>
+		<tag-class>org.apache.myfaces.custom.dojo.DojoInitializerTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>Dojo initializer helper tag for debugging and communication flags. This tag encapsules the Dojo DjConfig meta configuration and also adds the needed dojo required functionality.</description>
+		&ui_component_attributes;
+		&tomahawk_dojo_intializer_attributes;
+	</tag>
+
+	<tag>
+		<name>selectItems</name>
+		<tag-class>org.apache.myfaces.custom.selectitems.SelectItemsTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+            An extended version of the standard UISelectItems.
+
+            Populates the SelectItem collection from the given value automatically using the itemLabel and itemValue attributes.
+		</description>
+		&ui_select_items_attributes;
+		&tomahawk_select_items_attributes;
+	</tag>
+
+
+</taglib>

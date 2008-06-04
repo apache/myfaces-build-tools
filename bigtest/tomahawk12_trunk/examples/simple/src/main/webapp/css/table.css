@@ -1,0 +1,4 @@
+.tableBack
+{
+	background-image: url(#{environmentInfo.requestContextPath}/images/logo.jpg)
+}

@@ -1,0 +1,110 @@
+// WARNING: This file was automatically generated. Do not edit it directly,
+//          or you will lose your changes.
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+package $utils.getPackageFromFullClass($validator.tagClass);
+
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+import javax.faces.validator.Validator;
+import javax.faces.webapp.UIComponentTag;
+import javax.servlet.jsp.JspException;
+$utils.importTagClasses($validator)
+
+public class $utils.getClassFromFullClass($validator.tagClass)
+#if (${validator.tagSuperclass})
+    extends ${validator.tagSuperclass}
+#else
+    extends javax.faces.webapp.ValidatorTag;
+#end
+{
+#if ($validator.serialuidtag)
+    private static final long serialVersionUID = ${validator.serialuidtag}; 
+#end  
+
+    public $utils.getClassFromFullClass($validator.tagClass)()
+    {    
+    }    
+#set ($propertyList = ${validator.propertyTagList})
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#set ($type = $utils.getJspPropertyType11($property))
+ 
+    private $type $field;
+    
+#set ($var = $utils.getVariableFromName($property.name))
+    public void $utils.getPrefixedPropertyName("set", $property.jspName)($type $var)
+    {
+        $field = $var;
+    }
+#end
+
+    protected Validator createValidator() throws JspException {
+    
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        setValidatorId("$validator.validatorId");    
+        $validator.className validator = ($validator.className)super.createValidator();
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#set ($type = $utils.getJspPropertyType11($property))
+#set ($className = $utils.getPrimitiveType($property.className))
+        if ($field != null)
+        {
+            if (UIComponentTag.isValueReference($field))
+            {
+                ValueBinding vb = facesContext.getApplication().createValueBinding($field);
+#if ($utils.isPrimitiveClass($property.className))                
+                validator.${utils.getPrefixedPropertyName("set",$property.name)}(${utils.getBoxedClass($className)}.valueOf(vb.getValue(facesContext).toString()).${property.className}Value());
+#elseif ($utils.isPrimitiveClass($className))
+                validator.${utils.getPrefixedPropertyName("set",$property.name)}(${utils.getBoxedClass($className)}.valueOf(vb.getValue(facesContext).toString()));
+#elseif ($utils.getClassFromFullClass($property.className) == "String")
+                validator.${utils.getPrefixedPropertyName("set",$property.name)}(new String(vb.getValue(facesContext).toString()));
+#else
+                validator.${utils.getPrefixedPropertyName("set",$property.name)}(vb.getValue(facesContext));
+#end
+            }
+            else
+            {
+#if ($utils.isPrimitiveClass($property.className))
+                validator.${utils.getPrefixedPropertyName("set",$property.name)}(${utils.getBoxedClass($className)}.valueOf($field).${property.className}Value());
+#elseif ($utils.isPrimitiveClass($className))
+                validator.${utils.getPrefixedPropertyName("set",$property.name)}(${utils.getBoxedClass($className)}.valueOf($field));
+#else
+                validator.${utils.getPrefixedPropertyName("set",$property.name)}($field);
+#end
+            }
+        }
+#end
+        return validator;
+    }
+
+    public void release()
+    {
+        super.release();
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#if($utils.getJspPropertyType11($property) == "boolean")
+#set ($empty = "false")
+#else
+#set ($empty = "null")
+#end
+        $field = $empty;
+#end
+    }
+}

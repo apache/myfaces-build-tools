@@ -1,0 +1,119 @@
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>fallback</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Use a text area instead of the javascript HTML editor.
+                Default is false.
+                Use with caution.
+            </description>
+        </attribute>
+        <attribute>
+            <name>type</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The type of the value. It can be either fragment for an HTML fragment (default)
+                or document for a full HTML document, with head, title, body, ... tags.
+            </description>
+        </attribute>
+           <attribute>
+            <name>allowEditSource</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Allows the user to edit the HTML source code.
+                Default is true.
+            </description>
+           </attribute>
+        <attribute>
+            <name>allowExternalLinks</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Allows the user to insert external links.
+                Default is true.
+            </description>
+           </attribute>
+           <attribute>
+            <name>addKupuLogo</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Show the Kupu Logo in the buttons bar.
+                Default is true.
+            </description>
+           </attribute>
+           <attribute>
+            <name>showAllToolBoxes</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Shortcut to avoid setting all the showXXToolBox to true.
+                Default is false.
+            </description>
+        </attribute>
+           <attribute>
+            <name>showPropertiesToolBox</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Show the Properties tool box next to the text.
+                Default is false.
+            </description>
+        </attribute>
+           <attribute>
+            <name>showLinksToolBox</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Show the Links tool box next to the text.
+                Default is false.
+            </description>
+        </attribute>
+           <attribute>
+            <name>showImagesToolBox</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Show the Images tool box next to the text.
+                Default is false.
+            </description>
+        </attribute>
+           <attribute>
+            <name>showTablesToolBox</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Show the Tables tool box next to the text.
+                Default is false.
+            </description>
+        </attribute>
+        <attribute>
+            <name>showCleanupExpressionsToolBox</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Show the Cleanup Expressions tool box next to the text.
+                Default is false.
+            </description>
+        </attribute>
+           <attribute>
+            <name>showDebugToolBox</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Show the Debug tool box next to the text.
+                Default is false.
+            </description>
+        </attribute>

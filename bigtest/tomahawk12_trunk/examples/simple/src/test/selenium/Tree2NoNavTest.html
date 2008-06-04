@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Tree2NoNavTest</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Tree2NoNavTest</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/home.jsf</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Tree2 (no nav icons)</td>
+	<td></td>
+</tr>
+<!--Click the 'Inbox' icon-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='_idJsp0:serverTree:0:_idJsp8']</td>
+	<td></td>
+</tr>
+<!--Verify that two nodes appear-->
+<tr>
+	<td>assertTextPresent</td>
+	<td>Frank Foo</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>Betty Bar</td>
+	<td></td>
+</tr>
+<!--Click the 'Frank Foo' folder icon.-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//a[@id='_idJsp0:serverTree:0:0:_idJsp2']</td>
+	<td></td>
+</tr>
+<!--Use xpath to verify the text on the first node.-->
+<tr>
+	<td>assertText</td>
+	<td>//form/span/table[3]/tbody/tr/td[3]/span</td>
+	<td>Requires Foo</td>
+</tr>
+<!--Verify the folder icon for 'Requires Foo Reviewer'-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//a[@id='_idJsp0:serverTree:0:0:1:_idJsp8']</td>
+	<td></td>
+</tr>
+<!--No id for the folder icon or the span with text-->
+<tr>
+	<td>assertTextPresent</td>
+	<td>Requires Foo Recommendation</td>
+	<td></td>
+</tr>
+<!--Verify the folder icon for 'Requires Foo Approval'-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//a[@id='_idJsp0:serverTree:0:0:3:_idJsp8']</td>
+	<td></td>
+</tr>
+<!--Verify the folder icon for 'Requires Bar Processing'-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//a[@id='_idJsp0:serverTree:0:0:4:_idJsp15']</td>
+	<td></td>
+</tr>
+<!--Verify the folder icon for 'Requires Bar Approval'-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//a[@id='_idJsp0:serverTree:0:0:5:_idJsp15']</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

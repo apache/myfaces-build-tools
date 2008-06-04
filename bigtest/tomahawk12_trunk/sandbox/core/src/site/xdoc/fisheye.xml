@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+
+<document>
+    <!-- component name -->
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            <p>
+            	A navigation menu/toolbar with a nice mouse-over effect,
+            	similar to the Mac OS X Dock. It is actually a JSF
+            	implementation of the Fisheye List widget from the
+            	<a href="http://dojotoolkit.org/">Dojo Toolkit</a>.
+            </p>
+            <p>
+                The component makes use of the Tomahawk navigation framework,
+                so the menu items can be added using t:navigationMenuItem
+                child components.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            <div><img src="images/fisheye1.png" alt="fisheye"/></div>
+            <div><img src="images/fisheye2.png" alt="fisheye"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            <table>
+                <tr>
+                    <td>author</td>
+                    <td>Jurgen Lust</td>
+                </tr>
+                <tr>
+                    <td>component-family</td>
+                    <td>javax.faces.Output</td>
+                </tr>
+                <tr>
+                    <td>renderer-type</td>
+                    <td>org.apache.myfaces.FishEyeList</td>
+                </tr>
+                <tr>
+                    <td>component-class</td>
+                    <td>org.apache.myfaces.custom.fisheye.HtmlFishEyeNavigationMenu</td>
+                </tr>
+                <tr>
+                    <td>renderer-class</td>
+                    <td>org.apache.myfaces.custom.fisheye.HtmlFishEyeNavigationMenuRenderer</td>
+                </tr>
+                <tr>
+                    <td>tag-class</td>
+                    <td>org.apache.myfaces.custom.fisheye.HtmlFishEyeNavigationMenuTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            <source xml:space="preserve">
+&lt;s:fishEyeNavigationMenu [id="myToolbar"]
+               [rendered="true|false"]
+			   [itemWidth="50"]
+			   [itemHeight="50"]
+			   [itemMaxWidth="200"]
+			   [itemMaxHeight="200"]
+			   [orientation="horizontal|vertical"]
+			   [effectUnits="2"]
+			   [itemPadding="10"]
+			   [attachEdge="top|bottom"]
+			   [visibleWindow="4"]
+			   [labelEdge="top|bottom"]&gt;
+&lt;/s:fishEyeNavigationMenu&gt;
+            </source>
+        </section>
+        
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            <p>see fisheye.jsp in the Sandbox examples.</p>
+        </section>        
+    </body>
+
+</document>

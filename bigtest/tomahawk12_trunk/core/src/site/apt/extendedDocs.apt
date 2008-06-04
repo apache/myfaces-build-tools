@@ -1,0 +1,89 @@
+ ------
+ Apache MyFaces Tomahawk Extended Documentation
+ ------
+
+Introduction
+
+  The full list of components available in the Tomahawk library can be found on the
+  tld (tag library description) report. That documentation includes an overview of each
+  JSP tag, and a table of all the attributes available for that tag. This information
+  should also be useful for users of other templating systems (eg Facelets).
+  
+  However there are limitations to the documentation that can be provided in that report
+  format. For *some* components, extended documentation is available below.
+
+  See also the component section of our {{{http://wiki.apache.org/myfaces/MyFacesComponents}WIKI}},
+  which includes the latest information from both Tomahawk developers and the Tomahawk user
+  community.
+  
+Components
+
+  * {{{jscookmenu.html}JSCook Menu}}
+
+  * {{{newspaperTable.html}Newspaper Table}}
+
+  * {{{aliasBean.html}Alias Bean}}
+  
+  * {{{buffer.html}Buffer}}
+
+  * {{{fileUpload.html}File Upload}}
+
+  * {{{tabbedPane.html}TabbedPane}}
+
+  * {{{calendar.html}Calendar}}
+
+  * {{{popup.html}Popup}}
+
+  * {{{javascriptListener.html}Javascript Listener}}
+
+  * {{{inputDate.html}Date}}
+
+  * {{{htmlEditor.html}Html Editor}}
+
+  * {{{htmlTag.html}Html Tag}}
+
+  * {{{dataList.html}Data List}}
+
+  * {{{tree.html}Tree}}
+
+  * {{{tree2.html}Tree2}}
+
+  * {{{treeTable.html}Tree Table}}
+
+  * {{{panelStack.html}Panel Stack}}
+
+  * {{{stylesheet.html}Style Sheet}}
+
+  * {{{commandSortHeader.html}Sort Header}}
+
+  * {{{dataScroller.html}Data Scroller}}
+
+  * {{{extDataTable.html}Extended Data Table}}
+
+  * {{{panelNavigation.html}Panel Navigation}}
+
+  * {{{panelNavigation2.html}Panel Navigation 2}}
+
+  * {{{uiSaveState.html}UI Save State}}
+
+  * {{{columns.html}Columns}}
+
+  * {{{column.html}Column}}
+
+  * {{{schedule.html}Schedule}}
+
+  * {{{dojoInitializer.html}Dojo Initializer}}
+
+  * {{{selectItems.html}SelectItems}}
+  
+Validators
+
+  * {{{validateCreditCard.html}validateCreditCard}}
+
+  * {{{validateUrl.html}validateUrl}}
+
+  * {{{validateEmail.html}validateEmail}}
+
+  * {{{validateEqual.html}validateEqual}}
+
+  * {{{validateRegExpr.html}validateRegExpr}}

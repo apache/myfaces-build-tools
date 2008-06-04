@@ -1,0 +1,91 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>PopupTest</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">PopupTest</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Popup</td>
+	<td></td>
+</tr>
+<!--Mouse over the first line-->
+<tr>
+	<td>mouseOver</td>
+	<td>id=ox</td>
+	<td></td>
+</tr>
+<!--Assert that only the popup with id 'x' is visible-->
+<tr>
+	<td>assertVisible</td>
+	<td>id=x</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=y</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=z</td>
+	<td></td>
+</tr>
+<!--Mouse over the second line-->
+<tr>
+	<td>mouseOver</td>
+	<td>id=oy</td>
+	<td></td>
+</tr>
+<!--Assert that only the popup with id 'y' is visible-->
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=x</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>id=y</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=z</td>
+	<td></td>
+</tr>
+<!--Mouse over the third line-->
+<tr>
+	<td>mouseOver</td>
+	<td>id=oz</td>
+	<td></td>
+</tr>
+<!--Assert that only the popup with id 'z' is visible-->
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=x</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertNotVisible</td>
+	<td>id=y</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertVisible</td>
+	<td>id=z</td>
+	<td></td>
+</tr>
+<!-- TODO: Mouse over the text with no id-->
+<!-- TODO: Assert that the 'no id popup text' is visible -->
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hCommandButton</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">hCommandButton</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/home.jsf</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/hCommandButton.jsf</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id='commandButtonForm:commandButton']@value</td>
+	<td>Default</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id='commandButtonForm:commandButtonImage']@type</td>
+	<td>image</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id='commandButtonForm:commandButtonImage']@src</td>
+	<td>regexp:(http:\/\/*|)\/images\/logo.jpg</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id='commandButtonForm:commandButtonImage']@alt</td>
+	<td>Alt</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id='commandButtonForm:commandButtonTitle']@title</td>
+	<td>Popup Title</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id='commandButtonForm:commandButtonReset']@type</td>
+	<td>reset</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id='commandButtonForm:commandButtonSubmit']@type</td>
+	<td>submit</td>
+</tr>
+<tr>
+	<td>verifyAttribute</td>
+	<td>//input[@id='commandButtonForm:commandButtonTabIndex']@tabindex</td>
+	<td>4</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

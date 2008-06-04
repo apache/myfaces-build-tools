@@ -1,0 +1,16 @@
+        <attribute>
+            <name>maxLength</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+               Integer equals to the maximum number of characters in the country name.
+            </description>
+        </attribute>
+        <attribute>
+            <name>emptySelection</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+				Label and value to be used when displaying an empty selection
+            </description>
+        </attribute>

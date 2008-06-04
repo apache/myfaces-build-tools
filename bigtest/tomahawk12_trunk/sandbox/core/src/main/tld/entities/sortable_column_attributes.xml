@@ -1,0 +1,55 @@
+<attribute>
+    <name>field</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>see http://dojotoolkit.org org filterTable</description>
+</attribute>
+
+<attribute>
+    <name>dataType</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>default=String {Number,Date,html,String} see http://dojotoolkit.org org filterTable</description>
+</attribute>
+
+<attribute>
+    <name>sort</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>{asc, desc} see http://dojotoolkit.org org filterTable</description>
+</attribute>
+
+<attribute>
+    <name>format</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>{asc, desc} see http://dojotoolkit.org org filterTable</description>
+</attribute>
+
+<attribute>
+    <name>align</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>{asc, desc} see http://dojotoolkit.org org filterTable</description>
+</attribute>
+
+<attribute>
+    <name>valign</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>{asc, desc} see http://dojotoolkit.org org filterTable</description>
+</attribute>
+
+<attribute>
+    <name>text</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>column header text</description>
+</attribute>
+
+<attribute>
+    <name>escape</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>default=true escape text</description>
+</attribute>

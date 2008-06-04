@@ -1,0 +1,53 @@
+<attribute>
+    <name>content</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>String containing the XML content to be transformed.</description>
+</attribute>
+
+<attribute>
+    <name>contentLocation</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>String containing the location of the XML content to be transformed.</description>
+</attribute>
+
+<attribute>
+    <name>contentStream</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>
+        Value binding expression referencing an InputStream from which the XML content
+        is to be read.
+    </description>
+</attribute>
+
+<attribute>
+    <name>stylesheet</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>String containing the XSL information to use in the transformation.</description>
+</attribute>
+
+<attribute>
+    <name>stylesheetLocation</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>String containing the location of the XSL stylesheet to use in the transformation.</description>
+</attribute>
+
+<attribute>
+    <name>styleStream</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>
+        Value binding expression referencing an InputStream from which the XSL stylesheet
+        is to be read.
+    </description>
+</attribute>

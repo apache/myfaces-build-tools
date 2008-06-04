@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                This tag renders a html img tag and can be used to render dynamic images.                
+            </p>
+            <p>
+              Embedding images into html pages requires a second request to get the binary data 
+              stream of the image. The result is that the state of the view including the state of request
+              scoped beans will not be available when the image is requested.
+            </p>
+            <p>
+              The image data is written by an image renderer which can be defined by the 
+              imageRendererClass attribute.
+            </p>
+            <p>
+              This component is able to use nested f:param elements to pass parameters to the image renderer.              
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not Available</p> <!-- replace with either a figure or Not Available -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Graphic</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.GraphicImageDynamicRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.graphicimagedynamic.GraphicImageDynamic</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.graphicimagedynamic.GraphicImageDynamicRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.graphicimagedynamic.GraphicImageDynamicTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;s:graphicImageDynamic imageRendererClass="ImageRendererClass" &gt;
+  &lt;f:param name="param" value="value" /&gt;
+&lt;/s:graphicImageDynamic&gt;              
+            </source>
+        </section>
+        
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;s:graphicImageDynamic/&gt;</h3>
+                imageRendererClass="class reference"<br/>
+                <code>imageRendererClass - contains a class reference or a fully qualified class name 
+                which implements org.apache.myfaces.custom.graphicimagedynamic.ImageRenderer</code><br/>
+                + any attribute of t:graphicImage from tomahawk but without url and value attribute
+            </blockquote>
+        </section>
+        
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>see sandbox examples graphicImageDynamic.jsf and graphicImageDynamicText.jsf</p>
+        </section>
+
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            
+            <p>[TODO]</p>
+        </section>        
+
+    </body>
+    
+
+</document>

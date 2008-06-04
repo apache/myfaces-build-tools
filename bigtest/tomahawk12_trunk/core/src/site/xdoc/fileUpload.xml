@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                Renders a HTML input with type="file".
+            </p>
+            <p>
+                You must enable the MultiPart Filter to make this component
+                work (see web.xml). Also, don't forget to set the form's attribute
+                "enctype" to "multipart/form-data".
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not available</p> <!-- replace with either a figure or Not Available -->
+            <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">since</td>
+                    <td colspan="1" rowspan="1">0.3.2 (former &lt;t:file_upload&gt;)</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">author</td>
+                    <td colspan="1" rowspan="1">Manfred Geiler, Sylvain Vieujot</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Input</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.FileUpload</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.fileupload.HtmlInputFileUpload</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.fileupload.HtmlFileUploadRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.fileupload.HtmlInputFileUploadTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:inputFileUpload [{all standard UIInput and HTML input attributes}]
+                      [accept="mime-type"] /&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:inputFileUpload&gt;</h3>
+                <code>accept - a file filter String.</code><br/>
+                <code>storage - a String defines the storage method.</code><br/>
+                <code>value - the holder of the value.</code><br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                see "examples/fileupload.jsp" for an example!
+            </p>
+        </section>
+    </body>
+    
+
+</document>

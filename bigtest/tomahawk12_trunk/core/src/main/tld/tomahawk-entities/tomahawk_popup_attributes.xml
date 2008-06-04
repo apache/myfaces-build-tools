@@ -1,0 +1,34 @@
+        <attribute>
+            <name>displayAtDistanceX</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Pop the panel up in horizontal distance of x pixels from
+                event.
+            </description>
+        </attribute>
+        <attribute>
+            <name>displayAtDistanceY</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Pop the panel up in vertical distance of y pixels from
+                event.
+            </description>
+        </attribute>
+        <attribute>
+            <name>closePopupOnExitingElement</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Close the popup when the triggering element is left.
+            </description>
+        </attribute>
+        <attribute>
+            <name>closePopupOnExitingPopup</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Close the popup when the popup itself is left.
+            </description>
+        </attribute>

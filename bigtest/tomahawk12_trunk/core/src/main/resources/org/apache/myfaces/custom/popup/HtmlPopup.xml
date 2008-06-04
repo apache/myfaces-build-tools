@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component>
+    <component-class>org.apache.myfaces.custom.popup.HtmlPopup</component-class>
+    <base-class>javax.faces.component.UIComponentBase</base-class>
+    <component-type>org.apache.myfaces.HtmlPopup</component-type>
+    <component-family>javax.faces.Panel</component-family>
+    <renderer-type>org.apache.myfaces.Popup</renderer-type>
+    <field>
+        <name>style</name>
+        <type>String</type>
+    </field>
+    <field>
+        <name>styleClass</name>
+        <type>String</type>
+    </field>
+    <field>
+        <name>displayAtDistanceX</name>
+        <type>Integer</type>
+    </field>
+    <field>
+        <name>displayAtDistanceY</name>
+        <type>Integer</type>
+    </field>
+    <field>
+        <name>closePopupOnExitingElement</name>
+        <type>Boolean</type>
+    </field>
+    <field>
+        <name>closePopupOnExitingPopup</name>
+        <type>Boolean</type>
+    </field>
+</component>

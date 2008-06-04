@@ -1,0 +1,11 @@
+        <!-- HTML 4.0 input type="file" attributes -->
+        <attribute>
+            <name>accept</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>storage</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+        </attribute>

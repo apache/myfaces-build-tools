@@ -1,0 +1,96 @@
+<attribute>
+    <name>betweenKeyUp</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>If the time between two keyup events is lower than this given value,
+        the ajax request will not be fired. In milliseconds. Prevents stressing the server with too much user inputs.
+        In driven tests the component seems to be more stable if this value is set. A recommended value in which case
+        the component works very well is about 300ms.  
+    </description>
+</attribute>
+
+<attribute>
+    <name>startRequest</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>The AJAX Request is only triggered if the number of chars typed in is
+                 equal or greater than this given value.
+    </description>
+</attribute>
+
+<attribute>
+    <name>var</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>Same principle as it can be found in dataTable. SuggestedItemsMethod returns
+                 a list of objects, where the class variables can be accessed with the alias after the
+                 dot of the var.
+    </description>
+</attribute>
+
+<attribute>
+    <name>popupId</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>Id for the pop up window</description>
+</attribute>
+
+<attribute>
+    <name>popupStyleClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>StyleClass for the window with a suggested list of items;pop up for each incoming Ajax response</description>
+</attribute>
+
+<attribute>
+    <name>tableStyleClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>StyleClass for the suggested table.</description>
+</attribute>
+
+<attribute>
+    <name>comboBoxStyleClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>StyleClass for dropdown box and arrow.</description>
+</attribute>
+
+<attribute>
+    <name>rowStyleClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>StyleClass which applies to every row in the suggested table.</description>
+</attribute>
+
+<attribute>
+    <name>evenRowStyleClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>StyleClass which only applies to even rows in the suggested table.</description>
+</attribute>
+
+<attribute>
+    <name>oddRowStyleClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>StyleClass which only applies to odd rows in the suggested table.</description>
+</attribute>
+
+<attribute>
+    <name>hoverRowStyleClass</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>StyleClass for the rows for onmouseover events.</description>
+</attribute>

@@ -1,0 +1,33 @@
+        <!-- HtmlCommandSortHeader attributes -->
+        <attribute>
+            <name>columnName</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The name of this column.
+                This name must uniquely identify this column among all other (sortable) columns
+                in the same data_table.
+                The sortColumn attribute of the embedding data_table reflects the current
+                sort column (see extended data_table).
+            </description>
+        </attribute>
+        <attribute>
+            <name>propertyName</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The property name associated with this column. 
+                This name must be one of the properties of the row object by which the sorting should be performed.
+                The sortProperty attribute of the embedding data_table reflects the current
+                sort property (see extended data_table).
+            </description>
+        </attribute>
+        <attribute>
+            <name>arrow</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Indicates whether an arrow, that shows the sort direction should be rendered.
+                Default: false
+            </description>
+        </attribute>

@@ -1,0 +1,24 @@
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The name of the tag. For example, use h1 to generate an h1 tag.
+            </description>
+        </attribute>
+        <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The style to use for this tag.
+            </description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The class to use for this tag.
+            </description>
+        </attribute>

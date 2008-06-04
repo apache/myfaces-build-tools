@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                An inline HTML based word processor based on the Kupu library.
+                <br/>
+                See <a href="http://kupu.oscom.org">http://kupu.oscom.org</a>.
+            </p>
+            <p>
+                Right now, the support is limited to one editor per page
+                (but you can use tabs to have multiple editors, but only one
+                rendered at a time).
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <div><img src="images/inputhtml.png" alt="inputhtml"/></div>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Input</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.InputHtml</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.inputHtml.InputHtml</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.inputHtml.InputHtmlRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.inputHtml.InputHtmlTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:inputHtml value="String"
+                style="CSSClass"
+                fallback="{true|false}"
+                type="Constant"
+                allowExternalLinks="{true|false}"
+                addKupuLogo="{true|false}"
+                showAllToolBoxes="{true|false}"
+                allowEditSource="{true|false}"
+                showPropertiesToolBox="{true|false}"
+                showLinksToolBox="{true|false}"
+                showImagesToolBox="{true|false}"
+                showTablesToolBox="{true|false}"
+                showDebugToolBox="{true|false}"
+                showCleanupExpressionsToolBox="{true|false}"/&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:inputHtml&gt;</h3>
+                <code>
+                    fallback - Use a text area instead of the javascript HTML editor.
+                               Default is false. Use with caution.
+                </code>
+                <br/>
+                <code>
+                    type - The type of the value. It can be either fragment for an
+                       HTML fragment (default) or document for a full HTML document,
+                       with head, title, body, ... tags.
+                </code>
+                <br/>
+                <code>
+                    allowEditSource - Allows the user to edit the HTML source code.
+                                  Default is true.
+                </code>
+                <br/>
+                <code>
+                    allowExternalLinks - Allows the user to insert external links.
+                                     Default is true.
+                </code>
+                <br/>
+                <code>
+                    addKupuLogo - Show the Kupu Logo in the buttons bar. Default is true.
+                </code>
+                <br/>
+                <code>
+                    showAllToolBoxes - Shortcut to avoid setting all the showXXToolBox
+                                   to true. Default is false.
+                </code>
+                <br/>
+                <code>
+                    showPropertiesToolBox - Show the Properties tool box next to the text.
+                                        Default is false.
+                </code>
+                <br/>
+                <code>
+                    showLinksToolBox - Show the Links tool box next to the text.
+                                   Default is false.
+                </code>
+                <br/>
+                <code>
+                    showImagesToolBox - Show the Images tool box next to the text.
+                                    Default is false.
+                </code>
+                <br/>
+                <code>
+                    showTablesToolBox - Show the Tables tool box next to the text.
+                                    Default is false.
+                </code>
+                <br/>
+                <code>
+                    showCleanupExpressionsToolBox - Show the Cleanup Expressions tool box next to the text.
+                                                Default is false.
+                </code>
+                <br/>
+                <code>
+                    showDebugToolBox - Show the Debug tool box next to the text.
+                                   Default is false.
+                </code>
+                <br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                see examples/inputHtml.jsp for an example!
+            </p>
+        </section>
+    </body>
+    
+
+</document>

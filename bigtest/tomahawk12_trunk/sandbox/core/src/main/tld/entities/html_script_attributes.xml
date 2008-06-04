@@ -1,0 +1,24 @@
+        <attribute>
+            <name>src</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                URL for script file.
+            </description>
+        </attribute>
+        <attribute>
+            <name>type</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                type of script source
+            </description>
+        </attribute>
+		<attribute>
+			<name>language</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+			<description>
+				script language
+			</description>
+		</attribute>

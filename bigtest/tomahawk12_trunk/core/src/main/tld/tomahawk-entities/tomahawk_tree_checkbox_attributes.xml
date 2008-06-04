@@ -1,0 +1,9 @@
+        <!-- HtmlTreeCheckbox attributes -->
+        <attribute>
+            <name>for</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                id of the referenced extended selectManyCheckbox component
+            </description>
+        </attribute>

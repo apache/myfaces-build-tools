@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                Renders a calendar component allowing to choose a date from a month view.
+                Change the month by navigating in the header bar.
+            </p>
+            <p>
+                The calendar component is automatically rendered using the
+                week-names, the month-names and the start of the week of the
+                current locale, so localisation support is given (for an
+                example, see the myfaces examples and change the current locale
+                under options).
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shots">
+            
+            <table>
+                <tr>
+                    <th colspan="1" rowspan="1">
+                        Popup
+                    </th>
+                    <th colspan="1" rowspan="1">
+                        No Popup
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">
+                        <div><img src="images/calendar_popup.png" alt="calendar_popup"/></div>
+                    </td>
+                    <td colspan="1" rowspan="1">
+                        <div><img src="images/calendar_nopopup.png" alt="calendar_nopopup"/></div>
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">since</td>
+                    <td colspan="1" rowspan="1">1.0.0 alpha</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">author</td>
+                    <td colspan="1" rowspan="1">Martin Marinschek</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Input</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.Calendar</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.calendar.HtmlInputCalendar</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.calendar.HtmlCalendarRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.calendar.HtmlInputCalendarTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:inputCalendar [ HTML universal attributes ]
+               [ HTML event handler attributes ]
+               [ UIInput standard attributes (i.e. valueChangeListener) ]
+               [monthYearRowClass="month-and-year-header-row-css-class"]
+               [weekRowClass="week-header-row-css-class"]
+               [dayCellClass="empty-or-date-cell-css-class"]
+               [currentDayCellClass="currently-selected-day-cell-css-class"]&gt;
+&lt;/t:inputCalendar&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:inputCalendar/&gt;</h3>
+                <code>
+                    monthYearRowClass - CSS class to be used for the header-row showing
+                                        month and year.
+                </code>
+                <br/>
+                <code>
+                    weekRowClass - CSS class to be used for the header-row showing the week-days.
+                </code>
+                <br/>
+                <code>
+                    dayCellClass - CSS class to be used for the cells showing days.
+                </code>
+                <br/>
+                <code>
+                    currentDayCellClass - CSS class to be used for the cell of the currently selected date.
+                </code>
+                <br/>
+                <code>
+                    renderAsPopup - Render the input-calendar as a java-script popup on client.
+                </code>
+                <br/>
+                <code>
+                    addResources - Automatically add the input-calendar scripts and css files to
+                                   the header, set that to false to provide the scripts yourself.
+                </code>
+                <br/>
+                <code>
+                    popupDateFormat - Defines the date format used by the java-script popup on client.
+                </code>
+                <br/>
+                <code>
+                    popupButtonString - Defines the string displayed on the button which leads to
+                                        the calendar-popup-window (... by default).
+                </code>
+                <br/>
+                <code>
+                    popupButtonStyle - Defines the css style for the button which leads to
+                                       the calendar-popup-window.
+                </code>
+                <br/>
+                <code>
+                    popupButtonStyleClass - Defines the css style class for the button which leads to
+                                            the calendar-popup-window.
+                </code>
+                <br/>
+                <code>
+                    popupGotoString - Set the string for "Go To Current Month".
+                </code>
+                <br/>
+                <code>
+                    popupTodayString - Set the string for "Today is".
+                </code>
+                <br/>
+                <code>
+                    popupWeekString - Set the string for "Wk".
+                </code>
+                <br/>
+                <code>
+                    popupScrollLeftMessage - Set the string for scrolling to the left.
+                </code>
+                <br/>
+                <code>
+                    popupScrollRightMessage - Set the string for scrolling to the right.
+                </code>
+                <br/>
+                <code>
+                    popupSelectMonthMessage - Set the string for "Click to select a month".
+                </code>
+                <br/>
+                <code>
+                    popupSelectYearMessage - Set the string for "Click to select a year".
+                </code>
+                <br/>
+                <code>
+                    popupSelectDateMessage - Set the string for "Select [date] as date"
+                                            (do not replace [date], it will be replaced by the current date).
+                </code>
+				<br/>
+				<code>
+					renderPopupButtonAsImage - [true|false] If true, renders a calendar icon instead of 
+					the button to pop up the calendar. Default is 'false'.
+                </code>
+                <br/>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>
+                Standard core tags (i.e. a new Converter can be set for
+                value-bindings to values other than java.util.Date).
+            </p>
+            <p>see examples/calendar.jsp for an example!</p>
+        </section>
+    </body>
+    
+
+</document>

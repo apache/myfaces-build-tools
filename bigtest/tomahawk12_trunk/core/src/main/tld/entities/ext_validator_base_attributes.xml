@@ -1,0 +1,30 @@
+        <!--
+        This attribute indicates an alternate validation error message format string to display.
+        -->
+        <attribute>
+            <name>message</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                alternate validation error detail message format string (use 'message' and 'detailMessage' alternatively)
+            </description>
+        </attribute>
+        <attribute>
+            <name>detailMessage</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                alternate validation error detail message format string (use 'message' and 'detailMessage' alternatively)
+            </description>
+        </attribute>
+        <!--
+        This attribute indicates an alternate validation error summary message format string to display.
+        -->
+        <attribute>
+            <name>summaryMessage</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                alternate validation error summary message format string
+            </description>
+        </attribute>

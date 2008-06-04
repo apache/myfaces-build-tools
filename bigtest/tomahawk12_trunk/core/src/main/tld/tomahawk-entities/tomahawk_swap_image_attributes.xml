@@ -1,0 +1,22 @@
+        <attribute>
+            <name>swapImageUrl</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                the url of the image displayed onmouseover
+            </description>
+        </attribute>
+        <attribute>
+            <name>activeImageUrl</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                activeImage will be rendered if: swapImage is a direct child of commandNavigation
+                and the commandNavigation.isActive
+            </description>
+        </attribute>
+        <attribute><name>onclick</name>    <required>false</required>  <rtexprvalue>false</rtexprvalue></attribute>
+        <attribute><name>ondblclick</name> <required>false</required>  <rtexprvalue>false</rtexprvalue></attribute>
+        <attribute><name>onkeypress</name> <required>false</required>  <rtexprvalue>false</rtexprvalue></attribute>
+        <attribute><name>onkeydown</name>  <required>false</required>  <rtexprvalue>false</rtexprvalue></attribute>
+        <attribute><name>onkeyup</name>    <required>false</required>  <rtexprvalue>false</rtexprvalue></attribute>

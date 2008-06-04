@@ -1,0 +1,91 @@
+        <attribute>
+            <name>itemClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The CSS class of closed navigation items.
+            </description>
+        </attribute>
+        <attribute>
+            <name>openItemClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The CSS class of open navigation items.
+            </description>
+        </attribute>
+        <attribute>
+            <name>activeItemClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The CSS class of the active navigation item.
+            </description>
+        </attribute>
+        <attribute>
+            <name>separatorClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The CSS class for the td element of a separator.
+            </description>
+        </attribute>
+        <attribute>
+            <name>itemStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The CSS Style of closed navigation items.
+            </description>
+        </attribute>
+        <attribute>
+            <name>openItemStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The CSS Style of open navigation items.
+            </description>
+        </attribute>
+        <attribute>
+            <name>activeItemStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The CSS Style of the active navigation item.
+            </description>
+        </attribute>
+        <attribute>
+            <name>separatorStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The CSS Style for the td element of a separator.
+            </description>
+        </attribute>
+        <attribute>
+            <name>layout</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                'table' or 'list' Layout (default is 'table')
+            </description>
+        </attribute>
+        <attribute>
+            <name>expandAll</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                If set to true all Items are expanded from the beginning
+                and never closed.
+            </description>
+        </attribute>
+        <attribute>
+            <name>renderAll</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                If set to true all Items are rendered and other methods, like CSS
+                should be used to hide them as necesary
+            </description>
+        </attribute>
+        &ext_disabled_attribute;

@@ -1,0 +1,20 @@
+        <attribute>
+            <name>newspaperColumns</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The number of columns to wrap the table over.
+                Default: 1
+            </description>
+        </attribute>
+        <attribute>
+            <name>newspaperOrientation</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The orientation of the newspaper columns in the
+                newspaper table - "horizontal" or "vertical".
+                Default: vertical
+            </description>
+        </attribute>
+        

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>The tag allows control for the action attribute of the form.</p>
+            <p>
+              Every JSF request goes to the same url which renders the response.
+              The s:form component allows to use a different scheme, servername or
+              port when a form is submitted. This is normally needed to change 
+              from http to https to submit security related data.
+
+            </p>
+            <p>
+                Even more, by setting an entirely different 'action' and 'method'
+                attribute the standard behaviour of the JSF-Form can be overwritten
+                completely. This might be useful for special cases of forms, e.g. for
+                form based authentication.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not Available</p> <!-- replace with either a figure or Not Available -->
+            <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Form</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.Form</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.form.HtmlForm</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.form.HtmlFormRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.form.HtmlFormTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;s:form scheme="https" servername="www.domain.org" port="1234"&gt;
+&lt;/s:form&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;s:form/&gt;</h3>
+                <code>scheme - either "http" or "https" (optional)</code><br/>
+                <code>servername - the server name or an ip address (optional)</code><br/>
+                <code>port - a int value which defines the port (optional)</code>
+                <code>method - a method with which the request should be sent (optional)</code>
+                <code>action - if this attribute is set, the action of the form can be specified directly. Scheme, servername and port are not used in this case (optional).</code>
+            </blockquote>
+        </section>
+    </body>
+    
+</document>

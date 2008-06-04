@@ -1,0 +1,35 @@
+&standard_input_text_attributes;
+&ext_forceId_attribute;
+&alt_location_attributes;
+&display_value_only_attributes;
+&user_role_attributes;
+
+<attribute>
+    <name>suggestedItemsMethod</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>Reference to the method which returns the suggested items</description>
+</attribute>
+
+<attribute>
+    <name>maxSuggestedItems</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>optional attribute to identify the max size of suggested Values.
+                 If specified in tableSuggestAjax, paginator functionality is used.
+    </description>
+</attribute>
+
+<attribute>
+    <name>charset</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>Force the charset of the Response</description>
+</attribute>
+
+
+
+

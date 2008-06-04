@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>
+                This component provides a way to control which component receives focus when the page loads.
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not Available</p> <!-- replace with either a figure or Not Available -->
+            <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+		    <td colspan="1" rowspan="1">javax.faces.Output</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.Focus</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.custom.focus.HtmlFocus</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.custom.focus.HtmlFocusRenderer</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+		    <td colspan="1" rowspan="1">org.apache.myfaces.custom.focus.HtmlFocusTag</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Usage -->
+        <section name="Usage">
+            
+	    <source xml:space="preserve">&lt;h:inputText id="textfield" value="#{bean.value}" /&gt;
+&lt;s:focus id="focus" for="textfield" /&gt;</source>
+	    <source xml:space="preserve">&lt;s:focus id="focus" for="#{bean.focusedComponentId}" /&gt;</source>
+        </section>
+        
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;s:focus&gt;</h3>
+                <code>for="reference to UIComponent"</code><br/>
+            </blockquote>
+        </section>
+
+        <!-- Additional Information -->
+        <section name="Additional Information">
+            
+	    <p>This component must be placed on the page in such a way that it is rendered
+		 	after all components to which it might contain a reference.   Generally,
+			the best place for this component is right before the closing form tag.</p>
+        </section>        
+
+    </body>
+    
+
+</document>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component>
+    <component-class>org.apache.myfaces.custom.tabbedpane.HtmlPanelTab</component-class>
+    <base-class>javax.faces.component.html.HtmlPanelGroup</base-class>
+    <component-type>org.apache.myfaces.HtmlPanelTab</component-type>
+    <component-family>javax.faces.Panel</component-family>
+    <renderer-type>javax.faces.Group</renderer-type>
+    <field>
+        <name>label</name>
+        <type>java.lang.String</type>
+    </field>
+</component>

@@ -1,0 +1,24 @@
+        <attribute>
+          <name>for</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+          <name>property</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+          <name>expressionValue</name>
+          <required>true</required>
+          <rtexprvalue>false</rtexprvalue>
+        </attribute>
+        <attribute>
+          <name>bodyTagEvent</name>
+          <required>false</required>
+          <rtexprvalue>false</rtexprvalue>
+          <description>
+            If specified this JavaScript event will be inserted in the body tag.
+            JavaScript code will be the same like it is rendered in the parent component.
+          </description>
+        </attribute>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component>
+    <component-class>org.apache.myfaces.custom.tree.HtmlTree</component-class>
+    <base-class>javax.faces.component.html.HtmlForm</base-class>
+    <component-type>org.apache.myfaces.HtmlTree</component-type>
+    <component-family>org.apache.myfaces.HtmlTree</component-family>
+    <renderer-type>org.apache.myfaces.HtmlTree</renderer-type>
+    <field>
+        <name>value</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>var</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>styleClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>nodeClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>selectedNodeClass</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>rowClasses</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>columnClasses</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconLine</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconNoline</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconChild</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconChildFirst</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconChildMiddle</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconChildLast</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconNodeOpen</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconNodeOpenFirst</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconNodeOpenMiddle</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconNodeOpenLast</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconNodeClose</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconNodeCloseFirst</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconNodeCloseMiddle</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>iconNodeCloseLast</name>
+        <type>java.lang.String</type>
+    </field>
+</component>

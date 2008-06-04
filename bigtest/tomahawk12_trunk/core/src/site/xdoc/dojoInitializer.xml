@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+
+<document>
+
+	<body>
+		<!-- Description -->
+		<section name="Description">
+
+			<p>
+				A control which allows to dock the
+				<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+				This component is purely non visual, and serves for
+				quick hacking, and prototyping the dojo toolkit within
+				verbatimed html.
+			</p>
+			<p>
+				Its goal is to hide the underlying complexities of the
+				initialization process of the underlying dojo toolkit
+			</p>
+
+		</section>
+		<!-- screen shot -->
+		<section name="Screen Shot">
+
+			<p>
+				There is not too much to see. The component is purely
+				non visual.
+			</p>
+		</section>
+		<!-- API -->
+		<section name="API">
+
+			<table>
+				<tr>
+					<td>author</td>
+					<td>Werner Punz</td>
+				</tr>
+
+				<tr>
+					<td colspan="1" rowspan="1">component-family</td>
+					<td colspan="1" rowspan="1">javax.faces.Output</td>
+				</tr>
+				<tr>
+					<td colspan="1" rowspan="1">renderer-type</td>
+					<td colspan="1" rowspan="1">
+						org.apache.myfaces.DojoInitializerRenderer
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" rowspan="1">component-class</td>
+					<td colspan="1" rowspan="1">
+						org.apache.myfaces.custom.dojo.DojoInitializer
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" rowspan="1">renderer-class</td>
+					<td colspan="1" rowspan="1">
+						org.apache.myfaces.custom.dojo.DojoInitializerRenderer
+					</td>
+				</tr>
+				<tr>
+					<td colspan="1" rowspan="1">tag-class</td>
+					<td colspan="1" rowspan="1">
+						org.apache.myfaces.custom.dojo.DojoInitializerTag
+					</td>
+				</tr>
+			</table>
+		</section>
+
+		<!-- Usage -->
+		<section name="Usage">
+
+			<source xml:space="preserve">
+			&lt;t:dojoInitializer
+			&gt;
+			[rendered="true|false"]
+			[allowQueryConfig="true|false"]
+			[baseScriptUri="&lt;some uri&gt;"]
+			[bindEncoding="utf8|iso8859-1|iso-8859-15|..."]
+			[debug="true|false"]
+			[debugAtAllCosts="true|false"]
+			[debugConsole="true|false"]
+			[debugContainerId="&lt;some id of an existing defined container &gt;"]
+			[development="true|false"]
+			[expanded="true|false"]
+			[ignoreClassNames="true|false"]
+			[ioSendTransport="xmlhttrequest"]
+			[parseWidgets="true|false"]
+			[preventBackButtonFix="true|false"]
+			[provide="&lt;dojo class with package&gt;"]
+			[require="&lt;dojo class with package&gt;"]
+			[searchIds="&lt;some id of an existing defined container &gt;"]
+			[development="true|false"]
+
+			&lt;/t:dojoInitializer&gt;
+			</source>
+		</section>
+
+		<!-- Syntax -->
+		<section name="Syntax">
+
+			<!-- ex. &lt;s:jsCookMenu> -->
+			<blockquote>
+				<h3>&lt;s:[TODO]/&gt;</h3>
+				<!-- ex. for="reference to UIData"  -->
+				<code>[TODO] - [TODO]</code>
+				<br />
+			</blockquote>
+		</section>
+
+		<!-- Instructions -->
+		<section name="Instructions">
+
+			<p>see dojo/*.jsp for various usage examples!</p>
+		</section>
+
+		<!-- Additional Information -->
+		<section name="Additional Information">
+			<p>see dojo/*.jsp in the Sandbox examples.</p>
+			<p>
+				<p>
+					<b>rendered</b>
+					<br />
+					<br />
+
+					Standard jsf rendered attribute
+				</p>
+
+
+
+				<p>
+					<b>allowQueryConfig</b>
+					<br />
+					<br />
+
+					Triggers a standard dojo allowQueryConfig as defined
+					by the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+
+					If someone has additional infos about this tag,
+					please fill in here
+				</p>
+
+				<p>
+					<b>baseScriptUri</b>
+					<br />
+					<br />
+
+					Triggers a standard dojo baseScriptUri as defined by
+					the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+
+					<br />
+					<br />
+					Allows the alteration of the dojo loading root path
+					used by require.
+				</p>
+
+				<p>
+					<b>debug</b>
+
+					Triggers a standard dojo debug as defined by the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+
+					<br />
+					<br />
+					Enables the dojo debugging framework. The usage of
+					dojo.debug causes output to be displayed in either
+					the current container or a target container, if one
+					is set.
+				</p>
+
+
+				<p>
+					<b>debugAtAllCosts</b>
+
+					Triggers a standard dojo debugAtAllCosts as defined
+					by the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+					<br />
+					Tries to enforce debugging even if the browser
+					version does not allow it to work properlys
+
+				</p>
+
+				<p>
+					<b>debugConsole</b>
+
+					Triggers a standard dojo debugConsole as defined by
+					the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+					<br />
+					<br />
+					This flag pops up a separate in frame floating
+					window which receives the debugging output.
+					<br />
+					<br />
+					Note: This flag only works if debugging is enabled
+					generally via the debug="true" flag set
+				</p>
+
+
+				<p>
+					<b>debugContainerId</b>
+
+					Triggers a standard dojo debugContainerId as defined
+					by the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+					<br />
+					<br />
+					This flag notifies the Dojo toolkit about the id
+					which should receive the debug output. Dojo has a
+					full debugging framework in it which allows to turn
+					on debug output via a logging mechanism @see
+					dojo.debug() for further references.
+					<br />
+					<br />
+					The debugging output is not limited to the current
+					container triggering the debugging statement any
+					container can receive the debugging output this flag
+					is the flag which has to be set for setting a
+					different target id for the debugging output.
+
+				</p>
+
+
+
+				<p>
+					<b>development</b>
+
+					Triggers a standard dojo development as defined by
+					the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+
+					If you can find additional info about this attribute
+					please fill in here
+
+				</p>
+
+
+				<p>
+					<b>expanded</b>
+
+					Triggers a standard dojo expanded as defined by the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+
+					If you can find additional info about this attribute
+					please fill in here
+				</p>
+
+
+				<p>
+					<b>ignoreClassNames</b>
+
+					Triggers a standard dojo ignoreClassNames as defined
+					by the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+					<br />
+					<br />
+					This attribute turns on the case insensitive
+					handling of classnames by require and other Dojo
+					class loader mechanisms.
+					<br />
+					<br />
+					Case sensitivity is by default turned
+					<b>on</b>
+					.
+				</p>
+
+
+				<p>
+					<b>searchIds</b>
+
+					Triggers a standard dojo searchIds as defined by the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+					If you can find out additional info about this
+					parameter fill in the info here.
+				</p>
+
+				<p>
+					<b>parseWidgets</b>
+
+					Triggers a standard dojo parseWidgets as defined by
+					the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+
+					This parameter is used to turn on or off the dojo
+					widgeting parsing. The parsing is not used by
+					MyFaces for various reasons, but can be used by your
+					own html code.
+					<br />
+					<br />
+					For addititional information regarding the Dojo
+					Toolkit widget parsing, visit the
+					<br />
+					<a href="http://dojotoolkit.org/">
+						Dojo Toolkit Homepage
+					</a>
+				</p>
+
+
+				<p>
+					<b>provide</b>
+
+					Triggers a standard dojo provide as defined by the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+				</p>
+
+
+				<p>
+					<b>require</b>
+
+					Triggers a standard dojo require as defined by the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+				</p>
+
+
+				<p>
+					<b>preventBackButtonFix</b>
+
+					Dojo uses internally back button blockers to avoid
+					problems with ajax requests causing the back button,
+					to move out of the back page navigation order.
+					Sometimes this behavior is not wanted and can be
+					turned off with this on a global scale;
+				</p>
+
+				<p>
+					<b>bindEncoding</b>
+
+					Triggers a standard dojo bindEncoding as defined by
+					the
+					<a href="http://dojotoolkit.org/">Dojo Toolkit</a>
+
+					Although this control most of the times is not
+					needed one usage in plain jsf applications can be
+					thought of. The changing of the bind encodings, if
+					you check the parameter list of the control
+					<b>ioSendTransport</b>
+					can be used to change this encoding to any encoding
+					parameter needed. This can be used to change the
+					internal ajax request encodings of various controls
+					in a global manner.
+				</p>
+
+				<p>
+					<b>ioSendTransport</b>
+					<br />
+					Dojo in its underlying architecture allows various
+					options of server-client side communication. This
+					setting allows the alteration of the communication
+					layer to a different protocol. Currently only in
+					usage is xmlhttprequest, hence setting this encoding
+					will not change too much. But different encodings
+					like iframe are planned for the future.
+				</p>
+				<p>
+					<b>development</b>
+					<br />
+					If this parameter is set to true. The expanded
+					debuggable version of dojo is included
+					if set to false the compressed one is included.
+				</p>
+
+
+			</p>
+		</section>
+
+	</body>
+
+
+</document>

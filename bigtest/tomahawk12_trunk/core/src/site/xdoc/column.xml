@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+--><document>
+    <body>
+        <!-- Description -->
+        <section name="Description">
+            
+            <p>A tag that extend h:column to provide HTML passthrough attributes.</p>
+            <p>
+              t:column can be used instead of h:column in a t:datatable. It provides 
+              HTML passthrough attributes for header (&lt;th&gt;), 
+              footer (&lt;td&gt;) and row cells (&lt;td&gt;).
+            </p>
+        </section>
+        <!-- screen shot -->
+        <section name="Screen Shot">
+            
+            <p>Not Available</p> <!-- replace with either a figure or Not Available -->
+            <!--
+            <figure src="jscookmenu.png" alt="jscookmenu"/>
+            -->
+        </section>
+        <!-- API -->
+        <section name="API">
+            
+            <table>
+                <tr>
+                    <td colspan="1" rowspan="1">component-family</td>
+                    <td colspan="1" rowspan="1">javax.faces.Column</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-type</td>
+                    <td colspan="1" rowspan="1">-</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">component-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.column.HtmlSimpleColumn</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">renderer-class</td>
+                    <td colspan="1" rowspan="1">-</td>
+                </tr>
+                <tr>
+                    <td colspan="1" rowspan="1">tag-class</td>
+                    <td colspan="1" rowspan="1">org.apache.myfaces.custom.column.HtmlColumnTag</td>
+                </tr>
+            </table>
+        </section>
+        <!-- Usage -->
+        <section name="Usage">
+            
+            <source xml:space="preserve">
+&lt;t:datatable var="row" ...&gt;
+    &lt;t:column styleClass="#{row.styleClass}"&gt;
+    ...
+    &lt;/t:column&gt;
+&lt;/t:datatable&gt;
+            </source>
+        </section>
+        <!-- Syntax -->
+        <section name="Syntax">
+            
+            <blockquote><h3>&lt;t:column/&gt;</h3>
+                <code>width - the width of the column.</code><br/>
+                <code>colspan - html colspan passthru.</code><br/>
+                <br/>
+                <code>dir - row cell, ltr | rtl.</code><br/>
+                <code>lang - row cell, language see RFC 1766</code><br/>
+                <code>title - row cell, title (tooltip)</code><br/>
+                <code>style - row cell, inline css-style</code><br/>
+                <code>styleClass - row cell, css style class</code><br/>
+                <code>onclick - row cell, onclick event</code><br/>
+                <code>ondblclick - row cell, ondblclick event</code><br/>
+                <code>onmousedown - row cell, onmousedown event</code><br/>
+                <code>onmouseup - row cell, onmouseup event</code><br/>
+                <code>onmouseover - row cell, onmouseover event</code><br/>
+                <code>onmousemove - row cell, onmousemove event</code><br/>
+                <code>onmouseout - row cell, onmouseout event</code><br/>
+                <code>onkeypress - row cell, onkeypress event</code><br/>
+                <code>onkeydown - row cell, onkeydown event</code><br/>
+                <code>onkeyup - row cell, onkeyup event</code><br/>
+                <br/>
+                <code>headerdir - header cell, ltr | rtl.</code><br/>
+                <code>headerlang - header cell, language see RFC 1766</code><br/>
+                <code>headertitle - header cell, title (tooltip)</code><br/>
+                <code>headercolspan - colspan passthru for header column</code><br/>
+                <code>headerstyle - header cell, inline css-style</code><br/>
+                <code>headerstyleClass - header cell, css style class</code><br/>
+                <code>headeronclick - header cell, onclick event</code><br/>
+                <code>headerondblclick - header cell, ondblclick event</code><br/>
+                <code>headeronmousedown - header cell, onmousedown event</code><br/>
+                <code>headeronmouseup - header cell, onmouseup event</code><br/>
+                <code>headeronmouseover - header cell, onmouseover event</code><br/>
+                <code>headeronmousemove - header cell, onmousemove event</code><br/>
+                <code>headeronmouseout - header cell, onmouseout event</code><br/>
+                <code>headeronkeypress - header cell, onkeypress event</code><br/>
+                <code>headeronkeydown - header cell, onkeydown event</code><br/>
+                <code>headeronkeyup - header cell, onkeyup event</code><br/>
+                <br/>
+                <code>footerdir - footer cell, ltr | rtl.</code><br/>
+                <code>footerlang - footer cell, language see RFC 1766</code><br/>
+                <code>footertitle - footer cell, title (tooltip)</code><br/>
+                <code>footercolspan - colspan passthru for footer column</code><br/>
+                <code>footerstyle - footer cell, inline css-style</code><br/>
+                <code>footerstyleClass - footer cell, css style class</code><br/>
+                <code>footeronclick - footer cell, onclick event</code><br/>
+                <code>footerondblclick - footer cell, ondblclick event</code><br/>
+                <code>footeronmousedown - footer cell, onmousedown event</code><br/>
+                <code>footeronmouseup - footer cell, onmouseup event</code><br/>
+                <code>footeronmouseover - footer cell, onmouseover event</code><br/>
+                <code>footeronmousemove - footer cell, onmousemove event</code><br/>
+                <code>footeronmouseout - footer cell, onmouseout event</code><br/>
+                <code>footeronkeypress - footer cell, onkeypress event</code><br/>
+                <code>footeronkeydown - footer cell, onkeydown event</code><br/>
+                <code>footeronkeyup - footer cell, onkeyup event</code>
+            </blockquote>
+        </section>
+        <!-- Instructions -->
+        <section name="Instructions">
+            
+            <p>TODO: create an example</p>
+        </section>
+    </body>
+    
+</document>

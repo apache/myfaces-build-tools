@@ -1,0 +1,10 @@
+        <attribute>
+            <name>into</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+              An EL expression that specifies where to store a String holding the results
+              of rendering all the children of this component; this is assigned to after
+              rendering of this component (and its children) is complete.
+            </description>
+        </attribute>

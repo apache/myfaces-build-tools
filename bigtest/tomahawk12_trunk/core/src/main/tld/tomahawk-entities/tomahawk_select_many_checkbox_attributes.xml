@@ -1,0 +1,10 @@
+        <attribute>
+            <name>layoutWidth</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                A integer representing the number of checkbox rows if
+                the layout is lineDirection and checkbox columns if
+                the layout is pageDirection.
+            </description>
+        </attribute>

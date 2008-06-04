@@ -1,0 +1,298 @@
+<navigation-rule>
+    <from-view-id>/examples/index.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>commandButton</from-outcome>
+      <to-view-id>/examples/commandButton.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>commandLink</from-outcome>
+
+      <to-view-id>/examples/commandLink.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>dataTable</from-outcome>
+      <to-view-id>/examples/dataTable.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+
+      <from-outcome>graphicImage</from-outcome>
+      <to-view-id>/examples/graphicImage.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>inputFields</from-outcome>
+      <to-view-id>/examples/inputFields.jsp</to-view-id>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>message</from-outcome>
+      <to-view-id>/examples/message.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>messages</from-outcome>
+      <to-view-id>/examples/messages.jsp</to-view-id>
+
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>outputText</from-outcome>
+      <to-view-id>/examples/outputText.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>panelGrid</from-outcome>
+
+      <to-view-id>/examples/panelGrid.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>selectBoolean</from-outcome>
+      <to-view-id>/examples/selectBoolean.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+
+      <from-outcome>selectMany</from-outcome>
+      <to-view-id>/examples/selectMany.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>selectOne</from-outcome>
+      <to-view-id>/examples/selectOne.jsp</to-view-id>
+    </navigation-case>
+
+</navigation-rule>
+
+
+<navigation-rule>
+    <from-view-id>/examples/commandButton.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>ok</from-outcome>
+      <to-view-id>/examples/commandButtonProcess.jsp</to-view-id>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/commandButtonProcess.jsp</from-view-id>
+    <navigation-case>
+
+      <from-outcome>back</from-outcome>
+      <to-view-id>/examples/commandButton.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+
+<navigation-rule>
+    <from-view-id>/examples/commandLink.jsp</from-view-id>
+    <navigation-case>
+
+      <from-outcome>ok</from-outcome>
+      <to-view-id>/examples/commandLinkProcess.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>commandButton</from-outcome>
+      <to-view-id>/examples/commandButton.jsp</to-view-id>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/commandLinkProcess.jsp</from-view-id>
+    <navigation-case>
+
+      <from-outcome>back</from-outcome>
+      <to-view-id>/examples/commandLink.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/dataTable.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/graphicImage.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+      <to-view-id>/examples/index.jsp</to-view-id>
+
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/inputFields.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>login</from-outcome>
+      <to-view-id>/examples/inputFieldsProcess.jsp</to-view-id>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/inputFieldsProcess.jsp</from-view-id>
+    <navigation-case>
+
+      <from-outcome>back</from-outcome>
+      <to-view-id>/examples/inputFields.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/message.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+
+      <to-view-id>/examples/messageProcess.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/messageProcess.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>back</from-outcome>
+      <to-view-id>/examples/message.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+
+    <from-view-id>/examples/messages.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/examples/messagesProcess.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/messagesProcess.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>back</from-outcome>
+      <to-view-id>/examples/messages.jsp</to-view-id>
+
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/outputText.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/panelGrid.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/selectBoolean.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>ok</from-outcome>
+      <to-view-id>/examples/selectBooleanProcess.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+
+      <from-outcome>backToIndex</from-outcome>
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/selectBooleanProcess.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>back</from-outcome>
+
+      <to-view-id>/examples/selectBoolean.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/selectOne.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>ok</from-outcome>
+      <to-view-id>/examples/selectOneProcess.jsp</to-view-id>
+
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/selectOneProcess.jsp</from-view-id>
+
+    <navigation-case>
+      <from-outcome>back</from-outcome>
+      <to-view-id>/examples/selectOne.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/selectMany.jsp</from-view-id>
+    <navigation-case>
+
+      <from-outcome>ok</from-outcome>
+      <to-view-id>/examples/selectManyProcess.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>backToIndex</from-outcome>
+      <to-view-id>/examples/index.jsp</to-view-id>
+    </navigation-case>
+
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/examples/selectManyProcess.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>back</from-outcome>
+      <to-view-id>/examples/selectMany.jsp</to-view-id>
+    </navigation-case>
+</navigation-rule>
+
+
+
+
+<!-- HTML navigation -->
+<navigation-rule>
+    <from-view-id>/html.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>ok</from-outcome>
+      <to-view-id>/processHtml.jsp</to-view-id>
+
+    </navigation-case>
+</navigation-rule>
+
+<navigation-rule>
+    <from-view-id>/processHtml.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>back</from-outcome>
+      <to-view-id>/html.jsp</to-view-id>
+    </navigation-case>
+
+</navigation-rule>

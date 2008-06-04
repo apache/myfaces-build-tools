@@ -1,0 +1,20 @@
+        <!-- HtmlRadio attributes -->
+        <attribute>
+            <name>for</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                 The id of the referenced extended selectOneRadio component.  This value 
+                 is resolved to the particular component using the standard
+                 UIComponent.findComponent() searching algorithm.
+            </description>
+        </attribute>
+        <attribute>
+            <name>index</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The index of the corresponding SelectItem, where 0 represents
+                the first SelectItem.
+            </description>
+        </attribute>

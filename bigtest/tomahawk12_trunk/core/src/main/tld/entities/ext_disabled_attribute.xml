@@ -1,0 +1,25 @@
+        <attribute>
+            <name>disabled</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>When set instead of a Hyperlink
+                a span tag is rendered in the corresponding
+                Component
+            </description>
+        </attribute>
+        <attribute>
+            <name>disabledStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>CSS-Style Attribute to
+                render when disabled is true
+            </description>
+        </attribute>
+        <attribute>
+            <name>disabledStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>CSS-Style Class to
+                use when disabled is true
+            </description>
+        </attribute>

@@ -1,0 +1,110 @@
+<managed-bean>
+    <managed-bean-name>stringBean</managed-bean-name>
+    <managed-bean-class>StringBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+    <managed-property>
+        <property-name>name</property-name>
+        <value></value>
+
+    </managed-property>
+    <managed-property>
+        <property-name>password</property-name>
+        <value></value>
+    </managed-property>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>integerBean</managed-bean-name>
+
+    <managed-bean-class>IntegerBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+
+<managed-bean>
+    <managed-bean-name>statistic</managed-bean-name>
+    <managed-bean-class>Statistic</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>todayDate</managed-bean-name>
+    <managed-bean-class>TodayDate</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>selectBean</managed-bean-name>
+
+    <managed-bean-class>SelectBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>items</managed-bean-name>
+    <managed-bean-class>Items</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>languages</managed-bean-name>
+    <managed-bean-class>ListBean</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <managed-property>
+         <property-name>list</property-name>             
+         <list-entries>
+
+            <value-class>javax.faces.model.SelectItem</value-class>
+            <value>#{language1}</value>
+            <value>#{language2}</value>
+            <value>#{language3}</value>
+         </list-entries>
+    </managed-property>
+</managed-bean>
+
+<managed-bean>
+    <managed-bean-name>language1</managed-bean-name>
+    <managed-bean-class>javax.faces.model.SelectItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+        <property-name>label</property-name>
+        <value>english</value>
+
+    </managed-property>
+    <managed-property>
+        <property-name>value</property-name>
+        <value>english</value>
+    </managed-property>
+</managed-bean>
+<managed-bean>
+    <managed-bean-name>language2</managed-bean-name>
+
+    <managed-bean-class>javax.faces.model.SelectItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+    <managed-property>
+        <property-name>label</property-name>
+        <value>germany</value>
+    </managed-property>
+    <managed-property>
+
+        <property-name>value</property-name>
+        <value>germany</value>
+    </managed-property>
+</managed-bean>
+<managed-bean>
+    <managed-bean-name>language3</managed-bean-name>
+    <managed-bean-class>javax.faces.model.SelectItem</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+
+    <managed-property>
+        <property-name>label</property-name>
+        <value>czech</value>
+    </managed-property>
+    <managed-property>
+        <property-name>value</property-name>
+        <value>czech</value>
+
+    </managed-property>
+</managed-bean>

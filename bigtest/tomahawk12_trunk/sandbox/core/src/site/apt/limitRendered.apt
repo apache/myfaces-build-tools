@@ -1,0 +1,183 @@
+~~~~~~~~~~~~~~~~~~~~
+Description
+  
+  The <<<limitRendered>>> component limits the number of children components
+  that are rendered. It can do this by one of two methods, by index or by count.
+  
+  The component was inspired by the c:choose of JSTL, but has been enhanced for JSF.
+  Like the choose tag, it can render only one child, but that is where the similarity
+  ends. See below for examples and usage.
+      
+~~~~~~~~~~~~~~~~~~~~
+Screen Shot
+
+  Component does not render HTML, see example for more information.
+
+~~~~~~~~~~~~~~~~~~~~
+API
+  
+*--+--+
+component-family | javax.faces.Data
+*--+--+
+component-type | org.apache.myfaces.UILimitRendered
+*--+--+
+component-class | org.apache.myfaces.custom.limitrendered.UILimitRendered
+*--+--+
+tag-class | org.apache.myfaces.custom.limitrendered.UILimitRenderedTag
+*--+--+
+  
+~~~~~~~~~~~~~~~~~~~~
+Usage
+	
++--------+
+<s:limitRendered
+  id="String"
+  binding="EL"
+  rendered="Boolean"
+  type="count|index"
+  value="Object">
+  <h:outputText />
+  ...
+</s:limitRendered>
++--------+
+
+~~~~~~~~~~~~~~~~~~~~
+Syntax
+
+* \<s:limitRendered /\>
+
+	<<<type>>> [count|index] - How the children should be limited. If count, the number of children given by the value
+	will be rendered. If index, the children with the given indexes will be rendered. Default: count
+	
+	<<<value>>> - Depends on the type:
+	
+	* count - The value is the maximum number of children to render. The first <<<count>>> number of children will be
+	rendered that have their <<<isRendered()>>> function (rendered attribute) return true. Default: 1
+	
+	* index - A set (collection, array or comma-separated string) of indexes. Positive
+	indexes are counted from the start (0 being the first) and negative from the end (-1 being the last)
+	Default: all children
+	
+~~~~~~~~~~~~~~~~~~~~
+Examples
+
+* type == count
+
+	Because the defautls are count and 1, if no attributes are specified, only the first
+	child that is rendered will be rendered. "A" will be rendered:
+
++----+
+<s:limitRendered>
+  <h:outputText value="A" />
+  <h:outputText value="B" />
+  <h:outputText value="C" />
+</s:limitRendered>
++----+
+
+	Only "B" will be rendered:	
+	
++----+
+<s:limitRendered>
+  <h:outputText value="A" rendered="false" />
+  <h:outputText value="B" />
+  <h:outputText value="C" />
+</s:limitRendered>
++----+
+
+	The following example shows that the value with count may exceed the number or rendered
+	children. In this case, although the count is 3, there are only 2 components that able
+	to be rendered. "B C" will be rendered:
+	
++----+
+<s:limitRendered value="3">
+  <h:outputText value="A" rendered="false" />
+  <h:outputText value="B" />
+  <h:outputText value="C" />
+</s:limitRendered>
++----+
+
+* type == index
+
+  If the value is null, the component does nothing. So in this example, "A B C" is rendered:
+
++----+
+<s:limitRendered type="index">
+  <h:outputText value="A" rendered="false" />
+  <h:outputText value="B" />
+  <h:outputText value="C" />
+</s:limitRendered>
++----+
+
+	If the component is not rendered, and its index is given, nothing is rendered for that index.
+	In this example, nothing is rendered since index 0 is A and A is not rendered:
+	
++----+
+<s:limitRendered type="index" value="0">
+  <h:outputText value="A" rendered="false" />
+  <h:outputText value="B" />
+  <h:outputText value="C" />
+</s:limitRendered>
++----+
+
+  Negative indexes are also allowed. You may interpret a negative index as {component.getChildren().size() - value)}.
+  In this example "B" is rendered because 3 (the number of components) minus 2 is 1, the index of the second component:
+  
++----+
+<s:limitRendered type="index" value="-2">
+  <h:outputText value="A" />
+  <h:outputText value="B" />
+  <h:outputText value="C" />
+</s:limitRendered>
++----+
+
+  The value doesn't have to be one value with an index, it can be given any index, as long as it is within the
+  size of the children collection. This example renders "A, B, C":
+  
++----+
+<s:limitRendered type="index" value="0, 1, -1">
+  <h:outputText value="A" />
+  <h:outputText value="B" />
+  <h:outputText value="C" />
+</s:limitRendered>
++----+
+  
+~~~~~~~~~~~~~~~~~~~~
+Valid Input
+
+  The value property can except many types of data.
+  
+* type == count
+
+  The value can be:
+  
+  * An instance of <<<java.lang.Number>>>. The value is taken as <<<((Number)value).intValue()>>>
+  
+  * An object whose <<<toString()>>> is parsable by <<<Integer.parseInt(String)>>>. So in the above examples,
+  a string of "2" is valid
+  
+  * <<<null>>> which is treated as "0"
+  
+* type == index
+
+	With index, the value must be in the range of the children components. So for example, using a value of 5 or a value
+	of -5 on a component with 4 children will throw an exception. The value needs to be a set of values 
+	that can be coerced into integers. Valid sets are:
+  
+  * Instance of <<<java.util.Collection>>>
+  
+  * Instance of <<<int[]>>>
+  
+  * Instance of, or castable to, <<<Object[]>>>
+  
+  * A string with comma-separated numbers (white-space is okay, it is trimmed)
+  
+  * <<<null>>> which will render all children that can be rendered
+  
+  []
+  
+  In the case of a collection or an object array, the items in the collection or array must be <<<java.lang.Number>>>
+  instances or objects whose <<<toString()>>> is parsable by <<<Integer.parseInt(String)>>>.
+  
+  See the example code for more information.
+  
+	

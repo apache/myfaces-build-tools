@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component generateStateMethods="false" >
+    <component-class>org.apache.myfaces.component.html.ext.HtmlDataTable</component-class>
+    <base-class>javax.faces.component.html.HtmlDataTable</base-class>
+    <component-type>org.apache.myfaces.HtmlDataTable</component-type>
+    <field>
+        <name>preserveDataModel</name>
+        <type>boolean</type>
+        <default-value>false</default-value>
+    </field>
+    <field>
+        <name>preserveSort</name>
+        <type>boolean</type>
+        <default-value>false</default-value>
+    </field>
+    <field>
+        <name>enabledOnUserRole</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>visibleOnUserRole</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>renderedIfEmpty</name>
+        <type>boolean</type>
+        <default-value>true</default-value>
+    </field>
+    <field>
+        <name>rowIndexVar</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>rowCountVar</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>previousRowDataVar</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>rowOnMouseOver</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>rowOnMouseOut</name>
+        <type>java.lang.String</type>
+    </field>
+</component>

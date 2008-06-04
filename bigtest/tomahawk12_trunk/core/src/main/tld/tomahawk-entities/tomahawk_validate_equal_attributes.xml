@@ -1,0 +1,8 @@
+        <attribute>
+            <name>for</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                the id of the foreign component, which is needed for the validation
+            </description>
+        </attribute>

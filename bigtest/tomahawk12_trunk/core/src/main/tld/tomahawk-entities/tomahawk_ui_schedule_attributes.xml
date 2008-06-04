@@ -1,0 +1,110 @@
+<attribute>
+	<name>compactMonthRowHeight</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>compactWeekRowHeight</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>detailedRowHeight</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>expandToFitEntries</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>headerDateFormat</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>readonly</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>renderZeroLengthEntries</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>theme</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>tooltip</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>visibleEndHour</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>visibleStartHour</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>workingEndHour</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>workingStartHour</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>submitOnClick</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>hourNotation</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>compactMonthDayOfWeekDateFormat</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+<attribute>
+	<name>splitWeekend</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+
+<attribute>
+	<name>mouseListener</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<type>java.lang.String</type>
+</attribute>
+

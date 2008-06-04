@@ -1,0 +1,73 @@
+        <attribute>
+            <name>selectedIndex</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Index of tab that is selected by default.
+            </description>
+        </attribute>
+        <attribute>
+            <name>activeTabStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Style class of the active tab cell.
+            </description>
+        </attribute>
+        <attribute>
+            <name>inactiveTabStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Style class of the inactive tab cells.
+            </description>
+        </attribute>
+        <attribute>
+            <name>disabledTabStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Style class of the disabled tab cells.
+            </description>
+        </attribute>
+        <attribute>
+            <name>activeSubStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Style class of the active tab sub cell.
+            </description>
+        </attribute>
+        <attribute>
+            <name>inactiveSubStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Style class of the inactive tab sub cells.
+            </description>
+        </attribute>
+        <attribute>
+            <name>tabContentStyleClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Style class of the active tab content cell.
+            </description>
+        </attribute>
+        <attribute>
+            <name>serverSideTabSwitch</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Toggle client-side/server-side tab switches.
+            </description>
+        </attribute>
+        <attribute>
+            <name>activePanelTabVar</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                Boolean Variable that is set in request scope when rendering a panelTab. True means that the currently rendered
+                panelTab is active.
+            </description>
+        </attribute>

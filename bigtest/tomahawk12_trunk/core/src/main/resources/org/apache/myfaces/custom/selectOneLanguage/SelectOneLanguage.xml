@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component>
+    <component-class>org.apache.myfaces.custom.selectOneLanguage.selectOneLanguage</component-class>
+    <base-class>org.apache.myfaces.component.html.ext.HtmlSelectOneMenu</base-class>
+    <component-type>org.apache.myfaces.SelectOneLanguage</component-type>
+    <component-family>javax.faces.SelectOne</component-family>
+    <renderer-type>org.apache.myfaces.SelectOneLanguage</renderer-type>
+	<field>
+        <name>length</name>
+        <type>java.lang.String</type>
+    </field>
+</component>

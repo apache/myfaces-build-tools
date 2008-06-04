@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hGraphicImage</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">hGraphicImage</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/home.jsf</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/hGraphicImage.jsf</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//img[@id='graphicImageId']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//img[@id='graphicImageId']@alt</td>
+	<td>alt text</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//img[@id='graphicImageId']@class</td>
+	<td>imageClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//img[@id='graphicImageId']@height</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//img[@id='graphicImageId']@lang</td>
+	<td>en</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//img[@id='graphicImageId']@longdesc</td>
+	<td>/testSuite/</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//img[@id='graphicImageId']@src</td>
+	<td>regexp:(http:\/\/*|)\/myfaces-example-simple\/images\/logo.jpg</td>
+</tr>
+<!--Note: IE 6 and 7 returns the style attribute as [object] -->
+<tr>
+	<td>assertAttribute</td>
+	<td>//img[@id='graphicImageId']@style</td>
+	<td>regexp:(\[object\]|background-color: gray;)</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//img[@id='graphicImageId']@title</td>
+	<td>title text</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

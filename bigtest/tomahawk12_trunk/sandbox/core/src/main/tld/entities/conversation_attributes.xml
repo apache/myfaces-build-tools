@@ -1,0 +1,7 @@
+<attribute>
+    <name>value</name>
+    <required>true</required>
+    <rtexprvalue>false</rtexprvalue>
+    <type>java.lang.String</type>
+    <description>The bean reference.</description>
+</attribute>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component generateStateMethods="true">
+    <component-class>org.apache.myfaces.custom.inputTextHelp.HtmlInputTextHelp</component-class>
+    <base-class>javax.faces.component.html.HtmlInputText</base-class>
+    <component-type>org.apache.myfaces.HtmlInputTextHelp</component-type>
+    <field>
+        <name>helpText</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>selectText</name>
+        <type>boolean</type>
+    </field>
+</component>

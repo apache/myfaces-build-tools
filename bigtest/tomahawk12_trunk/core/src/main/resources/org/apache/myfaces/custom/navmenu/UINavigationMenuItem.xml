@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component generateUserRoleMethods="true" >
+    <component-class>org.apache.myfaces.custom.navmenu.UINavigationMenuItem</component-class>
+    <base-class>javax.faces.component.UISelectItem</base-class>
+    <component-type>org.apache.myfaces.NavigationItem</component-type>
+    <component-family>javax.faces.SelectItem</component-family>
+    <field>
+        <name>icon</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>open</name>
+        <type>boolean</type>
+    </field>
+    <field>
+        <name>active</name>
+        <type>boolean</type>
+    </field>
+    <field>
+        <name>activeOnViewIds</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>split</name>
+        <type>boolean</type>
+    </field>
+    <field>
+        <name>action</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>enabledOnUserRole</name>
+        <type>java.lang.String</type>
+    </field>
+    <field>
+        <name>visibleOnUserRole</name>
+        <type>java.lang.String</type>
+    </field>
+</component>

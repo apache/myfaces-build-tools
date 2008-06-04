@@ -1,0 +1,40 @@
+        <attribute>
+            <name>none</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                none of the given cardtypes is allowed.
+            </description>
+        </attribute>
+        <attribute>
+            <name>amex</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                american express cards
+            </description>
+        </attribute>
+        <attribute>
+            <name>visa</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                validation for visa
+            </description>
+        </attribute>
+        <attribute>
+            <name>mastercard</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                validation for mastercard
+            </description>
+        </attribute>
+        <attribute>
+            <name>discover</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                validation for discover
+            </description>
+        </attribute>

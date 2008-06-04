@@ -1,0 +1,61 @@
+ ------
+ Apache MyFaces - Tomahawk - Alias Bean
+ ------
+
+Description
+            
+  A tag that defines a new bean (alias) with a given value.
+
+  This allows you to design a subform with a generic (fictive) beans
+  and to include it in all the pages where you use it. You just need
+  to make an alias to the real bean named after the generic bean
+  before including the subform.
+
+  When used within an aliasBeansScope tag, this tag adds the alias
+  to the aliasBeansScope. This makes configuration with multiple
+  aliasBeans easier to write.
+
+Screen Shot
+            
+  Not available at this time.
+~~<!-- replace with either a figure or Not Available -->
+~~<figure src="jscookmenu.png" alt="jscookmenu"/>
+
+API
+
+*----------------+-----------------------------------------------------+
+|component-family|javax.faces.Data                                     |
+*----------------+-----------------------------------------------------+
+|renderer-type   |org.apache.myfaces.AliasBean                         |
+*----------------+-----------------------------------------------------+
+|component-class |org.apache.myfaces.custom.aliasbean.AliasBean        |
+*----------------+-----------------------------------------------------+
+|renderer-class  |org.apache.myfaces.custom.aliasbean.AliasBeanRenderer|
+*----------------+-----------------------------------------------------+
+|tag-class       |org.apache.myfaces.custom.aliasbean.AliasBeanTag     |
+*----------------+-----------------------------------------------------+
+
+Usage
+
++---
+<t:aliasBean alias="#{holder}" value="#{aliasTest1}">
+    <f:subview id="simulatedIncludedSubform1">
+        <h:outputLabel for="name" value="Name:"/>
+        <h:inputText id="name" value="#{holder.name}"/>
+    </f:subview>
+</t:aliasBean>
++---
+
+Syntax
+
+* \<t:aliasBean\>
+
+  <<<alias>>> - The bean that will be set to the given value (Example: #{holder}).
+
+  <<<value>>> - The value that the alias can be set to.
+  This can be a string (like "toto") or a reference to an existing
+  bean (like "#{myBean.member1}").
+
+Instructions
+            
+  See examples/aliasBean.jsp for an example!

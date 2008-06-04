@@ -1,0 +1,31 @@
+        <attribute>
+            <name>value</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+               Boolean value indicating whether the panel is collapsed by default.
+               In collapsed state, the body of the panel is not rendered. If you
+               provide a facet with name 'closedContent', this facet is rendered
+               instead.
+            </description>
+        </attribute>
+        <attribute>
+            <name>var</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+               The variable which you can use to check for the collapsed
+               state of the enclosing component. This is especially
+               useful for custom headers you define in a facet with name 'header'.
+            </description>
+        </attribute>
+        <attribute>
+            <name>titleVar</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+               This variable is defined to hold the value of the title
+               component - you can use it for accessing this value
+               in custom headers you define in a facet with name 'header'.
+            </description>
+        </attribute>

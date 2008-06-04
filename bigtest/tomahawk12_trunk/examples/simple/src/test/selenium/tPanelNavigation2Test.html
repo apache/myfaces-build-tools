@@ -1,0 +1,114 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>tPanelNavigation2Test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">tPanelNavigation2Test</td></tr>
+</thead><tbody>
+<!--
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+//-->
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/home.jsf</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/tPanelNavigation2.jsf</td>
+	<td></td>
+</tr>
+<!--panel Navigation2 + List format + navigationMenuItem -->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//form[@id='navListForm']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='navListForm']/ul@class</td>
+	<td>styleClass</td>
+</tr>
+<!--Note: IE 6 and 7 returns the style attribute as [object] -->
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='navListForm']/ul@style</td>
+	<td>regexp:(\[object\]|background-color: silver;)</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='navListForm']/ul/li[1]@class</td>
+	<td>itemClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='navListForm']/ul/li[1]/a/img[@id='navListForm_pn2_list_img0']@src</td>
+	<td>regexp:(http:\/\/*|)\/myfaces-example-simple\/testSuite\/images\/icon1.jpg</td>
+</tr>
+<!--panel Navigation2 + Table format + navigationMenuItem -->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//form[@id='navTableForm']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='navTableForm']/table@class</td>
+	<td>styleClass</td>
+</tr>
+<!--panel Navigation2 + List  format + CommandNavigation2-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//form[@id='navList2Form']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='navList2Form']/ul@class</td>
+	<td>styleClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='navList2Form']/ul/li[1]@class</td>
+	<td>itemClass</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='navList2Form']/ul/li[2]/a[@id='navList2Form:pn2_list:cn2_p2']/img@src</td>
+	<td>regexp:(http:\/\/*|)\/myfaces-example-simple\/testSuite\/images\/icon2.jpg</td>
+</tr>
+<!--panel Navigation2 + Table  format + CommandNavigation2-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//form[@id='navTable2Form']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='navTable2Form']/table@class</td>
+	<td>styleClass</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

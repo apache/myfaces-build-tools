@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+<faces-config>
+
+    <!--  logger/debugging phase listener -->
+    <lifecycle>
+       <!--<phase-listener>org.apache.myfaces.examples.debug.DebugPhaseListener</phase-listener>
+    --></lifecycle>
+
+    <!-- managed bean for convertStringUtils -->
+
+    <managed-bean>
+        <managed-bean-name>convertStringUtilsBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.convertStringUtils.ConvertStringUtilsBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <!-- managed bean for notifierBean-->
+
+    <managed-bean>
+        <managed-bean-name>notifierBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.valueChangeNotifier.NotifierBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>toggleBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.toggle.ToggleBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+
+    <!-- managed bean for singleRowSelectList-->
+
+    <managed-bean>
+        <managed-bean-name>dojoDialogBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.dojodialog.DojoDialogBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <!-- managed bean for singleRowSelectList-->
+
+    <managed-bean>
+        <managed-bean-name>selectOneRowList</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.selectOneRow.SelectOneRowList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <!-- managed bean for subForm-->
+
+    <managed-bean>
+        <managed-bean-name>subFormBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.subform.SubFormBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+	<!-- managed bean for form-->
+    <managed-bean>
+        <managed-bean-name>formBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.form.FormBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+	<!-- managed bean for autoUpdateDataTable-->
+    <managed-bean>
+        <managed-bean-name>autoUpdateDataTableBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.autoupdatedatatable.AutoUpdateDataTableBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+	<!-- managed bean for ajaxInputSuggest-->
+
+	<managed-bean>
+		<managed-bean-name>inputSuggestAjax</managed-bean-name>
+		<managed-bean-class>org.apache.myfaces.examples.inputSuggestAjax.InputSuggestAjaxBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+  <!-- Managed Beans for inputSuggest.jsp -->
+
+    <managed-bean>
+        <managed-bean-name>user</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.inputsuggest.User</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+     <!-- managed bean for inputAjax components -->
+    <managed-bean>
+        <managed-bean-name>inputAjaxBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.inputAjax.InputAjaxBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <!-- managed bean for ajax child combo box component -->
+    <managed-bean>
+        <managed-bean-name>ajaxChildComboBoxBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.ajaxchildcombobox.AjaxChildComboBoxBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <!-- Managed Beans for pprPanelGroup.jsp -->
+
+    <managed-bean>
+        <managed-bean-name>pprExampleBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.ppr.PPRExampleBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <!-- Managed Beans for pprScroller.jsp -->
+
+    <managed-bean>
+        <managed-bean-name>pprScrollerExampleBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.ppr.PPRScrollerExampleBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>userHandler</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.examples.inputsuggest.UserHandler</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>user</property-name>
+      <value>#{user}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>choices</property-name>
+      <value>#{choices}</value>
+    </managed-property>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>choices</managed-bean-name>
+    <managed-bean-class>java.util.TreeMap</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <map-entries>
+        <map-entry>
+            <key>1</key>
+            <value>Alabama</value>
+        </map-entry>
+      <map-entry>
+        <key>2</key>
+        <value>Alaska</value>
+      </map-entry>
+      <map-entry>
+        <key>3</key>
+        <value>Arizona</value>
+      </map-entry>
+      <map-entry>
+        <key>4</key>
+        <value>Arkansas</value>
+      </map-entry>
+      <map-entry>
+        <key>5</key>
+        <value>California</value>
+      </map-entry>
+      <map-entry>
+        <key>6</key>
+        <value>Colorado</value>
+      </map-entry>
+      <map-entry>
+        <key>7</key>
+        <value>Connecticut</value>
+      </map-entry>
+      <map-entry>
+        <key>8</key>
+        <value>Delaware</value>
+      </map-entry>
+      <map-entry>
+        <key>9</key>
+        <value>Florida</value>
+      </map-entry>
+      <map-entry>
+        <key>10</key>
+        <value>Georgia</value>
+      </map-entry>
+      <map-entry>
+        <key>11</key>
+        <value>Hawaii</value>
+      </map-entry>
+      <map-entry>
+        <key>12</key>
+        <value>Idaho</value>
+      </map-entry>
+      <map-entry>
+        <key>13</key>
+        <value>Illinois</value>
+      </map-entry>
+      <map-entry>
+        <key>14</key>
+        <value>Indiana</value>
+      </map-entry>
+      <map-entry>
+        <key>15</key>
+        <value>Iowa</value>
+      </map-entry>
+      <map-entry>
+        <key>16</key>
+        <value>Kansas</value>
+      </map-entry>
+      <map-entry>
+        <key>17</key>
+        <value>Kentucky</value>
+      </map-entry>
+      <map-entry>
+        <key>18</key>
+        <value>Louisiana</value>
+      </map-entry>
+      <map-entry>
+        <key>19</key>
+        <value>Maine</value>
+      </map-entry>
+      <map-entry>
+        <key>20</key>
+        <value>Maryland</value>
+      </map-entry>
+      <map-entry>
+        <key>21</key>
+        <value>Massachusetts</value>
+      </map-entry>
+      <map-entry>
+        <key>22</key>
+        <value>Michigan</value>
+      </map-entry>
+      <map-entry>
+        <key>23</key>
+        <value>Minnesota</value>
+      </map-entry>
+      <map-entry>
+        <key>24</key>
+        <value>Mississippi</value>
+      </map-entry>
+      <map-entry>
+        <key>25</key>
+        <value>Missouri</value>
+      </map-entry>
+      <map-entry>
+        <key>26</key>
+        <value>Montana</value>
+      </map-entry>
+      <map-entry>
+        <key>27</key>
+        <value>Nebraska</value>
+      </map-entry>
+      <map-entry>
+        <key>28</key>
+        <value>Nevada</value>
+      </map-entry>
+      <map-entry>
+        <key>29</key>
+        <value>New Hampshire</value>
+      </map-entry>
+      <map-entry>
+        <key>30</key>
+        <value>New Jersey</value>
+      </map-entry>
+      <map-entry>
+        <key>31</key>
+        <value>New Mexico</value>
+      </map-entry>
+      <map-entry>
+        <key>32</key>
+        <value>New York</value>
+      </map-entry>
+      <map-entry>
+        <key>33</key>
+        <value>North Carolina</value>
+      </map-entry>
+      <map-entry>
+        <key>34</key>
+        <value>North Dakota</value>
+      </map-entry>
+      <map-entry>
+        <key>35</key>
+        <value>Ohio</value>
+      </map-entry>
+      <map-entry>
+        <key>36</key>
+        <value>Oklahoma</value>
+      </map-entry>
+      <map-entry>
+        <key>37</key>
+        <value>Oregon</value>
+      </map-entry>
+      <map-entry>
+        <key>38</key>
+        <value>Pennsylvania</value>
+      </map-entry>
+      <map-entry>
+        <key>39</key>
+        <value>Rhode Island</value>
+      </map-entry>
+      <map-entry>
+        <key>40</key>
+        <value>South Carolina</value>
+      </map-entry>
+      <map-entry>
+        <key>41</key>
+        <value>South Dakota</value>
+      </map-entry>
+      <map-entry>
+        <key>42</key>
+        <value>Tennessee</value>
+      </map-entry>
+      <map-entry>
+        <key>43</key>
+        <value>Texas</value>
+      </map-entry>
+      <map-entry>
+        <key>44</key>
+        <value>Utah</value>
+      </map-entry>
+      <map-entry>
+        <key>45</key>
+        <value>Vermont</value>
+      </map-entry>
+      <map-entry>
+        <key>46</key>
+        <value>Virginia</value>
+      </map-entry>
+      <map-entry>
+        <key>47</key>
+        <value>Washington</value>
+      </map-entry>
+      <map-entry>
+        <key>48</key>
+        <value>West Virginia</value>
+      </map-entry>
+      <map-entry>
+        <key>49</key>
+        <value>Wisconsin</value>
+      </map-entry>
+      <map-entry>
+        <key>50</key>
+        <value>Wyoming</value>
+      </map-entry>
+    </map-entries>
+  </managed-bean>
+
+
+  <!-- managed bean for graphicImageDynamic -->
+
+  <managed-bean>
+    <managed-bean-name>graphicImageDynamicBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.examples.graphicImageDynamic.GraphicImageDynamicBean</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>graphicImageDynamicTextBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.examples.graphicImageDynamic.GraphicImageDynamicTextBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <!-- managed bean for outputLinkDynamic -->
+
+  <managed-bean>
+    <managed-bean-name>outputLinkDynamicBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.examples.outputLinkDynamic.OutputLinkDynamicBean</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+
+	<!--  Managed bean for the selectManyPicklist component -->
+	<managed-bean>
+		<managed-bean-name>picklistBean</managed-bean-name>
+		<managed-bean-class>org.apache.myfaces.examples.picklist.PicklistBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+    <!-- Managed beans for the scope shop  -->
+	<managed-bean>
+		<managed-bean-name>ScopeBean</managed-bean-name>
+		<managed-bean-class>
+			org.apache.myfaces.examples.scope.ScopeBean
+		</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>firstname</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>lastname</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>street</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>number</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>country</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>selectedproduct1</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>selectedproduct2</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>selectedproduct3</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>selectedproduct4</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>selectedproduct5</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>zipcode</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+		<managed-property>
+			<property-name>city</property-name>
+			<property-class>java.lang.String</property-class>
+			<value />
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>catalog</managed-bean-name>
+		<managed-bean-class>
+			org.apache.myfaces.examples.scope.Catalog
+		</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
+
+
+    <managed-bean>
+		<managed-bean-name>dateTimeConverterBean</managed-bean-name>
+		<managed-bean-class>org.apache.myfaces.examples.dateTimeConverter.DateTimeConverterBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>fisheye</managed-bean-name>
+		<managed-bean-class>org.apache.myfaces.examples.fisheye.FishEyeHandler</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+
+    <!-- conversation -->
+	<managed-bean>
+		<managed-bean-name>convData</managed-bean-name>
+		<managed-bean-class>org.apache.myfaces.examples.conversation.ConvData</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>wizardData</managed-bean-name>
+		<managed-bean-class>org.apache.myfaces.examples.conversation.WizardData</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>wizardController</managed-bean-name>
+		<managed-bean-class>org.apache.myfaces.examples.conversation.WizardController</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+    <managed-bean>
+    	<managed-bean-name>numberHolder</managed-bean-name>
+    	<managed-bean-class>org.apache.myfaces.examples.NumberHolder</managed-bean-class>
+    	<managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+    	<managed-bean-name>submitOnEvent</managed-bean-name>
+    	<managed-bean-class>org.apache.myfaces.examples.submitOnEvent.SubmitOnEventBean</managed-bean-class>
+    	<managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+    	<managed-bean-name>exporterBean</managed-bean-name>
+    	<managed-bean-class>org.apache.myfaces.examples.exporter.ExporterBean</managed-bean-class>
+    	<managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+
+    <!-- XMLTemplate -->
+    <managed-bean>
+    	<managed-bean-name>templateBacker</managed-bean-name>
+    	<managed-bean-class>org.apache.myfaces.examples.template.TemplateBacker</managed-bean-class>
+    	<managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+	<!-- redirect tracker -->
+	<managed-bean>
+		<managed-bean-name>requestTrackerRedirectBean</managed-bean-name>
+		<managed-bean-class>org.apache.myfaces.examples.RequestTrackerRedirectBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<!-- validation -->
+    <managed-bean>
+        <managed-bean-name>validateForm</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.validate.ValidateForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>sortableTableBean</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.data.SortableTableBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+  <!-- managed bean for imageLoop -->
+  <managed-bean>
+    <managed-bean-name>imageLoopBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.examples.imageloop.ImageLoopBean</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+  </managed-bean>
+  
+    <!-- managed bean for clientvalidation -->
+  <managed-bean>
+    <managed-bean-name>customerCreateBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.examples.clientvalidation.CustomerCreateBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  
+    <!-- managed bean for limitRendered -->
+    <managed-bean>
+        <managed-bean-name>limitRendered</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.limitrendered.LimitRenderedBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+  
+    <!-- managed bean for roundedDiv -->
+    <managed-bean>
+        <managed-bean-name>roundedDiv</managed-bean-name>
+        <managed-bean-class>org.apache.myfaces.examples.roundeddiv.RoundedDivBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+		  <managed-bean-name>passwordStrengthBean</managed-bean-name>
+		  <managed-bean-class>org.apache.myfaces.examples.passwordStrength.PasswordStrengthBean</managed-bean-class>
+		  <managed-bean-scope>request</managed-bean-scope>
+	 </managed-bean> 
+
+    <!-- managed bean for captcha -->	 
+	 <managed-bean>
+ 		<managed-bean-name>captchaBean</managed-bean-name>
+ 		<managed-bean-class>org.apache.myfaces.examples.captcha.CaptchaBean</managed-bean-class>
+ 		<managed-bean-scope>request</managed-bean-scope>
+ 	</managed-bean>
+  
+	<!-- navigation rules -->
+    <navigation-rule>
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/home.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- redirect tracker -->
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>requestTrackerRedirect</from-outcome>
+			<to-view-id>/redirectTracker/requestTrackerRedirect.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<!-- conversation -->
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>saveMe</from-outcome>
+			<to-view-id>/conversation/pageConversationEndAction.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{convData.save}</from-action>
+			<from-outcome>jo-o</from-outcome>
+			<to-view-id>/conversation/pageConversationEndAction.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{wizardController.save}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/conversation/wizardPage1.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>wizardPage1</from-outcome>
+			<to-view-id>/conversation/wizardPage1.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>wizardPage2</from-outcome>
+			<to-view-id>/conversation/wizardPage2.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>wizardPage3</from-outcome>
+			<to-view-id>/conversation/wizardPage3.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>wizardFinish</from-outcome>
+			<to-view-id>/conversation/wizardFinish.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{springWizardController.save}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/springConversation/wizardPage1.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>springWizardPage1</from-outcome>
+			<to-view-id>/springConversation/wizardPage1.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>springWizardPage2</from-outcome>
+			<to-view-id>/springConversation/wizardPage2.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>springWizardPage3</from-outcome>
+			<to-view-id>/springConversation/wizardPage3.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>springWizardFinish</from-outcome>
+			<to-view-id>/springConversation/wizardFinish.jsp</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+    <!-- navigational rules for the wizard -->
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>go_scope_shop</from-outcome>
+			<to-view-id>/scopeshop/page1.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/scopeshop/page1.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>go_next</from-outcome>
+			<to-view-id>/scopeshop/page2.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/scopeshop/page2.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>go_next</from-outcome>
+			<to-view-id>/scopeshop/page3.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>go_reset</from-outcome>
+			<to-view-id>/scopeshop/resetscope.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/scopeshop/page3.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>go_previous</from-outcome>
+			<to-view-id>/scopeshop/page2.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/scopeshop/*</from-view-id>
+		<navigation-case>
+			<from-outcome>go_first</from-outcome>
+			<to-view-id>/scopeshop/page1.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>go_home</from-outcome>
+			<to-view-id>/home.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- navigational rules for the wizard end -->
+    <!-- navigational rules for the conversational wizard -->
+	<!-- navigational rules for the wizard end -->
+    <!--<application>-->
+        <!--<navigation-handler>-->
+            <!--org.apache.myfaces.sandbox.application.jsp.RequestParameterProviderNavigationHandler-->
+        <!--</navigation-handler>-->
+        <!--<view-handler>-->
+            <!--org.apache.myfaces.sandbox.application.jsp.RequestParameterProviderViewHandler-->
+        <!--</view-handler>-->
+    <!--</application>-->
+
+	<application>
+		<variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+	</application>
+
+	<converter>
+        <converter-id>inputSuggestAjaxConverter</converter-id>
+        <converter-class>org.apache.myfaces.examples.inputSuggestAjax.InputSuggestAjaxConverter</converter-class>
+    </converter>
+
+</faces-config>

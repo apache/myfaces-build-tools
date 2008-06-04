@@ -1,0 +1,75 @@
+<attribute>
+    <name>currencyCode</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>ISO 4217 currency code</description>
+</attribute>
+<attribute>
+    <name>currencySymbol</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The currency symbol used to format a currency value.  Defaults
+        to the currency symbol for locale.
+    </description>
+</attribute>
+<attribute>
+    <name>groupingUsed</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>Specifies whether output will contain grouping separators.  Default: true.</description>
+</attribute>
+<attribute>
+    <name>integerOnly</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>Specifies whether only the integer part of the input will be parsed.  Default: false.</description>
+</attribute>
+<attribute>
+    <name>locale</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The name of the locale to be used, instead of the default as
+        specified in the faces configuration file.
+    </description>
+</attribute>
+<attribute>
+    <name>maxFractionDigits</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>The maximum number of digits in the fractional portion of the number.</description>
+</attribute>
+<attribute>
+    <name>maxIntegerDigits</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>The maximum number of digits in the integer portion of the number.</description>
+</attribute>
+<attribute>
+    <name>minFractionDigits</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>The minimum number of digits in the fractional portion of the number.</description>
+</attribute>
+<attribute>
+    <name>minIntegerDigits</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>The minimum number of digits in the integer portion of the number.</description>
+</attribute>
+<attribute>
+    <name>pattern</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>A custom Date formatting pattern, in the format used by java.text.SimpleDateFormat.</description>
+</attribute>
+<attribute>
+    <name>type</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        The type of formatting/parsing to be performed.  Values include:
+        number, currency, and percentage.  Default: number.
+    </description>
+</attribute>

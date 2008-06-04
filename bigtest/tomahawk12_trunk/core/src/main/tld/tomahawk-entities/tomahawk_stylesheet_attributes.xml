@@ -1,0 +1,67 @@
+        <attribute>
+            <name>path</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                URL for CSS-file.
+            </description>
+        </attribute>
+        <attribute>
+            <name>inline</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description><![CDATA[
+                Inline the stylesheet file content as <style> in contrast
+                to referencing it as <link>.
+                ]]>
+            </description>
+        </attribute>
+		<attribute>
+			<name>filtered</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+			<description><![CDATA[
+				true|false. When true, any EL expression in the stylesheet will be
+				evaluated and replaced by its string representation on the first
+				access.
+				The stylesheet will be processed only once. Every subsequent request
+				will get a cached view.
+				]]>
+			</description>
+		</attribute>
+        <attribute>
+            <name>media</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description><![CDATA[
+                Define the target media of the styles:
+                <dl>
+                  <dt>screen</dt>
+                  <dd>Intended for non-paged computer screens.</dd>
+                  <dt>tty</dt>
+                  <dd>Intended for media using a fixed-pitch character grid, such
+                    as teletypes, terminals, or portable devices with limited
+                    display capabilities.</dd>
+                  <dt>tv</dt>
+                  <dd>Intended for television-type devices (low resolution,
+                    color, limited scrollability).</dd>
+                  <dt>projection</dt>
+                  <dd>Intended for projectors.</dd>
+                  <dt>handheld</dt>
+                  <dd>Intended for handheld devices (small screen, monochrome,
+                    bitmapped graphics, limited bandwidth).</dd>
+                  <dt>print</dt>
+                  <dd>Intended for paged, opaque material and for documents
+                    viewed on screen in print preview mode.</dd>
+                  <dt>braille</dt>
+                  <dd>Intended for braille tactile feedback devices.</dd>
+                  <dt>aural</dt>
+                  <dd>Intended for speech synthesizers.</dd>
+                  <dt>all</dt>
+                  <dd>Suitable for all devices.</dd>
+                </dl>
+                Could be a comma separated list.
+                See also http://www.w3.org/TR/REC-html40/types.html#type-media-descriptors
+                ]]>
+            </description>
+        </attribute>

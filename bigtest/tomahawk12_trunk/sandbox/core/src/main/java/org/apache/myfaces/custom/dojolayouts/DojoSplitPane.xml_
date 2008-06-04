@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE component PUBLIC
+  "-//MyFaces//DTD MyFaces component def 1.0//EN"
+  "http://myfaces.apache.org/dtd/Component.dtd">
+<component>
+    <component-class>org.apache.myfaces.custom.dojolayouts.DojoSplitPane</component-class>
+    <base-class>org.apache.myfaces.custom.dojolayouts.DojoContentPane</base-class>
+    <component-type>org.apache.myfaces.DojoSplitPane</component-type>
+    <component-family>javax.faces.Output</component-family>
+    <renderer-type>org.apache.myfaces.DojoSplitPaneRenderer</renderer-type>
+    <field>
+        <name>orientation</name>
+        <type>String</type>
+    </field>
+    <field>
+        <name>sizerWidth</name>
+        <type>Integer</type>
+    </field>
+    <field>
+        <name>activeSizing</name>
+        <type>Integer</type>
+    </field>
+</component>

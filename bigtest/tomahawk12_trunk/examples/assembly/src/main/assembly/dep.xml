@@ -1,0 +1,17 @@
+<assembly>
+  <id>bin</id>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <formats>
+    <format>tar.gz</format>
+    <format>zip</format>
+  </formats>	
+  <fileSets>    
+    <fileSet>
+      <directory>target/war</directory>
+      <outputDirectory></outputDirectory>
+      <includes>
+        <include>*.war</include>
+      </includes>
+    </fileSet>     
+  </fileSets>
+</assembly>

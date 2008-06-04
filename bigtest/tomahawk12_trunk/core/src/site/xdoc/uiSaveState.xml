@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      
+        <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN" "http://maven.apache.org/dtd/maven-xdoc.dtd">
+      
+    <document>
+
+    <body>
+
+        <section name="Description">
+            
+            <p>
+                t:saveState enables you to persist beans and values longer than
+                request scope, but shorter than session scope. It is ideal for
+                persisting backing beans and values with the same scope as your view
+                components. It does this by saving the target state with the
+                component tree.
+            </p>
+            <p>
+                Traditional JSP Applications save their state information within
+                HttpSession objects. This is an easy to use but not always satisfying approach:
+            </p>
+            <ul>
+                <li>
+                    HttpSession objects must have an expiration date (timeout) that
+                    prevents the server from running out of memory over the time.
+                    The always boring question for web admins: How long should I set
+                    the session timout?
+                </li>
+                <li>
+                    Server restarting is a thrilling task: Will all objects in active
+                    sessions be serialized and restored successfully? If business
+                    classes have changed in the meantime, this task is likely to fail.
+                </li>
+                <li>
+                    Running multiple redundant servers is a challenge. You must use
+                    cluster environments which are expensive and difficult to handle.
+                </li>
+            </ul>
+            <p>
+                MyFaces supports a different approach. It makes it possible to write
+                sophisticated applications without any use of the HttpSession. All
+                state information of the current view and the model beans can be
+                encoded to the client response. MyFaces introduces a new Component
+                "UISaveState" with the corresponding Tag &lt;t:saveState&gt;.
+                <br/>
+                Example (see "sample1.jsp" of the "examples" web application):
+            </p>
+            <source xml:space="preserve">
+&lt;t:saveState id="save1" value="#{calcForm.number1}" /&gt;
+&lt;t:saveState id="save2" value="#{calcForm.number2}" /&gt;
+&lt;t:saveState id="save3" value="#{ucaseForm.text}" /&gt;
+            </source>
+            <p>
+                The current values of the three properties number1, number2 and text
+                are automatically saved within the client response and get restored
+                at the next client request.
+            </p>
+            <p>
+                You can also save the whole bean.
+                <br/>
+                Example:
+            </p>
+            <source xml:space="preserve">
+&lt;t:saveState id="saveCalcForm" value="#{calcForm}"/&gt;
+            </source>
+            <p>
+                The whole bean automatically is saved and restored by MyFaces.
+                To be able to save and restore the value of a bean property or the
+                bean itself, it must implement the Serializable interface.
+            </p>
+        </section>
+
+    </body>
+
+    
+
+</document>

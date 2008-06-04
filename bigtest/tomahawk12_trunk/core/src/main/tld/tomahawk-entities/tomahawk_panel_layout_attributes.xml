@@ -1,0 +1,64 @@
+        <attribute>
+            <name>layout</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <type>java.lang.String</type>
+            <description><![CDATA[
+                <pre>
+                layout           | header | navigation | body  | footer
+                =================|========|============|=======|========
+                classic (Default)| top    | left       | right | bottom
+                navigationRight  | top    | right      | left  | bottom
+                upsideDown       | bottom | left       | right | top
+                </pre>
+                ]]>
+            </description>
+        </attribute>
+        <attribute>
+            <name>headerClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>CSS class to be used for the table cell.</description>
+        </attribute>
+        <attribute>
+            <name>navigationClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>CSS class to be used for the table cell.</description>
+        </attribute>
+        <attribute>
+            <name>bodyClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>CSS class to be used for the table cell.</description>
+        </attribute>
+        <attribute>
+            <name>footerClass</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>CSS class to be used for the table cell.</description>
+        </attribute>
+        <attribute>
+            <name>headerStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>CSS style to be used for the table cell.</description>
+        </attribute>
+        <attribute>
+            <name>navigationStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>CSS style to be used for the table cell.</description>
+        </attribute>
+        <attribute>
+            <name>bodyStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>CSS style to be used for the table cell.</description>
+        </attribute>
+        <attribute>
+            <name>footerStyle</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>CSS style to be used for the table cell.</description>
+        </attribute>

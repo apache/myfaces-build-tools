@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation Maven//EN"
+"http://maven.apache.org/dtd/maven-xdoc.dtd">
+<!--
+This is a standard template meant to be used for the documentation of all custom
+components.
+-->
+<document>
+  <body>
+    <!-- Description -->
+
+    <section name="Description">
+      <p>The tag allows partial validation and model update. Components will
+      be validated and updated only if either a child-component of this form
+      caused the submit of the form, or an extended commandLink or
+      commandButton with the actionFor attribute set to the client-id of this
+      component was used. There can be several comma-separated entries in the
+      actionFor-attribute - with this, it's possible to validate and update
+      more than one subForm at once.</p>
+    </section>
+
+    <!-- screen shot -->
+
+    <!-- API -->
+
+    <section name="API">
+      <table>
+        <tr>
+          <td colspan="1" rowspan="1">component-family</td>
+
+          <td colspan="1" rowspan="1">org.apache.myfaces.SubForm</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">renderer-type</td>
+
+          <td colspan="1" rowspan="1">org.apache.myfaces.SubForm</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">component-class</td>
+
+          <td colspan="1"
+          rowspan="1">org.apache.myfaces.custom.subform.SubForm</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">renderer-class</td>
+
+          <td colspan="1"
+          rowspan="1">org.apache.myfaces.custom.subform.SubFormRenderer</td>
+        </tr>
+
+        <tr>
+          <td colspan="1" rowspan="1">tag-class</td>
+
+          <td colspan="1"
+          rowspan="1">org.apache.myfaces.custom.subform.SubFormTag</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Usage -->
+
+    <section name="Usage">Submit from outside the subForm:<source
+    xml:space="preserve"><![CDATA[<h:form>
+   <s:subForm id="subFormId">
+       <h:inputText value="#{bean.value}" />
+   </s:subForm>
+   <t:commandButton value="Submit subForm" actionFor="subFormId"/>
+</h:form>]]></source>Submit from inside the subForm:<source
+    xml:space="preserve"><![CDATA[<h:form>
+   <s:subForm id="subFormId">
+       <h:inputText value="#{bean.value}" />
+       <t:commandButton value="Submit subForm"/>
+   </s:subForm>
+</h:form>]]></source>Do not keep any entered value if submitted another subform<source
+    xml:space="preserve"><![CDATA[<h:form>
+   <s:subForm id="subFormId" preserveSubmittedValues="false">
+       <h:inputText value="#{bean.value}" />
+       <t:commandButton value="Submit subForm"/>
+   </s:subForm>
+</h:form>]]></source></section>
+
+    <!-- Syntax -->
+
+    <!-- Instructions -->
+
+    <!-- Additional Information -->
+
+    <section name="Additional Information">
+      <p>There are cases when the subForm needs to be submitted not just by
+      clicking a button inside or outside of it, but by clicking or changing
+      fields like combo-boxes, check-boxes or radio-buttons, or many other
+      fields; usualy this is done by invoking a JavaScript code in their
+      "onchange" attribute for example. It's possible to submit the subForm
+      also by JavaScript, if id="subFormId" then you just have to invoke
+      "subFormId_submit()". For an example see subForm.jsp in the Sandbox
+      examples.</p>
+    </section>
+  </body>
+</document>

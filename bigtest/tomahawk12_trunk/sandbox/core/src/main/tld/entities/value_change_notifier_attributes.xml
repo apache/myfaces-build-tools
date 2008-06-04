@@ -1,0 +1,5 @@
+      <attribute>
+         <name>method</name>
+         <required>true</required>
+         <rtexprvalue>false</rtexprvalue>
+      </attribute>

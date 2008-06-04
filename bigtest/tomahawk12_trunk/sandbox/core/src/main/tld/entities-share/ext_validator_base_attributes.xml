@@ -1,0 +1,11 @@
+        <!--
+        This attribute indicates an alternate validation error message format string to display.
+        -->
+        <attribute>
+            <name>message</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                alternate validation error message format string
+            </description>
+        </attribute>

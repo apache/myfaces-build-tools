@@ -1,0 +1,32 @@
+<attribute>
+    <name>onOutcome</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+       end the conversation only if the action outcome matches the given onOutcome. This can be a comma separated list.
+    </description>
+</attribute>
+<attribute>
+    <name>errorOutcome</name>
+    <required>false</required>
+    <rtexprvalue>false</rtexprvalue>
+    <description>
+        on exception use the given outcome for further navigation
+    </description>
+</attribute>
+<attribute>
+	<name>restart</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<description>
+		true|false|valueBinding - true if the conversation should be restarted immediately
+	</description>
+</attribute>
+<attribute>
+	<name>restartAction</name>
+	<required>false</required>
+	<rtexprvalue>false</rtexprvalue>
+	<description>
+		the action which should be called in case of a restart
+	</description>
+</attribute>

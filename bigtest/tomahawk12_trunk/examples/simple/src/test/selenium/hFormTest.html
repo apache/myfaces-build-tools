@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>hFormText</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">hFormText</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/home.jsf</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/myfaces-example-simple/testSuite/hForm.jsf</td>
+	<td></td>
+</tr>
+<!--Test basicForm-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//form[@id='basicForm']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//span[@id='basicForm:hOutputText']</td>
+	<td></td>
+</tr>
+<!--Test nonRenderedForm-->
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//form[@id='nonRenderedForm']</td>
+	<td></td>
+</tr>
+<!--Test formWithAttributes-->
+<tr>
+	<td>assertElementPresent</td>
+	<td>//form[@id='formWithAttributes']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//span[@id='formWithAttributes:hOutputText']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='formWithAttributes']@target</td>
+	<td>formFrame</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='formWithAttributes']@accept</td>
+	<td>contentType</td>
+</tr>
+<!-- IE - it appears the attribute 'accept-charset' is not available
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='formWithAttributes']@accept-charset</td>
+	<td>charSet</td>
+</tr>
+-->
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='formWithAttributes']@enctype</td>
+	<td>encodeType</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='formWithAttributes']@onreset</td>
+	<td>glob:*Alert('onReset');*</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>//form[@id='formWithAttributes']@onsubmit</td>
+	<td>glob:*Alert('onSubmit');*</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

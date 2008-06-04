@@ -1,0 +1,28 @@
+        <attribute>
+            <name>property</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                A value-binding that specifies a property to be updated when the parent's
+                action occurs.
+            </description>
+        </attribute>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                A literal value or value-binding that specifies what will be assigned to the
+                destination specified by the property attribute.
+            </description>
+        </attribute>
+        <attribute>
+            <name>converter</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The name of a registered Converter object which will be invoked to convert the
+                value into an appropriate datatype for assigning to the specified property.
+                If not specified then an appropriate converter will be selected automatically.
+            </description>
+        </attribute>
