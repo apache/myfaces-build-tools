@@ -69,6 +69,7 @@
             <activation>
                 <property>
                     <name>tomahawk</name>
+		    <value>11</value>
                 </property>
             </activation>
             <dependencies>
@@ -76,6 +77,23 @@
                     <groupId>org.apache.myfaces.tomahawk</groupId>
                     <artifactId>tomahawk</artifactId>
                     <version>${tomahawk}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <id>tomahawk-current12</id>
+            <activation>
+                <property>
+                    <name>tomahawk</name>
+		    <value>12</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.tomahawk</groupId>
+                    <artifactId>tomahawk12</artifactId>
+                    <version>${version}</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -94,12 +112,12 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
-                    <version>1.2.2</version>
+                    <version>1.2.4-SNAPSHOT</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <version>1.2.2</version>
+                    <version>1.2.4-SNAPSHOT</version>
                     <scope>runtime</scope>
                 </dependency>
                 <dependency>

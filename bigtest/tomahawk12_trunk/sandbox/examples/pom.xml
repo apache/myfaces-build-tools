@@ -99,13 +99,13 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
-                    <version>1.2.0-SNAPSHOT</version>
+                    <version>1.2.4-SNAPSHOT</version>
                     <scope>compile</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <version>1.2.0-SNAPSHOT</version>
+                    <version>1.2.4-SNAPSHOT</version>
                     <!-- Tomahawk examples must only have runtime dependency to myfaces-impl
                  so that it will be automatically added to war. But there must not be
                  any compile dependency on impl so that is is always possible to use
@@ -272,14 +272,50 @@
             </build>
         </profile>
 
+        <profile>
+            <id>tomahawk-current</id>
+            <activation>
+                <property>
+                    <name>!tomahawk</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.tomahawk</groupId>
+                    <artifactId>tomahawk-sandbox</artifactId>
+                    <version>${version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>tomahawk-current12</id>
+            <activation>
+                <property>
+                    <name>tomahawk</name>
+		    <value>12</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.tomahawk</groupId>
+                    <artifactId>tomahawk-sandbox12</artifactId>
+                    <version>${version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>batik</groupId>
+                    <artifactId>batik-awt-util</artifactId>
+                    <version>1.6-1</version>
+                </dependency>     
+                <dependency>
+                    <groupId>com.lowagie</groupId>
+                    <artifactId>itext</artifactId>
+                    <version>1.4.8</version>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <dependencies>
-        <dependency>
-            <groupId>org.apache.myfaces.tomahawk</groupId>
-            <artifactId>tomahawk-sandbox</artifactId>
-            <version>${version}</version>
-        </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
