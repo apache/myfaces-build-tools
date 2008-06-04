@@ -451,7 +451,7 @@ public class MakeComponentsMojo extends AbstractMojo
             tag = method.getTagByName("JSFProperty", false);
             anno = getAnnotation(method, "JSFProperty");
             
-            if (tag == null && anno == null)
+            if ( (tag == null && anno == null) || !method.isAbstract())
             {              
                 //Get declaration signature in a way that we don't need
                 //to declare imports.
@@ -483,7 +483,8 @@ public class MakeComponentsMojo extends AbstractMojo
                 writer.append('}');
                 writer.append('\n');
                 writer.append('\n');
-            }            
+            }
+            
         }
                 
         return writer.toString();
