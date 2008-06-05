@@ -677,13 +677,13 @@ public class QdoxModelBuilder implements ModelBuilder
                 .getFullyQualifiedName());
         componentClass = getString(clazz,"clazz",props,componentClass);
         
+        //The parent class is always what is indicated or the
+        //superclass of the class that has the @JSFComponent class
         String componentParentClass = getString(clazz, "parent", props, 
                 clazz.getSuperJavaClass()!= null?
                         clazz.getSuperJavaClass().getFullyQualifiedName():null);
         
         String superClassName = getString(clazz,"superClass",props,null);
-        
-        
         
         if (componentParentClass != null && componentParentClass.startsWith("java.lang"))
         {
@@ -695,6 +695,20 @@ public class QdoxModelBuilder implements ModelBuilder
             if (componentParentClass.equals(""))
             {
                 componentParentClass = null;
+            }
+        }
+ 
+        Boolean template = getBoolean(clazz,"template",props, null);
+        
+        // If the componentClass is not the same as the class with
+        // @JSFComponent annotation, the component class is generated 
+        if (!clazz.getFullyQualifiedName().equals(componentClass)){
+            if (!(template != null && template.booleanValue()))
+            {
+                //If template is false or null, the superClass of the generated
+                //class is the same class, otherwise is the same as the parent
+                //class.
+                superClassName = getString(clazz,"superClass",props,clazz.getFullyQualifiedName());
             }
         }
                 
@@ -741,6 +755,7 @@ public class QdoxModelBuilder implements ModelBuilder
         component.setChildren(canHaveChildren);
         component.setSerialuid(serialuid);
         component.setImplements(implementsValue);
+        component.setTemplate(template);
         
         JavaClass[] interfaces = clazz.getImplementedInterfaces();
         for (int i = 0; i < interfaces.length; ++i)

@@ -61,6 +61,8 @@ public class ComponentMeta extends ClassMeta implements
     private Boolean _generatedComponentClass;
     private Boolean _generatedTagClass;
     
+    private Boolean _template;
+    
     protected Map _properties;
     protected Map _facets;
 
@@ -88,6 +90,7 @@ public class ComponentMeta extends ClassMeta implements
         out.writeElement("implements", cm._implements);
         out.writeElement("generatedComponentClass", cm._generatedComponentClass);
         out.writeElement("generatedTagClass", cm._generatedTagClass);
+        out.writeElement("template", cm._template);
         
         for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
         {
@@ -132,6 +135,7 @@ public class ComponentMeta extends ClassMeta implements
         digester.addBeanPropertySetter(newPrefix + "/implements");
         digester.addBeanPropertySetter(newPrefix + "/generatedComponentClass");
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
+        digester.addBeanPropertySetter(newPrefix + "/template");
         
         PropertyMeta.addXmlRules(digester, newPrefix);
         FacetMeta.addXmlRules(digester, prefix);
@@ -409,6 +413,18 @@ public class ComponentMeta extends ClassMeta implements
     {
         return ModelUtils.defaultOf(_generatedTagClass,false);
     }
+    
+    public void setTemplate(Boolean template)
+    {
+        _template = template;
+    }
+
+    public Boolean isTemplate()
+    {
+        return ModelUtils.defaultOf(_template,false);
+    }
+
+    
 
     /**
      * Specifies if the component supports child components.
