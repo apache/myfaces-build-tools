@@ -121,5 +121,9 @@ public @interface JSFComponent
      */
     String implementz() default "";
     
-    
+    /**
+     * Indicate if the pattern used to generate component class code is
+     * template class (true) or abstract class (false)
+     */
+    boolean template() default false;
 }

@@ -50,6 +50,19 @@ public @interface JSFConverter
     String tagClass() default "";
     
     /**
+     * Tag super class that inherits the tag class
+     */
+    String tagSuperclass() default "";
+
+    /**
+     * Indicate that this component should not be defined on faces-config.xml.
+     * Anyway, if this is true or false does not have any significative impact. 
+     * 
+     * @return
+     */
+    boolean configExcluded() default false;
+    
+    /**
      * Indicate if the element accept inner elements or not.
      */
     String bodyContent() default "";
