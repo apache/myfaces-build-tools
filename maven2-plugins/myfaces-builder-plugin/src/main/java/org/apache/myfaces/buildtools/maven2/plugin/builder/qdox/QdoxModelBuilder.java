@@ -487,7 +487,27 @@ public class QdoxModelBuilder implements ModelBuilder
         String tagClass = getString(clazz, "tagClass", props, null);
         String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
         String serialuidtag = getString(clazz, "serialuidtag", props, null);
-
+        Boolean configExcluded = getBoolean(clazz,"configExcluded",props,null);   
+        
+        String componentParentClass = getString(clazz, "parent", props, 
+                clazz.getSuperJavaClass()!= null?
+                        clazz.getSuperJavaClass().getFullyQualifiedName():null);
+        
+        String superClassName = getString(clazz,"superClass",props,null);
+        
+        if (componentParentClass != null && componentParentClass.startsWith("java.lang"))
+        {
+            componentParentClass = null;
+        }
+        
+        if (componentParentClass != null)
+        {
+            if (componentParentClass.equals(""))
+            {
+                componentParentClass = null;
+            }
+        }
+                
         ConverterMeta converter = new ConverterMeta();
         converter.setName(componentName);
         converter.setBodyContent(bodyContent);
@@ -499,6 +519,10 @@ public class QdoxModelBuilder implements ModelBuilder
         converter.setDescription(shortDescription);
         converter.setLongDescription(longDescription);
         converter.setSerialuidtag(serialuidtag);
+        converter.setConfigExcluded(configExcluded);
+        converter.setSuperClassName(superClassName);
+        converter.setParentClassName(componentParentClass);
+        
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, converter);
         
@@ -534,6 +558,27 @@ public class QdoxModelBuilder implements ModelBuilder
         String tagClass = getString(clazz, "tagClass", props, null);        
         String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
         String serialuidtag = getString(clazz, "serialuidtag", props, null);
+        Boolean configExcluded = getBoolean(clazz,"configExcluded",props,null);   
+        
+        String componentParentClass = getString(clazz, "parent", props, 
+                clazz.getSuperJavaClass()!= null?
+                        clazz.getSuperJavaClass().getFullyQualifiedName():null);
+        
+        String superClassName = getString(clazz,"superClass",props,null);
+        
+        if (componentParentClass != null && componentParentClass.startsWith("java.lang"))
+        {
+            componentParentClass = null;
+        }
+        
+        if (componentParentClass != null)
+        {
+            if (componentParentClass.equals(""))
+            {
+                componentParentClass = null;
+            }
+        }
+        
 
         ValidatorMeta validator = new ValidatorMeta();
         validator.setName(componentName);
@@ -546,6 +591,9 @@ public class QdoxModelBuilder implements ModelBuilder
         validator.setDescription(shortDescription);
         validator.setLongDescription(longDescription);
         validator.setSerialuidtag(serialuidtag);
+        validator.setConfigExcluded(configExcluded);
+        validator.setSuperClassName(superClassName);
+        validator.setParentClassName(componentParentClass);
         
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, validator);

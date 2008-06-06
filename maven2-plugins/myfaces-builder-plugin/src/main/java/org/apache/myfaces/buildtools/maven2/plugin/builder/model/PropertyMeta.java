@@ -390,6 +390,14 @@ public class PropertyMeta
         return ModelUtils.defaultOf(_inheritedTag, false);
     }
     
+    /**
+     * 
+     */
+    public Boolean isLocalInheritedTag()
+    {
+        return _inheritedTag;
+    }
+    
     public void setTagExcluded(Boolean tagExcluded)
     {
         _tagExcluded = tagExcluded;

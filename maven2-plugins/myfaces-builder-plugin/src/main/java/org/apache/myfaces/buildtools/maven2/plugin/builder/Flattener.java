@@ -27,6 +27,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
+
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 
 /**
  */
@@ -53,6 +56,8 @@ public class Flattener
     public void flatten()
     {
         flattenComponentProperties();
+        flattenValidatorProperties();
+        flattenConverterProperties();
     }
 
     private void flattenComponentProperties()
@@ -109,5 +114,81 @@ public class Flattener
         }
 
         flattened.add(component);
+    }
+    
+    private void flattenValidatorProperties()
+    {
+        List validator = model.getValidators();
+        for (Iterator i = validator.iterator(); i.hasNext();)
+        {
+            ValidatorMeta val = (ValidatorMeta) i.next();
+            flattenValidator(val);
+        }
+    }
+    
+    private void flattenValidator(ValidatorMeta validator)
+    {
+        if (flattened.contains(validator))
+        {
+            // already done
+            return;
+        }
+        String parentClassName = validator.getParentClassName();
+        if (parentClassName != null)
+        {
+            ValidatorMeta parent = model
+                    .findValidatorByClassName(parentClassName);
+            if (parent != null)
+            {
+                flattenValidator(parent);
+                validator.merge(parent);
+            }
+            else
+            {
+                //How to manage a validator that its
+                //parent class is not a real validator?
+                //Ans: no problem, do nothing.
+            }
+        }
+
+        flattened.add(validator);
+    }
+
+    private void flattenConverterProperties()
+    {
+        List converter = model.getConverters();
+        for (Iterator i = converter.iterator(); i.hasNext();)
+        {
+            ConverterMeta val = (ConverterMeta) i.next();
+            flattenConverter(val);
+        }
+    }
+    
+    private void flattenConverter(ConverterMeta converter)
+    {
+        if (flattened.contains(converter))
+        {
+            // already done
+            return;
+        }
+        String parentClassName = converter.getParentClassName();
+        if (parentClassName != null)
+        {
+            ConverterMeta parent = model
+                    .findConverterByClassName(parentClassName);
+            if (parent != null)
+            {
+                flattenConverter(parent);
+                converter.merge(parent);
+            }
+            else
+            {
+                //How to manage a validator that its
+                //parent class is not a real validator?
+                //Ans: no problem, do nothing.
+            }
+        }
+
+        flattened.add(converter);
     }
 }

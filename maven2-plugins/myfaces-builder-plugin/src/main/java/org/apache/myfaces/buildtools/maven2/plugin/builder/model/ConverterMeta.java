@@ -61,6 +61,7 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
     private String _serialuidtag;
     
     private Boolean _generatedTagClass;
+    private Boolean _configExcluded;
 
     protected Map _properties;
     /**
@@ -81,6 +82,7 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
         out.writeElement("tagSuperclass", cm._tagSuperclass);
         out.writeElement("serialuidtag", cm._serialuidtag);
         out.writeElement("generatedTagClass", cm._generatedTagClass);
+        out.writeElement("configExcluded", cm._configExcluded);
 
         for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
         {
@@ -114,6 +116,7 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
         digester.addBeanPropertySetter(newPrefix + "/tagSuperclass");
         digester.addBeanPropertySetter(newPrefix + "/serialuidtag");
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
+        digester.addBeanPropertySetter(newPrefix + "/configExcluded");
 
         PropertyMeta.addXmlRules(digester, newPrefix);
     }
@@ -139,10 +142,61 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
         _longDescription = ModelUtils.merge(this._longDescription,
                 other._longDescription);
 
+        boolean inheritParentTag = false;
+        //check if the parent set a tag class
+        if (other._tagClass != null)
+        {
+            //The tagSuperclass is the tagClass of the parent
+            _tagSuperclass = ModelUtils.merge(this._tagSuperclass,
+                    other._tagClass);
+            inheritParentTag = true;
+        }
+        else
+        {
+            //The tagSuperclass is the tagSuperclass of the parent
+            _tagSuperclass = ModelUtils.merge(this._tagSuperclass,
+                    other._tagSuperclass);            
+        }
+
         _converterId = ModelUtils.merge(this._converterId, other._converterId);
         
         ModelUtils.mergeProps(this, other);
         // TODO: _converterClassMOdifiers
+        
+        if (inheritParentTag)
+        {
+            for (Iterator i = this.properties(); i.hasNext();)
+            {
+                PropertyMeta srcProp = (PropertyMeta) i.next();
+                PropertyMeta parentProp = other.getProperty(srcProp.getName());
+                if (parentProp != null)
+                {
+                    if (!srcProp.isTagExcluded().booleanValue())
+                    {
+                        //There are three possible behaviors:
+                        //1. The property is defined on the child again and
+                        //   the property was already on the tag hierarchy, so
+                        //   inheritedTag must be set to TRUE.
+                        //2. The property is defined on the child again and
+                        //   it is necessary to write again on the generated
+                        //   tag, so the annotation looks like
+                        //   "@JSFProperty inheritedTag=false"
+                        //   This condition must remain as FALSE
+                        //3. The property is set by the user as true, but there
+                        //   was not defined previously on the hierarchy, so
+                        //   this condition must be as is (TRUE) 
+                        //   (skipped on parentProp != null).
+                        if (srcProp.isLocalInheritedTag() == null ||
+                                srcProp.isInheritedTag().booleanValue())
+                        {
+                            srcProp.setInheritedTag(Boolean.TRUE);
+                        }
+                    }
+                }
+            }
+            _propertyTagList = null;
+        }        
+
     }
 
     /**
@@ -289,6 +343,16 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
     {
         return ModelUtils.defaultOf(_generatedTagClass,false);
     }
+
+    public void setConfigExcluded(Boolean configExcluded)
+    {
+        _configExcluded = configExcluded;
+    }
+
+    public Boolean isConfigExcluded()
+    {
+        return ModelUtils.defaultOf(_configExcluded,false);
+    }    
         
     /**
      * Adds a property to this component.
