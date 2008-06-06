@@ -108,6 +108,25 @@ public class BuildMetaDataMojo extends AbstractMojo
     private List dependencyModelIds;
     
     /**
+     * Alternate file to read model definition and merge it to the
+     * current model, usually used when it is necessary to avoid dependencies.
+     * 
+     * One example is when it is necessary a release of the library (tomahawk for 
+     * example), but the previous version of the scanned dependency library
+     * (myfaces-api) does not have META-INF/myfaces-metadata.xml in his jar,
+     * so when the metadata is generated the result is a lot of errors due to 
+     * the model is incomplete.
+     * 
+     * Other use is when it is necessary to add some custom model definitions to
+     * the model to be built, but this should be avoided. Instead, this goal should
+     * be used on the dependency library, release the dependency library and
+     * then the library that consume the metadata.  
+     * 
+     * @parameter
+     */
+    private File inputFile;
+    
+    /**
      * Execute the Mojo.
      */
     public void execute() throws MojoExecutionException
@@ -127,6 +146,13 @@ public class BuildMetaDataMojo extends AbstractMojo
         else
         {
             models = IOUtils.getModelsFromArtifacts(project); 
+        }
+        
+        if (inputFile != null)
+        {
+            Model fileModel = IOUtils.loadModel(inputFile);
+            //The input model takes precedence
+            model.merge(fileModel);
         }
         
         models = sortModels(models);
