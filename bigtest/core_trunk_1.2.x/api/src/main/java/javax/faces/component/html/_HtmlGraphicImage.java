@@ -33,7 +33,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  */
 @JSFComponent
 (name = "h:graphicImage",
-clazz = "javax.faces.component.html.HtmlGraphicImage",
+clazz = "javax.faces.component.html.HtmlGraphicImage",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlGraphicImageTag",
 defaultRendererType = "javax.faces.Image"
 )

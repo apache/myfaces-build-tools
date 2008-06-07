@@ -35,7 +35,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:outputText",
-clazz = "javax.faces.component.html.HtmlOutputText",
+clazz = "javax.faces.component.html.HtmlOutputText",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlOutputTextTag",
 defaultRendererType = "javax.faces.Text"
 )

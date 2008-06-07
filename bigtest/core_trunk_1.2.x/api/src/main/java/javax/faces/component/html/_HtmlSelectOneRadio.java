@@ -60,7 +60,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:selectOneRadio",
-clazz = "javax.faces.component.html.HtmlSelectOneRadio",
+clazz = "javax.faces.component.html.HtmlSelectOneRadio",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlSelectOneRadioTag",
 defaultRendererType = "javax.faces.Radio"
 )

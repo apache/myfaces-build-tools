@@ -36,7 +36,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:outputFormat",
-clazz = "javax.faces.component.html.HtmlOutputFormat",
+clazz = "javax.faces.component.html.HtmlOutputFormat",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlOutputFormatTag",
 defaultRendererType = "javax.faces.Format"
 )

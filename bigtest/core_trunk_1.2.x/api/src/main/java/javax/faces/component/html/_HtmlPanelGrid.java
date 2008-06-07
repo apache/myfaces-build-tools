@@ -37,7 +37,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  */
 @JSFComponent
 (name = "h:panelGrid",
-clazz = "javax.faces.component.html.HtmlPanelGrid",
+clazz = "javax.faces.component.html.HtmlPanelGrid",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlPanelGridTag",
 defaultRendererType = "javax.faces.Grid"
 )

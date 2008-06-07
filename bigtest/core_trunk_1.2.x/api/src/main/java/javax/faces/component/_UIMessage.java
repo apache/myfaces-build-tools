@@ -27,7 +27,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  * that display a single message on behalf of a component.
  */
 @JSFComponent
-(clazz = "javax.faces.component.UIMessage",
+(clazz = "javax.faces.component.UIMessage",template=true,
 defaultRendererType = "javax.faces.Message"
 )
 abstract class _UIMessage extends UIComponentBase

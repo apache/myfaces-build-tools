@@ -27,7 +27,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  * that display a multiple messages on behalf of a component.
  */
 @JSFComponent
-(clazz = "javax.faces.component.UIMessages",
+(clazz = "javax.faces.component.UIMessages",template=true,
 defaultRendererType = "javax.faces.Messages"
 )
 abstract class _UIMessages extends UIComponentBase

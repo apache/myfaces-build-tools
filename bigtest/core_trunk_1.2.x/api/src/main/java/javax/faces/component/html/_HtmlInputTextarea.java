@@ -48,7 +48,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:inputTextarea",
-clazz = "javax.faces.component.html.HtmlInputTextarea",
+clazz = "javax.faces.component.html.HtmlInputTextarea",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlInputTextareaTag",
 defaultRendererType = "javax.faces.Textarea"
 )

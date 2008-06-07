@@ -36,7 +36,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  */
 @JSFComponent
 (name = "h:panelGroup",
-clazz = "javax.faces.component.html.HtmlPanelGroup",
+clazz = "javax.faces.component.html.HtmlPanelGroup",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlPanelGroupTag",
 defaultRendererType = "javax.faces.Group"
 )

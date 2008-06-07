@@ -67,7 +67,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:selectOneListbox",
-clazz = "javax.faces.component.html.HtmlSelectOneListbox",
+clazz = "javax.faces.component.html.HtmlSelectOneListbox",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlSelectOneListboxTag",
 defaultRendererType = "javax.faces.Listbox"
 )

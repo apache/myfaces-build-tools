@@ -37,7 +37,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  */
 @JSFComponent
 (name = "h:dataTable",
-clazz = "javax.faces.component.html.HtmlDataTable",
+clazz = "javax.faces.component.html.HtmlDataTable",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlDataTableTag",
 defaultRendererType = "javax.faces.Table"
 )

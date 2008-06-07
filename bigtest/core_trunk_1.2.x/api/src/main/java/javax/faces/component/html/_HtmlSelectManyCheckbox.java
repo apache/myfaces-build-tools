@@ -67,7 +67,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:selectManyCheckbox",
-clazz = "javax.faces.component.html.HtmlSelectManyCheckbox",
+clazz = "javax.faces.component.html.HtmlSelectManyCheckbox",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlSelectManyCheckboxTag",
 defaultRendererType = "javax.faces.Checkbox"
 )

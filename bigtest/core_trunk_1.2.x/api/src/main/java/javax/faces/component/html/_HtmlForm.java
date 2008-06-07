@@ -31,7 +31,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  */
 @JSFComponent
 (name = "h:form",
-clazz = "javax.faces.component.html.HtmlForm",
+clazz = "javax.faces.component.html.HtmlForm",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlFormTag",
 defaultRendererType = "javax.faces.Form"
 )

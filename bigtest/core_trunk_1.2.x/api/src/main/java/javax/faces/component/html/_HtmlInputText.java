@@ -49,7 +49,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  */
 @JSFComponent
 (name = "h:inputText",
-clazz = "javax.faces.component.html.HtmlInputText",
+clazz = "javax.faces.component.html.HtmlInputText",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlInputTextTag",
 defaultRendererType = "javax.faces.Text"
 )

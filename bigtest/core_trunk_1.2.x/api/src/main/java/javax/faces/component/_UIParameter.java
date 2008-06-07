@@ -25,7 +25,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  * 
  */
 @JSFComponent
-(clazz = "javax.faces.component.UIParameter")
+(clazz = "javax.faces.component.UIParameter",template=true)
 abstract class _UIParameter extends UIComponentBase
 {
 

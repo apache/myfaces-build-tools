@@ -38,7 +38,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  */
 @JSFComponent
 (name = "h:column",
-clazz = "javax.faces.component.html.HtmlColumn",
+clazz = "javax.faces.component.html.HtmlColumn",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlColumnTag")
 abstract class _HtmlColumn extends UIColumn
 {

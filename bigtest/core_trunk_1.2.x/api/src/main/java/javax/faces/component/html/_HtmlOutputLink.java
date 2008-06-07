@@ -34,7 +34,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:outputLink",
-clazz = "javax.faces.component.html.HtmlOutputLink",
+clazz = "javax.faces.component.html.HtmlOutputLink",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlOutputLinkTag",
 defaultRendererType = "javax.faces.Link"
 )

@@ -28,7 +28,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  * for the parent component
  */
 @JSFComponent
-(clazz = "javax.faces.component.UISelectItem")
+(clazz = "javax.faces.component.UISelectItem",template=true)
 abstract class _UISelectItem extends UIComponentBase
 {
 

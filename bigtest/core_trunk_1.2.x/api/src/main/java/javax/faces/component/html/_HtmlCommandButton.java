@@ -48,7 +48,7 @@ in page navigation.</td>
  */
 @JSFComponent
 (name = "h:commandButton",
-clazz = "javax.faces.component.html.HtmlCommandButton",
+clazz = "javax.faces.component.html.HtmlCommandButton",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlCommandButtonTag",
 defaultRendererType = "javax.faces.Button"
 )

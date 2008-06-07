@@ -54,7 +54,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:selectBooleanCheckbox",
-clazz = "javax.faces.component.html.HtmlSelectBooleanCheckbox",
+clazz = "javax.faces.component.html.HtmlSelectBooleanCheckbox",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlSelectBooleanCheckboxTag",
 defaultRendererType = "javax.faces.Checkbox"
 )

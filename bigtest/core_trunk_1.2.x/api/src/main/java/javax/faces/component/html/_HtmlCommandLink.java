@@ -48,7 +48,7 @@ in page navigation.</td>
  */
 @JSFComponent
 (name = "h:commandLink",
-clazz = "javax.faces.component.html.HtmlCommandLink",
+clazz = "javax.faces.component.html.HtmlCommandLink",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlCommandLinkTag",
 defaultRendererType = "javax.faces.Link"
 )

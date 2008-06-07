@@ -67,7 +67,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:selectManyMenu",
-clazz = "javax.faces.component.html.HtmlSelectManyMenu",
+clazz = "javax.faces.component.html.HtmlSelectManyMenu",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlSelectManyMenuTag",
 defaultRendererType = "javax.faces.Menu"
 )

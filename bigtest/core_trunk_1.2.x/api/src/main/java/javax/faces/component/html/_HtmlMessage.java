@@ -32,7 +32,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:message",
-clazz = "javax.faces.component.html.HtmlMessage",
+clazz = "javax.faces.component.html.HtmlMessage",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlMessageTag",
 defaultRendererType = "javax.faces.Message"
 )

@@ -49,7 +49,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFPropert
  */
 @JSFComponent
 (name = "h:inputSecret",
-clazz = "javax.faces.component.html.HtmlInputSecret",
+clazz = "javax.faces.component.html.HtmlInputSecret",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlInputSecretTag",
 defaultRendererType = "javax.faces.Secret"
 )

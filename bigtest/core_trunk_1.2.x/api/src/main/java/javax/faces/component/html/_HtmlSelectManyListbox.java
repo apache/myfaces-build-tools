@@ -70,7 +70,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.annotation.JSFCompone
  */
 @JSFComponent
 (name = "h:selectManyListbox",
-clazz = "javax.faces.component.html.HtmlSelectManyListbox",
+clazz = "javax.faces.component.html.HtmlSelectManyListbox",template=true,
 tagClass = "org.apache.myfaces.taglib.html.HtmlSelectManyListboxTag",
 defaultRendererType = "javax.faces.Listbox"
 )
