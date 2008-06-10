@@ -25,18 +25,24 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Define a property that belongs to this component but does not have getter defined.
- * 
- *  here exists two main scenarios: 
- *  
- *  1. Add a property that exists on tld but not on component(binding on 1.1). 
- *  2. Exclude an already defined property from the tld. 
- *  
- *  THIS ONLY SHOULD BE USED IN VERY SPECIAL CASES (Use @JSFProperty instead).
+ * Defines a logical property of a component that is accessed via the
+ * component's Attributes map, rather than javaBean getter/setter methods.
+ * <p>
+ * These logical properties are accessible from views (eg available as
+ * JSP tag attributes) just like properties declared with the JSFProperty
+ * annotation.
+ * <p>
+ * A class or interface that defines just one logical property may use this
+ * annotation directly; to declare more than one logical property should
+ * use the JSFJspProperties annotation to group a set of these. Classes that
+ * implement interfaces with this annotation, or subclass a base class that
+ * has this annotation, will inherit the declared attributes.
+ * <p>
+ * This annotation should only be applied to classes that also have the JSFComponent
+ * annotation.
  * 
  * @author Leonardo Uribe (latest modification by $Author$)
  * @version $Revision$ $Date$
- *
  */
 @Documented
 @Target(ElementType.TYPE)
@@ -45,32 +51,52 @@ public @interface JSFJspProperty
 {
 
     /**
-     * The name that identifies this property. (ex:border, id, value)
+     * The name that identifies this attribute.
+     * <p>
+     * This String is the key used to look up the attribute in the component's
+     * Attributes map.
+     * <p>
+     * Examples: border, id, value
      */
     String name() default "";
     
     /**
-     * The full type or primitive that this property has defined on tag class.
+     * The type of this attribute.
+     * <p>
+     * This must be a fully-qualified class name of a java type.
+     * <p>
+     * TODO: doesn't the JSF spec also allow short-cuts for common types here?
      */
     String returnType() default "";
     
     /**
-     * (true|false) Define if the property is required or not. Default:false
+     * Define whether this attribute is mandatory for the associated component,
+     * ie whether it is an error to create an instance of the component and
+     * not to provide a value for this attribute.
      */
     boolean required() default false;
     
     /**
      * Define if this tag is excluded from tld.
+     * <p>
+     * This is very ugly feature, and should be used as little as possible. It
+     * allows a parent class (or interface) to declare logical properties, then
+     * a subclass to "undeclare" them. This is completely broken OO design,
+     * but is required in a few rare cases by the JSF specification. 
      */
     boolean tagExcluded() default false;
     
     /**
-     * Long description
+     * A long description of the purpose of this attribute.
+     * <p>
+     * This is commonly shown as help in IDEs.
      */
     String longDesc() default "";
     
     /**
-     * Short description
+     * A short description of the purpose of this attribute.
+     * <p>
+     * This is commonly shown as a "tool tip" or popup-help in IDEs.
      */
     String desc() default "";
 }
