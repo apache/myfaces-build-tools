@@ -679,6 +679,7 @@ public class QdoxModelBuilder implements ModelBuilder
         tagClass = getString(clazz,"clazz",props,tagClass);
         
         String bodyContent = getString(clazz, "bodyContent", props, "JSP");
+        String tagHandler = getString(clazz, "tagHandler", props, null);
 
         TagMeta tag = new TagMeta();
         tag.setName(tagName);
@@ -686,6 +687,7 @@ public class QdoxModelBuilder implements ModelBuilder
         tag.setBodyContent(bodyContent);
         tag.setDescription(shortDescription);
         tag.setLongDescription(longDescription);
+        tag.setTagHandler(tagHandler);
         
         processTagAttributes(clazz, tag);
         model.addTag(tag);

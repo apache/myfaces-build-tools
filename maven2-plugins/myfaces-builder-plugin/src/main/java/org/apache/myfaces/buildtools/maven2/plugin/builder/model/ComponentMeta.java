@@ -81,6 +81,7 @@ public class ComponentMeta extends ClassMeta implements
         out.writeElement("family", cm._family);
         out.writeElement("tagClass", cm._tagClass);
         out.writeElement("tagSuperclass", cm._tagSuperclass);
+        out.writeElement("tagHandler", cm._tagHandler);
         out.writeElement("rendererType", cm._rendererType);
         out.writeElement("configExcluded", cm._configExcluded);
 
@@ -125,8 +126,10 @@ public class ComponentMeta extends ClassMeta implements
         digester.addBeanPropertySetter(newPrefix + "/bodyContent");
         digester.addBeanPropertySetter(newPrefix + "/family");
         digester.addBeanPropertySetter(newPrefix + "/tagClass");
-        digester.addBeanPropertySetter(newPrefix + "/tagSuperclass");        
+        digester.addBeanPropertySetter(newPrefix + "/tagSuperclass");
+        digester.addBeanPropertySetter(newPrefix + "/tagHandler");
         digester.addBeanPropertySetter(newPrefix + "/rendererType");
+        digester.addBeanPropertySetter(newPrefix + "/faceletRendererType");
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
@@ -156,7 +159,7 @@ public class ComponentMeta extends ClassMeta implements
      */
     public void merge(ComponentMeta other)
     {
-        _name = ModelUtils.merge(this._name, other._name);
+        //_name = ModelUtils.merge(this._name, other._name);
         _bodyContent = ModelUtils.merge(this._bodyContent, other._bodyContent);
         _description = ModelUtils.merge(this._description, other._description);
         _longDescription = ModelUtils.merge(this._longDescription,
@@ -436,8 +439,6 @@ public class ComponentMeta extends ClassMeta implements
     {
         return ModelUtils.defaultOf(_template,false);
     }
-
-    
 
     /**
      * Specifies if the component supports child components.

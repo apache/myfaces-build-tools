@@ -32,7 +32,8 @@ public class TagMeta extends ClassMeta implements AttributeHolder
     private String _bodyContent;
     private String _description;
     private String _longDescription;
-        
+    private String _tagHandler;
+
     protected Map _attributes;
     
     /**
@@ -47,6 +48,7 @@ public class TagMeta extends ClassMeta implements AttributeHolder
         out.writeElement("bodyContent", tm._bodyContent);
         out.writeElement("desc", tm._description);
         out.writeElement("longDesc", tm._longDescription);
+        out.writeElement("tagHandler", tm._tagHandler);
 
         for (Iterator i = tm._attributes.values().iterator(); i.hasNext();)
         {
@@ -74,6 +76,7 @@ public class TagMeta extends ClassMeta implements AttributeHolder
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
+        digester.addBeanPropertySetter(newPrefix + "/tagHandler");
         
         AttributeMeta.addXmlRules(digester, newPrefix);
     }
@@ -97,6 +100,7 @@ public class TagMeta extends ClassMeta implements AttributeHolder
         _longDescription = ModelUtils.merge(this._longDescription,
                 other._longDescription);
         _bodyContent = ModelUtils.merge(this._bodyContent, other._bodyContent);
+        _tagHandler = ModelUtils.merge(this._tagHandler, other._tagHandler);
         //TODO: Merge attributes
     }
     
@@ -155,6 +159,22 @@ public class TagMeta extends ClassMeta implements AttributeHolder
     public String getName()
     {
         return _name;
+    }
+    
+    /**
+     * Specifies the class of the Facelets tag handler (component handler) for
+     * this component.
+     * <p>
+     * Note that a Facelets tag handler class is not needed for most components.
+     */
+    public void setTagHandler(String tagHandler)
+    {
+        _tagHandler = tagHandler;
+    }
+
+    public String getTagHandler()
+    {
+        return _tagHandler;
     }
     
     /**
