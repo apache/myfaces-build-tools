@@ -331,12 +331,12 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
         
         if (dir1 != null)
         {
-            addExcludes(dir1.getPath()+"\\", dir1, exclusions);
+            addExcludes(dir1.getPath(), dir1, exclusions);
         }
         
         if (dir2 != null)
         {
-            addExcludes(dir2.getPath()+"\\", dir2, exclusions);
+            addExcludes(dir2.getPath(), dir2, exclusions);
         }
         
         StringBuilder existingFiles = new StringBuilder();
@@ -369,6 +369,14 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
         {
             String path = f.getPath();
             path = path.replace(basePath,"");
+            while (path.startsWith("/"))
+            {
+                path = path.substring(1);
+            }
+            while (path.startsWith("\\"))
+            {
+                path = path.substring(1);
+            }
             path = StringUtils.replace( path, "\\", "/" );
             exclusions.add(path);
             getLog().info("Adding: "+path);
