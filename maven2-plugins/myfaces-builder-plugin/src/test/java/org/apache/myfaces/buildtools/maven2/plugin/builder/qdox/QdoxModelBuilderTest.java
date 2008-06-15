@@ -148,6 +148,42 @@ public class QdoxModelBuilderTest extends TestCase
     }
 
     /**
+     * Scan annotated JSFComponent classes which use code-generation to 
+     * actually create component classes.
+     */
+    public void testGeneration() throws Exception
+    {
+        QdoxModelBuilder builder = new QdoxModelBuilder();
+
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        URL sourceUrl = classLoader
+                .getResource("builder/generation/ComponentBase.java");
+        String parentDirName = new File(sourceUrl.getFile()).getParent();
+        File parentDir = new File(parentDirName);
+        List sourceDirs = new ArrayList();
+        sourceDirs.add(parentDir.getAbsolutePath());
+
+        Model model = new Model();
+        builder.buildModel(model, sourceDirs);
+
+        // basic sanity checks
+        assertTrue(model.getComponents().size() > 0);
+
+        // Now write it. Optionally, we could just write it to an in-memory
+        // buffer.
+        File outfile = new File("target/generation-out.xml");
+        IOUtils.saveModel(model, outfile);
+
+        StringWriter outbuf = new StringWriter();
+        IOUtils.writeModel(model, outbuf);
+        StringReader reader = new StringReader(outbuf.toString());
+
+        InputStream is = classLoader
+                .getResourceAsStream("builder/generation/goodfile.xml");
+        compareData(reader, new InputStreamReader(is));
+    }
+
+    /**
      * Scan a very complex source tree, containing all the different features in
      * various combinations, then dump the result to a file and compare it (line
      * by line) against a "known good" file.
