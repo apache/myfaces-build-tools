@@ -51,6 +51,7 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
     private String _tagSuperclass;
     private String _serialuidtag;
     
+    private Boolean _generatedComponentClass;
     private Boolean _generatedTagClass;
     private Boolean _configExcluded;
     
@@ -73,6 +74,7 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
         out.writeElement("tagClass", vm._tagClass);
         out.writeElement("tagSuperclass", vm._tagSuperclass);
         out.writeElement("serialuidtag", vm._serialuidtag);
+        out.writeElement("generatedComponentClass", vm._generatedComponentClass);
         out.writeElement("generatedTagClass", vm._generatedTagClass);
         out.writeElement("configExcluded", vm._configExcluded);
 
@@ -108,6 +110,7 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
         digester.addBeanPropertySetter(newPrefix + "/tagClass");
         digester.addBeanPropertySetter(newPrefix + "/tagSuperclass");
         digester.addBeanPropertySetter(newPrefix + "/serialuidtag");
+        digester.addBeanPropertySetter(newPrefix + "/generatedComponentClass");
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
         
@@ -324,6 +327,16 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
         return _serialuidtag;
     }
     
+    public void setGeneratedComponentClass(Boolean generatedComponentClass)
+    {
+        _generatedComponentClass = generatedComponentClass;
+    }
+
+    public Boolean isGeneratedComponentClass()
+    {
+        return ModelUtils.defaultOf(_generatedComponentClass,false);
+    }
+
     public void setGeneratedTagClass(Boolean generatedTagClass)
     {
         _generatedTagClass = generatedTagClass;
@@ -403,5 +416,21 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
         }
         return _propertyTagList;
     }
-    
+
+    private List _propertyValidatorList = null; 
+
+    public Collection getPropertyValidatorList(){
+        if (_propertyValidatorList == null){
+            _propertyValidatorList = new ArrayList();
+            for (Iterator it = _properties.values().iterator(); it.hasNext();){
+                PropertyMeta prop = (PropertyMeta) it.next();
+                if (!prop.isInherited().booleanValue() && prop.isGenerated().booleanValue()){
+                    _propertyValidatorList.add(prop);
+                }
+            }
+            
+        }
+        return _propertyValidatorList;
+    }
+
 }

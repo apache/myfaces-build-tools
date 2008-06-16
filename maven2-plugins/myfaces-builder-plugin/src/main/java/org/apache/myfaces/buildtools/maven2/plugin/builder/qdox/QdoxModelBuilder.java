@@ -159,6 +159,11 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             ValidatorMeta validator = (ValidatorMeta) it.next();
             validator.setModelId(model.getModelId());
+            //Check if the component class file exists
+            if (!IOUtils.existsSourceFile(StringUtils.replace(
+                    validator.getClassName(),".","/")+".java", sourceDirs)){
+                validator.setGeneratedComponentClass(Boolean.TRUE);
+            }
             //Check if the validator tag class file exists
             if (validator.getTagClass() != null && 
                     !IOUtils.existsSourceFile(StringUtils.replace(
@@ -579,6 +584,14 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
         
+        // If the validatorClass is not the same as the class with
+        // @JSFValidator annotation, the validator class is generated 
+        if (!clazz.getFullyQualifiedName().equals(validatorClass)){
+            //There is only one type of generation for validators
+            //(use abstract pattern), so this sets automatically the
+            //superClass
+            superClassName = getString(clazz,"superClass",props,clazz.getFullyQualifiedName());
+        }
 
         ValidatorMeta validator = new ValidatorMeta();
         validator.setName(componentName);
