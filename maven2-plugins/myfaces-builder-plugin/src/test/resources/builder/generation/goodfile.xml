@@ -31,44 +31,6 @@ Some dummy prop1 documentation.
     </property>
   </component>
   <component>
-    <className>generation.SubclassComponent</className>
-    <parentClassName>generation.ComponentBase</parentClassName>
-    <superClassName>generation.ComponentGenSubclass</superClassName>
-    <classSource>generation.ComponentGenSubclass</classSource>
-    <name>fooFromSubclass</name>
-    <type>foo</type>
-    <family>foo</family>
-    <rendererType>FooRenderer</rendererType>
-    <desc>A class for which a concrete component will be created using "subclass mode" code-generation</desc>
-    <longDesc>A class for which a concrete component will be created using "subclass mode" code-generation.</longDesc>
-    <generatedComponentClass>true</generatedComponentClass>
-  </component>
-  <component>
-    <className>generation.TemplateComponent</className>
-    <parentClassName>generation.ComponentBase</parentClassName>
-    <classSource>generation.ComponentGenTemplate</classSource>
-    <name>fooFromTemplate</name>
-    <type>foo</type>
-    <family>foo</family>
-    <rendererType>FooRenderer</rendererType>
-    <desc>A class for which a concrete component will be created using "template mode" code-generation</desc>
-    <longDesc>A class for which a concrete component will be created using "template mode" code-generation.</longDesc>
-    <generatedComponentClass>true</generatedComponentClass>
-    <template>true</template>
-    <property>
-      <name>prop2</name>
-      <className>boolean</className>
-      <desc>The prop2 property</desc>
-      <longDesc>
-<![CDATA[
-The prop2 property.
-<p>
-Some dummy prop2 documentation.
-]]>
-      </longDesc>
-    </property>
-  </component>
-  <component>
     <className>generation.ComponentInterface</className>
     <classSource>generation.ComponentInterface</classSource>
     <type>iface</type>
@@ -97,9 +59,56 @@ Some dummy ifaceProp documentation.
     </property>
   </component>
   <component>
+    <className>generation.SubclassComponent</className>
+    <parentClassName>generation.ComponentBase</parentClassName>
+    <superClassName>generation.ComponentGenSubclass</superClassName>
+    <classSource>generation.ComponentGenSubclass</classSource>
+    <interfaces>
+      <interface name="generation.ComponentInterface"/>
+    </interfaces>
+    <name>fooFromSubclass</name>
+    <type>foo</type>
+    <family>foo</family>
+    <rendererType>FooRenderer</rendererType>
+    <desc>A class for which a concrete component will be created using "subclass mode" code-generation</desc>
+    <longDesc>A class for which a concrete component will be created using "subclass mode" code-generation.</longDesc>
+    <generatedComponentClass>true</generatedComponentClass>
+  </component>
+  <component>
+    <className>generation.TemplateComponent</className>
+    <parentClassName>generation.ComponentBase</parentClassName>
+    <classSource>generation.ComponentGenTemplate</classSource>
+    <interfaces>
+      <interface name="generation.ComponentInterface"/>
+    </interfaces>
+    <name>fooFromTemplate</name>
+    <type>foo</type>
+    <family>foo</family>
+    <rendererType>FooRenderer</rendererType>
+    <desc>A class for which a concrete component will be created using "template mode" code-generation</desc>
+    <longDesc>A class for which a concrete component will be created using "template mode" code-generation.</longDesc>
+    <generatedComponentClass>true</generatedComponentClass>
+    <template>true</template>
+    <property>
+      <name>prop2</name>
+      <className>boolean</className>
+      <desc>The prop2 property</desc>
+      <longDesc>
+<![CDATA[
+The prop2 property.
+<p>
+Some dummy prop2 documentation.
+]]>
+      </longDesc>
+    </property>
+  </component>
+  <component>
     <className>generation.ComponentManual</className>
     <parentClassName>generation.ComponentBase</parentClassName>
     <classSource>generation.ComponentManual</classSource>
+    <interfaces>
+      <interface name="generation.ComponentInterface"/>
+    </interfaces>
     <name>foo</name>
     <type>foo</type>
     <family>foo</family>
