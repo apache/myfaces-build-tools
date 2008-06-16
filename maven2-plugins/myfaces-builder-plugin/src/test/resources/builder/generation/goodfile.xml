@@ -61,8 +61,8 @@ Some dummy ifaceProp documentation.
   <component>
     <className>generation.SubclassComponent</className>
     <parentClassName>generation.ComponentBase</parentClassName>
-    <superClassName>generation.ComponentGenSubclass</superClassName>
     <classSource>generation.ComponentGenSubclass</classSource>
+    <superClassName>generation.ComponentGenSubclass</superClassName>
     <interfaces>
       <interface name="generation.ComponentInterface"/>
     </interfaces>
