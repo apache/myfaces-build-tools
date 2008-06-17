@@ -223,33 +223,33 @@ public class QdoxModelBuilderTest extends TestCase
     /**
      * Compare the contents of two Reader objects line-by-line.
      */
-    private void compareData(Reader src1, Reader src2) throws IOException
+    private void compareData(Reader testData, Reader goodData) throws IOException
     {
-        BufferedReader in1 = new BufferedReader(src1);
-        BufferedReader in2 = new BufferedReader(src2);
+        BufferedReader testDataReader = new BufferedReader(testData);
+        BufferedReader goodDataReader = new BufferedReader(goodData);
 
         int line = 0;
         for (;;)
         {
             ++line;
-            String line1 = in1.readLine();
-            String line2 = in2.readLine();
+            String testLine = testDataReader.readLine();
+            String goodLine = goodDataReader.readLine();
 
-            if ((line1 == null) && (line2 == null))
+            if ((testLine == null) && (goodLine == null))
             {
                 // success
                 return;
             }
-            else if (line1 == null)
+            else if (testLine == null)
             {
                 fail("input 2 has more lines than input 1");
             }
-            else if (line2 == null)
+            else if (goodLine == null)
             {
                 fail("input 1 has more lines than input 2");
             }
 
-            assertEquals("Inputs differ on line " + line, line1, line2);
+            assertEquals("Inputs differ on line " + line, goodLine, testLine);
         }
     }
 }
