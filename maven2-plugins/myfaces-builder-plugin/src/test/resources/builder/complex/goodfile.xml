@@ -60,6 +60,7 @@ Some dummy ifaceProp documentation.
     <className>ComponentChild</className>
     <parentClassName>ComponentBase</parentClassName>
     <sourceClassName>ComponentChild</sourceClassName>
+    <sourceClassParentClassName>ComponentBase</sourceClassParentClassName>
     <interfaces>
       <interface name="ComponentInterface"/>
     </interfaces>

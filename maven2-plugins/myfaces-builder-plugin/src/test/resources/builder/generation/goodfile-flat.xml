@@ -60,7 +60,7 @@ Some dummy ifaceProp documentation.
     <className>testpkg.SubclassComponent</className>
     <parentClassName>testpkg.ComponentBase</parentClassName>
     <sourceClassName>testpkg.ComponentGenSubclass</sourceClassName>
-    <sourceClassParentClassName>testpkg.ComponentGenSubclass</sourceClassParentClassName>
+    <sourceClassParentClassName>testpkg.ComponentBase</sourceClassParentClassName>
     <interfaces>
       <interface name="testpkg.ComponentInterface"/>
     </interfaces>
@@ -103,6 +103,7 @@ Some dummy ifaceProp documentation.
     <className>testpkg.TemplateComponent</className>
     <parentClassName>testpkg.ComponentBase</parentClassName>
     <sourceClassName>testpkg.ComponentGenTemplate</sourceClassName>
+    <sourceClassParentClassName>testpkg.ComponentBase</sourceClassParentClassName>
     <interfaces>
       <interface name="testpkg.ComponentInterface"/>
     </interfaces>
@@ -158,6 +159,7 @@ Some dummy ifaceProp documentation.
     <className>testpkg.ComponentManual</className>
     <parentClassName>testpkg.ComponentBase</parentClassName>
     <sourceClassName>testpkg.ComponentManual</sourceClassName>
+    <sourceClassParentClassName>testpkg.ComponentBase</sourceClassParentClassName>
     <interfaces>
       <interface name="testpkg.ComponentInterface"/>
     </interfaces>

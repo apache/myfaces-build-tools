@@ -83,7 +83,7 @@ public class QdoxModelBuilder implements ModelBuilder
             JavaClass c0 = (JavaClass) arg0;
             JavaClass c1 = (JavaClass) arg1;
 
-            return (c0.getName().compareTo(c1.getName()));
+            return (c0.getFullyQualifiedName().compareTo(c1.getFullyQualifiedName()));
         }
     }
 
@@ -238,7 +238,7 @@ public class QdoxModelBuilder implements ModelBuilder
         // ok, now we can mark this class as processed.
         processedClasses.add(clazz);
 
-        log.info("processed class:" + clazz.getName());
+        log.info("processed class:" + clazz.getFullyQualifiedName());
 
         DocletTag tag;
         Annotation anno;
@@ -457,17 +457,36 @@ public class QdoxModelBuilder implements ModelBuilder
      * Set the parentClassName and interfaceClassNames properties of the
      * provided modelItem object.
      */
-    private void initAncestry(Model model, JavaClass clazz, ClassMeta modelItem)
+    private void initAncestry(Model model, JavaClass clazz,
+    		ClassMeta modelItem, String classNameOverride)
     {
-        // self
-        modelItem.setClassName(clazz.getName());
-
-        // parent
+        modelItem.setSourceClassName(clazz.getFullyQualifiedName());
+        JavaClass realParentClass = clazz.getSuperJavaClass();
+        if (realParentClass != null)
+        {
+        	String fqn = realParentClass.getFullyQualifiedName();
+        	if ((fqn != null) && !fqn.startsWith("java.lang"))
+        	{
+        		modelItem.setSourceClassParentClassName(fqn);
+        	}
+        }
+                
+        // JSF Entity class.
+        if (StringUtils.isEmpty(classNameOverride))
+    	{
+        	modelItem.setClassName(clazz.getFullyQualifiedName());
+    	}
+        else
+        {
+        	modelItem.setClassName(classNameOverride);
+        }
+        
+        // logical parent (one metadata is inherited from)
         JavaClass parentClazz = clazz.getSuperJavaClass();
         while (parentClazz != null)
         {
             ComponentMeta parentComponent = model
-                    .findComponentByClassName(parentClazz.getName());
+                    .findComponentByClassName(parentClazz.getFullyQualifiedName());
             if (parentComponent != null)
             {
                 modelItem.setParentClassName(parentComponent.getClassName());
@@ -476,7 +495,7 @@ public class QdoxModelBuilder implements ModelBuilder
             parentClazz = parentClazz.getSuperJavaClass();
         }
 
-        // interfaces
+        // interfaces metadata is inherited from
         JavaClass[] classes = clazz.getImplementedInterfaces();
         List ifaceNames = new ArrayList();
         for (int i = 0; i < classes.length; ++i)
@@ -513,9 +532,11 @@ public class QdoxModelBuilder implements ModelBuilder
             converterIdDflt = clean(value.substring(value.indexOf('"')));
         }        
         String converterId = getString(clazz, "id", props, converterIdDflt);
-        String converterClass = getString(clazz, "class", props, clazz
-                .getFullyQualifiedName());
-        converterClass = getString(clazz,"clazz",props,converterClass);
+
+        // Check for both "class" and "clazz" in order to support
+        // doclet and real annotations.
+        String classNameOverride = getString(clazz, "class", props, null);
+        classNameOverride = getString(clazz,"clazz",props,classNameOverride);
         
         String componentName = getString(clazz, "name", props, null);
         String bodyContent = getString(clazz, "bodyContent", props, null);
@@ -523,40 +544,18 @@ public class QdoxModelBuilder implements ModelBuilder
         String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
         String serialuidtag = getString(clazz, "serialuidtag", props, null);
         Boolean configExcluded = getBoolean(clazz,"configExcluded",props,null);   
-        
-        String componentParentClass = getString(clazz, "parent", props, 
-                clazz.getSuperJavaClass()!= null?
-                        clazz.getSuperJavaClass().getFullyQualifiedName():null);
-        
-        String superClassName = getString(clazz,"superClass",props,null);
-        
-        if (componentParentClass != null && componentParentClass.startsWith("java.lang"))
-        {
-            componentParentClass = null;
-        }
-        
-        if (componentParentClass != null)
-        {
-            if (componentParentClass.equals(""))
-            {
-                componentParentClass = null;
-            }
-        }
-                
+
         ConverterMeta converter = new ConverterMeta();
+        initAncestry(model, clazz, converter, classNameOverride);
         converter.setName(componentName);
         converter.setBodyContent(bodyContent);
         converter.setTagClass(tagClass);
         converter.setTagSuperclass(tagSuperclass);
-        converter.setSourceClassName(clazz.getFullyQualifiedName());
-        converter.setClassName(converterClass);
         converter.setConverterId(converterId);
         converter.setDescription(shortDescription);
         converter.setLongDescription(longDescription);
         converter.setSerialuidtag(serialuidtag);
         converter.setConfigExcluded(configExcluded);
-        converter.setSourceClassParentClassName(superClassName);
-        converter.setParentClassName(componentParentClass);
         
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, converter);
@@ -584,9 +583,11 @@ public class QdoxModelBuilder implements ModelBuilder
             validatorIdDflt = clean(value.substring(value.indexOf('"')));
         }        
         String validatorId = getString(clazz, "id", props, validatorIdDflt);
-        String validatorClass = getString(clazz, "class", props, clazz
-                .getFullyQualifiedName());
-        validatorClass = getString(clazz,"clazz",props,validatorClass);
+
+        // Check for both "class" and "clazz" in order to support
+        // doclet and real annotations.
+        String classNameOverride = getString(clazz, "class", props, null);
+        classNameOverride = getString(clazz,"clazz",props,classNameOverride);
         
         String componentName = getString(clazz, "name", props, null);
         String bodyContent = getString(clazz, "bodyContent", props, null);
@@ -595,48 +596,17 @@ public class QdoxModelBuilder implements ModelBuilder
         String serialuidtag = getString(clazz, "serialuidtag", props, null);
         Boolean configExcluded = getBoolean(clazz,"configExcluded",props,null);   
         
-        String componentParentClass = getString(clazz, "parent", props, 
-                clazz.getSuperJavaClass()!= null?
-                        clazz.getSuperJavaClass().getFullyQualifiedName():null);
-        
-        String superClassName = getString(clazz,"superClass",props,null);
-        
-        if (componentParentClass != null && componentParentClass.startsWith("java.lang"))
-        {
-            componentParentClass = null;
-        }
-        
-        if (componentParentClass != null)
-        {
-            if (componentParentClass.equals(""))
-            {
-                componentParentClass = null;
-            }
-        }
-        
-        // If the validatorClass is not the same as the class with
-        // @JSFValidator annotation, the validator class is generated 
-        if (!clazz.getFullyQualifiedName().equals(validatorClass)){
-            //There is only one type of generation for validators
-            //(use abstract pattern), so this sets automatically the
-            //superClass
-            superClassName = getString(clazz,"superClass",props,clazz.getFullyQualifiedName());
-        }
-
         ValidatorMeta validator = new ValidatorMeta();
+        initAncestry(model, clazz, validator, classNameOverride);
         validator.setName(componentName);
         validator.setBodyContent(bodyContent);
         validator.setTagClass(tagClass);
         validator.setTagSuperclass(tagSuperclass);
-        validator.setSourceClassName(clazz.getFullyQualifiedName());
-        validator.setClassName(validatorClass);
         validator.setValidatorId(validatorId);
         validator.setDescription(shortDescription);
         validator.setLongDescription(longDescription);
         validator.setSerialuidtag(serialuidtag);
         validator.setConfigExcluded(configExcluded);
-        validator.setSourceClassParentClassName(superClassName);
-        validator.setParentClassName(componentParentClass);
         
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, validator);
@@ -766,44 +736,13 @@ public class QdoxModelBuilder implements ModelBuilder
         }
 
         String componentName = getString(clazz, "name", props, null);
-        String componentClass = getString(clazz, "class", props, clazz
-                .getFullyQualifiedName());
-        componentClass = getString(clazz,"clazz",props,componentClass);
-        
-        //The parent class is always what is indicated or the
-        //superclass of the class that has the @JSFComponent class
-        String componentParentClass = getString(clazz, "parent", props, 
-                clazz.getSuperJavaClass()!= null?
-                        clazz.getSuperJavaClass().getFullyQualifiedName():null);
-        
-        String superClassName = getString(clazz,"superClass",props,null);
-        
-        if (componentParentClass != null && componentParentClass.startsWith("java.lang"))
-        {
-            componentParentClass = null;
-        }
-        
-        if (componentParentClass != null)
-        {
-            if (componentParentClass.equals(""))
-            {
-                componentParentClass = null;
-            }
-        }
- 
+
+        // Check for both "class" and "clazz" in order to support
+        // doclet and real annotations.
+        String classNameOverride = getString(clazz, "class", props, null);
+        classNameOverride = getString(clazz,"clazz",props,classNameOverride);
+                
         Boolean template = getBoolean(clazz,"template",props, null);
-        
-        // If the componentClass is not the same as the class with
-        // @JSFComponent annotation, the component class is generated 
-        if (!clazz.getFullyQualifiedName().equals(componentClass)){
-            if (!(template != null && template.booleanValue()))
-            {
-                //If template is false or null, the superClass of the generated
-                //class is the same class, otherwise is the same as the parent
-                //class.
-                superClassName = getString(clazz,"superClass",props,clazz.getFullyQualifiedName());
-            }
-        }
                 
         String longDescription = clazz.getComment();
         String descDflt = getFirstSentence(longDescription);
@@ -832,13 +771,9 @@ public class QdoxModelBuilder implements ModelBuilder
         implementsValue = getString(clazz, "implementz", props, implementsValue);
 
         ComponentMeta component = new ComponentMeta();
-        initAncestry(model, clazz, component);
+        initAncestry(model, clazz, component, classNameOverride);
         component.setName(componentName);
         component.setBodyContent(bodyContent);
-        component.setClassName(componentClass);
-        component.setParentClassName(componentParentClass);
-        component.setSourceClassName(clazz.getFullyQualifiedName());
-        component.setSourceClassParentClassName(superClassName);
         component.setDescription(shortDescription);
         component.setLongDescription(longDescription);
         component.setConfigExcluded(configExcluded);
@@ -854,7 +789,8 @@ public class QdoxModelBuilder implements ModelBuilder
         for (int i = 0; i < interfaces.length; ++i)
         {
             JavaClass iface = interfaces[i];
-            if (iface.getName().equals("javax.faces.component.NamingContainer"))
+            if (iface.getFullyQualifiedName().equals(
+            		"javax.faces.component.NamingContainer"))
             {
                 component.setNamingContainer(Boolean.TRUE);
                 break;
