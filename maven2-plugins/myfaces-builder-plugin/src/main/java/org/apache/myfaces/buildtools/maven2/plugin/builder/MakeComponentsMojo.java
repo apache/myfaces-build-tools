@@ -351,8 +351,8 @@ public class MakeComponentsMojo extends AbstractMojo
         //One example of why is useful do this is in 
         //javax.faces.component.HtmlDataTable (myfaces 1.1),
         //in this class it is overriden encodeBegin.
-        if (!component.getClassSource().equals(component.getClassName()) &&
-            !component.getClassSource().equals(component.getSuperClassName()))
+        if (!component.getSourceClassName().equals(component.getClassName()) &&
+            !component.getSourceClassName().equals(component.getSourceClassParentClassName()))
         {
             String source = this.getInnerSourceCode(builder, component);
             
@@ -408,7 +408,7 @@ public class MakeComponentsMojo extends AbstractMojo
     {   
         StringWriter writer = new StringWriter();
         
-        JavaClass sourceClass = builder.getClassByName(component.getClassSource());
+        JavaClass sourceClass = builder.getClassByName(component.getSourceClassName());
         
         JavaField [] fields = sourceClass.getFields();
 

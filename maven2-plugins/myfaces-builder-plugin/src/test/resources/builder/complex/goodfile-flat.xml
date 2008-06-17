@@ -3,7 +3,7 @@
 <model>
   <component>
     <className>ComponentBase</className>
-    <classSource>ComponentBase</classSource>
+    <sourceClassName>ComponentBase</sourceClassName>
     <type>base</type>
     <family>base</family>
     <rendererType>BaseRenderer</rendererType>
@@ -31,7 +31,7 @@ Some dummy prop1 documentation.
   </component>
   <component>
     <className>ComponentInterface</className>
-    <classSource>ComponentInterface</classSource>
+    <sourceClassName>ComponentInterface</sourceClassName>
     <type>iface</type>
     <family>iface</family>
     <rendererType>BaseRenderer</rendererType>
@@ -59,7 +59,7 @@ Some dummy ifaceProp documentation.
   <component>
     <className>ComponentChild</className>
     <parentClassName>ComponentBase</parentClassName>
-    <classSource>ComponentChild</classSource>
+    <sourceClassName>ComponentChild</sourceClassName>
     <interfaces>
       <interface name="ComponentInterface"/>
     </interfaces>
@@ -117,7 +117,7 @@ Some dummy ifaceProp documentation.
   </component>
   <converter>
     <className>Converter1</className>
-    <classSource>Converter1</classSource>
+    <sourceClassName>Converter1</sourceClassName>
     <converterId>conv1</converterId>
     <desc>The Converter1 converter</desc>
     <longDesc>
@@ -130,7 +130,7 @@ This is a silly converter. It does nothing useful.
   </converter>
   <validator>
     <className>Validator1</className>
-    <classSource>Validator1</classSource>
+    <sourceClassName>Validator1</sourceClassName>
     <validatorId>val1</validatorId>
     <desc>The Validator1 validator</desc>
     <longDesc>

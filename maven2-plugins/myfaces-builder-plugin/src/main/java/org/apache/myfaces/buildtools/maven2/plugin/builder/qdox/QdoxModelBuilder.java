@@ -109,6 +109,9 @@ public class QdoxModelBuilder implements ModelBuilder
         JavaDocBuilder builder = new JavaDocBuilder();
 
         // need a File object representing the original source tree
+        //
+        // TODO: make this more flexible, so specific classes can
+        // be included and excluded.
         for (Iterator i = sourceDirs.iterator(); i.hasNext();)
         {
             String srcDir = (String) i.next();
@@ -127,55 +130,82 @@ public class QdoxModelBuilder implements ModelBuilder
             JavaClass clazz = classes[i];
             processClass(processedClasses, clazz, model);
         }
-        
+
+        // post-process the list of components
         for (Iterator it = model.getComponents().iterator(); it.hasNext();)
         {
             ComponentMeta component = (ComponentMeta) it.next();
             component.setModelId(model.getModelId());
-            //Check if the component class file exists
-            if (!IOUtils.existsSourceFile(StringUtils.replace(
-                    component.getClassName(),".","/")+".java", sourceDirs)){
+
+            //Check if the component class java file exists in the source dirs
+            String classname = component.getClassName();
+            String classfile = StringUtils.replace(classname,".","/")+".java";
+            if (!IOUtils.existsSourceFile(classfile, sourceDirs))
+            {
                 component.setGeneratedComponentClass(Boolean.TRUE);
             }
-            //Check if the component tag class file exists
-            if (component.getTagClass() != null && 
-                    !IOUtils.existsSourceFile(StringUtils.replace(
-                    component.getTagClass(),".","/")+".java", sourceDirs)){
+
+            // Check if the tag class java file exists in the source dirs
+            if (isTagClassMissing(component.getTagClass(), sourceDirs))
+    		{
                 component.setGeneratedTagClass(Boolean.TRUE);
-            }            
+    		}
         }
+
+        // post-process the list of converters
         for (Iterator it = model.getConverters().iterator(); it.hasNext();)
         {
             ConverterMeta converter = (ConverterMeta) it.next();
             converter.setModelId(model.getModelId());
-            //Check if the converter tag class file exists
-            if (converter.getTagClass() != null && 
-                    !IOUtils.existsSourceFile(StringUtils.replace(
-                    converter.getTagClass(),".","/")+".java", sourceDirs)){
-                converter.setGeneratedTagClass(Boolean.TRUE);
-            }            
+
+            // TODO: why is there no check for Converter class existence here??
+            
+            // Check if the tag class java file exists in the source dirs
+            if (isTagClassMissing(converter.getTagClass(), sourceDirs))
+    		{
+            	converter.setGeneratedTagClass(Boolean.TRUE);
+    		}
         }
+
+        // post-process the list of validators
         for (Iterator it = model.getValidators().iterator(); it.hasNext();)
         {
             ValidatorMeta validator = (ValidatorMeta) it.next();
             validator.setModelId(model.getModelId());
-            //Check if the component class file exists
+
+            //Check if the validator class file exists
             if (!IOUtils.existsSourceFile(StringUtils.replace(
                     validator.getClassName(),".","/")+".java", sourceDirs)){
                 validator.setGeneratedComponentClass(Boolean.TRUE);
             }
-            //Check if the validator tag class file exists
-            if (validator.getTagClass() != null && 
-                    !IOUtils.existsSourceFile(StringUtils.replace(
-                    validator.getTagClass(),".","/")+".java", sourceDirs)){
-                validator.setGeneratedTagClass(Boolean.TRUE);
-            }            
+
+            // Check if the tag class java file exists in the source dirs
+            if (isTagClassMissing(validator.getTagClass(), sourceDirs))
+    		{
+            	validator.setGeneratedTagClass(Boolean.TRUE);
+    		}
         }
+
+        // post-process the list of tags
         for (Iterator it = model.getTags().iterator(); it.hasNext();)
         {
             TagMeta tag = (TagMeta) it.next();
             tag.setModelId(model.getModelId());
         }       
+    }
+
+    /**
+     * Returns true if the tagClassName is not null, but the corresponding
+     * source file cannot be found in the specified source dirs.
+     */
+    private boolean isTagClassMissing(String tagClassName, List sourceDirs)
+    {
+    	if (tagClassName == null)
+    	{
+    		return false;
+    	}
+    	String tagClassFile = StringUtils.replace(tagClassName,".","/")+".java";
+        return !IOUtils.existsSourceFile(tagClassFile, sourceDirs);
     }
 
     /**
@@ -518,14 +548,14 @@ public class QdoxModelBuilder implements ModelBuilder
         converter.setBodyContent(bodyContent);
         converter.setTagClass(tagClass);
         converter.setTagSuperclass(tagSuperclass);
-        converter.setClassSource(clazz.getFullyQualifiedName());
+        converter.setSourceClassName(clazz.getFullyQualifiedName());
         converter.setClassName(converterClass);
         converter.setConverterId(converterId);
         converter.setDescription(shortDescription);
         converter.setLongDescription(longDescription);
         converter.setSerialuidtag(serialuidtag);
         converter.setConfigExcluded(configExcluded);
-        converter.setSuperClassName(superClassName);
+        converter.setSourceClassParentClassName(superClassName);
         converter.setParentClassName(componentParentClass);
         
         // Now here walk the component looking for property annotations.
@@ -598,14 +628,14 @@ public class QdoxModelBuilder implements ModelBuilder
         validator.setBodyContent(bodyContent);
         validator.setTagClass(tagClass);
         validator.setTagSuperclass(tagSuperclass);
-        validator.setClassSource(clazz.getFullyQualifiedName());
+        validator.setSourceClassName(clazz.getFullyQualifiedName());
         validator.setClassName(validatorClass);
         validator.setValidatorId(validatorId);
         validator.setDescription(shortDescription);
         validator.setLongDescription(longDescription);
         validator.setSerialuidtag(serialuidtag);
         validator.setConfigExcluded(configExcluded);
-        validator.setSuperClassName(superClassName);
+        validator.setSourceClassParentClassName(superClassName);
         validator.setParentClassName(componentParentClass);
         
         // Now here walk the component looking for property annotations.
@@ -806,9 +836,9 @@ public class QdoxModelBuilder implements ModelBuilder
         component.setName(componentName);
         component.setBodyContent(bodyContent);
         component.setClassName(componentClass);
-        component.setClassSource(clazz.getFullyQualifiedName());
         component.setParentClassName(componentParentClass);
-        component.setSuperClassName(superClassName);
+        component.setSourceClassName(clazz.getFullyQualifiedName());
+        component.setSourceClassParentClassName(superClassName);
         component.setDescription(shortDescription);
         component.setLongDescription(longDescription);
         component.setConfigExcluded(configExcluded);

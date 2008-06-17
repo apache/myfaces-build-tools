@@ -68,6 +68,37 @@ public class FlattenerTest extends TestCase
     }
 
     /**
+     * Load the "goodfile.xml" from the generation test case, flattens it and
+     * then compares the result to an expected good file.
+     */
+    public void testGeneration() throws Exception
+    {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+
+        InputStream is = classLoader
+                .getResourceAsStream("builder/generation/goodfile.xml");
+        String orig = readAll(is);
+        is.close();
+
+        Model model = IOUtils.readModel(new StringReader(orig));
+
+        new Flattener(model).flatten();
+        
+        StringWriter dstWriter = new StringWriter();
+        IOUtils.writeModel(model, dstWriter);
+        String dst = dstWriter.toString();
+
+        // Dump the output to disk, to help debugging if something fails
+        writeAll("target/generation-flat.xml", dst);
+        
+        // now load goodfile-flat.xml and check that it is as expected
+        InputStream is2 = classLoader
+                .getResourceAsStream("builder/generation/goodfile-flat.xml");
+        compareData(new StringReader(dst), new InputStreamReader(is2));
+        is2.close();
+    }
+
+    /**
      * Read the contents of an input stream into a string.
      */
     private String readAll(InputStream is) throws IOException

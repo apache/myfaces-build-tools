@@ -3,7 +3,7 @@
 <model>
   <component>
     <className>testpkg.ComponentBase</className>
-    <classSource>testpkg.ComponentBase</classSource>
+    <sourceClassName>testpkg.ComponentBase</sourceClassName>
     <type>base</type>
     <family>base</family>
     <rendererType>BaseRenderer</rendererType>
@@ -31,7 +31,7 @@ Some dummy prop1 documentation.
   </component>
   <component>
     <className>testpkg.ComponentInterface</className>
-    <classSource>testpkg.ComponentInterface</classSource>
+    <sourceClassName>testpkg.ComponentInterface</sourceClassName>
     <type>iface</type>
     <family>iface</family>
     <rendererType>BaseRenderer</rendererType>
@@ -59,8 +59,8 @@ Some dummy ifaceProp documentation.
   <component>
     <className>testpkg.SubclassComponent</className>
     <parentClassName>testpkg.ComponentBase</parentClassName>
-    <classSource>testpkg.ComponentGenSubclass</classSource>
-    <superClassName>testpkg.ComponentGenSubclass</superClassName>
+    <sourceClassName>testpkg.ComponentGenSubclass</sourceClassName>
+    <sourceClassParentClassName>testpkg.ComponentGenSubclass</sourceClassParentClassName>
     <interfaces>
       <interface name="testpkg.ComponentInterface"/>
     </interfaces>
@@ -75,7 +75,7 @@ Some dummy ifaceProp documentation.
   <component>
     <className>testpkg.TemplateComponent</className>
     <parentClassName>testpkg.ComponentBase</parentClassName>
-    <classSource>testpkg.ComponentGenTemplate</classSource>
+    <sourceClassName>testpkg.ComponentGenTemplate</sourceClassName>
     <interfaces>
       <interface name="testpkg.ComponentInterface"/>
     </interfaces>
@@ -103,7 +103,7 @@ Some dummy prop2 documentation.
   <component>
     <className>testpkg.ComponentManual</className>
     <parentClassName>testpkg.ComponentBase</parentClassName>
-    <classSource>testpkg.ComponentManual</classSource>
+    <sourceClassName>testpkg.ComponentManual</sourceClassName>
     <interfaces>
       <interface name="testpkg.ComponentInterface"/>
     </interfaces>

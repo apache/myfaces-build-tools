@@ -61,8 +61,8 @@ public class ClassMeta
     
     private List _interfaceClassNames = new ArrayList();
     private String _modelId;
-    private String _classSource;
-    private String _superClassName;
+    private String _sourceClassName;
+    private String _sourceClassParentClassName;
 
     /**
      * Write this model out as xml.
@@ -72,8 +72,8 @@ public class ClassMeta
         out.writeElement("modelId", mi._modelId);
         out.writeElement("className", mi._className);
         out.writeElement("parentClassName", mi._parentClassName);
-        out.writeElement("classSource", mi._classSource);
-        out.writeElement("superClassName", mi._superClassName);
+        out.writeElement("sourceClassName", mi._sourceClassName);
+        out.writeElement("sourceClassParentClassName", mi._sourceClassParentClassName);
 
         if (!mi._interfaceClassNames.isEmpty())
         {
@@ -98,8 +98,8 @@ public class ClassMeta
         digester.addBeanPropertySetter(prefix + "/modelId");
         digester.addBeanPropertySetter(prefix + "/className");
         digester.addBeanPropertySetter(prefix + "/parentClassName");
-        digester.addBeanPropertySetter(prefix + "/classSource");
-        digester.addBeanPropertySetter(prefix + "/superClassName");
+        digester.addBeanPropertySetter(prefix + "/sourceClassName");
+        digester.addBeanPropertySetter(prefix + "/sourceClassParentClassName");
         digester.addCallMethod(prefix + "/interfaces/interface",
                 "addInterfaceClassName", 1);
         digester.addCallParam(prefix + "/interfaces/interface", 0, "name");
@@ -199,43 +199,50 @@ public class ClassMeta
 
     /**
      * Return the className of the real java class from which this metadata was gathered.
+     * <p>
+     * This is mostly used for documentation. However when generating code in "template mode",
+     * this is used to locate the original class in order to find the source code to copy.
+     * It is also used for some reason in MakeComponentsMojo when determining whether to
+     * generate a class or not - this is probably wrong.
      */
-    public String getClassSource()
+    public String getSourceClassName()
     {
-        return _classSource;
+        return _sourceClassName;
     }
 
-    public void setClassSource(String classSource)
+    public void setSourceClassName(String sourceClassName)
     {
-        this._classSource = classSource;
+        this._sourceClassName = sourceClassName;
     }
 
     /**
      * Return the real java parent class of the class from which this metadata
      * was gathered (see classSource property).
      * <p>
-     * This value is usually the same as property parentClassName. However in
-     * the case where the direct parent of this class is not annotated then
-     * parentClassName can point to some more remote ancestor (ie some
-     * ancestor of superClassName).
+     * This value is usually the same as property parentClassName. However if
+     * the parent of the annotated class is not itself annotated, then this
+     * property still points to the real java parent (which will not have a
+     * ClassMeta object representing it) while property parentClass will point
+     * to the nearest superclass that does have an annotation (and does have a
+     * corresponding ClassMeta object).
      * <p>
      * This information is needed for code generation.
      */
-    public void setSuperClassName(String superClassName)
+    public void setSourceClassParentClassName(String sourceClassParentClassName)
     {
-        this._superClassName = superClassName;
+        this._sourceClassParentClassName = sourceClassParentClassName;
     }
 
-    public String getSuperClassName()
+    public String getSourceClassParentClassName()
     {
-        if (_superClassName == null)
+        if (_sourceClassParentClassName == null)
         {
             //return the parent class name instead.
             return getParentClassName();
         }
         else
         {
-            return _superClassName;            
+            return _sourceClassParentClassName;            
         }        
     }
 }
