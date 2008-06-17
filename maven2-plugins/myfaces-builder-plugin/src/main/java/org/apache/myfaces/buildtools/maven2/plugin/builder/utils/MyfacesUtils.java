@@ -33,6 +33,12 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyHolder;
 
+/**
+ * Collection of useful utility methods.
+ * <p>
+ * An instance of this type is made available to the templates used to generate
+ * output files, so that they can call these useful methods.
+ */
 public class MyfacesUtils
 {
     public MyfacesUtils()
@@ -123,6 +129,10 @@ public class MyfacesUtils
         return name;
     }
 
+    // TODO: perhaps this could just return a list of class names for
+    // templates to iterate over, rather than building the text itself?
+    //
+    // TODO: why are we importing tag classes into components anyway?
     public static String importTagClasses(PropertyHolder component)
     {
         Set imports = new HashSet();
@@ -391,6 +401,11 @@ public class MyfacesUtils
     }
     */
 
+    /**
+     * Extract the simple class name from a fully-qualified classname.
+     * <p>
+     * Given a string like "org.apache.Foo", this method returns "Foo".
+     */
     static public String getClassFromFullClass(String fullClass)
     {
         if (fullClass == null)
