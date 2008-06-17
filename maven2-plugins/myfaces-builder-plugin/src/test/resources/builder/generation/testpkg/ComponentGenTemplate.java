@@ -1,4 +1,4 @@
-package generation;
+package testpkg;
 
 /**
  * A class for which a concrete component will be created using "template mode" code-generation.
@@ -8,7 +8,7 @@ package generation;
  *   type="foo"
  *   family="foo"
  *   defaultRendererType="FooRenderer"
- *   class="generation.TemplateComponent"
+ *   class="testpkg.TemplateComponent"
  *   template="true"
  */
 abstract class ComponentGenTemplate extends ComponentBase implements ComponentInterface

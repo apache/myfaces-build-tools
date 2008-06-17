@@ -1,4 +1,4 @@
-package generation;
+package testpkg;
 
 /**
  * A concrete component class that has been written by hand (no code generation).

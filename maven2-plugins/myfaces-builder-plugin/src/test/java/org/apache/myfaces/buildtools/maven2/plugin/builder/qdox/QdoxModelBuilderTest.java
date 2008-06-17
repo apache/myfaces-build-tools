@@ -157,11 +157,12 @@ public class QdoxModelBuilderTest extends TestCase
 
         ClassLoader classLoader = this.getClass().getClassLoader();
         URL sourceUrl = classLoader
-                .getResource("builder/generation/ComponentBase.java");
+                .getResource("builder/generation/testpkg/ComponentBase.java");
         String parentDirName = new File(sourceUrl.getFile()).getParent();
         File parentDir = new File(parentDirName);
+        File baseDir = parentDir.getParentFile();
         List sourceDirs = new ArrayList();
-        sourceDirs.add(parentDir.getAbsolutePath());
+        sourceDirs.add(baseDir.getAbsolutePath());
 
         Model model = new Model();
         builder.buildModel(model, sourceDirs);

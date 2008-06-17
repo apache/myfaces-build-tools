@@ -1,4 +1,4 @@
-package generation;
+package testpkg;
 
 /**
  * An interface that defines component properties.

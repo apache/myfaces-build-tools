@@ -2,8 +2,8 @@
 
 <model>
   <component>
-    <className>generation.ComponentBase</className>
-    <classSource>generation.ComponentBase</classSource>
+    <className>testpkg.ComponentBase</className>
+    <classSource>testpkg.ComponentBase</classSource>
     <type>base</type>
     <family>base</family>
     <rendererType>BaseRenderer</rendererType>
@@ -15,7 +15,6 @@ A base component class.
 This is a base component. It has no name, so is not a concrete component.
 ]]>
     </longDesc>
-    <generatedComponentClass>true</generatedComponentClass>
     <property>
       <name>prop1</name>
       <className>java.lang.String</className>
@@ -31,8 +30,8 @@ Some dummy prop1 documentation.
     </property>
   </component>
   <component>
-    <className>generation.ComponentInterface</className>
-    <classSource>generation.ComponentInterface</classSource>
+    <className>testpkg.ComponentInterface</className>
+    <classSource>testpkg.ComponentInterface</classSource>
     <type>iface</type>
     <family>iface</family>
     <rendererType>BaseRenderer</rendererType>
@@ -44,7 +43,6 @@ An interface that defines component properties.
 This is an interface component.
 ]]>
     </longDesc>
-    <generatedComponentClass>true</generatedComponentClass>
     <property>
       <name>ifaceProp</name>
       <className>java.lang.String</className>
@@ -59,12 +57,12 @@ Some dummy ifaceProp documentation.
     </property>
   </component>
   <component>
-    <className>generation.SubclassComponent</className>
-    <parentClassName>generation.ComponentBase</parentClassName>
-    <classSource>generation.ComponentGenSubclass</classSource>
-    <superClassName>generation.ComponentGenSubclass</superClassName>
+    <className>testpkg.SubclassComponent</className>
+    <parentClassName>testpkg.ComponentBase</parentClassName>
+    <classSource>testpkg.ComponentGenSubclass</classSource>
+    <superClassName>testpkg.ComponentGenSubclass</superClassName>
     <interfaces>
-      <interface name="generation.ComponentInterface"/>
+      <interface name="testpkg.ComponentInterface"/>
     </interfaces>
     <name>fooFromSubclass</name>
     <type>foo</type>
@@ -75,11 +73,11 @@ Some dummy ifaceProp documentation.
     <generatedComponentClass>true</generatedComponentClass>
   </component>
   <component>
-    <className>generation.TemplateComponent</className>
-    <parentClassName>generation.ComponentBase</parentClassName>
-    <classSource>generation.ComponentGenTemplate</classSource>
+    <className>testpkg.TemplateComponent</className>
+    <parentClassName>testpkg.ComponentBase</parentClassName>
+    <classSource>testpkg.ComponentGenTemplate</classSource>
     <interfaces>
-      <interface name="generation.ComponentInterface"/>
+      <interface name="testpkg.ComponentInterface"/>
     </interfaces>
     <name>fooFromTemplate</name>
     <type>foo</type>
@@ -103,11 +101,11 @@ Some dummy prop2 documentation.
     </property>
   </component>
   <component>
-    <className>generation.ComponentManual</className>
-    <parentClassName>generation.ComponentBase</parentClassName>
-    <classSource>generation.ComponentManual</classSource>
+    <className>testpkg.ComponentManual</className>
+    <parentClassName>testpkg.ComponentBase</parentClassName>
+    <classSource>testpkg.ComponentManual</classSource>
     <interfaces>
-      <interface name="generation.ComponentInterface"/>
+      <interface name="testpkg.ComponentInterface"/>
     </interfaces>
     <name>foo</name>
     <type>foo</type>
@@ -115,7 +113,6 @@ Some dummy prop2 documentation.
     <rendererType>FooRenderer</rendererType>
     <desc>A concrete component class that has been written by hand (no code generation)</desc>
     <longDesc>A concrete component class that has been written by hand (no code generation).</longDesc>
-    <generatedComponentClass>true</generatedComponentClass>
     <property>
       <name>prop2</name>
       <className>boolean</className>

@@ -1,4 +1,4 @@
-package generation;
+package testpkg;
 
 /**
  * A base component class.

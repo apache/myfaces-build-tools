@@ -1,4 +1,4 @@
-package generation;
+package testpkg;
 
 /**
  * A class for which a concrete component will be created using "subclass mode" code-generation.
@@ -8,7 +8,7 @@ package generation;
  *   type="foo"
  *   family="foo"
  *   defaultRendererType="FooRenderer"
- *   class="generation.SubclassComponent"
+ *   class="testpkg.SubclassComponent"
  */
 public abstract class ComponentGenSubclass extends ComponentBase implements ComponentInterface
 {
