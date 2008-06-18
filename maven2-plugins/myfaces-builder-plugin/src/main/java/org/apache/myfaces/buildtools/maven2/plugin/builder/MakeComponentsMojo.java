@@ -345,14 +345,7 @@ public class MakeComponentsMojo extends AbstractMojo
         Context context = new VelocityContext(baseContext);
         context.put("component", component);
 
-        //Part of the content source in the source class should be
-        //included only if this class is not its parent class and is
-        //not the same class (class outside the hierarchy).
-        //One example of why is useful do this is in 
-        //javax.faces.component.HtmlDataTable (myfaces 1.1),
-        //in this class it is overriden encodeBegin.
-        if (!component.getSourceClassName().equals(component.getClassName()) &&
-            !component.getSourceClassName().equals(component.getSourceClassParentClassName()))
+        if (Boolean.TRUE.equals(component.isTemplate()))
         {
             String source = this.getInnerSourceCode(builder, component);
             
