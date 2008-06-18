@@ -805,7 +805,7 @@ public class QdoxModelBuilder implements ModelBuilder
         processComponentProperties(clazz, component);
         processComponentFacets(clazz, component);
 
-        validateComponent(component);
+        validateComponent(model, component);
         model.addComponent(component);
     }
 
@@ -1429,7 +1429,7 @@ public class QdoxModelBuilder implements ModelBuilder
         return doc.substring(0, index);
     }
 
-    private void validateComponent(ComponentMeta component)
+    private void validateComponent(Model model, ComponentMeta component)
             throws MojoExecutionException
     {
         // when name is set, this is a real component, so must have
@@ -1451,11 +1451,24 @@ public class QdoxModelBuilder implements ModelBuilder
             badprops.add("type");
         }
         
-        //Family is optional because this can be inherited
-        //if (component.getFamily() == null)
-        //{
-        //    badprops.add("family");
-        //}
+        // Family is mandatory on a concrete component, but can be inherited.
+        // TODO: clean up this loop; it is ugly.
+        boolean familyDefined = false;
+        ComponentMeta curr = component;
+        while ((curr != null) && !familyDefined)
+        {
+        	if (curr.getFamily() != null)
+        		familyDefined = true;
+        	String parentName = curr.getParentClassName();
+        	if (parentName == null)
+        		curr = null;
+        	else
+        		curr = model.findComponentByClassName(parentName);
+        }
+        if (!familyDefined)
+        {
+            badprops.add("family");
+        }
         
         //Renderer is optional
         //if (component.getRendererType() == null)
