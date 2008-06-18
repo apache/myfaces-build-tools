@@ -421,18 +421,22 @@ public class MakeComponentsMojo extends AbstractMojo
             Annotation anno = getAnnotation(field, "JSFExclude");
             
             if (!(tag == null && anno == null))
+            {
                 continue;
+            }
                         
             if (!isExcludedField(field.getName()))
             {
                 writer.append("    ");
                 writer.append(field.getDeclarationSignature(true));
-                if (field.getInitializationExpression() != null){
+                String initExpr = field.getInitializationExpression();
+                initExpr = cleanInitializationExpression(initExpr);
+                if (initExpr != null)
+                {
                     writer.append(" = ");
-                    writer.append(field.getInitializationExpression());
+                    writer.append(initExpr);
                 }                
                 writer.append(';');
-                writer.append('\n');
                 writer.append('\n');
             }
         }
@@ -470,7 +474,7 @@ public class MakeComponentsMojo extends AbstractMojo
                     declaration = declaration + " throws ";                    
                     for (int j = 0; j < exceptions.length; j++)
                     {
-                        declaration = declaration + exceptions[i].getJavaClass().getFullyQualifiedName();
+                        declaration = declaration + exceptions[j].getJavaClass().getFullyQualifiedName();
                     }
                 }
                 
@@ -496,7 +500,68 @@ public class MakeComponentsMojo extends AbstractMojo
                 name.equals("DEFAULT_RENDERER_TYPE") ||
                 name.equals("COMPONENT_FAMILY") );
     }
-    
+
+    /**
+     * Clean up a field initialisation expression returned by qdox.
+     * <p>
+     * When a class has "int foo = 1;" then the initialisation expression
+     * is the bit after the equals sign. Unfortunately qdox tends to return
+     * a lot of garbage stuff in there. In particular, if there is no
+     * initialisation expression, then qdox can return a string with
+     * whitespace (not a null or empty string). 
+     * <p>
+     * In addition, if there are comments *before* a field declaration,
+     * they appear inside the initialisation text (this is just broken
+     * behaviour in qdox). Ideally we would move them to above the field
+     * declaration where they belong. However that is complicated and
+     * fragile, so we just discard them here.
+     */
+    static String cleanInitializationExpression(String expr)
+    {
+    	expr = StringUtils.trim(expr);
+    	if (StringUtils.isEmpty(expr))
+    	{
+    		return null;
+    	}
+    	
+    	// split on linefeeds
+    	// trim each separately
+    	// remove any comment chars
+    	
+    	if (expr.contains("\n"))
+    	{
+    		StringBuffer buf = new StringBuffer(100);
+    		String[] lines = StringUtils.split(expr, "\n");
+    		for(int i=0; i<lines.length; ++i)
+    		{
+    			String line = lines[i];
+    			line = StringUtils.trim(line);
+    			if (!line.startsWith("//") && !StringUtils.isEmpty(line))
+    			{
+    				if (buf.length()> 0)
+    				{
+    					buf.append(" ");
+    				}
+    				buf.append(line);
+    			}
+    		}
+    		
+    		expr = buf.toString();
+    	}
+    	
+    	if (expr.startsWith("//"))
+		{
+    		return null;
+		}
+
+    	if (StringUtils.isEmpty(expr))
+    	{
+    		return null;
+    	}
+
+    	return expr;
+    }
+
     /**
      * TODO: Copied from QdoxModelBuilder!
      * 
