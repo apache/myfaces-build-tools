@@ -16,6 +16,11 @@
 ## The java package of the generated class is always the same as
 ## the package in which the annotated class exists.
 ##
+## This file is not actually used (except for unit testing). Each
+## project that uses the myfaces-builder-plugin is expected to copy
+## this file into its own META-INF dir, from where the builder
+## plugin will retrieve it.
+##
 /*
  *  Licensed to the Apache Software Foundation (ASF) under one
  *  or more contributor license agreements.  See the NOTICE file
@@ -42,34 +47,140 @@ import javax.faces.context.FacesContext;
 import $component.parentClassName;
 $utils.importTagClasses($component)
 
+#if ($component.isTemplate())
+#set ($generatedClassParent = $component.sourceClassParentClassName)
+#else
+#set ($generatedClassParent = $component.sourceClassName)
+#end
+// Generated from class ${component.sourceClassName}.
+//
 // WARNING: This file was automatically generated. Do not edit it directly,
 //          or you will lose your changes.
-public class ${utils.getClassFromFullClass($component.className)} extends ${utils.getClassFromFullClass($component.parentClassName)}{
+public class ${utils.getClassFromFullClass($component.className)} extends $generatedClassParent
+#if ($component.implements)
+    implements $component.implements
+#end
+{
+#if ($component.serialuid)
+    private static final long serialVersionUID = ${component.serialuid}; 
+#end  
 
-    static public final String COMPONENT_FAMILY =
-        "$component.family";
+##    static public final String COMPONENT_FAMILY =
+##        "$component.family";
     static public final String COMPONENT_TYPE =
         "$component.type";
-    
+
+#if ($innersource)
+    //BEGIN CODE COPIED FROM $component.sourceClassName 
+$innersource
+    //END CODE COPIED FROM $component.sourceClassName
+#end
+
     public ${utils.getClassFromFullClass($component.className)}()
     {
 #if ($component.rendererType)
+#if ($component.rendererType == "")
+        setRendererType(null);
+#else
         setRendererType("$component.rendererType");
+#end
 #else
         setRendererType(null);
 #end
     }
-    
-    public String getFamily()
-    {
-        return COMPONENT_FAMILY;
-    }
+
+## On myfaces 1.1 the family is inherited, so this could be commented    
+##    public String getFamily()
+##    {
+##        return COMPONENT_FAMILY;
+##    }
     
 #set ($propertyList = ${component.propertyComponentList})
 
 #foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#set ($type = $utils.getClassFromFullClass($property.className))
+#if($utils.getDefaultValueField($property)) 
+#set ($defaultValue = $utils.getDefaultValueField($property))
+#else
+#set ($defaultValue = false)
+#end
     // Property: $property.name
+#if ($property.isLiteralOnly() || $property.isTagExcluded() )
+    private $type $field #if($defaultValue) = $defaultValue;#{else};#{end} 
+#else
+    private $type $field;
+#end
+#if($utils.isPrimitiveClass($type) && !$property.isTagExcluded() )
+    private boolean ${field}Set;
+    
+#if ($property.isSetMethod())
+    $property.setMethodScope boolean $utils.getPrefixedPropertyName("isSet", $property.name)()
+    {
+        return ${field}Set;
+    }
+#end
+#end
+#if($property.isLocalMethod())
+#if("boolean" == $type)
+#set ($methodName = $utils.getPrefixedPropertyName("isLocal", $property.name))
+#else
+#set ($methodName = $utils.getPrefixedPropertyName("getLocal", $property.name))
+#end
+    final $property.localMethodScope $type ${methodName}()
+    {
+        return $field;
+    }
+     
+#end
+    public $type $utils.getMethodReaderFromProperty($property.name, $type)()
+    {
+#if ($property.isTagExcluded() || $property.isLiteralOnly())
+        return $field;
+#else
+#if ($utils.isPrimitiveClass($type))
+        if (${field}Set)
+#else
+        if ($field != null)
+#end
+        {
+            return $field;
+        }
+        ValueBinding vb = getValueBinding("$property.name");
+        if (vb != null)
+        {
+#if ($utils.isPrimitiveClass($type))
+            return ($utils.castIfNecessary($type) vb.getValue(getFacesContext())).${type}Value();
+#else
+#set ($pritype = $utils.getPrimitiveType($property.className))
+#if ($utils.isPrimitiveClass($pritype))
+            Object value = vb == null ? null : vb.getValue(getFacesContext());
+            if (!(value instanceof $type)){
+                value = ${type}.valueOf(value.toString());
+            }            
+            return $utils.castIfNecessary($type) value;
+#else
+            return $utils.castIfNecessary($type) vb.getValue(getFacesContext());
+#end
+#end
+        }
+#if ($defaultValue)
+        return $defaultValue; 
+#elseif ($utils.isPrimitiveClass($type))
+        return $utils.primitiveDefaultValue($type);
+#else       
+        return null;
+#end
+#end
+    }
 
+    public void $utils.getPrefixedPropertyName("set", $property.name)($type $utils.getVariableFromName($property.name))
+    {
+        this.$field = $utils.getVariableFromName($property.name);
+#if ($utils.isPrimitiveClass($type) && !$property.isTagExcluded() )
+        this.${field}Set = true;        
+#end
+    }
 #end
 
     public Object saveState(FacesContext facesContext)
@@ -87,20 +198,25 @@ public class ${utils.getClassFromFullClass($component.className)} extends ${util
 #set ($field = $property.fieldName)
 #set ($type = $property.className)
 #set ($arrayIndex = $arrayIndex + 1)
-#if ($property.jspName == "validator" && $property.methodBinding )
+#if ($property.jspName == "validator" && $property.isMethodBinding() )
         values[$arrayIndex] = saveAttachedState(facesContext,${field}List);
-#elseif ( $property.stateHolder )## || $utils.isConverter($type)
+#elseif ( $property.isStateHolder() )## || $utils.isConverter($type)
         values[$arrayIndex] = saveAttachedState(facesContext,$field);
 #elseif($utils.isPrimitiveClass($type))
+#if ($type == "boolean")
         values[$arrayIndex] = ${utils.getBoxedClass($type)}.valueOf($field);
+#else
+        values[$arrayIndex] = new ${utils.getBoxedClass($type)}($field);
+#end
 #else
         values[$arrayIndex] = $field;
 #end
-#if($utils.isPrimitiveClass($type) && !$property.tagExcluded)
+#if($utils.isPrimitiveClass($type) && !$property.isTagExcluded())
 #set ($arrayIndex = $arrayIndex + 1)
-        values[$arrayIndex] = ${field}Set;
+        values[$arrayIndex] = Boolean.valueOf(${field}Set);
 #end
 #end
+        return values; 
     }
 
     public void restoreState(FacesContext facesContext, Object state)
@@ -112,8 +228,8 @@ public class ${utils.getClassFromFullClass($component.className)} extends ${util
 #set ($field = $property.fieldName)
 #set ($type = $property.className)
 #set ($arrayIndex = $arrayIndex + 1)
-#if ( $property.stateHolder )
-#if ($property.jspName == "validator" && $property.methodBinding )
+#if ( $property.isStateHolder() )
+#if ($property.jspName == "validator" && $property.isMethodBinding() )
         ${field}List = (List<Validator>) restoreAttachedState(facesContext,values[$arrayIndex]);
 #elseif ($utils.isList($type))
         $field = (List) restoreAttachedState(facesContext,values[$arrayIndex]);
@@ -127,7 +243,7 @@ public class ${utils.getClassFromFullClass($component.className)} extends ${util
 #else
         $field = $utils.castIfNecessary($type) values[$arrayIndex];
 #end
-#if($utils.isPrimitiveClass($type) && !$property.tagExcluded.booleanValue())
+#if($utils.isPrimitiveClass($type) && !$property.isTagExcluded() )
 #set ($arrayIndex = $arrayIndex + 1)
         ${field}Set = ((Boolean) values[$arrayIndex]).booleanValue();
 #end
