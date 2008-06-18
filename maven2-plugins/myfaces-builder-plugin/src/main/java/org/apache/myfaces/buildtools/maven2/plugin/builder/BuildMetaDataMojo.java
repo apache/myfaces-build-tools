@@ -137,7 +137,8 @@ public class BuildMetaDataMojo extends AbstractMojo
             throw new MojoExecutionException("Error during generation", e);
         }
         
-        Model model = buildModel(project);
+        Model model = new Model();
+
         List models = null;
         if (dependencyModelIds != null)
         {
@@ -162,9 +163,12 @@ public class BuildMetaDataMojo extends AbstractMojo
             model.merge(artifactModel);
         }
 
+        buildModel(model, project);
         resolveReplacePackage(model);
         
         IOUtils.saveModel(model, new File(targetDirectory, outputFile));
+        
+        validateComponents(model);
     }
     
     /**
@@ -236,12 +240,11 @@ public class BuildMetaDataMojo extends AbstractMojo
     /**
      * Execute ModelBuilder classes to create the Model data-structure.
      */
-    private Model buildModel(MavenProject project)
+    private Model buildModel(Model model, MavenProject project)
             throws MojoExecutionException
     {
         try
         {
-            Model model = new Model();
             QdoxModelBuilder builder = new QdoxModelBuilder();
             model.setModelId(modelId);
             builder.buildModel(model, project);            
@@ -259,5 +262,87 @@ public class BuildMetaDataMojo extends AbstractMojo
         Resource resource = new Resource();
         resource.setDirectory(resourceRoot);
         resources.add(resource);
+    }
+    
+    /**
+     * Check that each component is valid (has all mandatory properties etc).
+     * <p>
+     * Most sanity checks are best done after the myfaces-metadata.xml file
+     * is created, so that if an error occurs the file is available for the
+     * user to inspect. In particular, problems due to missing properties
+     * which are permitted to be inherited can be tricky to track down if
+     * the metadata file is not available.
+     * <p>
+     * TODO: make this gather up all the errors, then report them at once
+     * rather than stopping on the first error found.
+     */
+    private void validateComponents(Model model) throws MojoExecutionException
+    {
+    	for(Iterator i = model.components(); i.hasNext(); )
+    	{
+    		ComponentMeta component = (ComponentMeta) i.next();
+    		validateComponent(model, component);
+    	}
+    }
+    
+    private void validateComponent(Model model, ComponentMeta component)
+    throws MojoExecutionException
+    {
+    	if (component.getName() != null)
+    	{
+            if (component.getDescription() == null)
+            {
+            	throw new MojoExecutionException(
+                		"Missing mandatory property on component " + component.getClassName()
+                		+ " [sourceClass=" + component.getSourceClassName() + "]: description");
+            }
+
+            if (component.getType() == null)
+            {
+            	throw new MojoExecutionException(
+                		"Missing mandatory property on component " + component.getClassName()
+                		+ " [sourceClass=" + component.getSourceClassName() + "]: type");
+            }
+            
+    		// this is a concrete component, so it must have a family property
+    		validateComponentFamily(model, component);
+    	}
+    }
+    
+    private void validateComponentFamily(Model model, ComponentMeta component)
+    throws MojoExecutionException
+    {
+    	// TODO: clean this code up, it is pretty ugly
+        boolean familyDefined = false;
+        ComponentMeta curr = component;
+        while ((curr != null) && !familyDefined)
+        {
+        	if (curr.getFamily() != null)
+        	{
+        		familyDefined = true;
+        	}
+        	else
+        	{
+	        	String parentName = curr.getParentClassName();
+	        	if (parentName == null)
+	        		curr = null;
+	        	else
+	        	{
+	        		curr = model.findComponentByClassName(parentName);
+	        		if (curr == null)
+	        		{
+	                	throw new MojoExecutionException(
+	                    		"Parent class not found for component " + component.getClassName()
+	                    		+ " [sourceClass=" + component.getSourceClassName() + "]");
+	        		}
+	        	}
+        	}
+        }
+        if (!familyDefined)
+        {
+        	throw new MojoExecutionException(
+        		"Missing mandatory property on component " + component.getClassName()
+        		+ " [sourceClass=" + component.getSourceClassName() + "]: family");
+        }
     }
 }

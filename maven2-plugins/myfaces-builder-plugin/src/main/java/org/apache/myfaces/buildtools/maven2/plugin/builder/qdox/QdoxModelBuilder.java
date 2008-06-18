@@ -481,7 +481,15 @@ public class QdoxModelBuilder implements ModelBuilder
         	modelItem.setClassName(classNameOverride);
         }
         
-        // logical parent (one metadata is inherited from)
+        // Find logical parent (one metadata is inherited from). Note that
+        // the processClass() method ensures that all ancestor classes are
+        // processed before their child classes. So this lookup doesn't have
+        // to deal with the parent not yet having been added to the model.
+        //
+        // The parent class might also have been inherited (merged in) from
+        // some other project; it is the responsibility of the caller of the
+        // buildModel method to ensure that the model passed in already has
+        // the necessary model items in it.
         JavaClass parentClazz = clazz.getSuperJavaClass();
         while (parentClazz != null)
         {
@@ -805,7 +813,6 @@ public class QdoxModelBuilder implements ModelBuilder
         processComponentProperties(clazz, component);
         processComponentFacets(clazz, component);
 
-        validateComponent(model, component);
         model.addComponent(component);
     }
 
@@ -1427,70 +1434,5 @@ public class QdoxModelBuilder implements ModelBuilder
         }
         // abc.
         return doc.substring(0, index);
-    }
-
-    private void validateComponent(Model model, ComponentMeta component)
-            throws MojoExecutionException
-    {
-        // when name is set, this is a real component, so must have
-        // desc, type, family, rendererType,
-        // tagClass, tagSuperclass
-
-        if (component.getName() == null)
-        {
-            return;
-        }
-
-        List badprops = new ArrayList();
-        if (component.getDescription() == null)
-        {
-            badprops.add("description");
-        }
-        if (component.getType() == null)
-        {
-            badprops.add("type");
-        }
-        
-        // Family is mandatory on a concrete component, but can be inherited.
-        // TODO: clean up this loop; it is ugly.
-        boolean familyDefined = false;
-        ComponentMeta curr = component;
-        while ((curr != null) && !familyDefined)
-        {
-        	if (curr.getFamily() != null)
-        		familyDefined = true;
-        	String parentName = curr.getParentClassName();
-        	if (parentName == null)
-        		curr = null;
-        	else
-        		curr = model.findComponentByClassName(parentName);
-        }
-        if (!familyDefined)
-        {
-            badprops.add("family");
-        }
-        
-        //Renderer is optional
-        //if (component.getRendererType() == null)
-        //{
-        //    badprops.add("rendererType");
-        //}
-
-        if (badprops.size() > 0)
-        {
-            StringBuffer buf = new StringBuffer();
-            for (Iterator i = badprops.iterator(); i.hasNext();)
-            {
-                if (buf.length() > 0)
-                {
-                    buf.append(",");
-                }
-                buf.append((String) i.next());
-            }
-            throw new MojoExecutionException(
-                    "Missing properties on component class "
-                            + component.getClassName() + ":" + buf.toString());
-
-        }
     }
 }
