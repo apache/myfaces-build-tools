@@ -44,6 +44,6 @@ public @interface JSFFacet
     /**
      * Short description
      */
-    String desc();
+    String desc() default "";
 
 }
