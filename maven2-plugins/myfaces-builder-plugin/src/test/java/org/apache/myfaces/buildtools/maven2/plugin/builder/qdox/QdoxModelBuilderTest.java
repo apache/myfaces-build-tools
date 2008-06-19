@@ -20,11 +20,11 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.qdox;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
@@ -59,6 +59,7 @@ public class QdoxModelBuilderTest extends TestCase
     {
         QdoxModelBuilder builder = new QdoxModelBuilder();
         Model model = new Model();
+        model.setModelId("test");
 
         URL sourceUrl = this.getClass().getClassLoader().getResource(
                 "builder/simple/Foo.java");
@@ -93,6 +94,7 @@ public class QdoxModelBuilderTest extends TestCase
         sourceDirs.add(parentDir.getAbsolutePath());
 
         Model model = new Model();
+        model.setModelId("test");
         builder.buildModel(model, sourceDirs);
 
         // basic sanity checks
@@ -105,11 +107,8 @@ public class QdoxModelBuilderTest extends TestCase
 
         StringWriter outbuf = new StringWriter();
         IOUtils.writeModel(model, outbuf);
-        StringReader reader = new StringReader(outbuf.toString());
 
-        InputStream is = classLoader
-                .getResourceAsStream("builder/simple/goodfile.xml");
-        compareData(reader, new InputStreamReader(is));
+        compareData(outfile, "builder/simple/goodfile.xml");
     }
 
     /**
@@ -128,6 +127,7 @@ public class QdoxModelBuilderTest extends TestCase
         sourceDirs.add(parentDir.getAbsolutePath());
 
         Model model = new Model();
+        model.setModelId("test");
         builder.buildModel(model, sourceDirs);
 
         // basic sanity checks
@@ -140,11 +140,8 @@ public class QdoxModelBuilderTest extends TestCase
 
         StringWriter outbuf = new StringWriter();
         IOUtils.writeModel(model, outbuf);
-        StringReader reader = new StringReader(outbuf.toString());
 
-        InputStream is = classLoader
-                .getResourceAsStream("builder/simple15/goodfile.xml");
-        compareData(reader, new InputStreamReader(is));
+        compareData(outfile, "builder/simple15/goodfile.xml");
     }
 
     /**
@@ -165,6 +162,7 @@ public class QdoxModelBuilderTest extends TestCase
         sourceDirs.add(baseDir.getAbsolutePath());
 
         Model model = new Model();
+        model.setModelId("test");
         builder.buildModel(model, sourceDirs);
 
         // basic sanity checks
@@ -177,11 +175,8 @@ public class QdoxModelBuilderTest extends TestCase
 
         StringWriter outbuf = new StringWriter();
         IOUtils.writeModel(model, outbuf);
-        StringReader reader = new StringReader(outbuf.toString());
 
-        InputStream is = classLoader
-                .getResourceAsStream("builder/generation/goodfile.xml");
-        compareData(reader, new InputStreamReader(is));
+        compareData(outfile, "builder/generation/goodfile.xml");
     }
 
     /**
@@ -202,6 +197,7 @@ public class QdoxModelBuilderTest extends TestCase
         sourceDirs.add(parentDir.getAbsolutePath());
 
         Model model = new Model();
+        model.setModelId("test");
         builder.buildModel(model, sourceDirs);
 
         // basic sanity checks
@@ -214,43 +210,58 @@ public class QdoxModelBuilderTest extends TestCase
 
         StringWriter outbuf = new StringWriter();
         IOUtils.writeModel(model, outbuf);
-        StringReader reader = new StringReader(outbuf.toString());
 
-        InputStream is = classLoader
-                .getResourceAsStream("builder/complex/goodfile.xml");
-        compareData(reader, new InputStreamReader(is));
+        compareData(outfile, "builder/complex/goodfile.xml");
     }
 
     /**
      * Compare the contents of two Reader objects line-by-line.
      */
-    private void compareData(Reader testData, Reader goodData) throws IOException
+    private void compareData(File testDatafileName, String goodResourceName) throws IOException
     {
-        BufferedReader testDataReader = new BufferedReader(testData);
-        BufferedReader goodDataReader = new BufferedReader(goodData);
+        Reader testDataReaderRaw = new FileReader(testDatafileName);
 
-        int line = 0;
-        for (;;)
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        InputStream goodDataStream = classLoader.getResourceAsStream(goodResourceName);
+        assertNotNull("good resource file not found: " + goodResourceName, goodDataStream);
+        Reader goodDataReaderRaw = new InputStreamReader(goodDataStream);
+
+        BufferedReader testDataReader = new BufferedReader(testDataReaderRaw);
+        BufferedReader goodDataReader = new BufferedReader(goodDataReaderRaw);
+
+        try
         {
-            ++line;
-            String testLine = testDataReader.readLine();
-            String goodLine = goodDataReader.readLine();
-
-            if ((testLine == null) && (goodLine == null))
+            int line = 0;
+            for (;;)
             {
-                // success
-                return;
+                ++line;
+                String testLine = testDataReader.readLine();
+                String goodLine = goodDataReader.readLine();
+    
+                if ((testLine == null) && (goodLine == null))
+                {
+                    // success
+                    break;
+                }
+                else if (testLine == null)
+                {
+                    fail("Test input " + testDatafileName + " has fewer lines than good file " + goodResourceName);
+                }
+                else if (goodLine == null)
+                {
+                    fail("Test input " + testDatafileName + " has more lines than good file " + goodResourceName);
+                }
+    
+                assertEquals(
+                        "Test input " + testDatafileName + " and good file " + goodResourceName +
+                        " differ on line " + line, 
+                        goodLine, testLine);
             }
-            else if (testLine == null)
-            {
-                fail("input 2 has more lines than input 1");
-            }
-            else if (goodLine == null)
-            {
-                fail("input 1 has more lines than input 2");
-            }
-
-            assertEquals("Inputs differ on line " + line, goodLine, testLine);
+        }
+        finally
+        {
+            testDataReaderRaw.close();
+            goodDataStream.close();
         }
     }
 }

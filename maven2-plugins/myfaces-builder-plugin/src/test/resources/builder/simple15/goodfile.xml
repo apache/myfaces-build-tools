@@ -1,7 +1,9 @@
 <?xml version='1.0' ?>
 
 <model>
+  <modelId>test</modelId>
   <component>
+    <modelId>test</modelId>
     <className>Foo</className>
     <sourceClassName>Foo</sourceClassName>
     <name>foo</name>

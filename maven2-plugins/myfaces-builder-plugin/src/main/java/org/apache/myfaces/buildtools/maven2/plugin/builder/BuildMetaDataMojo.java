@@ -44,7 +44,13 @@ import org.codehaus.plexus.util.StringUtils;
  * xml file for use by other goals of this plugin.
  * <p>
  * By default, the generated file is named "META-INF/myfaces-metadata.xml".
- * </p>
+ * <p>
+ * Note that the generated file contains all the metadata needed by this
+ * project, including a copy of all the metadata from other projects that
+ * this one depends on. All other goals of this plugin can execute with
+ * just the generated metadata as input, without needing to load other
+ * projects. Each entry in the metadata is labelled with a "modelId"
+ * property that indicates where it originally came from.
  * 
  * @requiresDependencyResolution compile
  * @goal build-metadata

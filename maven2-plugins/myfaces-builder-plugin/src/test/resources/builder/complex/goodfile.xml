@@ -1,7 +1,9 @@
 <?xml version='1.0' ?>
 
 <model>
+  <modelId>test</modelId>
   <component>
+    <modelId>test</modelId>
     <className>ComponentBase</className>
     <sourceClassName>ComponentBase</sourceClassName>
     <type>base</type>
@@ -30,6 +32,7 @@ Some dummy prop1 documentation.
     </property>
   </component>
   <component>
+    <modelId>test</modelId>
     <className>ComponentInterface</className>
     <sourceClassName>ComponentInterface</sourceClassName>
     <type>iface</type>
@@ -57,6 +60,7 @@ Some dummy ifaceProp documentation.
     </property>
   </component>
   <component>
+    <modelId>test</modelId>
     <className>ComponentChild</className>
     <parentClassName>ComponentBase</parentClassName>
     <sourceClassName>ComponentChild</sourceClassName>
@@ -90,6 +94,7 @@ Some dummy prop2 documentation.
     </property>
   </component>
   <converter>
+    <modelId>test</modelId>
     <className>Converter1</className>
     <sourceClassName>Converter1</sourceClassName>
     <converterId>conv1</converterId>
@@ -103,6 +108,7 @@ This is a silly converter. It does nothing useful.
     </longDesc>
   </converter>
   <validator>
+    <modelId>test</modelId>
     <className>Validator1</className>
     <sourceClassName>Validator1</sourceClassName>
     <validatorId>val1</validatorId>

@@ -1,7 +1,9 @@
 <?xml version='1.0' ?>
 
 <model>
+  <modelId>test</modelId>
   <component>
+    <modelId>test</modelId>
     <className>testpkg.ComponentBase</className>
     <sourceClassName>testpkg.ComponentBase</sourceClassName>
     <type>base</type>
@@ -30,6 +32,7 @@ Some dummy prop1 documentation.
     </property>
   </component>
   <component>
+    <modelId>test</modelId>
     <className>testpkg.ComponentInterface</className>
     <sourceClassName>testpkg.ComponentInterface</sourceClassName>
     <type>iface</type>
@@ -57,6 +60,7 @@ Some dummy ifaceProp documentation.
     </property>
   </component>
   <component>
+    <modelId>test</modelId>
     <className>testpkg.SubclassComponent</className>
     <parentClassName>testpkg.ComponentBase</parentClassName>
     <sourceClassName>testpkg.ComponentGenSubclass</sourceClassName>
@@ -100,6 +104,7 @@ Some dummy ifaceProp documentation.
     </property>
   </component>
   <component>
+    <modelId>test</modelId>
     <className>testpkg.TemplateComponent</className>
     <parentClassName>testpkg.ComponentBase</parentClassName>
     <sourceClassName>testpkg.ComponentGenTemplate</sourceClassName>
@@ -156,6 +161,7 @@ Some dummy ifaceProp documentation.
     </property>
   </component>
   <component>
+    <modelId>test</modelId>
     <className>testpkg.ComponentManual</className>
     <parentClassName>testpkg.ComponentBase</parentClassName>
     <sourceClassName>testpkg.ComponentManual</sourceClassName>

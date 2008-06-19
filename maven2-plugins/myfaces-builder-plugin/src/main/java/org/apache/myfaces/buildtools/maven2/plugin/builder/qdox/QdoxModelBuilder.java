@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelBuilder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
@@ -31,8 +32,6 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RenderKitMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RendererMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
-
-import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
@@ -74,8 +73,6 @@ public class QdoxModelBuilder implements ModelBuilder
     private static final String DOC_TAG = "JSFJspTag";
     private static final String DOC_JSP_ATTRIBUTE = "JSFJspAttribute";
 
-    private static final String ANNOTATION_BASE = "org.apache.myfaces.buildtools.annotation";
-
     private static class JavaClassComparator implements Comparator
     {
         public int compare(Object arg0, Object arg1)
@@ -106,6 +103,12 @@ public class QdoxModelBuilder implements ModelBuilder
     public void buildModel(Model model, List sourceDirs)
             throws MojoExecutionException
     {
+        String currModelId = model.getModelId();
+        if (currModelId == null)
+        {
+            throw new MojoExecutionException("Model must have id set");
+        }
+
         JavaDocBuilder builder = new JavaDocBuilder();
 
         // need a File object representing the original source tree
@@ -124,18 +127,28 @@ public class QdoxModelBuilder implements ModelBuilder
         // predictable order, regardless of how the source scanning
         // returned them.
         Arrays.sort(classes, new JavaClassComparator());
-        Set processedClasses = new HashSet();
+        Map processedClasses = new HashMap();
         for (int i = 0; i < classes.length; ++i)
         {
             JavaClass clazz = classes[i];
             processClass(processedClasses, clazz, model);
         }
 
-        // post-process the list of components
+        // Post-process the list of components which we added in this run.
+        // Note that model has all the inherited components in it too, so
+        // we need to skip them.
+        //
+        // Hmm..as noted elsewhere, JavaClass objects representing parent
+        // classes are accessable via getParentClazz(). Presumably they are
+        // not in the array returned by builder.getClasses() though..
         for (Iterator it = model.getComponents().iterator(); it.hasNext();)
         {
             ComponentMeta component = (ComponentMeta) it.next();
-            component.setModelId(model.getModelId());
+            if (!component.getModelId().equals(currModelId))
+            {
+                continue;
+            }
+            initComponentAncestry(processedClasses, model, component);
 
             //Check if the component class java file exists in the source dirs
             String classname = component.getClassName();
@@ -156,8 +169,10 @@ public class QdoxModelBuilder implements ModelBuilder
         for (Iterator it = model.getConverters().iterator(); it.hasNext();)
         {
             ConverterMeta converter = (ConverterMeta) it.next();
-            converter.setModelId(model.getModelId());
-
+            if (!converter.getModelId().equals(currModelId))
+            {
+                continue;
+            }
             // TODO: why is there no check for Converter class existence here??
             
             // Check if the tag class java file exists in the source dirs
@@ -171,8 +186,10 @@ public class QdoxModelBuilder implements ModelBuilder
         for (Iterator it = model.getValidators().iterator(); it.hasNext();)
         {
             ValidatorMeta validator = (ValidatorMeta) it.next();
-            validator.setModelId(model.getModelId());
-
+            if (!validator.getModelId().equals(currModelId))
+            {
+                continue;
+            }
             //Check if the validator class file exists
             if (!IOUtils.existsSourceFile(StringUtils.replace(
                     validator.getClassName(),".","/")+".java", sourceDirs)){
@@ -190,7 +207,7 @@ public class QdoxModelBuilder implements ModelBuilder
         for (Iterator it = model.getTags().iterator(); it.hasNext();)
         {
             TagMeta tag = (TagMeta) it.next();
-            tag.setModelId(model.getModelId());
+            // nothing to do at the moment 
         }       
     }
 
@@ -212,10 +229,10 @@ public class QdoxModelBuilder implements ModelBuilder
      * Set the parentClassName and interfaceClassNames properties of the
      * provided modelItem object.
      */
-    private void processClass(Set processedClasses, JavaClass clazz, Model model)
+    private void processClass(Map processedClasses, JavaClass clazz, Model model)
             throws MojoExecutionException
     {
-        if (processedClasses.contains(clazz))
+        if (processedClasses.containsKey(clazz.getFullyQualifiedName()))
         {
             return;
         }
@@ -236,7 +253,7 @@ public class QdoxModelBuilder implements ModelBuilder
         }
 
         // ok, now we can mark this class as processed.
-        processedClasses.add(clazz);
+        processedClasses.put(clazz.getFullyQualifiedName(), clazz);
 
         log.info("processed class:" + clazz.getFullyQualifiedName());
 
@@ -454,12 +471,15 @@ public class QdoxModelBuilder implements ModelBuilder
     }
 
     /**
-     * Set the parentClassName and interfaceClassNames properties of the
-     * provided modelItem object.
+     * Set the basic data on a ClassMeta.
+     * <p>
+     * There is one property not set here: the parentClassName. See method
+     * initComponentAncestry for further details.
      */
-    private void initAncestry(Model model, JavaClass clazz,
+    private void initClassMeta(Model model, JavaClass clazz,
     		ClassMeta modelItem, String classNameOverride)
     {
+        modelItem.setModelId(model.getModelId());
         modelItem.setSourceClassName(clazz.getFullyQualifiedName());
         JavaClass realParentClass = clazz.getSuperJavaClass();
         if (realParentClass != null)
@@ -470,7 +490,7 @@ public class QdoxModelBuilder implements ModelBuilder
         		modelItem.setSourceClassParentClassName(fqn);
         	}
         }
-                
+
         // JSF Entity class.
         if (StringUtils.isEmpty(classNameOverride))
     	{
@@ -479,28 +499,6 @@ public class QdoxModelBuilder implements ModelBuilder
         else
         {
         	modelItem.setClassName(classNameOverride);
-        }
-        
-        // Find logical parent (one metadata is inherited from). Note that
-        // the processClass() method ensures that all ancestor classes are
-        // processed before their child classes. So this lookup doesn't have
-        // to deal with the parent not yet having been added to the model.
-        //
-        // The parent class might also have been inherited (merged in) from
-        // some other project; it is the responsibility of the caller of the
-        // buildModel method to ensure that the model passed in already has
-        // the necessary model items in it.
-        JavaClass parentClazz = clazz.getSuperJavaClass();
-        while (parentClazz != null)
-        {
-            ComponentMeta parentComponent = model
-                    .findComponentByClassName(parentClazz.getFullyQualifiedName());
-            if (parentComponent != null)
-            {
-                modelItem.setParentClassName(parentComponent.getClassName());
-                break;
-            }
-            parentClazz = parentClazz.getSuperJavaClass();
         }
 
         // interfaces metadata is inherited from
@@ -518,6 +516,46 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
         modelItem.setInterfaceClassNames(ifaceNames);
+    }
+
+    /**
+     * For each component, try to find its "logical" parent component,
+     * ie the nearest superclass that is also annotated as a component
+     * and therefore has an entry in the model.
+     * <p>
+     * In most cases this could be done at the time the component is
+     * processed. The processClass() method does try to process the
+     * classes that qdox discovers in ancestor->descendant order.
+     * <p>
+     * However there is one case where this just doesn't work. Therefore
+     * a two-pass approach is used: first create a ComponentMeta for
+     * each component, and then on a second pass find the matching
+     * parent for each one.
+     * <p>
+     * The problem case is where an annotated java class extends a
+     * generated one. In this case when walking up the ancestry tree of
+     * the hand-written class we find an entry for which there is no
+     * ComponentMeta entry. We do not know whether this is because the
+     * parent exists but is not annotated, or whether a ComponentMeta
+     * for that parent will be generated once we have processed some
+     * other class that happens to have the matching annotation.
+     */
+    private void initComponentAncestry(Map javaClassByName, Model model, ClassMeta modelItem)
+    {
+        System.out.println("Init ancestry for class [" + modelItem.getSourceClassName() + "]");
+        JavaClass clazz = (JavaClass) javaClassByName.get(modelItem.getSourceClassName());
+        JavaClass parentClazz = clazz.getSuperJavaClass();
+        while (parentClazz != null)
+        {
+            ComponentMeta parentComponent = model
+                    .findComponentByClassName(parentClazz.getFullyQualifiedName());
+            if (parentComponent != null)
+            {
+                modelItem.setParentClassName(parentComponent.getClassName());
+                break;
+            }
+            parentClazz = parentClazz.getSuperJavaClass();
+        }
     }
 
     private void processConverter(Map props, AbstractJavaEntity ctx,
@@ -554,7 +592,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean configExcluded = getBoolean(clazz,"configExcluded",props,null);   
 
         ConverterMeta converter = new ConverterMeta();
-        initAncestry(model, clazz, converter, classNameOverride);
+        initClassMeta(model, clazz, converter, classNameOverride);
         converter.setName(componentName);
         converter.setBodyContent(bodyContent);
         converter.setTagClass(tagClass);
@@ -605,7 +643,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean configExcluded = getBoolean(clazz,"configExcluded",props,null);   
         
         ValidatorMeta validator = new ValidatorMeta();
-        initAncestry(model, clazz, validator, classNameOverride);
+        initClassMeta(model, clazz, validator, classNameOverride);
         validator.setName(componentName);
         validator.setBodyContent(bodyContent);
         validator.setTagClass(tagClass);
@@ -695,16 +733,15 @@ public class QdoxModelBuilder implements ModelBuilder
         String shortDescription = getString(clazz, "desc", props, descDflt);
 
         String tagName = getString(clazz, "name", props, null);
-        String tagClass = getString(clazz, "class", props, clazz
-                .getFullyQualifiedName());
-        tagClass = getString(clazz,"clazz",props,tagClass);
+        String classNameOverride = getString(clazz, "class", props, null);
+        classNameOverride = getString(clazz,"clazz",props,classNameOverride);
         
         String bodyContent = getString(clazz, "bodyContent", props, "JSP");
         String tagHandler = getString(clazz, "tagHandler", props, null);
 
         TagMeta tag = new TagMeta();
+        initClassMeta(model, clazz, tag, classNameOverride);
         tag.setName(tagName);
-        tag.setClassName(tagClass);
         tag.setBodyContent(bodyContent);
         tag.setDescription(shortDescription);
         tag.setLongDescription(longDescription);
@@ -779,7 +816,7 @@ public class QdoxModelBuilder implements ModelBuilder
         implementsValue = getString(clazz, "implementz", props, implementsValue);
 
         ComponentMeta component = new ComponentMeta();
-        initAncestry(model, clazz, component, classNameOverride);
+        initClassMeta(model, clazz, component, classNameOverride);
         component.setName(componentName);
         component.setBodyContent(bodyContent);
         component.setDescription(shortDescription);
