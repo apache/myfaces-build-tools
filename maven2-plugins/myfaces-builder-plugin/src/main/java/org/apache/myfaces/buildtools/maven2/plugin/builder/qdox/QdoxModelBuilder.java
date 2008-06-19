@@ -174,6 +174,7 @@ public class QdoxModelBuilder implements ModelBuilder
                 continue;
             }
             // TODO: why is there no check for Converter class existence here??
+            // ANS: there is no automatic generation of converter class.
             
             // Check if the tag class java file exists in the source dirs
             if (isTagClassMissing(converter.getTagClass(), sourceDirs))
@@ -190,6 +191,8 @@ public class QdoxModelBuilder implements ModelBuilder
             {
                 continue;
             }
+            initValidatorAncestry(processedClasses, model, validator);
+            
             //Check if the validator class file exists
             if (!IOUtils.existsSourceFile(StringUtils.replace(
                     validator.getClassName(),".","/")+".java", sourceDirs)){
@@ -556,6 +559,26 @@ public class QdoxModelBuilder implements ModelBuilder
             parentClazz = parentClazz.getSuperJavaClass();
         }
     }
+
+    /**
+     * Same as initComponentAncestry but for validators.
+     */
+    private void initValidatorAncestry(Map javaClassByName, Model model, ClassMeta modelItem)
+    {
+        JavaClass clazz = (JavaClass) javaClassByName.get(modelItem.getSourceClassName());
+        JavaClass parentClazz = clazz.getSuperJavaClass();
+        while (parentClazz != null)
+        {
+            ValidatorMeta parentComponent = model
+                    .findValidatorByClassName(parentClazz.getFullyQualifiedName());
+            if (parentComponent != null)
+            {
+                modelItem.setParentClassName(parentComponent.getClassName());
+                break;
+            }
+            parentClazz = parentClazz.getSuperJavaClass();
+        }
+    }    
 
     private void processConverter(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, Model model)
