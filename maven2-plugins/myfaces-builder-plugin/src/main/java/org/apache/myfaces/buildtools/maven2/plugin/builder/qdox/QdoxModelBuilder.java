@@ -542,7 +542,6 @@ public class QdoxModelBuilder implements ModelBuilder
      */
     private void initComponentAncestry(Map javaClassByName, Model model, ClassMeta modelItem)
     {
-        System.out.println("Init ancestry for class [" + modelItem.getSourceClassName() + "]");
         JavaClass clazz = (JavaClass) javaClassByName.get(modelItem.getSourceClassName());
         JavaClass parentClazz = clazz.getSuperJavaClass();
         while (parentClazz != null)
