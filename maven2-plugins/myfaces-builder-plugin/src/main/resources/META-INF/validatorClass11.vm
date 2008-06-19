@@ -4,7 +4,7 @@
 ## Note that there are only one type of validator generation:
 ##  * "subclass mode" (use annotated class as a parent class)
 ##
-## Variable $validator refers to a ComponentMeta object to process
+## Variable $validator refers to a ValidatorMeta object to process
 ## Variable $utils refers to an instance of MyfacesUtils.
 ##
 ## When "template mode" is being used then variable $innersource
@@ -38,10 +38,16 @@ import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 $utils.importTagClasses($validator)
 
-// generated from class $validator.classSource
+#if ($validator.isTemplate())
+#set ($generatedClassParent = $validator.sourceClassParentClassName)
+#else
+#set ($generatedClassParent = $validator.sourceClassName)
+#end
+// Generated from class ${validator.sourceClassName}.
+//
 // WARNING: This file was automatically generated. Do not edit it directly,
 //          or you will lose your changes.
-public class ${utils.getClassFromFullClass($validator.className)} extends $validator.superClassName
+public class ${utils.getClassFromFullClass($validator.className)} extends $generatedClassParent
 #if ($validator.implements)
     implements $validator.implements
 #end
