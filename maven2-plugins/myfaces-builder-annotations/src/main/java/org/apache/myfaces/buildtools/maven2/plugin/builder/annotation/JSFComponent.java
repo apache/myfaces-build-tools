@@ -154,32 +154,25 @@ public @interface JSFComponent
     String name() default "";
 
     /**
-     * The fully-qualified-name of a concrete class that should be generated
-     * based on the information in this annotated class.
+     * The fully-qualified-name of a concrete component class.
      * <p>
-     * Setting this attribute causes code generation to generate a concrete
-     * UIComponent class with the specified class name. That generated
-     * component will be registered in the faces-config.xml file, not the
-     * class that carries this annotation.
+     * This attribute is only relevant when "name" is also set, ie the
+     * annotation is indicating that a component is really being declared.
+     * <p>
+     * When this attribute is not defined then it is assumed that this
+     * annotated class is the actual component class.
+     * <p>
+     * When this attribute is set to something other than the name of the
+     * annotated class then the specified class is the one that the JSF
+     * component registration in faces-config.xml will refer to. And if that
+     * class does not exist in the classpath (which will normally be the
+     * case) then code-generation will be triggered to create it.
      * <p>
      * This attribute is not inheritable.
-     * <p>
-     * TODO: the original docs said: "If not exists this is generated".
-     * What does that mean?
      * <p>
      * The doclet-annotation equivalent of this attribute is named "class".
      */
     String clazz() default "";
-    
-    /**
-     * TODO: this is hopefully unused, and can be deleted.
-     */
-    String parent() default "";
-    
-    /**
-     * TODO: this is hopefully unused, and can be deleted.
-     */
-    String superClass() default "";
     
     /**
      * The JSF Component Family that this component belongs to.
