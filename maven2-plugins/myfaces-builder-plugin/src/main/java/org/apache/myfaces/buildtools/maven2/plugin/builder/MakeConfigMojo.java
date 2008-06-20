@@ -31,7 +31,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -51,15 +50,13 @@ import org.codehaus.plexus.util.xml.Xpp3DomBuilder;
 import org.codehaus.plexus.util.xml.Xpp3DomWriter;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
-//import com.sun.org.apache.xerces.internal.parsers.SAXParser;
-
 /**
  * Creates taglib (tld) and faces-config files.
  * <p>
  * This Mojo actually provides a generic goal that will run a configurable
- * velocity template file. The template is passed the full metadata model
- * object, and can select from the model whatever data it wants. Only one
- * output file can be generated per execution.
+ * velocity template file and generate a single output file. The template is
+ * passed the full metadata model object, and can select from the model whatever
+ * data it wants.
  * <p>
  * The execution can be configured with:
  * <ul>
@@ -85,8 +82,6 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
  */
 public class MakeConfigMojo extends AbstractMojo
 {
-    final Logger log = Logger.getLogger(MakeConfigMojo.class.getName());
-
     /**
      * The current maven project (auto-injected by Maven).
      * 
@@ -210,7 +205,6 @@ public class MakeConfigMojo extends AbstractMojo
             new Flattener(model).flatten();
 
             generateConfigFromVelocity(model);
-            //throw new MojoExecutionException("Error during config generation");
         }
         catch (IOException e)
         {
