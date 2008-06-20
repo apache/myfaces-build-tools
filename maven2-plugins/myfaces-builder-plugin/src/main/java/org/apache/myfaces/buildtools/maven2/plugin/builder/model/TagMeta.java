@@ -26,6 +26,38 @@ import java.util.Map;
 import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
+/**
+ * Represents metadata about a class that is just a pure JSF Tag class,
+ * with no corresponding JSF component, validator or converter.
+ * <p>
+ * There are not very many pure tag classes, but there are a few. One
+ * example is the f:attribute tag from the JSF core specification, which
+ * exists solely to store an entry into the attributes map of some other
+ * component when the view is first created.
+ * <p>
+ * Another example is the f:converter tag, which creates a corresponding
+ * converter component by id, and stores it into the view. The tag 
+ * doesn't correspond to any particular converter class, so there is
+ * no converter class whose annotations can be used to describe this
+ * generic tag. Note that specific converters can also have their own
+ * dedicated tags (eg f:convertDateTime) in which case the TLD entry
+ * is generated using metadata from the converter class.
+ * <p>
+ * Another case when this is needed is where there are multiple tags that
+ * correspond to a single component class. For example, in the core
+ * implementation both f:outputText and f:verbatim are implemented with
+ * the UIOutputText component. In this case, the component is used to
+ * generate one TLD entry (the "primary" tag) but TLD entries for the
+ * "secondary" tag must be triggered in another way.
+ * <p>
+ * In the above cases, the tag class itself can be annotated with this
+ * annotation. During TLD file generation, an appropriate entry is then
+ * added.
+ * <p>
+ * An alternative is to omit this entry, and simply write the TLD
+ * entries for these few classes by hand in the "base" file that gets
+ * included into the generated one.
+ */
 public class TagMeta extends ClassMeta implements AttributeHolder
 {
     private String _name;
