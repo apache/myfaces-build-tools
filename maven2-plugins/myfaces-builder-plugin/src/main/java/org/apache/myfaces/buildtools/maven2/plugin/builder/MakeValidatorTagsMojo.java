@@ -65,7 +65,7 @@ public class MakeValidatorTagsMojo extends AbstractMojo
     private MavenProject project;
 
     /**
-     * @parameter expression="${project.build.directory}/maven-faces-plugin/main/resources"
+     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
      * @readonly
      */
     private File buildDirectory;
@@ -104,7 +104,7 @@ public class MakeValidatorTagsMojo extends AbstractMojo
     private String templateTagName;
 
     /**
-     * @parameter expression="${project.build.directory}/maven-faces-plugin/main/java"
+     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/java"
      * @required
      */
     private File generatedSourceDirectory;

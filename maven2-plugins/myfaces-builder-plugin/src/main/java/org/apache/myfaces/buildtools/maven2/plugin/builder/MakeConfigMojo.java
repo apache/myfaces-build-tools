@@ -95,7 +95,7 @@ public class MakeConfigMojo extends AbstractMojo
      * 
      * TODO: this default value looks wrong. What should really be here?
      * 
-     * @parameter expression="${project.build.directory}/maven-faces-plugin/main/resources"
+     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
      * @readonly
      */
     private File buildDirectory;

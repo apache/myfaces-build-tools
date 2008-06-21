@@ -75,7 +75,7 @@ public class MakeComponentsMojo extends AbstractMojo
     private MavenProject project;
 
     /**
-     * @parameter expression="${project.build.directory}/maven-faces-plugin/main/resources"
+     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
      * @readonly
      */
     private File buildDirectory;
@@ -93,7 +93,7 @@ public class MakeComponentsMojo extends AbstractMojo
     private File templateSourceDirectory;
 
     /**
-     * @parameter expression="${project.build.directory}/maven-faces-plugin/main/java"
+     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/java"
      */
     private File generatedSourceDirectory;
 
