@@ -1,0 +1,1 @@
+java -cp target/classes org.apache.myfaces.buildtools.normalizer.Normalizer $@
