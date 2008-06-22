@@ -48,7 +48,7 @@ public class RenderKitMeta
         
         for (Iterator it = rkm._renderers.values().iterator();it.hasNext();){
             RendererMeta rm = (RendererMeta) it.next();
-            RendererMeta.writeXml(out, rm);  
+            rm.writeXml(out);  
         }
         
         out.endElement("renderKit");        

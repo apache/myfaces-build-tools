@@ -379,12 +379,23 @@ public class PropertyMeta
     {
         return ModelUtils.defaultOf(_inherited, false);
     }
-    
+
     public void setInheritedTag(Boolean inheritedTag)
     {
         _inheritedTag = inheritedTag;
     }
 
+    /**
+     * Returns true if this property was inherited from an ancestor component
+     * which has no associated tag class.
+     * <p>
+     * When a tag class is generated for <i>this</i> component, then the tag
+     * class will need to define a setter method to handle this property.
+     * <p>
+     * However properties which are inherited from an ancestor component that
+     * does have a tag class will not need 
+     * @param inheritedTag
+     */
     public Boolean isInheritedTag()
     {
         return ModelUtils.defaultOf(_inheritedTag, false);

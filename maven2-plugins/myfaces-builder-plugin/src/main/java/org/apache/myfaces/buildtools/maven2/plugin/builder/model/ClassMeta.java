@@ -56,6 +56,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  */
 public class ClassMeta
 {
+    private String _xmlElementName;
+
     private String _className;
     private String _parentClassName;
     
@@ -63,31 +65,6 @@ public class ClassMeta
     private String _modelId;
     private String _sourceClassName;
     private String _sourceClassParentClassName;
-
-    /**
-     * Write this model out as xml.
-     */
-    public static void writeXml(XmlWriter out, ClassMeta mi)
-    {
-        out.writeElement("modelId", mi._modelId);
-        out.writeElement("className", mi._className);
-        out.writeElement("parentClassName", mi._parentClassName);
-        out.writeElement("sourceClassName", mi._sourceClassName);
-        out.writeElement("sourceClassParentClassName", mi._sourceClassParentClassName);
-
-        if (!mi._interfaceClassNames.isEmpty())
-        {
-            out.beginElement("interfaces");
-            for (Iterator i = mi._interfaceClassNames.iterator(); i.hasNext();)
-            {
-                String name = (String) i.next();
-                out.beginElement("interface");
-                out.writeAttr("name", name);
-                out.endElement("interface");
-            }
-            out.endElement("interfaces");
-        }
-    }
 
     /**
      * Add digester rules to repopulate an instance of this type from an xml
@@ -103,6 +80,97 @@ public class ClassMeta
         digester.addCallMethod(prefix + "/interfaces/interface",
                 "addInterfaceClassName", 1);
         digester.addCallParam(prefix + "/interfaces/interface", 0, "name");
+    }
+
+    /**
+     * Constructor.
+     * 
+     * Param xmlElementName is the name of the xml element that is created
+     * when method writeXml is invoked.
+     */
+    protected ClassMeta(String xmlElementName)
+    {
+        _xmlElementName = xmlElementName;
+    }
+
+    /**
+     * Write the properties of this instance out as xml.
+     * <p>
+     * The name of the xml element that is created to hold the properties
+     * was specified when the constructor was called.
+     * <p>
+     * Subclasses that want to output their own properties should not
+     * override this method. Instead, they should override writeXmlSimple
+     * (and in rare cases writeXmlComplex).
+     * <p>
+     * Having two write methods (writeXmlSimple/writeXmlComplex) gives some basic
+     * control over the order in which data is written to xml, in order to make
+     * the generated xml look nice. Any properties written in writeXmlSimple will
+     * appear in the output file before properties written by writeXmlComplex. 
+     * Therefore, properties which are "easily read" should be written out in
+     * a writeXmlSimple method. Data which has large CDATA blocks, or complicated
+     * nested structure should be written out in a writeXmlComplex method so that
+     * the "simple" stuff can be easily read and is not buried in the middle of
+     * the harder-to-read output.
+     */
+    protected void writeXml(XmlWriter out)
+    {
+        out.beginElement(_xmlElementName);
+        writeXmlSimple(out);
+        writeXmlComplex(out);
+        out.endElement(_xmlElementName);
+    }
+
+    /**
+     * Write this model out as xml.
+     * <p>
+     * Subclasses that wish to write out properties as xml should override
+     * this method, call the super implementation, then call methods on the
+     * XmlWriter object to output their data.
+     */
+    protected void writeXmlSimple(XmlWriter out)
+    {
+        out.writeElement("modelId", _modelId);
+        out.writeElement("className", _className);
+        out.writeElement("parentClassName", _parentClassName);
+        out.writeElement("sourceClassName", _sourceClassName);
+        out.writeElement("sourceClassParentClassName", _sourceClassParentClassName);
+
+        // Interface data is a little complex, and could possibly be placed in the
+        // writeXmlComplex method. But except for very complicated inheritance
+        // hierarchies is is still only going to be a few lines and it logically
+        // belongs with the className/parentClassName/etc data. So it is written here
+        // along with the other "simple" data.
+        if (!_interfaceClassNames.isEmpty())
+        {
+            out.beginElement("interfaces");
+            for (Iterator i = _interfaceClassNames.iterator(); i.hasNext();)
+            {
+                String name = (String) i.next();
+                out.beginElement("interface");
+                out.writeAttr("name", name);
+                out.endElement("interface");
+            }
+            out.endElement("interfaces");
+        }
+    }
+
+    /**
+     * See documentation for writeXml and writeXmlSimple methods.
+     */
+    protected void writeXmlComplex(XmlWriter out)
+    {
+        // no complex data to write for this class.
+    }
+
+    /**
+     * Merge any inheritable data from the specified "other" instance into
+     * the metadata held by this instance.
+     */
+    protected void merge(ClassMeta other)
+    {
+        // There is nothing to merge between two ClassMeta objects;
+        // none of the properties on this class are inheritable.
     }
 
     /**

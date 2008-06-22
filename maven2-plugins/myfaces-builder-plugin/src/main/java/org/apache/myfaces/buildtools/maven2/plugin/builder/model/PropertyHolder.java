@@ -19,6 +19,7 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder.model;
 
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Interface for any artifact that has JSF properties on it.
@@ -30,4 +31,6 @@ public interface PropertyHolder
     PropertyMeta getProperty(String name);
 
     void addProperty(PropertyMeta prop);
+    
+    Map getProperties();
 }

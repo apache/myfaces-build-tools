@@ -71,24 +71,21 @@ public class TagMeta extends ClassMeta implements AttributeHolder
     /**
      * Write an instance of this class out as xml.
      */
-    public static void writeXml(XmlWriter out, TagMeta tm)
+    protected void writeXmlSimple(XmlWriter out)
     {
-        out.beginElement("tag");
+        super.writeXmlSimple(out);
 
-        ClassMeta.writeXml(out, tm);
-        out.writeElement("name", tm._name);
-        out.writeElement("bodyContent", tm._bodyContent);
-        out.writeElement("desc", tm._description);
-        out.writeElement("longDesc", tm._longDescription);
-        out.writeElement("tagHandler", tm._tagHandler);
+        out.writeElement("name", _name);
+        out.writeElement("bodyContent", _bodyContent);
+        out.writeElement("desc", _description);
+        out.writeElement("longDesc", _longDescription);
+        out.writeElement("tagHandler", _tagHandler);
 
-        for (Iterator i = tm._attributes.values().iterator(); i.hasNext();)
+        for (Iterator i = _attributes.values().iterator(); i.hasNext();)
         {
             AttributeMeta prop = (AttributeMeta) i.next();
             AttributeMeta.writeXml(out, prop);
         }
-
-        out.endElement("tag");
     }
 
     /**
@@ -118,6 +115,7 @@ public class TagMeta extends ClassMeta implements AttributeHolder
      */
     public TagMeta()
     {
+        super("tag");
         _attributes = new LinkedHashMap();
     }
 

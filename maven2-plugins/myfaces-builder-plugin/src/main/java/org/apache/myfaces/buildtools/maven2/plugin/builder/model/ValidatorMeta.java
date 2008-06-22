@@ -22,10 +22,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
 
 import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
@@ -34,18 +31,11 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  * Store metadata about a class that is either a JSF Validator, or some base
  * class or interface that a Validator can be derived from.
  */
-public class ValidatorMeta extends ClassMeta implements PropertyHolder
+public class ValidatorMeta extends ViewEntityMeta implements PropertyHolder
 {
-    static private final Logger _LOG = Logger.getLogger(ValidatorMeta.class
-            .getName());
-
-    private String _description;
-    private String _longDescription;
-
     private String _validatorId;
     private int _validatorClassModifiers;
     
-    private String _name;
     private String _bodyContent;
     private String _tagClass;
     private String _tagSuperclass;
@@ -54,38 +44,22 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
     private Boolean _generatedComponentClass;
     private Boolean _generatedTagClass;
     private Boolean _configExcluded;
-    
-    protected Map _properties;
 
     /**
      * Write an instance of this class out as xml.
      */
-    public static void writeXml(XmlWriter out, ValidatorMeta vm)
+    protected void writeXmlSimple(XmlWriter out)
     {
-        out.beginElement("validator");
+        super.writeXmlSimple(out);
 
-        ClassMeta.writeXml(out, vm);
-
-        out.writeElement("validatorId", vm._validatorId);
-        out.writeElement("desc", vm._description);
-        out.writeElement("longDesc", vm._longDescription);
-        out.writeElement("name", vm._name);        
-        out.writeElement("bodyContent", vm._bodyContent);
-        out.writeElement("tagClass", vm._tagClass);
-        out.writeElement("tagSuperclass", vm._tagSuperclass);
-        out.writeElement("serialuidtag", vm._serialuidtag);
-        out.writeElement("generatedComponentClass", vm._generatedComponentClass);
-        out.writeElement("generatedTagClass", vm._generatedTagClass);
-        out.writeElement("configExcluded", vm._configExcluded);
-
-        for (Iterator i = vm._properties.values().iterator(); i.hasNext();)
-        {
-            PropertyMeta prop = (PropertyMeta) i.next();
-            PropertyMeta.writeXml(out, prop);
-        }
-
-        
-        out.endElement("validator");
+        out.writeElement("validatorId", _validatorId);
+        out.writeElement("bodyContent", _bodyContent);
+        out.writeElement("tagClass", _tagClass);
+        out.writeElement("tagSuperclass", _tagSuperclass);
+        out.writeElement("serialuidtag", _serialuidtag);
+        out.writeElement("generatedComponentClass", _generatedComponentClass);
+        out.writeElement("generatedTagClass", _generatedTagClass);
+        out.writeElement("configExcluded", _configExcluded);
     }
 
     /**
@@ -99,13 +73,9 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
         digester.addObjectCreate(newPrefix, ValidatorMeta.class);
         digester.addSetNext(newPrefix, "addValidator");
 
-        ClassMeta.addXmlRules(digester, newPrefix);
+        ViewEntityMeta.addXmlRules(digester, newPrefix);
 
         digester.addBeanPropertySetter(newPrefix + "/validatorId");
-        digester.addBeanPropertySetter(newPrefix + "/desc", "description");
-        digester.addBeanPropertySetter(newPrefix + "/longDesc",
-                "longDescription");
-        digester.addBeanPropertySetter(newPrefix + "/name");        
         digester.addBeanPropertySetter(newPrefix + "/bodyContent");
         digester.addBeanPropertySetter(newPrefix + "/tagClass");
         digester.addBeanPropertySetter(newPrefix + "/tagSuperclass");
@@ -113,13 +83,11 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
         digester.addBeanPropertySetter(newPrefix + "/generatedComponentClass");
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
-        
-        PropertyMeta.addXmlRules(digester, newPrefix);
     }
     
     public ValidatorMeta()
     {
-        _properties = new LinkedHashMap();        
+        super("validator");
     }
 
     /**
@@ -132,14 +100,20 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
      */
     public void merge(ValidatorMeta other)
     {
-        _name = ModelUtils.merge(this._name, other._name);
-        _bodyContent = ModelUtils.merge(this._bodyContent, other._bodyContent);
-        _description = ModelUtils.merge(this._description, other._description);
-        _longDescription = ModelUtils.merge(this._longDescription,
-                other._longDescription);
+        super.merge(other);
 
+        _bodyContent = ModelUtils.merge(this._bodyContent, other._bodyContent);
+
+        // inheritParentTag is true if the tag class to be generated for this
+        // artifact extends the tag class generated for the parent artifact.
+        // In this case, the tag for this class already inherits setter methods
+        // from its parent that handle all the inherited properties, so the
+        // tag class for this component just needs to handle its own properties.
+        //
+        // But when the tag class for this component does not extend the tag class
+        // for the parent component (because the parent component does not have
+        // a tag class) then we need to 
         boolean inheritParentTag = false;
-        //check if the parent set a tag class
         if (other._tagClass != null)
         {
             //The tagSuperclass is the tagClass of the parent
@@ -157,7 +131,6 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
         
         _validatorId = ModelUtils.merge(this._validatorId, other._validatorId);
 
-        ModelUtils.mergeProps(this, other);
         // TODO: _validatorClassMOdifiers
         
         if (inheritParentTag)
@@ -232,53 +205,6 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
         }
 
         return modifiers;
-    }
-
-    /**
-     * Sets the brief description of this property.
-     * <p>
-     * This description is used in tooltips, etc.
-     */
-    public void setDescription(String description)
-    {
-        _description = description;
-    }
-
-    public String getDescription()
-    {
-        return _description;
-    }
-
-    /**
-     * Sets the long description of this property.
-     */
-    public void setLongDescription(String longDescription)
-    {
-        _longDescription = longDescription;
-    }
-
-    public String getLongDescription()
-    {
-        return _longDescription;
-    }
-    
-    /**
-     * Sets the name that the user will refer to instances of this component by.
-     * <p>
-     * In JSP tags, this value will be used as the JSP tag name.
-     * <p>
-     * This property is optional; if not set then this Model instance represents
-     * a base class that components can be derived from, but which cannot itself
-     * be instantiated as a component.
-     */
-    public void setName(String name)
-    {
-        _name = name;
-    }
-
-    public String getName()
-    {
-        return _name;
     }
     
     public void setBodyContent(String bodyContent)
@@ -356,56 +282,22 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
     {
         return ModelUtils.defaultOf(_configExcluded,false);
     }    
-        
-    /**
-     * Adds a property to this component.
-     */
-    public void addProperty(PropertyMeta property)
-    {
-        _properties.put(property.getName(), property);
-    }
 
-    public PropertyMeta getProperty(String propertyName)
-    {
-        return (PropertyMeta) _properties.get(propertyName);
-    }
-
-    /**
-     * Number of properties for this component
-     */
-    public int propertiesSize()
-    {
-        return _properties.size();
-    }
-
-    /**
-     * Returns true if this component has any properties.
-     */
-    public boolean hasProperties()
-    {
-        return _properties.size() > 0;
-    }
-
-    /**
-     * Returns an iterator for all properties
-     */
-    public Iterator properties()
-    {
-        return _properties.values().iterator();
-    }
-    
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
-    
-    public Collection getPropertyList(){
-        return _properties.values();
-    }
-    
+
+    // A transient attribute that is computed on-demand from the model data
+    // but is not itself stored in the model.
+    //
+    // It holds a list of all the properties which need to be implemented
+    // on the tag class. This is a subset of the properties available on
+    // this component itself, and depends upon what the parent class
+    // of the generated tag already supports.
     private List _propertyTagList = null; 
     
     public Collection getPropertyTagList(){
         if (_propertyTagList == null){
             _propertyTagList = new ArrayList();
-            for (Iterator it = _properties.values().iterator(); it.hasNext();){
+            for (Iterator it = getPropertyList().iterator(); it.hasNext();){
                 PropertyMeta prop = (PropertyMeta) it.next();
                 if (!prop.isTagExcluded().booleanValue() &&
                         !prop.isInheritedTag().booleanValue()){
@@ -422,7 +314,7 @@ public class ValidatorMeta extends ClassMeta implements PropertyHolder
     public Collection getPropertyValidatorList(){
         if (_propertyValidatorList == null){
             _propertyValidatorList = new ArrayList();
-            for (Iterator it = _properties.values().iterator(); it.hasNext();){
+            for (Iterator it = getPropertyList().iterator(); it.hasNext();){
                 PropertyMeta prop = (PropertyMeta) it.next();
                 if (!prop.isInherited().booleanValue() && prop.isGenerated().booleanValue()){
                     _propertyValidatorList.add(prop);

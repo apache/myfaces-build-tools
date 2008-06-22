@@ -24,25 +24,18 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
- * Store metadata about a class that is either a JSF UIComponent, or some base
+ * Store metadata about a JSF UIComponent, or some base
  * class or interface that a UIComponent can be derived from.
  */
-public class ComponentMeta extends ClassMeta implements 
+public class ComponentMeta extends ViewEntityMeta implements 
     PropertyHolder, FacetHolder
 {
-    static private final Logger _LOG = Logger.getLogger(ComponentMeta.class
-            .getName());
-
-    private String _name;
-    private String _description;
-    private String _longDescription;
     private String _bodyContent;
 
     private String _type;
@@ -63,49 +56,35 @@ public class ComponentMeta extends ClassMeta implements
     
     private Boolean _template;
     
-    protected Map _properties;
     protected Map _facets;
 
     /**
      * Write an instance of this class out as xml.
      */
-    public static void writeXml(XmlWriter out, ComponentMeta cm)
+    protected void writeXmlSimple(XmlWriter out)
     {
-        out.beginElement("component");
+        super.writeXmlSimple(out);
 
-        ClassMeta.writeXml(out, cm);
+        out.writeElement("type", _type);
+        out.writeElement("bodyContent", _bodyContent);
+        out.writeElement("family", _family);
+        out.writeElement("tagClass", _tagClass);
+        out.writeElement("tagSuperclass", _tagSuperclass);
+        out.writeElement("tagHandler", _tagHandler);
+        out.writeElement("rendererType", _rendererType);
+        out.writeElement("configExcluded", _configExcluded);
 
-        out.writeElement("name", cm._name);
-        out.writeElement("type", cm._type);
-        out.writeElement("bodyContent", cm._bodyContent);
-        out.writeElement("family", cm._family);
-        out.writeElement("tagClass", cm._tagClass);
-        out.writeElement("tagSuperclass", cm._tagSuperclass);
-        out.writeElement("tagHandler", cm._tagHandler);
-        out.writeElement("rendererType", cm._rendererType);
-        out.writeElement("configExcluded", cm._configExcluded);
-
-        out.writeElement("desc", cm._description);
-        out.writeElement("longDesc", cm._longDescription);
-        out.writeElement("serialuid", cm._serialuid);
-        out.writeElement("implements", cm._implements);
-        out.writeElement("generatedComponentClass", cm._generatedComponentClass);
-        out.writeElement("generatedTagClass", cm._generatedTagClass);
-        out.writeElement("template", cm._template);
+        out.writeElement("serialuid", _serialuid);
+        out.writeElement("implements", _implements);
+        out.writeElement("generatedComponentClass", _generatedComponentClass);
+        out.writeElement("generatedTagClass", _generatedTagClass);
+        out.writeElement("template", _template);
         
-        for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
-        {
-            PropertyMeta prop = (PropertyMeta) i.next();
-            PropertyMeta.writeXml(out, prop);
-        }
-        
-        for (Iterator i = cm._facets.values().iterator(); i.hasNext();)
+        for (Iterator i = _facets.values().iterator(); i.hasNext();)
         {
             FacetMeta facet = (FacetMeta) i.next();
             FacetMeta.writeXml(out, facet);
         }
-
-        out.endElement("component");
     }
 
     /**
@@ -119,9 +98,8 @@ public class ComponentMeta extends ClassMeta implements
         digester.addObjectCreate(newPrefix, ComponentMeta.class);
         digester.addSetNext(newPrefix, "addComponent");
 
-        ClassMeta.addXmlRules(digester, newPrefix);
+        ViewEntityMeta.addXmlRules(digester, newPrefix);
 
-        digester.addBeanPropertySetter(newPrefix + "/name");
         digester.addBeanPropertySetter(newPrefix + "/type");
         digester.addBeanPropertySetter(newPrefix + "/bodyContent");
         digester.addBeanPropertySetter(newPrefix + "/family");
@@ -130,9 +108,6 @@ public class ComponentMeta extends ClassMeta implements
         digester.addBeanPropertySetter(newPrefix + "/tagHandler");
         digester.addBeanPropertySetter(newPrefix + "/rendererType");
         digester.addBeanPropertySetter(newPrefix + "/faceletRendererType");
-        digester.addBeanPropertySetter(newPrefix + "/desc", "description");
-        digester.addBeanPropertySetter(newPrefix + "/longDesc",
-                "longDescription");
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
         digester.addBeanPropertySetter(newPrefix + "/serialuid");
         digester.addBeanPropertySetter(newPrefix + "/implements");
@@ -140,7 +115,6 @@ public class ComponentMeta extends ClassMeta implements
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
         digester.addBeanPropertySetter(newPrefix + "/template");
         
-        PropertyMeta.addXmlRules(digester, newPrefix);
         FacetMeta.addXmlRules(digester, prefix);
     }
 
@@ -149,7 +123,7 @@ public class ComponentMeta extends ClassMeta implements
      */
     public ComponentMeta()
     {
-        _properties = new LinkedHashMap();
+        super("component");
         _facets = new LinkedHashMap();
     }
 
@@ -159,11 +133,7 @@ public class ComponentMeta extends ClassMeta implements
      */
     public void merge(ComponentMeta other)
     {
-        //_name = ModelUtils.merge(this._name, other._name);
         _bodyContent = ModelUtils.merge(this._bodyContent, other._bodyContent);
-        _description = ModelUtils.merge(this._description, other._description);
-        _longDescription = ModelUtils.merge(this._longDescription,
-                other._longDescription);
 
         _type = ModelUtils.merge(this._type, other._type);
         _family = ModelUtils.merge(this._family, other._family);
@@ -224,53 +194,6 @@ public class ComponentMeta extends ClassMeta implements
             }
             _propertyTagList = null;
         }
-    }
-
-    /**
-     * Sets the name that the user will refer to instances of this component by.
-     * <p>
-     * In JSP tags, this value will be used as the JSP tag name.
-     * <p>
-     * This property is optional; if not set then this Model instance represents
-     * a base class that components can be derived from, but which cannot itself
-     * be instantiated as a component.
-     */
-    public void setName(String name)
-    {
-        _name = name;
-    }
-
-    public String getName()
-    {
-        return _name;
-    }
-
-    /**
-     * Sets the brief description of this property.
-     * <p>
-     * This description is used in tooltips, etc.
-     */
-    public void setDescription(String description)
-    {
-        _description = description;
-    }
-
-    public String getDescription()
-    {
-        return _description;
-    }
-
-    /**
-     * Sets the long description of this property.
-     */
-    public void setLongDescription(String longDescription)
-    {
-        _longDescription = longDescription;
-    }
-
-    public String getLongDescription()
-    {
-        return _longDescription;
     }
 
     public void setBodyContent(String bodyContent)
@@ -453,43 +376,6 @@ public class ComponentMeta extends ClassMeta implements
         return ModelUtils.defaultOf(_children, true);
     }
 
-    /**
-     * Adds a property to this component.
-     */
-    public void addProperty(PropertyMeta property)
-    {
-        _properties.put(property.getName(), property);
-    }
-
-    public PropertyMeta getProperty(String propertyName)
-    {
-        return (PropertyMeta) _properties.get(propertyName);
-    }
-
-    /**
-     * Number of properties for this component
-     */
-    public int propertiesSize()
-    {
-        return _properties.size();
-    }
-
-    /**
-     * Returns true if this component has any properties.
-     */
-    public boolean hasProperties()
-    {
-        return _properties.size() > 0;
-    }
-
-    /**
-     * Returns an iterator for all properties
-     */
-    public Iterator properties()
-    {
-        return _properties.values().iterator();
-    }
-    
     public void addFacet(FacetMeta prop)
     {
         _facets.put(prop.getName(), prop);
@@ -507,10 +393,6 @@ public class ComponentMeta extends ClassMeta implements
             
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
     
-    public Collection getPropertyList(){
-        return _properties.values();
-    }
-    
     public Collection getFacetList(){
         return _facets.values();
     }
@@ -520,7 +402,7 @@ public class ComponentMeta extends ClassMeta implements
     public Collection getPropertyTagList(){
         if (_propertyTagList == null){
             _propertyTagList = new ArrayList();
-            for (Iterator it = _properties.values().iterator(); it.hasNext();){
+            for (Iterator it = getPropertyList().iterator(); it.hasNext();){
                 PropertyMeta prop = (PropertyMeta) it.next();
                 if (!prop.isTagExcluded().booleanValue() &&
                         !prop.isInheritedTag().booleanValue()){
@@ -537,7 +419,7 @@ public class ComponentMeta extends ClassMeta implements
     public Collection getPropertyComponentList(){
         if (_propertyComponentList == null){
             _propertyComponentList = new ArrayList();
-            for (Iterator it = _properties.values().iterator(); it.hasNext();){
+            for (Iterator it = getPropertyList().iterator(); it.hasNext();){
                 PropertyMeta prop = (PropertyMeta) it.next();
                 if (!prop.isInherited().booleanValue() && prop.isGenerated().booleanValue()){
                     _propertyComponentList.add(prop);

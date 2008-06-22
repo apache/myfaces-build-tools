@@ -22,10 +22,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
 
 import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
@@ -41,20 +38,13 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  * <li>implicitly used via its forClass property
  * </ul>
  */
-public class ConverterMeta extends ClassMeta implements PropertyHolder
+public class ConverterMeta extends ViewEntityMeta implements PropertyHolder
 {
-    static private final Logger _LOG = Logger.getLogger(ConverterMeta.class
-            .getName());
-
-    private String _description;
-    private String _longDescription;
-
     private String _converterId;
     private int _converterClassModifiers;
     
     //Some converters has its own tag class, so it's necessary to
     //add some properties for this cases (f:convertNumber or f:convertDateTime)
-    private String _name;
     private String _bodyContent;
     private String _tagClass;
     private String _tagSuperclass;
@@ -63,34 +53,19 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
     private Boolean _generatedTagClass;
     private Boolean _configExcluded;
 
-    protected Map _properties;
     /**
      * Write an instance of this class out as xml.
      */
-    public static void writeXml(XmlWriter out, ConverterMeta cm)
+    protected void writeXmlSimple(XmlWriter out)
     {
-        out.beginElement("converter");
-
-        ClassMeta.writeXml(out, cm);
-
-        out.writeElement("converterId", cm._converterId);
-        out.writeElement("desc", cm._description);
-        out.writeElement("longDesc", cm._longDescription);
-        out.writeElement("name", cm._name);        
-        out.writeElement("bodyContent", cm._bodyContent);
-        out.writeElement("tagClass", cm._tagClass);
-        out.writeElement("tagSuperclass", cm._tagSuperclass);
-        out.writeElement("serialuidtag", cm._serialuidtag);
-        out.writeElement("generatedTagClass", cm._generatedTagClass);
-        out.writeElement("configExcluded", cm._configExcluded);
-
-        for (Iterator i = cm._properties.values().iterator(); i.hasNext();)
-        {
-            PropertyMeta prop = (PropertyMeta) i.next();
-            PropertyMeta.writeXml(out, prop);
-        }
-        
-        out.endElement("converter");
+        super.writeXmlSimple(out);
+        out.writeElement("converterId", _converterId);
+        out.writeElement("bodyContent", _bodyContent);
+        out.writeElement("tagClass", _tagClass);
+        out.writeElement("tagSuperclass", _tagSuperclass);
+        out.writeElement("serialuidtag", _serialuidtag);
+        out.writeElement("generatedTagClass", _generatedTagClass);
+        out.writeElement("configExcluded", _configExcluded);
     }
 
     /**
@@ -104,27 +79,22 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
         digester.addObjectCreate(newPrefix, ConverterMeta.class);
         digester.addSetNext(newPrefix, "addConverter");
 
-        ClassMeta.addXmlRules(digester, newPrefix);
+        ViewEntityMeta.addXmlRules(digester, newPrefix);
 
         digester.addBeanPropertySetter(newPrefix + "/converterId");
-        digester.addBeanPropertySetter(newPrefix + "/desc", "description");
-        digester.addBeanPropertySetter(newPrefix + "/longDesc",
-                "longDescription");
-        digester.addBeanPropertySetter(newPrefix + "/name");        
         digester.addBeanPropertySetter(newPrefix + "/bodyContent");
         digester.addBeanPropertySetter(newPrefix + "/tagClass");
         digester.addBeanPropertySetter(newPrefix + "/tagSuperclass");
         digester.addBeanPropertySetter(newPrefix + "/serialuidtag");
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
-
-        PropertyMeta.addXmlRules(digester, newPrefix);
     }
     
     public ConverterMeta()
     {
-        _properties = new LinkedHashMap();        
+        super("converter");
     }
+
     /**
      * Merge the data in the specified other property into this one, throwing an
      * exception if there is an incompatibility.
@@ -135,12 +105,8 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
      */
     public void merge(ConverterMeta other)
     {
-        _name = ModelUtils.merge(this._name, other._name);
+        super.merge(other);
         _bodyContent = ModelUtils.merge(this._bodyContent, other._bodyContent);
-        
-        _description = ModelUtils.merge(this._description, other._description);
-        _longDescription = ModelUtils.merge(this._longDescription,
-                other._longDescription);
 
         boolean inheritParentTag = false;
         //check if the parent set a tag class
@@ -160,7 +126,6 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
 
         _converterId = ModelUtils.merge(this._converterId, other._converterId);
         
-        ModelUtils.mergeProps(this, other);
         // TODO: _converterClassMOdifiers
         
         if (inheritParentTag)
@@ -241,53 +206,6 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
         return modifiers;
     }
 
-    /**
-     * Sets the brief description of this property.
-     * <p>
-     * This description is used in tooltips, etc.
-     */
-    public void setDescription(String description)
-    {
-        _description = description;
-    }
-
-    public String getDescription()
-    {
-        return _description;
-    }
-
-    /**
-     * Sets the long description of this property.
-     */
-    public void setLongDescription(String longDescription)
-    {
-        _longDescription = longDescription;
-    }
-
-    public String getLongDescription()
-    {
-        return _longDescription;
-    }
-    
-    /**
-     * Sets the name that the user will refer to instances of this component by.
-     * <p>
-     * In JSP tags, this value will be used as the JSP tag name.
-     * <p>
-     * This property is optional; if not set then this Model instance represents
-     * a base class that components can be derived from, but which cannot itself
-     * be instantiated as a component.
-     */
-    public void setName(String name)
-    {
-        _name = name;
-    }
-
-    public String getName()
-    {
-        return _name;
-    }
-    
     public void setBodyContent(String bodyContent)
     {
         this._bodyContent = bodyContent;
@@ -353,56 +271,15 @@ public class ConverterMeta extends ClassMeta implements PropertyHolder
     {
         return ModelUtils.defaultOf(_configExcluded,false);
     }    
-        
-    /**
-     * Adds a property to this component.
-     */
-    public void addProperty(PropertyMeta property)
-    {
-        _properties.put(property.getName(), property);
-    }
 
-    public PropertyMeta getProperty(String propertyName)
-    {
-        return (PropertyMeta) _properties.get(propertyName);
-    }
-
-    /**
-     * Number of properties for this component
-     */
-    public int propertiesSize()
-    {
-        return _properties.size();
-    }
-
-    /**
-     * Returns true if this component has any properties.
-     */
-    public boolean hasProperties()
-    {
-        return _properties.size() > 0;
-    }
-
-    /**
-     * Returns an iterator for all properties
-     */
-    public Iterator properties()
-    {
-        return _properties.values().iterator();
-    }
-    
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
-    
-    public Collection getPropertyList(){
-        return _properties.values();
-    }
     
     private List _propertyTagList = null; 
     
     public Collection getPropertyTagList(){
         if (_propertyTagList == null){
             _propertyTagList = new ArrayList();
-            for (Iterator it = _properties.values().iterator(); it.hasNext();){
+            for (Iterator it = getPropertyList().iterator(); it.hasNext();){
                 PropertyMeta prop = (PropertyMeta) it.next();
                 if (!prop.isTagExcluded().booleanValue() &&
                         !prop.isInheritedTag().booleanValue()){

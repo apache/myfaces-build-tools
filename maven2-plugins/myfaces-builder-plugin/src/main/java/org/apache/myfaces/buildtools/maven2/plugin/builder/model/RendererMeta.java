@@ -28,7 +28,6 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  */
 public class RendererMeta extends ClassMeta
 {
-
     private String _description;
     private String _componentFamily;
     private String _rendererType;
@@ -36,17 +35,13 @@ public class RendererMeta extends ClassMeta
     /**
      * Write an instance of this class out as xml.
      */
-    public static void writeXml(XmlWriter out, RendererMeta rm)
+    protected void writeXmlSimple(XmlWriter out)
     {
-        out.beginElement("renderer");
+        super.writeXmlSimple(out);
         
-        ClassMeta.writeXml(out, rm);
-        
-        out.writeElement("componentFamily", rm._componentFamily);
-        out.writeElement("rendererType", rm._rendererType);
-        out.writeElement("description", rm._description);
-        
-        out.endElement("renderer");
+        out.writeElement("componentFamily", _componentFamily);
+        out.writeElement("rendererType", _rendererType);
+        out.writeElement("description", _description);
     }
     
     /**
@@ -72,6 +67,7 @@ public class RendererMeta extends ClassMeta
      */
     public RendererMeta()
     {
+        super("renderer");
     }    
 
     /**
