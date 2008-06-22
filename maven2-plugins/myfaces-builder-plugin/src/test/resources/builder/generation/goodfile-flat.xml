@@ -72,9 +72,9 @@ Some dummy ifaceProp documentation.
     <type>foo</type>
     <family>foo</family>
     <rendererType>FooRenderer</rendererType>
+    <generatedComponentClass>true</generatedComponentClass>
     <desc>A class for which a concrete component will be created using "subclass mode" code-generation</desc>
     <longDesc>A class for which a concrete component will be created using "subclass mode" code-generation.</longDesc>
-    <generatedComponentClass>true</generatedComponentClass>
     <property>
       <name>prop1</name>
       <className>java.lang.String</className>
@@ -116,10 +116,10 @@ Some dummy ifaceProp documentation.
     <type>foo</type>
     <family>foo</family>
     <rendererType>FooRenderer</rendererType>
-    <desc>A class for which a concrete component will be created using "template mode" code-generation</desc>
-    <longDesc>A class for which a concrete component will be created using "template mode" code-generation.</longDesc>
     <generatedComponentClass>true</generatedComponentClass>
     <template>true</template>
+    <desc>A class for which a concrete component will be created using "template mode" code-generation</desc>
+    <longDesc>A class for which a concrete component will be created using "template mode" code-generation.</longDesc>
     <property>
       <name>prop2</name>
       <className>boolean</className>
