@@ -64,19 +64,19 @@ public class Model
         for (Iterator i = model._components.iterator(); i.hasNext();)
         {
             ComponentMeta c = (ComponentMeta) i.next();
-            ComponentMeta.writeXml(out, c);
+            c.writeXml(out);
         }
 
         for (Iterator i = model._converters.iterator(); i.hasNext();)
         {
             ConverterMeta c = (ConverterMeta) i.next();
-            ConverterMeta.writeXml(out, c);
+            c.writeXml(out);
         }
 
         for (Iterator i = model._validators.iterator(); i.hasNext();)
         {
             ValidatorMeta c = (ValidatorMeta) i.next();
-            ValidatorMeta.writeXml(out, c);
+            c.writeXml(out);
         }
         
         for (Iterator i = model._renderKits.iterator(); i.hasNext();)
@@ -88,7 +88,7 @@ public class Model
         for (Iterator i = model._tags.iterator(); i.hasNext();)
         {
             TagMeta c = (TagMeta) i.next();
-            TagMeta.writeXml(out, c);
+            c.writeXml(out);
         }        
 
         out.endElement("model");
