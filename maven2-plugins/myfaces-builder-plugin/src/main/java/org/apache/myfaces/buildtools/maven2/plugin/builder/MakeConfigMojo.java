@@ -57,24 +57,27 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
  * velocity template file and generate a single output file. The template is
  * passed the full metadata model object, and can select from the model whatever
  * data it wants.
+ * </p>
  * <p>
  * The execution can be configured with:
  * <ul>
- * <li>The name of the input template to be executed
- * <li>The name of the output file to be created
+ * <li>The name of the input template to be executed</li>
+ * <li>The name of the output file to be created</li>
  * <li>Any number of variables which are accessable from the template
- * (string values only)
+ * (string values only)</li>
  * </ul>
+ * </p>
  * <p>
  * The executed template has the following variables available to it:
  * <ul>
- * <li>model: the full metadata model for this project
- * <li>modelIds: specifies which items from the model should be processed
- * <li>baseContent: the full text of the contents of the "xmlBaseFile" (if any)
- * <li>utils: an instance of MyfacesUtils that provides static helper methods
+ * <li>model: the full metadata model for this project</li>
+ * <li>modelIds: specifies which items from the model should be processed</li>
+ * <li>baseContent: the full text of the contents of the "xmlBaseFile" (if any)</li>
+ * <li>utils: an instance of MyfacesUtils that provides static helper methods</li>
  * <li>and whatever (name,value) pairs were configured via the "params" property
- * of this mojo.
+ * of this mojo.</li>
  * </ul>
+ * </p>
  * 
  * @requiresDependencyResolution compile
  * @goal make-config
@@ -121,14 +124,17 @@ public class MakeConfigMojo extends AbstractMojo
      * <p>
      * If not defined, then this defaults to a list containing just one string whose
      * value is the same as the current maven project's artifactId.
+     * </p>
      * <p>
      * The complete metadata model is passed to the velocity template. This contains 
      * data about not just the model items defined in the calling project, but also
      * about items imported from other projects. Each item in the model is
      * labelled with a "model id" indicating which project it was defined by.
+     * </p>
      * <p>
      * This list of model ids is also passed to the template. The template can
      * then use that data to select the relevant items from the full model.
+     * </p>
      * 
      * @parameter
      */
@@ -150,14 +156,17 @@ public class MakeConfigMojo extends AbstractMojo
      * automatically generated. All content beneath the root element of the specified
      * file (but not the root element itself) is placed into a Velocity variable
      * named "baseContent" that the template can reference.
+     * </p>
      * <p>
      * The template can do whatever it wants with this variable, but it is expected
      * that the template will simply output this immediately after writing the
      * root element of the output xml file.
      * file.
+     * </p>
      * <p>
      * Note that any attributes or namespaces defined on the root element of the
      * xmlBaseFile are ignored.
+     * </p>
      * 
      * @parameter expression="src/main/conf/META-INF/faces-config-base.xml"
      */    
@@ -183,6 +192,7 @@ public class MakeConfigMojo extends AbstractMojo
      * <p>
      * The metadata model is loaded, and the specified template is executed with
      * any template output being written to the specified output file.
+     * </p>
      */
     public void execute() throws MojoExecutionException
     {

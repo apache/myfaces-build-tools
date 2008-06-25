@@ -47,10 +47,11 @@ import org.codehaus.plexus.util.StringUtils;
  * purposes:
  * <ul>
  * <li>It is needed if other projects then use the maven-builder-plugin to
- * create subclasses of the jsf classes in this project.
+ * create subclasses of the jsf classes in this project.</li>
  * <li>It is good documentation (more precise than the tld and faces-config.xml
- * files).
+ * files).</li>
  * </ul>
+ * </p>
  * <p>
  * Note that the generated file contains all the metadata needed by this
  * project, including a copy of all the metadata from other projects that
@@ -58,6 +59,7 @@ import org.codehaus.plexus.util.StringUtils;
  * just the generated metadata as input, without needing to load other
  * projects. Each entry in the metadata is labelled with a "modelId"
  * property that indicates where it originally came from.
+ * </p>
  * 
  * @requiresDependencyResolution compile
  * @goal build-metadata
@@ -79,6 +81,7 @@ public class BuildMetaDataMojo extends AbstractMojo
      * This mojo registers the specified directory with Maven as a resource dir. The
      * maven-resources-plugin will then read the files from this dir and copy them
      * into the "central" target directory from which the jarfile is built. 
+     * </p>
      * 
      * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
      */
@@ -97,13 +100,14 @@ public class BuildMetaDataMojo extends AbstractMojo
      * <p>
      * This value <i>must</i> be unique for each project. If not specified,
      * then it defaults to the artifactId of the current maven project.
+     * </p>
      * <p>
      * In later phases, goals are passed the complete metadata model which
      * mixes items discovered here with items imported from metadata in 
      * other projects. The modelId is used to figure out which of the
      * items should be processed (ie which ones are associated with this
      * project) and which should be ignored.
-     * <p>
+     * </p>
      *
      * @parameter expression="${project.artifactId}"
      */
@@ -114,18 +118,21 @@ public class BuildMetaDataMojo extends AbstractMojo
      * <p>
      * This allows a project that inherits metadata from some other project to force
      * copies of the Tag classes to be created in a namespace of its own choosing.
+     * </p>
      * <p>
      * This is used in particular to create copies of the Tag classes in myfaces-impl
      * within other projects so that they can be used as base classes for other tags
      * within that project. The original tag present in the myfaces-impl.jar cannot
      * be used as a base because that would prevent the derived project from running
      * with other JSF implementations.
+     * </p>
      * <p>
      * The child project first defines this (and replacePackagePrefixTagTo); as the
      * inherited metadata is merged the tagClass attribute is modified. Then during
      * the tag class generation goal, the modelId of the inherited project is included
      * in the list of modelIds to process. That causes the tag classes to be generated
      * again - but this time in a different package.
+     * </p>
      * 
      * @parameter
      */
@@ -135,6 +142,7 @@ public class BuildMetaDataMojo extends AbstractMojo
      * Replace the package prefix
      * <p>
      * See replacePackagePrefixTagTo.
+     * </p>
      * 
      * @parameter
      */
@@ -146,10 +154,12 @@ public class BuildMetaDataMojo extends AbstractMojo
      * When two different models define exactly the same item (ie the "class" attribute
      * for two items is the same) then the one from the model that is merged first is
      * used, and the later one is ignored.
+     * </p>
      * <p>
      * This property allows the order of merging to be controlled; models are merged in
      * the order specified in this list. Any models whose ids are not in this list are
      * then merged in an undefined order at the end.
+     * </p>
      * <p>
      * Setting this property is not normally necessary; typically models inherited from
      * dependencies define different model items (ie have no overlap). However consider
@@ -161,8 +171,10 @@ public class BuildMetaDataMojo extends AbstractMojo
      * ensure that project B's metadata is loaded first; this can possibly hide any new
      * features (or bugfixes) from the new release of A, but also ensures that classes
      * in C which extend classes in B do not declare features that B does not support.
+     * </p>
      * <p>
      * This property is only needed in rare situations; normally it can be omitted.
+     * </p>
      * 
      * @parameter
      */
@@ -175,8 +187,10 @@ public class BuildMetaDataMojo extends AbstractMojo
      * merge all the data into the model for this project. If this property is set,
      * then metadata found in dependencies is only merged if the modelId matches one
      * in this list.
+     * </p>
      * <p>
      * Note that by default, a project's modelId is the same as the artifactId.
+     * </p>
      * 
      * @parameter
      */
@@ -188,24 +202,29 @@ public class BuildMetaDataMojo extends AbstractMojo
      * This file is always loaded first, before any metadata from dependencies is
      * loaded, and before scanning of the source directories for the current
      * project is done.
+     * </p>
      * <p>
      * The specified filename is relative to the current working directory.
+     * </p>
      * <p>
      * Normally, this option is not used and any models that this project extends
      * are simply automatically detected via scanning of the maven dependencies and
      * loaded from the dependency jarfile. However there are a couple of situations
      * where it is useful to specify an explicit metadata file to load instead.  
+     * </p>
      * <p> 
      * One example is when a project extends components in a project which was not
      * built with the myfaces-builder-plugin (or where myfaces-builder-plugin
      * support is only in a not-yet-released version). In this case, a metadata file
      * can be created by hand (or generated from the unreleased trunk version) and
      * explicitly loaded via this property.
+     * </p>
      * <p>
      * A second example is when it is necessary to add some custom model definitions to
      * the model to be built, eg to override buggy or missing metadata in a project
      * that this project extends. Of course this is hopefully not needed; it would be
      * better to get a bugfix release of the parent project out instead!
+     * </p>
      * 
      * @parameter
      */
