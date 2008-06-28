@@ -115,7 +115,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
         digester.addBeanPropertySetter(newPrefix + "/template");
         
-        FacetMeta.addXmlRules(digester, prefix);
+        FacetMeta.addXmlRules(digester, newPrefix);
     }
 
     /**
