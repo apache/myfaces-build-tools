@@ -145,10 +145,13 @@ public class IOUtils
         {
             String srcDir = (String) sourceDirs.get(i);
             
-            //This directory prefix is banned, all here is generated
+            //This directory that contains target/myfaces-builder-plugin/main
+            //is banned, all here is generated
             //so we don't take a look at this directory
-            if (srcDir.contains("maven-faces-plugin"))
+            if (srcDir.matches(".*\\W+target\\W+myfaces-builder-plugin\\W+main\\W+.*"))
+            {
                 continue;
+            }                        
             
             File f = new File(srcDir,filename);
             if (f.exists()){
