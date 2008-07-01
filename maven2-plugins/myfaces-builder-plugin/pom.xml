@@ -158,7 +158,27 @@
       <version>1.1.7</version>
     </dependency>
      -->
+    
+    <!-- Reporting required API-->   
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-impl</artifactId>
+      <version>2.0</version>
+    </dependency>
         
+    <dependency>
+      <groupId>org.apache.maven.doxia</groupId>
+      <artifactId>doxia-core</artifactId>
+      <version>1.0-alpha-7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven.doxia</groupId>
+      <artifactId>doxia-site-renderer</artifactId>
+      <version>1.0-alpha-7</version>
+    </dependency>
+    <!-- End Reporting required API -->
+
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
