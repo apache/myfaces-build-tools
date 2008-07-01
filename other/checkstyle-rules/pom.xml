@@ -1,6 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <!--
+      - Note that this parent declaration is a little weird; the checkstyle plugin configuration in
+      - the parent pom references this artifact. Possibly the parent pom should be refactored into
+      - two parts; the bits we want to inherit here (distributionManagement, mailingLists etc) and
+      - a separate pom that references this artifact. However this works for now.
+      -->
+    <groupId>org.apache.myfaces</groupId>
+    <artifactId>myfaces</artifactId>
+    <version>5</version>
+  </parent>
+
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>checkstyle-rules</artifactId>
   <packaging>jar</packaging>
