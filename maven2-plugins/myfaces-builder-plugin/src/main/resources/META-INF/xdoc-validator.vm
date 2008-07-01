@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+ <properties>
+  <title>&lt;${validator.name}&gt;</title>
+ </properties>
+ <body>
+  <section name="Summary">
+  <p>
+   <b>Tag name:</b> &lt;${validator.name}&gt;
+   <br/>
+#set ($javadocPath = "../apidocs/" + $validator.getClassName().replace('.', '/') )
+   <b>Validator class:</b> <a href="${tagdocUtils.platformAgnosticPath( $javadocPath )}.html">${validator.className}</a>
+   <br/>
+#if ($validator.tagClass)
+#set ($javadocPath = "../apidocs/" + $validator.getTagClass().replace('.', '/') )
+   <b>Tag class:</b> <a href="${tagdocUtils.platformAgnosticPath( $javadocPath )}.html">${validator.tagClass}</a>
+   <br/>
+#end
+   <b>validator id:</b> ${validator.validatorId}
+   <br/>
+${validator.longDescription}   
+  </p>
+  </section>
+#if ($baseContent)
+$baseContent
+#end
+#set ($propertyList = ${tagdocUtils.getSortedPropertyList($validator)})
+#if ($propertyList.size() != 0)  
+  <section name="Attributes">
+<table>
+ <tr>
+  <th>Name</th>
+  <th>Type</th>
+  <th>Supports EL?</th>
+  <th>Description</th>
+ </tr>
+#foreach( $property in $propertyList )
+#if (!$property.isTagExcluded())
+ <tr>
+  <td>$property.jspName</td>
+#set ($type = ${tagdocUtils.getDisplayType($validator.className,$property.jspName,$property.className)})
+  <td>$type</td>
+#if ($property.jspName == "action")
+  <td>Yes</td>
+#elseif ($property.isMethodBinding() || $property.isMethodExpression())
+  <td>Only EL</td>
+#elseif ($property.jspName == "binding")
+  <td>Only EL</td>
+#elseif ($property.isLiteralOnly())
+  <td>No</td>
+#else
+  <td>Yes</td>
+#end
+#if ($property.longDescription)
+  <td>$property.longDescription</td>
+#else
+  <td></td>
+#end
+ </tr>
+#end
+#end
+</table>
+#end
+  </section>
+ </body> 
+</document>
