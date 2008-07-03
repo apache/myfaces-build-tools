@@ -395,71 +395,71 @@ public class BuildMetaDataMojo extends AbstractMojo
      */
     private void validateComponents(Model model) throws MojoExecutionException
     {
-    	for(Iterator i = model.components(); i.hasNext(); )
-    	{
-    		ComponentMeta component = (ComponentMeta) i.next();
-    		validateComponent(model, component);
-    	}
+        for(Iterator i = model.components(); i.hasNext(); )
+        {
+            ComponentMeta component = (ComponentMeta) i.next();
+            validateComponent(model, component);
+        }
     }
     
     private void validateComponent(Model model, ComponentMeta component)
     throws MojoExecutionException
     {
-    	if (component.getName() != null)
-    	{
+        if (component.getName() != null)
+        {
             if (component.getDescription() == null)
             {
-            	throw new MojoExecutionException(
-                		"Missing mandatory property on component " + component.getClassName()
-                		+ " [sourceClass=" + component.getSourceClassName() + "]: description");
+                throw new MojoExecutionException(
+                        "Missing mandatory property on component " + component.getClassName()
+                        + " [sourceClass=" + component.getSourceClassName() + "]: description");
             }
 
             if (component.getType() == null)
             {
-            	throw new MojoExecutionException(
-                		"Missing mandatory property on component " + component.getClassName()
-                		+ " [sourceClass=" + component.getSourceClassName() + "]: type");
+                throw new MojoExecutionException(
+                        "Missing mandatory property on component " + component.getClassName()
+                        + " [sourceClass=" + component.getSourceClassName() + "]: type");
             }
             
-    		// this is a concrete component, so it must have a family property
-    		validateComponentFamily(model, component);
-    	}
+            // this is a concrete component, so it must have a family property
+            validateComponentFamily(model, component);
+        }
     }
     
     private void validateComponentFamily(Model model, ComponentMeta component)
     throws MojoExecutionException
     {
-    	// TODO: clean this code up, it is pretty ugly
+        // TODO: clean this code up, it is pretty ugly
         boolean familyDefined = false;
         ComponentMeta curr = component;
         while ((curr != null) && !familyDefined)
         {
-        	if (curr.getFamily() != null)
-        	{
-        		familyDefined = true;
-        	}
-        	else
-        	{
-	        	String parentName = curr.getParentClassName();
-	        	if (parentName == null)
-	        		curr = null;
-	        	else
-	        	{
-	        		curr = model.findComponentByClassName(parentName);
-	        		if (curr == null)
-	        		{
-	                	throw new MojoExecutionException(
-	                    		"Parent class not found for component " + component.getClassName()
-	                    		+ " [sourceClass=" + component.getSourceClassName() + "]");
-	        		}
-	        	}
-        	}
+            if (curr.getFamily() != null)
+            {
+                familyDefined = true;
+            }
+            else
+            {
+                String parentName = curr.getParentClassName();
+                if (parentName == null)
+                    curr = null;
+                else
+                {
+                    curr = model.findComponentByClassName(parentName);
+                    if (curr == null)
+                    {
+                        throw new MojoExecutionException(
+                                "Parent class not found for component " + component.getClassName()
+                                + " [sourceClass=" + component.getSourceClassName() + "]");
+                    }
+                }
+            }
         }
         if (!familyDefined)
         {
-        	throw new MojoExecutionException(
-        		"Missing mandatory property on component " + component.getClassName()
-        		+ " [sourceClass=" + component.getSourceClassName() + "]: family");
+            throw new MojoExecutionException(
+                "Missing mandatory property on component " + component.getClassName()
+                + " [sourceClass=" + component.getSourceClassName() + "]: family");
         }
     }
 }

@@ -807,8 +807,8 @@ public class TrinidadComponentTagGenerator extends AbstractComponentTagGenerator
       out.indent();
       out.println("bean.setProperty(" + componentClass + "." + propKey + ",");
       if (isList)
-	    out.println("                 TagUtils.getColorList(" + propVar + "));");
-	  else
+        out.println("                 TagUtils.getColorList(" + propVar + "));");
+      else
         out.println("                 TagUtils.getColor(" + propVar + "));");
       out.unindent();
       out.println("}");

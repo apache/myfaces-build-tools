@@ -511,48 +511,48 @@ public class MakeComponentsMojo extends AbstractMojo
      */
     static String cleanInitializationExpression(String expr)
     {
-    	expr = StringUtils.trim(expr);
-    	if (StringUtils.isEmpty(expr))
-    	{
-    		return null;
-    	}
-    	
-    	// split on linefeeds
-    	// trim each separately
-    	// remove any comment chars
-    	
-    	if (expr.contains("\n"))
-    	{
-    		StringBuffer buf = new StringBuffer(100);
-    		String[] lines = StringUtils.split(expr, "\n");
-    		for(int i=0; i<lines.length; ++i)
-    		{
-    			String line = lines[i];
-    			line = StringUtils.trim(line);
-    			if (!line.startsWith("//") && !StringUtils.isEmpty(line))
-    			{
-    				if (buf.length()> 0)
-    				{
-    					buf.append(" ");
-    				}
-    				buf.append(line);
-    			}
-    		}
-    		
-    		expr = buf.toString();
-    	}
-    	
-    	if (expr.startsWith("//"))
-		{
-    		return null;
-		}
+        expr = StringUtils.trim(expr);
+        if (StringUtils.isEmpty(expr))
+        {
+            return null;
+        }
+        
+        // split on linefeeds
+        // trim each separately
+        // remove any comment chars
+        
+        if (expr.contains("\n"))
+        {
+            StringBuffer buf = new StringBuffer(100);
+            String[] lines = StringUtils.split(expr, "\n");
+            for(int i=0; i<lines.length; ++i)
+            {
+                String line = lines[i];
+                line = StringUtils.trim(line);
+                if (!line.startsWith("//") && !StringUtils.isEmpty(line))
+                {
+                    if (buf.length()> 0)
+                    {
+                        buf.append(" ");
+                    }
+                    buf.append(line);
+                }
+            }
+            
+            expr = buf.toString();
+        }
+        
+        if (expr.startsWith("//"))
+        {
+            return null;
+        }
 
-    	if (StringUtils.isEmpty(expr))
-    	{
-    		return null;
-    	}
+        if (StringUtils.isEmpty(expr))
+        {
+            return null;
+        }
 
-    	return expr;
+        return expr;
     }
 
     /**

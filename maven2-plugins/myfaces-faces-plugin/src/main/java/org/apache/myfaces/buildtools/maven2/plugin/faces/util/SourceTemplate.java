@@ -94,14 +94,14 @@ public class SourceTemplate
         throw new EOFException("File " + _file + " ended prematurely");
 
       if (line.trim().startsWith(_IGNORE_PREFIX)){
-		  if (line.trim().startsWith(_IGNORE_PREFIX2)){
-			  String method = line.trim().substring(_IGNORE_PREFIX2.length()).trim();
-			  if (method.length() > 0 ){
-				  _ignoreMethods.add(method);
-			  }
-		  }
-		  continue;
-	  }
+          if (line.trim().startsWith(_IGNORE_PREFIX2)){
+              String method = line.trim().substring(_IGNORE_PREFIX2.length()).trim();
+              if (method.length() > 0 ){
+                  _ignoreMethods.add(method);
+              }
+          }
+          continue;
+      }
 
       if (line.equals("}"))
         break;
@@ -146,11 +146,11 @@ public class SourceTemplate
     return buffer.toString();
   }
 
-	public Collection getIgnoreMethods() {
-		return _ignoreMethods;
-	}
+    public Collection getIgnoreMethods() {
+        return _ignoreMethods;
+    }
 
-	private File           _file;
+    private File           _file;
   private BufferedReader _reader;
   private Set            _imports = new HashSet();
   private Map            _fqcnMap = new HashMap();

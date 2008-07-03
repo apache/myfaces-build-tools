@@ -160,9 +160,9 @@ public class QdoxModelBuilder implements ModelBuilder
 
             // Check if the tag class java file exists in the source dirs
             if (isTagClassMissing(component.getTagClass(), sourceDirs))
-    		{
+            {
                 component.setGeneratedTagClass(Boolean.TRUE);
-    		}
+            }
         }
 
         // post-process the list of converters
@@ -178,9 +178,9 @@ public class QdoxModelBuilder implements ModelBuilder
             
             // Check if the tag class java file exists in the source dirs
             if (isTagClassMissing(converter.getTagClass(), sourceDirs))
-    		{
-            	converter.setGeneratedTagClass(Boolean.TRUE);
-    		}
+            {
+                converter.setGeneratedTagClass(Boolean.TRUE);
+            }
         }
 
         // post-process the list of validators
@@ -201,9 +201,9 @@ public class QdoxModelBuilder implements ModelBuilder
 
             // Check if the tag class java file exists in the source dirs
             if (isTagClassMissing(validator.getTagClass(), sourceDirs))
-    		{
-            	validator.setGeneratedTagClass(Boolean.TRUE);
-    		}
+            {
+                validator.setGeneratedTagClass(Boolean.TRUE);
+            }
         }
 
         // post-process the list of tags
@@ -220,11 +220,11 @@ public class QdoxModelBuilder implements ModelBuilder
      */
     private boolean isTagClassMissing(String tagClassName, List sourceDirs)
     {
-    	if (tagClassName == null)
-    	{
-    		return false;
-    	}
-    	String tagClassFile = StringUtils.replace(tagClassName,".","/")+".java";
+        if (tagClassName == null)
+        {
+            return false;
+        }
+        String tagClassFile = StringUtils.replace(tagClassName,".","/")+".java";
         return !IOUtils.existsSourceFile(tagClassFile, sourceDirs);
     }
 
@@ -480,28 +480,28 @@ public class QdoxModelBuilder implements ModelBuilder
      * initComponentAncestry for further details.
      */
     private void initClassMeta(Model model, JavaClass clazz,
-    		ClassMeta modelItem, String classNameOverride)
+            ClassMeta modelItem, String classNameOverride)
     {
         modelItem.setModelId(model.getModelId());
         modelItem.setSourceClassName(clazz.getFullyQualifiedName());
         JavaClass realParentClass = clazz.getSuperJavaClass();
         if (realParentClass != null)
         {
-        	String fqn = realParentClass.getFullyQualifiedName();
-        	if ((fqn != null) && !fqn.startsWith("java.lang"))
-        	{
-        		modelItem.setSourceClassParentClassName(fqn);
-        	}
+            String fqn = realParentClass.getFullyQualifiedName();
+            if ((fqn != null) && !fqn.startsWith("java.lang"))
+            {
+                modelItem.setSourceClassParentClassName(fqn);
+            }
         }
 
         // JSF Entity class.
         if (StringUtils.isEmpty(classNameOverride))
-    	{
-        	modelItem.setClassName(clazz.getFullyQualifiedName());
-    	}
+        {
+            modelItem.setClassName(clazz.getFullyQualifiedName());
+        }
         else
         {
-        	modelItem.setClassName(classNameOverride);
+            modelItem.setClassName(classNameOverride);
         }
 
         // interfaces metadata is inherited from
@@ -857,7 +857,7 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             JavaClass iface = interfaces[i];
             if (iface.getFullyQualifiedName().equals(
-            		"javax.faces.component.NamingContainer"))
+                    "javax.faces.component.NamingContainer"))
             {
                 component.setNamingContainer(Boolean.TRUE);
                 break;

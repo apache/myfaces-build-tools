@@ -333,8 +333,8 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
     
     /**
      * @param excludes 
-     * 			A comma seperated list of items to exclude 
-     * 			i.e.  **\/*.xml, **\/*.properties
+     *             A comma seperated list of items to exclude 
+     *             i.e.  **\/*.xml, **\/*.properties
      */
     public void setExcludes ( String excludes )
     {
@@ -346,13 +346,13 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
      */
     public String getIncludes()
     {
-    	return this.includes;
+        return this.includes;
     }
 
     /**
      * @param includes
-     * 			A comma seperated list of items to inmclude 
-     * 			i.e.  **\/*.xml, **\/*.properties
+     *             A comma seperated list of items to inmclude 
+     *             i.e.  **\/*.xml, **\/*.properties
      */
     public void setIncludes ( String includes )
     {

@@ -56,7 +56,7 @@ abstract public class AbstractFacesMojo extends AbstractMojo
       List urls = new ArrayList();
       while (e.hasMoreElements())
       {
-		URL url = (URL)e.nextElement();
+        URL url = (URL)e.nextElement();
         urls.add(url);
       }
       return Collections.unmodifiableList(urls);

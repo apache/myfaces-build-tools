@@ -27,16 +27,16 @@ public class MakeComponentsMojoTest extends TestCase
 {
     public void testCleanInitializerExpression() throws Exception
     {
-    	String badExpr =
-    		"  // some stuff\n" +
-    		"\n"
-    		+ "  true";
+        String badExpr =
+            "  // some stuff\n" +
+            "\n"
+            + "  true";
 
-    	String cleaned = MakeComponentsMojo.cleanInitializationExpression(badExpr);
-    	String good = "true";
-    	assertEquals(good, cleaned);
-    	
-    	assertEquals(null, MakeComponentsMojo.cleanInitializationExpression("  "));
-    	assertEquals(null, MakeComponentsMojo.cleanInitializationExpression("  // blah"));
+        String cleaned = MakeComponentsMojo.cleanInitializationExpression(badExpr);
+        String good = "true";
+        assertEquals(good, cleaned);
+        
+        assertEquals(null, MakeComponentsMojo.cleanInitializationExpression("  "));
+        assertEquals(null, MakeComponentsMojo.cleanInitializationExpression("  // blah"));
     }
 }
