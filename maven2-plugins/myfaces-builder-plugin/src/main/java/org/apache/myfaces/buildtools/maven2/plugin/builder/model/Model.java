@@ -33,7 +33,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  */
 public class Model
 {
-    static private final Logger _LOG = Logger.getLogger(Model.class.getName());
+    static private final Logger _log = Logger.getLogger(Model.class.getName());
 
     private List _components = new ArrayList(100);
     private List _converters = new ArrayList(100);
@@ -122,8 +122,8 @@ public class Model
      * 
      * @param other
      */
-    public void merge(Model other){
-        
+    public void merge(Model other)
+    {
         for (Iterator it = other.getComponents().iterator(); it.hasNext();)
         {
             ComponentMeta component = (ComponentMeta) it.next();
@@ -330,9 +330,9 @@ public class Model
     }
     
 
-    public void setModelId(String _modelId)
+    public void setModelId(String modelId)
     {
-        this._modelId = _modelId;
+        this._modelId = modelId;
     }
 
     /**

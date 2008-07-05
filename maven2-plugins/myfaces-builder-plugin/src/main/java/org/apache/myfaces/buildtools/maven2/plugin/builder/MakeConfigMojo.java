@@ -336,9 +336,11 @@ public class MakeConfigMojo extends AbstractMojo
         Properties p = new Properties();
 
         p.setProperty( "resource.loader", "file, class" );
-        p.setProperty( "file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+        p.setProperty( "file.resource.loader.class",
+                "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
         p.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
-        p.setProperty( "class.resource.loader.class", "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
+        p.setProperty( "class.resource.loader.class",
+                "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
         p.setProperty( "class.resource.loader.path", "META-INF");            
         p.setProperty( "velocimacro.library", "xmlMacros.vm");
         p.setProperty( "velocimacro.permissions.allow.inline","true");

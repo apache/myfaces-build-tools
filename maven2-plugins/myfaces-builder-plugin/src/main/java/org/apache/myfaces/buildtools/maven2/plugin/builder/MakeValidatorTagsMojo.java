@@ -154,7 +154,8 @@ public class MakeValidatorTagsMojo extends AbstractMojo
         {
             project.addCompileSourceRoot( generatedSourceDirectory.getCanonicalPath() );
             
-            if (modelIds == null){
+            if (modelIds == null)
+            {
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());
             }
@@ -179,9 +180,11 @@ public class MakeValidatorTagsMojo extends AbstractMojo
         Properties p = new Properties();
 
         p.setProperty( "resource.loader", "file, class" );
-        p.setProperty( "file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+        p.setProperty( "file.resource.loader.class",
+                "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
         p.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
-        p.setProperty( "class.resource.loader.class", "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
+        p.setProperty( "class.resource.loader.class",
+                "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
         p.setProperty( "class.resource.loader.path", "META-INF");            
         p.setProperty( "velocimacro.library", "tagClassMacros11.vm");
         p.setProperty( "velocimacro.permissions.allow.inline","true");
@@ -237,7 +240,8 @@ public class MakeValidatorTagsMojo extends AbstractMojo
                 
                 if (!f.exists() && canGenerateValidatorTag(validator))
                 {
-                    if (mainSourceDirectory2 != null){
+                    if (mainSourceDirectory2 != null)
+                    {
                         File f2 = new File(mainSourceDirectory2, StringUtils.replace(
                                 validator.getTagClass(), ".", "/")+".java");
                         if (f2.exists())
@@ -353,11 +357,16 @@ public class MakeValidatorTagsMojo extends AbstractMojo
         }
     }
     
-    private String _getTemplateTagName(){
-        if (templateTagName == null){
-            if (_is12()){
+    private String _getTemplateTagName()
+    {
+        if (templateTagName == null)
+        {
+            if (_is12())
+            {
                 return "tagValidatorClass12.vm";
-            }else{
+            }
+            else
+            {
                 return "tagValidatorClass11.vm";
             }
         }

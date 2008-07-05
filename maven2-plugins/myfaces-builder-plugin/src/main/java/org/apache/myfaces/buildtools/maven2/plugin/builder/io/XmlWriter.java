@@ -79,7 +79,9 @@ public class XmlWriter
         for (int i = 0; i < XML_CHARS.length(); ++i)
         {
             if (text.indexOf(XML_CHARS.charAt(i)) >= 0)
+            {
                 return true;
+            }
         }
         return false;
     }

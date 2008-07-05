@@ -24,174 +24,155 @@ import java.io.Writer;
 
 public class PrettyWriter extends PrintWriter
 {
-  public PrettyWriter(
-    OutputStream out)
-  {
-    super(out);
-  }
-
-  public PrettyWriter(
-    OutputStream out,
-    boolean      autoFlush)
-  {
-    super(out, autoFlush);
-  }
-
-  public PrettyWriter(
-    Writer out)
-  {
-    super(out);
-  }
-
-  public PrettyWriter(
-    Writer  out,
-    boolean autoFlush)
-  {
-    super(out, autoFlush);
-  }
-
-  public void indent()
-  {
-    _indentation ++;
-  }
-
-  public void unindent()
-  {
-    _indentation --;
-  }
-
-  public void write(
-    String string,
-    int    offset,
-    int    length)
-  {
-    if (_unlatchPending())
+    public PrettyWriter(OutputStream out)
     {
-      for (int i=0; i < _indentation; i++)
-      {
-        super.write(_TAB_INDENT, 0, 2);
-      }
+        super(out);
     }
 
-    super.write(string, offset, length);
-  }
-
-  public void write(
-    char[] chars,
-    int    offset,
-    int    length)
-  {
-    if (_unlatchPending())
+    public PrettyWriter(OutputStream out, boolean autoFlush)
     {
-      for (int i=0; i < _indentation; i++)
-      {
-        super.write(_TAB_INDENT_CHARS, 0, 2);
-      }
+        super(out, autoFlush);
     }
 
-    super.write(chars, offset, length);
-  }
-
-  public void println()
-  {
-    super.println();
-    _latchPending();
-  }
-
-  public void println(
-    boolean x)
-  {
-    super.println(x);
-    _latchPending();
-  }
-
-  public void println(
-    char x)
-  {
-    super.println(x);
-    _latchPending();
-  }
-
-  public void println(
-    int x)
-  {
-    super.println(x);
-    _latchPending();
-  }
-
-  public void println(
-    long x)
-  {
-    super.println(x);
-    _latchPending();
-  }
-
-  public void println(
-    float x)
-  {
-    super.println(x);
-    _latchPending();
-  }
-
-  public void println(
-    double x)
-  {
-    super.println(x);
-    _latchPending();
-  }
-
-  public void println(
-    char[] x)
-  {
-    super.println(x);
-    _latchPending();
-  }
-
-  public void println(
-    String x)
-  {
-    int fromIndex = 0;
-    for (int index = x.indexOf('\n');
-         index != -1  && index + 1 < x.length();
-         fromIndex = index + 1,
-         index = x.indexOf('\n', fromIndex))
+    public PrettyWriter(Writer out)
     {
-      super.println(x.substring(fromIndex, index));
-      _latchPending();
+        super(out);
     }
 
-    super.println(x.substring(fromIndex));
-    _latchPending();
-  }
+    public PrettyWriter(Writer out, boolean autoFlush)
+    {
+        super(out, autoFlush);
+    }
 
-  public void println(
-    Object x)
-  {
-    super.println(x);
-    _latchPending();
-  }
+    public void indent()
+    {
+        _indentation++;
+    }
 
-  private boolean _unlatchPending()
-  {
-    boolean pending = _pending;
-    if (pending)
-      _pending = false;
+    public void unindent()
+    {
+        _indentation--;
+    }
 
-    return pending;
-  }
+    public void write(String string, int offset, int length)
+    {
+        if (_unlatchPending())
+        {
+            for (int i = 0; i < _indentation; i++)
+            {
+                super.write(TAB_INDENT, 0, 2);
+            }
+        }
 
-  private boolean _latchPending()
-  {
-    boolean pending = _pending;
-    if (!pending)
-      _pending = true;
+        super.write(string, offset, length);
+    }
 
-    return !pending;
-  }
+    public void write(char[] chars, int offset, int length)
+    {
+        if (_unlatchPending())
+        {
+            for (int i = 0; i < _indentation; i++)
+            {
+                super.write(TAB_INDENT_CHARS, 0, 2);
+            }
+        }
 
-  private int _indentation;
-  private boolean _pending = true;
+        super.write(chars, offset, length);
+    }
 
-  private static final String _TAB_INDENT = "  ";
-  private static final char[] _TAB_INDENT_CHARS = _TAB_INDENT.toCharArray();
+    public void println()
+    {
+        super.println();
+        _latchPending();
+    }
+
+    public void println(boolean x)
+    {
+        super.println(x);
+        _latchPending();
+    }
+
+    public void println(char x)
+    {
+        super.println(x);
+        _latchPending();
+    }
+
+    public void println(int x)
+    {
+        super.println(x);
+        _latchPending();
+    }
+
+    public void println(long x)
+    {
+        super.println(x);
+        _latchPending();
+    }
+
+    public void println(float x)
+    {
+        super.println(x);
+        _latchPending();
+    }
+
+    public void println(double x)
+    {
+        super.println(x);
+        _latchPending();
+    }
+
+    public void println(char[] x)
+    {
+        super.println(x);
+        _latchPending();
+    }
+
+    public void println(String x)
+    {
+        int fromIndex = 0;
+        for (int index = x.indexOf('\n'); index != -1 && index + 1 < x.length(); fromIndex = index + 1, index = x
+                .indexOf('\n', fromIndex))
+        {
+            super.println(x.substring(fromIndex, index));
+            _latchPending();
+        }
+
+        super.println(x.substring(fromIndex));
+        _latchPending();
+    }
+
+    public void println(Object x)
+    {
+        super.println(x);
+        _latchPending();
+    }
+
+    private boolean _unlatchPending()
+    {
+        boolean pending = _pending;
+        if (pending)
+        {
+            _pending = false;
+        }
+
+        return pending;
+    }
+
+    private boolean _latchPending()
+    {
+        boolean pending = _pending;
+        if (!pending)
+        {
+            _pending = true;
+        }
+
+        return !pending;
+    }
+
+    private int _indentation;
+    private boolean _pending = true;
+
+    private static final String TAB_INDENT = "  ";
+    private static final char[] TAB_INDENT_CHARS = TAB_INDENT.toCharArray();
 }

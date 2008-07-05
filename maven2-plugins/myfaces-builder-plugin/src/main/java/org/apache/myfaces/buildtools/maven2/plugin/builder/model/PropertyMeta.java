@@ -95,10 +95,14 @@ public class PropertyMeta
     {
         out.beginElement("property");
         out.writeElement("name", pm._name);
-        if (pm._jspName != null) 
+        if (pm._jspName != null)
+        {
             out.writeElement("jspName", pm._jspName);
-        if (pm._fieldName != null) 
-            out.writeElement("fieldName", pm._fieldName);        
+        }
+        if (pm._fieldName != null)
+        {
+            out.writeElement("fieldName", pm._fieldName);
+        }
         out.writeElement("className", pm._className);
         out.writeElement("required", pm._required);
         out.writeElement("literalOnly", pm._literalOnly);
@@ -107,8 +111,10 @@ public class PropertyMeta
         out.writeElement("desc", pm._description);
         out.writeElement("longDesc", pm._longDescription);
         out.writeElement("defaultValue", pm._defaultValue);
-        if (pm._signature != null)            
+        if (pm._signature != null)
+        {
             MethodSignatureMeta.writeXml(out, pm._signature);
+        }
         out.writeElement("inherited", pm._inherited);
         out.writeElement("inheritedTag", pm._inheritedTag);
         out.writeElement("tagExcluded", pm._tagExcluded);
@@ -221,9 +227,9 @@ public class PropertyMeta
      * Transient properties are not saved in the view state and are not restored
      * during the "restore view" phase.
      */
-    public void setTransient(Boolean transient_)
+    public void setTransient(Boolean state)
     {
-        _transient = transient_;
+        _transient = state;
     }
 
     public Boolean isTransient()
@@ -285,8 +291,7 @@ public class PropertyMeta
      *
      * @param defaultValue  the attribute default value
      */
-    public void setDefaultValue(
-      String defaultValue)
+    public void setDefaultValue(String defaultValue)
     {
       _defaultValue = defaultValue;
     }
@@ -306,8 +311,7 @@ public class PropertyMeta
      *
      * @param jspName  the JSP property name
      */
-    public void setJspName(
-      String jspName)
+    public void setJspName(String jspName)
     {
       _jspName = jspName;
     }
@@ -320,7 +324,9 @@ public class PropertyMeta
     public String getJspName()
     {
       if (_jspName == null)
+      {
         return getName();
+      }
 
       return _jspName;
     }
@@ -330,8 +336,7 @@ public class PropertyMeta
      *
      * @param fieldName  the field property name
      */
-    public void setFieldName(
-      String fieldName)
+    public void setFieldName(String fieldName)
     {
       _fieldName = fieldName;
     }

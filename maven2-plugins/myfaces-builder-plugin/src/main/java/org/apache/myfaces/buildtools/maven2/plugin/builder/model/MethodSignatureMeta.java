@@ -50,7 +50,8 @@ public class MethodSignatureMeta extends Object
         
     }
     
-    public static void writeXml(XmlWriter out, MethodSignatureMeta pm){
+    public static void writeXml(XmlWriter out, MethodSignatureMeta pm)
+    {
         out.beginElement("methodBindingSignature");
         out.writeElement("returnType", pm._returnType);
         
@@ -90,7 +91,9 @@ public class MethodSignatureMeta extends Object
         for (int i = 0; i < params.length; i++)
         {
           if (i > 0)
+          {
             resp.append(", ");
+          }
           resp.append(params[i]);
         }
         return resp.toString();

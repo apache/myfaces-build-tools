@@ -393,19 +393,24 @@ public class ComponentMeta extends ViewEntityMeta implements
             
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
     
-    public Collection getFacetList(){
+    public Collection getFacetList()
+    {
         return _facets.values();
     }
     
     private List _propertyTagList = null; 
     
-    public Collection getPropertyTagList(){
-        if (_propertyTagList == null){
+    public Collection getPropertyTagList()
+    {
+        if (_propertyTagList == null)
+        {
             _propertyTagList = new ArrayList();
-            for (Iterator it = getPropertyList().iterator(); it.hasNext();){
+            for (Iterator it = getPropertyList().iterator(); it.hasNext();)
+            {
                 PropertyMeta prop = (PropertyMeta) it.next();
                 if (!prop.isTagExcluded().booleanValue() &&
-                        !prop.isInheritedTag().booleanValue()){
+                        !prop.isInheritedTag().booleanValue())
+                {
                     _propertyTagList.add(prop);
                 }
             }
@@ -416,12 +421,16 @@ public class ComponentMeta extends ViewEntityMeta implements
     
     private List _propertyComponentList = null; 
     
-    public Collection getPropertyComponentList(){
-        if (_propertyComponentList == null){
+    public Collection getPropertyComponentList()
+    {
+        if (_propertyComponentList == null)
+        {
             _propertyComponentList = new ArrayList();
-            for (Iterator it = getPropertyList().iterator(); it.hasNext();){
+            for (Iterator it = getPropertyList().iterator(); it.hasNext();)
+            {
                 PropertyMeta prop = (PropertyMeta) it.next();
-                if (!prop.isInherited().booleanValue() && prop.isGenerated().booleanValue()){
+                if (!prop.isInherited().booleanValue() && prop.isGenerated().booleanValue())
+                {
                     _propertyComponentList.add(prop);
                 }
             }
@@ -429,16 +438,14 @@ public class ComponentMeta extends ViewEntityMeta implements
         }
         return _propertyComponentList;
     }
-    
-    
+
     /**
      * Returns the package part of the tag class
      * 
      * @return
      */
-    public String getTagPackage(){
+    public String getTagPackage()
+    {
         return StringUtils.substring(getTagClass(), 0, StringUtils.lastIndexOf(getTagClass(), '.'));
     }
-
-    //END
 }

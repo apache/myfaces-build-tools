@@ -154,7 +154,8 @@ public class IOUtils
             }                        
             
             File f = new File(srcDir,filename);
-            if (f.exists()){
+            if (f.exists())
+            {
                 existsFile=true;
                 break;
             }

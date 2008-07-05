@@ -306,17 +306,19 @@ public class BuildMetaDataMojo extends AbstractMojo
         List modelsSorted = new ArrayList();
 
         // First, put all models into a map keyed by modelId.
-        for (Iterator it = models.iterator(); it.hasNext();){
+        for (Iterator it = models.iterator(); it.hasNext();)
+        {
             Model artifactModel = (Model) it.next();
             modelsMap.put(artifactModel.getModelId(), artifactModel);
         }
 
         // now pull them out of the map in the order specified by orderModelIds.
-        for (Iterator it = orderModelIds.iterator(); it.hasNext();){
+        for (Iterator it = orderModelIds.iterator(); it.hasNext();)
+        {
             String modelId = (String) it.next();
             
-            Model artifactModel = null;
-            if ( (artifactModel = (Model) modelsMap.get(modelId)) != null)
+            Model artifactModel = (Model) modelsMap.get(modelId);
+            if (artifactModel != null)
             {
                 modelsMap.remove(modelId);
                 modelsSorted.add(artifactModel);
@@ -334,7 +336,9 @@ public class BuildMetaDataMojo extends AbstractMojo
     {
         if (replacePackagePrefixTagFrom == null ||
                 replacePackagePrefixTagTo == null)
+        {
             return;
+        }
         
         List components = model.getComponents();
         for (Iterator i = components.iterator(); i.hasNext();)
@@ -442,7 +446,9 @@ public class BuildMetaDataMojo extends AbstractMojo
             {
                 String parentName = curr.getParentClassName();
                 if (parentName == null)
+                {
                     curr = null;
+                }
                 else
                 {
                     curr = model.findComponentByClassName(parentName);

@@ -160,7 +160,8 @@ public class MakeComponentsMojo extends AbstractMojo
         {
             project.addCompileSourceRoot( generatedSourceDirectory.getCanonicalPath() );
             
-            if (modelIds == null){
+            if (modelIds == null)
+            {
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());
             }
@@ -186,9 +187,11 @@ public class MakeComponentsMojo extends AbstractMojo
         Properties p = new Properties();
 
         p.setProperty( "resource.loader", "file, class" );
-        p.setProperty( "file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+        p.setProperty( "file.resource.loader.class",
+                "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
         p.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
-        p.setProperty( "class.resource.loader.class", "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
+        p.setProperty( "class.resource.loader.class",
+                "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
         p.setProperty( "class.resource.loader.path", "META-INF");            
         p.setProperty( "velocimacro.library", "componentClassMacros11.vm");
         p.setProperty( "velocimacro.permissions.allow.inline","true");
@@ -262,7 +265,8 @@ public class MakeComponentsMojo extends AbstractMojo
                                 
                 if (!f.exists() && canGenerateComponent(component))
                 {
-                    if (mainSourceDirectory2 != null){
+                    if (mainSourceDirectory2 != null)
+                    {
                         File f2 = new File(mainSourceDirectory2, StringUtils.replace(
                                 component.getClassName(), ".", "/")+".java");
                         if (f2.exists())
@@ -443,7 +447,9 @@ public class MakeComponentsMojo extends AbstractMojo
             Annotation anno = getAnnotation(method, "JSFExclude");
             
             if (!(tag == null && anno == null))
+            {
                 continue;
+            }
             
             tag = method.getTagByName("JSFProperty", false);
             anno = getAnnotation(method, "JSFProperty");
@@ -456,7 +462,8 @@ public class MakeComponentsMojo extends AbstractMojo
                 
                 //Fix for qdox 1.6.3: remove code 
                 int index = declaration.indexOf(')');
-                if (index != -1){
+                if (index != -1)
+                {
                     declaration = declaration.substring(0,index+1);
                 }
                 
@@ -597,11 +604,17 @@ public class MakeComponentsMojo extends AbstractMojo
         }
         return null;
     }    
-    private String _getTemplateName(){
-        if (templateComponentName == null){
-            if (_is12()){
+
+    private String _getTemplateName()
+    {
+        if (templateComponentName == null)
+        {
+            if (_is12())
+            {
                 return "componentClass12.vm";
-            }else{
+            }
+            else
+            {
                 return "componentClass11.vm";
             }
         }

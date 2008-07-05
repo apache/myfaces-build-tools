@@ -276,13 +276,17 @@ public class ConverterMeta extends ViewEntityMeta implements PropertyHolder
     
     private List _propertyTagList = null; 
     
-    public Collection getPropertyTagList(){
-        if (_propertyTagList == null){
+    public Collection getPropertyTagList()
+    {
+        if (_propertyTagList == null)
+        {
             _propertyTagList = new ArrayList();
-            for (Iterator it = getPropertyList().iterator(); it.hasNext();){
+            for (Iterator it = getPropertyList().iterator(); it.hasNext();)
+            {
                 PropertyMeta prop = (PropertyMeta) it.next();
                 if (!prop.isTagExcluded().booleanValue() &&
-                        !prop.isInheritedTag().booleanValue()){
+                        !prop.isInheritedTag().booleanValue())
+                {
                     _propertyTagList.add(prop);
                 }
             }
