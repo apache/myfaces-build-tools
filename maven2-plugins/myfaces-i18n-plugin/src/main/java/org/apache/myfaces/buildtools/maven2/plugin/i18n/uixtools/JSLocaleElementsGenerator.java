@@ -55,8 +55,12 @@ public class JSLocaleElementsGenerator
       System.out.println("\tprettyPrint=false\tTurns off pretty printed output");
       System.out.println("\toutDir=[path]\t\tDirectory path to write JavaScript files to");
       System.out.println("\tsourceDir=[path]\t\tRoot directory path to write Java source to");
-      System.out.println("\tbundleOutDir=[path]\t\tRoot directory path to write Java ResourceBundles to (defaults to sourceDir).");
-      System.out.println("\tvariant=[variant name]\t\tIf supplied utility will generate ResourceBundles for this variant, and nothing else.");
+      System.out.println(
+          "\tbundleOutDir=[path]\t\tRoot directory path to write " +
+          "Java ResourceBundles to (defaults to sourceDir).");
+      System.out.println(
+          "\tvariant=[variant name]\t\tIf supplied utility will generate " +
+          "ResourceBundles for this variant, and nothing else.");
       System.out.println("\tverbose=true\t\tTurns on verbose output");
       System.out.println("\tgenerateBundleBaseOnly=true\t\tGenerates the base LocaleElement.java file only");
       System.exit(0);
@@ -111,7 +115,9 @@ public class JSLocaleElementsGenerator
     String bundleOutDir = getArgStringValue(args, "bundleOutDir", null);
 
     if (bundleOutDir == null)
+    {
       bundleOutDir = sourceDir;
+    }
 
     // The bundle output dir is the base of the heirarchy, we'll actually put
     // the files into the appropriate sub directory for the package.
@@ -139,10 +145,14 @@ public class JSLocaleElementsGenerator
       File localeListFile = null;
 
       if (writeSource)
+      {
         (new File(fullBundleOutDir)).mkdirs();
+      }
 
       if (writeJavascript)
+      {
         (new File(outDir)).mkdirs();
+      }
 
       if (writeAll && writeSource && !generateBundleBaseOnly)
       {
@@ -382,7 +392,9 @@ public class JSLocaleElementsGenerator
     output.write(" = new LocaleSymbols({");
 
     if (prettyPrint)
+    {
       output.write('\n');
+    }
 
     Enumeration zoneEnumeration =
                                new ArrayEnumeration(DATE_FORMAT_ZONE_GET_KEYS);
@@ -406,7 +418,9 @@ public class JSLocaleElementsGenerator
     output.write("});");
 
     if (prettyPrint)
+    {
       output.write('\n');
+    }
   }
 
 
@@ -431,9 +445,13 @@ public class JSLocaleElementsGenerator
         Object data = null;
 
         if("CurrencyElements".equals(currKey))
+        {
           data = _getCurrencyData(targetLocale);
+        }
         else
+        {
           data = _getElementData(currKey, elementsData, targetLocale);
+        }
 
         boolean wroteElement = _writeResourceElement(
                                     output,
@@ -587,7 +605,9 @@ public class JSLocaleElementsGenerator
       output.write("\n  };\n\n");
     }
     else
+    {
       output.write(" = null");
+    }
   }
 
   private static void _writeEscapedString(
@@ -615,9 +635,13 @@ public class JSLocaleElementsGenerator
               && (currChar < 128))
           {
             if (currChar == '\"')
+            {
               output.write("\\\"");
+            }
             else
+            {
               output.write(currChar);
+            }
           }
           else
           {
@@ -699,7 +723,9 @@ public class JSLocaleElementsGenerator
     }
 
     if (version == null)
+    {
       return "LocaleElements_" + locale;
+    }
     return "LocaleElements_" + locale + version;
   }
 
@@ -757,7 +783,7 @@ public class JSLocaleElementsGenerator
   // private static String _RESOURCES_PACKAGE = "java.text.resources";
 
   // J2SE 1.4:
-  private static String _RESOURCES_PACKAGE = "sun.text.resources";
+  private static final String _RESOURCES_PACKAGE = "sun.text.resources";
 
   private static final String _DATE_FORMAT_ZONE_PATH =
                           _RESOURCES_PACKAGE + ".DateFormatZoneData";

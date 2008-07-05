@@ -111,7 +111,9 @@ public class GenerateJavascriptLocalesMojo extends AbstractMojo
   private String[] getLocaleStrings()
   {
     if ("en_US".equals(locale))
+    {
       return new String[] { "" };
+    }
 
     Locale[] locales = Locale.getAvailableLocales();
     String[] localeStrings = new String[locales.length];

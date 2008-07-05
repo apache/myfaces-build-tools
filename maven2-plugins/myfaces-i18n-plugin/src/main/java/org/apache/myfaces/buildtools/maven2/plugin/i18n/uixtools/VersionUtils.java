@@ -26,7 +26,9 @@ public class VersionUtils
   static public String normalizeVersionSuffix(String version)
   {
     if (version == null)
+    {
       return null;
+    }
 
     return version.replace('.', '_');
   }
