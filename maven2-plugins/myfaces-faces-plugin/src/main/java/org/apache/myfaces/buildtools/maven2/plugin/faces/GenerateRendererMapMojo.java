@@ -29,7 +29,6 @@ import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.faces.parse.FacesConfigBean;
 import org.apache.myfaces.buildtools.maven2.plugin.faces.parse.RenderKitBean;
 import org.apache.myfaces.buildtools.maven2.plugin.faces.parse.RendererBean;
-import org.apache.myfaces.buildtools.maven2.plugin.faces.util.Util;
 
 /**
  * @version $Id$
@@ -77,7 +76,9 @@ public class GenerateRendererMapMojo extends AbstractFacesMojo
         RenderKitBean renderkit = (RenderKitBean) renderkits.next();
         String id = renderkit.getRenderKitId();
         if (!id.startsWith(renderKitPrefix))
+        {
           continue;
+        }
 
         _writeRenderKitMap(renderkit);
       }

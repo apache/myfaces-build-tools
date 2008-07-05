@@ -63,12 +63,15 @@ public class GenerateMasterFacesConfigMojo extends AbstractFacesMojo
           scanner.addDefaultExcludes();
           scanner.setIncludes(new String[] { "**/*.xml" });
           if (excludes != null)
+          {
               scanner.setExcludes(excludes);
+          }
           scanner.scan();
           
           String [] sourceFiles = scanner.getIncludedFiles();
           
-          for (int i = 0; i < sourceFiles.length;i++){
+          for (int i = 0; i < sourceFiles.length;i++)
+          {
               set.add(sourceFiles[i]);
           }
           
@@ -76,13 +79,15 @@ public class GenerateMasterFacesConfigMojo extends AbstractFacesMojo
           scanner.scan();
           
           sourceFiles = scanner.getIncludedFiles();
-          for (int i = 0; i < sourceFiles.length;i++){
+          for (int i = 0; i < sourceFiles.length;i++)
+          {
               set.add(sourceFiles[i]);
           }          
                     
           Object [] result = set.toArray();
           xmlFiles = new String[result.length];
-          for (int i = 0; i < result.length; i++){
+          for (int i = 0; i < result.length; i++)
+          {
               xmlFiles[i] = (String) result[i];
           }
       }
@@ -93,7 +98,9 @@ public class GenerateMasterFacesConfigMojo extends AbstractFacesMojo
           scanner.addDefaultExcludes();
           scanner.setIncludes(new String[] { "**/*.xml" });
           if (excludes != null)
+          {
               scanner.setExcludes(excludes);
+          }
           scanner.scan();
           
           xmlFiles = scanner.getIncludedFiles();
@@ -134,7 +141,9 @@ public class GenerateMasterFacesConfigMojo extends AbstractFacesMojo
         {
           String xmlFile = xmlFiles[i];
           if (File.separatorChar == '\\')
+          {
             xmlFile = xmlFile.replaceAll("\\\\", "/");
+          }
           writer.writeCharacters("  ");
           writer.writeStartElement("http://www.w3.org/2001/XInclude", "include");
           writer.writeAttribute("href", xmlFile);

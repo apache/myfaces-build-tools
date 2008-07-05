@@ -1,18 +1,21 @@
 /*
-* Copyright 2006 The Apache Software Foundation.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
 package org.apache.myfaces.buildtools.maven2.plugin.faces;
 
 import org.apache.commons.digester.AbstractObjectCreationFactory;
@@ -24,8 +27,18 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.faces.generator.GeneratorHelper;
 import org.apache.myfaces.buildtools.maven2.plugin.faces.io.PrettyWriter;
-import org.apache.myfaces.buildtools.maven2.plugin.faces.parse.*;
-import org.apache.myfaces.buildtools.maven2.plugin.faces.util.*;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.parse.FacesConfigBean;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.parse.AttributeBean;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.parse.ComponentBean;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.parse.ConverterBean;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.parse.FacesConfigParser;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.parse.ValidatorBean;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.util.AttributeFilter;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.util.ComponentFilter;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.util.ConverterFilter;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.util.Util;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.util.XIncludeFilter;
+import org.apache.myfaces.buildtools.maven2.plugin.faces.util.ValidatorFilter;
 import org.codehaus.plexus.util.FileUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

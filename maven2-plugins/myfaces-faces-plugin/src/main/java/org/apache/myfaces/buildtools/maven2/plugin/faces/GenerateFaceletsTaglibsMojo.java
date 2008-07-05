@@ -222,7 +222,10 @@ public class GenerateFaceletsTaglibsMojo extends AbstractFacesMojo
     }
   }
 
-  private void _writeTags(Iterator components, Iterator validators, Iterator converters, XMLStreamWriter stream) throws XMLStreamException {
+  private void _writeTags(Iterator components, Iterator validators,
+          Iterator converters, XMLStreamWriter stream)
+      throws XMLStreamException
+  {
     while (components.hasNext())
     {
       ComponentBean component = (ComponentBean)components.next();

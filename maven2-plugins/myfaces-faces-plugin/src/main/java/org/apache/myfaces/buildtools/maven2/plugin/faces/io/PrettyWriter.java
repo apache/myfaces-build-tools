@@ -175,7 +175,9 @@ public class PrettyWriter extends PrintWriter
   {
     boolean pending = _pending;
     if (pending)
+    {
       _pending = false;
+    }
 
     return pending;
   }
@@ -184,7 +186,9 @@ public class PrettyWriter extends PrintWriter
   {
     boolean pending = _pending;
     if (!pending)
+    {
       _pending = true;
+    }
 
     return !pending;
   }

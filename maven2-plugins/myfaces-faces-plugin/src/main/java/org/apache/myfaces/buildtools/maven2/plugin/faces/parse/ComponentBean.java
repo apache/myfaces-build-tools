@@ -1064,9 +1064,9 @@ public class ComponentBean extends ObjectBean
     return _tagClassExcluded;
   }
 
-  public void setComponentImplements(String _implements)
+  public void setComponentImplements(String componentImplements)
   {
-    this._componentImplements = _implements;
+    this._componentImplements = componentImplements;
   }
 
   public String getComponentImplements()
@@ -1074,9 +1074,9 @@ public class ComponentBean extends ObjectBean
     return _componentImplements;
   }
 
-  public void setComponentSerialUID(String _componentSerialUID)
+  public void setComponentSerialUID(String componentSerialUID)
   {
-    this._componentSerialUID = _componentSerialUID;
+    this._componentSerialUID = componentSerialUID;
   }
 
   public String getComponentSerialUID()

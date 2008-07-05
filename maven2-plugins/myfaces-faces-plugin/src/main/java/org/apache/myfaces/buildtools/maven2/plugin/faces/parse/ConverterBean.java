@@ -25,7 +25,8 @@ import java.util.logging.Logger;
  * ConverterBean is a Java representation of the faces-config converter
  * XML element.
  */
-public class ConverterBean extends AbstractTagBean {
+public class ConverterBean extends AbstractTagBean
+{
 
   /**
    * Sets the converter identifer for this component.

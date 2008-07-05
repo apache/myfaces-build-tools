@@ -142,17 +142,25 @@ public class GeneratorHelper
   public static String getJspPropertyType(PropertyBean property, boolean is12)
   {
     if (property.isMethodExpression())
+    {
       return "MethodExpression";
+    }
 
     if (is12 && property.isMethodBinding())
+    {
       return "MethodExpression";
+    }
 
     if (is12)
     {
       if (!property.isLiteralOnly())
+      {
         return "ValueExpression";
+      }
       else
+      {
         return property.getPropertyClass();
+      }
     }
 
     return "String";

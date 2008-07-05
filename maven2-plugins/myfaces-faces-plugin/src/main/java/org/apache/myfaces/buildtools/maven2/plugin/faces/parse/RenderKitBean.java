@@ -21,7 +21,6 @@ package org.apache.myfaces.buildtools.maven2.plugin.faces.parse;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Logger;
 
 /**
  * RenderKitBean is a Java representation of the faces-config render-kit
@@ -73,7 +72,9 @@ public class RenderKitBean extends ObjectBean
 
     FacesConfigBean owner = getOwner();
     if (owner != null)
+    {
       renderer.attach(owner);
+    }
   }
 
   /**
