@@ -36,7 +36,8 @@ public @interface JSFValidator
 {
     
     /**
-     * Indicate the validatorId which identifies this class. If not defined, it try to get the value of the field VALIDATOR_ID.
+     * Indicate the validatorId which identifies this class. If not defined, it
+     * tries to get the value of the field VALIDATOR_ID.
      */
     String id() default "";
     

@@ -35,7 +35,8 @@ import java.lang.annotation.Target;
 public @interface JSFConverter
 {
     /**
-     * Indicate the converterId which identifies this class. If not defined, it try to get the value of the field CONVERTER_ID. 
+     * Indicate the converterId which identifies this class. If not defined,
+     * it tries to get the value of the field CONVERTER_ID. 
      */
     String id() default "";
 
