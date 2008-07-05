@@ -257,7 +257,8 @@ public class JavaCCMojo
         org.javacc.parser.Main.mainProgram(generateJavaCCArgumentList(javaccFile.getAbsolutePath()));
 
         FileUtils.copyFileToDirectory(javaccFile, timestampDirectory);
-        if (doNotGenerateTokenFile == true) {
+        if (doNotGenerateTokenFile == true)
+        {
           File tokenFile  = new File(outDir, "Token.java");
           FileUtils.forceDelete(tokenFile);
         }
