@@ -246,7 +246,8 @@ public class TagMeta extends ClassMeta implements AttributeHolder
     
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
     
-    public Collection getAttributeList(){
+    public Collection getAttributeList()
+    {
         return _attributes.values();
     }
 

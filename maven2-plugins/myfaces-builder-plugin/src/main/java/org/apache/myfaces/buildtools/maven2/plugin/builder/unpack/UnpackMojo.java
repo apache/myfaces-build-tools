@@ -1,3 +1,22 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+
 package org.apache.myfaces.buildtools.maven2.plugin.builder.unpack;
 
 import java.io.File;
@@ -5,19 +24,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.dependency.utils.DependencyUtil;
 import org.apache.maven.plugin.dependency.utils.filters.ArtifactItemFilter;
 import org.apache.maven.plugin.dependency.utils.filters.MarkerFileFilter;
 import org.apache.maven.plugin.dependency.utils.markers.MarkerHandler;
 import org.apache.maven.plugin.dependency.utils.markers.UnpackFileMarkerHandler;
-import org.apache.maven.plugin.logging.Log;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
-import org.codehaus.plexus.archiver.manager.ArchiverManager;
 import org.codehaus.plexus.util.StringUtils;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
@@ -204,9 +219,12 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
     {
         MarkerHandler handler = new UnpackFileMarkerHandler( artifactItem, this.markersDirectory );
         
-        unpack( artifactItem.getArtifact().getFile(), artifactItem.getOutputDirectory(), artifactItem.getIncludes(), artifactItem.getExcludes() );
+        unpack(
+                artifactItem.getArtifact().getFile(),
+                artifactItem.getOutputDirectory(),
+                artifactItem.getIncludes(),
+                artifactItem.getExcludes());
         handler.setMarker();
-
     }
 
     ArtifactItemFilter getMarkedArtifactFilter( ArtifactItem item )
@@ -238,7 +256,8 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
     }
     
     protected String scanModelAndAddGeneratedFiles(ArtifactItem artifactItem)
-        throws MojoExecutionException{
+        throws MojoExecutionException
+    {
         
         ArrayList exclusions = new ArrayList();
         
@@ -250,8 +269,8 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
             {
                 ComponentMeta component = (ComponentMeta) it.next();
 
-                if (component.getModelId().equals(model.getModelId())){
-                    
+                if (component.getModelId().equals(model.getModelId()))
+                {
                     if (component.isGeneratedComponentClass().booleanValue())
                     {
                         getLog().info("Adding Generated: "+ component.getClassName());
@@ -272,8 +291,8 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
             {
                 ConverterMeta converter = (ConverterMeta) it.next();
 
-                if (converter.getModelId().equals(model.getModelId())){
-                    
+                if (converter.getModelId().equals(model.getModelId()))
+                {
                     if (converter.isGeneratedTagClass().booleanValue())
                     {
                         getLog().info("Adding Generated: "+ converter.getTagClass());
@@ -287,8 +306,8 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
             {
                 ValidatorMeta validator = (ValidatorMeta) it.next();
 
-                if (validator.getModelId().equals(model.getModelId())){
-                    
+                if (validator.getModelId().equals(model.getModelId()))
+                {
                     if (validator.isGeneratedComponentClass().booleanValue())
                     {
                         getLog().info("Adding Generated: "+ validator.getClassName());
@@ -317,7 +336,9 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
         {
             existingFiles.append(exclusions.get(i));
             if (i != exclusions.size() - 1)
+            {
                 existingFiles.append(',');
+            }
         }
         
         return existingFiles.toString();
@@ -351,7 +372,9 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
         {
             existingFiles.append(exclusions.get(i));
             if (i != exclusions.size() - 1)
+            {
                 existingFiles.append(',');
+            }
         }
         
         return existingFiles.toString();

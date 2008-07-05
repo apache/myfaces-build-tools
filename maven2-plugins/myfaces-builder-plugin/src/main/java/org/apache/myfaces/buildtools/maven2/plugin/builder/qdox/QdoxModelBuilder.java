@@ -1,3 +1,21 @@
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.qdox;
 
 import java.io.File;
@@ -195,7 +213,8 @@ public class QdoxModelBuilder implements ModelBuilder
             
             //Check if the validator class file exists
             if (!IOUtils.existsSourceFile(StringUtils.replace(
-                    validator.getClassName(),".","/")+".java", sourceDirs)){
+                    validator.getClassName(),".","/")+".java", sourceDirs))
+            {
                 validator.setGeneratedComponentClass(Boolean.TRUE);
             }
 
@@ -408,10 +427,14 @@ public class QdoxModelBuilder implements ModelBuilder
         int end = src.length();
         
         if (end == 0)
+        {
             return src;
+        }
         
         if (src.equals("\"\""))
+        {
             return "\"\"";
+        }
 
         while (start <= end)
         {
@@ -1069,15 +1092,19 @@ public class QdoxModelBuilder implements ModelBuilder
         
         
         Annotation jspAnno = getAnnotation(clazz, "JSFJspProperties");        
-        if (jspAnno != null){
+        if (jspAnno != null)
+        {
             Object jspProps = jspAnno.getNamedParameter("properties");
             
-            if (jspProps instanceof AnnoDef){
+            if (jspProps instanceof AnnoDef)
+            {
                 AnnoDef jspPropertiesAnno = (AnnoDef) jspProps;                
                 Map props = new NonParentesisMap(jspPropertiesAnno.args);
                 processComponentJspProperty(props, jspAnno.getContext(), clazz,
                         component);               
-            }else{
+            }
+            else
+            {
                 List jspPropsList = (List) jspProps;
                 for (int i = 0; i < jspPropsList.size();i++)
                 {
@@ -1100,10 +1127,12 @@ public class QdoxModelBuilder implements ModelBuilder
      * TODO: change this on a future version of qdox!  
      *
      */
-    public class NonParentesisMap implements Map{
+    public class NonParentesisMap implements Map
+    {
 
         Map _delegate = null;
-        public NonParentesisMap(Map delegate){
+        public NonParentesisMap(Map delegate)
+        {
             _delegate = delegate;
         }
         public void clear()
@@ -1130,7 +1159,9 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             Object value = _delegate.get(key);
             if (value == null)
+            {
                 return null;
+            }
             if (value instanceof List)
             {
                 return ((List) value).get(0);
@@ -1238,7 +1269,8 @@ public class QdoxModelBuilder implements ModelBuilder
     }
         
     private void processInterfaceComponentProperty(Map props, AbstractJavaEntity ctx,
-    JavaClass clazz, JavaMethod method, PropertyHolder component){
+    JavaClass clazz, JavaMethod method, PropertyHolder component)
+    {
         this.processComponentProperty(props, ctx, clazz, method, component);
         
         PropertyMeta property = component.getProperty(methodToPropName(method.getName()));
@@ -1255,21 +1287,22 @@ public class QdoxModelBuilder implements ModelBuilder
     }
 
     private void processInterfaceComponentFacet(Map props, AbstractJavaEntity ctx,
-            JavaClass clazz, JavaMethod method, FacetHolder component){
-                this.processComponentFacet(props, ctx, clazz, method, component);
+            JavaClass clazz, JavaMethod method, FacetHolder component)
+    {
+        this.processComponentFacet(props, ctx, clazz, method, component);
                 
-                FacetMeta facet = component.getFacet(methodToPropName(method.getName()));
+        FacetMeta facet = component.getFacet(methodToPropName(method.getName()));
                 
-                //Try to get the method from the component clazz to see if this
-                //has an implementation
-                JavaMethod clazzMethod = clazz.getMethodBySignature(method.getName(), null , false);
+        //Try to get the method from the component clazz to see if this
+        //has an implementation
+        JavaMethod clazzMethod = clazz.getMethodBySignature(method.getName(), null , false);
                 
-                if (clazzMethod == null)
-                {
-                    //The method should be generated!
-                    facet.setGenerated(Boolean.TRUE);
-                }            
-            }
+        if (clazzMethod == null)
+        {
+            //The method should be generated!
+            facet.setGenerated(Boolean.TRUE);
+        }            
+    }
     
     private void processComponentProperty(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, PropertyHolder component)
@@ -1351,7 +1384,8 @@ public class QdoxModelBuilder implements ModelBuilder
         }
         
         //If the method is abstract this should be generated
-        if (method.isAbstract()){
+        if (method.isAbstract())
+        {
             p.setGenerated(Boolean.TRUE);
         }
 
@@ -1378,7 +1412,8 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setLongDescription(longDescription);
         
         //If the method is abstract this should be generated
-        if (method.isAbstract()){
+        if (method.isAbstract())
+        {
             p.setGenerated(Boolean.TRUE);
         }
 

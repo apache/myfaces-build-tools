@@ -46,7 +46,8 @@ public class RenderKitMeta
         out.writeElement("renderKitId", rkm._renderKitId);
         out.writeElement("className", rkm._className);
         
-        for (Iterator it = rkm._renderers.values().iterator();it.hasNext();){
+        for (Iterator it = rkm._renderers.values().iterator();it.hasNext();)
+        {
             RendererMeta rm = (RendererMeta) it.next();
             rm.writeXml(out);  
         }

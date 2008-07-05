@@ -82,10 +82,14 @@ public class MyfacesUtils
     public static String getFullJspPropertyType11(PropertyMeta property)
     {
         if (property.isMethodExpression())
+        {
             return "javax.faces.el.MethodBinding";
+        }
 
         if (property.isMethodBinding())
+        {
             return "javax.faces.el.MethodBinding";
+        }
 
         return "java.lang.String";
     }
@@ -107,24 +111,36 @@ public class MyfacesUtils
         }
         
         if (property.isMethodExpression())
+        {
             return "MethodExpression";
+        }
 
         if (property.isMethodBinding())
+        {
             return "MethodBinding";
+        }
 
         if (!property.isLiteralOnly().booleanValue())
+        {
             return "ValueExpression";
+        }
         else
+        {
             return property.getClassName();
+        }
     }
 
     public static String getVariableFromName(String name)
     {
         if (name == null)
+        {
             return null;
+        }
 
         if (RESERVED_WORDS.contains(name))
+        {
             name = name + "Param";
+        }
 
         return name;
     }
@@ -177,13 +193,16 @@ public class MyfacesUtils
                     imports.add(property.getClassName());
                 }
             }
-            if (property.getJspName().equals("actionListener")){
+            if (property.getJspName().equals("actionListener"))
+            {
                 imports.add("javax.faces.event.MethodExpressionActionListener");
             }
-            if (property.getJspName().equals("valueChangeListener")){
+            if (property.getJspName().equals("valueChangeListener"))
+            {
                 imports.add("javax.faces.event.MethodExpressionValueChangeListener");
             }
-            if (property.getJspName().equals("validator")){
+            if (property.getJspName().equals("validator"))
+            {
                 imports.add("javax.faces.validator.MethodExpressionValidator");
             }
         }
@@ -210,7 +229,8 @@ public class MyfacesUtils
     
     public static boolean isList(String propClass)
     {
-        if (propClass == null){
+        if (propClass == null)
+        {
             return false;
         }
         else if(propClass.contains("List"))
@@ -241,26 +261,45 @@ public class MyfacesUtils
     public static String getBoxedClass(String className)
     {
         if ("boolean".equals(className))
+        {
             return "Boolean";
+        }
         else if ("byte".equals(className))
+        {
             return "Byte";
+        }
         else if ("char".equals(className))
+        {
             return "Character";
+        }
         else if ("double".equals(className))
+        {
             return "Double";
+        }
         else if ("float".equals(className))
+        {
             return "Float";
+        }
         else if ("int".equals(className))
+        {
             return "Integer";
+        }
         else if ("long".equals(className))
+        {
             return "Long";
+        }
         else if ("short".equals(className))
+        {
             return "Short";
+        }
         else
+        {
             return className;
+        }
     }
     
-    public static String getSignatureParams(MethodSignatureMeta signature){
+    public static String getSignatureParams(MethodSignatureMeta signature)
+    {
         String[] paramTypes = (signature != null) ? signature.getParameterTypes() : null;
 
         String classArray;
@@ -276,7 +315,9 @@ public class MyfacesUtils
           for (int i = 0; i < paramTypes.length; i++)
           {
             if (i > 0)
+            {
               sb.append(',');
+            }
             sb.append(paramTypes[i]);
             sb.append(".class");
           }
@@ -355,7 +396,8 @@ public class MyfacesUtils
         return Collections.unmodifiableSet(reserved);
     }
 
-    static private final String[] _PRIMITIVE_TYPES = new String[] {// TODO: Shouldn't java.lang.* be specified in that list as well?
+    static private final String[] _PRIMITIVE_TYPES = new String[] {
+        // TODO: Shouldn't java.lang.* be specified in that list as well?
     "boolean", "byte", "char", "float", "double", "int", "short", "long", };
 
     static private final String[] _RESERVED_WORDS = new String[] { "abstract",
@@ -409,7 +451,9 @@ public class MyfacesUtils
     static public String getClassFromFullClass(String fullClass)
     {
         if (fullClass == null)
+        {
             return null;
+        }
 
         int lastSep = fullClass.lastIndexOf('.');
         // Note: this code also works for the empty package
@@ -419,13 +463,17 @@ public class MyfacesUtils
     static public String getPackageFromFullClass(String fullClass)
     {
         if (fullClass == null)
+        {
             return null;
+        }
 
         int lastSep = fullClass.lastIndexOf('.');
 
         // detect the empty package
         if (lastSep == -1)
+        {
             return "";
+        }
 
         return (fullClass.substring(0, lastSep));
     }
@@ -453,7 +501,9 @@ public class MyfacesUtils
         }
 
         if (constantSuffix != null)
+        {
             constantName.append(constantSuffix);
+        }
 
         return constantName.toString();
     }
@@ -514,29 +564,49 @@ public class MyfacesUtils
     static public String primitiveDefaultValue(String className)
     {
         if ("boolean".equals(className))
+        {
             return "false";
+        }
         else if ("byte".equals(className))
+        {
             return "0";
+        }
         else if ("char".equals(className))
+        {
             return "''";
+        }
         else if ("double".equals(className))
+        {
             return "0.0d";
+        }
         else if ("float".equals(className))
+        {
             return "0.0f";
+        }
         else if ("int".equals(className))
+        {
             return "0";
+        }
         else if ("long".equals(className))
+        {
             return "0L";
+        }
         else if ("short".equals(className))
+        {
             return "0";
+        }
         else
+        {
             return className;
+        }
     }
 
     static public String fill(String base, int length)
     {
         if (base == null || base.length() > length)
+        {
             return base;
+        }
 
         StringBuffer filled = new StringBuffer(base);
         for (int i = base.length(); i < length; i++)
@@ -549,7 +619,9 @@ public class MyfacesUtils
     static public String getVariableFromClass(String className)
     {
         if (className == null)
+        {
             return null;
+        }
 
         for (int i = 0; i < className.length(); i++)
         {
@@ -636,7 +708,8 @@ public class MyfacesUtils
     {
         String def =  getDefaultValue(property);
 
-        if (property.getClassName().endsWith("Boolean") && def != null){
+        if (property.getClassName().endsWith("Boolean") && def != null)
+        {
                 def = "Boolean.valueOf("+def+")";
         }
         return def;

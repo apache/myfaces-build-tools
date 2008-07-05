@@ -29,7 +29,8 @@ public class ConsoleLogSystem implements LogChute
 
     final Logger log = Logger.getLogger(ConsoleLogSystem.class.getName());
     
-    public Logger getLogger(){
+    public Logger getLogger()
+    {
         return log;
     }
     

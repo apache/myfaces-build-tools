@@ -251,7 +251,8 @@ public class TagdocIndexReport extends AbstractMavenReport
         {
             TagMeta tag = (TagMeta) tags.next();
             
-            if (canGenerate(tag)){
+            if (canGenerate(tag))
+            {
                 String pageName = _generateTagDoc(tag);
                 if (pageName != null)
                 {
@@ -336,7 +337,9 @@ public class TagdocIndexReport extends AbstractMavenReport
     private void _writeIndexSection(Sink sink, Set pages, String title)
     {
         if (pages.isEmpty())
+        {
             return;
+        }
 
         sink.sectionTitle1();
         sink.text(title);

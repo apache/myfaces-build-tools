@@ -29,11 +29,13 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.utils;
  */
 public class BuildException extends RuntimeException
 {
-    public BuildException(String msg) {
+    public BuildException(String msg)
+    {
         super(msg);
     }
     
-    public BuildException(String msg, Exception cause) {
+    public BuildException(String msg, Exception cause)
+    {
         super(msg, cause);
     }
 }

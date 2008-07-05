@@ -170,7 +170,8 @@ public class TagdocContentMojo extends AbstractMojo
 
     public void execute() throws MojoExecutionException, MojoFailureException
     {
-        if (modelIds == null){
+        if (modelIds == null)
+        {
             modelIds = new ArrayList();
             modelIds.add(project.getArtifactId());
         }
@@ -206,22 +207,23 @@ public class TagdocContentMojo extends AbstractMojo
         }
     }
     
-    public class CustomResourceManagerImpl extends ResourceManagerImpl{
-        
+    public class CustomResourceManagerImpl extends ResourceManagerImpl
+    {
         public CustomResourceManagerImpl()
         {
             super();
         }
-        
     }
     
     private VelocityEngine initVelocity() throws MojoExecutionException
     {        
         Properties p = new Properties();
         p.setProperty( "resource.loader", "file, class" );
-        p.setProperty( "file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+        p.setProperty( "file.resource.loader.class",
+                "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
         p.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
-        p.setProperty( "class.resource.loader.class", "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
+        p.setProperty( "class.resource.loader.class",
+                "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
         p.setProperty( "class.resource.loader.path", "META-INF");                    
         p.setProperty( "velocimacro.library", "componentClassMacros11.vm");
         p.setProperty( "velocimacro.permissions.allow.inline","true");
@@ -278,7 +280,8 @@ public class TagdocContentMojo extends AbstractMojo
         while (components.hasNext())
         {
             ComponentMeta component = (ComponentMeta) components.next();
-            if (canGenerate(component)){                
+            if (canGenerate(component))
+            {                
                 String pageName = _generateComponentDoc(velocityEngine,baseContext,component);
                 if (pageName != null)
                 {
@@ -290,7 +293,8 @@ public class TagdocContentMojo extends AbstractMojo
         while (converters.hasNext())
         {
             ConverterMeta converter = (ConverterMeta) converters.next();
-            if (canGenerate(converter)){
+            if (canGenerate(converter))
+            {
                 String pageName = _generateConverterDoc(velocityEngine,baseContext,converter);
                 if (pageName != null)
                 {
@@ -303,7 +307,8 @@ public class TagdocContentMojo extends AbstractMojo
         {
             ValidatorMeta validator = (ValidatorMeta) validators.next();
             
-            if (canGenerate(validator)){
+            if (canGenerate(validator))
+            {
                 String pageName = _generateValidatorDoc(velocityEngine,baseContext,validator);
                 if (pageName != null)
                 {
@@ -316,7 +321,8 @@ public class TagdocContentMojo extends AbstractMojo
         {
             TagMeta tag = (TagMeta) tags.next();
             
-            if (canGenerate(tag)){
+            if (canGenerate(tag))
+            {
                 String pageName = _generateTagDoc(velocityEngine,baseContext,tag);
                 if (pageName != null)
                 {
@@ -847,7 +853,9 @@ public class TagdocContentMojo extends AbstractMojo
         {
             String href = attributes.getValue("href");
             if (href == null)
+            {
                 throw new IllegalStateException("Missing href attribute");
+            }
 
             URL master = (URL) digester.getRoot();
             return new URL(master, href);

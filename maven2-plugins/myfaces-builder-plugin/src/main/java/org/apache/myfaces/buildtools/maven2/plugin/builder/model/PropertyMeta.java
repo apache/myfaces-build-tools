@@ -349,7 +349,9 @@ public class PropertyMeta
     public String getFieldName()
     {
       if (_fieldName == null)
+      {
         return "_"+getName();
+      }
 
       return _fieldName;
     }
