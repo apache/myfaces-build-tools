@@ -278,7 +278,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
           {
             String s = ignores[i];
             if ((s != null) && (s.equalsIgnoreCase(curStr)))
+            {
               break outer;
+            }
           }
 
           if (gotOne)
@@ -301,7 +303,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
   private void _writeIndexSection(Sink sink, Set pages, String title)
   {
     if (pages.isEmpty())
+    {
       return;
+    }
 
     sink.sectionTitle1();
     sink.text(title);
@@ -353,17 +357,23 @@ public class TagdocReport extends AbstractMavenMultiPageReport
   private String _getPrefix(QName qName)
   {
     if ((qName.getPrefix() != null) && !"".equals(qName.getPrefix()))
+    {
       return qName.getPrefix();
+    }
     
     String namespace = qName.getNamespaceURI();
     if (namespace == null)
+    {
       return null;
+    }
 
     for (Iterator i = taglibs.entrySet().iterator(); i.hasNext(); )
     {
       Map.Entry entry = (Map.Entry)i.next();
       if (namespace.equals(entry.getValue()))
+      {
         return (String) entry.getKey();
+      }
     }
 
     return "unknown";
@@ -565,7 +575,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
 
     String doc = bean.getLongDescription();
     if (doc == null)
+    {
       doc = bean.getDescription();
+    }
 
     out.write(_preToSource(doc));
     out.write("\n");
@@ -575,11 +587,15 @@ public class TagdocReport extends AbstractMavenMultiPageReport
   private boolean _isNamingContainer(ComponentBean bean)
   {
     if (bean.isNamingContainer())
+    {
       return true;
+    }
 
     ComponentBean parent = bean.resolveSupertype();
     if (parent == null)
+    {
       return false;
+    }
     return _isNamingContainer(parent);
   }
 
@@ -595,7 +611,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
 
     String doc = bean.getLongDescription();
     if (doc == null)
+    {
       doc = bean.getDescription();
+    }
 
     out.write(_preToSource(doc));
     out.write("\n");
@@ -614,7 +632,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
 
     String doc = bean.getLongDescription();
     if (doc == null)
+    {
       doc = bean.getDescription();
+    }
 
     out.write(_preToSource(doc));
     out.write("\n");
@@ -630,7 +650,8 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     return in;
   }
   
-  static private final String _platformAgnosticPath(String path) {
+  static private final String _platformAgnosticPath(String path)
+  {
       return path.replace('/', File.separatorChar);
   }
 
@@ -669,7 +690,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
       }
 
       if (s != null)
+      {
         getLog().warn("UNKNOWN ATTRIBUTE GROUP: " + s);
+      }
 
       return 3;
     }
@@ -685,7 +708,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     {
       PropertyBean property = (PropertyBean) attrs.next();
       if (!property.isTagAttributeExcluded())
+      {
         attributes.add(property.getPropertyName());
+      }
     }
 
     // Now get a list of PropertyBeans
@@ -706,7 +731,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     {
       String group = ((AttributeDoc) iter.next()).group;
       if (group != null)
+      {
         groups.add(group);
+      }
     }
     */
 
@@ -736,7 +763,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     {
       PropertyBean property = (PropertyBean) attrs.next();
       if (!property.isTagAttributeExcluded())
+      {
         attributes.add(property.getPropertyName());
+      }
     }
 
     // Now get a list of PropertyBeans
@@ -765,7 +794,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     {
       PropertyBean property = (PropertyBean) attrs.next();
       if (!property.isTagAttributeExcluded())
+      {
         attributes.add(property.getPropertyName());
+      }
     }
 
     // Now get a list of PropertyBeans
@@ -816,9 +847,13 @@ public class TagdocReport extends AbstractMavenMultiPageReport
         {
           String sectionName;
           if ("events".equalsIgnoreCase(group))
+          {
             sectionName = "Javascript attributes";
+          }
           else
+          {
             sectionName = group + " attributes";
+          }
 
           out.write("<subsection name=\"" + sectionName + "\">\n");
         }
@@ -829,7 +864,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
         out.write("<th>Type</th>\n");
         out.write("<th>Supports EL?</th>\n");
         if (!_attrDocSpansColumns)
+        {
           out.write("<th>Description</th>\n");
+        }
         out.write("</tr>\n");
       }
 
@@ -838,7 +875,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
       // actionExpression is the MethodExpression on the component,
       // but on the tag it's 'action'
       if ("actionExpression".equals(propertyName))
+      {
         propertyName = "action";
+      }
 
       out.write("<tr>\n");
       out.write("<td>" + propertyName + "</td>");
@@ -916,7 +955,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     {
       out.write("</table>\n");
       if (group != null)
+      {
         out.write("</subsection>\n");
+      }
     }
   }
 
@@ -936,7 +977,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
         out = out + token;
         // Give ourselves an opportunity for a line break after "component.";
         if (out.endsWith("component."))
+        {
           out = out + "<wbr/>";
+        }
       }
 
       return out;
@@ -967,7 +1010,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
       for (int i = 0; i < phases.length; i++)
       {
         if (i > 0)
+        {
           out.write(",<br/>");
+        }
         out.write((String) phases[i]);
       }
 
@@ -1206,7 +1251,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     {
       String href = attributes.getValue("href");
       if (href == null)
+      {
         throw new IllegalStateException("Missing href attribute");
+      }
 
       URL master = (URL)digester.getRoot();
       return new URL(master, href);
@@ -1238,7 +1285,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
       ComponentBean component)
     {
       if (component.getTagName() == null)
+      {
         return false;
+      }
 
       return taglibs.containsValue(component.getTagName().getNamespaceURI());
     }
@@ -1254,7 +1303,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
       ValidatorBean component)
     {
       if (component.getTagName() == null)
+      {
         return false;
+      }
 
       return taglibs.containsValue(component.getTagName().getNamespaceURI());
     }
@@ -1270,7 +1321,9 @@ public class TagdocReport extends AbstractMavenMultiPageReport
       ConverterBean component)
     {
       if (component.getTagName() == null)
+      {
         return false;
+      }
 
       return taglibs.containsValue(component.getTagName().getNamespaceURI());
     }
