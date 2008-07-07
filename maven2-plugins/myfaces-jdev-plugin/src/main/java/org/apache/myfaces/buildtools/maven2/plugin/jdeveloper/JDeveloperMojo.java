@@ -6,9 +6,9 @@
  *  to you under the Apache License, Version 2.0 (the
  *  "License"); you may not use this file except in compliance
  *  with the License.  You may obtain a copy of the License at
- *
+ * 
  *  http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing,
  *  software distributed under the License is distributed on an
  *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,7 +29,6 @@ import java.io.Reader;
 import java.net.URL;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -450,7 +449,9 @@ public class JDeveloperMojo
       writeDOM(projectFile, projectDOM);
 
       if ("war".equals(packaging))
+      {
         copyTagLibraries(projectDir, dependencies, artifacts);
+      }
     }
     catch (XmlPullParserException e)
     {
@@ -928,11 +929,15 @@ public class JDeveloperMojo
       File webInfDir =
         new File(project.getBasedir(), "src/main/webapp/WEB-INF");
       if (webInfDir == null)
+      {
         return;
+      }
 
       File[] files = webInfDir.listFiles();
       if (files == null)
+      {
         return;
+      }
 
       Xpp3Dom hashDOM = null;
       Xpp3Dom valueDOM = null;
@@ -1009,7 +1014,9 @@ public class JDeveloperMojo
     // that don't need taglibs in their .jpr files to compile and this
     // allows them to be excluded.
     if (!_addTagLibs)
+    {
       return;
+    }
 
     // /jpr:project
     //   /hash[@n="oracle.jdevimpl.webapp.jsp.libraries.model.ProjectTagLibraries"]
@@ -1135,7 +1142,9 @@ public class JDeveloperMojo
         // We are done with this disTagLib
         // Add it to the targetLibsDOM
         if (hashDOM != null)
+        {
           targetLibsDOM.addChild(hashDOM);
+        }
       } // endfor processing each distributed tag lib
     } //endif
     else
@@ -1223,7 +1232,9 @@ public class JDeveloperMojo
     // We are done with this disTagLib
     // Add it to the targetLibsDOM
     if (hashDOM != null)
+    {
       targetLibsDOM.addChild(hashDOM);
+    }
 
     // Begin JSF Core Taglib
     hashDOM     = new Xpp3Dom("hash");
@@ -1280,7 +1291,9 @@ public class JDeveloperMojo
     // We are done with this disTagLib
     // Add it to the targetLibsDOM
     if (hashDOM != null)
+    {
       targetLibsDOM.addChild(hashDOM);
+    }
   }
 
   private void replaceParameters(String projectName, Xpp3Dom projectDOM)
@@ -1337,18 +1350,26 @@ public class JDeveloperMojo
       findNamedChild(defaultDOM, "value", "compileBeforeRun");
 
     if (makeProject)
+    {
       makeProjectDom.setAttribute("v", "true");
+    }
     else
+    {
       makeProjectDom.setAttribute("v", "false");
+    }
 
     if ((runTarget != null) && !"".equals(runTarget))
     {
       // Convert file separator chars to generic
       String targetURL = "";
       if (File.separatorChar == '/')
+      {
         targetURL = runTarget.replace('\\', '/'); // Unix
+      }
       else
+      {
         targetURL = runTarget.replace('/', '\\'); // Windows
+      }
 
       Xpp3Dom targetDOM = new Xpp3Dom("url");
       targetDOM.setAttribute("path", targetURL);
@@ -1394,7 +1415,9 @@ public class JDeveloperMojo
               File targetFile = new File(targetDir, sourceFile.getName());
 
               if (targetFile.exists())
+              {
                 targetFile.delete();
+              }
               FileUtils.copyFile(sourceFile, targetFile);
             }
           }
@@ -1457,7 +1480,9 @@ public class JDeveloperMojo
           new URL("jar:" + jarURL.toExternalForm() + "!/" + name);
         File targetFile = new File(targetDir, buff.toString());
         if (targetFile.exists())
+        {
           targetFile.delete();
+        }
         FileUtils.copyURLToFile(sourceURL, targetFile);
         targetFile.setReadOnly();
       }
@@ -1575,8 +1600,10 @@ public class JDeveloperMojo
 
         // ensure that the resourcePath can be found
         if (resource == null)
+        {
           throw new IOException("Unable to read resource: " +
                                 resourcePath);
+        }
 
         reader = new InputStreamReader(resource.openStream());
       }
@@ -1638,7 +1665,9 @@ public class JDeveloperMojo
       String relativePath = targetPath.substring(sourcePath.length() + 1);
       relativePath = relativePath.replace(File.separatorChar, '/');
       if (isDirectory)
+      {
         relativePath += "/";
+      }
       return relativePath;
     }
     else
@@ -1663,7 +1692,9 @@ public class JDeveloperMojo
       for (int i = 0; i < minPathCount; i++)
       {
         if (sourcePaths[i].equals(targetPaths[i]))
+        {
           commonPathCount++;
+        }
       }
 
       if (commonPathCount > 0)
@@ -1691,7 +1722,9 @@ public class JDeveloperMojo
         for (int i = 0; i < relativePathCount; i++)
         {
           if (i > 0)
+          {
             relativePath.append("/");
+          }
           relativePath.append(relativePaths[i]);
         }
         return relativePath.toString();
@@ -1710,7 +1743,9 @@ public class JDeveloperMojo
     for (int i = 0; i < hash.length; i++)
     {
       if (attrValue.equals(hash[i].getAttribute("n")))
+      {
         return hash[i];
+      }
     }
 
     Xpp3Dom child = new Xpp3Dom(childName);
@@ -1728,7 +1763,9 @@ public class JDeveloperMojo
       String ident =
         reactorProject.getArtifact().getDependencyConflictId();
       if (ident.equals(dependencyManagementKey))
+      {
         return reactorProject.getExecutionProject();
+      }
     }
 
     return null;
@@ -1742,7 +1779,9 @@ public class JDeveloperMojo
   private void removeChildren(Xpp3Dom parent)
   {
     while (parent.getChildCount() != 0)
+    {
       parent.removeChild(0);
+    }
   }
 
   private Xpp3Dom createProjectReferenceDOM(File workspaceDir,
