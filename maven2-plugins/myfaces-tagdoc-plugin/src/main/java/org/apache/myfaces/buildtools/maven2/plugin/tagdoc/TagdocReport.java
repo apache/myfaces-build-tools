@@ -668,6 +668,15 @@ public class TagdocReport extends AbstractMavenMultiPageReport
       return (o instanceof GroupComparator);
     }
 
+    public int hashCode()
+    {
+      // Yes, this is a very strange hashCode implementation. But the
+      // equals method is also very strange; any two GroupComparator
+      // objects are always equal. Therefore by the java rules, any
+      // two GroupComparator objects must always have the same hashCode.
+      return 17;  // an arbitrary constant.
+    }
+
     private int _getGroupIndex(Object o)
     {
       String s = (o == null) ? null : o.toString();
