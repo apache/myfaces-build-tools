@@ -74,7 +74,9 @@ public class ListRTSWriter implements RTSWriter
 
     String rtsFileType = "xrts";
     if (meta != null)
+    {
       rtsFileType = (String)meta.get("fileType");
+    }
     _pw.println("// Edit " + srcName + "." + rtsFileType + " and run the " +
       rtsFileType.toUpperCase() + "MakeBundle tool instead.");
     _pw.println("// ");
@@ -82,9 +84,15 @@ public class ListRTSWriter implements RTSWriter
     String packageName = (String)parms.get("pkgName");
     boolean validPackage = false;
     if (packageName == null)
+    {
       if (meta != null)
+      {
         if (meta.get("package") != null)
+        {
           packageName = (String)meta.get("package");
+        }
+      }
+    }
 
     if (packageName != null &&
       (!packageName.equals("") || !packageName.trim().equals("")))

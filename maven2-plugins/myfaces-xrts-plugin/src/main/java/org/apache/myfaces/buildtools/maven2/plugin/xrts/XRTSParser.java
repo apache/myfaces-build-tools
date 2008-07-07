@@ -131,9 +131,13 @@ final class XRTSParser extends HandlerBase
     {
       _metaHt.put("package", atts.getValue("package"));
       if (atts.getValue("version") != null)
+      {
         _metaHt.put("version", atts.getValue("version"));
+      }
       if (atts.getValue("baseversion") != null)
+      {
         _metaHt.put("baseVersion", atts.getValue("baseversion"));
+      }
     }
   }
 

@@ -74,10 +74,10 @@ public final class UnicodeEscapes
       else
       {
         buffer.append("\\u");
-        buffer.append(_hex[(c>>12)& 0x0f]);
-        buffer.append(_hex[(c>>8)& 0x0f]);
-        buffer.append(_hex[(c>>4)& 0x0f]);
-        buffer.append(_hex[c & 0x0f]);
+        buffer.append(_HEX[(c>>12)& 0x0f]);
+        buffer.append(_HEX[(c>>8)& 0x0f]);
+        buffer.append(_HEX[(c>>4)& 0x0f]);
+        buffer.append(_HEX[c & 0x0f]);
       }
     }
     return buffer.toString();
@@ -100,7 +100,7 @@ public final class UnicodeEscapes
 //    return byteToHex(hi) + byteToHex(lo);
 //  }
 
-  private static final String[] _hex =
+  private static final String[] _HEX =
     {"0", "1", "2", "3", "4", "5", "6", "7",
      "8", "9", "a", "b", "c", "d", "e", "f"};
 }

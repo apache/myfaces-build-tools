@@ -141,7 +141,9 @@ abstract public class AbstractGenerateSourcesMojo extends AbstractMojo
             try
             {
               if (targetFile.exists())
+              {
                 targetFile.delete();
+              }
 
               SAXParser parser = factory.newSAXParser();
               targetFile.getParentFile().mkdirs();
@@ -170,7 +172,9 @@ abstract public class AbstractGenerateSourcesMojo extends AbstractMojo
     else
     {
       if ("list".equals(targetType))
+      {
         return new ListRTSWriter();
+      }
       throw new MojoExecutionException("Unknown bundle type: " + targetType);
     }
 
