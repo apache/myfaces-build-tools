@@ -61,6 +61,20 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <!--
+          - Override checkstyle config file definitions from parent pom. The source of
+          - this project is not compliant with the normal MyFaces code style rules, and
+          - probably never will be.
+          -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <configLocation>default/myfaces-checks-minimal.xml</configLocation>
+          <headerLocation>default/myfaces-header-spaces.txt</headerLocation>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
