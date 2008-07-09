@@ -17,7 +17,7 @@
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>checkstyle-rules</artifactId>
   <packaging>jar</packaging>
-  <version>1-SNAPSHOT</version>
+  <version>1</version>
   <name>checkstyle-rules</name>
   <url>http://maven.apache.org</url>
 
