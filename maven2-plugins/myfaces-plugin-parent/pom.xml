@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2006 The Apache Software Foundation.
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
 
-      http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
 -->
 
 <!--
@@ -182,19 +185,6 @@
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/</developerConnection>
     <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/</url>
   </scm>
-
-  <modules>
-    <module>myfaces-builder-annotations</module>
-    <module>myfaces-builder-plugin</module>
-    <module>myfaces-faces-plugin</module>
-    <module>myfaces-i18n-plugin</module>
-    <module>myfaces-javacc-plugin</module>
-    <module>myfaces-javascript-plugin</module>
-    <module>myfaces-jdev-plugin</module>
-    <module>myfaces-tagdoc-plugin</module>
-    <module>myfaces-wagon-plugin</module>
-    <module>myfaces-xrts-plugin</module>
-  </modules>
 
   <distributionManagement>
     <snapshotRepository>
