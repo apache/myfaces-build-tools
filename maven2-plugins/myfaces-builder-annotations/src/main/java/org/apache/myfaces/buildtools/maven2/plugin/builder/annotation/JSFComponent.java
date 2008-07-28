@@ -279,9 +279,8 @@ public @interface JSFComponent
     String tagSuperclass() default "";
     
     /**
-     * Indicate the tag handler of the tag class.
+     * Indicate tag handler class used for this component on facelets.
      * 
-     * ?? What's the difference between tagHandler and tagClass?
      */
     String tagHandler() default "";
     

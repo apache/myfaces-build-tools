@@ -24,12 +24,22 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Define a set of properties used to group several definitions
+ * of JSFJspProperty annotations.
+ * 
+ * @author Leonardo Uribe (latest modification by $Author$)
+ * @version $Revision$ $Date$
+ */
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.SOURCE)
 public @interface JSFJspProperties
 {
 
+    /**
+     * Array of JSFJspProperties to be defined.
+     */
     JSFJspProperty [] properties();
     
 }

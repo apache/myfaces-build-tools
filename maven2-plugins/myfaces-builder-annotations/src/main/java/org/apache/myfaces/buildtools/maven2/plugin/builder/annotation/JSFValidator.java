@@ -25,6 +25,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * Used to define a jsf validator.
  * 
  * @author Leonardo Uribe (latest modification by $Author$)
  * @version $Revision$ $Date$

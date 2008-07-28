@@ -62,27 +62,45 @@ public @interface JSFProperty
     boolean tagExcluded() default false;
     
     /**
+     * Indicate if it should be generated a method like
+     * getLocalXXX to retrieve the local value of the property
+     * directly (without evaluate ValueBinding or ValueExpression).
+     * 
+     * If there is no generation of component class this property
+     * has any effect.
      * 
      */
     boolean localMethod() default false;
     
     /**
+     * Define the scope to be used when generating the method getLocalXXX.
+     * 
+     * The default to be applied is "protected".
      * 
      */
     String localMethodScope() default "";
     
     /**
+     * Indicate if it should be generated a method like
+     * isSetXXX, used when it is necessary to check if a boolean type
+     * property was set programatically (using setXXX method) or not. 
      * 
+     * If there is no generation of component class this property
+     * has any effect.
      */
     boolean setMethod() default false;
     
     /**
+     * Define the scope to be used when generating the method isSetXXX.
+     * 
+     * The default to be applied is "protected".
      * 
      */
     String setMethodScope() default "";
     
     /**
-     * 
+     * The name used in jsp pages to make reference to this
+     * property (used on tld).
      */
     String jspName() default "";
     
