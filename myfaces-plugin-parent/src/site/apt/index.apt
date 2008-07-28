@@ -1,0 +1,77 @@
+ ------
+ Myfaces Build Tools
+ ------
+
+Overview
+
+  MyFaces projects all use Maven 2.x to compile the code, run testing, etc. However sometimes
+  the standard maven plugins are not enough for the special requirements of MyFaces projects.
+  Therefore a number of custom Maven plugins have been created.
+
+Plugins
+
+* MyFaces-Builder-Plugin
+
+  Used to build MyFaces Core 1.1.6 and later, and MyFaces Tomahawk 1.1.7 and later.
+  May be used to build other projects in the future.
+
+  This plugin uses annotations on java source files to discover which are JSF
+  components, renderers, etc. This information is used to automatically generate a
+  suitable faces-config.xml and JSP ".tld" files. The annotations can be "real"
+  java1.5 annotations, or doclet-style annotations.
+
+  In addition, the plugin can automatically generate JSP tag classes for JSF components,
+  automatically copying tag attributes onto a JSF component instance.
+
+  And when selected, the builder plugin can also automatically generate JSF component
+  classes, defining "boilerplate" setter/getter and save/restore methods based upon the
+  abstract properties defined on an ancestor class.
+
+  This plugin may also be useful for projects external to the MyFaces project.
+
+* MyFaces-Builder-Annotations
+
+  A set of java1.5 Annotation classes for use with the MyFaces-Builder-Plugin.
+
+* MyFaces-Faces-Plugin
+
+  A refactored/renamed version of the MyFaces-Trinidad-Plugin whose source is within
+  the trinidad project.
+
+  This plugin is not currently in use.
+
+  This renamed version was intended to be used in Trinidad and Core 1.2.x releases,
+  but the MyFaces-Builder-Plugin is currently intended to be used instead.
+
+  The original MyFaces-Trinidad-Plugin was used for MyFaces Core 1.2.x releases, and
+  for all Trinidad releases. It reads a tree of xml files which define the properties
+  of JSF components in a project, and then generates faces-config.xml and .tld files,
+  and also can generate Component and Tag classes.
+
+* MyFaces-i18n-plugin
+
+  TODO: document me
+
+* MyFaces-javacc-plugin
+
+  TODO: document me
+
+* MyFaces-javascript-plugin
+
+  TODO: document me
+
+* MyFaces-jdev-plugin
+
+  TODO: document me 
+
+* MyFaces-tagdoc-plugin
+
+  TODO: document me
+
+* MyFaces-Wagon-Plugin
+
+  TODO: document me
+
+* MyFaces-xrts-plugin
+
+  TODO: document me
