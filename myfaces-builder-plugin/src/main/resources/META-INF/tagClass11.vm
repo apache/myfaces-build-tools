@@ -1,0 +1,166 @@
+// WARNING: This file was automatically generated. Do not edit it directly,
+//          or you will lose your changes.
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+package ${component.tagPackage};
+
+import javax.faces.component.UIComponent;
+import javax.faces.el.ValueBinding;
+import javax.faces.context.FacesContext;
+import ${component.tagSuperclass};
+$utils.importTagClasses($component)
+
+public class $utils.getClassFromFullClass($component.tagClass) extends ${utils.getClassFromFullClass($component.tagSuperclass)}{
+
+    public $utils.getClassFromFullClass($component.tagClass)()
+    {    
+    }
+    
+    public String getComponentType()
+    {
+#if ($component.type)
+        return "$component.type";
+#else
+        return null;
+#end
+    }
+
+    public String getRendererType()
+    {
+#if ($component.rendererType)
+        return "$component.rendererType";
+#else
+        return null;
+#end
+    }
+
+#set ($propertyList = ${component.propertyTagList})
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#set ($type = $utils.getJspPropertyType11($property))
+ 
+    private $type $field;
+
+#set ($var = $utils.getVariableFromName($property.name))
+    public void $utils.getPrefixedPropertyName("set", $property.jspName)($type $var)
+    {
+        $field = $var;
+    }
+#end
+
+    protected void setProperties(UIComponent component)
+    {
+        if (!(component instanceof $component.className))
+        {
+            throw new IllegalArgumentException("Component "+
+                component.getClass().getName() +" is no $component.className");
+        }
+        
+        $component.className comp = ($component.className) component;
+        
+        super.setProperties(component);
+        
+        FacesContext context = getFacesContext();
+
+#foreach( $property in $propertyList )##            1
+#set ($field = $property.fieldName)
+#set ($type = $utils.getJspPropertyType11($property))
+#if ($utils.isConverter($property.className))##                   2
+        if ($field != null)
+        {
+            if (isValueReference($field))
+            {
+                ValueBinding vb = context.getApplication().createValueBinding($field);
+                comp.setValueBinding("$property.name", vb);
+            }
+            else
+            {
+                Converter converter = getFacesContext().getApplication().createConverter($field);
+                comp.setConverter(converter);
+            }
+        }
+#elseif ($property.isMethodBinding())##                 2
+        if ($field != null)
+        {
+#if ($utils.isStringMethodBindingReturnType($property.methodBindingSignature))##3
+            MethodBinding mb;
+            if (isValueReference($field))
+            {
+                mb = context.getApplication().createMethodBinding(
+                    $field, $utils.getSignatureParams($property.methodBindingSignature));            
+            }
+            else
+            {
+#if ($property.jspName == "action")##                      4
+                mb = new org.apache.myfaces.shared_impl.el.SimpleActionMethodBinding($field);
+#else##                                                   4
+                throw new IllegalStateException("Invalid expression " + $field);
+#end##                                                    4
+            }
+#else##                                                 3
+            MethodBinding mb = context.getApplication().createMethodBinding(
+                $field, $utils.getSignatureParams($property.methodBindingSignature));
+#end##                                                  3
+            comp.${utils.getPrefixedPropertyName("set",$property.name)}(mb);
+        }
+#else##                                               2
+        if ($field != null)
+        {
+#if ($property.isLiteralOnly())##                         3
+#set ($className = $utils.getPrimitiveType($property.className))
+#if ($utils.isPrimitiveClass($className))##               4
+            comp.getAttributes().put("$property.name", ${utils.getBoxedClass($className)}.valueOf($field));
+#else##                                                   4
+            comp.getAttributes().put("$property.name", $field);
+#end##                                                    4
+#else##                                                 3
+            if (isValueReference($field))
+            {
+                ValueBinding vb = context.getApplication().createValueBinding($field);
+                comp.setValueBinding("$property.name", vb);
+            }
+            else
+            {
+#set ($className = $utils.getPrimitiveType($property.className))
+#if ($utils.isPrimitiveClass($className))##               4
+                comp.getAttributes().put("$property.name", ${utils.getBoxedClass($className)}.valueOf($field));
+#else##                                                   4
+                comp.getAttributes().put("$property.name", $field);
+#end##                                                    4
+            }
+#end##                                                  3
+        } 
+#end##                                                2
+#end##                                              1
+    }
+
+    public void release()
+    {
+        super.release();
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#if($utils.getJspPropertyType11($property) == "boolean")
+#set ($empty = "false")
+#else
+#set ($empty = "null")
+#end
+        $field = $empty;
+#end
+    }
+}

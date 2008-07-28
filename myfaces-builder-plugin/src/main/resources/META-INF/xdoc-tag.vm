@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+ <properties>
+  <title>&lt;${tag.name}&gt;</title>
+ </properties>
+ <body>
+  <section name="Summary">
+  <p>
+   <b>Tag name:</b> &lt;${tag.name}&gt;
+   <br/>
+#set ($javadocPath = "../apidocs/" + $tag.getClassName().replace('.', '/') )
+   <b>Tag class:</b> <a href="${tagdocUtils.platformAgnosticPath( $javadocPath )}.html">${tag.className}</a>
+   <br/>
+${tag.longDescription}   
+  </p>
+  </section>
+#if ($baseContent)
+$baseContent
+#end
+#set ($attributeList = ${tagdocUtils.getSortedAttributeList($tag)})
+#if ($attributeList.size() != 0)  
+  <section name="Attributes">
+<table>
+ <tr>
+  <th>Name</th>
+  <th>Type</th>
+  <th>Required</th>
+  <th>Description</th>
+ </tr>
+#foreach( $attribute in $attributeList )
+#if (!$attribute.isTagExcluded())
+ <tr>
+  <td>$attribute.name</td>
+#set ($type = ${tagdocUtils.getDisplayType($tag.className,$attribute.name,$attribute.className)})
+  <td>$type</td>
+  <td>$attribute.isRequired()</td>
+#if ($attribute.longDescription)
+  <td>$attribute.longDescription</td>
+#else
+  <td></td>
+#end
+ </tr>
+#end
+#end
+</table>
+#end
+  </section>
+ </body> 
+</document>
