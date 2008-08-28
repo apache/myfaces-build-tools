@@ -43,7 +43,7 @@ public class $utils.getClassFromFullClass($component.tagClass) extends ${utils.g
 
     public String getRendererType()
     {
-#if ($component.rendererType)
+#if ($component.rendererType && !($component.rendererType == ""))
         return "$component.rendererType";
 #else
         return null;
@@ -56,7 +56,7 @@ public class $utils.getClassFromFullClass($component.tagClass) extends ${utils.g
 #set ($type = $utils.getJspPropertyType11($property))
  
     private $type $field;
-
+    
 #set ($var = $utils.getVariableFromName($property.name))
     public void $utils.getPrefixedPropertyName("set", $property.jspName)($type $var)
     {
