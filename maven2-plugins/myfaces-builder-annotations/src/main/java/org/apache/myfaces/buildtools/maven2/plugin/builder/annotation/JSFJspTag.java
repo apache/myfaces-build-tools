@@ -35,6 +35,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 public @interface JSFJspTag
 {
+    
     /**
      * Indicate if the element accept inner elements or not.
      */
@@ -44,5 +45,15 @@ public @interface JSFJspTag
      * Short description
      */
     String desc() default "";
-
+    
+    /**
+     * The name of the component in a page (ex: x:mycomp).
+     */
+    String name() default "";
+    
+    /**
+     * Indicate tag handler class used for this component on facelets.
+     * 
+     */
+    String tagHandler() default "";
 }
