@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  * @version $Revision$ $Date$
  */
 @Documented
-@Target(ElementType.TYPE)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.SOURCE)
 public @interface JSFJspAttribute
 {
