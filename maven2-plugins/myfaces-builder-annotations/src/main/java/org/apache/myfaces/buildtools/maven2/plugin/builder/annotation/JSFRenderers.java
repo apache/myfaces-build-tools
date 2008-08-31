@@ -25,7 +25,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * The renderKitId that identifies this RenderKit. This is registered on faces-config.xml.
+ * Define a set of renderers used to group several definitions
+ * of JSFRenderer annotations.
  * 
  * @author Leonardo Uribe (latest modification by $Author$)
  * @version $Revision$ $Date$
@@ -33,10 +34,12 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.SOURCE)
-public @interface JSFRenderKit
+public @interface JSFRenderers
 {
+
     /**
-     * The renderKitId related to this class 
+     * Array of JSFRenderer to be defined.
      */
-    String renderKitId() default "";
+    JSFRenderer [] renderers();
+    
 }
