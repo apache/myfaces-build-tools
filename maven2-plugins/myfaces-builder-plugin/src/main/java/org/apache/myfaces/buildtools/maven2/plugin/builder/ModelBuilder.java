@@ -44,4 +44,6 @@ public interface ModelBuilder
     public void buildModel(Model model, MavenProject project)
             throws MojoExecutionException;
 
+    public void buildModel(Model model, MavenProject project, String includes, String excludes)
+            throws MojoExecutionException;    
 }

@@ -231,6 +231,21 @@ public class BuildMetaDataMojo extends AbstractMojo
     private File inputFile;
     
     /**
+     * A comma separated list of file patterns to include when building the
+     * model.  i.e.  **\/*.java
+     * 
+     * @parameter
+     */
+    private String includes;
+    
+    /**
+     *  A comma separated list of file patterns to exclude when building the
+     *  model.  i.e.  **\/*.java
+     * @parameter
+     */
+    private String excludes;
+    
+    /**
      * Create a metadata file containing information imported from other projects
      * plus data extracted from annotated classes in this project.
      */
@@ -368,7 +383,7 @@ public class BuildMetaDataMojo extends AbstractMojo
         {
             QdoxModelBuilder builder = new QdoxModelBuilder();
             model.setModelId(modelId);
-            builder.buildModel(model, project);            
+            builder.buildModel(model, project,includes,excludes);            
             return model;
         }
         catch (BuildException e)

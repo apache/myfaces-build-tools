@@ -19,6 +19,10 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder.qdox;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -50,6 +54,9 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RenderKitMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RendererMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
+import org.codehaus.plexus.components.io.fileselectors.FileInfo;
+import org.codehaus.plexus.components.io.fileselectors.FileSelector;
+import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
@@ -78,6 +85,7 @@ public class QdoxModelBuilder implements ModelBuilder
     private static final String DOC_COMPONENT = "JSFComponent";
     private static final String DOC_RENDERER = "JSFRenderer";
     private static final String DOC_RENDERKIT = "JSFRenderKit";
+    private static final String DOC_RENDERERS = "JSFRenderers";
 
     private static final String DOC_PROPERTY = "JSFProperty";
     private static final String DOC_FACET = "JSFFacet";   
@@ -87,6 +95,7 @@ public class QdoxModelBuilder implements ModelBuilder
     //in jsf 1.1 (in 1.2 has component counterpart). In fact, all
     //properties must be defined with JSFProperty
     private static final String DOC_JSP_PROPERTY = "JSFJspProperty";
+    private static final String DOC_JSP_PROPERTIES = "JSFJspProperties";
     
     private static final String DOC_TAG = "JSFJspTag";
     private static final String DOC_JSP_ATTRIBUTE = "JSFJspAttribute";
@@ -111,6 +120,159 @@ public class QdoxModelBuilder implements ModelBuilder
             throws MojoExecutionException
     {
         buildModel(model, project.getCompileSourceRoots());
+    }
+    
+    public void buildModel(Model model, MavenProject project, String includes, String excludes)
+        throws MojoExecutionException
+    {
+        if (StringUtils.isNotEmpty(includes) || 
+                StringUtils.isNotEmpty(excludes))
+        {
+            buildModel(model, project.getCompileSourceRoots(),includes, excludes);            
+        }
+        else
+        {
+            buildModel(model, project.getCompileSourceRoots());
+        }
+    }
+    
+    
+    public void buildModel(Model model, List sourceDirs, String includes, String excludes)
+        throws MojoExecutionException
+    {
+        String currModelId = model.getModelId();
+        if (currModelId == null)
+        {
+            throw new MojoExecutionException("Model must have id set");
+        }
+
+        JavaDocBuilder builder = new JavaDocBuilder();
+
+        IncludeExcludeFileSelector selector = 
+            new IncludeExcludeFileSelector(); 
+    
+        if (StringUtils.isNotEmpty(excludes))
+        {
+            selector.setExcludes(excludes.split(","));
+        }
+        if (StringUtils.isNotEmpty(includes))
+        {
+            selector.setIncludes(includes.split(","));            
+        }
+        
+        for (Iterator i = sourceDirs.iterator(); i.hasNext();)
+        {
+            File srcDir = new File((String) i.next());
+            
+            //Scan all files on directory and add to builder
+            addFileToJavaDocBuilder(builder, selector, srcDir);
+        }        
+        
+        JavaClass[] classes = builder.getClasses();
+        
+        buildModel(model, sourceDirs, classes);
+    }
+    
+    private void addFileToJavaDocBuilder(JavaDocBuilder builder,
+            FileSelector selector, File path)
+    {
+        if (path.isDirectory())
+        {
+            File[] files = path.listFiles();
+            
+            //Scan all files in directory
+            for (int i = 0; i < files.length; i++)
+            {
+                addFileToJavaDocBuilder(builder, selector, files[i]);
+            }
+        }
+        else
+        {
+            File file = path;
+            try
+            {
+                if (selector.isSelected(new SourceFileInfo(file)))
+                {
+                    builder.addSource(file);
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                log.error("Error reading file: "+file.getName()+" "+e.getMessage());
+            }
+            catch (IOException e)
+            {
+                log.error("Error reading file: "+file.getName()+" "+e.getMessage());                
+            }
+        }
+    }
+    
+    private class SourceFileInfo implements FileInfo
+    {
+        private File file;
+        
+        private String name;
+
+        /**
+         * Creates a new instance.
+         */
+        public SourceFileInfo( File file )
+        {
+            this( file, file.getPath().replace( '\\', '/' ) );
+        }
+
+        /**
+         * Creates a new instance.
+         */
+        public SourceFileInfo( File file, String name )
+        {
+            this.file = file;
+            this.name = name;
+        }
+        
+        /**
+         * Sets the resources file.
+         */
+        public void setFile( File file )
+        {
+            this.file = file;
+        }
+
+        /**
+         * Returns the resources file.
+         */
+        public File getFile()
+        {
+            return file;
+        }
+
+        /**
+         * Sets the resources name.
+         */
+        public void setName( String name )
+        {
+            this.name = name;
+        }
+
+        public String getName()
+        {
+            return name;
+        }        
+        
+        public InputStream getContents() throws IOException
+        {
+            return new FileInputStream( getFile() );
+        }
+
+        public boolean isDirectory()
+        {
+            return file.isDirectory();
+        }
+
+        public boolean isFile()
+        {
+            return file.isFile();
+        }        
     }
 
     /**
@@ -140,6 +302,14 @@ public class QdoxModelBuilder implements ModelBuilder
         }
 
         JavaClass[] classes = builder.getClasses();
+
+        buildModel(model, sourceDirs, classes);
+    }
+    
+    protected void buildModel(Model model, List sourceDirs, JavaClass[] classes)
+        throws MojoExecutionException
+    {
+        String currModelId = model.getModelId();
 
         // Sort the class array so that they are processed in a
         // predictable order, regardless of how the source scanning
@@ -231,6 +401,7 @@ public class QdoxModelBuilder implements ModelBuilder
             TagMeta tag = (TagMeta) it.next();
             // nothing to do at the moment 
         }       
+
     }
 
     /**
@@ -353,7 +524,6 @@ public class QdoxModelBuilder implements ModelBuilder
         }
                 
         // renderer
-        
         DocletTag [] tags = clazz.getTagsByName(DOC_RENDERER, false);
         
         for (int i = 0; i < tags.length; i++)
@@ -364,11 +534,36 @@ public class QdoxModelBuilder implements ModelBuilder
                 Map props = tag.getNamedParameterMap();
                 processRenderer(props, tag.getContext(), clazz, model);
             }
-            anno = getAnnotation(clazz, DOC_RENDERER);
-            if (anno != null)
+        }
+        
+        anno = getAnnotation(clazz, DOC_RENDERER);
+        if (anno != null)
+        {
+            Map props = anno.getNamedParameterMap();
+            processRenderer(props, anno.getContext(), clazz, model);
+        }
+        
+        anno = getAnnotation(clazz, DOC_RENDERERS);
+        if (anno != null)
+        {
+            Object jspProps = anno.getNamedParameter("renderers");
+            
+            if (jspProps instanceof AnnoDef)
             {
-                Map props = anno.getNamedParameterMap();
+                AnnoDef jspPropertiesAnno = (AnnoDef) jspProps;                
+                Map props = new NonParentesisMap(jspPropertiesAnno.args);
                 processRenderer(props, anno.getContext(), clazz, model);
+            }
+            else
+            {
+                List jspPropsList = (List) jspProps;
+                for (int i = 0; i < jspPropsList.size();i++)
+                {
+                    AnnoDef ranno = (AnnoDef) jspPropsList.get(i);
+                    
+                    Map props = new NonParentesisMap(ranno.args);
+                    processRenderer(props, anno.getContext(), clazz, model);
+                }
             }
         }
     }
@@ -1091,7 +1286,7 @@ public class QdoxModelBuilder implements ModelBuilder
         }
         
         
-        Annotation jspAnno = getAnnotation(clazz, "JSFJspProperties");        
+        Annotation jspAnno = getAnnotation(clazz, DOC_JSP_PROPERTIES);        
         if (jspAnno != null)
         {
             Object jspProps = jspAnno.getNamedParameter("properties");
