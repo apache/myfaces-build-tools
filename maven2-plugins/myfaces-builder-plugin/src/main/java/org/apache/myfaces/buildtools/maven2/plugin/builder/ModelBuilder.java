@@ -44,6 +44,18 @@ public interface ModelBuilder
     public void buildModel(Model model, MavenProject project)
             throws MojoExecutionException;
 
+    /**
+     * Given a model (which might already be partly populated with data, add
+     * information about JSF artifacts, indicating include and exclude
+     * rules
+     * 
+     * @since 1.0.2
+     * @param model the model to add the information
+     * @param project the maven project to analyze
+     * @param includes rules to include files
+     * @param excludes rules to exclude files
+     * @throws MojoExecutionException
+     */
     public void buildModel(Model model, MavenProject project, String includes, String excludes)
             throws MojoExecutionException;    
 }

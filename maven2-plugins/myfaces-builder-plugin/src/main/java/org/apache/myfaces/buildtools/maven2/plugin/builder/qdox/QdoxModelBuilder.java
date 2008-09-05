@@ -122,6 +122,9 @@ public class QdoxModelBuilder implements ModelBuilder
         buildModel(model, project.getCompileSourceRoots());
     }
     
+    /**
+     * @since 1.0.2
+     */
     public void buildModel(Model model, MavenProject project, String includes, String excludes)
         throws MojoExecutionException
     {
@@ -136,7 +139,9 @@ public class QdoxModelBuilder implements ModelBuilder
         }
     }
     
-    
+    /**
+     * @since 1.0.2
+     */
     public void buildModel(Model model, List sourceDirs, String includes, String excludes)
         throws MojoExecutionException
     {
