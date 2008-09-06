@@ -1162,9 +1162,11 @@ public class QdoxModelBuilder implements ModelBuilder
             returnType = method.getReturns();
         }
         
+        String className = getString(clazz,"className",props, returnType.toString());
+        
         AttributeMeta a = new AttributeMeta();
         a.setName(methodToPropName(method.getName()));
-        a.setClassName(returnType.toString());
+        a.setClassName(className);
         a.setRequired(required);
         a.setRtexprvalue(rtexprvalue);
         a.setDescription(shortDescription);
