@@ -109,7 +109,7 @@
 
   <properties>
     <trinidad.version>1.2.5</trinidad.version>
-    <myfaces.version>1.2.2</myfaces.version>
+    <myfaces.version>1.2.4</myfaces.version>
   </properties>
 
 </project>
