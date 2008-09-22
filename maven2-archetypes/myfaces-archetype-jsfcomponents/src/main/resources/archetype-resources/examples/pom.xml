@@ -13,14 +13,14 @@
     <parent>
         <groupId>${groupId}</groupId>
         <artifactId>${artifactId}-project</artifactId>
-        <version>${version}</version>
+        <version>${project.version}</version>
     </parent>
 
     <dependencies>
            <dependency>
                <groupId>${groupId}</groupId>
                <artifactId>${artifactId}-core</artifactId>
-               <version>${version}</version>
+               <version>${project.version}</version>
            </dependency>
            <dependency>
                <groupId>commons-logging</groupId>

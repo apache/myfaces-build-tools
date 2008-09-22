@@ -7,7 +7,7 @@
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
     <packaging>war</packaging>
-    <version>${version}</version>
+    <version>${project.version}</version>
     <name>A custom project using myfaces</name>
     <url>http://www.myorganization.org</url>
 
