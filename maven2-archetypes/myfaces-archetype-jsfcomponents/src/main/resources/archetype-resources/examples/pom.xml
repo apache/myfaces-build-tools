@@ -13,7 +13,7 @@
     <parent>
         <groupId>${groupId}</groupId>
         <artifactId>${artifactId}-project</artifactId>
-        <version>${project.version}</version>
+        <version>${version}</version>
     </parent>
 
     <dependencies>

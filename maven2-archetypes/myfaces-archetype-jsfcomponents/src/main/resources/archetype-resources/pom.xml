@@ -6,7 +6,7 @@
   <artifactId>${artifactId}-project</artifactId>
   <packaging>pom</packaging>
   <name>My JSF Components Library Project</name>
-  <version>${project.version}</version>
+  <version>${version}</version>
 
   <description>
       This is the project for my funky components. This will build both the core and the examples
