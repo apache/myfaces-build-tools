@@ -27,5 +27,20 @@
         </navigation-case>
     </navigation-rule>
 
+    <navigation-rule>
+        <from-view-id>/validatorDemo.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>display_number</from-outcome>
+            <to-view-id>/validatorDemoResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/converterDemo.jsp</from-view-id>
+        <navigation-case>
+            <from-outcome>display_phone</from-outcome>
+            <to-view-id>/converterDemoResult.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
 </faces-config>

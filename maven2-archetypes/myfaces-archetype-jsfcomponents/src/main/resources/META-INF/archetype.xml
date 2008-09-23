@@ -29,22 +29,29 @@
         <resource>examples/src/main/resources/org/myorganization/component/example/build.properties</resource>
         <resource>examples/src/main/java/org/myorganization/component/example/SayHelloBean.java</resource>
         <resource>examples/src/main/webapp/sayhello.jsp</resource>
+        <resource>examples/src/main/webapp/converterDemo.jsp</resource>
+        <resource>examples/src/main/webapp/converterDemoResult.jsp</resource>
+        <resource>examples/src/main/webapp/validatorDemo.jsp</resource>
+        <resource>examples/src/main/webapp/validatorDemoResult.jsp</resource>
         <resource>examples/src/main/webapp/index.jsp</resource>
         <resource>examples/src/main/webapp/WEB-INF/examples-config.xml</resource>
         <resource>examples/src/main/webapp/WEB-INF/web.xml</resource>
         <resource>examples/src/main/webapp/home.jsp</resource>
         <resource>examples/pom.xml</resource>
-        <resource>core/src/main/resources/META-INF/faces-config.xml</resource>
-        <resource>core/src/main/tld/entities/say_hello_attributes.xml</resource>
-        <resource>core/src/main/tld/entities/ui_component_attributes.xml</resource>
-        <resource>core/src/main/tld/misc/resolve_entities.xsl</resource>
-        <resource>core/src/main/tld/misc/web-jsptaglibrary_1_2.dtd</resource>
-        <resource>core/src/main/tld/misc/resolve_entities-tlddoc.xsl</resource>
-        <resource>core/src/main/tld/mycomponents.tld</resource>
-        <resource>core/src/main/java/org/myorganization/component/sayhello/SayHello.java</resource>
+        <resource>core/src/main/resources/META-INF/componentClass12.vm</resource>
+        <resource>core/src/main/resources/META-INF/tagClass12.vm</resource>
+        <resource>core/src/main/resources/META-INF/tagValidatorClass12.vm</resource>
+        <resource>core/src/main/resources/META-INF/tagConverterClass12.vm</resource>
+        <resource>core/src/main/resources/META-INF/validatorClass12.vm</resource>
+        <resource>core/src/main/resources/META-INF/mycomponents.tld.vm</resource>
+        <resource>core/src/main/java/org/myorganization/component/sayhello/AbstractSayHello.java</resource>
         <resource>core/src/main/java/org/myorganization/component/sayhello/SayHelloRenderer.java</resource>
-        <resource>core/src/main/java/org/myorganization/component/sayhello/SayHelloTag.java</resource>
+        <resource>core/src/main/java/org/myorganization/converter/PhoneNumber.java</resource>
+        <resource>core/src/main/java/org/myorganization/converter/PhoneNumberConverter.java</resource>
+        <resource>core/src/main/java/org/myorganization/validator/AbstractOddNumberValidator.java</resource>
         <resource>core/src/test/java/org/myorganization/component/sayhello/SayHelloRendererTest.java</resource>
+        <resource>core/src/test/java/org/myorganization/converter/PhoneNumberConverterTest.java</resource>
+        <resource>core/src/test/java/org/myorganization/validator/OddNumberValidatorTest.java</resource>
         <resource>core/pom.xml</resource>
     </resources>
 </archetype>

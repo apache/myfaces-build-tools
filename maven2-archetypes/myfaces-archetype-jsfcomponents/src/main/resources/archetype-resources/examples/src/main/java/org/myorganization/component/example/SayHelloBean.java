@@ -1,9 +1,10 @@
 package org.myorganization.component.example;
 
+import javax.faces.event.ActionEvent;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import javax.faces.event.ActionEvent;
+import org.myorganization.converter.PhoneNumber;
 
 /**
  * Managed bean for the sayHello page example
@@ -16,6 +17,8 @@ public class SayHelloBean
     private String firstName;
     private String lastName;
     private boolean renderGreeting;
+    private Integer oddNumber;
+    private PhoneNumber phoneNumber;
 
     public SayHelloBean()
     {
@@ -62,5 +65,33 @@ public class SayHelloBean
     public void setRenderGreeting(boolean renderGreeting)
     {
         this.renderGreeting = renderGreeting;
+    }
+
+    public Integer getOddNumber()
+    {
+        return oddNumber;
+    }
+
+    public void setOddNumber(Integer oddNumber)
+    {
+        this.oddNumber = oddNumber;
+    }
+    
+    public String submitOddNumber() {
+        return "display_number";
+    }
+    
+    public String submitPhoneNumber() {
+        return "display_phone";
+    }
+
+    public PhoneNumber getPhoneNumber()
+    {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(PhoneNumber phoneNumber)
+    {
+        this.phoneNumber = phoneNumber;
     }
 }

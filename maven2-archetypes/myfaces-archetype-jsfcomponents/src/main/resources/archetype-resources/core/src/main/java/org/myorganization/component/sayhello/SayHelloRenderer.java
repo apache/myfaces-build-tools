@@ -1,13 +1,17 @@
 package org.myorganization.component.sayhello;
 
-import javax.faces.render.Renderer;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.component.UIComponent;
 import java.io.IOException;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
+
 /**
- * The renderer for my component
+ * @JSFRenderer
+ *   renderKitId = "HTML_BASIC" 
+ *   family = "javax.faces.Output"
+ *   type = "org.myorganization.SayHelloRenderer"
  */
 public class SayHelloRenderer extends Renderer
 {

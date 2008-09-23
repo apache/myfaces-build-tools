@@ -28,6 +28,12 @@
                 <h:outputLink value="sayhello.jsf">
                     <f:verbatim>sayHello - demo component</f:verbatim>
                 </h:outputLink>
+                <h:outputLink value="validatorDemo.jsf">
+                    <f:verbatim>sayHello - demo validator</f:verbatim>
+                </h:outputLink>
+                <h:outputLink value="converterDemo.jsf">
+                    <f:verbatim>sayHello - demo converter</f:verbatim>
+                </h:outputLink>
             </h:panelGrid>
 
         </h:panelGrid>
