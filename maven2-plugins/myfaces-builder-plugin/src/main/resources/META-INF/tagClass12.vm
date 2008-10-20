@@ -26,6 +26,10 @@ import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 $utils.importTagClasses12($component)
 
+// Generated from class ${component.sourceClassName}.
+//
+// WARNING: This file was automatically generated. Do not edit it directly,
+//          or you will lose your changes.
 public class $utils.getClassFromFullClass($component.tagClass)
 #if (${component.tagSuperclass})
     extends ${component.tagSuperclass}
