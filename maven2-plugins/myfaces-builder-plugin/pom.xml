@@ -107,12 +107,14 @@
       <version>1.8</version>
     </dependency>
 
+    <!--
     <dependency>
     	<groupId>xml-apis</groupId>
     	<artifactId>xml-apis</artifactId>
     	<version>1.0.b2</version>
     	<scope>runtime</scope>
     </dependency>
+    -->
 
     <dependency>
       <groupId>saxon</groupId>
@@ -121,12 +123,14 @@
       <scope>runtime</scope>
     </dependency>
     
+    <!--
     <dependency>
       <groupId>xerces</groupId>
       <artifactId>xercesImpl</artifactId>
       <version>2.6.2</version>
       <scope>runtime</scope>
     </dependency>
+    -->
 
     <dependency>
     	<groupId>stax</groupId>
