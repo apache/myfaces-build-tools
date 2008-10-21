@@ -1,0 +1,4 @@
+## Macro definitions for component class definition
+##
+## Velocity macros defined in this file will be available when executing
+## the componentClass11.vm template file.

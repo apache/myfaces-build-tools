@@ -1,0 +1,167 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+
+ ------
+ Myfaces Builder Plugin 
+ ------
+ 
+Summary
+
+  This is a maven plugin that uses javadoc annotations to generate the necessary JSF configuration
+  files (.tld, faces-config.xml, etc) and optionally Tag, Validator and Component classes.
+
+  See the documentation menu in the left-hand navigation pane for more information.
+
+Introduction
+
+  A JSF component library needs to provide hand-written:
+
+  * component classes
+  
+  * renderer classes
+
+  * converter and validator classes
+    
+  []
+
+  It then needs to also provide:
+
+  * jsp taglib files
+
+  * facelets taglib files
+
+  * tag classes
+  
+  []
+
+  However in most cases, the second category of artifacts can be generated from the
+  first ones. Tag classes generally just copy data from one format to another and
+  do not have any custom logic; they can effectively be created using code templates.
+  The config files are mostly just a "summary" of the information in the hand-written
+  classes above, and so are also a candidate for generation.
+
+  In addition, components have a lot of getter/setter methods for properties, where the
+  getter/setter implementations are very repetitive. Components also need to provide
+  state-handling methods (saveState/restoreState) which are also repetitive. In both
+  cases, the necessary methods can potentially be generated given metadata about the
+  properties belonging to a component. 
+  
+Requirements
+
+  * Minimise the amount of code duplication, ie where a single change requires changes
+    in two different places
+
+  * Minimise bugs due to inconsistencies between data that should match.
+  
+  * Reduce the boredom factor
+  
+  * Allow optimisations in handling of JSF classes (eg state-saving improvements) to
+    be implemented in just one place, rather than having to repeat the same fix in
+    every place that uses the same boilerplate code.
+    
+  * Keep the code simple to understand for people new to MyFaces. A solution that will
+    discourage people from committing patches to myfaces code is worse than no solution.
+
+  * Don't make building the code more complicated.
+
+  * Don't make debugging of the code more complicated
+
+  * Provide a solution that can be applied to as many myfaces projects as possible;
+    a separate build tool per project is not desirable. Note, however, that each
+    project must "opt in", so any successful tool must satisfy the needs of multiple
+    projects, or be sufficiently extensible for other projects to extend it to match.
+
+  * Allow external code to subclass components that are within a project which has
+    been built by the myfaces-builder-plugin. MyFaces components are meant to be
+    used as a base for other code; it would be nice to be able to offer a build tool
+    that users can apply to their own code when extending myfaces classes in order
+    to inherit the same metadata.   
+  
+Gathering and saving meta-data
+
+  In order to drive all of the above artifact generation, metadata about the artifacts
+  to be generated is needed. There are several reasonable ways to gather this info.
+  
+  * For several years, Trinidad has used xml files to declare the necessary data.
+  
+  * The Tobago project uses java1.5 annotations (with compile-scope retention) plus
+    introspection of the classes (via the apt tool and the com.sun.mirror api) to
+    derive the necessary data.
+  
+  * The use of javadoc annotations for metadata (eg xdoclet) also has a long successful
+    history as a way to represent metadata.
+
+  []
+  
+  In addition, people will no doubt invent other solutions in the future.
+  
+  Therefore, the myfaces-builder-plugin provides "pluggable" metadata gathering in order
+  for different projects to represent their metadata as they wish. In fact, it should
+  support "chaining" of metadata gathering, so that part of the data can be gathered one
+  way, and part of it another way.
+  
+  After a project using the myfaces-builder-plugin is published, people can then derive
+  their own components from the classes in the published jarfile. They can always implement
+  their own solution for defining the necessary tag classes, config files, etc. However it
+  would be nice to allow this plugin to also be usable on that external code. And in fact
+  this same issue also occurs internally within myfaces, eg between the -api and -impl jars
+  of a JSF implementation. There are a number of possible solutions, but the one chosen is
+  for myfaces-builder-plugin to generate a .xml file containing the metadata it has gathered
+  about a project, and for this file to be published in the META-INF directory of each 
+  jarfile. This file can then be used as another source of meta-data by the builder plugin
+  itself; ie if the builder has built project A, then it can use the file it left in the
+  META-INF of A.jar in order to help build components that extend the classes in A.
+  
+Generating output
+
+  The whole point of the artifacts being generated (config files or java code) is that they
+  are very repetitive internally, varying only due to the metadata information. Therefore
+  a templating mechanism should be used to generate these.
+  
+  However there are a large number of possible templating solutions. In addition, the
+  trinidad plugin has a history of generating output via hard-coding print statements in
+  java rather than using templating.
+  
+  The builder plugin therefore also provides a "pluggable" generation mechanism, so that
+  projects can customise the process as they need. 
+  
+  Initially, builder will support the org.antlr.StringTemplate library as the template
+  mechanism, mainly because that is what Tobago currently uses. However there is no
+  reason why other approaches cannot be used.
+  
+Representing MetaData internally
+
+  Classes in the "model" package store all the metadata that can be gathered. The model is
+  therefore the union of all data needed by all supported projects. 
+  
+  The model objects are created/populated by the model-builders, and then used by the
+  various generator modules.
+  
+  The metadata itself can be written to xml and read back from xml. This allows the following:
+  
+  * the task of gathering the metadata can be one maven goal, with output being a file.
+
+  * the task of generating artfacts from metadata can just read the previously-created metadata
+    file without repeating the data-gathering process.
+    
+  []
+
+  It also means that:
+      
+  * metadata can be stored in a file in the META-INF of a published jar
+
+  * the builder plugin can re-read the file from the META-INF of a published jar, allowing
+    libraries to easily *extend* classes declared in a published jar and still have access
+    to the metadata for those ancestor classes.  ------
