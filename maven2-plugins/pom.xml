@@ -44,6 +44,12 @@
   <name>Apache MyFaces Buildtools Maven2 Plugin Module</name>
   <url>http://myfaces.apache.org/build-tools/plugins</url>
 
+  <!-- WARNING: DO NOT DEPLOY SITE FROM HERE
+   A parent module is at myfaces-plugin-parent, so when 
+   a site needs to be deployed, run mvn site:site mvn site:deploy
+   from myfaces-plugin-parent and then for each one of the remaining
+   modules. If the goal is executed from here the site does not work
+   well. -->
   <modules>
     <module>myfaces-plugin-parent</module>
     <module>myfaces-builder-annotations</module>
