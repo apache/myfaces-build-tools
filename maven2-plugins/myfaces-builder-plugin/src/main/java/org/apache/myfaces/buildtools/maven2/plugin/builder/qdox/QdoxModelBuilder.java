@@ -150,6 +150,7 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             throw new MojoExecutionException("Model must have id set");
         }
+        //System.out.println("includes:"+includes+" excludes:"+excludes);
 
         JavaDocBuilder builder = new JavaDocBuilder();
 
@@ -181,6 +182,13 @@ public class QdoxModelBuilder implements ModelBuilder
     private void addFileToJavaDocBuilder(JavaDocBuilder builder,
             FileSelector selector, File path)
     {
+        addFileToJavaDocBuilder(builder,selector, path, path.getPath());
+    }
+    
+    
+    private void addFileToJavaDocBuilder(JavaDocBuilder builder,
+            FileSelector selector, File path, String basePath)
+    {
         if (path.isDirectory())
         {
             File[] files = path.listFiles();
@@ -188,16 +196,28 @@ public class QdoxModelBuilder implements ModelBuilder
             //Scan all files in directory
             for (int i = 0; i < files.length; i++)
             {
-                addFileToJavaDocBuilder(builder, selector, files[i]);
+                addFileToJavaDocBuilder(builder, selector, files[i], basePath);
             }
         }
         else
         {
             File file = path;
+
             try
             {
-                if (selector.isSelected(new SourceFileInfo(file)))
+                String name = file.getPath();
+                while (name.startsWith("/"))
                 {
+                    name = name.substring(1);
+                }
+                while (name.startsWith("\\"))
+                {
+                    name = name.substring(1);
+                }
+                SourceFileInfo fileInfo = new SourceFileInfo(file,name);
+                if (selector.isSelected(fileInfo))
+                {
+                    //System.out.println("file:"+name);
                     builder.addSource(file);
                 }
             }
