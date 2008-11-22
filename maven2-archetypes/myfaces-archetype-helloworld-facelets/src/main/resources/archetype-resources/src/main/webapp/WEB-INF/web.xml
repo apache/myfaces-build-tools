@@ -32,12 +32,6 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- Configure tomahawk taglib -->
-	<context-param>
-		<param-name>facelets.LIBRARIES</param-name>
-		<param-value>/WEB-INF/tomahawk.taglib.xml</param-value>
-	</context-param>
-
 	<!-- Use Documents Saved as *.xhtml -->
 	<context-param>
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
@@ -254,13 +248,6 @@
 		<filter-name>extensionsFilter</filter-name>
 		<url-pattern>/faces/*</url-pattern>
 	</filter-mapping>
-
-	<!-- Listener, to allow Jetty serving MyFaces apps -->
-	<listener>
-		<listener-class>
-			org.apache.myfaces.webapp.StartupServletContextListener
-		</listener-class>
-	</listener>
 
 	<!-- Faces Servlet -->
 	<servlet>
