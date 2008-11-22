@@ -27,7 +27,7 @@ public class SayHelloRendererTest extends AbstractJsfTestCase
         super(name);
     }
 
-    public void setUp()
+    public void setUp() throws Exception
     {
         super.setUp();
 
@@ -45,14 +45,14 @@ public class SayHelloRendererTest extends AbstractJsfTestCase
                 new SayHelloRenderer());
     }
 
-    public void tearDown()
+    public void tearDown() throws Exception
     {
         super.tearDown();
         sayHello = null;
         writer = null;
     }
 
-    public void testEncodeEnd() throws IOException
+    public void testEncodeEnd()  throws Exception
     {
         sayHello.encodeEnd(facesContext);
         facesContext.renderResponse();

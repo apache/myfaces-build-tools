@@ -23,11 +23,10 @@
     <dependencies>
 
         <!-- compile -->
-
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.0.4</version>
+            <version>1.1.1</version>
             <scope>compile</scope>
         </dependency>
 
@@ -50,7 +49,7 @@
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
-            <version>1.2.4</version>
+            <version>1.2.5</version>
             <scope>provided</scope>
         </dependency>
 
@@ -78,20 +77,28 @@
         </dependency>
     
         <dependency>
-            <groupId>org.apache.struts.shale</groupId>
+            <groupId>org.apache.shale</groupId>
             <artifactId>shale-test</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.5</version>
             <scope>test</scope>
         </dependency>        
 
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                       <exclude>**/*.vm</exclude>
+                </excludes>
+            </resource>    
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.myfaces.buildtools</groupId>
                 <artifactId>myfaces-builder-plugin</artifactId>
-                <version>1.0.1</version>
+                <version>1.0.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -100,6 +107,7 @@
                             <goal>make-tags</goal>
                             <goal>make-validators</goal>
                             <goal>make-converter-tags</goal>
+                            <goal>make-validator-tags</goal>
                         </goals>
                         <configuration>
                             <jsfVersion>1.2</jsfVersion>
@@ -117,7 +125,7 @@
                     <execution>
                         <id>maketld</id>
                         <configuration>
-                            <xmlFile>META-INF/mycomponents.tld</xmlFile>
+                            <xmlFile>META-INF/${shortname}.tld</xmlFile>
                             <templateFile>mycomponents.tld.vm</templateFile>
                             <params>
                                <shortname>${shortname}</shortname>
@@ -130,23 +138,6 @@
                             <goal>make-config</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <id>makevalidatortags</id>
-                        <configuration>
-                            <xmlFile>META-INF/mycomponents.tld</xmlFile>
-                            <templateFile>mycomponents.tld.vm</templateFile>
-                            <params>
-                               <shortname>${shortname}</shortname>
-                               <uri>http://www.myorganitzation.org/${shortname}</uri>
-                               <displayname>Custom tag library.</displayname>
-                               <description>Enhanced standard JSP actions and custom MyFaces actions.</description>
-                            </params>
-                            <jsfVersion>1.2</jsfVersion>
-                        </configuration>
-                        <goals>
-                            <goal>make-validator-tags</goal>
-                        </goals>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
@@ -154,102 +145,37 @@
 
     <reporting>
         <plugins>
-
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>changelog-maven-plugin</artifactId>
-                <version>2.0-beta-1</version>
-                <reportSets>
-                    <reportSet>
-                        <id>dual-report</id>
-                        <configuration>
-                            <type>range</type>
-                            <range>30</range>
-                        </configuration>
-                        <reports>
-                            <report>changelog</report>
-                            <report>file-activity</report>
-                            <report>dev-activity</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.4</version>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.0-beta-3</version>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.1</version>
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jxr-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.4.3</version>
             </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>taglist-maven-plugin</artifactId>
-                <version>2.0-beta-1</version>
-                <configuration>
-                    <tags>TODO, FIXME, XXX, @deprecated</tags>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>surefire-report-maven-plugin</artifactId>
-            </plugin>
-
         </plugins>
     </reporting>
 
     <profiles>
         <profile>
             <id>generate-site</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>xslt-maven-plugin</artifactId>
-                        <version>1.0</version>
-                        <executions>
-                            <execution>
-                                <id>generate-tld-for-tlddoc</id>
-                                <goals>
-                                    <goal>transform</goal>
-                                </goals>
-                                <configuration>
-                                    <xslFile>src/main/tld/misc/resolve_entities-tlddoc.xsl</xslFile>
-                                    <srcIncludes>**/*.tld</srcIncludes>
-                                    <srcDir>src/main/tld</srcDir>
-                                    <destDir>target/tlddoc-site</destDir>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>generate-tld-for-jar</id>
-                                <goals>
-                                    <goal>transform</goal>
-                                </goals>
-                                <configuration>
-                                    <xslFile>src/main/tld/misc/resolve_entities.xsl</xslFile>
-                                    <srcIncludes>**/*.tld</srcIncludes>
-                                    <srcDir>src/main/tld</srcDir>
-                                    <destDir>target/classes/META-INF</destDir>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-
-            </build>
             <reporting>
                 <plugins>
                     <plugin>
                         <groupId>net.sourceforge.maven-taglib</groupId>
                         <artifactId>maven-taglib-plugin</artifactId>
+                        <version>2.3.1</version>
                         <configuration>
-                            <taglib.src.dir>${basedir}/target/tlddoc-site</taglib.src.dir>
-                            <tldDocDir>${basedir}/target/site/tlddoc</tldDocDir>
+                            <taglib.src.dir>\${basedir}/target/classes/META-INF</taglib.src.dir>
+                            <tldDocDir>\${basedir}/target/site/tlddoc</tldDocDir>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -266,39 +192,9 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>xslt-maven-plugin</artifactId>
-                        <version>1.0</version>
-                        <executions>
-                            <execution>
-                                <id>generate-tld-for-tlddoc</id>
-                                <goals>
-                                    <goal>transform</goal>
-                                </goals>
-                                <configuration>
-                                    <xslFile>src/main/tld/misc/resolve_entities-tlddoc.xsl</xslFile>
-                                    <srcIncludes>**/*.tld</srcIncludes>
-                                    <srcDir>src/main/tld</srcDir>
-                                    <destDir>target/tlddoc-site</destDir>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>generate-tld-for-jar</id>
-                                <goals>
-                                    <goal>transform</goal>
-                                </goals>
-                                <configuration>
-                                    <xslFile>src/main/tld/misc/resolve_entities.xsl</xslFile>
-                                    <srcIncludes>**/*.tld</srcIncludes>
-                                    <srcDir>src/main/tld</srcDir>
-                                    <destDir>target/classes/META-INF</destDir>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.4</version>
                         <executions>
                             <execution>
                                 <id>attach-javadoc</id>
@@ -309,9 +205,10 @@
                     <plugin>
                         <groupId>net.sourceforge.maven-taglib</groupId>
                         <artifactId>maven-taglib-plugin</artifactId>
+                        <version>2.3.1</version>
                         <configuration>
-                            <taglib.src.dir>${basedir}/target/tlddoc-site</taglib.src.dir>
-                            <tldDocDir>${basedir}/target/tlddoc</tldDocDir>
+                            <taglib.src.dir>\${basedir}/target/classes/META-INF</taglib.src.dir>
+                            <tldDocDir>\${basedir}/target/site/tlddoc</tldDocDir>
                         </configuration>
                         <executions>
                             <execution>
@@ -324,5 +221,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>

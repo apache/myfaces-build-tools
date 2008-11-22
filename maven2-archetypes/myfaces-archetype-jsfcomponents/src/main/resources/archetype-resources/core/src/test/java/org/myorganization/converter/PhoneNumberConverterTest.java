@@ -24,7 +24,7 @@ public class PhoneNumberConverterTest extends AbstractJsfTestCase
         super(name);
     }
 
-    public void setUp()
+    public void setUp() throws Exception
     {
         super.setUp();
 
@@ -33,14 +33,14 @@ public class PhoneNumberConverterTest extends AbstractJsfTestCase
         facesContext.setResponseWriter(writer);
     }
 
-    public void tearDown()
+    public void tearDown() throws Exception
     {
         super.tearDown();
         phoneNumConverter = null;
         writer = null;
     }
 
-    public void testNumOnly()
+    public void testNumOnly() throws Exception
     {
         Object obj = phoneNumConverter.getAsObject(facesContext, new HtmlInputText(), "6373824");
         assertNotNull(obj);
@@ -48,7 +48,7 @@ public class PhoneNumberConverterTest extends AbstractJsfTestCase
         assertEquals(phoneNum.getNumber(), "6373824");
     }
     
-    public void testAreaCodeNum()
+    public void testAreaCodeNum() throws Exception
     {
         Object obj = phoneNumConverter.getAsObject(facesContext, new HtmlInputText(), "09-6373824");
         assertNotNull(obj);

@@ -26,7 +26,7 @@ public class OddNumberValidatorTest extends AbstractJsfTestCase
         super(name);
     }
 
-    public void setUp()
+    public void setUp() throws Exception
     {
         super.setUp();
 
@@ -35,14 +35,14 @@ public class OddNumberValidatorTest extends AbstractJsfTestCase
         facesContext.setResponseWriter(writer);
     }
 
-    public void tearDown()
+    public void tearDown() throws Exception
     {
         super.tearDown();
         oddNumValidator = null;
         writer = null;
     }
 
-    public void testOddNumInput()
+    public void testOddNumInput() throws Exception
     {
         boolean noExceptionsThrown = true;
         try 
@@ -56,7 +56,7 @@ public class OddNumberValidatorTest extends AbstractJsfTestCase
         assertTrue(noExceptionsThrown);
     }
     
-    public void testEvenNumInput()
+    public void testEvenNumInput() throws Exception
     {
         boolean noExceptionsThrown = true;
         try 

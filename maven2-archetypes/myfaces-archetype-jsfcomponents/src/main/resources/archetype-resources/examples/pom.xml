@@ -25,11 +25,11 @@
            <dependency>
                <groupId>commons-logging</groupId>
                <artifactId>commons-logging</artifactId>
-               <version>1.0.4</version>
+               <version>1.1.1</version>
                <scope>compile</scope>
            </dependency>
             <dependency>
-                <groupId>jstl</groupId>
+                <groupId>javax.servlet</groupId>
                 <artifactId>jstl</artifactId>
                 <version>1.2</version>
                 <scope>runtime</scope>
@@ -59,16 +59,23 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
-                    <version>1.2.4</version>
+                    <version>1.2.5</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <version>1.2.4</version>
+                    <version>1.2.5</version>
                     <!-- Sandbox examples must only have runtime dependency to myfaces-impl
                  so that it will be automatically added to war. But there must not be
                  any compile dependency on impl so that is is always possible to use
                  other JSF implementations. -->
+                    <exclusions>
+                        <exclusion>
+                            <!-- Temporal fix to avoid transitive dependency to shared -->
+                            <groupId>org.apache.myfaces.shared</groupId>
+                            <artifactId>myfaces-shared-impl</artifactId>
+                        </exclusion>
+                    </exclusions>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -91,22 +98,14 @@
                 <dependency>
                     <groupId>javax.faces</groupId>
                     <artifactId>jsf-api</artifactId>
-                    <version>1.1_02</version>
+                    <version>1.2_03</version>
                 </dependency>
                 <dependency>
                     <groupId>javax.faces</groupId>
                     <artifactId>jsf-impl</artifactId>
-                    <version>1.1_02</version>
+                    <version>1.2_03</version>
                     <scope>runtime</scope>
                 </dependency>
-                <!-- 
-               <dependency>
-                    <groupId>jstl</groupId>
-                    <artifactId>jstl</artifactId>
-                    <version>1.1.0</version>
-                    <scope>compile</scope>
-                </dependency>
-                 -->
             </dependencies>
 
             <repositories>
@@ -122,7 +121,6 @@
                 <jsf_implementation>JSF-RI</jsf_implementation>
             </properties>
         </profile>
-
     </profiles>
 
     <build>
@@ -144,7 +142,5 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
-
     </build>
-
 </project>
