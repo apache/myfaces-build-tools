@@ -136,26 +136,23 @@ public class ConverterMeta extends ViewEntityMeta implements PropertyHolder
                 PropertyMeta parentProp = other.getProperty(srcProp.getName());
                 if (parentProp != null)
                 {
-                    if (!srcProp.isTagExcluded().booleanValue())
+                    //There are three possible behaviors:
+                    //1. The property is defined on the child again and
+                    //   the property was already on the tag hierarchy, so
+                    //   inheritedTag must be set to TRUE.
+                    //2. The property is defined on the child again and
+                    //   it is necessary to write again on the generated
+                    //   tag, so the annotation looks like
+                    //   "@JSFProperty inheritedTag=false"
+                    //   This condition must remain as FALSE
+                    //3. The property is set by the user as true, but there
+                    //   was not defined previously on the hierarchy, so
+                    //   this condition must be as is (TRUE) 
+                    //   (skipped on parentProp != null).
+                    if (srcProp.isLocalInheritedTag() == null ||
+                            srcProp.isInheritedTag().booleanValue())
                     {
-                        //There are three possible behaviors:
-                        //1. The property is defined on the child again and
-                        //   the property was already on the tag hierarchy, so
-                        //   inheritedTag must be set to TRUE.
-                        //2. The property is defined on the child again and
-                        //   it is necessary to write again on the generated
-                        //   tag, so the annotation looks like
-                        //   "@JSFProperty inheritedTag=false"
-                        //   This condition must remain as FALSE
-                        //3. The property is set by the user as true, but there
-                        //   was not defined previously on the hierarchy, so
-                        //   this condition must be as is (TRUE) 
-                        //   (skipped on parentProp != null).
-                        if (srcProp.isLocalInheritedTag() == null ||
-                                srcProp.isInheritedTag().booleanValue())
-                        {
-                            srcProp.setInheritedTag(Boolean.TRUE);
-                        }
+                        srcProp.setInheritedTag(Boolean.TRUE);
                     }
                 }
             }
