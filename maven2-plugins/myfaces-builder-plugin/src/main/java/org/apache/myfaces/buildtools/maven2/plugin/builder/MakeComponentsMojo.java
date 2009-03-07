@@ -52,7 +52,6 @@ import com.thoughtworks.qdox.model.DocletTag;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
-import com.thoughtworks.qdox.model.Type;
 
 /**
  * Maven goal to generate java source code for Component classes.
@@ -459,34 +458,25 @@ public class MakeComponentsMojo extends AbstractMojo
                 //Get declaration signature in a way that we don't need
                 //to declare imports.
                 String declaration = method.getDeclarationSignature(true);
-                
-                //Fix for qdox 1.6.3: remove code 
-                int index = declaration.indexOf(')');
-                if (index != -1)
-                {
-                    declaration = declaration.substring(0,index+1);
-                }
-                
-                //Append exception in full form
-                Type [] exceptions = method.getExceptions();
-                if (exceptions != null && exceptions.length != 0)
-                {
-                    declaration = declaration + " throws ";                    
-                    for (int j = 0; j < exceptions.length; j++)
-                    {
-                        declaration = declaration + exceptions[j].getJavaClass().getFullyQualifiedName();
-                    }
-                }
-                
+                                
                 writer.append("    ");
                 writer.append(declaration);
-                writer.append('\n');
-                writer.append("    ");
-                writer.append('{');
-                writer.append(method.getSourceCode());
-                writer.append('}');
-                writer.append('\n');
-                writer.append('\n');
+                String sourceCode = method.getSourceCode();
+                if(sourceCode != null && sourceCode.length() > 0)
+                {
+                    writer.append('\n');
+                    writer.append("    ");
+                    writer.append('{');
+                    writer.append(method.getSourceCode());
+                    writer.append('}');
+                    writer.append('\n');
+                    writer.append('\n');
+                }
+                else
+                {
+                    writer.append(';');
+                    writer.append('\n');
+                }
             }
             
         }

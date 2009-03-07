@@ -25,13 +25,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -66,7 +64,6 @@ import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
 import com.thoughtworks.qdox.model.Type;
-import com.thoughtworks.qdox.parser.structs.AnnoDef;
 
 /**
  * An implementation of the ModelBuilder interface that uses the Qdox java
@@ -484,13 +481,13 @@ public class QdoxModelBuilder implements ModelBuilder
         if (tag != null)
         {
             Map props = tag.getNamedParameterMap();
-            processConverter(props, tag.getContext(), clazz, model);
+            processConverter(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
         anno = getAnnotation(clazz, DOC_CONVERTER);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
-            processConverter(props, anno.getContext(), clazz, model);
+            processConverter(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
 
         // validators
@@ -498,13 +495,13 @@ public class QdoxModelBuilder implements ModelBuilder
         if (tag != null)
         {
             Map props = tag.getNamedParameterMap();
-            processValidator(props, tag.getContext(), clazz, model);
+            processValidator(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
         anno = getAnnotation(clazz, DOC_VALIDATOR);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
-            processValidator(props, anno.getContext(), clazz, model);
+            processValidator(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
 
         // components
@@ -512,13 +509,13 @@ public class QdoxModelBuilder implements ModelBuilder
         if (tag != null)
         {
             Map props = tag.getNamedParameterMap();
-            processComponent(props, tag.getContext(), clazz, model);
+            processComponent(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
         anno = getAnnotation(clazz, DOC_COMPONENT);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
-            processComponent(props, anno.getContext(), clazz, model);
+            processComponent(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
         
         //tag
@@ -526,13 +523,13 @@ public class QdoxModelBuilder implements ModelBuilder
         if (tag != null)
         {
             Map props = tag.getNamedParameterMap();
-            processTag(props, tag.getContext(), clazz, model);
+            processTag(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
         anno = getAnnotation(clazz, DOC_TAG);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
-            processTag(props, anno.getContext(), clazz, model);
+            processTag(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
         
         // renderKit
@@ -540,13 +537,13 @@ public class QdoxModelBuilder implements ModelBuilder
         if (tag != null)
         {
             Map props = tag.getNamedParameterMap();
-            processRenderKit(props, tag.getContext(), clazz, model);
+            processRenderKit(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
         anno = getAnnotation(clazz, DOC_RENDERKIT);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
-            processRenderKit(props, anno.getContext(), clazz, model);
+            processRenderKit(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
                 
         // renderer
@@ -558,7 +555,7 @@ public class QdoxModelBuilder implements ModelBuilder
             if (tag != null)
             {
                 Map props = tag.getNamedParameterMap();
-                processRenderer(props, tag.getContext(), clazz, model);
+                processRenderer(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
             }
         }
         
@@ -566,7 +563,7 @@ public class QdoxModelBuilder implements ModelBuilder
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
-            processRenderer(props, anno.getContext(), clazz, model);
+            processRenderer(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
         
         anno = getAnnotation(clazz, DOC_RENDERERS);
@@ -574,21 +571,21 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             Object jspProps = anno.getNamedParameter("renderers");
             
-            if (jspProps instanceof AnnoDef)
+            if (jspProps instanceof Annotation)
             {
-                AnnoDef jspPropertiesAnno = (AnnoDef) jspProps;                
-                Map props = new NonParentesisMap(jspPropertiesAnno.args);
-                processRenderer(props, anno.getContext(), clazz, model);
+                Annotation jspPropertiesAnno = (Annotation) jspProps;
+                Map props = jspPropertiesAnno.getNamedParameterMap();
+                processRenderer(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
             }
             else
             {
                 List jspPropsList = (List) jspProps;
                 for (int i = 0; i < jspPropsList.size();i++)
                 {
-                    AnnoDef ranno = (AnnoDef) jspPropsList.get(i);
+                    Annotation ranno = (Annotation) jspPropsList.get(i);
                     
-                    Map props = new NonParentesisMap(ranno.args);
-                    processRenderer(props, anno.getContext(), clazz, model);
+                    Map props = ranno.getNamedParameterMap();
+                    processRenderer(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
                 }
             }
         }
@@ -628,6 +625,27 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
         return null;
+    }
+    
+    
+    private String getFullyQualifiedClassName(JavaClass clazz, String fqn)
+    {
+        //QDox 1.9 bug. getFullyQualifiedName does not resolve 
+        //correctly classes like javax.servlet.jsp.tagext.TagSupport as parent
+        //of a class with @JSFJspTag. The temporal solution is scan
+        //the imports, looking for this type and if it is found replace it.
+        if (fqn.indexOf('.') == -1)
+        {
+            String [] imports = clazz.getSource().getImports();
+            for (int i = 0; i < imports.length; i++)
+            {
+                if (imports[i].endsWith(fqn))
+                {
+                    fqn = imports[i];
+                }
+            }
+        }
+        return fqn;
     }
 
     /**
@@ -732,8 +750,10 @@ public class QdoxModelBuilder implements ModelBuilder
         if (realParentClass != null)
         {
             String fqn = realParentClass.getFullyQualifiedName();
+            
             if ((fqn != null) && !fqn.startsWith("java.lang"))
             {
+                fqn = getFullyQualifiedClassName(clazz,fqn);
                 modelItem.setSourceClassParentClassName(fqn);
             }
         }
@@ -793,8 +813,12 @@ public class QdoxModelBuilder implements ModelBuilder
         JavaClass parentClazz = clazz.getSuperJavaClass();
         while (parentClazz != null)
         {
+            String parentClazzName = parentClazz.getFullyQualifiedName();
+            
+            parentClazzName = getFullyQualifiedClassName(clazz,parentClazzName);
+            
             ComponentMeta parentComponent = model
-                    .findComponentByClassName(parentClazz.getFullyQualifiedName());
+                    .findComponentByClassName(parentClazzName);
             if (parentComponent != null)
             {
                 modelItem.setParentClassName(parentComponent.getClassName());
@@ -813,8 +837,12 @@ public class QdoxModelBuilder implements ModelBuilder
         JavaClass parentClazz = clazz.getSuperJavaClass();
         while (parentClazz != null)
         {
+            String parentClazzName = parentClazz.getFullyQualifiedName();
+            
+            parentClazzName = getFullyQualifiedClassName(clazz,parentClazzName);
+
             ValidatorMeta parentComponent = model
-                    .findValidatorByClassName(parentClazz.getFullyQualifiedName());
+                    .findValidatorByClassName(parentClazzName);
             if (parentComponent != null)
             {
                 modelItem.setParentClassName(parentComponent.getClassName());
@@ -833,8 +861,12 @@ public class QdoxModelBuilder implements ModelBuilder
         JavaClass parentClazz = clazz.getSuperJavaClass();
         while (parentClazz != null)
         {
+            String parentClazzName = parentClazz.getFullyQualifiedName();
+            
+            parentClazzName = getFullyQualifiedClassName(clazz,parentClazzName);
+            
             ConverterMeta parentComponent = model
-                    .findConverterByClassName(parentClazz.getFullyQualifiedName());
+                    .findConverterByClassName(parentClazzName);
             if (parentComponent != null)
             {
                 modelItem.setParentClassName(parentComponent.getClassName());
@@ -1151,7 +1183,7 @@ public class QdoxModelBuilder implements ModelBuilder
             if (tag != null)
             {
                 Map props = tag.getNamedParameterMap();
-                processTagAttribute(props, tag.getContext(), clazz,
+                processTagAttribute(props, (AbstractJavaEntity)tag.getContext(), clazz,
                         method, ctag);
             }
 
@@ -1159,7 +1191,7 @@ public class QdoxModelBuilder implements ModelBuilder
             if (anno != null)
             {
                 Map props = anno.getNamedParameterMap();
-                processTagAttribute(props, anno.getContext(), clazz,
+                processTagAttribute(props, (AbstractJavaEntity)anno.getContext(), clazz,
                         method, ctag);
             }
         }
@@ -1172,7 +1204,7 @@ public class QdoxModelBuilder implements ModelBuilder
             DocletTag tag = jspProperties[i];
             
             Map props = tag.getNamedParameterMap();
-            processTagAttribute(props, tag.getContext(), clazz,
+            processTagAttribute(props, (AbstractJavaEntity)tag.getContext(), clazz,
                     ctag);
             
         }                
@@ -1202,8 +1234,12 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             returnType = method.getReturns();
         }
+
+        String fullyQualifiedReturnType = returnType.getJavaClass().getFullyQualifiedName();
         
-        String className = getString(clazz,"className",props, returnType.toString());
+        fullyQualifiedReturnType = getFullyQualifiedClassName(clazz,fullyQualifiedReturnType);
+        
+        String className = getString(clazz,"className",props, fullyQualifiedReturnType);
         
         AttributeMeta a = new AttributeMeta();
         a.setName(methodToPropName(method.getName()));
@@ -1262,7 +1298,7 @@ public class QdoxModelBuilder implements ModelBuilder
             if (tag != null)
             {
                 Map props = tag.getNamedParameterMap();
-                processComponentProperty(props, tag.getContext(), clazz,
+                processComponentProperty(props, (AbstractJavaEntity)tag.getContext(), clazz,
                         method, component);
             }
 
@@ -1270,7 +1306,7 @@ public class QdoxModelBuilder implements ModelBuilder
             if (anno != null)
             {
                 Map props = anno.getNamedParameterMap();
-                processComponentProperty(props, anno.getContext(), clazz,
+                processComponentProperty(props, (AbstractJavaEntity)anno.getContext(), clazz,
                         method, component);
             }
         }
@@ -1296,7 +1332,7 @@ public class QdoxModelBuilder implements ModelBuilder
                     if (tag != null)
                     {
                         Map props = tag.getNamedParameterMap();
-                        processInterfaceComponentProperty(props, tag.getContext(), 
+                        processInterfaceComponentProperty(props, (AbstractJavaEntity)tag.getContext(), 
                                 clazz, intfmethod, component);
                     }
 
@@ -1304,7 +1340,7 @@ public class QdoxModelBuilder implements ModelBuilder
                     if (anno != null)
                     {
                         Map props = anno.getNamedParameterMap();
-                        processInterfaceComponentProperty(props, anno.getContext(),
+                        processInterfaceComponentProperty(props, (AbstractJavaEntity)anno.getContext(),
                                 clazz, intfmethod, component);
                     }
                 }
@@ -1321,7 +1357,7 @@ public class QdoxModelBuilder implements ModelBuilder
             DocletTag tag = jspProperties[i];
             
             Map props = tag.getNamedParameterMap();
-            processComponentJspProperty(props, tag.getContext(), clazz,
+            processComponentJspProperty(props, (AbstractJavaEntity)tag.getContext(), clazz,
                     component);
         }
         
@@ -1329,7 +1365,7 @@ public class QdoxModelBuilder implements ModelBuilder
         if (jspPropertyAnno != null)
         {
             Map props = jspPropertyAnno.getNamedParameterMap();
-            processComponentJspProperty(props, jspPropertyAnno.getContext(),
+            processComponentJspProperty(props, (AbstractJavaEntity)jspPropertyAnno.getContext(),
                     clazz, component);
         }
         
@@ -1339,11 +1375,11 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             Object jspProps = jspAnno.getNamedParameter("properties");
             
-            if (jspProps instanceof AnnoDef)
+            if (jspProps instanceof Annotation)
             {
-                AnnoDef jspPropertiesAnno = (AnnoDef) jspProps;                
-                Map props = new NonParentesisMap(jspPropertiesAnno.args);
-                processComponentJspProperty(props, jspAnno.getContext(), clazz,
+                Annotation jspPropertiesAnno = (Annotation) jspProps;
+                Map props = jspPropertiesAnno.getNamedParameterMap();
+                processComponentJspProperty(props, (AbstractJavaEntity)jspAnno.getContext(), clazz,
                         component);               
             }
             else
@@ -1351,104 +1387,17 @@ public class QdoxModelBuilder implements ModelBuilder
                 List jspPropsList = (List) jspProps;
                 for (int i = 0; i < jspPropsList.size();i++)
                 {
-                    AnnoDef anno = (AnnoDef) jspPropsList.get(i);
-                    
-                    Map props = new NonParentesisMap(anno.args);
-                    processComponentJspProperty(props, jspAnno.getContext(), clazz,
+                    Annotation anno = (Annotation) jspPropsList.get(i);
+
+                    Map props = anno.getNamedParameterMap();
+                    processComponentJspProperty(props, (AbstractJavaEntity)jspAnno.getContext(), clazz,
                             component);                    
                 }
             }
             
         }
     }
-    
-    /**
-     * This class uses delegate pattern to remove square parentesis 
-     * that appear when you get the arguments from an AnnoDef. I think
-     * is a design problem in the annotation feature of qdox (1.6.3).
-     * 
-     * TODO: change this on a future version of qdox!  
-     *
-     */
-    public class NonParentesisMap implements Map
-    {
-
-        Map _delegate = null;
-        public NonParentesisMap(Map delegate)
-        {
-            _delegate = delegate;
-        }
-        public void clear()
-        {
-            _delegate.clear();
-        }
-
-        public boolean containsKey(Object key)
-        {
-            return _delegate.containsKey(key);
-        }
-
-        public boolean containsValue(Object value)
-        {
-            return _delegate.containsValue(value);
-        }
-
-        public Set entrySet()
-        {
-            return _delegate.entrySet();
-        }
-
-        public Object get(Object key)
-        {
-            Object value = _delegate.get(key);
-            if (value == null)
-            {
-                return null;
-            }
-            if (value instanceof List)
-            {
-                return ((List) value).get(0);
-            }            
-            return value; 
-        }
-
-        public boolean isEmpty()
-        {
-            return _delegate.isEmpty();
-        }
-
-        public Set keySet()
-        {
-            return _delegate.keySet();
-        }
-
-        public Object put(Object arg0, Object arg1)
-        {
-            return _delegate.put(arg0, arg1);
-        }
-
-        public void putAll(Map arg0)
-        {
-            _delegate.putAll(arg0);
-        }
-
-        public Object remove(Object key)
-        {
-            return _delegate.remove(key);
-        }
-
-        public int size()
-        {
-            return _delegate.size();
-        }
-
-        public Collection values()
-        {
-            return _delegate.values();
-        }
         
-    }
-    
     private void processComponentFacets(JavaClass clazz,
             FacetHolder component)
     {
@@ -1461,7 +1410,7 @@ public class QdoxModelBuilder implements ModelBuilder
             if (tag != null)
             {
                 Map props = tag.getNamedParameterMap();
-                processComponentFacet(props, tag.getContext(), clazz,
+                processComponentFacet(props, (AbstractJavaEntity)tag.getContext(), clazz,
                         method, component);
             }
 
@@ -1469,7 +1418,7 @@ public class QdoxModelBuilder implements ModelBuilder
             if (anno != null)
             {
                 Map props = anno.getNamedParameterMap();
-                processComponentFacet(props, anno.getContext(), clazz,
+                processComponentFacet(props, (AbstractJavaEntity)anno.getContext(), clazz,
                         method, component);
             }
         }
@@ -1495,7 +1444,7 @@ public class QdoxModelBuilder implements ModelBuilder
                     if (tag != null)
                     {
                         Map props = tag.getNamedParameterMap();
-                        processInterfaceComponentFacet(props, tag.getContext(), 
+                        processInterfaceComponentFacet(props, (AbstractJavaEntity)tag.getContext(), 
                                 clazz, intfmethod, component);
                     }
 
@@ -1503,7 +1452,7 @@ public class QdoxModelBuilder implements ModelBuilder
                     if (anno != null)
                     {
                         Map props = anno.getNamedParameterMap();
-                        processInterfaceComponentFacet(props, anno.getContext(),
+                        processInterfaceComponentFacet(props, (AbstractJavaEntity)anno.getContext(),
                                 clazz, intfmethod, component);
                     }
                 }
@@ -1586,10 +1535,13 @@ public class QdoxModelBuilder implements ModelBuilder
             returnType = method.getReturns();
         }
         
+        String fullyQualifiedReturnType = returnType.getJavaClass().getFullyQualifiedName();
+        
+        fullyQualifiedReturnType = getFullyQualifiedClassName(clazz, fullyQualifiedReturnType);
         
         PropertyMeta p = new PropertyMeta();
         p.setName(methodToPropName(method.getName()));
-        p.setClassName(returnType.toString());
+        p.setClassName(fullyQualifiedReturnType);
         p.setRequired(required);
         p.setTransient(transientProp);
         p.setStateHolder(stateHolder);
