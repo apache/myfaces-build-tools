@@ -38,7 +38,9 @@ public class AttributeMeta
     private String _description;
     private String _longDescription;
     private Boolean _rtexprvalue;
-    
+    private String _deferredValueType;
+    private String _deferredMethodSignature;
+    private Boolean _exclude;
 
     public AttributeMeta()
     {
@@ -57,6 +59,9 @@ public class AttributeMeta
         out.writeElement("rtexprvalue", am._rtexprvalue);
         out.writeElement("desc", am._description);
         out.writeElement("longDesc", am._longDescription);
+        out.writeElement("deferredValueType", am._deferredValueType);
+        out.writeElement("deferredMethodSignature", am._deferredMethodSignature);
+        out.writeElement("exclude", am._exclude);
         out.endElement("attribute");
     }
 
@@ -77,7 +82,9 @@ public class AttributeMeta
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
-                
+        digester.addBeanPropertySetter(newPrefix + "/deferredValueType");
+        digester.addBeanPropertySetter(newPrefix + "/deferredMethodSignature");
+        digester.addBeanPropertySetter(newPrefix + "/exclude");        
     }
 
     /**
@@ -92,9 +99,29 @@ public class AttributeMeta
         _required = ModelUtils.merge(this._required, other._required);
         _rtexprvalue = ModelUtils.merge(this._rtexprvalue, other._rtexprvalue);
         _description = ModelUtils.merge(this._description, other._description);
-        _longDescription = ModelUtils.merge(this._longDescription, other._longDescription);        
+        _longDescription = ModelUtils.merge(this._longDescription, other._longDescription);
+        _deferredValueType = ModelUtils.merge(this._deferredValueType, other._deferredValueType);
+        _deferredMethodSignature = ModelUtils.merge(this._deferredMethodSignature, other._deferredMethodSignature);
+        _exclude = ModelUtils.merge(this._exclude, other._exclude);        
     }
     
+    /**
+     * Copy all attributes in other to this instance.
+     * 
+     * @since 1.0.3
+     * @param other
+     */
+    public void copy(AttributeMeta other)
+    {
+        _name = other._name;
+        _required = other._required;
+        _rtexprvalue = other._rtexprvalue;
+        _description = other._description;
+        _longDescription = other._longDescription;
+        _deferredValueType = other._deferredValueType;
+        _deferredMethodSignature = other._deferredMethodSignature;
+        _exclude = other._exclude;
+    }
     
     /**
      * Set the name that users refer to this property by.
@@ -170,5 +197,60 @@ public class AttributeMeta
     {
         return _longDescription;
     }
-        
+
+    /**
+     * @since 1.0.3
+     */
+    public void setDeferredValueType(String deferredValueType)
+    {
+        _deferredValueType = deferredValueType;
+    }
+    
+    /**
+     * Indicate the type that values should be
+     * cast on tld. It is supposed that the className is
+     * javax.el.ValueExpression to apply it. 
+     *
+     * @since 1.0.3
+     */
+    public String getDeferredValueType()
+    {
+        return _deferredValueType;
+    }
+
+    /**
+     * @since 1.0.3
+     */
+    public void setDeferredMethodSignature(String deferredMethodSignature)
+    {
+        _deferredMethodSignature = deferredMethodSignature;
+    }
+
+    /**
+     * Indicate the method signature that values should be
+     * cast on tld. It is supposed that the className is
+     * javax.el.MethodExpression to apply it. 
+     *
+     * @since 1.0.3
+     */
+    public String getDeferredMethodSignature()
+    {
+        return _deferredMethodSignature;
+    }
+    
+    /**
+     * @since 1.0.3
+     */
+    public Boolean isExclude()
+    {
+        return ModelUtils.defaultOf(_exclude, false);
+    }
+    
+    /**
+     * @since 1.0.3
+     */
+    public void setExclude(Boolean exclude)
+    {
+        _exclude = exclude;
+    }
 }

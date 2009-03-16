@@ -60,7 +60,9 @@ public @interface JSFJspAttribute
     boolean required() default false;
     
     /**
-     * (true|false) This value is put on the tld when applies.
+     * (true|false) This value is put on the tld when applies 
+     * and className is not javax.el.ValueExpression or 
+     * javax.el.MethodExpression.
      */
     boolean rtexprvalue() default false;
     
@@ -69,4 +71,28 @@ public @interface JSFJspAttribute
      */
     String desc() default "";
 
+    /**
+     * Indicate the type that values should be
+     * cast on tld. It is supposed that the className is
+     * javax.el.ValueExpression to apply it. 
+     *
+     * @since 1.0.3
+     */
+    String deferredValueType() default "";
+
+    /**
+     * Indicate the method signature that values should be
+     * cast on tld. It is supposed that the className is
+     * javax.el.MethodExpression to apply it. 
+     *
+     * @since 1.0.3
+     */
+    String deferredMethodSignature() default "";
+    
+    /**
+     * Mark this property to not be included on the tld.
+     * 
+     * @since 1.0.3
+     */
+    boolean exclude() default false;
 }

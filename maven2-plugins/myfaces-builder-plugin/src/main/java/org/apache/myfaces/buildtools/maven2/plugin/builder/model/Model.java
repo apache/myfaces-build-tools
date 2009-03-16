@@ -46,6 +46,7 @@ public class Model
     private Map _validatorsByClass = new TreeMap();
     private Map _renderKitsById = new TreeMap();
     private Map _tagsByClass =  new TreeMap();
+    private Map _componentsByTagClass = new TreeMap();
     
     private String _modelId;
 
@@ -175,6 +176,10 @@ public class Model
     {
         _components.add(component);
         _componentsByClass.put(component.getClassName(), component);
+        if (null != component.getTagClass())
+        {
+            _componentsByTagClass.put(component.getTagClass(), component);
+        }
     }
 
     /**
@@ -198,6 +203,10 @@ public class Model
         return (ComponentMeta) _componentsByClass.get(className);
     }
 
+    public ComponentMeta findComponentByTagClassName(String className)
+    {
+        return (ComponentMeta) _componentsByTagClass.get(className);
+    }
     /**
      * Holds info about a JSF Converter definition
      */

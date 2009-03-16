@@ -1240,6 +1240,9 @@ public class QdoxModelBuilder implements ModelBuilder
         fullyQualifiedReturnType = getFullyQualifiedClassName(clazz,fullyQualifiedReturnType);
         
         String className = getString(clazz,"className",props, fullyQualifiedReturnType);
+        String deferredValueType = getString(clazz, "deferredValueType", props, null);
+        String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
+        Boolean exclude = getBoolean(clazz, "exclude", props, null);
         
         AttributeMeta a = new AttributeMeta();
         a.setName(methodToPropName(method.getName()));
@@ -1248,6 +1251,9 @@ public class QdoxModelBuilder implements ModelBuilder
         a.setRtexprvalue(rtexprvalue);
         a.setDescription(shortDescription);
         a.setLongDescription(longDescription);
+        a.setDeferredValueType(deferredValueType);
+        a.setDeferredMethodSignature(deferredMethodSignature);
+        a.setExclude(exclude);
         
         tag.addAttribute(a);
     }
@@ -1268,6 +1274,9 @@ public class QdoxModelBuilder implements ModelBuilder
                 
         String name = getString(clazz, "name", props, descDflt);
         String className = getString(clazz, "className", props, descDflt);
+        String deferredValueType = getString(clazz, "deferredValueType", props, null);
+        String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
+        Boolean exclude = getBoolean(clazz, "exclude", props, null);
                 
         AttributeMeta a = new AttributeMeta();
         a.setName(name);
@@ -1276,6 +1285,9 @@ public class QdoxModelBuilder implements ModelBuilder
         a.setRtexprvalue(rtexprvalue);
         a.setDescription(shortDescription);
         a.setLongDescription(longDescription);
+        a.setDeferredValueType(deferredValueType);
+        a.setDeferredMethodSignature(deferredMethodSignature);
+        a.setExclude(exclude);
         
         tag.addAttribute(a);
     }

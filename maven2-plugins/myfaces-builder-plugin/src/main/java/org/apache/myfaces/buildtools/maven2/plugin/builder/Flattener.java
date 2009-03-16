@@ -18,6 +18,7 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -25,11 +26,15 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 
 /**
  */
@@ -58,6 +63,7 @@ public class Flattener
         flattenComponentProperties();
         flattenValidatorProperties();
         flattenConverterProperties();
+        flattenTagAttributes();
     }
 
     private void flattenComponentProperties()
@@ -190,5 +196,95 @@ public class Flattener
         }
 
         flattened.add(converter);
+    }
+    
+    private void flattenTagAttributes()
+    {
+        List tags = model.getTags();
+        for (Iterator i = tags.iterator(); i.hasNext();)
+        {
+            TagMeta val = (TagMeta) i.next();
+            flattenTag(val);
+        }
+    }
+    
+    /**
+     * This method allows component tag classes to be
+     * used with tags, so it is possible to inherit attribute
+     * for component tags. But tags cannot inherit
+     * attributes from other tags. 
+     *  
+     */
+    private void flattenTag(TagMeta tag)
+    {
+        if (flattened.contains(tag))
+        {
+            // already done
+            return;
+        }
+        
+        if (tag.getSourceClassParentClassName() == null)
+        {
+            //No need to scan
+            return;
+        }
+        ComponentMeta component = model.findComponentByTagClassName(
+                tag.getSourceClassParentClassName());
+        
+        if (null != component)
+        {
+            Collection propertyList = component.getPropertyList();
+            for (Iterator it = propertyList.iterator(); it.hasNext();)
+            {
+                PropertyMeta property = (PropertyMeta) it.next();
+                
+                //Just add all non tag excluded properties. 
+                if (!property.isTagExcluded().booleanValue())
+                {
+                    AttributeMeta attribute = new AttributeMeta();
+                    if (property.isMethodExpression())
+                    {
+                        attribute.setClassName("javax.el.MethodExpression");
+                        MethodSignatureMeta sig = property.getMethodBindingSignature();
+                        attribute.setDeferredMethodSignature(
+                                sig.getReturnType()+" myMethod("+sig.getParameterTypesAsString()+")");
+                    }
+                    else if (null == property.isRtexprvalue() || !property.isRtexprvalue().booleanValue())
+                    {
+                        attribute.setDeferredValueType(property.getClassName());
+                        attribute.setClassName("javax.el.ValueExpression");
+                    }
+                    else
+                    {
+                        //rtexprvalue = true, set className as expected
+                        attribute.setClassName(property.getClassName());
+                    }
+                    attribute.setRtexprvalue(property.isRtexprvalue());
+                    
+                    attribute.setDescription(property.getDescription());
+                    attribute.setLongDescription(property.getLongDescription());
+                    attribute.setName(property.getJspName());
+                    attribute.setRequired(property.isRequired());
+
+                    //just add attribute to tag
+                    AttributeMeta attributeInTag = tag.getAttribute(attribute.getName());
+                    
+                    if (attributeInTag != null)
+                    {
+                        //attributeInTag takes precedence, so 
+                        //we have to merge and copy
+                        attribute.merge(attributeInTag);
+                        attributeInTag.copy(attribute);
+                    }
+                    else
+                    {
+                        //Add it to tag
+                        tag.addAttribute(attribute);
+                    }
+                }
+            }
+        }
+        
+        flattened.add(tag);
     }
 }
