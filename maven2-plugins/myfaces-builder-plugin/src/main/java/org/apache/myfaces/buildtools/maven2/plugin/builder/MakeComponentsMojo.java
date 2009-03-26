@@ -56,6 +56,18 @@ import com.thoughtworks.qdox.model.JavaMethod;
 /**
  * Maven goal to generate java source code for Component classes.
  * 
+ * <p>It uses velocity to generate templates, and has the option to define custom templates.</p>
+ * <p>The executed template has the following variables available to it:</p>
+ * <ul>
+ *  <li>utils : Returns an instance of 
+ *  org.apache.myfaces.buildtools.maven2.plugin.builder.utils.MyfacesUtils, 
+ *  it contains some useful methods.</li>
+ *  <li>component : Returns the current instance of
+ *   org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta</li>
+ *  <li>innersource : code to be injected from the template class when template
+ *  mode is used</li>  
+ * </ul>
+ * 
  * @version $Id$
  * @requiresDependencyResolution compile
  * @goal make-components
@@ -74,6 +86,8 @@ public class MakeComponentsMojo extends AbstractMojo
     private MavenProject project;
 
     /**
+     * Defines the directory where the metadata file (META-INF/myfaces-metadata.xml) is loaded.
+     * 
      * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
      * @readonly
      */
@@ -87,46 +101,85 @@ public class MakeComponentsMojo extends AbstractMojo
     private String metadataFile = "META-INF/myfaces-metadata.xml";
 
     /**
+     * The directory used to load templates into velocity environment.
+     * 
      * @parameter expression="src/main/resources/META-INF"
      */
     private File templateSourceDirectory;
 
     /**
+     * The directory where all generated files are created. This directory is added as a
+     * compile source root automatically like src/main/java is. 
+     * 
      * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/java"
      */
     private File generatedSourceDirectory;
 
     /**
+     * Generate only component classes that starts with the specified package prefix. 
+     * 
      * @parameter
      */
     private String packageContains;
 
     /**
+     * Generate only component classes that starts with the specified component type prefix. 
+     * 
      * @parameter
      */
     private String typePrefix;
 
     /**
+     *  Log and continue execution when generating component classes.
+     *  <p>
+     *  If this property is set to false (default), errors when a component class is generated stops
+     *  execution immediately.
+     *  </p>
+     * 
      * @parameter
      */
     private boolean force;
 
     /**
-     * @parameter
-     */
-    private boolean suppressListenerMethods;
-
-    /**
+     * Defines the jsf version (1.1 or 1.2), used to take the default templates for each version.
+     * <p> 
+     * If version is 1.1, the default templateComponentName is 'componentClass11.vm' and if version
+     * is 1.2 the default templateComponentName is 'componentClass12.vm'.
+     * </p>
+     * 
      * @parameter
      */
     private String jsfVersion;
     
     /**
+     * Define the models that should be included when generate component classes. If not set, the
+     * current model identified by the artifactId is used.
+     * <p>
+     * Each model built by build-metadata goal has a modelId, that by default is the artifactId of
+     * the project. Setting this property defines which objects tied in a specified modelId should
+     * be taken into account.  
+     * </p>
+     * <p>In this case, limit component generation only to the components defined in the models 
+     * identified by the modelId defined. </p>
+     * <p>This is useful when you need to generate files that take information defined on other
+     * projects</p>
+     * <p>Example:</p>
+     * <pre>
+     *    &lt;modelIds&gt;
+     *        &lt;modelId>model1&lt;/modelId&gt;
+     *        &lt;modelId>model2&lt;/modelId&gt;
+     *    &lt;/modelIds&gt;
+     * </pre>
+     * 
      * @parameter
      */
     private List modelIds;
 
     /**
+     * The name of the template used to generate component classes. According to the value on 
+     * jsfVersion property the default if this property is not set could be componentClass11.vm (1.1) or
+     * componentClass12.vm (1.2)
+     * 
      * @parameter 
      */
     private String templateComponentName;
@@ -275,7 +328,23 @@ public class MakeComponentsMojo extends AbstractMojo
                         }
                     }
                     log.info("Generating component class:"+component.getClassName());
-                    _generateComponent(velocityEngine, builder,component,baseContext);
+                    
+                    try 
+                    {
+                        _generateComponent(velocityEngine, builder,component,baseContext);
+                    }
+                    catch(MojoExecutionException e)
+                    {
+                        if (force)
+                        {
+                            log.severe(e.getMessage());
+                        }
+                        else
+                        {
+                            //Stop execution throwing exception
+                            throw e;
+                        }
+                    }
                 }
             }
         }        

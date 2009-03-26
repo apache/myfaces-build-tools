@@ -14,12 +14,12 @@
  ~~ limitations under the License.
 
  ------
- Myfaces Builder Plugin 
+ How to Use 
  ------
 
-How to Use
+Scan annotations/doclets and generate metadata
 
-  A quick summary of how to use the plugin...
+  Just add this code to your project pom.xml
   
 -------------------
 <project>
@@ -30,6 +30,14 @@ How to Use
             <plugin>
                 <groupId>org.apache.myfaces.buildtools</groupId>
                 <artifactId>myfaces-builder-plugin</artifactId>
+                <version>1.0.2<version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-metadata</goal>
+                        </goals>
+                    </execution>
+                </executions>
              </plugin>
          </plugins>
          ...
@@ -38,3 +46,55 @@ How to Use
 </project>
 -------------------
 
+    This goal scans all source classes for annotations or doclets and other metadata
+    files inside the project dependences and build the metadata file 
+    (META-INF/myfaces-metadata.xml), required by other goals to work.
+
+Archetype using myfaces-builder-plugin
+
+    The latest myfaces-archetype-jsfcomponents available {{{http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-archetypes/myfaces-archetype-jsfcomponents/}here}}
+    or with version 1.0.2 or upper uses myfaces-builder-plugin to generate component classes,
+    tag classes, config files, etc. Just checkout the code, compile it and look the instructions on 
+    {{{http://wiki.apache.org/myfaces/MyFaces_Archetypes_for_Maven}Myfaces Archetypes for Maven}}.
+
+Generate custom components
+
+    The code below shows how to configure the plugin to generate metadata
+    and then use it to generate component classes.
+
+-------------------
+<project>
+   ...
+      <build>
+         ...
+        <plugins>
+            <plugin>
+                <groupId>org.apache.myfaces.buildtools</groupId>
+                <artifactId>myfaces-builder-plugin</artifactId>
+                <version>1.0.2<version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-metadata</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>makecomp</id>
+                        <goals>
+                            <goal>make-components</goal>
+                        </goals>
+                        <configuration>
+                            <jsfVersion>12</jsfVersion>
+                            <templateComponentName>myComponentTemplateClass.vm</templateComponentName>
+                        </configuration>
+                    </execution>
+                </executions>
+             </plugin>
+         </plugins>
+         ...
+      </build>
+   ...
+</project>
+-------------------
+
+    Take a look at user guide section to see more detailed information.

@@ -46,7 +46,7 @@ import org.codehaus.plexus.util.StringUtils;
  * that metadata file embedded in the generated jarfile is useful for two
  * purposes:
  * <ul>
- * <li>It is needed if other projects then use the maven-builder-plugin to
+ * <li>It is needed if other projects then use the myfaces-builder-plugin to
  * create subclasses of the jsf classes in this project.</li>
  * <li>It is good documentation (more precise than the tld and faces-config.xml
  * files).</li>

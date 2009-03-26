@@ -94,9 +94,8 @@ public class MakeConfigMojo extends AbstractMojo
     private MavenProject project;
 
     /**
-     * The current maven project (auto-injected by Maven).
-     * 
-     * TODO: this default value looks wrong. What should really be here?
+     * Defines the directory where the metadata file (META-INF/myfaces-metadata.xml) is loaded,
+     * and the generated file named by xmlFile parameter is created. 
      * 
      * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
      * @readonly

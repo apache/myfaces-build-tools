@@ -40,47 +40,26 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 /**
  * Goal that retrieves a list of artifacts from the repository and unpacks them
  * in a defined location.
- * 
+ * <p>
  * This mojo reutilize org.apache.maven.plugin.dependency.fromConfiguration.UnpackMojo
  * from maven-dependency-plugin.
- * 
+ * </p>
+ * <p>
  * The idea of this plugin, instead just unpack a list of artifacts is add some new 
  * features necessary to make easier maintain 1.1 and 1.2 code on myfaces projects like
  * tomahawk.
- * 
+ * </p>
+ * <p>
  * This plugin works as unpack goal of maven-dependency-plugin with 2 additional 
  * enhancements:
- * 
- * 1. If some file exists on the base directories, it is added as excluded, so it is
- * not copied to the output directory. This makes easier to manage the code and maintain it.
- * 2. If a file is generated from the model (reading the myfaces-metadata.xml) it is not
- * copied, since this should be generated again.
- * 
- * 
-<execution>
-<id>unpack-tomahawk</id>
-<phase>process-resources</phase>
-<goals>
-  <goal>unpack</goal>
-</goals>
-<configuration>
-  <artifactItems>
-    <artifactItem>
-      <groupId>org.apache.myfaces.tomahawk</groupId>
-      <artifactId>tomahawk</artifactId>
-      <version>1.1.7-SNAPSHOT</version>
-      <!-- 
-      <groupId>org.apache.myfaces.core</groupId>                   
-      <artifactId>myfaces-api</artifactId>
-      <version>1.1.6-SNAPSHOT</version>
-       -->
-      <classifier>sources</classifier>                   
-      <outputDirectory>${basedir}/target/unpackmyfaces</outputDirectory>
-    </artifactItem>
-  </artifactItems>
-</configuration>
-</execution>
- 
+ * </p>
+ * <ol>
+ *  <li>If some file exists on the base directories, it is added as excluded, so it is
+ * not copied to the output directory. This makes easier to manage the code and maintain it.</li>
+ *  <li>If a file is generated from the model (reading the myfaces-metadata.xml) it is not
+ * copied, since this should be generated again.</li>
+ * </ol>
+ *  
  * @since 1.0
  * @goal unpack
  * @phase process-sources

@@ -25,7 +25,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * The name of the component in a page (ex: x:mycomp).
+ * Used to define a jsf tag that does not fall in a category like converter, validator
+ * or component. Examples are f:verbatim or f:actionListener
  * 
  * @author Leonardo Uribe (latest modification by $Author$)
  * @version $Revision$ $Date$

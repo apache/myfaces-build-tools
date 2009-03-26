@@ -39,7 +39,7 @@ import java.lang.annotation.Target;
  * has this annotation, will inherit the declared attributes.
  * <p>
  * This annotation should only be applied to classes that also have the JSFComponent
- * annotation.
+ * and JSFValidator annotation.
  * 
  * @author Leonardo Uribe (latest modification by $Author$)
  * @version $Revision$ $Date$

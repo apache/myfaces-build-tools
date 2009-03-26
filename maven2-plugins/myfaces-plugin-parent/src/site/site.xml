@@ -51,8 +51,10 @@
     <menu name="Documentation">
       <item name="About"         href="index.html"/>
     </menu>
+
+    <menu ref="reports"/>
 	
-    <menu name="Available Modules" inherit="top">
+    <menu name="Available Modules" inherit="bottom">
       <item name="Apache MyFaces Buildtools Maven2 Builder Annotations"      href="http://myfaces.apache.org/build-tools/plugins/myfaces-builder-annotations/index.html"/>
       <item name="Apache MyFaces Buildtools Maven2 Builder Plugin"           href="http://myfaces.apache.org/build-tools/plugins/myfaces-builder-plugin/index.html"/>
       <item name="Apache MyFaces Buildtools Maven2 Faces Plugin"             href="http://myfaces.apache.org/build-tools/plugins/myfaces-faces-plugin/index.html"/>
@@ -64,8 +66,6 @@
       <item name="Apache MyFaces Buildtools Maven2 Wagon Plugin"             href="http://myfaces.apache.org/build-tools/plugins/myfaces-wagon-plugin/index.html"/>
       <item name="Apache MyFaces Buildtools Maven2 XRTS Plugin"              href="http://myfaces.apache.org/build-tools/plugins/myfaces-xrts-plugin/index.html"/>
     </menu>
-
-    <menu ref="reports"/>
 
     <menu name="Foundation" inherit="bottom">
       <item name="ASF"            href="http://www.apache.org/" />

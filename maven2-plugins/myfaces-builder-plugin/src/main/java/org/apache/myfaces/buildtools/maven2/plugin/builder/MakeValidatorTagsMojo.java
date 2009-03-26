@@ -47,6 +47,16 @@ import org.codehaus.plexus.util.StringUtils;
 /**
  * Maven goal to generate java source code for Component tag classes.
  * 
+ * <p>It uses velocity to generate templates, and has the option to define custom templates.</p>
+ * <p>The executed template has the following variables available to it:</p>
+ * <ul>
+ *  <li>utils : Returns an instance of 
+ *  org.apache.myfaces.buildtools.maven2.plugin.builder.utils.MyfacesUtils, 
+ *  it contains some useful methods.</li>
+ *  <li>validator : Returns the current instance of
+ *   org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta</li>
+ * </ul>
+ * 
  * @version $Id$
  * @requiresDependencyResolution compile
  * @goal make-validator-tags
@@ -65,6 +75,8 @@ public class MakeValidatorTagsMojo extends AbstractMojo
     private MavenProject project;
 
     /**
+     * Defines the directory where the metadata file (META-INF/myfaces-metadata.xml) is loaded.
+     * 
      * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
      * @readonly
      */
@@ -78,6 +90,8 @@ public class MakeValidatorTagsMojo extends AbstractMojo
     private String metadataFile = "META-INF/myfaces-metadata.xml";
 
     /**
+     * The directory used to load templates into velocity environment.
+     * 
      * @parameter expression="src/main/resources/META-INF"
      */
     private File templateSourceDirectory;
@@ -99,11 +113,18 @@ public class MakeValidatorTagsMojo extends AbstractMojo
     private File mainSourceDirectory2;
 
     /**
+     * The name of the template used to generate validator tag classes. According to the value on 
+     * jsfVersion property the default if this property is not set could be tagValidatorClass11.vm (1.1) or
+     * tagValidatorClass12.vm (1.2)
+     * 
      * @parameter 
      */
     private String templateTagName;
 
     /**
+     * The directory where all generated files are created. This directory is added as a
+     * compile source root automatically like src/main/java is. 
+     *  
      * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/java"
      * @required
      */
@@ -124,21 +145,47 @@ public class MakeValidatorTagsMojo extends AbstractMojo
     private String typePrefix;
     
     /**
+     *  Log and continue execution when generating validator tag classes.
+     *  <p>
+     *  If this property is set to false (default), errors when a validator tag class is generated stops
+     *  execution immediately.
+     *  </p>
+     * 
      * @parameter
      */
     private boolean force;
 
     /**
-     * @parameter
-     */
-    private boolean suppressListenerMethods;
-
-    /**
+     * Defines the jsf version (1.1 or 1.2), used to take the default templates for each version.
+     * <p> 
+     * If version is 1.1, the default templateTagName is 'tagValidatorClass11.vm' and if version
+     * is 1.2 the default templateTagName is 'tagValidatorClass12.vm'.
+     * </p>
+     * 
      * @parameter
      */
     private String jsfVersion;
     
     /**
+     * Define the models that should be included when generate validator tag classes. If not set, the
+     * current model identified by the artifactId is used.
+     * <p>
+     * Each model built by build-metadata goal has a modelId, that by default is the artifactId of
+     * the project. Setting this property defines which objects tied in a specified modelId should
+     * be taken into account.  
+     * </p>
+     * <p>In this case, limit converter tag generation only to the components defined in the models 
+     * identified by the modelId defined. </p>
+     * <p>This is useful when you need to generate files that take information defined on other
+     * projects.</p>
+     * <p>Example:</p>
+     * <pre>
+     *    &lt;modelIds&gt;
+     *        &lt;modelId>model1&lt;/modelId&gt;
+     *        &lt;modelId>model2&lt;/modelId&gt;
+     *    &lt;/modelIds&gt;
+     * </pre>
+     * 
      * @parameter
      */
     private List modelIds;
@@ -251,7 +298,22 @@ public class MakeValidatorTagsMojo extends AbstractMojo
                         }
                     }
                     log.info("Generating tag class:"+validator.getTagClass());
-                    _generateValidator(velocityEngine, validator,baseContext);
+                    try
+                    {
+                        _generateValidator(velocityEngine, validator,baseContext);
+                    }
+                    catch(MojoExecutionException e)
+                    {
+                        if (force)
+                        {
+                            log.severe(e.getMessage());
+                        }
+                        else
+                        {
+                            //Stop execution throwing exception
+                            throw e;
+                        }
+                    }
                 }
             }
         }
