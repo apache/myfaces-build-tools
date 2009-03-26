@@ -74,4 +74,34 @@ public @interface JSFValidator
      * Short description
      */
     String desc() default "";
+    
+    /**
+     * Serial uid that should be added on generated tag class
+     * 
+     * @since 1.0.3
+     */
+    String serialuidtag() default "";
+    
+    /**
+     * The fully-qualified-name of a concrete validator class.
+     * <p>
+     * This attribute is only relevant when "name" is also set, ie the
+     * annotation is indicating that a validator is really being declared.
+     * <p>
+     * When this attribute is not defined then it is assumed that this
+     * annotated class is the actual validator class.
+     * <p>
+     * When this attribute is set to something other than the name of the
+     * annotated class then the specified class is the one that the JSF
+     * validator registration in faces-config.xml will refer to. And if that
+     * class does not exist in the classpath (which will normally be the
+     * case) then code-generation will be triggered to create it.
+     * <p>
+     * This attribute is not inheritable.
+     * <p>
+     * The doclet-annotation equivalent of this attribute is named "class".
+     * 
+     * @since 1.0.3
+     */
+    String clazz() default "";
 }

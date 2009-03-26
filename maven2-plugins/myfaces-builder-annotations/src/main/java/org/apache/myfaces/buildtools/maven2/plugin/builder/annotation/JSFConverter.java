@@ -73,4 +73,11 @@ public @interface JSFConverter
      * Short description
      */
     String desc() default "";
+    
+    /**
+     * Serial uid that should be added on generated tag class
+     * 
+     * @since 1.0.3
+     */
+    String serialuidtag() default "";
 }
