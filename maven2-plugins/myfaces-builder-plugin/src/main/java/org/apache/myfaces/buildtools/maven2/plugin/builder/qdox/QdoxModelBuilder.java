@@ -1239,6 +1239,14 @@ public class QdoxModelBuilder implements ModelBuilder
         
         fullyQualifiedReturnType = getFullyQualifiedClassName(clazz,fullyQualifiedReturnType);
         
+        if (returnType.isArray() && (fullyQualifiedReturnType.indexOf('[') == -1))
+        {
+            for (int i = 0; i < returnType.getDimensions();i++)
+            {
+                fullyQualifiedReturnType = fullyQualifiedReturnType + "[]";
+            }
+        }
+                
         String className = getString(clazz,"className",props, fullyQualifiedReturnType);
         String deferredValueType = getString(clazz, "deferredValueType", props, null);
         String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
@@ -1550,6 +1558,14 @@ public class QdoxModelBuilder implements ModelBuilder
         String fullyQualifiedReturnType = returnType.getJavaClass().getFullyQualifiedName();
         
         fullyQualifiedReturnType = getFullyQualifiedClassName(clazz, fullyQualifiedReturnType);
+        
+        if (returnType.isArray() && (fullyQualifiedReturnType.indexOf('[') == -1))
+        {
+            for (int i = 0; i < returnType.getDimensions();i++)
+            {
+                fullyQualifiedReturnType = fullyQualifiedReturnType + "[]";
+            }
+        }
         
         PropertyMeta p = new PropertyMeta();
         p.setName(methodToPropName(method.getName()));
