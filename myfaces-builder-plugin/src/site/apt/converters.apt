@@ -1,0 +1,75 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+ 
+ ------
+ Creating Custom Converters 
+ ------
+ 
+Creating Custom Converters
+ 
+    A JSF Converter needs the following elements:
+    
+     * A class implementing converter interface.
+     
+     * Entry on faces-config.xml.
+     
+     * Tag entry on tld.
+     
+     * Tag entry on facelets taglib (optional).
+     
+     * JSP Tag class
+     
+    Myfaces builder plugin provide annotations/doclets to help users maintain
+    configuration files, and generating converter jsp tag classes 
+    automatically. In this way, all information for a converter is just in
+    one file (the class implementing Converter interface).
+    
+    On jsf 1.2, it is necessary to provide a base tag class that extends
+    from javax.faces.webapp.ConverterELTag where all converters should 
+    inherit. This class is on myfaces commons converters project, but 
+    users can provide custom template implementations for it.
+
+Setting up your project
+
+    All information related can be found {{{setup.html}here}}.
+
+Configuration files (faces-config.xml, .tld, facelets taglib)
+
+    This {{{config-files.html}page}} shows some examples.
+    
+Annotate Converter Classes
+
+    Just add the annotations/doclets as presented below:
+
+-------------------
+
+@JSFConverter(
+    name = "mcc:convertDateTime",
+    tagClass = "org.apache.myfaces.commons.converter.ConvertDateTimeTag",
+    tagSuperclass = "org.apache.myfaces.commons.converter.ConverterTag")
+public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
+{
+    public static final String CONVERTER_ID = "org.apache.myfaces.custom.convertDateTime.DateTimeConverter";
+ 
+    /** .......... impl code goes here ......... **/
+    
+    @JSFProperty
+    public String getProperty()
+    {
+        // some stuff
+    }   
+}
+-------------------
+    

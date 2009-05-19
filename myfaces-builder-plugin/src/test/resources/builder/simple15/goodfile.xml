@@ -1,0 +1,34 @@
+<?xml version='1.0' ?>
+
+<model>
+  <modelId>test</modelId>
+  <component>
+    <modelId>test</modelId>
+    <className>Foo</className>
+    <sourceClassName>Foo</sourceClassName>
+    <name>foo</name>
+    <type>foo</type>
+    <family>foo</family>
+    <rendererType>FooRenderer</rendererType>
+    <desc>The Foo component defined via java15 annotations</desc>
+    <longDesc>
+<![CDATA[
+The Foo component defined via java15 annotations.
+<p>
+This is an annotated foo component. It does nothing useful.
+]]>
+    </longDesc>
+    <property>
+      <name>prop1</name>
+      <className>java.lang.String</className>
+      <desc>The prop1 property</desc>
+      <longDesc>
+<![CDATA[
+The prop1 property.
+<p>
+Some dummy prop1 documentatoin.
+]]>
+      </longDesc>
+    </property>
+  </component>
+</model>
