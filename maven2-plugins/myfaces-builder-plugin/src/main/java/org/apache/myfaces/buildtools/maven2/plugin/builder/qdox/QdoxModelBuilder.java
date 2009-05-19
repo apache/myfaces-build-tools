@@ -634,6 +634,8 @@ public class QdoxModelBuilder implements ModelBuilder
         //correctly classes like javax.servlet.jsp.tagext.TagSupport as parent
         //of a class with @JSFJspTag. The temporal solution is scan
         //the imports, looking for this type and if it is found replace it.
+        //Fixed on 1.9.1, but better let the code as is 
+        /*
         if (fqn.indexOf('.') == -1)
         {
             String [] imports = clazz.getSource().getImports();
@@ -644,7 +646,7 @@ public class QdoxModelBuilder implements ModelBuilder
                     fqn = imports[i];
                 }
             }
-        }
+        }*/
         return fqn;
     }
 
