@@ -63,7 +63,9 @@ public class $utils.getClassFromFullClass($component.tagClass)
 #foreach( $property in $propertyList )
 #set ($field = $property.fieldName)
 #set ($type = $utils.getJspPropertyType12($property))
- 
+#if ($property.isLiteralOnly() && $property.className == "boolean")
+#set ($type = "String")
+#end
     private $type $field;
     
 #set ($var = $utils.getVariableFromName($property.name))
@@ -90,6 +92,9 @@ public class $utils.getClassFromFullClass($component.tagClass)
 #foreach( $property in $propertyList )##            1
 #set ($field = $property.fieldName)
 #set ($type = $utils.getJspPropertyType12($property))
+#if ($property.isLiteralOnly() && $property.className == "boolean")
+#set ($type = "String")
+#end
 #if ($utils.isConverter($property.className))##                   2
         if ($field != null)
         {
@@ -149,7 +154,11 @@ public class $utils.getClassFromFullClass($component.tagClass)
         if ($field != null)
         {
 #if ($property.isLiteralOnly())##                         3
+#if ($utils.isPrimitiveClass($property.className))##               4
+            comp.getAttributes().put("$property.name", ${utils.getBoxedClass($property.className)}.valueOf($field));
+#else##                                                   4
             comp.getAttributes().put("$property.name", $field);
+#end##                                                    4
 #else##                                                 3
             comp.setValueExpression("$property.name", $field);
 #end##                                                  3
@@ -163,11 +172,7 @@ public class $utils.getClassFromFullClass($component.tagClass)
         super.release();
 #foreach( $property in $propertyList )
 #set ($field = $property.fieldName)
-#if($utils.getJspPropertyType12($property) == "boolean")
-#set ($empty = "false")
-#else
 #set ($empty = "null")
-#end
         $field = $empty;
 #end
     }

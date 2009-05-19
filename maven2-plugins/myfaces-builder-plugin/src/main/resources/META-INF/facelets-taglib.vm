@@ -29,6 +29,7 @@
 #if ($modelIds.contains($component.modelId) 
     && ($component.name))
 #if (!$component.isConfigExcluded())
+#if ($utils.getTagPrefix($component.name) == $shortname)
     <tag>
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <component>
@@ -46,19 +47,22 @@
 #end
 #end
 #end
+#end
 
    <!-- Converter tags -->
 #set ($componentList = ${model.getConverters()})
 #foreach( $component in $componentList )
 #if ($modelIds.contains($component.modelId) 
     && ($component.name))
-#if ($component.converterId) 
+#if ($component.converterId)
+#if ($utils.getTagPrefix($component.name) == $shortname) 
     <tag>
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <converter>
             <converter-id>$component.converterId</converter-id>
         </converter>
     </tag>
+#end
 #end
 #end
 #end
@@ -69,6 +73,7 @@
 #if ($modelIds.contains($component.modelId) 
     && ($component.name))
 #if ($component.validatorId)
+#if ($utils.getTagPrefix($component.name) == $shortname)
     <tag>
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <validator>
@@ -78,16 +83,19 @@
 #end
 #end
 #end
+#end
     
    <!-- Single Tags -->
 #set ($tagList = $model.getTags())
 #foreach( $tag in $tagList )
 #if ($modelIds.contains($tag.modelId))
 #if ($tag.tagHandler)
+#if ($utils.getTagPrefix($tag.name) == $shortname)
    <tag>
       <tag-name>$utils.getTagName($tag.name)</tag-name>
       <handler-class>$tag.tagHandler</handler-class>
    </tag>
+#end
 #end
 #end
 #end
