@@ -1545,6 +1545,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String defaultValue = getString(clazz,"defaultValue",props,null);
         String jspName = getString(clazz,"jspName",props,null);
         Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue",props,null);
+        String deferredValueType = getString(clazz, "deferredValueType", props, null);
 
         Type returnType = null;
         
@@ -1586,6 +1587,7 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setSetMethodScope(setMethodScope);
         p.setJspName(jspName);
         p.setRtexprvalue(rtexprvalue);
+        p.setDeferredValueType(deferredValueType);
         p.setInheritedTag(inheritedTag);
         
         if (returnSignature != null)

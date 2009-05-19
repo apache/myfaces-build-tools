@@ -54,6 +54,8 @@ public class PropertyMeta
     private Boolean _setMethod; //Generate method to define if is set a value or not
     
     private Boolean _rtexprvalue;
+    
+    private String _deferredValueType;
 
     public PropertyMeta()
     {
@@ -85,7 +87,7 @@ public class PropertyMeta
         _setMethodScope = pm._setMethodScope;
         _setMethod = pm._setMethod;
         _rtexprvalue = pm._rtexprvalue;
-        
+        _deferredValueType = pm._deferredValueType;
     }
     
     /**
@@ -124,6 +126,7 @@ public class PropertyMeta
         out.writeElement("setMethodScope", pm._setMethodScope);
         out.writeElement("setMethod", pm._setMethod);
         out.writeElement("rtexprvalue", pm._rtexprvalue);
+        out.writeElement("deferredValueType", pm._deferredValueType);
         out.endElement("property");
     }
 
@@ -158,6 +161,7 @@ public class PropertyMeta
         digester.addBeanPropertySetter(newPrefix + "/setMethodScope", "setMethodScope");
         digester.addBeanPropertySetter(newPrefix + "/setMethod", "setMethod");
         digester.addBeanPropertySetter(newPrefix + "/rtexprvalue", "rtexprvalue");
+        digester.addBeanPropertySetter(newPrefix + "/deferredValueType", "deferredValueType");
         MethodSignatureMeta.addXmlRules(digester, newPrefix);
         
     }
@@ -190,6 +194,7 @@ public class PropertyMeta
         _setMethod = ModelUtils.merge(this._setMethod, other._setMethod);
         _tagExcluded = ModelUtils.merge(this._tagExcluded, other._tagExcluded);
         _rtexprvalue = ModelUtils.merge(this._rtexprvalue, other._rtexprvalue);
+        _deferredValueType = ModelUtils.merge(this._deferredValueType, other._deferredValueType);
     }
 
     /**
@@ -521,5 +526,25 @@ public class PropertyMeta
     public boolean isMethodExpression()
     {
         return ("javax.el.MethodExpression".equals(getClassName()));
+    }
+    
+    /**
+     * @since 1.0.3
+     */
+    public void setDeferredValueType(String deferredValueType)
+    {
+        _deferredValueType = deferredValueType;
+    }
+    
+    /**
+     * Indicate the type that values should be
+     * cast on tld. It is supposed that the className is
+     * javax.el.ValueExpression to apply it. 
+     *
+     * @since 1.0.3
+     */
+    public String getDeferredValueType()
+    {
+        return _deferredValueType;
     }
 }
