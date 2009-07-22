@@ -146,4 +146,15 @@ public @interface JSFProperty
      * @since 1.0.3
      */
     String deferredValueType() default "";
+    
+    /**
+     * Indicate if this property is a client event that should
+     * be returned by ClientBehaviorHolder.getEventNames(). This
+     * property is by default "", it is JSF 2.0 specific, and 
+     * the component holding it must implement 
+     * javax.faces.component.behavior.ClientBehaviorHolder interface.
+     * 
+     * @since 1.0.4
+     */
+    String clientEvent() default "";
 }

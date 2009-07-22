@@ -336,4 +336,14 @@ public @interface JSFComponent
      * template (true) or subclass (false).
      */
     boolean template() default false;
+    
+    /**
+     * The name of the default client event to be return on method
+     * ClientBehaviorHolder.getDefaultEventName(). This property is
+     * JSF 2.0 specific, and the component must implement 
+     * javax.faces.component.behavior.ClientBehaviorHolder interface.  
+     * 
+     * @since 1.0.4
+     */
+    String defaultEventName() default "";
 }

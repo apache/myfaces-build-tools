@@ -54,6 +54,7 @@ public class PropertyMeta
     private Boolean _setMethod; //Generate method to define if is set a value or not
     
     private Boolean _rtexprvalue;
+    private String _clientEvent;
     
     private String _deferredValueType;
 
@@ -88,6 +89,7 @@ public class PropertyMeta
         _setMethod = pm._setMethod;
         _rtexprvalue = pm._rtexprvalue;
         _deferredValueType = pm._deferredValueType;
+        _clientEvent = pm._clientEvent;
     }
     
     /**
@@ -127,6 +129,7 @@ public class PropertyMeta
         out.writeElement("setMethod", pm._setMethod);
         out.writeElement("rtexprvalue", pm._rtexprvalue);
         out.writeElement("deferredValueType", pm._deferredValueType);
+        out.writeElement("clientEvent", pm._clientEvent);
         out.endElement("property");
     }
 
@@ -162,6 +165,7 @@ public class PropertyMeta
         digester.addBeanPropertySetter(newPrefix + "/setMethod", "setMethod");
         digester.addBeanPropertySetter(newPrefix + "/rtexprvalue", "rtexprvalue");
         digester.addBeanPropertySetter(newPrefix + "/deferredValueType", "deferredValueType");
+        digester.addBeanPropertySetter(newPrefix + "/clientEvent", "clientEvent");
         MethodSignatureMeta.addXmlRules(digester, newPrefix);
         
     }
@@ -195,6 +199,7 @@ public class PropertyMeta
         _tagExcluded = ModelUtils.merge(this._tagExcluded, other._tagExcluded);
         _rtexprvalue = ModelUtils.merge(this._rtexprvalue, other._rtexprvalue);
         _deferredValueType = ModelUtils.merge(this._deferredValueType, other._deferredValueType);
+        _clientEvent = ModelUtils.merge(this._clientEvent, other._clientEvent);
     }
 
     /**
@@ -546,5 +551,23 @@ public class PropertyMeta
     public String getDeferredValueType()
     {
         return _deferredValueType;
+    }
+
+    /**
+     * 
+     * @since 1.0.4
+     */
+    public String getClientEvent()
+    {
+        return _clientEvent;
+    }
+
+    /**
+     * 
+     * @since 1.0.4
+     */
+    public void setClientEvent(String clientEvent)
+    {
+        this._clientEvent = clientEvent;
     }
 }

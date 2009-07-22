@@ -50,6 +50,7 @@ public class ComponentMeta extends ViewEntityMeta implements
     private Boolean _configExcluded;
     private String _serialuid;
     private String _implements;
+    private String _defaultEventName;
     
     private Boolean _generatedComponentClass;
     private Boolean _generatedTagClass;
@@ -73,6 +74,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         out.writeElement("tagHandler", _tagHandler);
         out.writeElement("rendererType", _rendererType);
         out.writeElement("configExcluded", _configExcluded);
+        out.writeElement("defaultEventName", _defaultEventName);
 
         out.writeElement("serialuid", _serialuid);
         out.writeElement("implements", _implements);
@@ -107,6 +109,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         digester.addBeanPropertySetter(newPrefix + "/tagSuperclass");
         digester.addBeanPropertySetter(newPrefix + "/tagHandler");
         digester.addBeanPropertySetter(newPrefix + "/rendererType");
+        digester.addBeanPropertySetter(newPrefix + "/defaultEventName");
         digester.addBeanPropertySetter(newPrefix + "/faceletRendererType");
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
         digester.addBeanPropertySetter(newPrefix + "/serialuid");
@@ -157,6 +160,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         }
         //_tagClass = ModelUtils.merge(this._tagClass, other._tagClass);
         _tagHandler = ModelUtils.merge(this._tagHandler, other._tagHandler);
+        _defaultEventName = ModelUtils.merge(this._defaultEventName, other._defaultEventName);
         _namingContainer = ModelUtils.merge(this._namingContainer,
                 other._namingContainer);
         _children = ModelUtils.merge(this._children, other._children);
@@ -389,6 +393,24 @@ public class ComponentMeta extends ViewEntityMeta implements
     public FacetMeta getFacet(String name)
     {
         return (FacetMeta) _facets.get(name);
+    }
+    
+    /**
+     * 
+     * @since 1.0.4
+     */
+    public String getDefaultEventName()
+    {
+        return _defaultEventName;
+    }
+
+    /**
+     * 
+     * @since 1.0.4
+     */
+    public void setDefaultEventName(String defaultEventName)
+    {
+        this._defaultEventName = defaultEventName;
     }
             
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES

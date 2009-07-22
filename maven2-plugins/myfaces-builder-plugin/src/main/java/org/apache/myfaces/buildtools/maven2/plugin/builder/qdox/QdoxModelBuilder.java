@@ -1131,6 +1131,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String tagClass = getString(clazz, "tagClass", props, null);
         String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
         String tagHandler = getString(clazz, "tagHandler", props, null);
+        String defaultEventName = getString(clazz, "defaultEventName", props, null);
         String serialuid = getString(clazz, "serialuid", props, null);
         String implementsValue = getString(clazz, "implements", props, null);
         implementsValue = getString(clazz, "implementz", props, implementsValue);
@@ -1149,6 +1150,7 @@ public class QdoxModelBuilder implements ModelBuilder
         component.setSerialuid(serialuid);
         component.setImplements(implementsValue);
         component.setTemplate(template);
+        component.setDefaultEventName(defaultEventName);
         
         JavaClass[] interfaces = clazz.getImplementedInterfaces();
         for (int i = 0; i < interfaces.length; ++i)
@@ -1545,6 +1547,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String defaultValue = getString(clazz,"defaultValue",props,null);
         String jspName = getString(clazz,"jspName",props,null);
         Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue",props,null);
+        String clientEvent = getString(clazz, "clientEvent",props,null);
         String deferredValueType = getString(clazz, "deferredValueType", props, null);
 
         Type returnType = null;
@@ -1588,6 +1591,7 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setJspName(jspName);
         p.setRtexprvalue(rtexprvalue);
         p.setDeferredValueType(deferredValueType);
+        p.setClientEvent(clientEvent);
         p.setInheritedTag(inheritedTag);
         
         if (returnSignature != null)
