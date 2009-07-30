@@ -1,4 +1,4 @@
-package org.apache.myfaces.portlet.faces.demo.helloworld;
+package $package;
 
 public class NameBean
 {

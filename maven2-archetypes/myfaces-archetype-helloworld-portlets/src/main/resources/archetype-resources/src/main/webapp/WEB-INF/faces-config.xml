@@ -19,7 +19,7 @@
   </navigation-rule>
   <managed-bean>
     <managed-bean-name>namebean</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.portlet.faces.demo.helloworld.NameBean</managed-bean-class>
+    <managed-bean-class>${package}.NameBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
 </faces-config>
