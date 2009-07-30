@@ -9,7 +9,7 @@
      -->
   </testSources>
   <resources>
-    <resource>pom.xml</resource>
+    <resource>src/main/log4j/log4j.properties</resource>
   	<resource>src/main/webapp/WEB-INF/examples-config.xml</resource>
   	<resource>src/main/webapp/WEB-INF/web.xml</resource>
   	<resource>src/main/webapp/helloWorld.xhtml</resource>
