@@ -27,6 +27,7 @@
     <id>myfaces-archetype-jsfcomponents</id>
     <resources>
         <resource>examples/src/main/resources/org/myorganization/component/example/build.properties</resource>
+        <resource>examples/src/main/log4j/log4j.properties</resource>
         <resource>examples/src/main/java/org/myorganization/component/example/SayHelloBean.java</resource>
         <resource>examples/src/main/webapp/sayhello.jsp</resource>
         <resource>examples/src/main/webapp/converterDemo.jsp</resource>

@@ -16,6 +16,13 @@
         <version>${version}</version>
     </parent>
 
+    <properties>
+        <jsf-myfaces.version>1.2.7</jsf-myfaces.version>
+        <jsf-ri.version>1.2_13</jsf-ri.version>        
+        <maven.jetty.plugin.version>6.1.16</maven.jetty.plugin.version>
+        <log4j.version>1.2.13</log4j.version>
+    </properties>
+    
     <dependencies>
            <dependency>
                <groupId>${groupId}</groupId>
@@ -59,23 +66,16 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
-                    <version>1.2.5</version>
+                    <version>${jsf-myfaces.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <version>1.2.5</version>
+                    <version>${jsf-myfaces.version}</version>
                     <!-- Sandbox examples must only have runtime dependency to myfaces-impl
                  so that it will be automatically added to war. But there must not be
                  any compile dependency on impl so that is is always possible to use
                  other JSF implementations. -->
-                    <exclusions>
-                        <exclusion>
-                            <!-- Temporal fix to avoid transitive dependency to shared -->
-                            <groupId>org.apache.myfaces.shared</groupId>
-                            <artifactId>myfaces-shared-impl</artifactId>
-                        </exclusion>
-                    </exclusions>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -98,12 +98,12 @@
                 <dependency>
                     <groupId>javax.faces</groupId>
                     <artifactId>jsf-api</artifactId>
-                    <version>1.2_03</version>
+                    <version>${jsf-ri.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>javax.faces</groupId>
                     <artifactId>jsf-impl</artifactId>
-                    <version>1.2_03</version>
+                    <version>${jsf-ri.version}</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -121,6 +121,46 @@
                 <jsf_implementation>JSF-RI</jsf_implementation>
             </properties>
         </profile>
+        <profile>
+            <!-- Debug profile for myfaces and jetty.
+                It allows to see debug messages using -PjettyConfig -->
+            <id>jettyConfig</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/log4j</directory>
+                    </resource>
+                </resources>
+                <plugins>
+                    <plugin>
+                        <!--This plugin allows to run the example using mvn jetty:run -->
+                        <groupId>org.mortbay.jetty</groupId>
+                        <artifactId>maven-jetty-plugin</artifactId>
+                        <version>${maven.jetty.plugin.version}</version>
+                        <configuration>
+                            <scanIntervalSeconds>10</scanIntervalSeconds>
+                            <systemProperties>
+                                <systemProperty>
+                                    <name>org.apache.commons.logging.Log</name>
+                                    <value>org.apache.commons.logging.impl.Log4JLogger</value>
+                                </systemProperty>
+                            </systemProperties>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                    <version>${log4j.version}</version>
+                    <type>jar</type>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <build>
@@ -130,7 +170,7 @@
                 <!--This plugin allows to run the example using mvn jetty:run -->
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.8</version>
+                <version>${maven.jetty.plugin.version}</version>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                 </configuration>
