@@ -34,12 +34,8 @@
   <!-- Global preferences object that proxies to others -->
   <managed-bean>
     <managed-bean-name>helloWorldBacking</managed-bean-name>
-    <managed-bean-class>
-       org.apache.myfaces.trinidad.blank.HelloWorldBacking
-    </managed-bean-class>
-    <managed-bean-scope>
-       request
-    </managed-bean-scope>
+    <managed-bean-class>${package}.HelloWorldBacking</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
 
   <!-- navigation rules for index.jspx -->

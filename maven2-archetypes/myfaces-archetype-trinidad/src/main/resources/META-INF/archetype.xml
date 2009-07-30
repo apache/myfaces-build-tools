@@ -22,8 +22,11 @@
 
 <archetype>
   <id>myfaces-archetype-trinidad</id>
+  <sources>
+    <source>src/main/java/HelloWorldBacking.java</source>
+  </sources>
   <resources>
-    <resource>src/main/java/org/apache/myfaces/trinidad/blank/HelloWorldBacking.java</resource>
+    <resource>src/main/log4j/log4j.properties</resource>
     <resource>src/main/webapp/index.jspx</resource>
     <resource>src/main/webapp/page2.jspx</resource>
     <resource>src/main/webapp/WEB-INF/web.xml</resource>
