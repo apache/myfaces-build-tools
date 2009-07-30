@@ -9,7 +9,7 @@
 	<!-- managed beans of the simple hello world app -->
 	<managed-bean>
 		<managed-bean-name>helloWorld</managed-bean-name>
-		<managed-bean-class>org.apache.myfaces.blank.HelloWorldController</managed-bean-class>
+		<managed-bean-class>${package}.HelloWorldController</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	
