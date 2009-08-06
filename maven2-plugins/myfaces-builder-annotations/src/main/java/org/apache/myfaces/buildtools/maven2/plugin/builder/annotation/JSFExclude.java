@@ -36,7 +36,12 @@ import java.lang.annotation.Target;
  * @version $Revision$ $Date$
  */
 @Documented
-@Target(ElementType.TYPE)
+@Target(value={
+        ElementType.TYPE,
+        ElementType.METHOD,
+        ElementType.LOCAL_VARIABLE,
+        ElementType.FIELD,
+        ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.SOURCE)
 public @interface JSFExclude
 {
