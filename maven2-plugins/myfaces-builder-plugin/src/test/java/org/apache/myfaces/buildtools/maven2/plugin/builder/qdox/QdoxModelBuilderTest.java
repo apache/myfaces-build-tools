@@ -45,13 +45,13 @@ public class QdoxModelBuilderTest extends TestCase
 {
     public void testMethodToPropName() throws Exception
     {
-        assertEquals("fooBar", QdoxModelBuilder.methodToPropName("getfooBar"));
-        assertEquals("fooBar", QdoxModelBuilder.methodToPropName("getFooBar"));
-        assertEquals("url", QdoxModelBuilder.methodToPropName("getUrl"));
-        assertEquals("url", QdoxModelBuilder.methodToPropName("getURL"));
-        assertEquals("urlLocation", QdoxModelBuilder
+        assertEquals("fooBar", QdoxHelper.methodToPropName("getfooBar"));
+        assertEquals("fooBar", QdoxHelper.methodToPropName("getFooBar"));
+        assertEquals("url", QdoxHelper.methodToPropName("getUrl"));
+        assertEquals("url", QdoxHelper.methodToPropName("getURL"));
+        assertEquals("urlLocation", QdoxHelper
                 .methodToPropName("getUrlLocation"));
-        assertEquals("urlLocation", QdoxModelBuilder
+        assertEquals("urlLocation", QdoxHelper
                 .methodToPropName("getURLLocation"));
     }
 

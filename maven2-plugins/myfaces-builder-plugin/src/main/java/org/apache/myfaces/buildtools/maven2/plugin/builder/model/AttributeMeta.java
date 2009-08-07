@@ -48,6 +48,22 @@ public class AttributeMeta
     }
     
     /**
+      * @since 1.0.4
+      **/
+    public AttributeMeta(AttributeMeta am)
+    {
+        _name = am._name;
+        _className = am._className;
+        _required = am._required;
+        _description = am._description;
+        _longDescription = am._longDescription;
+        _rtexprvalue = am._rtexprvalue;
+        _deferredValueType = am._deferredValueType;
+        _deferredMethodSignature = am._deferredMethodSignature;
+        _exclude = am._exclude;
+    }
+    
+    /**
      * Write this model out as xml.
      */
     public static void writeXml(XmlWriter out, AttributeMeta am)

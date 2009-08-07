@@ -56,6 +56,8 @@ import org.codehaus.plexus.components.io.fileselectors.FileInfo;
 import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletTagMeta;
+
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
 import com.thoughtworks.qdox.model.Annotation;
@@ -96,7 +98,11 @@ public class QdoxModelBuilder implements ModelBuilder
     
     private static final String DOC_TAG = "JSFJspTag";
     private static final String DOC_JSP_ATTRIBUTE = "JSFJspAttribute";
-
+    private static final String DOC_FACELET_TAG = "JSFFaceletTag";
+    private static final String DOC_FACELET_TAGS = "JSFFaceletTags";
+    private static final String DOC_FACELET_TAG_ATTRIBUTE = "JSFFaceletAttribute";
+    private static final String DOC_FACELET_TAG_ATTRIBUTES = "JSFFaceletAttributes";
+    
     private static class JavaClassComparator implements Comparator
     {
         public int compare(Object arg0, Object arg1)
@@ -531,7 +537,40 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = anno.getNamedParameterMap();
             processTag(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
-        
+        //facelet tagHandler
+        tag = clazz.getTagByName(DOC_FACELET_TAG, false);
+        if (tag != null)
+        {
+            Map props = tag.getNamedParameterMap();
+            processFaceletTag(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
+        }
+        anno = getAnnotation(clazz, DOC_FACELET_TAG);
+        if (anno != null)
+        {
+            Map props = anno.getNamedParameterMap();
+            processFaceletTag(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
+        }        
+        anno = getAnnotation(clazz, DOC_FACELET_TAGS);
+        if (anno != null)
+        {
+            Object jspProps = anno.getNamedParameter("tags");            
+            if (jspProps instanceof Annotation)
+            {
+                Annotation jspPropertiesAnno = (Annotation) jspProps;
+                Map props = jspPropertiesAnno.getNamedParameterMap();
+                processFaceletTag(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
+            }
+            else
+            {
+                List jspPropsList = (List) jspProps;
+                for (int i = 0; i < jspPropsList.size();i++)
+                {
+                    Annotation ranno = (Annotation) jspPropsList.get(i);
+                    Map props = ranno.getNamedParameterMap();
+                    processFaceletTag(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
+                }
+            }
+        }        
         // renderKit
         tag = clazz.getTagByName(DOC_RENDERKIT, false);
         if (tag != null)
@@ -882,7 +921,7 @@ public class QdoxModelBuilder implements ModelBuilder
             JavaClass clazz, Model model)
     {
         String longDescription = clazz.getComment();
-        String descDflt = getFirstSentence(longDescription);
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
@@ -933,7 +972,7 @@ public class QdoxModelBuilder implements ModelBuilder
             JavaClass clazz, Model model)
     {
         String longDescription = clazz.getComment();
-        String descDflt = getFirstSentence(longDescription);
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
@@ -1009,7 +1048,7 @@ public class QdoxModelBuilder implements ModelBuilder
             JavaClass clazz, Model model)
     {
         String longDescription = clazz.getComment();
-        String descDflt = getFirstSentence(longDescription);
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
@@ -1045,7 +1084,7 @@ public class QdoxModelBuilder implements ModelBuilder
             JavaClass clazz, Model model) throws MojoExecutionException
     {
         String longDescription = clazz.getComment();
-        String descDflt = getFirstSentence(longDescription);
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
@@ -1069,6 +1108,47 @@ public class QdoxModelBuilder implements ModelBuilder
         
         processTagAttributes(clazz, tag);
         model.addTag(tag);
+    }
+    
+    /**
+     * @since 1.0.4
+     */
+    private void processFaceletTag(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, Model model) throws MojoExecutionException
+    {
+        String longDescription = clazz.getComment();
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+        
+        longDescription = getString(clazz,"longDescription",props, longDescription);
+
+        String tagName = getString(clazz, "name", props, null);
+        String classNameOverride = getString(clazz, "class", props, null);
+        classNameOverride = getString(clazz,"clazz",props,classNameOverride);
+        
+        String bodyContent = getString(clazz, "bodyContent", props, "JSP");
+        String componentClass = getString(clazz, "componentClass", props, null);
+        String tagClass = getString(clazz, "tagClass", props, null);
+        String converterClass = getString(clazz, "converterClass", props, null);
+        String validatorClass = getString(clazz, "validatorClass", props, null);
+
+        FaceletTagMeta tag = new FaceletTagMeta();
+        initClassMeta(model, clazz, tag, classNameOverride);
+        tag.setName(tagName);
+        tag.setBodyContent(bodyContent);
+        tag.setDescription(shortDescription);
+        tag.setLongDescription(longDescription);
+        tag.setComponentClass(componentClass);
+        tag.setTagClass(tagClass);
+        tag.setConverterClass(converterClass);
+        tag.setValidatorClass(validatorClass);
+        
+        processFaceletTagAttributes(clazz, tag);
+        model.addFaceletTag(tag);
     }
     
     private void processComponent(Map props, AbstractJavaEntity ctx,
@@ -1110,7 +1190,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean template = getBoolean(clazz,"template",props, null);
                 
         String longDescription = clazz.getComment();
-        String descDflt = getFirstSentence(longDescription);
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
@@ -1214,6 +1294,101 @@ public class QdoxModelBuilder implements ModelBuilder
         }                
     }
     
+    /**
+     * @since 1.0.4
+     */
+    private void processFaceletTagAttributes(JavaClass clazz,
+            FaceletTagMeta ctag)
+    {
+        JavaMethod[] methods = clazz.getMethods();
+        for (int i = 0; i < methods.length; ++i)
+        {
+            JavaMethod method = methods[i];
+
+            DocletTag tag = method.getTagByName(DOC_FACELET_TAG_ATTRIBUTE);
+            if (tag != null)
+            {
+                Map props = tag.getNamedParameterMap();
+                processFaceletTagAttribute(props, (AbstractJavaEntity)tag.getContext(), clazz,
+                        method, ctag);
+            }
+
+            Annotation anno = getAnnotation(method, DOC_FACELET_TAG_ATTRIBUTE);
+            if (anno != null)
+            {
+                Map props = anno.getNamedParameterMap();
+                processFaceletTagAttribute(props, (AbstractJavaEntity)anno.getContext(), clazz,
+                        method, ctag);
+            }
+        }
+        
+        JavaField[] fields = clazz.getFields();
+        for (int i = 0; i < fields.length; ++i)
+        {
+            JavaField field = fields[i];
+            DocletTag tag = field.getTagByName(DOC_FACELET_TAG_ATTRIBUTE);
+            if (tag != null)
+            {
+                Map props = tag.getNamedParameterMap();
+                processFaceletTagAttribute(props, (AbstractJavaEntity)tag.getContext(), clazz, field, ctag);
+            }
+
+            Annotation anno = getAnnotation(field, DOC_FACELET_TAG_ATTRIBUTE);
+            if (anno != null)
+            {
+                Map props = anno.getNamedParameterMap();
+                processFaceletTagAttribute(props, (AbstractJavaEntity)anno.getContext(), clazz, field, ctag);
+            }
+        }
+        
+        DocletTag[] jspProperties = clazz.getTagsByName(DOC_FACELET_TAG_ATTRIBUTE);
+        for (int i = 0; i < jspProperties.length; ++i)
+        {
+            //We have here only doclets, because this part is only for
+            //solve problems with binding property on 1.1
+            DocletTag tag = jspProperties[i];
+            
+            Map props = tag.getNamedParameterMap();
+            processFaceletTagAttribute(props, (AbstractJavaEntity)tag.getContext(), clazz,
+                    ctag);
+            
+        }
+        
+        Annotation jspPropertyAnno = getAnnotation(clazz, DOC_FACELET_TAG_ATTRIBUTE);
+        if (jspPropertyAnno != null)
+        {
+            Map props = jspPropertyAnno.getNamedParameterMap();
+            processFaceletTagAttribute(props, (AbstractJavaEntity)jspPropertyAnno.getContext(),
+                    clazz, ctag);
+        }
+        
+        Annotation jspAnno = getAnnotation(clazz, DOC_FACELET_TAG_ATTRIBUTES);        
+        if (jspAnno != null)
+        {
+            Object jspProps = jspAnno.getNamedParameter("attributes");
+            
+            if (jspProps instanceof Annotation)
+            {
+                Annotation jspPropertiesAnno = (Annotation) jspProps;
+                Map props = jspPropertiesAnno.getNamedParameterMap();
+                processFaceletTagAttribute(props, (AbstractJavaEntity)jspAnno.getContext(), clazz,
+                        ctag);
+            }
+            else
+            {
+                List jspPropsList = (List) jspProps;
+                for (int i = 0; i < jspPropsList.size();i++)
+                {
+                    Annotation anno = (Annotation) jspPropsList.get(i);
+
+                    Map props = anno.getNamedParameterMap();
+                    processFaceletTagAttribute(props, (AbstractJavaEntity)jspAnno.getContext(), clazz,
+                            ctag);                    
+                }
+            }
+        }
+    }
+    
     private void processTagAttribute(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, TagMeta tag)
     {
@@ -1221,7 +1396,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
 
         String longDescription = ctx.getComment();
-        String descDflt = getFirstSentence(longDescription);
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
@@ -1257,7 +1432,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean exclude = getBoolean(clazz, "exclude", props, null);
         
         AttributeMeta a = new AttributeMeta();
-        a.setName(methodToPropName(method.getName()));
+        a.setName(QdoxHelper.methodToPropName(method.getName()));
         a.setClassName(className);
         a.setRequired(required);
         a.setRtexprvalue(rtexprvalue);
@@ -1303,9 +1478,140 @@ public class QdoxModelBuilder implements ModelBuilder
         
         tag.addAttribute(a);
     }
-    
 
-    
+    /**
+     * @since 1.0.4
+     */
+    private void processFaceletTagAttribute(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, JavaMethod method, FaceletTagMeta tag)
+    {
+        Boolean required = getBoolean(clazz, "required", props, null);
+        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
+
+        String longDescription = ctx.getComment();
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+                
+        Type returnType = null;
+        
+        if (method.getName().startsWith("set"))
+        {
+            returnType = method.getParameters()[0].getType();
+        }
+        else
+        {
+            returnType = method.getReturns();
+        }
+
+        String fullyQualifiedReturnType = returnType.getJavaClass().getFullyQualifiedName();
+        
+        fullyQualifiedReturnType = getFullyQualifiedClassName(clazz,fullyQualifiedReturnType);
+        
+        if (returnType.isArray() && (fullyQualifiedReturnType.indexOf('[') == -1))
+        {
+            for (int i = 0; i < returnType.getDimensions();i++)
+            {
+                fullyQualifiedReturnType = fullyQualifiedReturnType + "[]";
+            }
+        }
+                
+        String className = getString(clazz,"className",props, fullyQualifiedReturnType);
+        String deferredValueType = getString(clazz, "deferredValueType", props, null);
+        String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
+        Boolean exclude = getBoolean(clazz, "exclude", props, null);
+        
+        AttributeMeta a = new AttributeMeta();
+        a.setName(QdoxHelper.methodToPropName(method.getName()));
+        a.setClassName(className);
+        a.setRequired(required);
+        a.setRtexprvalue(rtexprvalue);
+        a.setDescription(shortDescription);
+        a.setLongDescription(longDescription);
+        a.setDeferredValueType(deferredValueType);
+        a.setDeferredMethodSignature(deferredMethodSignature);
+        a.setExclude(exclude);
+        
+        tag.addAttribute(a);
+    }
+
+    /**
+     * @since 1.0.4
+     */
+    private void processFaceletTagAttribute(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, FaceletTagMeta tag)
+    {
+        Boolean required = getBoolean(clazz, "required", props, null);
+        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
+
+        String longDescription = getString(clazz, "longDescription", props, null);
+        String descDflt = longDescription;
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+                
+        String name = getString(clazz, "name", props, descDflt);
+        String className = getString(clazz, "className", props, descDflt);
+        String deferredValueType = getString(clazz, "deferredValueType", props, null);
+        String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
+        Boolean exclude = getBoolean(clazz, "exclude", props, null);
+                
+        AttributeMeta a = new AttributeMeta();
+        a.setName(name);
+        a.setClassName(className);
+        a.setRequired(required);
+        a.setRtexprvalue(rtexprvalue);
+        a.setDescription(shortDescription);
+        a.setLongDescription(longDescription);
+        a.setDeferredValueType(deferredValueType);
+        a.setDeferredMethodSignature(deferredMethodSignature);
+        a.setExclude(exclude);
+        
+        tag.addAttribute(a);
+    }
+
+    /**
+     * @since 1.0.4
+     */
+    private void processFaceletTagAttribute(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, JavaField field, FaceletTagMeta tag)
+    {
+        Boolean required = getBoolean(clazz, "required", props, null);
+        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
+
+        String longDescription = ctx.getComment();
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+                
+        String name = getString(clazz, "name", props, field.getName());
+        String className = getString(clazz, "className", props, descDflt);
+        String deferredValueType = getString(clazz, "deferredValueType", props, null);
+        String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
+        Boolean exclude = getBoolean(clazz, "exclude", props, null);
+                
+        AttributeMeta a = new AttributeMeta();
+        a.setName(name);
+        a.setClassName(className);
+        a.setRequired(required);
+        a.setRtexprvalue(rtexprvalue);
+        a.setDescription(shortDescription);
+        a.setLongDescription(longDescription);
+        a.setDeferredValueType(deferredValueType);
+        a.setDeferredMethodSignature(deferredMethodSignature);
+        a.setExclude(exclude);
+        
+        tag.addAttribute(a);
+    }
+        
     /**
      * Look for any methods on the specified class that are annotated as being
      * component properties, and add metadata about them to the model.
@@ -1489,7 +1795,7 @@ public class QdoxModelBuilder implements ModelBuilder
     {
         this.processComponentProperty(props, ctx, clazz, method, component);
         
-        PropertyMeta property = component.getProperty(methodToPropName(method.getName()));
+        PropertyMeta property = component.getProperty(QdoxHelper.methodToPropName(method.getName()));
         
         //Try to get the method from the component clazz to see if this
         //has an implementation
@@ -1507,7 +1813,7 @@ public class QdoxModelBuilder implements ModelBuilder
     {
         this.processComponentFacet(props, ctx, clazz, method, component);
                 
-        FacetMeta facet = component.getFacet(methodToPropName(method.getName()));
+        FacetMeta facet = component.getFacet(QdoxHelper.methodToPropName(method.getName()));
                 
         //Try to get the method from the component clazz to see if this
         //has an implementation
@@ -1536,7 +1842,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean inheritedTag = getBoolean(clazz, "inheritedTag",props,null);
 
         String longDescription = ctx.getComment();
-        String descDflt = getFirstSentence(longDescription);
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
@@ -1574,7 +1880,7 @@ public class QdoxModelBuilder implements ModelBuilder
         }
         
         PropertyMeta p = new PropertyMeta();
-        p.setName(methodToPropName(method.getName()));
+        p.setName(QdoxHelper.methodToPropName(method.getName()));
         p.setClassName(fullyQualifiedReturnType);
         p.setRequired(required);
         p.setTransient(transientProp);
@@ -1629,7 +1935,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean required = getBoolean(clazz, "required", props, null);
 
         String longDescription = ctx.getComment();
-        String descDflt = getFirstSentence(longDescription);
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
@@ -1637,7 +1943,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String shortDescription = getString(clazz, "desc", props, descDflt);
         
         FacetMeta p = new FacetMeta();
-        p.setName(methodToPropName(method.getName()));
+        p.setName(QdoxHelper.methodToPropName(method.getName()));
         p.setRequired(required);
         p.setDescription(shortDescription);
         p.setLongDescription(longDescription);
@@ -1688,76 +1994,5 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setGenerated(Boolean.FALSE);
 
         component.addProperty(p);
-    }
-    
-
-    /**
-     * Convert a method name to a property name.
-     */
-    static String methodToPropName(String methodName)
-    {
-        StringBuffer name = new StringBuffer();
-        if (methodName.startsWith("get") || methodName.startsWith("set"))
-        {
-            name.append(methodName.substring(3));
-        }
-        else if (methodName.startsWith("is"))
-        {
-            name.append(methodName.substring(2));
-        }
-        else
-        {
-            throw new IllegalArgumentException("Invalid annotated method name "
-                    + methodName);
-        }
-
-        // Handle following styles of property name
-        // getfooBar --> fooBar
-        // getFooBar --> fooBar
-        // getURL --> url
-        // getURLLocation --> urlLocation
-        for (int i = 0; i < name.length(); ++i)
-        {
-            char c = name.charAt(i);
-            if (Character.isUpperCase(c))
-            {
-                name.setCharAt(i, Character.toLowerCase(c));
-            }
-            else
-            {
-                if (i > 1)
-                {
-                    // reset the previous char to uppercase
-                    c = name.charAt(i - 1);
-                    name.setCharAt(i - 1, Character.toUpperCase(c));
-                }
-                break;
-            }
-        }
-        return name.toString();
-    }
-
-    /**
-     * Given the full javadoc for a component, extract just the "first
-     * sentence".
-     * <p>
-     * Initially, just find the first dot, and strip out any linefeeds. Later,
-     * try to handle "e.g." and similar (see javadoc algorithm for sentence
-     * detection).
-     */
-    private String getFirstSentence(String doc)
-    {
-        if (doc == null)
-        {
-            return null;
-        }
-
-        int index = doc.indexOf('.');
-        if (index == -1)
-        {
-            return doc;
-        }
-        // abc.
-        return doc.substring(0, index);
     }
 }

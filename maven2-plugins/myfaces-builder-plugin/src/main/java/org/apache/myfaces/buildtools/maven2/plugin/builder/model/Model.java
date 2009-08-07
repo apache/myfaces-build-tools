@@ -39,14 +39,17 @@ public class Model
     private List _converters = new ArrayList(100);
     private List _validators = new ArrayList(100);
     private List _renderKits = new ArrayList(100);
-    private List _tags = new ArrayList(100);    
+    private List _tags = new ArrayList(100);
+    private List _faceletTags = new ArrayList(100);
 
     private Map _componentsByClass = new TreeMap();
     private Map _convertersByClass = new TreeMap();
     private Map _validatorsByClass = new TreeMap();
     private Map _renderKitsById = new TreeMap();
     private Map _tagsByClass =  new TreeMap();
+    private Map _faceletTagsByClass =  new TreeMap();
     private Map _componentsByTagClass = new TreeMap();
+    private Map _faceletTagsByName = new TreeMap();
     
     private String _modelId;
 
@@ -90,7 +93,13 @@ public class Model
         {
             TagMeta c = (TagMeta) i.next();
             c.writeXml(out);
-        }        
+        }
+        
+        for (Iterator i = model._faceletTags.iterator(); i.hasNext();)
+        {
+            FaceletTagMeta c = (FaceletTagMeta) i.next();
+            c.writeXml(out);
+        }
 
         out.endElement("model");
     }
@@ -113,6 +122,7 @@ public class Model
         ValidatorMeta.addXmlRules(digester, prefix);
         RenderKitMeta.addXmlRules(digester, prefix);
         TagMeta.addXmlRules(digester, prefix);
+        FaceletTagMeta.addXmlRules(digester, prefix);
     }
     
     /**
@@ -163,7 +173,17 @@ public class Model
             {
                 this.addTag(validator);
             }
-        }        
+        }
+        
+        for (Iterator it = other.getFaceletTags().iterator(); it.hasNext();)
+        {
+            FaceletTagMeta faceletTag = (FaceletTagMeta) it.next();
+            
+            if (this.findFaceletTagByClassName(faceletTag.getClassName())== null)
+            {
+                this.addFaceletTag(faceletTag);
+            }
+        }         
     }
 
     /**
@@ -207,6 +227,7 @@ public class Model
     {
         return (ComponentMeta) _componentsByTagClass.get(className);
     }
+
     /**
      * Holds info about a JSF Converter definition
      */
@@ -338,6 +359,56 @@ public class Model
         return (TagMeta) _tagsByClass.get(className);
     }
     
+    /**
+     * Adds a tag to this faces config document.
+     * 
+     * @since 1.0.4
+     * @param tag
+     *            the tag to add
+     */
+    public void addFaceletTag(FaceletTagMeta tag)
+    {
+        _faceletTags.add(tag);
+        _faceletTagsByClass.put(tag.getClassName(), tag);
+        if (tag.getName() != null)
+        {
+            _faceletTagsByName.put(tag.getName(), tag);
+        }
+    }
+
+    /**
+     * Returns all tags
+     * @since 1.0.4
+     */
+    public List getFaceletTags()
+    {
+        return _faceletTags;
+    }
+
+    /**
+     * Returns an iterator for all tags.
+     * @since 1.0.4
+     */
+    public Iterator faceletTags()
+    {
+        return _faceletTags.iterator();
+    }
+
+    /**
+     * @since 1.0.4
+     */
+    public FaceletTagMeta findFaceletTagByClassName(String className)
+    {
+        return (FaceletTagMeta) _faceletTagsByClass.get(className);
+    }
+    
+    /**
+     * @since 1.0.4
+     */
+    public FaceletTagMeta findFaceletTagByName(String name)
+    {
+        return (FaceletTagMeta) _faceletTagsByName.get(name);
+    }
 
     public void setModelId(String modelId)
     {

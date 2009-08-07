@@ -124,5 +124,29 @@ public class ModelUtils
                 dstProp.merge(srcProp);
             }
         }
-    }    
+    }
+    
+    /**
+     * @since 1.0.4
+     */
+    public static void mergeAttributes(AttributeHolder dst, AttributeHolder src)
+    {
+        for (Iterator i = src.attributes(); i.hasNext();)
+        {
+            AttributeMeta srcAttr = (AttributeMeta) i.next();
+            AttributeMeta dstAttr = dst.getAttribute(srcAttr.getName());
+            if (dstAttr == null)
+            {
+                // Just copy the whole property unaltered
+                dstAttr = new AttributeMeta(srcAttr);
+                //dstProp.setInherited(Boolean.TRUE);
+                dst.addAttribute(dstAttr);
+            }
+            else
+            {
+                // merge the two property objects together
+                dstAttr.merge(srcAttr);
+            }
+        }
+    }
 }

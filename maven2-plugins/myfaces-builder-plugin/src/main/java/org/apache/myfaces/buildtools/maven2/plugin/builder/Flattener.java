@@ -26,15 +26,19 @@ import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeHolder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletTagMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ModelUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyHolder;
 
 /**
  */
@@ -64,6 +68,7 @@ public class Flattener
         flattenValidatorProperties();
         flattenConverterProperties();
         flattenTagAttributes();
+        flattenFaceletTagAttributes();
     }
 
     private void flattenComponentProperties()
@@ -286,5 +291,205 @@ public class Flattener
         }
         
         flattened.add(tag);
+    }
+    
+    /**
+      * @since 1.0.4
+      **/
+    private void flattenFaceletTagAttributes()
+    {
+        List faceletTags = model.getFaceletTags();
+        for (Iterator i = faceletTags.iterator(); i.hasNext();)
+        {
+            FaceletTagMeta val = (FaceletTagMeta) i.next();
+            flattenFaceletTag(val);
+        }
+    }
+    
+    /**
+     * This method allows component facelet tag classes to be
+     * used with component and jsp tags, so it is possible to 
+     * inherit attribute for component. But facelet tags can inherit
+     * attributes from other facelet tags. 
+     * 
+     * @since 1.0.4
+     * 
+     */
+    private void flattenFaceletTag(FaceletTagMeta faceletTag)
+    {
+        if (flattened.contains(faceletTag))
+        {
+            // already done
+            return;
+        }
+          
+        if (faceletTag.getSourceClassParentClassName() == null)
+        {
+            //No need to scan
+            return;
+        }
+        
+        // In order of precedence
+        // 1. Merge base parent tag handler
+        String parentClassName = faceletTag.getParentClassName();
+        if (parentClassName != null)
+        {
+            FaceletTagMeta parent = model
+                    .findFaceletTagByClassName(parentClassName);
+            if (parent != null)
+            {
+                flattenFaceletTag(parent);
+                faceletTag.merge(parent);
+            }
+            else
+            {
+                //do nothing.
+            }
+        }
+
+        // 2. Merge from tag class
+        if (faceletTag.getTagClass() != null)
+        {
+            TagMeta tag = model.findTagByClassName(faceletTag.getTagClass());
+            
+            if (null != tag)
+            {
+                if (tag.getLongDescription() != null)
+                {
+                    faceletTag.setLongDescription(
+                            tag.getLongDescription()+"<p>"+faceletTag.getLongDescription()+"</p>");
+                }
+                if (tag.getDescription() != null)
+                {
+                    faceletTag.setDescription(
+                            tag.getDescription()+" "+faceletTag.getDescription());
+                }
+                ModelUtils.mergeAttributes(faceletTag, tag);
+            }
+        }
+
+        // 3. Merge from converter/validator/component class
+
+        if (faceletTag.getConverterClass() != null)
+        {
+            ConverterMeta converter = model.findConverterByClassName(
+                        faceletTag.getConverterClass());        
+            
+            if (null != converter)
+            {
+                if (converter.getLongDescription() != null)
+                {
+                    faceletTag.setLongDescription(
+                            converter.getLongDescription()+"<p>"+faceletTag.getLongDescription()+"</p>");
+                }
+                if (converter.getDescription() != null)
+                {
+                    faceletTag.setDescription(
+                            converter.getDescription()+" "+faceletTag.getDescription());
+                }
+                addOrMergePropertiesToAttributeHolder(faceletTag, converter);
+            }
+        }
+
+        if (faceletTag.getValidatorClass() != null)
+        {
+            ValidatorMeta validator = model.findValidatorByClassName(
+                        faceletTag.getValidatorClass());        
+            
+            if (null != validator)
+            {
+                if (validator.getLongDescription() != null)
+                {
+                    faceletTag.setLongDescription(
+                            validator.getLongDescription()+"<p>"+faceletTag.getLongDescription()+"</p>");
+                }
+                if (validator.getDescription() != null)
+                {
+                    faceletTag.setDescription(
+                            validator.getDescription()+" "+faceletTag.getDescription());
+                }
+                addOrMergePropertiesToAttributeHolder(faceletTag, validator);
+            }
+        }
+
+        if (faceletTag.getComponentClass() != null)
+        {
+            ComponentMeta component = model.findComponentByClassName(
+                        faceletTag.getComponentClass());        
+            
+            if (null != component)
+            {
+                if (component.getLongDescription() != null)
+                {
+                    faceletTag.setLongDescription(
+                            component.getLongDescription()+"<p>"+faceletTag.getLongDescription()+"</p>");
+                }
+                if (component.getDescription() != null)
+                {
+                    faceletTag.setDescription(
+                            component.getDescription()+" "+faceletTag.getDescription());
+                }
+                addOrMergePropertiesToAttributeHolder(faceletTag, component);
+            }
+        }
+                
+        flattened.add(faceletTag);
+    }
+    
+    /**
+      * @since 1.0.4
+      **/
+    private void addOrMergePropertiesToAttributeHolder(AttributeHolder attributeHolder, PropertyHolder propertyHolder)
+    {
+        Collection propertyList = propertyHolder.getProperties().values();
+        for (Iterator it = propertyList.iterator(); it.hasNext();)
+        {
+            PropertyMeta property = (PropertyMeta) it.next();
+            
+            //Just add all non tag excluded properties. 
+            if (!property.isTagExcluded().booleanValue())
+            {
+                AttributeMeta attribute = new AttributeMeta();
+                if (property.isMethodExpression())
+                {
+                    attribute.setClassName("javax.el.MethodExpression");
+                    MethodSignatureMeta sig = property.getMethodBindingSignature();
+                    attribute.setDeferredMethodSignature(
+                            sig.getReturnType()+" myMethod("+sig.getParameterTypesAsString()+")");
+                }
+                else if (null == property.isRtexprvalue() || !property.isRtexprvalue().booleanValue())
+                {
+                    attribute.setDeferredValueType(property.getClassName());
+                    attribute.setClassName("javax.el.ValueExpression");
+                }
+                else
+                {
+                    //rtexprvalue = true, set className as expected
+                    attribute.setClassName(property.getClassName());
+                }
+                attribute.setRtexprvalue(property.isRtexprvalue());
+                
+                attribute.setDescription(property.getDescription());
+                attribute.setLongDescription(property.getLongDescription());
+                attribute.setName(property.getJspName());
+                attribute.setRequired(property.isRequired());
+
+                //just add attribute to tag
+                AttributeMeta attributeInTag = attributeHolder.getAttribute(attribute.getName());
+                
+                if (attributeInTag != null)
+                {
+                    //attributeInTag takes precedence, so 
+                    //we have to merge and copy
+                    attribute.merge(attributeInTag);
+                    attributeInTag.copy(attribute);
+                }
+                else
+                {
+                    //Add it to tag
+                    attributeHolder.addAttribute(attribute);
+                }
+            }
+        }       
     }
 }
