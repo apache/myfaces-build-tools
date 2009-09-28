@@ -364,7 +364,7 @@ public class QdoxModelBuilder implements ModelBuilder
             {
                 continue;
             }
-            initComponentAncestry(processedClasses, model, component);
+            QdoxHelper.initComponentAncestry(processedClasses, model, component);
 
             //Check if the component class java file exists in the source dirs
             String classname = component.getClassName();
@@ -389,7 +389,7 @@ public class QdoxModelBuilder implements ModelBuilder
             {
                 continue;
             }
-            initConverterAncestry(processedClasses, model, converter);
+            QdoxHelper.initConverterAncestry(processedClasses, model, converter);
             // TODO: why is there no check for Converter class existence here??
             // ANS: there is no automatic generation of converter class.
             
@@ -408,7 +408,7 @@ public class QdoxModelBuilder implements ModelBuilder
             {
                 continue;
             }
-            initValidatorAncestry(processedClasses, model, validator);
+            QdoxHelper.initValidatorAncestry(processedClasses, model, validator);
             
             //Check if the validator class file exists
             if (!IOUtils.existsSourceFile(StringUtils.replace(
@@ -429,7 +429,17 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             TagMeta tag = (TagMeta) it.next();
             // nothing to do at the moment 
-        }       
+        }
+        
+        for (Iterator it = model.getFaceletTags().iterator(); it.hasNext();)
+        {
+            FaceletTagMeta tag = (FaceletTagMeta) it.next();
+            if (!tag.getModelId().equals(currModelId))
+            {
+                continue;
+            }
+            QdoxHelper.initFaceletTagHandlerAncestry(processedClasses, model, tag);            
+        }
 
     }
 
@@ -666,28 +676,7 @@ public class QdoxModelBuilder implements ModelBuilder
         return null;
     }
     
-    
-    private String getFullyQualifiedClassName(JavaClass clazz, String fqn)
-    {
-        //QDox 1.9 bug. getFullyQualifiedName does not resolve 
-        //correctly classes like javax.servlet.jsp.tagext.TagSupport as parent
-        //of a class with @JSFJspTag. The temporal solution is scan
-        //the imports, looking for this type and if it is found replace it.
-        //Fixed on 1.9.1, but better let the code as is 
-        /*
-        if (fqn.indexOf('.') == -1)
-        {
-            String [] imports = clazz.getSource().getImports();
-            for (int i = 0; i < imports.length; i++)
-            {
-                if (imports[i].endsWith(fqn))
-                {
-                    fqn = imports[i];
-                }
-            }
-        }*/
-        return fqn;
-    }
+
 
     /**
      * Remove all leading whitespace and a quotemark if it exists.
@@ -794,7 +783,7 @@ public class QdoxModelBuilder implements ModelBuilder
             
             if ((fqn != null) && !fqn.startsWith("java.lang"))
             {
-                fqn = getFullyQualifiedClassName(clazz,fqn);
+                fqn = QdoxHelper.getFullyQualifiedClassName(clazz,fqn);
                 modelItem.setSourceClassParentClassName(fqn);
             }
         }
@@ -824,97 +813,6 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
         modelItem.setInterfaceClassNames(ifaceNames);
-    }
-
-    /**
-     * For each component, try to find its "logical" parent component,
-     * ie the nearest superclass that is also annotated as a component
-     * and therefore has an entry in the model.
-     * <p>
-     * In most cases this could be done at the time the component is
-     * processed. The processClass() method does try to process the
-     * classes that qdox discovers in ancestor->descendant order.
-     * <p>
-     * However there is one case where this just doesn't work. Therefore
-     * a two-pass approach is used: first create a ComponentMeta for
-     * each component, and then on a second pass find the matching
-     * parent for each one.
-     * <p>
-     * The problem case is where an annotated java class extends a
-     * generated one. In this case when walking up the ancestry tree of
-     * the hand-written class we find an entry for which there is no
-     * ComponentMeta entry. We do not know whether this is because the
-     * parent exists but is not annotated, or whether a ComponentMeta
-     * for that parent will be generated once we have processed some
-     * other class that happens to have the matching annotation.
-     */
-    private void initComponentAncestry(Map javaClassByName, Model model, ClassMeta modelItem)
-    {
-        JavaClass clazz = (JavaClass) javaClassByName.get(modelItem.getSourceClassName());
-        JavaClass parentClazz = clazz.getSuperJavaClass();
-        while (parentClazz != null)
-        {
-            String parentClazzName = parentClazz.getFullyQualifiedName();
-            
-            parentClazzName = getFullyQualifiedClassName(clazz,parentClazzName);
-            
-            ComponentMeta parentComponent = model
-                    .findComponentByClassName(parentClazzName);
-            if (parentComponent != null)
-            {
-                modelItem.setParentClassName(parentComponent.getClassName());
-                break;
-            }
-            parentClazz = parentClazz.getSuperJavaClass();
-        }
-    }
-
-    /**
-     * Same as initComponentAncestry but for validators.
-     */
-    private void initValidatorAncestry(Map javaClassByName, Model model, ClassMeta modelItem)
-    {
-        JavaClass clazz = (JavaClass) javaClassByName.get(modelItem.getSourceClassName());
-        JavaClass parentClazz = clazz.getSuperJavaClass();
-        while (parentClazz != null)
-        {
-            String parentClazzName = parentClazz.getFullyQualifiedName();
-            
-            parentClazzName = getFullyQualifiedClassName(clazz,parentClazzName);
-
-            ValidatorMeta parentComponent = model
-                    .findValidatorByClassName(parentClazzName);
-            if (parentComponent != null)
-            {
-                modelItem.setParentClassName(parentComponent.getClassName());
-                break;
-            }
-            parentClazz = parentClazz.getSuperJavaClass();
-        }
-    }
-    
-    /**
-     * Same as initComponentAncestry but for converters
-     */
-    private void initConverterAncestry(Map javaClassByName, Model model, ClassMeta modelItem)
-    {
-        JavaClass clazz = (JavaClass) javaClassByName.get(modelItem.getSourceClassName());
-        JavaClass parentClazz = clazz.getSuperJavaClass();
-        while (parentClazz != null)
-        {
-            String parentClazzName = parentClazz.getFullyQualifiedName();
-            
-            parentClazzName = getFullyQualifiedClassName(clazz,parentClazzName);
-            
-            ConverterMeta parentComponent = model
-                    .findConverterByClassName(parentClazzName);
-            if (parentComponent != null)
-            {
-                modelItem.setParentClassName(parentComponent.getClassName());
-                break;
-            }
-            parentClazz = parentClazz.getSuperJavaClass();
-        }
     }
     
     private void processConverter(Map props, AbstractJavaEntity ctx,
@@ -1416,7 +1314,7 @@ public class QdoxModelBuilder implements ModelBuilder
 
         String fullyQualifiedReturnType = returnType.getJavaClass().getFullyQualifiedName();
         
-        fullyQualifiedReturnType = getFullyQualifiedClassName(clazz,fullyQualifiedReturnType);
+        fullyQualifiedReturnType = QdoxHelper.getFullyQualifiedClassName(clazz,fullyQualifiedReturnType);
         
         if (returnType.isArray() && (fullyQualifiedReturnType.indexOf('[') == -1))
         {
@@ -1459,8 +1357,8 @@ public class QdoxModelBuilder implements ModelBuilder
         }
         String shortDescription = getString(clazz, "desc", props, descDflt);
                 
-        String name = getString(clazz, "name", props, descDflt);
-        String className = getString(clazz, "className", props, descDflt);
+        String name = getString(clazz, "name", props, null);
+        String className = getString(clazz, "className", props, null);
         String deferredValueType = getString(clazz, "deferredValueType", props, null);
         String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
         Boolean exclude = getBoolean(clazz, "exclude", props, null);
@@ -1509,7 +1407,7 @@ public class QdoxModelBuilder implements ModelBuilder
 
         String fullyQualifiedReturnType = returnType.getJavaClass().getFullyQualifiedName();
         
-        fullyQualifiedReturnType = getFullyQualifiedClassName(clazz,fullyQualifiedReturnType);
+        fullyQualifiedReturnType = QdoxHelper.getFullyQualifiedClassName(clazz,fullyQualifiedReturnType);
         
         if (returnType.isArray() && (fullyQualifiedReturnType.indexOf('[') == -1))
         {
@@ -1555,8 +1453,8 @@ public class QdoxModelBuilder implements ModelBuilder
         }
         String shortDescription = getString(clazz, "desc", props, descDflt);
                 
-        String name = getString(clazz, "name", props, descDflt);
-        String className = getString(clazz, "className", props, descDflt);
+        String name = getString(clazz, "name", props, null);
+        String className = getString(clazz, "className", props, null);
         String deferredValueType = getString(clazz, "deferredValueType", props, null);
         String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
         Boolean exclude = getBoolean(clazz, "exclude", props, null);
@@ -1593,7 +1491,7 @@ public class QdoxModelBuilder implements ModelBuilder
         String shortDescription = getString(clazz, "desc", props, descDflt);
                 
         String name = getString(clazz, "name", props, field.getName());
-        String className = getString(clazz, "className", props, descDflt);
+        String className = getString(clazz, "className", props, null);
         String deferredValueType = getString(clazz, "deferredValueType", props, null);
         String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
         Boolean exclude = getBoolean(clazz, "exclude", props, null);
@@ -1869,7 +1767,7 @@ public class QdoxModelBuilder implements ModelBuilder
         
         String fullyQualifiedReturnType = returnType.getJavaClass().getFullyQualifiedName();
         
-        fullyQualifiedReturnType = getFullyQualifiedClassName(clazz, fullyQualifiedReturnType);
+        fullyQualifiedReturnType = QdoxHelper.getFullyQualifiedClassName(clazz, fullyQualifiedReturnType);
         
         if (returnType.isArray() && (fullyQualifiedReturnType.indexOf('[') == -1))
         {
