@@ -310,7 +310,7 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
             getLog().info("No myfaces-metadata.xml found on artifact.");
         }
 
-        StringBuilder existingFiles = new StringBuilder();
+        StringBuffer existingFiles = new StringBuffer();
         for (int i = 0; i < exclusions.size(); i++)
         {
             existingFiles.append(exclusions.get(i));
@@ -346,7 +346,7 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
             addExcludes(dir2.getPath(), dir2, exclusions);
         }
         
-        StringBuilder existingFiles = new StringBuilder();
+        StringBuffer existingFiles = new StringBuffer();
         for (int i = 0; i < exclusions.size(); i++)
         {
             existingFiles.append(exclusions.get(i));
@@ -377,7 +377,9 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
         else
         {
             String path = f.getPath();
-            path = path.replace(basePath,"");
+            
+            //path = path.replace(basePath,"");
+            path = org.apache.commons.lang.StringUtils.replace(path, basePath, "");
             while (path.startsWith("/"))
             {
                 path = path.substring(1);

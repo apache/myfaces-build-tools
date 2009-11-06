@@ -492,17 +492,17 @@ public class MakeComponentsMojo extends AbstractMojo
                         
             if (!isExcludedField(field.getName()))
             {
-                writer.append("    ");
-                writer.append(field.getDeclarationSignature(true));
+                writer.write("    ");
+                writer.write(field.getDeclarationSignature(true));
                 String initExpr = field.getInitializationExpression();
                 initExpr = cleanInitializationExpression(initExpr);
                 if (initExpr != null)
                 {
-                    writer.append(" = ");
-                    writer.append(initExpr);
+                    writer.write(" = ");
+                    writer.write(initExpr);
                 }                
-                writer.append(';');
-                writer.append('\n');
+                writer.write(';');
+                writer.write('\n');
             }
         }
         
@@ -528,23 +528,23 @@ public class MakeComponentsMojo extends AbstractMojo
                 //to declare imports.
                 String declaration = method.getDeclarationSignature(true);
                                 
-                writer.append("    ");
-                writer.append(declaration);
+                writer.write("    ");
+                writer.write(declaration);
                 String sourceCode = method.getSourceCode();
                 if(sourceCode != null && sourceCode.length() > 0)
                 {
-                    writer.append('\n');
-                    writer.append("    ");
-                    writer.append('{');
-                    writer.append(method.getSourceCode());
-                    writer.append('}');
-                    writer.append('\n');
-                    writer.append('\n');
+                    writer.write('\n');
+                    writer.write("    ");
+                    writer.write('{');
+                    writer.write(method.getSourceCode());
+                    writer.write('}');
+                    writer.write('\n');
+                    writer.write('\n');
                 }
                 else
                 {
-                    writer.append(';');
-                    writer.append('\n');
+                    writer.write(';');
+                    writer.write('\n');
                 }
             }
             
@@ -587,7 +587,7 @@ public class MakeComponentsMojo extends AbstractMojo
         // trim each separately
         // remove any comment chars
         
-        if (expr.contains("\n"))
+        if (expr.indexOf("\n") > -1)
         {
             StringBuffer buf = new StringBuffer(100);
             String[] lines = StringUtils.split(expr, "\n");

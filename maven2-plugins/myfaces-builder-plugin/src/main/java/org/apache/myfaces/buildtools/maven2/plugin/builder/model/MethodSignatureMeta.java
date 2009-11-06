@@ -87,7 +87,7 @@ public class MethodSignatureMeta extends Object
     public String getParameterTypesAsString()
     {
         String[] params = this.getParameterTypes();
-        StringBuilder resp = new StringBuilder(); 
+        StringBuffer resp = new StringBuffer(); 
         for (int i = 0; i < params.length; i++)
         {
           if (i > 0)

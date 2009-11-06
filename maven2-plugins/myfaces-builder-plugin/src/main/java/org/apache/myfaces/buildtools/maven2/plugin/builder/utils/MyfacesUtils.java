@@ -27,6 +27,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
@@ -165,7 +166,7 @@ public class MyfacesUtils
             }
         }
 
-        StringBuilder value = new StringBuilder();
+        StringBuffer value = new StringBuffer();
 
         for (Iterator importIterator = imports.iterator(); importIterator
                 .hasNext();)
@@ -207,7 +208,7 @@ public class MyfacesUtils
             }
         }
 
-        StringBuilder value = new StringBuilder();
+        StringBuffer value = new StringBuffer();
 
         for (Iterator importIterator = imports.iterator(); importIterator
                 .hasNext();)
@@ -233,7 +234,7 @@ public class MyfacesUtils
         {
             return false;
         }
-        else if(propClass.contains("List"))
+        else if(StringUtils.contains(propClass, "List"))
         {
             return true;
         }
@@ -347,12 +348,12 @@ public class MyfacesUtils
     {
         if (className.startsWith("java.lang."))
         {
-            className = className.replace("java.lang.", "");
+            className = StringUtils.replace(className, "java.lang.", "");
         }
 
         if (className.endsWith("eger"))
         {
-            className = className.replace("eger", "");
+            className = StringUtils.replace(className, "eger", "");
         }
 
         if (MyfacesUtils.isPrimitiveClass(className.toLowerCase()))
