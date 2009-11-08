@@ -246,6 +246,14 @@ public class BuildMetaDataMojo extends AbstractMojo
     private String excludes;
     
     /**
+     * This param is used to search in this folder if some file to
+     * be generated exists and avoid generation and duplicate exception.
+     * 
+     * @parameter
+     */    
+    private List sourceDirectories;
+        
+    /**
      * Create a metadata file containing information imported from other projects
      * plus data extracted from annotated classes in this project.
      */
@@ -287,7 +295,14 @@ public class BuildMetaDataMojo extends AbstractMojo
             }
         }
 
-        buildModel(model, project);
+        if (sourceDirectories == null)
+        {
+            buildModel(model, project);
+        }
+        else
+        {
+            buildModel(model, sourceDirectories);
+        }
         resolveReplacePackage(model);
         
         IOUtils.saveModel(model, new File(targetDirectory, outputFile));
@@ -384,6 +399,30 @@ public class BuildMetaDataMojo extends AbstractMojo
             QdoxModelBuilder builder = new QdoxModelBuilder();
             model.setModelId(modelId);
             builder.buildModel(model, project,includes,excludes);            
+            return model;
+        }
+        catch (BuildException e)
+        {
+            throw new MojoExecutionException("Unable to build metadata", e);
+        }
+    }
+    
+    private Model buildModel(Model model, List dirs)
+        throws MojoExecutionException
+    {
+        try
+        {
+            QdoxModelBuilder builder = new QdoxModelBuilder();
+            model.setModelId(modelId);
+            if (StringUtils.isNotEmpty(includes) || 
+                    StringUtils.isNotEmpty(excludes))
+            {
+                builder.buildModel(model, dirs, includes, excludes);
+            }
+            else
+            {
+                builder.buildModel(model, dirs);
+            }
             return model;
         }
         catch (BuildException e)
