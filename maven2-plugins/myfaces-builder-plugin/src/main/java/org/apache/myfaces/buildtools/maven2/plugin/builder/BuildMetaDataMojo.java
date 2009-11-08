@@ -249,6 +249,7 @@ public class BuildMetaDataMojo extends AbstractMojo
      * This param is used to search in this folder if some file to
      * be generated exists and avoid generation and duplicate exception.
      * 
+     * @since 1.0.4
      * @parameter
      */    
     private List sourceDirectories;

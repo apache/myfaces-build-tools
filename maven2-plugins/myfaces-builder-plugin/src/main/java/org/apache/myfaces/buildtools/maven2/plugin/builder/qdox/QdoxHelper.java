@@ -243,4 +243,13 @@ public class QdoxHelper
             parentClazz = parentClazz.getSuperJavaClass();
         }
     }
+    
+    public static String evaluateParameterInitializationExpression(String value)
+    {
+        if (value.charAt(0) == '"' && value.charAt(value.length()-1) == '"' && value.indexOf('+') == -1)
+        {
+            return value.substring(1,value.length()-1);
+        }            
+        return value;
+    }
 }

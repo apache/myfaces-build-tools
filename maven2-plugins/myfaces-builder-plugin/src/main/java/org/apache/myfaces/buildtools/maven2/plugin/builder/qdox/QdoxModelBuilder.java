@@ -52,6 +52,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RenderKitMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.RendererMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.WebConfigMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.WebConfigParamMeta;
 import org.codehaus.plexus.components.io.fileselectors.FileInfo;
 import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
@@ -102,6 +104,8 @@ public class QdoxModelBuilder implements ModelBuilder
     private static final String DOC_FACELET_TAGS = "JSFFaceletTags";
     private static final String DOC_FACELET_TAG_ATTRIBUTE = "JSFFaceletAttribute";
     private static final String DOC_FACELET_TAG_ATTRIBUTES = "JSFFaceletAttributes";
+    
+    private static final String DOC_WEB_CONFIG_PARAM = "JSFWebConfigParam";
     
     private static class JavaClassComparator implements Comparator
     {
@@ -171,7 +175,16 @@ public class QdoxModelBuilder implements ModelBuilder
         
         for (Iterator i = sourceDirs.iterator(); i.hasNext();)
         {
-            File srcDir = new File((String) i.next());
+            Object dir = i.next();
+            File srcDir = null;
+            if (dir instanceof File)
+            {
+                srcDir = (File) dir;
+            }
+            else         
+            {
+                new File((String) i.next());
+            }
             
             //Scan all files on directory and add to builder
             addFileToJavaDocBuilder(builder, selector, srcDir);
@@ -461,8 +474,7 @@ public class QdoxModelBuilder implements ModelBuilder
      * Set the parentClassName and interfaceClassNames properties of the
      * provided modelItem object.
      */
-    private void processClass(Map processedClasses, JavaClass clazz, Model model)
-            throws MojoExecutionException
+    private void processClass(Map processedClasses, JavaClass clazz, Model model) throws MojoExecutionException
     {
         if (processedClasses.containsKey(clazz.getFullyQualifiedName()))
         {
@@ -488,10 +500,40 @@ public class QdoxModelBuilder implements ModelBuilder
         processedClasses.put(clazz.getFullyQualifiedName(), clazz);
 
         log.info("processed class:" + clazz.getFullyQualifiedName());
-
         DocletTag tag;
         Annotation anno;
-
+        WebConfigMeta webConfig = model.findWebConfigsByModelId(model.getModelId());
+        boolean createWebConfig = false;
+        if (webConfig == null)
+        {
+            createWebConfig = true;
+            webConfig = new WebConfigMeta();
+            webConfig.setModelId(model.getModelId());
+        }
+        //Web Config Params
+        JavaField[] fields = clazz.getFields();
+        for (int i = 0; i < fields.length; ++i)
+        {
+            JavaField field = fields[i];
+            tag = field.getTagByName(DOC_WEB_CONFIG_PARAM);
+            if (tag != null)
+            {
+                Map props = tag.getNamedParameterMap();
+                processWebConfigParam(props, (AbstractJavaEntity)tag.getContext(), 
+                        clazz, field, webConfig);
+            }
+            anno = getAnnotation(field, DOC_WEB_CONFIG_PARAM);
+            if (anno != null)
+            {
+                Map props = anno.getNamedParameterMap();
+                processWebConfigParam(props, (AbstractJavaEntity)anno.getContext(),
+                        clazz, field, webConfig);
+            }
+        }
+        if (webConfig.webConfigParametersSize() > 0 && createWebConfig)
+        {
+            model.addWebConfig(webConfig);
+        }
         // converters
         tag = clazz.getTagByName(DOC_CONVERTER, false);
         if (tag != null)
@@ -505,7 +547,6 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = anno.getNamedParameterMap();
             processConverter(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
-
         // validators
         tag = clazz.getTagByName(DOC_VALIDATOR, false);
         if (tag != null)
@@ -519,7 +560,6 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = anno.getNamedParameterMap();
             processValidator(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
-
         // components
         tag = clazz.getTagByName(DOC_COMPONENT, false);
         if (tag != null)
@@ -533,7 +573,6 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = anno.getNamedParameterMap();
             processComponent(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
-        
         //tag
         tag = clazz.getTagByName(DOC_TAG, false);
         if (tag != null)
@@ -594,10 +633,8 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = anno.getNamedParameterMap();
             processRenderKit(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
-                
         // renderer
         DocletTag [] tags = clazz.getTagsByName(DOC_RENDERER, false);
-        
         for (int i = 0; i < tags.length; i++)
         {
             tag = tags[i];
@@ -607,14 +644,12 @@ public class QdoxModelBuilder implements ModelBuilder
                 processRenderer(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
             }
         }
-        
         anno = getAnnotation(clazz, DOC_RENDERER);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
             processRenderer(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
-        
         anno = getAnnotation(clazz, DOC_RENDERERS);
         if (anno != null)
         {
@@ -813,6 +848,36 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
         modelItem.setInterfaceClassNames(ifaceNames);
+    }
+    
+    private void processWebConfigParam(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, JavaField field, WebConfigMeta webConfig)
+    {
+        String longDescription = field.getComment();
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+        
+        String name = getString(clazz, "name", props, 
+                QdoxHelper.evaluateParameterInitializationExpression(
+                        field.getInitializationExpression()));
+        String defaultValue = getString(clazz,"defaultValue",props,null);
+        String expectedValues = getString(clazz,"expectedValues",props,null);
+        String since = getString(clazz,"since",props,null);
+        
+        WebConfigParamMeta wcp = new WebConfigParamMeta();
+        wcp.setName(name);
+        wcp.setFieldName(field.getName());
+        wcp.setSourceClassName(clazz.getFullyQualifiedName());
+        wcp.setDefaultValue(defaultValue);
+        wcp.setExpectedValues(expectedValues);
+        wcp.setLongDescription(longDescription);
+        wcp.setDescription(shortDescription);
+        wcp.setSince(since);
+        webConfig.addWebConfigParam(wcp);
     }
     
     private void processConverter(Map props, AbstractJavaEntity ctx,

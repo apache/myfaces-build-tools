@@ -41,6 +41,7 @@ public class Model
     private List _renderKits = new ArrayList(100);
     private List _tags = new ArrayList(100);
     private List _faceletTags = new ArrayList(100);
+    private List _webConfigs = new ArrayList(10);
 
     private Map _componentsByClass = new TreeMap();
     private Map _convertersByClass = new TreeMap();
@@ -50,6 +51,7 @@ public class Model
     private Map _faceletTagsByClass =  new TreeMap();
     private Map _componentsByTagClass = new TreeMap();
     private Map _faceletTagsByName = new TreeMap();
+    private Map _webConfigsByModelId = new TreeMap();
     
     private String _modelId;
 
@@ -100,6 +102,12 @@ public class Model
             FaceletTagMeta c = (FaceletTagMeta) i.next();
             c.writeXml(out);
         }
+        
+        for (Iterator i = model._webConfigs.iterator(); i.hasNext();)
+        {
+            WebConfigMeta c = (WebConfigMeta) i.next();
+            c.writeXml(out);
+        }
 
         out.endElement("model");
     }
@@ -123,6 +131,7 @@ public class Model
         RenderKitMeta.addXmlRules(digester, prefix);
         TagMeta.addXmlRules(digester, prefix);
         FaceletTagMeta.addXmlRules(digester, prefix);
+        WebConfigMeta.addXmlRules(digester, prefix);
     }
     
     /**
@@ -183,7 +192,17 @@ public class Model
             {
                 this.addFaceletTag(faceletTag);
             }
-        }         
+        }
+        
+        for (Iterator it = other.getWebConfigs().iterator(); it.hasNext();)
+        {
+            WebConfigMeta webConfig = (WebConfigMeta) it.next();
+            
+            if (this.findWebConfigsByModelId(webConfig.getModelId())== null)
+            {
+                this.addWebConfig(webConfig);
+            }
+        }
     }
 
     /**
@@ -408,6 +427,39 @@ public class Model
     public FaceletTagMeta findFaceletTagByName(String name)
     {
         return (FaceletTagMeta) _faceletTagsByName.get(name);
+    }
+    
+    /**
+     * @since 1.0.4
+     */
+    public List getWebConfigs()
+    {
+        return _webConfigs;
+    }
+
+    /**
+     * @since 1.0.4
+     */
+    public Iterator webConfigs()
+    {
+        return _webConfigs.iterator();
+    }
+
+    /**
+     * @since 1.0.4
+     */
+    public WebConfigMeta findWebConfigsByModelId(String modelId)
+    {
+        return (WebConfigMeta) _webConfigsByModelId.get(modelId);
+    }
+    
+    /**
+     * @since 1.0.4
+     */
+    public void addWebConfig(WebConfigMeta config)
+    {
+        _webConfigs.add(config);
+        _webConfigsByModelId.put(config.getModelId(), config);
     }
 
     public void setModelId(String modelId)
