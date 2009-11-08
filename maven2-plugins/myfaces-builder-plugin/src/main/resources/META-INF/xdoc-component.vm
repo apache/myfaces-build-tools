@@ -61,6 +61,53 @@ $baseContent
    </table>
    </p>
   </section>
+#end
+#set($listenerList = ${tagdocUtils.getSortedListenerList($component)})
+#if ($listenerList.size() != 0)
+  <section name="Supported Listeners">
+   <p>
+   <table>
+    <tr>
+     <th>Name</th>
+     <th>Listener</th>
+     <th>Event</th>
+     <th>Phases</th>
+     <th>Required</th>
+     <th>Description</th>
+    </tr>
+#foreach( $listener in $listenerList )
+    <tr>
+#if ($listener.name)
+     <td>$listener.name</td>
+#else
+     <td></td>
+#end
+#if ($listener.className)
+    <td>$listener.className</td>
+#else
+    <td></td>
+#end
+#if ($listener.eventClassName)
+    <td>$listener.eventClassName</td>
+#else
+    <td></td>
+#end
+#if ($listener.phases)
+     <td>$listener.phases</td>
+#else
+     <td></td>
+#end
+     <td>$listener.isRequired()</td>
+#if ($listener.longDescription)
+     <td>$listener.longDescription</td>
+#else
+     <td></td>
+#end     
+    </tr>
+#end
+   </table>
+   </p>
+  </section>
 #end  
 #set ($propertyList = ${tagdocUtils.getSortedPropertyList($component)})
 #if ($propertyList.size() != 0)  

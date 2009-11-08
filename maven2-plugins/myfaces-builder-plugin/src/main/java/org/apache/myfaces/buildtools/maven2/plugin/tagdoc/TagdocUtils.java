@@ -32,6 +32,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FacetHolder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FacetMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ListenerHolder;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ListenerMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyHolder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
@@ -115,6 +117,31 @@ public class TagdocUtils
         {
             String name = (String) nameIter.next();
             list.add(component.getFacet(name));
+        }
+        return list;
+    }
+    
+    /**
+     * @since 1.0.4
+     * @param component
+     * @return
+     */
+    static public List getSortedListenerList(ListenerHolder component)
+    {
+        TreeSet facetNames = new TreeSet();
+        Iterator iter = component.listeners();
+        while (iter.hasNext())
+        {
+            facetNames.add(((ListenerMeta) iter.next()).getClassName());
+        }
+        
+        // Now get a list of PropertyMetas
+        List list = new ArrayList();
+        Iterator nameIter = facetNames.iterator();
+        while (nameIter.hasNext())
+        {
+            String name = (String) nameIter.next();
+            list.add(component.getListener(name));
         }
         return list;
     }

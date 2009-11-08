@@ -19,10 +19,6 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder.qdox;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -42,8 +38,11 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletTagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FacetHolder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FacetMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ListenerHolder;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ListenerMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyHolder;
@@ -54,11 +53,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.WebConfigMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.WebConfigParamMeta;
-import org.codehaus.plexus.components.io.fileselectors.FileInfo;
-import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
-
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletTagMeta;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
@@ -89,7 +84,8 @@ public class QdoxModelBuilder implements ModelBuilder
     private static final String DOC_RENDERERS = "JSFRenderers";
 
     private static final String DOC_PROPERTY = "JSFProperty";
-    private static final String DOC_FACET = "JSFFacet";   
+    private static final String DOC_FACET = "JSFFacet";
+    private static final String DOC_LISTENER = "JSFListener";
     
     //This property is used in special cases where properties 
     //does not have methods defined on component class, like binding
@@ -187,7 +183,7 @@ public class QdoxModelBuilder implements ModelBuilder
             }
             
             //Scan all files on directory and add to builder
-            addFileToJavaDocBuilder(builder, selector, srcDir);
+            QdoxHelper.addFileToJavaDocBuilder(builder, selector, srcDir);
         }        
         
         JavaClass[] classes = builder.getClasses();
@@ -195,127 +191,6 @@ public class QdoxModelBuilder implements ModelBuilder
         buildModel(model, sourceDirs, classes);
     }
     
-    private void addFileToJavaDocBuilder(JavaDocBuilder builder,
-            FileSelector selector, File path)
-    {
-        addFileToJavaDocBuilder(builder,selector, path, path.getPath());
-    }
-    
-    
-    private void addFileToJavaDocBuilder(JavaDocBuilder builder,
-            FileSelector selector, File path, String basePath)
-    {
-        if (path.isDirectory())
-        {
-            File[] files = path.listFiles();
-            
-            //Scan all files in directory
-            for (int i = 0; i < files.length; i++)
-            {
-                addFileToJavaDocBuilder(builder, selector, files[i], basePath);
-            }
-        }
-        else
-        {
-            File file = path;
-
-            try
-            {
-                String name = file.getPath();
-                while (name.startsWith("/"))
-                {
-                    name = name.substring(1);
-                }
-                while (name.startsWith("\\"))
-                {
-                    name = name.substring(1);
-                }
-                SourceFileInfo fileInfo = new SourceFileInfo(file,name);
-                if (selector.isSelected(fileInfo))
-                {
-                    //System.out.println("file:"+name);
-                    builder.addSource(file);
-                }
-            }
-            catch (FileNotFoundException e)
-            {
-                log.error("Error reading file: "+file.getName()+" "+e.getMessage());
-            }
-            catch (IOException e)
-            {
-                log.error("Error reading file: "+file.getName()+" "+e.getMessage());                
-            }
-        }
-    }
-    
-    private class SourceFileInfo implements FileInfo
-    {
-        private File file;
-        
-        private String name;
-
-        /**
-         * Creates a new instance.
-         */
-        public SourceFileInfo( File file )
-        {
-            this( file, file.getPath().replace( '\\', '/' ) );
-        }
-
-        /**
-         * Creates a new instance.
-         */
-        public SourceFileInfo( File file, String name )
-        {
-            this.file = file;
-            this.name = name;
-        }
-        
-        /**
-         * Sets the resources file.
-         */
-        public void setFile( File file )
-        {
-            this.file = file;
-        }
-
-        /**
-         * Returns the resources file.
-         */
-        public File getFile()
-        {
-            return file;
-        }
-
-        /**
-         * Sets the resources name.
-         */
-        public void setName( String name )
-        {
-            this.name = name;
-        }
-
-        public String getName()
-        {
-            return name;
-        }        
-        
-        public InputStream getContents() throws IOException
-        {
-            return new FileInputStream( getFile() );
-        }
-
-        public boolean isDirectory()
-        {
-            return file.isDirectory();
-        }
-
-        public boolean isFile()
-        {
-            return file.isFile();
-        }        
-    }
-
     /**
      * Scan the source tree for doc-annotations, and build Model objects
      * containing info extracted from the doc-annotation attributes and
@@ -1214,6 +1089,7 @@ public class QdoxModelBuilder implements ModelBuilder
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, component);
         processComponentFacets(clazz, component);
+        processComponentListeners(clazz, component);
 
         model.addComponent(component);
     }
@@ -1752,6 +1628,71 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
     }
+
+    /**
+     * @since 1.0.4
+     */
+    private void processComponentListeners(JavaClass clazz,
+            ListenerHolder component)
+    {
+        JavaMethod[] methods = clazz.getMethods();
+        for (int i = 0; i < methods.length; ++i)
+        {
+            JavaMethod method = methods[i];
+
+            DocletTag tag = method.getTagByName(DOC_LISTENER);
+            if (tag != null)
+            {
+                Map props = tag.getNamedParameterMap();
+                processComponentListener(props, (AbstractJavaEntity)tag.getContext(), clazz,
+                        method, component);
+            }
+
+            Annotation anno = getAnnotation(method, DOC_LISTENER);
+            if (anno != null)
+            {
+                Map props = anno.getNamedParameterMap();
+                processComponentListener(props, (AbstractJavaEntity)anno.getContext(), clazz,
+                        method, component);
+            }
+        }
+        
+        Type [] interfaces = clazz.getImplements();
+        
+        //Scan interfaces for properties to be added to this component
+        //This feature allow us to have groups of functions.
+        for (int i = 0; i < interfaces.length;++i)
+        {
+            JavaClass intf = interfaces[i].getJavaClass();
+
+            //If the interfaces has a JSFComponent Doclet,
+            //this is managed in other way
+            if (intf.getTagByName(DOC_COMPONENT, false) == null)
+            {
+                JavaMethod[] intfmethods = intf.getMethods();
+                for (int j = 0; j < intfmethods.length; ++j)
+                {
+                    JavaMethod intfmethod = intfmethods[j];
+
+                    DocletTag tag = intfmethod.getTagByName(DOC_LISTENER);
+                    if (tag != null)
+                    {
+                        Map props = tag.getNamedParameterMap();
+                        processInterfaceComponentListener(props, (AbstractJavaEntity)tag.getContext(), 
+                                clazz, intfmethod, component);
+                    }
+
+                    Annotation anno = getAnnotation(intfmethod, DOC_LISTENER);
+                    if (anno != null)
+                    {
+                        Map props = anno.getNamedParameterMap();
+                        processInterfaceComponentListener(props, (AbstractJavaEntity)anno.getContext(),
+                                clazz, intfmethod, component);
+                    }
+                }
+            }
+        }
+    }
         
     private void processInterfaceComponentProperty(Map props, AbstractJavaEntity ctx,
     JavaClass clazz, JavaMethod method, PropertyHolder component)
@@ -1786,6 +1727,27 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             //The method should be generated!
             facet.setGenerated(Boolean.TRUE);
+        }            
+    }
+    
+    /**
+     * @since 1.0.4
+     */
+    private void processInterfaceComponentListener(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, JavaMethod method, ListenerHolder component)
+    {
+        this.processComponentListener(props, ctx, clazz, method, component);
+                
+        ListenerMeta listener = component.getListener(QdoxHelper.methodToPropName(method.getName()));
+                
+        //Try to get the method from the component clazz to see if this
+        //has an implementation
+        JavaMethod clazzMethod = clazz.getMethodBySignature(method.getName(), null , false);
+                
+        if (clazzMethod == null)
+        {
+            //The method should be generated!
+            listener.setGenerated(Boolean.TRUE);
         }            
     }
     
@@ -1920,6 +1882,58 @@ public class QdoxModelBuilder implements ModelBuilder
         component.addFacet(p);
     }
     
+    /**
+     * @since 1.0.4
+     */
+    private void processComponentListener(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, JavaMethod method, ListenerHolder component)
+    {
+        Boolean required = getBoolean(clazz, "required", props, null);
+
+        String longDescription = ctx.getComment();
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = getString(clazz, "desc", props, descDflt);
+        
+        Type returnType = null;
+        
+        if (method.getName().startsWith("set"))
+        {
+            returnType = method.getParameters()[0].getType();
+        }
+        else
+        {
+            returnType = method.getReturns();
+        }
+        
+        String fullyQualifiedReturnType = returnType.getJavaClass().getFullyQualifiedName();
+        fullyQualifiedReturnType = QdoxHelper.getFullyQualifiedClassName(clazz, fullyQualifiedReturnType);
+        fullyQualifiedReturnType = getString(clazz, "clazz", props, fullyQualifiedReturnType);
+        
+        String phases = getString(clazz, "phases", props, null);
+        String eventClassName = getString(clazz, "event", props, null);
+        String name = getString(clazz, "name", props, QdoxHelper.methodToPropName(method.getName()));
+        
+        ListenerMeta p = new ListenerMeta();
+        p.setName(name);
+        p.setClassName(fullyQualifiedReturnType);
+        p.setEventClassName(eventClassName);
+        p.setRequired(required);
+        p.setDescription(shortDescription);
+        p.setLongDescription(longDescription);
+        p.setPhases(phases);
+        
+        //If the method is abstract this should be generated
+        if (method.isAbstract())
+        {
+            p.setGenerated(Boolean.TRUE);
+        }
+
+        component.addListener(p);
+    }
     
     private void processComponentJspProperty(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, PropertyHolder component)

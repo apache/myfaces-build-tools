@@ -34,7 +34,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  * class or interface that a UIComponent can be derived from.
  */
 public class ComponentMeta extends ViewEntityMeta implements 
-    PropertyHolder, FacetHolder
+    PropertyHolder, FacetHolder, ListenerHolder
 {
     private String _bodyContent;
 
@@ -58,6 +58,7 @@ public class ComponentMeta extends ViewEntityMeta implements
     private Boolean _template;
     
     protected Map _facets;
+    protected Map _listeners;
 
     /**
      * Write an instance of this class out as xml.
@@ -86,6 +87,11 @@ public class ComponentMeta extends ViewEntityMeta implements
         {
             FacetMeta facet = (FacetMeta) i.next();
             FacetMeta.writeXml(out, facet);
+        }
+        for (Iterator i = _listeners.values().iterator(); i.hasNext();)
+        {
+            ListenerMeta listener = (ListenerMeta) i.next();
+            ListenerMeta.writeXml(out, listener);
         }
     }
 
@@ -119,6 +125,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         digester.addBeanPropertySetter(newPrefix + "/template");
         
         FacetMeta.addXmlRules(digester, newPrefix);
+        ListenerMeta.addXmlRules(digester, newPrefix);
     }
 
     /**
@@ -128,6 +135,7 @@ public class ComponentMeta extends ViewEntityMeta implements
     {
         super("component");
         _facets = new LinkedHashMap();
+        _listeners = new LinkedHashMap();
     }
 
     /**
@@ -167,6 +175,7 @@ public class ComponentMeta extends ViewEntityMeta implements
 
         ModelUtils.mergeProps(this, other);
         ModelUtils.mergeFacets(this, other);
+        ModelUtils.mergeListeners(this, other);
         
         if (inheritParentTag)
         {
@@ -394,6 +403,31 @@ public class ComponentMeta extends ViewEntityMeta implements
     {
         return (FacetMeta) _facets.get(name);
     }
+    
+    /**
+     * @since 1.0.4
+     */
+    public void addListener(ListenerMeta prop)
+    {
+        _listeners.put(prop.getClassName(), prop);
+    }
+
+    /**
+     * @since 1.0.4
+     */
+    public Iterator listeners()
+    {
+        return _listeners.values().iterator();
+    }
+
+    /**
+     * @since 1.0.4
+     */
+    public ListenerMeta getListener(String name)
+    {
+        return (ListenerMeta) _listeners.get(name);
+    }
+
     
     /**
      * 

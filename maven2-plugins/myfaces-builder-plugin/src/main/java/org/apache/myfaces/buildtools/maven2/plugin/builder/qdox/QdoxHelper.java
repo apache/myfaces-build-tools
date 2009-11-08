@@ -18,15 +18,25 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.qdox;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletTagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
+import org.codehaus.plexus.components.io.fileselectors.FileInfo;
+import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 
+import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
 
 /**
@@ -251,5 +261,128 @@ public class QdoxHelper
             return value.substring(1,value.length()-1);
         }            
         return value;
+    }
+    
+    public static void addFileToJavaDocBuilder(JavaDocBuilder builder,
+            FileSelector selector, File path)
+    {
+        addFileToJavaDocBuilder(builder,selector, path, path.getPath());
+    }
+    
+    
+    public static void addFileToJavaDocBuilder(JavaDocBuilder builder,
+            FileSelector selector, File path, String basePath)
+    {
+        if (path.isDirectory())
+        {
+            File[] files = path.listFiles();
+            
+            //Scan all files in directory
+            for (int i = 0; i < files.length; i++)
+            {
+                addFileToJavaDocBuilder(builder, selector, files[i], basePath);
+            }
+        }
+        else
+        {
+            File file = path;
+
+            try
+            {
+                String name = file.getPath();
+                while (name.startsWith("/"))
+                {
+                    name = name.substring(1);
+                }
+                while (name.startsWith("\\"))
+                {
+                    name = name.substring(1);
+                }
+                SourceFileInfo fileInfo = new SourceFileInfo(file,name);
+                if (selector.isSelected(fileInfo))
+                {
+                    //System.out.println("file:"+name);
+                    builder.addSource(file);
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Log log = LogFactory.getLog(QdoxHelper.class);
+                log.error("Error reading file: "+file.getName()+" "+e.getMessage());
+            }
+            catch (IOException e)
+            {
+                Log log = LogFactory.getLog(QdoxHelper.class);
+                log.error("Error reading file: "+file.getName()+" "+e.getMessage());                
+            }
+        }
+    }
+    
+    private static class SourceFileInfo implements FileInfo
+    {
+        private File file;
+        
+        private String name;
+
+        /**
+         * Creates a new instance.
+         */
+        public SourceFileInfo( File file )
+        {
+            this( file, file.getPath().replace( '\\', '/' ) );
+        }
+
+        /**
+         * Creates a new instance.
+         */
+        public SourceFileInfo( File file, String name )
+        {
+            this.file = file;
+            this.name = name;
+        }
+        
+        /**
+         * Sets the resources file.
+         */
+        public void setFile( File file )
+        {
+            this.file = file;
+        }
+
+        /**
+         * Returns the resources file.
+         */
+        public File getFile()
+        {
+            return file;
+        }
+
+        /**
+         * Sets the resources name.
+         */
+        public void setName( String name )
+        {
+            this.name = name;
+        }
+
+        public String getName()
+        {
+            return name;
+        }        
+        
+        public InputStream getContents() throws IOException
+        {
+            return new FileInputStream( getFile() );
+        }
+
+        public boolean isDirectory()
+        {
+            return file.isDirectory();
+        }
+
+        public boolean isFile()
+        {
+            return file.isFile();
+        }        
     }
 }

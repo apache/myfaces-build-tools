@@ -128,6 +128,32 @@ public class ModelUtils
     
     /**
      * @since 1.0.4
+     * @param dst
+     * @param src
+     */
+    public static void mergeListeners(ListenerHolder dst, ListenerHolder src)
+    {
+        for (Iterator i = src.listeners(); i.hasNext();)
+        {
+            ListenerMeta srcProp = (ListenerMeta) i.next();
+            ListenerMeta dstProp = dst.getListener(srcProp.getName());
+            if (dstProp == null)
+            {
+                // Just copy the whole property unaltered
+                dstProp = new ListenerMeta(srcProp);
+                dstProp.setInherited(Boolean.TRUE);
+                dst.addListener(dstProp);
+            }
+            else
+            {
+                // merge the two property objects together
+                dstProp.merge(srcProp);
+            }
+        }
+    }
+    
+    /**
+     * @since 1.0.4
      */
     public static void mergeAttributes(AttributeHolder dst, AttributeHolder src)
     {
