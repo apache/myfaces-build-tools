@@ -44,11 +44,6 @@ public @interface JSFWebConfigParam
     String desc() default "";
     
     /**
-     * Long description. By default, it takes what is inside comment area.
-     */
-    String longDescription() default "";
-    
-    /**
      * 
      */
     String defaultValue() default "";
