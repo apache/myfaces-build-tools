@@ -16,6 +16,10 @@
    <b>Tag class:</b> <a href="${tagdocUtils.platformAgnosticPath( $javadocPath )}.html">${component.tagClass}</a>
    <br/>
 #end
+#if ($faceletTag)
+   <b>Facelet Tag Handler:</b> <a href="${tagdocUtils.platformAgnosticPath( $javadocPath )}.html">${faceletTag.className}</a>
+   <br/>  
+#end
    <b>Component type:</b> ${component.type}
    <br/>
    <b>Component family:</b> ${component.family}

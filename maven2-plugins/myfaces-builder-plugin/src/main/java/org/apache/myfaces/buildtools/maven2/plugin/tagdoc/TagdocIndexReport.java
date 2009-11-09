@@ -38,6 +38,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletTagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
@@ -189,6 +190,8 @@ public class TagdocIndexReport extends AbstractMavenReport
         Iterator converters = model.converters();
         
         Iterator tags = model.tags();
+        
+        Iterator faceletTags = model.faceletTags();
 
         // =-=AEW Note that only updating out-of-date components, etc. is
         // permanently tricky, even if we had proper detection in place,
@@ -205,6 +208,7 @@ public class TagdocIndexReport extends AbstractMavenReport
         Set converterPages = new TreeSet();
         Set validatorPages = new TreeSet();
         Set tagsPages = new TreeSet();
+        Set faceletTagPages = new TreeSet();
 
         int count = 0;
         while (components.hasNext())
@@ -261,6 +265,22 @@ public class TagdocIndexReport extends AbstractMavenReport
                 }                
             }
         }
+        
+        while (faceletTags.hasNext())
+        {
+            FaceletTagMeta faceletTag = (FaceletTagMeta) faceletTags.next();
+            
+            if (canGenerate(faceletTag))
+            {
+                String pageName = _generateFaceletTagDoc(model, faceletTag);
+                if (pageName != null)
+                {
+                    faceletTagPages.add(pageName);
+                    count++;
+                }
+            }
+        }
+        
 
         Set otherPages = _gatherOtherTags();
 
@@ -307,6 +327,7 @@ public class TagdocIndexReport extends AbstractMavenReport
         _writeIndexSection(sink, converterPages, "Converters");
         _writeIndexSection(sink, validatorPages, "Validators");
         _writeIndexSection(sink, tagsPages, "JSF Tags");
+        _writeIndexSection(sink, faceletTagPages, "JSF Facelet Tags");
         _writeIndexSection(sink, otherPages, "Miscellaneous");
 
         sink.body_();
@@ -433,7 +454,58 @@ public class TagdocIndexReport extends AbstractMavenReport
         String pageName = _toPageName(tag.getName());
         
         return pageName;
-    }    
+    }
+    
+    private String _generateFaceletTagDoc(Model model, FaceletTagMeta tag)
+    throws IOException
+    {
+        String name = tag.getName(); 
+        if (name == null)
+        {
+            return null;
+        }
+        
+        if (tag.getComponentClass() != null)
+        {
+            ComponentMeta comp = model.findComponentByClassName(tag.getComponentClass());
+            if (name.equals(comp.getName()))
+            {
+                //Exists in jsp and in facelets, but has specific facelets properties
+                return null;
+            }
+        }
+        if (tag.getConverterClass() != null)
+        {
+            ConverterMeta comp = model.findConverterByClassName(tag.getConverterClass());
+            if (name.equals(comp.getName()))
+            {
+                //Exists in jsp and in facelets, but has specific facelets properties
+                return null;
+            }            
+        }
+        if (tag.getValidatorClass() != null)
+        {
+            ValidatorMeta comp = model.findValidatorByClassName(tag.getValidatorClass());
+            if (name.equals(comp.getName()))
+            {
+                //Exists in jsp and in facelets, but has specific facelets properties
+                return null;
+            }            
+        }
+        if (tag.getTagClass() != null)
+        {
+            TagMeta comp = model.findTagByClassName(tag.getTagClass());
+            if (name.equals(comp.getName()))
+            {
+                //Exists in jsp and in facelets, but has specific facelets properties
+                return null;
+            }
+        }
+        
+        String pageName = _toPageName(tag.getName());
+        
+        return pageName;
+    }   
 
     static private final String _platformAgnosticPath(String path)
     {

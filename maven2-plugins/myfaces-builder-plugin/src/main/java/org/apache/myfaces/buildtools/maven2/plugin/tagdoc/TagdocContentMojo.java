@@ -53,6 +53,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletTagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
@@ -165,6 +166,12 @@ public class TagdocContentMojo extends AbstractMojo
      * @parameter expression="xdoc-tag.vm"
      */
     private String templateTag;
+    
+    /**
+     * @since 1.0.4
+     * @parameter expression="xdoc-facelet-tag.vm"
+     */
+    private String templateFaceletTag;
 
     static private final String _DOC_SUBDIRECTORY = "tagdoc";
 
@@ -270,11 +277,14 @@ public class TagdocContentMojo extends AbstractMojo
         Iterator converters = model.converters();
         
         Iterator tags = model.tags();
+        
+        Iterator faceletTags = model.faceletTags();
 
         Set componentPages = new TreeSet();
         Set converterPages = new TreeSet();
         Set validatorPages = new TreeSet();
         Set tagsPages = new TreeSet();
+        Set faceletTagsPages = new TreeSet();
 
         int count = 0;
         while (components.hasNext())
@@ -282,7 +292,7 @@ public class TagdocContentMojo extends AbstractMojo
             ComponentMeta component = (ComponentMeta) components.next();
             if (canGenerate(component))
             {                
-                String pageName = _generateComponentDoc(velocityEngine,baseContext,component);
+                String pageName = _generateComponentDoc(velocityEngine,baseContext,model,component);
                 if (pageName != null)
                 {
                     componentPages.add(pageName);
@@ -295,7 +305,7 @@ public class TagdocContentMojo extends AbstractMojo
             ConverterMeta converter = (ConverterMeta) converters.next();
             if (canGenerate(converter))
             {
-                String pageName = _generateConverterDoc(velocityEngine,baseContext,converter);
+                String pageName = _generateConverterDoc(velocityEngine,baseContext,model,converter);
                 if (pageName != null)
                 {
                     converterPages.add(pageName);
@@ -309,7 +319,7 @@ public class TagdocContentMojo extends AbstractMojo
             
             if (canGenerate(validator))
             {
-                String pageName = _generateValidatorDoc(velocityEngine,baseContext,validator);
+                String pageName = _generateValidatorDoc(velocityEngine,baseContext,model,validator);
                 if (pageName != null)
                 {
                     validatorPages.add(pageName);
@@ -323,10 +333,24 @@ public class TagdocContentMojo extends AbstractMojo
             
             if (canGenerate(tag))
             {
-                String pageName = _generateTagDoc(velocityEngine,baseContext,tag);
+                String pageName = _generateTagDoc(velocityEngine,baseContext,model,tag);
                 if (pageName != null)
                 {
                     tagsPages.add(pageName);
+                    count++;
+                }                
+            }
+        }
+        while (faceletTags.hasNext())
+        {
+            FaceletTagMeta faceletTag = (FaceletTagMeta) faceletTags.next();
+            
+            if (canGenerate(faceletTag))
+            {
+                String pageName = _generateFaceletTagDoc(velocityEngine,baseContext,model,faceletTag);
+                if (pageName != null)
+                {
+                    faceletTagsPages.add(pageName);
                     count++;
                 }                
             }
@@ -370,7 +394,7 @@ public class TagdocContentMojo extends AbstractMojo
     }
 
     private String _generateComponentDoc(VelocityEngine velocityEngine, 
-            VelocityContext baseContext, ComponentMeta component)
+            VelocityContext baseContext, Model model, ComponentMeta component)
             throws Exception
     {
         if (component.getName() == null)
@@ -381,6 +405,11 @@ public class TagdocContentMojo extends AbstractMojo
         
         Context context = new VelocityContext(baseContext);
         context.put("component", component);
+        FaceletTagMeta faceletTag = model.findFaceletTagByName(component.getName());
+        if (faceletTag != null)
+        {
+            context.put("faceletTag", faceletTag);
+        }
         
         String baseContent = "";
         
@@ -463,7 +492,7 @@ public class TagdocContentMojo extends AbstractMojo
     }
 
     private String _generateConverterDoc(VelocityEngine velocityEngine, 
-            VelocityContext baseContext, ConverterMeta converter)
+            VelocityContext baseContext, Model model, ConverterMeta converter)
             throws Exception
     {
         if (converter.getName() == null)
@@ -475,6 +504,11 @@ public class TagdocContentMojo extends AbstractMojo
         
         Context context = new VelocityContext(baseContext);
         context.put("converter", converter);
+        FaceletTagMeta faceletTag = model.findFaceletTagByName(converter.getName());
+        if (faceletTag != null)
+        {
+            context.put("faceletTag", faceletTag);
+        }
         
         String baseContent = "";
         
@@ -557,7 +591,7 @@ public class TagdocContentMojo extends AbstractMojo
     }
 
     private String _generateValidatorDoc(VelocityEngine velocityEngine, 
-            VelocityContext baseContext, ValidatorMeta validator)
+            VelocityContext baseContext, Model model, ValidatorMeta validator)
             throws Exception
     {
         if (validator.getName() == null)
@@ -569,6 +603,11 @@ public class TagdocContentMojo extends AbstractMojo
         
         Context context = new VelocityContext(baseContext);
         context.put("validator", validator);
+        FaceletTagMeta faceletTag = model.findFaceletTagByName(validator.getName());
+        if (faceletTag != null)
+        {
+            context.put("faceletTag", faceletTag);
+        }
         
         String baseContent = "";
         
@@ -651,7 +690,7 @@ public class TagdocContentMojo extends AbstractMojo
     }
     
     private String _generateTagDoc(VelocityEngine velocityEngine, 
-            VelocityContext baseContext, TagMeta tag)
+            VelocityContext baseContext, Model model, TagMeta tag)
             throws Exception
     {
         if (tag.getName() == null)
@@ -663,6 +702,11 @@ public class TagdocContentMojo extends AbstractMojo
         
         Context context = new VelocityContext(baseContext);
         context.put("tag", tag);
+        FaceletTagMeta faceletTag = model.findFaceletTagByName(tag.getName());
+        if (faceletTag != null)
+        {
+            context.put("faceletTag", faceletTag);
+        }
         
         String baseContent = "";
         
@@ -744,6 +788,137 @@ public class TagdocContentMojo extends AbstractMojo
         return pageName;
     }
     
+    private String _generateFaceletTagDoc(VelocityEngine velocityEngine, 
+            VelocityContext baseContext, Model model, FaceletTagMeta faceletTag)
+            throws Exception
+    {
+        String name = faceletTag.getName(); 
+        if (name == null)
+        {
+            return null;
+        }
+        
+        if (faceletTag.getComponentClass() != null)
+        {
+            ComponentMeta comp = model.findComponentByClassName(faceletTag.getComponentClass());
+            if (name.equals(comp.getName()))
+            {
+                //Exists in jsp and in facelets, but has specific facelets properties
+                return null;
+            }
+        }
+        if (faceletTag.getConverterClass() != null)
+        {
+            ConverterMeta comp = model.findConverterByClassName(faceletTag.getConverterClass());
+            if (name.equals(comp.getName()))
+            {
+                //Exists in jsp and in facelets, but has specific facelets properties
+                return null;
+            }            
+        }
+        if (faceletTag.getValidatorClass() != null)
+        {
+            ValidatorMeta comp = model.findValidatorByClassName(faceletTag.getValidatorClass());
+            if (name.equals(comp.getName()))
+            {
+                //Exists in jsp and in facelets, but has specific facelets properties
+                return null;
+            }            
+        }
+        if (faceletTag.getTagClass() != null)
+        {
+            TagMeta comp = model.findTagByClassName(faceletTag.getTagClass());
+            if (name.equals(comp.getName()))
+            {
+                //Exists in jsp and in facelets, but has specific facelets properties
+                return null;
+            }
+        }
+
+        String pageName = _toPageName(faceletTag.getName());
+        
+        Context context = new VelocityContext(baseContext);
+        context.put("faceletTag", faceletTag);
+        
+        String baseContent = "";
+        
+        File xmlBaseFile = new File(baseFilesSourceDirectory, 
+                _platformAgnosticPath(pageName + "-base.xml"));
+        
+        if (xmlBaseFile != null && xmlBaseFile.exists())
+        {
+            if (getLog().isDebugEnabled())
+            {
+                getLog().debug("using base content file: "+xmlBaseFile.getPath());
+            }
+            
+            Reader reader = null;
+            try
+            {
+                reader = new FileReader(xmlBaseFile);
+                Xpp3Dom root = Xpp3DomBuilder.build(reader);
+                
+                StringWriter writer = new StringWriter();
+                
+                Xpp3Dom [] children = root.getChild("body").getChildren();
+                
+                for (int i = 0; i< children.length; i++)
+                {
+                    Xpp3Dom dom = children[i];
+                    Xpp3DomWriter.write(writer, dom);
+                }
+                baseContent = writer.toString();
+                writer.close();
+            }
+            catch (XmlPullParserException e)
+            {
+                throw new MojoExecutionException(
+                        "Error parsing base file: " + e.getMessage(), e);
+            }
+            finally
+            {
+                reader.close();
+            }
+        }
+        
+        baseContext.put("baseContent", baseContent);        
+        
+        Writer out = null;
+        
+        try
+        {        
+            File targetDir = new File(outputDirectory.getParentFile(),
+                    _platformAgnosticPath("generated-site/xdoc/"
+                            + _DOC_SUBDIRECTORY));
+            
+            if ( !targetDir.exists() )
+            {
+                targetDir.mkdirs();
+            }
+            File targetFile = new File(targetDir, pageName + ".xml");
+    
+            out = new OutputStreamWriter(new FileOutputStream(targetFile),
+                    "UTF-8");
+            
+            Template template = velocityEngine.getTemplate(getTemplateFaceletTag());
+            
+            template.merge(context, out);
+            
+            out.flush();
+        }
+        catch (Exception e)
+        {
+            throw new MojoExecutionException(
+                    "Error merging velocity templates: " + e.getMessage(), e);
+        }
+        finally
+        {
+            IOUtil.close(out);
+            out = null;
+        }
+
+        return pageName;
+    }    
 
     static private final String _platformAgnosticPath(String path)
     {
@@ -881,5 +1056,9 @@ public class TagdocContentMojo extends AbstractMojo
     {
         return templateTag;
     }
-    
+
+    public String getTemplateFaceletTag()
+    {
+        return templateFaceletTag;
+    }
 }
