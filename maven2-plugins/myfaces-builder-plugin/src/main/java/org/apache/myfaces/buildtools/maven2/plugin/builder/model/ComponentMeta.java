@@ -61,6 +61,7 @@ public class ComponentMeta extends ViewEntityMeta implements
     
     protected Map _facets;
     protected Map _listeners;
+    protected List _implementedInterfaceClassNames;
 
     /**
      * Write an instance of this class out as xml.
@@ -96,6 +97,19 @@ public class ComponentMeta extends ViewEntityMeta implements
             ListenerMeta listener = (ListenerMeta) i.next();
             ListenerMeta.writeXml(out, listener);
         }
+        
+        if (!_implementedInterfaceClassNames.isEmpty())
+        {
+            out.beginElement("implementedInterfaces");
+            for (Iterator i = _implementedInterfaceClassNames.iterator(); i.hasNext();)
+            {
+                String name = (String) i.next();
+                out.beginElement("interface");
+                out.writeAttr("name", name);
+                out.endElement("interface");
+            }
+            out.endElement("implementedInterfaces");
+        }
     }
 
     /**
@@ -128,9 +142,13 @@ public class ComponentMeta extends ViewEntityMeta implements
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
         digester.addBeanPropertySetter(newPrefix + "/template");
         digester.addBeanPropertySetter(newPrefix + "/clientBehaviorHolder");
-        
+
         FacetMeta.addXmlRules(digester, newPrefix);
         ListenerMeta.addXmlRules(digester, newPrefix);
+        
+        digester.addCallMethod(newPrefix + "/implementedInterfaces/interface",
+                "addImplementedInterfaceClassName", 1);
+        digester.addCallParam(newPrefix + "/implementedInterfaces/interface", 0, "name");
     }
 
     /**
@@ -141,6 +159,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         super("component");
         _facets = new LinkedHashMap();
         _listeners = new LinkedHashMap();
+        _implementedInterfaceClassNames = new ArrayList();
     }
 
     /**
@@ -182,6 +201,11 @@ public class ComponentMeta extends ViewEntityMeta implements
         ModelUtils.mergeProps(this, other);
         ModelUtils.mergeFacets(this, other);
         ModelUtils.mergeListeners(this, other);
+        
+        if (!other._implementedInterfaceClassNames.isEmpty())
+        {
+            this._implementedInterfaceClassNames.addAll(other._implementedInterfaceClassNames);
+        }
         
         if (inheritParentTag)
         {
@@ -491,6 +515,33 @@ public class ComponentMeta extends ViewEntityMeta implements
     {
         return ModelUtils.defaultOf(_clientBehaviorHolder,false);
     }
+    
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public List getImplementedInterfaceClassNames()
+    {
+        return _implementedInterfaceClassNames;
+    }
+
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public void setImplementedInterfaceClassNames(List classNames)
+    {
+        _implementedInterfaceClassNames = classNames;
+    }
+
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public void addImplementedInterfaceClassName(String name)
+    {
+        _implementedInterfaceClassNames.add(name);
+    }
 
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
     
@@ -548,5 +599,28 @@ public class ComponentMeta extends ViewEntityMeta implements
     public String getTagPackage()
     {
         return StringUtils.substring(getTagClass(), 0, StringUtils.lastIndexOf(getTagClass(), '.'));
+    }
+    
+    private Boolean _overrideEventNames;
+    
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public Boolean isOverrideEventNames()
+    {
+        if (_overrideEventNames == null)
+        {
+            for (Iterator it = getPropertyList().iterator(); it.hasNext();)
+            {
+                PropertyMeta prop = (PropertyMeta) it.next();
+                if (!prop.isInherited().booleanValue() && prop.getClientEvent() != null)
+                {
+                    _overrideEventNames = Boolean.TRUE;
+                    break;
+                }
+            }
+        }
+        return ModelUtils.defaultOf(_overrideEventNames,false);
     }
 }

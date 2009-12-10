@@ -73,6 +73,9 @@ Some dummy ifaceProp documentation.
     <family>foo</family>
     <rendererType>FooRenderer</rendererType>
     <generatedComponentClass>true</generatedComponentClass>
+    <implementedInterfaces>
+      <interface name="testpkg.ComponentInterface"/>
+    </implementedInterfaces>
     <desc>A class for which a concrete component will be created using "subclass mode" code-generation</desc>
     <longDesc>A class for which a concrete component will be created using "subclass mode" code-generation.</longDesc>
   </component>
@@ -119,6 +122,9 @@ Some dummy prop2 documentation.
     <type>foo</type>
     <family>foo</family>
     <rendererType>FooRenderer</rendererType>
+    <implementedInterfaces>
+      <interface name="testpkg.ComponentInterface"/>
+    </implementedInterfaces>
     <desc>A concrete component class that has been written by hand (no code generation)</desc>
     <longDesc>A concrete component class that has been written by hand (no code generation).</longDesc>
     <property>

@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -1073,7 +1074,6 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             component.setOverrideDefaultEventName(Boolean.TRUE);
         }
-        
         JavaClass[] interfaces = clazz.getImplementedInterfaces();
         for (int i = 0; i < interfaces.length; ++i)
         {
@@ -1090,6 +1090,11 @@ public class QdoxModelBuilder implements ModelBuilder
                 component.setClientBehaviorHolder(Boolean.TRUE);
                 break;
             }
+            if (!(template != null && template.booleanValue()))
+            {
+                component.addImplementedInterfaceClassName(
+                        QdoxHelper.getFullyQualifiedClassName(iface, iface.getFullyQualifiedName()));
+            }
         }
         if (implementsValue != null)
         {
@@ -1097,8 +1102,12 @@ public class QdoxModelBuilder implements ModelBuilder
             {
                 component.setClientBehaviorHolder(Boolean.TRUE);
             }
+            StringTokenizer st = new StringTokenizer(implementsValue,",");
+            while (st.hasMoreTokens())
+            {
+                component.addImplementedInterfaceClassName(st.nextToken());
+            }
         }
-
         component.setTagClass(tagClass);
         component.setTagSuperclass(tagSuperclass);
         component.setTagHandler(tagHandler);
@@ -1984,9 +1993,7 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setInheritedTag(inheritedTag);
         p.setDescription(shortDescription);
         p.setLongDescription(longDescription);
-        
         p.setGenerated(Boolean.FALSE);
-
         component.addProperty(p);
     }
 }

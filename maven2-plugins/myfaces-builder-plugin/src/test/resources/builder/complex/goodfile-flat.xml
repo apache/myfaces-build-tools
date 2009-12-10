@@ -72,6 +72,9 @@ Some dummy ifaceProp documentation.
     <type>foo</type>
     <family>foo</family>
     <rendererType>FooRenderer</rendererType>
+    <implementedInterfaces>
+      <interface name="ComponentInterface"/>
+    </implementedInterfaces>
     <desc>The ComponentChild component</desc>
     <longDesc>
 <![CDATA[
