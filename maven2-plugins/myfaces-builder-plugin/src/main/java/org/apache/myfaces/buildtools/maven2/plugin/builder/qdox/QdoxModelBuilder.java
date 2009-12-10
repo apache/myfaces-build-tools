@@ -1069,6 +1069,10 @@ public class QdoxModelBuilder implements ModelBuilder
         component.setImplements(implementsValue);
         component.setTemplate(template);
         component.setDefaultEventName(defaultEventName);
+        if (defaultEventName != null)
+        {
+            component.setOverrideDefaultEventName(Boolean.TRUE);
+        }
         
         JavaClass[] interfaces = clazz.getImplementedInterfaces();
         for (int i = 0; i < interfaces.length; ++i)
@@ -1079,6 +1083,19 @@ public class QdoxModelBuilder implements ModelBuilder
             {
                 component.setNamingContainer(Boolean.TRUE);
                 break;
+            }
+            if (iface.getFullyQualifiedName().equals(
+                    "javax.faces.component.behavior.ClientBehaviorHolder"))
+            {
+                component.setClientBehaviorHolder(Boolean.TRUE);
+                break;
+            }
+        }
+        if (implementsValue != null)
+        {
+            if (StringUtils.contains(implementsValue, "javax.faces.component.behavior.ClientBehaviorHolder"))
+            {
+                component.setClientBehaviorHolder(Boolean.TRUE);
             }
         }
 

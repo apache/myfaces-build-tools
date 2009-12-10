@@ -51,6 +51,8 @@ public class ComponentMeta extends ViewEntityMeta implements
     private String _serialuid;
     private String _implements;
     private String _defaultEventName;
+    private Boolean _overrideDefaultEventName;
+    private Boolean _clientBehaviorHolder;
     
     private Boolean _generatedComponentClass;
     private Boolean _generatedTagClass;
@@ -76,12 +78,13 @@ public class ComponentMeta extends ViewEntityMeta implements
         out.writeElement("rendererType", _rendererType);
         out.writeElement("configExcluded", _configExcluded);
         out.writeElement("defaultEventName", _defaultEventName);
-
+        out.writeElement("overrideDefaultEventName", _overrideDefaultEventName);
         out.writeElement("serialuid", _serialuid);
         out.writeElement("implements", _implements);
         out.writeElement("generatedComponentClass", _generatedComponentClass);
         out.writeElement("generatedTagClass", _generatedTagClass);
         out.writeElement("template", _template);
+        out.writeElement("clientBehaviorHolder", _clientBehaviorHolder);
         
         for (Iterator i = _facets.values().iterator(); i.hasNext();)
         {
@@ -116,6 +119,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         digester.addBeanPropertySetter(newPrefix + "/tagHandler");
         digester.addBeanPropertySetter(newPrefix + "/rendererType");
         digester.addBeanPropertySetter(newPrefix + "/defaultEventName");
+        digester.addBeanPropertySetter(newPrefix + "/overrideDefaultEventName");
         digester.addBeanPropertySetter(newPrefix + "/faceletRendererType");
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
         digester.addBeanPropertySetter(newPrefix + "/serialuid");
@@ -123,6 +127,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         digester.addBeanPropertySetter(newPrefix + "/generatedComponentClass");
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
         digester.addBeanPropertySetter(newPrefix + "/template");
+        digester.addBeanPropertySetter(newPrefix + "/clientBehaviorHolder");
         
         FacetMeta.addXmlRules(digester, newPrefix);
         ListenerMeta.addXmlRules(digester, newPrefix);
@@ -169,6 +174,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         //_tagClass = ModelUtils.merge(this._tagClass, other._tagClass);
         _tagHandler = ModelUtils.merge(this._tagHandler, other._tagHandler);
         _defaultEventName = ModelUtils.merge(this._defaultEventName, other._defaultEventName);
+        _clientBehaviorHolder = ModelUtils.merge(this._clientBehaviorHolder, other._clientBehaviorHolder);
         _namingContainer = ModelUtils.merge(this._namingContainer,
                 other._namingContainer);
         _children = ModelUtils.merge(this._children, other._children);
@@ -446,7 +452,46 @@ public class ComponentMeta extends ViewEntityMeta implements
     {
         this._defaultEventName = defaultEventName;
     }
-            
+
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public void setOverrideDefaultEventName(Boolean overrideDefaultEventName)
+    {
+        _overrideDefaultEventName = overrideDefaultEventName;
+    }
+
+    /**
+     * Indicate if this component must override the method:
+     * public String getDefaultEventName()
+     * To return the value on defaultEventName 
+     * 
+     * @since 1.0.5
+     */
+    public Boolean isOverrideDefaultEventName()
+    {
+        return ModelUtils.defaultOf(_overrideDefaultEventName,false);
+    }
+
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public void setClientBehaviorHolder(Boolean clientBehaviorHolder)
+    {
+        _clientBehaviorHolder = clientBehaviorHolder;
+    }
+
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public Boolean isClientBehaviorHolder()
+    {
+        return ModelUtils.defaultOf(_clientBehaviorHolder,false);
+    }
+
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
     
     public Collection getFacetList()
