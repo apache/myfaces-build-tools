@@ -10,7 +10,7 @@
 
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-builder-plugin</artifactId> 
-  <version>1.0.5-SNAPSHOT</version>
+  <version>1.0.6-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Apache MyFaces Buildtools Maven2 Builder Plugin</name>
   <description>
