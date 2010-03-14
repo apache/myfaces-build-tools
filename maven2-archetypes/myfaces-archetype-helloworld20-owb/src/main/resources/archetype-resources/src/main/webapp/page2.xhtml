@@ -1,0 +1,22 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Hello World</title>
+</h:head>
+<h:body>
+    <h:outputStylesheet name="style.css" library="css"/>
+    <div id="container">
+        <h1>MyFaces Hello World</h1>
+        <h:outputText value="${symbol_pound}{helloWorld.greeting}"/>
+        <br/>
+        <h:link value="Home" outcome="helloWorld"/>
+    </div>
+</h:body>
+</html>

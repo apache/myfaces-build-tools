@@ -1,0 +1,14 @@
+ ------
+ Myfaces HelloWorld 2.0 OpenWebBeans Archetype
+ ------
+
+Overview
+
+  This project defines a Maven archetype plugin. Running the plugin will create a directory tree
+  containing the files needed to quickly get started on a new MyFaces 2.0 project which uses
+  Facelets as the templating language. Managed beans are defined with JSR-299/JSR-330 annotations
+  with Apache OpenWebBeans as the CDI implementation.
+
+Usage
+
+  TODO: writeme

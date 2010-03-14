@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <artifactId>myfaces-archetype-parent</artifactId>
+        <version>1.0.2-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.apache.myfaces.buildtools</groupId>
+    <artifactId>myfaces-archetype-helloworld20-owb</artifactId>
+    <packaging>maven-plugin</packaging>
+    <name>MyFaces and OWB Basic Archetype</name>
+    <description>Archetype to create a new webapp based on MyFaces 2.0 with OpenWebBeans</description>
+
+</project>
