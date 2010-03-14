@@ -131,6 +131,8 @@
 
   <modules>
     <module>myfaces-archetype-helloworld</module>
+    <module>myfaces-archetype-helloworld20</module>
+    <module>myfaces-archetype-helloworld20-owb</module>
     <module>myfaces-archetype-helloworld-facelets</module>
     <module>myfaces-archetype-helloworld-portlets</module>
     <module>myfaces-archetype-trinidad</module>
