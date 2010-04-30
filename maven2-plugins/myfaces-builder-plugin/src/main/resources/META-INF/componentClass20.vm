@@ -147,7 +147,7 @@ $innersource
 #set ($defaultValue = false)
 #end
     // Property: $property.name
-#if ($property.isStateHolder())
+#if ($property.isPartialStateHolder())
 #if ($property.isLiteralOnly() || $property.isTagExcluded() )
     private $type $field #if($defaultValue) = $defaultValue;#{else};#{end}
 
@@ -328,7 +328,7 @@ $innersource
 #if ($property.name == "for")
         $comma $field("for")
 #else
-#if ($property.isStateHolder())
+#if ($property.isPartialStateHolder())
         $comma ${field}Set
 #else
         $comma $field
@@ -359,7 +359,7 @@ $innersource
 
 #set ($primitiveCount = 1) ## $propertyList.size() + 1 
 #foreach( $property in $propertyList )
-#if ($property.isStateHolder())
+#if ($property.isPartialStateHolder())
 #set ($primitiveCount = $primitiveCount + 1)
 #if($utils.isPrimitiveClass($property.className))
 #set ($primitiveCount = $primitiveCount + 1)
@@ -375,7 +375,7 @@ $innersource
         super.markInitialState();
 #foreach( $property in $propertyList )
 #set ($field = $property.fieldName)
-#if ($property.isStateHolder())        
+#if ($property.isPartialStateHolder())        
         if ($field != null && 
             $field instanceof PartialStateHolder)
         {
@@ -392,7 +392,7 @@ $innersource
             super.clearInitialState();
 #foreach( $property in $propertyList )
 #set ($field = $property.fieldName)
-#if ($property.isStateHolder())
+#if ($property.isPartialStateHolder())
 ##          //Only has sense propagate this method if is initialStateMarked
             if ($field != null && 
                 $field instanceof PartialStateHolder)
@@ -415,7 +415,7 @@ $innersource
 #foreach( $property in $propertyList )
 #set ($field = $property.fieldName)
 #set ($type = $property.className)
-#if ($property.isStateHolder())
+#if ($property.isPartialStateHolder())
 #set ($arrayIndex = $arrayIndex + 1)
             Object ${property.name}Saved = null;
             if (!_$utils.getPrefixedPropertyName("isSet", $property.name)() &&
@@ -456,7 +456,7 @@ $innersource
 #foreach( $property in $propertyList )
 #set ($field = $property.fieldName)
 #set ($type = $property.className)
-#if ($property.isStateHolder())
+#if ($property.isPartialStateHolder())
 #set ($arrayIndex = $arrayIndex + 1)
             values[$arrayIndex] = ${property.name}Saved;
 ## StateHelper Properties does not need save and restore
@@ -473,7 +473,7 @@ $innersource
 #foreach( $property in $propertyList )
 #set ($field = $property.fieldName)
 #set ($type = $property.className)
-#if ($property.isStateHolder())
+#if ($property.isPartialStateHolder())
 #set ($arrayIndex = $arrayIndex + 1)
             values[$arrayIndex] = saveAttachedState(facesContext,$field);
 ## StateHelper Properties does not need save and restore
@@ -497,7 +497,7 @@ $innersource
 #foreach( $property in $propertyList )
 #set ($field = $property.fieldName)
 #set ($type = $property.className)
-#if ($property.isStateHolder())
+#if ($property.isPartialStateHolder())
 #set ($arrayIndex = $arrayIndex + 1)
         if (values[$arrayIndex] instanceof AttachedDeltaWrapper)
         {
