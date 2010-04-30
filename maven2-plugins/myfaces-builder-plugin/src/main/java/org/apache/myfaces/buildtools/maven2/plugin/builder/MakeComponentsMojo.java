@@ -143,8 +143,9 @@ public class MakeComponentsMojo extends AbstractMojo
     /**
      * Defines the jsf version (1.1 or 1.2), used to take the default templates for each version.
      * <p> 
-     * If version is 1.1, the default templateComponentName is 'componentClass11.vm' and if version
-     * is 1.2 the default templateComponentName is 'componentClass12.vm'.
+     * If version is 1.1, the default templateComponentName is 'componentClass11.vm', if version
+     * is 1.2 the default templateComponentName is 'componentClass12.vm', if version is 2.0 the
+     * default templateComponentName is 'componentClass20.vm'
      * </p>
      * 
      * @parameter
@@ -668,7 +669,11 @@ public class MakeComponentsMojo extends AbstractMojo
     {
         if (templateComponentName == null)
         {
-            if (_is12())
+            if (_is20())
+            {
+                return "componentClass20.vm";
+            }
+            else if (_is12())
             {
                 return "componentClass12.vm";
             }
@@ -687,5 +692,9 @@ public class MakeComponentsMojo extends AbstractMojo
     {
         return "1.2".equals(jsfVersion) || "12".equals(jsfVersion);
     }
-
+    
+    private boolean _is20()
+    {
+        return "2.0".equals(jsfVersion) || "20".equals(jsfVersion);
+    }
 }
