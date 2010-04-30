@@ -346,4 +346,10 @@ public @interface JSFComponent
      * @since 1.0.4
      */
     String defaultEventName() default "";
+
+    /**
+     * 
+     * @since 1.0.5
+     */
+    boolean composite() default false;
 }

@@ -53,6 +53,7 @@ public class ComponentMeta extends ViewEntityMeta implements
     private String _defaultEventName;
     private Boolean _overrideDefaultEventName;
     private Boolean _clientBehaviorHolder;
+    private Boolean _composite;
     
     private Boolean _generatedComponentClass;
     private Boolean _generatedTagClass;
@@ -86,6 +87,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         out.writeElement("generatedTagClass", _generatedTagClass);
         out.writeElement("template", _template);
         out.writeElement("clientBehaviorHolder", _clientBehaviorHolder);
+        out.writeElement("composite", _composite);
         
         for (Iterator i = _facets.values().iterator(); i.hasNext();)
         {
@@ -142,6 +144,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
         digester.addBeanPropertySetter(newPrefix + "/template");
         digester.addBeanPropertySetter(newPrefix + "/clientBehaviorHolder");
+        digester.addBeanPropertySetter(newPrefix + "/composite");
 
         FacetMeta.addXmlRules(digester, newPrefix);
         ListenerMeta.addXmlRules(digester, newPrefix);
@@ -194,6 +197,7 @@ public class ComponentMeta extends ViewEntityMeta implements
         _tagHandler = ModelUtils.merge(this._tagHandler, other._tagHandler);
         _defaultEventName = ModelUtils.merge(this._defaultEventName, other._defaultEventName);
         _clientBehaviorHolder = ModelUtils.merge(this._clientBehaviorHolder, other._clientBehaviorHolder);
+        _composite = ModelUtils.merge(this._composite, other._composite);
         _namingContainer = ModelUtils.merge(this._namingContainer,
                 other._namingContainer);
         _children = ModelUtils.merge(this._children, other._children);
@@ -541,6 +545,24 @@ public class ComponentMeta extends ViewEntityMeta implements
     public void addImplementedInterfaceClassName(String name)
     {
         _implementedInterfaceClassNames.add(name);
+    }
+
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public Boolean isComposite()
+    {
+        return ModelUtils.defaultOf(_composite,false);
+    }
+
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public void setComposite(Boolean composite)
+    {
+        _composite = composite;
     }
 
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES

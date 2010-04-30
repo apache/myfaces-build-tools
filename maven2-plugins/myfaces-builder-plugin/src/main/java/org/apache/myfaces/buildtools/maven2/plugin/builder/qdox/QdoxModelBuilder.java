@@ -264,7 +264,7 @@ public class QdoxModelBuilder implements ModelBuilder
             }
 
             // Check if the tag class java file exists in the source dirs
-            if (isTagClassMissing(component.getTagClass(), sourceDirs))
+            if (QdoxHelper.isTagClassMissing(component.getTagClass(), sourceDirs))
             {
                 component.setGeneratedTagClass(Boolean.TRUE);
             }
@@ -283,7 +283,7 @@ public class QdoxModelBuilder implements ModelBuilder
             // ANS: there is no automatic generation of converter class.
             
             // Check if the tag class java file exists in the source dirs
-            if (isTagClassMissing(converter.getTagClass(), sourceDirs))
+            if (QdoxHelper.isTagClassMissing(converter.getTagClass(), sourceDirs))
             {
                 converter.setGeneratedTagClass(Boolean.TRUE);
             }
@@ -307,7 +307,7 @@ public class QdoxModelBuilder implements ModelBuilder
             }
 
             // Check if the tag class java file exists in the source dirs
-            if (isTagClassMissing(validator.getTagClass(), sourceDirs))
+            if (QdoxHelper.isTagClassMissing(validator.getTagClass(), sourceDirs))
             {
                 validator.setGeneratedTagClass(Boolean.TRUE);
             }
@@ -330,20 +330,6 @@ public class QdoxModelBuilder implements ModelBuilder
             QdoxHelper.initFaceletTagHandlerAncestry(processedClasses, model, tag);            
         }
 
-    }
-
-    /**
-     * Returns true if the tagClassName is not null, but the corresponding
-     * source file cannot be found in the specified source dirs.
-     */
-    private boolean isTagClassMissing(String tagClassName, List sourceDirs)
-    {
-        if (tagClassName == null)
-        {
-            return false;
-        }
-        String tagClassFile = StringUtils.replace(tagClassName,".","/")+".java";
-        return !IOUtils.existsSourceFile(tagClassFile, sourceDirs);
     }
 
     /**
@@ -1054,6 +1040,8 @@ public class QdoxModelBuilder implements ModelBuilder
         String serialuid = getString(clazz, "serialuid", props, null);
         String implementsValue = getString(clazz, "implements", props, null);
         implementsValue = getString(clazz, "implementz", props, implementsValue);
+        
+        Boolean composite = getBoolean(clazz, "composite", props, null);
 
         ComponentMeta component = new ComponentMeta();
         initClassMeta(model, clazz, component, classNameOverride);
@@ -1111,6 +1099,7 @@ public class QdoxModelBuilder implements ModelBuilder
         component.setTagClass(tagClass);
         component.setTagSuperclass(tagSuperclass);
         component.setTagHandler(tagHandler);
+        component.setComposite(composite);
 
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, component);
@@ -1784,6 +1773,7 @@ public class QdoxModelBuilder implements ModelBuilder
         Boolean transientProp = getBoolean(clazz, "transient", props, null);
         transientProp = getBoolean(clazz, "istransient", props, transientProp);
         Boolean stateHolder = getBoolean(clazz, "stateHolder", props, null);
+        Boolean partialStateHolder = getBoolean(clazz, "partialStateHolder", props, null);
         Boolean literalOnly = getBoolean(clazz, "literalOnly", props, null);
         Boolean tagExcluded = getBoolean(clazz, "tagExcluded", props, null);
         Boolean localMethod = getBoolean(clazz, "localMethod",props,null);
@@ -1836,6 +1826,7 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setRequired(required);
         p.setTransient(transientProp);
         p.setStateHolder(stateHolder);
+        p.setPartialStateHolder(partialStateHolder);
         p.setLiteralOnly(literalOnly);
         p.setTagExcluded(tagExcluded);
         p.setDescription(shortDescription);

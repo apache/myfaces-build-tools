@@ -37,6 +37,7 @@ public class PropertyMeta
     private Boolean _literalOnly;
     private Boolean _transient;
     private Boolean _stateHolder;
+    private Boolean _partialStateHolder;
     private String _description;
     private String _longDescription;
     private String   _defaultValue;
@@ -90,6 +91,7 @@ public class PropertyMeta
         _rtexprvalue = pm._rtexprvalue;
         _deferredValueType = pm._deferredValueType;
         _clientEvent = pm._clientEvent;
+        _partialStateHolder = pm._partialStateHolder;
     }
     
     /**
@@ -112,6 +114,7 @@ public class PropertyMeta
         out.writeElement("literalOnly", pm._literalOnly);
         out.writeElement("transient", pm._transient);
         out.writeElement("stateHolder", pm._stateHolder);
+        out.writeElement("partialStateHolder", pm._partialStateHolder);
         out.writeElement("desc", pm._description);
         out.writeElement("longDesc", pm._longDescription);
         out.writeElement("defaultValue", pm._defaultValue);
@@ -151,6 +154,7 @@ public class PropertyMeta
         digester.addBeanPropertySetter(newPrefix + "/literalOnly");
         digester.addBeanPropertySetter(newPrefix + "/transient");
         digester.addBeanPropertySetter(newPrefix + "/stateHolder");
+        digester.addBeanPropertySetter(newPrefix + "/partialStateHolder");
         digester.addBeanPropertySetter(newPrefix + "/desc", "description");
         digester.addBeanPropertySetter(newPrefix + "/longDesc",
                 "longDescription");
@@ -187,6 +191,7 @@ public class PropertyMeta
         _literalOnly = ModelUtils.merge(this._literalOnly, other._literalOnly);
         _transient = ModelUtils.merge(this._transient, other._transient);
         _stateHolder = ModelUtils.merge(this._stateHolder, other._stateHolder);
+        _partialStateHolder = ModelUtils.merge(this._partialStateHolder, other._partialStateHolder);
         _description = ModelUtils.merge(this._description, other._description);
         _longDescription = ModelUtils.merge(this._longDescription, other._longDescription);
         _defaultValue = ModelUtils.merge(this._defaultValue, other._defaultValue);
@@ -569,5 +574,23 @@ public class PropertyMeta
     public void setClientEvent(String clientEvent)
     {
         this._clientEvent = clientEvent;
+    }
+
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public void setPartialStateHolder(Boolean partialStateHolder)
+    {
+        _partialStateHolder = partialStateHolder;
+    }
+
+    /**
+     * 
+     * @since 1.0.5
+     */
+    public Boolean isPartialStateHolder()
+    {
+        return ModelUtils.defaultOf(_partialStateHolder, false);
     }
 }

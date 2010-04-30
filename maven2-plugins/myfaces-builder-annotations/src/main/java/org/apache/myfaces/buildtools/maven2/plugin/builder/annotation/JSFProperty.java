@@ -157,4 +157,10 @@ public @interface JSFProperty
      * @since 1.0.4
      */
     String clientEvent() default "";
+    
+    /**
+     * 
+     * @since 1.0.5
+     */
+    boolean partialStateHolder() default false;
 }

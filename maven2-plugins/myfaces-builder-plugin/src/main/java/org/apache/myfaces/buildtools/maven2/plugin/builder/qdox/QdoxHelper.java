@@ -23,10 +23,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
@@ -316,6 +319,21 @@ public class QdoxHelper
                 log.error("Error reading file: "+file.getName()+" "+e.getMessage());                
             }
         }
+    }
+    
+
+    /**
+     * Returns true if the tagClassName is not null, but the corresponding
+     * source file cannot be found in the specified source dirs.
+     */
+    public static boolean isTagClassMissing(String tagClassName, List sourceDirs)
+    {
+        if (tagClassName == null)
+        {
+            return false;
+        }
+        String tagClassFile = StringUtils.replace(tagClassName,".","/")+".java";
+        return !IOUtils.existsSourceFile(tagClassFile, sourceDirs);
     }
     
     private static class SourceFileInfo implements FileInfo
