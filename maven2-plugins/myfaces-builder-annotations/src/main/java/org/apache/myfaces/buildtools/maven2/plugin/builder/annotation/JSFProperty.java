@@ -163,4 +163,10 @@ public @interface JSFProperty
      * @since 1.0.5
      */
     boolean partialStateHolder() default false;
+    
+    /**
+     * 
+     * @since 1.0.5
+     */
+    boolean faceletsOnly() default false;
 }

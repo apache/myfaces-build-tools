@@ -95,4 +95,10 @@ public @interface JSFJspAttribute
      * @since 1.0.3
      */
     boolean exclude() default false;
+    
+    /**
+     * 
+     * @since 1.0.5
+     */
+    boolean faceletsOnly() default false;
 }

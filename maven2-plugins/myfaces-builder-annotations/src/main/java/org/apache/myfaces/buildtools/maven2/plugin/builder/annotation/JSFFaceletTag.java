@@ -114,7 +114,7 @@ public @interface JSFFaceletTag
     String componentClass() default "";
     
     /**
-     * The name of the most near component class where all
+     * The name of the most near converter class where all
      * attributes should be inherited from this class
      * 
      * @since 1.0.4
@@ -122,10 +122,18 @@ public @interface JSFFaceletTag
     String converterClass() default "";
     
     /**
-     * The name of the most near component class where all
+     * The name of the most near validator class where all
      * attributes should be inherited from this class
      * 
      * @since 1.0.4
      */
     String validatorClass() default "";
+    
+    /**
+     * The name of the most near behavior class where all
+     * attributes should be inherited from this class
+     * 
+     * @since 1.0.5
+     */
+    String behaviorClass() default "";
 }
