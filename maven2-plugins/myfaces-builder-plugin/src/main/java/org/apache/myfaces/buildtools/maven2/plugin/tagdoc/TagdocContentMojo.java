@@ -50,6 +50,7 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.MavenReportException;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.Flattener;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.BehaviorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
@@ -161,7 +162,13 @@ public class TagdocContentMojo extends AbstractMojo
      * @parameter expression="xdoc-validator.vm"
      */
     private String templateValidator;
-        
+
+    /**
+     * @since 1.0.6
+     * @parameter expression="xdoc-behavior.vm"
+     */
+    private String templateBehavior;
+    
     /**
      * @parameter expression="xdoc-tag.vm"
      */
@@ -276,6 +283,8 @@ public class TagdocContentMojo extends AbstractMojo
 
         Iterator converters = model.converters();
         
+        Iterator behaviors = model.behaviors();
+        
         Iterator tags = model.tags();
         
         Iterator faceletTags = model.faceletTags();
@@ -283,6 +292,7 @@ public class TagdocContentMojo extends AbstractMojo
         Set componentPages = new TreeSet();
         Set converterPages = new TreeSet();
         Set validatorPages = new TreeSet();
+        Set behaviorPages = new TreeSet();
         Set tagsPages = new TreeSet();
         Set faceletTagsPages = new TreeSet();
 
@@ -323,6 +333,19 @@ public class TagdocContentMojo extends AbstractMojo
                 if (pageName != null)
                 {
                     validatorPages.add(pageName);
+                    count++;
+                }
+            }
+        }
+        while (behaviors.hasNext())
+        {
+            BehaviorMeta behavior = (BehaviorMeta) behaviors.next();
+            if (canGenerate(behavior))
+            {
+                String pageName = _generateBehaviorDoc(velocityEngine,baseContext,model,behavior);
+                if (pageName != null)
+                {
+                    behaviorPages.add(pageName);
                     count++;
                 }
             }
@@ -689,6 +712,105 @@ public class TagdocContentMojo extends AbstractMojo
         return pageName;
     }
     
+    private String _generateBehaviorDoc(VelocityEngine velocityEngine, 
+            VelocityContext baseContext, Model model, BehaviorMeta behavior)
+            throws Exception
+    {
+        if (behavior.getName() == null)
+        {
+            return null;
+        }
+
+        String pageName = _toPageName(behavior.getName());
+        
+        Context context = new VelocityContext(baseContext);
+        context.put("behavior", behavior);
+        FaceletTagMeta faceletTag = model.findFaceletTagByName(behavior.getName());
+        if (faceletTag != null)
+        {
+            context.put("faceletTag", faceletTag);
+        }
+        
+        String baseContent = "";
+        
+        File xmlBaseFile = new File(baseFilesSourceDirectory, 
+                _platformAgnosticPath(pageName + "-base.xml"));
+        
+        if (xmlBaseFile != null && xmlBaseFile.exists())
+        {
+            if (getLog().isDebugEnabled())
+            {
+                getLog().debug("using base content file: "+xmlBaseFile.getPath());
+            }
+            
+            Reader reader = null;
+            try
+            {
+                reader = new FileReader(xmlBaseFile);
+                Xpp3Dom root = Xpp3DomBuilder.build(reader);
+                
+                StringWriter writer = new StringWriter();
+                
+                Xpp3Dom [] children = root.getChild("body").getChildren();
+                
+                for (int i = 0; i< children.length; i++)
+                {
+                    Xpp3Dom dom = children[i];
+                    Xpp3DomWriter.write(writer, dom);
+                }
+                baseContent = writer.toString();
+                writer.close();
+            }
+            catch (XmlPullParserException e)
+            {
+                throw new MojoExecutionException(
+                        "Error parsing base file: " + e.getMessage(), e);
+            }
+            finally
+            {
+                reader.close();
+            }
+        }
+        
+        baseContext.put("baseContent", baseContent);        
+        
+        Writer out = null;
+        
+        try
+        {        
+            File targetDir = new File(outputDirectory.getParentFile(),
+                    _platformAgnosticPath("generated-site/xdoc/"
+                            + _DOC_SUBDIRECTORY));
+            
+            if ( !targetDir.exists() )
+            {
+                targetDir.mkdirs();
+            }
+            File targetFile = new File(targetDir, pageName + ".xml");
+    
+            out = new OutputStreamWriter(new FileOutputStream(targetFile),
+                    "UTF-8");
+            
+            Template template = velocityEngine.getTemplate(getTemplateBehavior());
+            
+            template.merge(context, out);
+            
+            out.flush();
+        }
+        catch (Exception e)
+        {
+            throw new MojoExecutionException(
+                    "Error merging velocity templates: " + e.getMessage(), e);
+        }
+        finally
+        {
+            IOUtil.close(out);
+            out = null;
+        }
+
+        return pageName;
+    }
+    
     private String _generateTagDoc(VelocityEngine velocityEngine, 
             VelocityContext baseContext, Model model, TagMeta tag)
             throws Exception
@@ -824,6 +946,15 @@ public class TagdocContentMojo extends AbstractMojo
                 //Exists in jsp and in facelets, but has specific facelets properties
                 return null;
             }            
+        }
+        if (faceletTag.getBehaviorClass() != null)
+        {
+            BehaviorMeta comp = model.findBehaviorByClassName(faceletTag.getBehaviorClass());
+            if (name.equals(comp.getName()))
+            {
+                //Exists in jsp and in facelets, but has specific facelets properties
+                return null;
+            }
         }
         if (faceletTag.getTagClass() != null)
         {
@@ -1045,6 +1176,11 @@ public class TagdocContentMojo extends AbstractMojo
     public String getTemplateConverter()
     {
         return templateConverter;
+    }
+
+    public String getTemplateBehavior()
+    {
+        return templateBehavior;
     }
 
     public String getTemplateValidator()

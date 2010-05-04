@@ -30,6 +30,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.BehaviorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
@@ -40,6 +41,8 @@ import org.codehaus.plexus.components.io.fileselectors.FileInfo;
 import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
+import com.thoughtworks.qdox.model.AbstractJavaEntity;
+import com.thoughtworks.qdox.model.Annotation;
 import com.thoughtworks.qdox.model.JavaClass;
 
 /**
@@ -235,6 +238,66 @@ public class QdoxHelper
             parentClazz = parentClazz.getSuperJavaClass();
         }
     }
+
+    public static Annotation getAnnotation(AbstractJavaEntity entity, String annoName)
+    {
+        Annotation[] annos = entity.getAnnotations();
+        if (annos == null)
+        {
+            return null;
+        }
+        // String wanted = ANNOTATION_BASE + "." + annoName;
+        for (int i = 0; i < annos.length; ++i)
+        {
+            Annotation thisAnno = annos[i];
+            // Ideally, here we would check whether the fully-qualified name of
+            // the annotation
+            // class matches ANNOTATION_BASE + "." + annoName. However it
+            // appears that qdox 1.6.3
+            // does not correctly expand @Foo using the class import statements;
+            // method
+            // Annotation.getType.getJavaClass.getFullyQualifiedName still just
+            // returns the short
+            // class name. So for now, just check for the short name.
+            String thisAnnoName = thisAnno.getType().getJavaClass().getName();
+            
+            //Make short name for recognizing, if returns long
+            int containsPoint = thisAnnoName.lastIndexOf('.');
+            if (containsPoint != -1)
+            {
+                thisAnnoName = thisAnnoName.substring(containsPoint+1);
+            }
+            if (thisAnnoName.equals(annoName))
+            {
+                return thisAnno;
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Same as initComponentAncestry but for converters
+     */
+    public static void initBehaviorAncestry(Map javaClassByName, Model model, ClassMeta modelItem)
+    {
+        JavaClass clazz = (JavaClass) javaClassByName.get(modelItem.getSourceClassName());
+        JavaClass parentClazz = clazz.getSuperJavaClass();
+        while (parentClazz != null)
+        {
+            String parentClazzName = parentClazz.getFullyQualifiedName();
+            
+            parentClazzName = getFullyQualifiedClassName(clazz,parentClazzName);
+            
+            BehaviorMeta parentComponent = model
+                    .findBehaviorByClassName(parentClazzName);
+            if (parentComponent != null)
+            {
+                modelItem.setParentClassName(parentComponent.getClassName());
+                break;
+            }
+            parentClazz = parentClazz.getSuperJavaClass();
+        }
+    }
     
     public static void initFaceletTagHandlerAncestry(Map javaClassByName, Model model, ClassMeta modelItem)
     {
@@ -321,6 +384,92 @@ public class QdoxHelper
         }
     }
     
+    /**
+     * Remove all leading whitespace and a quotemark if it exists.
+     * <p>
+     * Qdox comments like <code>foo val= "bar"</code> return a value with
+     * leading whitespace and quotes, so remove them.
+     */
+    public static String clean(Object srcObj)
+    {
+        if (srcObj == null)
+        {
+            return null;
+        }
+
+        String src = srcObj.toString();
+        int start = 0;
+        int end = src.length();
+        
+        if (end == 0)
+        {
+            return src;
+        }
+        
+        if (src.equals("\"\""))
+        {
+            return "\"\"";
+        }
+
+        while (start <= end)
+        {
+            char c = src.charAt(start);
+            if (!Character.isWhitespace(c) && (c != '"'))
+            {
+                break;
+            }
+            ++start;
+        }
+        while (end >= start)
+        {
+            char c = src.charAt(end - 1);
+            if (!Character.isWhitespace(c) && (c != '"'))
+            {
+                break;
+            }
+            --end;
+        }
+        return src.substring(start, end);
+    }
+
+    /**
+     * Get the named attribute from a doc-annotation.
+     * 
+     * Param clazz is the class the annotation is attached to; only used when
+     * reporting errors.
+     */
+    public static String getString(JavaClass clazz, String key, Map map, String dflt)
+    {
+        String val = clean(map.get(key));
+        if (val != null)
+        {
+            return val;
+        }
+        else
+        {
+            return dflt;
+        }
+    }
+
+    /**
+     * Get the named attribute from a doc-annotation and convert to a boolean.
+     * 
+     * Param clazz is the class the annotation is attached to; only used when
+     * reporting errors.
+     */
+    public static Boolean getBoolean(JavaClass clazz, String key, Map map,
+            Boolean dflt)
+    {
+        String val = clean(map.get(key));
+        if (val == null)
+        {
+            return dflt;
+        }
+        // TODO: report problem if the value does not look like "true" or
+        // "false",
+        // rather than silently converting it to false.
+        return Boolean.valueOf(val);
+    }
 
     /**
      * Returns true if the tagClassName is not null, but the corresponding

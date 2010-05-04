@@ -35,6 +35,7 @@ import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.Flattener;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.BehaviorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
@@ -189,6 +190,8 @@ public class TagdocIndexReport extends AbstractMavenReport
 
         Iterator converters = model.converters();
         
+        Iterator behaviors = model.behaviors();
+        
         Iterator tags = model.tags();
         
         Iterator faceletTags = model.faceletTags();
@@ -206,6 +209,7 @@ public class TagdocIndexReport extends AbstractMavenReport
 
         Set componentPages = new TreeSet();
         Set converterPages = new TreeSet();
+        Set behaviorPages = new TreeSet();
         Set validatorPages = new TreeSet();
         Set tagsPages = new TreeSet();
         Set faceletTagPages = new TreeSet();
@@ -251,6 +255,20 @@ public class TagdocIndexReport extends AbstractMavenReport
                 }
             }
         }
+        while (behaviors.hasNext())
+        {
+            BehaviorMeta behavior = (BehaviorMeta) behaviors.next();
+            if (canGenerate(behavior))
+            {
+                String pageName = _generateBehaviorDoc(behavior);
+                if (pageName != null)
+                {
+                    behaviorPages.add(pageName);
+                    count++;
+                }
+            }
+        }
+
         while (tags.hasNext())
         {
             TagMeta tag = (TagMeta) tags.next();
@@ -326,6 +344,7 @@ public class TagdocIndexReport extends AbstractMavenReport
         _writeIndexSection(sink, componentPages, "Components");
         _writeIndexSection(sink, converterPages, "Converters");
         _writeIndexSection(sink, validatorPages, "Validators");
+        _writeIndexSection(sink, behaviorPages, "Behaviors");
         _writeIndexSection(sink, tagsPages, "JSF Tags");
         _writeIndexSection(sink, faceletTagPages, "JSF Facelet Tags");
         _writeIndexSection(sink, otherPages, "Miscellaneous");
@@ -429,6 +448,19 @@ public class TagdocIndexReport extends AbstractMavenReport
 
         return pageName;
     }
+    
+    private String _generateBehaviorDoc(BehaviorMeta behavior)
+            throws IOException
+    {
+        if (behavior.getName() == null)
+        {
+            return null;
+        }
+        
+        String pageName = _toPageName(behavior.getName());
+        
+        return pageName;
+    }
 
     private String _generateValidatorDoc(ValidatorMeta validator)
             throws IOException
@@ -492,6 +524,16 @@ public class TagdocIndexReport extends AbstractMavenReport
                 return null;
             }            
         }
+        if (tag.getBehaviorClass() != null)
+        {
+            BehaviorMeta comp = model.findBehaviorByClassName(tag.getBehaviorClass());
+            if (name.equals(comp.getName()))
+            {
+                //Exists in jsp and in facelets, but has specific facelets properties
+                return null;
+            }            
+        }
+
         if (tag.getTagClass() != null)
         {
             TagMeta comp = model.findTagByClassName(tag.getTagClass());

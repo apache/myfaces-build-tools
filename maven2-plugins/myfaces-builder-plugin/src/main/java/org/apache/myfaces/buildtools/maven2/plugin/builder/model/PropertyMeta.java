@@ -58,6 +58,7 @@ public class PropertyMeta
     private String _clientEvent;
     
     private String _deferredValueType;
+    private Boolean _faceletsOnly;
 
     public PropertyMeta()
     {
@@ -92,6 +93,7 @@ public class PropertyMeta
         _deferredValueType = pm._deferredValueType;
         _clientEvent = pm._clientEvent;
         _partialStateHolder = pm._partialStateHolder;
+        _faceletsOnly = pm._faceletsOnly;
     }
     
     /**
@@ -133,6 +135,7 @@ public class PropertyMeta
         out.writeElement("rtexprvalue", pm._rtexprvalue);
         out.writeElement("deferredValueType", pm._deferredValueType);
         out.writeElement("clientEvent", pm._clientEvent);
+        out.writeElement("faceletsOnly", pm._faceletsOnly);
         out.endElement("property");
     }
 
@@ -170,6 +173,7 @@ public class PropertyMeta
         digester.addBeanPropertySetter(newPrefix + "/rtexprvalue", "rtexprvalue");
         digester.addBeanPropertySetter(newPrefix + "/deferredValueType", "deferredValueType");
         digester.addBeanPropertySetter(newPrefix + "/clientEvent", "clientEvent");
+        digester.addBeanPropertySetter(newPrefix + "/faceletsOnly", "faceletsOnly");
         MethodSignatureMeta.addXmlRules(digester, newPrefix);
         
     }
@@ -205,6 +209,7 @@ public class PropertyMeta
         _rtexprvalue = ModelUtils.merge(this._rtexprvalue, other._rtexprvalue);
         _deferredValueType = ModelUtils.merge(this._deferredValueType, other._deferredValueType);
         _clientEvent = ModelUtils.merge(this._clientEvent, other._clientEvent);
+        _faceletsOnly = ModelUtils.merge(this._faceletsOnly, other._faceletsOnly);
     }
 
     /**
@@ -578,7 +583,7 @@ public class PropertyMeta
 
     /**
      * 
-     * @since 1.0.5
+     * @since 1.0.6
      */
     public void setPartialStateHolder(Boolean partialStateHolder)
     {
@@ -587,10 +592,28 @@ public class PropertyMeta
 
     /**
      * 
-     * @since 1.0.5
+     * @since 1.0.6
      */
     public Boolean isPartialStateHolder()
     {
         return ModelUtils.defaultOf(_partialStateHolder, false);
+    }
+
+    /**
+     * 
+     * @since 1.0.6
+     */
+    public Boolean isFaceletsOnly()
+    {
+        return ModelUtils.defaultOf(_faceletsOnly, false);
+    }
+    
+    /**
+     * 
+     * @since 1.0.6
+     */
+    public void setFaceletsOnly(Boolean faceletsOnly)
+    {
+        _faceletsOnly = faceletsOnly;
     }
 }

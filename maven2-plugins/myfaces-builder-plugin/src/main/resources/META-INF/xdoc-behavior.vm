@@ -1,45 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <document>
  <properties>
-  <title>&lt;${tag.name}&gt;</title>
+  <title>&lt;${behavior.name}&gt;</title>
  </properties>
  <body>
   <section name="Summary">
   <p>
-   <b>Tag name:</b> &lt;${tag.name}&gt;
+   <b>Tag name:</b> &lt;${behavior.name}&gt;
    <br/>
-#set ($javadocPath = "../apidocs/" + $tag.getClassName().replace('.', '/') )
-   <b>Tag class:</b> <a href="${tagdocUtils.platformAgnosticPath( $javadocPath )}.html">${tag.className}</a>
+#set ($javadocPath = "../apidocs/" + $behavior.getClassName().replace('.', '/') )
+   <b>Converter class:</b> <a href="${tagdocUtils.platformAgnosticPath( $javadocPath )}.html">${behavior.className}</a>
    <br/>
+#if ($behavior.tagClass)
+#set ($javadocPath = "../apidocs/" + $behavior.getTagClass().replace('.', '/') )
+   <b>Tag class:</b> <a href="${tagdocUtils.platformAgnosticPath( $javadocPath )}.html">${behavior.tagClass}</a>
+   <br/>
+#end
 #if ($faceletTag)
    <b>Facelet Tag Handler:</b> <a href="${tagdocUtils.platformAgnosticPath( $javadocPath )}.html">${faceletTag.className}</a>
    <br/>  
 #end
-${tag.longDescription}   
+   <b>behavior id:</b> ${behavior.behaviorId}
+   <br/>
+${behavior.longDescription}   
   </p>
   </section>
 #if ($baseContent)
 $baseContent
 #end
-#set ($attributeList = ${tagdocUtils.getSortedAttributeList($tag)})
-#if ($attributeList.size() != 0)  
+#set ($propertyList = ${tagdocUtils.getSortedPropertyList($behavior)})
+#if ($propertyList.size() != 0)  
   <section name="Attributes">
 <table>
  <tr>
   <th>Name</th>
   <th>Type</th>
-  <th>Required</th>
+  <th>Supports EL?</th>
   <th>Description</th>
  </tr>
-#foreach( $attribute in $attributeList )
-#if (!$attribute.isTagExcluded())
+#foreach( $property in $propertyList )
+#if (!$property.isTagExcluded())
  <tr>
-  <td>$attribute.name</td>
-#set ($type = ${tagdocUtils.getDisplayType($tag.className,$attribute.name,$attribute.className)})
+  <td>$property.jspName</td>
+#set ($type = ${tagdocUtils.getDisplayType($behavior.className,$property.jspName,$property.className)})
   <td>$type</td>
-  <td>$attribute.isRequired()</td>
-#if ($attribute.longDescription)
-  <td>$attribute.longDescription</td>
+#if ($property.jspName == "action")
+  <td>Yes</td>
+#elseif ($property.isMethodBinding() || $property.isMethodExpression())
+  <td>Only EL</td>
+#elseif ($property.jspName == "binding")
+  <td>Only EL</td>
+#elseif ($property.isLiteralOnly())
+  <td>No</td>
+#else
+  <td>Yes</td>
+#end
+#if ($property.longDescription)
+  <td>$property.longDescription</td>
 #else
   <td></td>
 #end

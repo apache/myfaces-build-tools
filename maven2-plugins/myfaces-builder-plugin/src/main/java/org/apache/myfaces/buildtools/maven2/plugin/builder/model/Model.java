@@ -37,6 +37,7 @@ public class Model
 
     private List _components = new ArrayList(100);
     private List _converters = new ArrayList(100);
+    private List _behaviors = new ArrayList(100);
     private List _validators = new ArrayList(100);
     private List _renderKits = new ArrayList(100);
     private List _tags = new ArrayList(100);
@@ -45,6 +46,7 @@ public class Model
 
     private Map _componentsByClass = new TreeMap();
     private Map _convertersByClass = new TreeMap();
+    private Map _behaviorsByClass = new TreeMap();
     private Map _validatorsByClass = new TreeMap();
     private Map _renderKitsById = new TreeMap();
     private Map _tagsByClass =  new TreeMap();
@@ -82,6 +84,12 @@ public class Model
         for (Iterator i = model._validators.iterator(); i.hasNext();)
         {
             ValidatorMeta c = (ValidatorMeta) i.next();
+            c.writeXml(out);
+        }
+        
+        for (Iterator i = model._behaviors.iterator(); i.hasNext();)
+        {
+            BehaviorMeta c = (BehaviorMeta) i.next();
             c.writeXml(out);
         }
         
@@ -128,6 +136,7 @@ public class Model
         ComponentMeta.addXmlRules(digester, prefix);
         ConverterMeta.addXmlRules(digester, prefix);
         ValidatorMeta.addXmlRules(digester, prefix);
+        BehaviorMeta.addXmlRules(digester, prefix);
         RenderKitMeta.addXmlRules(digester, prefix);
         TagMeta.addXmlRules(digester, prefix);
         FaceletTagMeta.addXmlRules(digester, prefix);
@@ -171,6 +180,16 @@ public class Model
             if (this.findValidatorByClassName(validator.getClassName())== null)
             {
                 this.addValidator(validator);
+            }
+        }
+        
+        for (Iterator it = other.getBehaviors().iterator(); it.hasNext();)
+        {
+            BehaviorMeta behavior = (BehaviorMeta) it.next();
+            
+            if (this.findBehaviorByClassName(behavior.getClassName())== null)
+            {
+                this.addBehavior(behavior);
             }
         }
         
@@ -277,6 +296,44 @@ public class Model
         return (ConverterMeta) _convertersByClass.get(className);
     }
 
+    /**
+     * Holds info about a JSF Behavior definition
+     * @since 1.0.6
+     */
+    public void addBehavior(BehaviorMeta behavior)
+    {
+        _behaviors.add(behavior);
+        _behaviorsByClass.put(behavior.getClassName(), behavior);
+    }
+
+    /**
+     * Returns all behaviors
+     * @since 1.0.6
+     */
+    public List getBehaviors()
+    {
+        return _behaviors;
+    }
+
+    /**
+     * Returns an iterator for all behaviors
+     * @since 1.0.6
+     */
+    public Iterator behaviors()
+    {
+        return _behaviors.iterator();
+    }
+
+    /**
+     * 
+     * @since 1.0.6
+     */
+    public BehaviorMeta findBehaviorByClassName(String className)
+    {
+        return (BehaviorMeta) _behaviorsByClass.get(className);
+    }
+
+    
     /**
      * Holds info about a JSF Converter definition
      */

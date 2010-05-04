@@ -41,6 +41,9 @@ public class AttributeMeta
     private String _deferredValueType;
     private String _deferredMethodSignature;
     private Boolean _exclude;
+    
+    //Set on facelet merge
+    private transient Boolean _faceletsOnly;
 
     public AttributeMeta()
     {
@@ -61,6 +64,7 @@ public class AttributeMeta
         _deferredValueType = am._deferredValueType;
         _deferredMethodSignature = am._deferredMethodSignature;
         _exclude = am._exclude;
+        _faceletsOnly = am._faceletsOnly;
     }
     
     /**
@@ -78,6 +82,7 @@ public class AttributeMeta
         out.writeElement("deferredValueType", am._deferredValueType);
         out.writeElement("deferredMethodSignature", am._deferredMethodSignature);
         out.writeElement("exclude", am._exclude);
+        out.writeElement("faceletsOnly", am._faceletsOnly);
         out.endElement("attribute");
     }
 
@@ -100,7 +105,8 @@ public class AttributeMeta
                 "longDescription");
         digester.addBeanPropertySetter(newPrefix + "/deferredValueType");
         digester.addBeanPropertySetter(newPrefix + "/deferredMethodSignature");
-        digester.addBeanPropertySetter(newPrefix + "/exclude");        
+        digester.addBeanPropertySetter(newPrefix + "/exclude");
+        digester.addBeanPropertySetter(newPrefix + "/faceletsOnly");
     }
 
     /**
@@ -118,7 +124,8 @@ public class AttributeMeta
         _longDescription = ModelUtils.merge(this._longDescription, other._longDescription);
         _deferredValueType = ModelUtils.merge(this._deferredValueType, other._deferredValueType);
         _deferredMethodSignature = ModelUtils.merge(this._deferredMethodSignature, other._deferredMethodSignature);
-        _exclude = ModelUtils.merge(this._exclude, other._exclude);        
+        _exclude = ModelUtils.merge(this._exclude, other._exclude);
+        _faceletsOnly = ModelUtils.merge(this._faceletsOnly, other._faceletsOnly);
     }
     
     /**
@@ -137,6 +144,7 @@ public class AttributeMeta
         _deferredValueType = other._deferredValueType;
         _deferredMethodSignature = other._deferredMethodSignature;
         _exclude = other._exclude;
+        _faceletsOnly = other._faceletsOnly;
     }
     
     /**
@@ -268,5 +276,23 @@ public class AttributeMeta
     public void setExclude(Boolean exclude)
     {
         _exclude = exclude;
+    }
+    
+    /**
+     * 
+     * @since 1.0.6
+     */
+    public Boolean isFaceletsOnly()
+    {
+        return ModelUtils.defaultOf(_faceletsOnly, false);
+    }
+
+    /**
+     * 
+     * @since 1.0.6
+     */
+    public void setFaceletsOnly(Boolean faceletsOnly)
+    {
+        this._faceletsOnly = faceletsOnly;
     }
 }

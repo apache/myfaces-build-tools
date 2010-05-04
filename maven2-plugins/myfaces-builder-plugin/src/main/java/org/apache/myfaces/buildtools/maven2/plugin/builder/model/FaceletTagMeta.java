@@ -42,6 +42,7 @@ public class FaceletTagMeta extends ClassMeta implements AttributeHolder
     private String _longDescription;
     private String _componentClass;
     private String _converterClass;
+    private String _behaviorClass;
     private String _validatorClass;
     private String _tagClass;
     private Boolean _configExcluded;
@@ -62,6 +63,7 @@ public class FaceletTagMeta extends ClassMeta implements AttributeHolder
         out.writeElement("componentClass", _componentClass);
         out.writeElement("tagClass", _tagClass);
         out.writeElement("converterClass", _converterClass);
+        out.writeElement("behaviorClass", _behaviorClass);
         out.writeElement("validatorClass", _validatorClass);
         out.writeElement("configExcluded", _configExcluded);
 
@@ -92,6 +94,7 @@ public class FaceletTagMeta extends ClassMeta implements AttributeHolder
         digester.addBeanPropertySetter(newPrefix + "/componentClass", "componentClass");
         digester.addBeanPropertySetter(newPrefix + "/tagClass", "tagClass");
         digester.addBeanPropertySetter(newPrefix + "/converterClass", "converterClass");
+        digester.addBeanPropertySetter(newPrefix + "/behaviorClass", "behaviorClass");
         digester.addBeanPropertySetter(newPrefix + "/validatorClass", "validatorClass");
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
         
@@ -216,6 +219,24 @@ public class FaceletTagMeta extends ClassMeta implements AttributeHolder
     public void setValidatorClass(String validatorClass)
     {
         this._validatorClass = validatorClass;
+    }
+    
+    /**
+     * 
+     * @since 1.0.6
+     */
+    public String getBehaviorClass()
+    {
+        return _behaviorClass;
+    }
+
+    /**
+     * 
+     * @since 1.0.6
+     */
+    public void setBehaviorClass(String behaviorClass)
+    {
+        this._behaviorClass = behaviorClass;
     }
     
     public void setConfigExcluded(Boolean configExcluded)

@@ -36,6 +36,7 @@ import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelBuilder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.BehaviorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
@@ -79,6 +80,7 @@ public class QdoxModelBuilder implements ModelBuilder
 
     private static final String DOC_CONVERTER = "JSFConverter";
     private static final String DOC_VALIDATOR = "JSFValidator";
+    private static final String DOC_BEHAVIOR = "JSFBehavior";
     private static final String DOC_COMPONENT = "JSFComponent";
     private static final String DOC_RENDERER = "JSFRenderer";
     private static final String DOC_RENDERKIT = "JSFRenderKit";
@@ -313,6 +315,19 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
 
+        // post-process the list of behaviors
+        for (Iterator it = model.getBehaviors().iterator(); it.hasNext();)
+        {
+            BehaviorMeta behavior = (BehaviorMeta) it.next();
+            if (!behavior.getModelId().equals(currModelId))
+            {
+                continue;
+            }
+            QdoxHelper.initBehaviorAncestry(processedClasses, model, behavior);
+            // TODO: why is there no check for Behavior class existence here??
+            // ANS: there is no automatic generation of behavior class.
+        }
+
         // post-process the list of tags
         for (Iterator it = model.getTags().iterator(); it.hasNext();)
         {
@@ -329,7 +344,6 @@ public class QdoxModelBuilder implements ModelBuilder
             }
             QdoxHelper.initFaceletTagHandlerAncestry(processedClasses, model, tag);            
         }
-
     }
 
     /**
@@ -342,7 +356,6 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             return;
         }
-
         // first, check that the parent type and all interfaces have been
         // processed.
         JavaClass parentClazz = clazz.getSuperJavaClass();
@@ -350,17 +363,14 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             processClass(processedClasses, parentClazz, model);
         }
-
         JavaClass[] classes = clazz.getImplementedInterfaces();
         for (int i = 0; i < classes.length; ++i)
         {
             JavaClass iclazz = classes[i];
             processClass(processedClasses, iclazz, model);
         }
-
         // ok, now we can mark this class as processed.
         processedClasses.put(clazz.getFullyQualifiedName(), clazz);
-
         log.info("processed class:" + clazz.getFullyQualifiedName());
         DocletTag tag;
         Annotation anno;
@@ -384,7 +394,7 @@ public class QdoxModelBuilder implements ModelBuilder
                 processWebConfigParam(props, (AbstractJavaEntity)tag.getContext(), 
                         clazz, field, webConfig);
             }
-            anno = getAnnotation(field, DOC_WEB_CONFIG_PARAM);
+            anno = QdoxHelper.getAnnotation(field, DOC_WEB_CONFIG_PARAM);
             if (anno != null)
             {
                 Map props = anno.getNamedParameterMap();
@@ -403,7 +413,7 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = tag.getNamedParameterMap();
             processConverter(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
-        anno = getAnnotation(clazz, DOC_CONVERTER);
+        anno = QdoxHelper.getAnnotation(clazz, DOC_CONVERTER);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
@@ -416,11 +426,24 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = tag.getNamedParameterMap();
             processValidator(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
-        anno = getAnnotation(clazz, DOC_VALIDATOR);
+        anno = QdoxHelper.getAnnotation(clazz, DOC_VALIDATOR);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
             processValidator(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
+        }
+        // behaviors
+        tag = clazz.getTagByName(DOC_BEHAVIOR, false);
+        if (tag != null)
+        {
+            Map props = tag.getNamedParameterMap();
+            processBehavior(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
+        }
+        anno = QdoxHelper.getAnnotation(clazz, DOC_BEHAVIOR);
+        if (anno != null)
+        {
+            Map props = anno.getNamedParameterMap();
+            processBehavior(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
         // components
         tag = clazz.getTagByName(DOC_COMPONENT, false);
@@ -429,7 +452,7 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = tag.getNamedParameterMap();
             processComponent(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
-        anno = getAnnotation(clazz, DOC_COMPONENT);
+        anno = QdoxHelper.getAnnotation(clazz, DOC_COMPONENT);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
@@ -442,12 +465,21 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = tag.getNamedParameterMap();
             processTag(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
-        anno = getAnnotation(clazz, DOC_TAG);
+        anno = QdoxHelper.getAnnotation(clazz, DOC_TAG);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
             processTag(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
+
+        processClassForFaceletTagAnnotations(clazz, model, tag, anno);
+        processClassForRendekitAnnotation(clazz, model, tag, anno);
+        processClassForRendererAnnotations(clazz, model, tag, anno);
+    }
+    
+    private void processClassForFaceletTagAnnotations(JavaClass clazz, Model model, DocletTag tag, Annotation anno) 
+        throws MojoExecutionException
+    {
         //facelet tagHandler
         tag = clazz.getTagByName(DOC_FACELET_TAG, false);
         if (tag != null)
@@ -455,16 +487,16 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = tag.getNamedParameterMap();
             processFaceletTag(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
-        anno = getAnnotation(clazz, DOC_FACELET_TAG);
+        anno = QdoxHelper.getAnnotation(clazz, DOC_FACELET_TAG);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
             processFaceletTag(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }        
-        anno = getAnnotation(clazz, DOC_FACELET_TAGS);
+        anno = QdoxHelper.getAnnotation(clazz, DOC_FACELET_TAGS);
         if (anno != null)
         {
-            Object jspProps = anno.getNamedParameter("tags");            
+            Object jspProps = anno.getNamedParameter("tags");
             if (jspProps instanceof Annotation)
             {
                 Annotation jspPropertiesAnno = (Annotation) jspProps;
@@ -482,6 +514,10 @@ public class QdoxModelBuilder implements ModelBuilder
                 }
             }
         }        
+    }
+    
+    private void processClassForRendekitAnnotation(JavaClass clazz, Model model, DocletTag tag, Annotation anno)
+    {
         // renderKit
         tag = clazz.getTagByName(DOC_RENDERKIT, false);
         if (tag != null)
@@ -489,12 +525,16 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = tag.getNamedParameterMap();
             processRenderKit(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
         }
-        anno = getAnnotation(clazz, DOC_RENDERKIT);
+        anno = QdoxHelper.getAnnotation(clazz, DOC_RENDERKIT);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
             processRenderKit(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
+    }
+    
+    private void processClassForRendererAnnotations(JavaClass clazz, Model model, DocletTag tag, Annotation anno)
+    {
         // renderer
         DocletTag [] tags = clazz.getTagsByName(DOC_RENDERER, false);
         for (int i = 0; i < tags.length; i++)
@@ -506,13 +546,13 @@ public class QdoxModelBuilder implements ModelBuilder
                 processRenderer(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
             }
         }
-        anno = getAnnotation(clazz, DOC_RENDERER);
+        anno = QdoxHelper.getAnnotation(clazz, DOC_RENDERER);
         if (anno != null)
         {
             Map props = anno.getNamedParameterMap();
             processRenderer(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
-        anno = getAnnotation(clazz, DOC_RENDERERS);
+        anno = QdoxHelper.getAnnotation(clazz, DOC_RENDERERS);
         if (anno != null)
         {
             Object jspProps = anno.getNamedParameter("renderers");
@@ -529,137 +569,11 @@ public class QdoxModelBuilder implements ModelBuilder
                 for (int i = 0; i < jspPropsList.size();i++)
                 {
                     Annotation ranno = (Annotation) jspPropsList.get(i);
-                    
                     Map props = ranno.getNamedParameterMap();
                     processRenderer(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
                 }
             }
         }
-    }
-
-    private Annotation getAnnotation(AbstractJavaEntity entity, String annoName)
-    {
-        Annotation[] annos = entity.getAnnotations();
-        if (annos == null)
-        {
-            return null;
-        }
-        // String wanted = ANNOTATION_BASE + "." + annoName;
-        for (int i = 0; i < annos.length; ++i)
-        {
-            Annotation thisAnno = annos[i];
-            // Ideally, here we would check whether the fully-qualified name of
-            // the annotation
-            // class matches ANNOTATION_BASE + "." + annoName. However it
-            // appears that qdox 1.6.3
-            // does not correctly expand @Foo using the class import statements;
-            // method
-            // Annotation.getType.getJavaClass.getFullyQualifiedName still just
-            // returns the short
-            // class name. So for now, just check for the short name.
-            String thisAnnoName = thisAnno.getType().getJavaClass().getName();
-            
-            //Make short name for recognizing, if returns long
-            int containsPoint = thisAnnoName.lastIndexOf('.');
-            if (containsPoint != -1)
-            {
-                thisAnnoName = thisAnnoName.substring(containsPoint+1);
-            }
-            if (thisAnnoName.equals(annoName))
-            {
-                return thisAnno;
-            }
-        }
-        return null;
-    }
-    
-
-
-    /**
-     * Remove all leading whitespace and a quotemark if it exists.
-     * <p>
-     * Qdox comments like <code>foo val= "bar"</code> return a value with
-     * leading whitespace and quotes, so remove them.
-     */
-    private String clean(Object srcObj)
-    {
-        if (srcObj == null)
-        {
-            return null;
-        }
-
-        String src = srcObj.toString();
-        int start = 0;
-        int end = src.length();
-        
-        if (end == 0)
-        {
-            return src;
-        }
-        
-        if (src.equals("\"\""))
-        {
-            return "\"\"";
-        }
-
-        while (start <= end)
-        {
-            char c = src.charAt(start);
-            if (!Character.isWhitespace(c) && (c != '"'))
-            {
-                break;
-            }
-            ++start;
-        }
-        while (end >= start)
-        {
-            char c = src.charAt(end - 1);
-            if (!Character.isWhitespace(c) && (c != '"'))
-            {
-                break;
-            }
-            --end;
-        }
-        return src.substring(start, end);
-    }
-
-    /**
-     * Get the named attribute from a doc-annotation.
-     * 
-     * Param clazz is the class the annotation is attached to; only used when
-     * reporting errors.
-     */
-    private String getString(JavaClass clazz, String key, Map map, String dflt)
-    {
-        String val = clean(map.get(key));
-        if (val != null)
-        {
-            return val;
-        }
-        else
-        {
-            return dflt;
-        }
-    }
-
-    /**
-     * Get the named attribute from a doc-annotation and convert to a boolean.
-     * 
-     * Param clazz is the class the annotation is attached to; only used when
-     * reporting errors.
-     */
-    private Boolean getBoolean(JavaClass clazz, String key, Map map,
-            Boolean dflt)
-    {
-        String val = clean(map.get(key));
-        if (val == null)
-        {
-            return dflt;
-        }
-        // TODO: report problem if the value does not look like "true" or
-        // "false",
-        // rather than silently converting it to false.
-        return Boolean.valueOf(val);
     }
 
     /**
@@ -721,14 +635,14 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
         
-        String name = getString(clazz, "name", props, 
+        String name = QdoxHelper.getString(clazz, "name", props, 
                 QdoxHelper.evaluateParameterInitializationExpression(
                         field.getInitializationExpression()));
-        String defaultValue = getString(clazz,"defaultValue",props,null);
-        String expectedValues = getString(clazz,"expectedValues",props,null);
-        String since = getString(clazz,"since",props,null);
+        String defaultValue = QdoxHelper.getString(clazz,"defaultValue",props,null);
+        String expectedValues = QdoxHelper.getString(clazz,"expectedValues",props,null);
+        String since = QdoxHelper.getString(clazz,"since",props,null);
         
         WebConfigParamMeta wcp = new WebConfigParamMeta();
         wcp.setName(name);
@@ -751,7 +665,7 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
 
         String converterIdDflt = null;
         JavaField fieldConverterId = clazz
@@ -759,21 +673,21 @@ public class QdoxModelBuilder implements ModelBuilder
         if (fieldConverterId != null)
         {
             String value = fieldConverterId.getInitializationExpression();
-            converterIdDflt = clean(value.substring(value.indexOf('"')));
+            converterIdDflt = QdoxHelper.clean(value.substring(value.indexOf('"')));
         }        
-        String converterId = getString(clazz, "id", props, converterIdDflt);
+        String converterId = QdoxHelper.getString(clazz, "id", props, converterIdDflt);
 
         // Check for both "class" and "clazz" in order to support
         // doclet and real annotations.
-        String classNameOverride = getString(clazz, "class", props, null);
-        classNameOverride = getString(clazz,"clazz",props,classNameOverride);
+        String classNameOverride = QdoxHelper.getString(clazz, "class", props, null);
+        classNameOverride = QdoxHelper.getString(clazz,"clazz",props,classNameOverride);
         
-        String componentName = getString(clazz, "name", props, null);
-        String bodyContent = getString(clazz, "bodyContent", props, null);
-        String tagClass = getString(clazz, "tagClass", props, null);
-        String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
-        String serialuidtag = getString(clazz, "serialuidtag", props, null);
-        Boolean configExcluded = getBoolean(clazz,"configExcluded",props,null);   
+        String componentName = QdoxHelper.getString(clazz, "name", props, null);
+        String bodyContent = QdoxHelper.getString(clazz, "bodyContent", props, null);
+        String tagClass = QdoxHelper.getString(clazz, "tagClass", props, null);
+        String tagSuperclass = QdoxHelper.getString(clazz, "tagSuperclass", props, null);
+        String serialuidtag = QdoxHelper.getString(clazz, "serialuidtag", props, null);
+        Boolean configExcluded = QdoxHelper.getBoolean(clazz,"configExcluded",props,null);   
 
         ConverterMeta converter = new ConverterMeta();
         initClassMeta(model, clazz, converter, classNameOverride);
@@ -792,6 +706,51 @@ public class QdoxModelBuilder implements ModelBuilder
         
         model.addConverter(converter);
     }
+    
+    private void processBehavior(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, Model model)
+    {
+        String longDescription = clazz.getComment();
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
+
+        String behaviorIdDflt = null;
+        JavaField fieldBehaviorId = clazz
+                .getFieldByName("BEHAVIOR_ID");
+        if (fieldBehaviorId != null)
+        {
+            String value = fieldBehaviorId.getInitializationExpression();
+            behaviorIdDflt = QdoxHelper.clean(value.substring(value.indexOf('"')));
+        }        
+        String behaviorId = QdoxHelper.getString(clazz, "id", props, behaviorIdDflt);
+
+        // Check for both "class" and "clazz" in order to support
+        // doclet and real annotations.
+        String classNameOverride = QdoxHelper.getString(clazz, "class", props, null);
+        classNameOverride = QdoxHelper.getString(clazz,"clazz",props,classNameOverride);
+        
+        String componentName = QdoxHelper.getString(clazz, "name", props, null);
+        String bodyContent = QdoxHelper.getString(clazz, "bodyContent", props, null);
+        Boolean configExcluded = QdoxHelper.getBoolean(clazz,"configExcluded",props,null);
+
+        BehaviorMeta behavior = new BehaviorMeta();
+        initClassMeta(model, clazz, behavior, classNameOverride);
+        behavior.setName(componentName);
+        behavior.setBodyContent(bodyContent);
+        behavior.setBehaviorId(behaviorId);
+        behavior.setDescription(shortDescription);
+        behavior.setLongDescription(longDescription);
+        behavior.setConfigExcluded(configExcluded);
+        
+        // Now here walk the component looking for property annotations.
+        processComponentProperties(clazz, behavior);
+        
+        model.addBehavior(behavior);
+    }
         
     private void processValidator(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, Model model)
@@ -802,7 +761,7 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
 
         String validatorIdDflt = null;
         JavaField fieldConverterId = clazz
@@ -810,21 +769,21 @@ public class QdoxModelBuilder implements ModelBuilder
         if (fieldConverterId != null)
         {
             String value = fieldConverterId.getInitializationExpression();
-            validatorIdDflt = clean(value.substring(value.indexOf('"')));
+            validatorIdDflt = QdoxHelper.clean(value.substring(value.indexOf('"')));
         }        
-        String validatorId = getString(clazz, "id", props, validatorIdDflt);
+        String validatorId = QdoxHelper.getString(clazz, "id", props, validatorIdDflt);
 
         // Check for both "class" and "clazz" in order to support
         // doclet and real annotations.
-        String classNameOverride = getString(clazz, "class", props, null);
-        classNameOverride = getString(clazz,"clazz",props,classNameOverride);
+        String classNameOverride = QdoxHelper.getString(clazz, "class", props, null);
+        classNameOverride = QdoxHelper.getString(clazz,"clazz",props,classNameOverride);
         
-        String componentName = getString(clazz, "name", props, null);
-        String bodyContent = getString(clazz, "bodyContent", props, null);
-        String tagClass = getString(clazz, "tagClass", props, null);        
-        String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
-        String serialuidtag = getString(clazz, "serialuidtag", props, null);
-        Boolean configExcluded = getBoolean(clazz,"configExcluded",props,null);   
+        String componentName = QdoxHelper.getString(clazz, "name", props, null);
+        String bodyContent = QdoxHelper.getString(clazz, "bodyContent", props, null);
+        String tagClass = QdoxHelper.getString(clazz, "tagClass", props, null);        
+        String tagSuperclass = QdoxHelper.getString(clazz, "tagSuperclass", props, null);
+        String serialuidtag = QdoxHelper.getString(clazz, "serialuidtag", props, null);
+        Boolean configExcluded = QdoxHelper.getBoolean(clazz,"configExcluded",props,null);   
         
         ValidatorMeta validator = new ValidatorMeta();
         initClassMeta(model, clazz, validator, classNameOverride);
@@ -848,10 +807,10 @@ public class QdoxModelBuilder implements ModelBuilder
             JavaClass clazz, Model model)
     {
 
-        String renderKitId = getString(clazz, "renderKitId", props, null);
-        String renderKitClass = getString(clazz, "class", props, clazz
+        String renderKitId = QdoxHelper.getString(clazz, "renderKitId", props, null);
+        String renderKitClass = QdoxHelper.getString(clazz, "class", props, clazz
                 .getFullyQualifiedName());
-        renderKitClass = getString(clazz,"clazz",props,renderKitClass);
+        renderKitClass = QdoxHelper.getString(clazz,"clazz",props,renderKitClass);
 
         RenderKitMeta renderKit = model.findRenderKitById(renderKitId);
         
@@ -878,15 +837,15 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
    
-        String renderKitId = getString(clazz, "renderKitId", props, null);
-        String rendererClass = getString(clazz, "class", props, clazz
+        String renderKitId = QdoxHelper.getString(clazz, "renderKitId", props, null);
+        String rendererClass = QdoxHelper.getString(clazz, "class", props, clazz
                 .getFullyQualifiedName());
-        rendererClass = getString(clazz,"clazz",props,rendererClass);
+        rendererClass = QdoxHelper.getString(clazz,"clazz",props,rendererClass);
         
-        String componentFamily = getString(clazz,"family", props,null);
-        String rendererType = getString(clazz,"type", props,null);
+        String componentFamily = QdoxHelper.getString(clazz,"family", props,null);
+        String rendererType = QdoxHelper.getString(clazz,"type", props,null);
         
         RenderKitMeta renderKit = model.findRenderKitById(renderKitId);
         
@@ -914,14 +873,14 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
 
-        String tagName = getString(clazz, "name", props, null);
-        String classNameOverride = getString(clazz, "class", props, null);
-        classNameOverride = getString(clazz,"clazz",props,classNameOverride);
+        String tagName = QdoxHelper.getString(clazz, "name", props, null);
+        String classNameOverride = QdoxHelper.getString(clazz, "class", props, null);
+        classNameOverride = QdoxHelper.getString(clazz,"clazz",props,classNameOverride);
         
-        String bodyContent = getString(clazz, "bodyContent", props, "JSP");
-        String tagHandler = getString(clazz, "tagHandler", props, null);
+        String bodyContent = QdoxHelper.getString(clazz, "bodyContent", props, "JSP");
+        String tagHandler = QdoxHelper.getString(clazz, "tagHandler", props, null);
 
         TagMeta tag = new TagMeta();
         initClassMeta(model, clazz, tag, classNameOverride);
@@ -947,19 +906,20 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
         
-        longDescription = getString(clazz,"longDescription",props, longDescription);
+        longDescription = QdoxHelper.getString(clazz,"longDescription",props, longDescription);
 
-        String tagName = getString(clazz, "name", props, null);
-        String classNameOverride = getString(clazz, "class", props, null);
-        classNameOverride = getString(clazz,"clazz",props,classNameOverride);
+        String tagName = QdoxHelper.getString(clazz, "name", props, null);
+        String classNameOverride = QdoxHelper.getString(clazz, "class", props, null);
+        classNameOverride = QdoxHelper.getString(clazz,"clazz",props,classNameOverride);
         
-        String bodyContent = getString(clazz, "bodyContent", props, "JSP");
-        String componentClass = getString(clazz, "componentClass", props, null);
-        String tagClass = getString(clazz, "tagClass", props, null);
-        String converterClass = getString(clazz, "converterClass", props, null);
-        String validatorClass = getString(clazz, "validatorClass", props, null);
+        String bodyContent = QdoxHelper.getString(clazz, "bodyContent", props, "JSP");
+        String componentClass = QdoxHelper.getString(clazz, "componentClass", props, null);
+        String tagClass = QdoxHelper.getString(clazz, "tagClass", props, null);
+        String converterClass = QdoxHelper.getString(clazz, "converterClass", props, null);
+        String validatorClass = QdoxHelper.getString(clazz, "validatorClass", props, null);
+        String behaviorClass = QdoxHelper.getString(clazz, "behaviorClass", props, null);
 
         FaceletTagMeta tag = new FaceletTagMeta();
         initClassMeta(model, clazz, tag, classNameOverride);
@@ -971,6 +931,7 @@ public class QdoxModelBuilder implements ModelBuilder
         tag.setTagClass(tagClass);
         tag.setConverterClass(converterClass);
         tag.setValidatorClass(validatorClass);
+        tag.setBehaviorClass(behaviorClass);
         
         processFaceletTagAttributes(clazz, tag);
         model.addFaceletTag(tag);
@@ -983,7 +944,7 @@ public class QdoxModelBuilder implements ModelBuilder
         JavaField fieldComponentType = clazz.getFieldByName("COMPONENT_TYPE");
         if (fieldComponentType != null)
         {
-            componentTypeDflt = clean(fieldComponentType
+            componentTypeDflt = QdoxHelper.clean(fieldComponentType
                     .getInitializationExpression());
         }
 
@@ -992,7 +953,7 @@ public class QdoxModelBuilder implements ModelBuilder
                 .getFieldByName("COMPONENT_FAMILY");
         if (fieldComponentFamily != null)
         {
-            componentTypeFamily = clean(fieldComponentFamily
+            componentTypeFamily = QdoxHelper.clean(fieldComponentFamily
                     .getInitializationExpression());
         }
 
@@ -1001,18 +962,18 @@ public class QdoxModelBuilder implements ModelBuilder
                 .getFieldByName("DEFAULT_RENDERER_TYPE");
         if (fieldRendererType != null)
         {
-            rendererTypeDflt = clean(fieldRendererType
+            rendererTypeDflt = QdoxHelper.clean(fieldRendererType
                     .getInitializationExpression());
         }
 
-        String componentName = getString(clazz, "name", props, null);
+        String componentName = QdoxHelper.getString(clazz, "name", props, null);
 
         // Check for both "class" and "clazz" in order to support
         // doclet and real annotations.
-        String classNameOverride = getString(clazz, "class", props, null);
-        classNameOverride = getString(clazz,"clazz",props,classNameOverride);
+        String classNameOverride = QdoxHelper.getString(clazz, "class", props, null);
+        classNameOverride = QdoxHelper.getString(clazz,"clazz",props,classNameOverride);
                 
-        Boolean template = getBoolean(clazz,"template",props, null);
+        Boolean template = QdoxHelper.getBoolean(clazz,"template",props, null);
                 
         String longDescription = clazz.getComment();
         String descDflt = QdoxHelper.getFirstSentence(longDescription);
@@ -1020,28 +981,28 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
 
-        String bodyContent = getString(clazz, "bodyContent", props, null);
+        String bodyContent = QdoxHelper.getString(clazz, "bodyContent", props, null);
         
-        String componentFamily = getString(clazz, "family", props,
+        String componentFamily = QdoxHelper.getString(clazz, "family", props,
                 componentTypeFamily);
-        String componentType = getString(clazz, "type", props,
+        String componentType = QdoxHelper.getString(clazz, "type", props,
                 componentTypeDflt);
-        String rendererType = getString(clazz, "defaultRendererType", props,
+        String rendererType = QdoxHelper.getString(clazz, "defaultRendererType", props,
                 rendererTypeDflt);
-        Boolean canHaveChildren = getBoolean(clazz, "canHaveChildren", props, null);
-        Boolean configExcluded = getBoolean(clazz,"configExcluded",props,null);        
+        Boolean canHaveChildren = QdoxHelper.getBoolean(clazz, "canHaveChildren", props, null);
+        Boolean configExcluded = QdoxHelper.getBoolean(clazz,"configExcluded",props,null);        
 
-        String tagClass = getString(clazz, "tagClass", props, null);
-        String tagSuperclass = getString(clazz, "tagSuperclass", props, null);
-        String tagHandler = getString(clazz, "tagHandler", props, null);
-        String defaultEventName = getString(clazz, "defaultEventName", props, null);
-        String serialuid = getString(clazz, "serialuid", props, null);
-        String implementsValue = getString(clazz, "implements", props, null);
-        implementsValue = getString(clazz, "implementz", props, implementsValue);
+        String tagClass = QdoxHelper.getString(clazz, "tagClass", props, null);
+        String tagSuperclass = QdoxHelper.getString(clazz, "tagSuperclass", props, null);
+        String tagHandler = QdoxHelper.getString(clazz, "tagHandler", props, null);
+        String defaultEventName = QdoxHelper.getString(clazz, "defaultEventName", props, null);
+        String serialuid = QdoxHelper.getString(clazz, "serialuid", props, null);
+        String implementsValue = QdoxHelper.getString(clazz, "implements", props, null);
+        implementsValue = QdoxHelper.getString(clazz, "implementz", props, implementsValue);
         
-        Boolean composite = getBoolean(clazz, "composite", props, null);
+        Boolean composite = QdoxHelper.getBoolean(clazz, "composite", props, null);
 
         ComponentMeta component = new ComponentMeta();
         initClassMeta(model, clazz, component, classNameOverride);
@@ -1125,7 +1086,7 @@ public class QdoxModelBuilder implements ModelBuilder
                         method, ctag);
             }
 
-            Annotation anno = getAnnotation(method, DOC_JSP_ATTRIBUTE);
+            Annotation anno = QdoxHelper.getAnnotation(method, DOC_JSP_ATTRIBUTE);
             if (anno != null)
             {
                 Map props = anno.getNamedParameterMap();
@@ -1167,7 +1128,7 @@ public class QdoxModelBuilder implements ModelBuilder
                         method, ctag);
             }
 
-            Annotation anno = getAnnotation(method, DOC_FACELET_TAG_ATTRIBUTE);
+            Annotation anno = QdoxHelper.getAnnotation(method, DOC_FACELET_TAG_ATTRIBUTE);
             if (anno != null)
             {
                 Map props = anno.getNamedParameterMap();
@@ -1187,7 +1148,7 @@ public class QdoxModelBuilder implements ModelBuilder
                 processFaceletTagAttribute(props, (AbstractJavaEntity)tag.getContext(), clazz, field, ctag);
             }
 
-            Annotation anno = getAnnotation(field, DOC_FACELET_TAG_ATTRIBUTE);
+            Annotation anno = QdoxHelper.getAnnotation(field, DOC_FACELET_TAG_ATTRIBUTE);
             if (anno != null)
             {
                 Map props = anno.getNamedParameterMap();
@@ -1208,7 +1169,7 @@ public class QdoxModelBuilder implements ModelBuilder
             
         }
         
-        Annotation jspPropertyAnno = getAnnotation(clazz, DOC_FACELET_TAG_ATTRIBUTE);
+        Annotation jspPropertyAnno = QdoxHelper.getAnnotation(clazz, DOC_FACELET_TAG_ATTRIBUTE);
         if (jspPropertyAnno != null)
         {
             Map props = jspPropertyAnno.getNamedParameterMap();
@@ -1216,7 +1177,7 @@ public class QdoxModelBuilder implements ModelBuilder
                     clazz, ctag);
         }
         
-        Annotation jspAnno = getAnnotation(clazz, DOC_FACELET_TAG_ATTRIBUTES);        
+        Annotation jspAnno = QdoxHelper.getAnnotation(clazz, DOC_FACELET_TAG_ATTRIBUTES);        
         if (jspAnno != null)
         {
             Object jspProps = jspAnno.getNamedParameter("attributes");
@@ -1246,8 +1207,8 @@ public class QdoxModelBuilder implements ModelBuilder
     private void processTagAttribute(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, TagMeta tag)
     {
-        Boolean required = getBoolean(clazz, "required", props, null);
-        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
+        Boolean required = QdoxHelper.getBoolean(clazz, "required", props, null);
+        Boolean rtexprvalue = QdoxHelper.getBoolean(clazz, "rtexprvalue", props, null);
 
         String longDescription = ctx.getComment();
         String descDflt = QdoxHelper.getFirstSentence(longDescription);
@@ -1255,7 +1216,7 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
                 
         Type returnType = null;
         
@@ -1280,10 +1241,11 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
                 
-        String className = getString(clazz,"className",props, fullyQualifiedReturnType);
-        String deferredValueType = getString(clazz, "deferredValueType", props, null);
-        String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
-        Boolean exclude = getBoolean(clazz, "exclude", props, null);
+        String className = QdoxHelper.getString(clazz,"className",props, fullyQualifiedReturnType);
+        String deferredValueType = QdoxHelper.getString(clazz, "deferredValueType", props, null);
+        String deferredMethodSignature = QdoxHelper.getString(clazz, "deferredMethodSignature", props, null);
+        Boolean exclude = QdoxHelper.getBoolean(clazz, "exclude", props, null);
+        Boolean faceletsOnly = QdoxHelper.getBoolean(clazz, "faceletsOnly", props, null);
         
         AttributeMeta a = new AttributeMeta();
         a.setName(QdoxHelper.methodToPropName(method.getName()));
@@ -1295,6 +1257,7 @@ public class QdoxModelBuilder implements ModelBuilder
         a.setDeferredValueType(deferredValueType);
         a.setDeferredMethodSignature(deferredMethodSignature);
         a.setExclude(exclude);
+        a.setFaceletsOnly(faceletsOnly);
         
         tag.addAttribute(a);
     }
@@ -1302,22 +1265,23 @@ public class QdoxModelBuilder implements ModelBuilder
     private void processTagAttribute(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, TagMeta tag)
     {
-        Boolean required = getBoolean(clazz, "required", props, null);
-        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
+        Boolean required = QdoxHelper.getBoolean(clazz, "required", props, null);
+        Boolean rtexprvalue = QdoxHelper.getBoolean(clazz, "rtexprvalue", props, null);
 
-        String longDescription = getString(clazz, "longDescription", props, null);
+        String longDescription = QdoxHelper.getString(clazz, "longDescription", props, null);
         String descDflt = longDescription;
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
                 
-        String name = getString(clazz, "name", props, null);
-        String className = getString(clazz, "className", props, null);
-        String deferredValueType = getString(clazz, "deferredValueType", props, null);
-        String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
-        Boolean exclude = getBoolean(clazz, "exclude", props, null);
+        String name = QdoxHelper.getString(clazz, "name", props, null);
+        String className = QdoxHelper.getString(clazz, "className", props, null);
+        String deferredValueType = QdoxHelper.getString(clazz, "deferredValueType", props, null);
+        String deferredMethodSignature = QdoxHelper.getString(clazz, "deferredMethodSignature", props, null);
+        Boolean exclude = QdoxHelper.getBoolean(clazz, "exclude", props, null);
+        Boolean faceletsOnly = QdoxHelper.getBoolean(clazz, "faceletsOnly", props, null);
                 
         AttributeMeta a = new AttributeMeta();
         a.setName(name);
@@ -1329,6 +1293,7 @@ public class QdoxModelBuilder implements ModelBuilder
         a.setDeferredValueType(deferredValueType);
         a.setDeferredMethodSignature(deferredMethodSignature);
         a.setExclude(exclude);
+        a.setFaceletsOnly(faceletsOnly);
         
         tag.addAttribute(a);
     }
@@ -1339,8 +1304,8 @@ public class QdoxModelBuilder implements ModelBuilder
     private void processFaceletTagAttribute(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, FaceletTagMeta tag)
     {
-        Boolean required = getBoolean(clazz, "required", props, null);
-        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
+        Boolean required = QdoxHelper.getBoolean(clazz, "required", props, null);
+        Boolean rtexprvalue = QdoxHelper.getBoolean(clazz, "rtexprvalue", props, null);
 
         String longDescription = ctx.getComment();
         String descDflt = QdoxHelper.getFirstSentence(longDescription);
@@ -1348,7 +1313,7 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
                 
         Type returnType = null;
         
@@ -1373,10 +1338,10 @@ public class QdoxModelBuilder implements ModelBuilder
             }
         }
                 
-        String className = getString(clazz,"className",props, fullyQualifiedReturnType);
-        String deferredValueType = getString(clazz, "deferredValueType", props, null);
-        String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
-        Boolean exclude = getBoolean(clazz, "exclude", props, null);
+        String className = QdoxHelper.getString(clazz,"className",props, fullyQualifiedReturnType);
+        String deferredValueType = QdoxHelper.getString(clazz, "deferredValueType", props, null);
+        String deferredMethodSignature = QdoxHelper.getString(clazz, "deferredMethodSignature", props, null);
+        Boolean exclude = QdoxHelper.getBoolean(clazz, "exclude", props, null);
         
         AttributeMeta a = new AttributeMeta();
         a.setName(QdoxHelper.methodToPropName(method.getName()));
@@ -1398,22 +1363,22 @@ public class QdoxModelBuilder implements ModelBuilder
     private void processFaceletTagAttribute(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, FaceletTagMeta tag)
     {
-        Boolean required = getBoolean(clazz, "required", props, null);
-        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
+        Boolean required = QdoxHelper.getBoolean(clazz, "required", props, null);
+        Boolean rtexprvalue = QdoxHelper.getBoolean(clazz, "rtexprvalue", props, null);
 
-        String longDescription = getString(clazz, "longDescription", props, null);
+        String longDescription = QdoxHelper.getString(clazz, "longDescription", props, null);
         String descDflt = longDescription;
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
                 
-        String name = getString(clazz, "name", props, null);
-        String className = getString(clazz, "className", props, null);
-        String deferredValueType = getString(clazz, "deferredValueType", props, null);
-        String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
-        Boolean exclude = getBoolean(clazz, "exclude", props, null);
+        String name = QdoxHelper.getString(clazz, "name", props, null);
+        String className = QdoxHelper.getString(clazz, "className", props, null);
+        String deferredValueType = QdoxHelper.getString(clazz, "deferredValueType", props, null);
+        String deferredMethodSignature = QdoxHelper.getString(clazz, "deferredMethodSignature", props, null);
+        Boolean exclude = QdoxHelper.getBoolean(clazz, "exclude", props, null);
                 
         AttributeMeta a = new AttributeMeta();
         a.setName(name);
@@ -1435,8 +1400,8 @@ public class QdoxModelBuilder implements ModelBuilder
     private void processFaceletTagAttribute(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaField field, FaceletTagMeta tag)
     {
-        Boolean required = getBoolean(clazz, "required", props, null);
-        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue", props, null);
+        Boolean required = QdoxHelper.getBoolean(clazz, "required", props, null);
+        Boolean rtexprvalue = QdoxHelper.getBoolean(clazz, "rtexprvalue", props, null);
 
         String longDescription = ctx.getComment();
         String descDflt = QdoxHelper.getFirstSentence(longDescription);
@@ -1444,13 +1409,13 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
                 
-        String name = getString(clazz, "name", props, field.getName());
-        String className = getString(clazz, "className", props, null);
-        String deferredValueType = getString(clazz, "deferredValueType", props, null);
-        String deferredMethodSignature = getString(clazz, "deferredMethodSignature", props, null);
-        Boolean exclude = getBoolean(clazz, "exclude", props, null);
+        String name = QdoxHelper.getString(clazz, "name", props, field.getName());
+        String className = QdoxHelper.getString(clazz, "className", props, null);
+        String deferredValueType = QdoxHelper.getString(clazz, "deferredValueType", props, null);
+        String deferredMethodSignature = QdoxHelper.getString(clazz, "deferredMethodSignature", props, null);
+        Boolean exclude = QdoxHelper.getBoolean(clazz, "exclude", props, null);
                 
         AttributeMeta a = new AttributeMeta();
         a.setName(name);
@@ -1486,7 +1451,7 @@ public class QdoxModelBuilder implements ModelBuilder
                         method, component);
             }
 
-            Annotation anno = getAnnotation(method, DOC_PROPERTY);
+            Annotation anno = QdoxHelper.getAnnotation(method, DOC_PROPERTY);
             if (anno != null)
             {
                 Map props = anno.getNamedParameterMap();
@@ -1520,7 +1485,7 @@ public class QdoxModelBuilder implements ModelBuilder
                                 clazz, intfmethod, component);
                     }
 
-                    Annotation anno = getAnnotation(intfmethod, DOC_PROPERTY);
+                    Annotation anno = QdoxHelper.getAnnotation(intfmethod, DOC_PROPERTY);
                     if (anno != null)
                     {
                         Map props = anno.getNamedParameterMap();
@@ -1545,7 +1510,7 @@ public class QdoxModelBuilder implements ModelBuilder
                     component);
         }
         
-        Annotation jspPropertyAnno = getAnnotation(clazz, DOC_JSP_PROPERTY);
+        Annotation jspPropertyAnno = QdoxHelper.getAnnotation(clazz, DOC_JSP_PROPERTY);
         if (jspPropertyAnno != null)
         {
             Map props = jspPropertyAnno.getNamedParameterMap();
@@ -1554,7 +1519,7 @@ public class QdoxModelBuilder implements ModelBuilder
         }
         
         
-        Annotation jspAnno = getAnnotation(clazz, DOC_JSP_PROPERTIES);        
+        Annotation jspAnno = QdoxHelper.getAnnotation(clazz, DOC_JSP_PROPERTIES);        
         if (jspAnno != null)
         {
             Object jspProps = jspAnno.getNamedParameter("properties");
@@ -1564,7 +1529,7 @@ public class QdoxModelBuilder implements ModelBuilder
                 Annotation jspPropertiesAnno = (Annotation) jspProps;
                 Map props = jspPropertiesAnno.getNamedParameterMap();
                 processComponentJspProperty(props, (AbstractJavaEntity)jspAnno.getContext(), clazz,
-                        component);               
+                        component);
             }
             else
             {
@@ -1575,7 +1540,7 @@ public class QdoxModelBuilder implements ModelBuilder
 
                     Map props = anno.getNamedParameterMap();
                     processComponentJspProperty(props, (AbstractJavaEntity)jspAnno.getContext(), clazz,
-                            component);                    
+                            component);
                 }
             }
             
@@ -1598,7 +1563,7 @@ public class QdoxModelBuilder implements ModelBuilder
                         method, component);
             }
 
-            Annotation anno = getAnnotation(method, DOC_FACET);
+            Annotation anno = QdoxHelper.getAnnotation(method, DOC_FACET);
             if (anno != null)
             {
                 Map props = anno.getNamedParameterMap();
@@ -1632,7 +1597,7 @@ public class QdoxModelBuilder implements ModelBuilder
                                 clazz, intfmethod, component);
                     }
 
-                    Annotation anno = getAnnotation(intfmethod, DOC_FACET);
+                    Annotation anno = QdoxHelper.getAnnotation(intfmethod, DOC_FACET);
                     if (anno != null)
                     {
                         Map props = anno.getNamedParameterMap();
@@ -1663,7 +1628,7 @@ public class QdoxModelBuilder implements ModelBuilder
                         method, component);
             }
 
-            Annotation anno = getAnnotation(method, DOC_LISTENER);
+            Annotation anno = QdoxHelper.getAnnotation(method, DOC_LISTENER);
             if (anno != null)
             {
                 Map props = anno.getNamedParameterMap();
@@ -1697,7 +1662,7 @@ public class QdoxModelBuilder implements ModelBuilder
                                 clazz, intfmethod, component);
                     }
 
-                    Annotation anno = getAnnotation(intfmethod, DOC_LISTENER);
+                    Annotation anno = QdoxHelper.getAnnotation(intfmethod, DOC_LISTENER);
                     if (anno != null)
                     {
                         Map props = anno.getNamedParameterMap();
@@ -1769,18 +1734,18 @@ public class QdoxModelBuilder implements ModelBuilder
     private void processComponentProperty(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, PropertyHolder component)
     {
-        Boolean required = getBoolean(clazz, "required", props, null);
-        Boolean transientProp = getBoolean(clazz, "transient", props, null);
-        transientProp = getBoolean(clazz, "istransient", props, transientProp);
-        Boolean stateHolder = getBoolean(clazz, "stateHolder", props, null);
-        Boolean partialStateHolder = getBoolean(clazz, "partialStateHolder", props, null);
-        Boolean literalOnly = getBoolean(clazz, "literalOnly", props, null);
-        Boolean tagExcluded = getBoolean(clazz, "tagExcluded", props, null);
-        Boolean localMethod = getBoolean(clazz, "localMethod",props,null);
-        Boolean setMethod = getBoolean(clazz, "setMethod",props,null);
-        String localMethodScope = getString(clazz, "localMethodScope",props,null);
-        String setMethodScope = getString(clazz, "setMethodScope",props,null);
-        Boolean inheritedTag = getBoolean(clazz, "inheritedTag",props,null);
+        Boolean required = QdoxHelper.getBoolean(clazz, "required", props, null);
+        Boolean transientProp = QdoxHelper.getBoolean(clazz, "transient", props, null);
+        transientProp = QdoxHelper.getBoolean(clazz, "istransient", props, transientProp);
+        Boolean stateHolder = QdoxHelper.getBoolean(clazz, "stateHolder", props, null);
+        Boolean partialStateHolder = QdoxHelper.getBoolean(clazz, "partialStateHolder", props, null);
+        Boolean literalOnly = QdoxHelper.getBoolean(clazz, "literalOnly", props, null);
+        Boolean tagExcluded = QdoxHelper.getBoolean(clazz, "tagExcluded", props, null);
+        Boolean localMethod = QdoxHelper.getBoolean(clazz, "localMethod",props,null);
+        Boolean setMethod = QdoxHelper.getBoolean(clazz, "setMethod",props,null);
+        String localMethodScope = QdoxHelper.getString(clazz, "localMethodScope",props,null);
+        String setMethodScope = QdoxHelper.getString(clazz, "setMethodScope",props,null);
+        Boolean inheritedTag = QdoxHelper.getBoolean(clazz, "inheritedTag",props,null);
 
         String longDescription = ctx.getComment();
         String descDflt = QdoxHelper.getFirstSentence(longDescription);
@@ -1788,14 +1753,15 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
-        String returnSignature = getString(clazz, "returnSignature", props, null);
-        String methodSignature = getString(clazz, "methodSignature", props, null);
-        String defaultValue = getString(clazz,"defaultValue",props,null);
-        String jspName = getString(clazz,"jspName",props,null);
-        Boolean rtexprvalue = getBoolean(clazz, "rtexprvalue",props,null);
-        String clientEvent = getString(clazz, "clientEvent",props,null);
-        String deferredValueType = getString(clazz, "deferredValueType", props, null);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
+        String returnSignature = QdoxHelper.getString(clazz, "returnSignature", props, null);
+        String methodSignature = QdoxHelper.getString(clazz, "methodSignature", props, null);
+        String defaultValue = QdoxHelper.getString(clazz,"defaultValue",props,null);
+        String jspName = QdoxHelper.getString(clazz,"jspName",props,null);
+        Boolean rtexprvalue = QdoxHelper.getBoolean(clazz, "rtexprvalue",props,null);
+        String clientEvent = QdoxHelper.getString(clazz, "clientEvent",props,null);
+        String deferredValueType = QdoxHelper.getString(clazz, "deferredValueType", props, null);
+        Boolean faceletsOnly = QdoxHelper.getBoolean(clazz, "faceletsOnly", props, null);
 
         Type returnType = null;
         
@@ -1841,6 +1807,7 @@ public class QdoxModelBuilder implements ModelBuilder
         p.setDeferredValueType(deferredValueType);
         p.setClientEvent(clientEvent);
         p.setInheritedTag(inheritedTag);
+        p.setFaceletsOnly(faceletsOnly);
         
         if (returnSignature != null)
         {
@@ -1874,7 +1841,7 @@ public class QdoxModelBuilder implements ModelBuilder
     private void processComponentFacet(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, FacetHolder component)
     {
-        Boolean required = getBoolean(clazz, "required", props, null);
+        Boolean required = QdoxHelper.getBoolean(clazz, "required", props, null);
 
         String longDescription = ctx.getComment();
         String descDflt = QdoxHelper.getFirstSentence(longDescription);
@@ -1882,7 +1849,7 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
         
         FacetMeta p = new FacetMeta();
         p.setName(QdoxHelper.methodToPropName(method.getName()));
@@ -1905,7 +1872,7 @@ public class QdoxModelBuilder implements ModelBuilder
     private void processComponentListener(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, ListenerHolder component)
     {
-        Boolean required = getBoolean(clazz, "required", props, null);
+        Boolean required = QdoxHelper.getBoolean(clazz, "required", props, null);
 
         String longDescription = ctx.getComment();
         String descDflt = QdoxHelper.getFirstSentence(longDescription);
@@ -1913,7 +1880,7 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
         
         Type returnType = null;
         
@@ -1928,11 +1895,11 @@ public class QdoxModelBuilder implements ModelBuilder
         
         String fullyQualifiedReturnType = returnType.getJavaClass().getFullyQualifiedName();
         fullyQualifiedReturnType = QdoxHelper.getFullyQualifiedClassName(clazz, fullyQualifiedReturnType);
-        fullyQualifiedReturnType = getString(clazz, "clazz", props, fullyQualifiedReturnType);
+        fullyQualifiedReturnType = QdoxHelper.getString(clazz, "clazz", props, fullyQualifiedReturnType);
         
-        String phases = getString(clazz, "phases", props, null);
-        String eventClassName = getString(clazz, "event", props, null);
-        String name = getString(clazz, "name", props, QdoxHelper.methodToPropName(method.getName()));
+        String phases = QdoxHelper.getString(clazz, "phases", props, null);
+        String eventClassName = QdoxHelper.getString(clazz, "event", props, null);
+        String name = QdoxHelper.getString(clazz, "name", props, QdoxHelper.methodToPropName(method.getName()));
         
         ListenerMeta p = new ListenerMeta();
         p.setName(name);
@@ -1955,23 +1922,23 @@ public class QdoxModelBuilder implements ModelBuilder
     private void processComponentJspProperty(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, PropertyHolder component)
     {
-        Boolean required = getBoolean(clazz, "required", props, null);
-        Boolean transientProp = getBoolean(clazz, "transient", props, null);
-        Boolean stateHolder = getBoolean(clazz, "stateHolder", props, null);
-        Boolean literalOnly = getBoolean(clazz, "literalOnly", props, null);
-        Boolean tagExcluded = getBoolean(clazz, "tagExcluded", props, null);
-        Boolean inheritedTag = getBoolean(clazz, "inheritedTag", props, null);
+        Boolean required = QdoxHelper.getBoolean(clazz, "required", props, null);
+        Boolean transientProp = QdoxHelper.getBoolean(clazz, "transient", props, null);
+        Boolean stateHolder = QdoxHelper.getBoolean(clazz, "stateHolder", props, null);
+        Boolean literalOnly = QdoxHelper.getBoolean(clazz, "literalOnly", props, null);
+        Boolean tagExcluded = QdoxHelper.getBoolean(clazz, "tagExcluded", props, null);
+        Boolean inheritedTag = QdoxHelper.getBoolean(clazz, "inheritedTag", props, null);
 
-        String longDescription = getString(clazz, "longDesc", props, null);
+        String longDescription = QdoxHelper.getString(clazz, "longDesc", props, null);
         
         String descDflt = longDescription;
         if ((descDflt == null) || (descDflt.length() < 2))
         {
             descDflt = "no description";
         }
-        String shortDescription = getString(clazz, "desc", props, descDflt);
-        String returnType = getString(clazz, "returnType", props, null);
-        String name = getString(clazz, "name", props, null);
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
+        String returnType = QdoxHelper.getString(clazz, "returnType", props, null);
+        String name = QdoxHelper.getString(clazz, "name", props, null);
         
         PropertyMeta p = new PropertyMeta();
         p.setName(name);

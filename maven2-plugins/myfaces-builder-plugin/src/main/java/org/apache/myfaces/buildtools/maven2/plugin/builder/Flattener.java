@@ -28,17 +28,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeHolder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.BehaviorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletTagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.MethodSignatureMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ModelUtils;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyHolder;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
-
-import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyHolder;
 
 /**
  */
@@ -67,6 +67,7 @@ public class Flattener
         flattenComponentProperties();
         flattenValidatorProperties();
         flattenConverterProperties();
+        flattenBehaviorProperties();
         flattenTagAttributes();
         flattenFaceletTagAttributes();
     }
@@ -305,6 +306,50 @@ public class Flattener
             flattenFaceletTag(val);
         }
     }
+
+    /**
+     * @since 1.0.6
+     **/
+    private void flattenBehaviorProperties()
+    {
+        List behavior = model.getBehaviors();
+        for (Iterator i = behavior.iterator(); i.hasNext();)
+        {
+            BehaviorMeta val = (BehaviorMeta) i.next();
+            flattenBehavior(val);
+        }
+    }
+    
+    /**
+     * @since 1.0.6
+     **/
+    private void flattenBehavior(BehaviorMeta behavior)
+    {
+        if (flattened.contains(behavior))
+        {
+            // already done
+            return;
+        }
+        String parentClassName = behavior.getParentClassName();
+        if (parentClassName != null)
+        {
+            BehaviorMeta parent = model
+                    .findBehaviorByClassName(parentClassName);
+            if (parent != null)
+            {
+                flattenBehavior(parent);
+                behavior.merge(parent);
+            }
+            else
+            {
+                //How to manage a validator that its
+                //parent class is not a real validator?
+                //Ans: no problem, do nothing.
+            }
+        }
+
+        flattened.add(behavior);
+    }
     
     /**
      * This method allows component facelet tag classes to be
@@ -345,6 +390,13 @@ public class Flattener
             {
                 //do nothing.
             }
+        }
+        
+        //1.1 Mark all attributes on the facelets tag hierarchy as faceletsOnly
+        for (Iterator it = faceletTag.attributes(); it.hasNext();)
+        {
+            AttributeMeta a = (AttributeMeta) it.next();
+            a.setFaceletsOnly(Boolean.TRUE);
         }
 
         // 2. Merge from tag class
@@ -411,6 +463,27 @@ public class Flattener
                 addOrMergePropertiesToAttributeHolder(faceletTag, validator);
             }
         }
+        
+        if (faceletTag.getBehaviorClass() != null)
+        {
+            BehaviorMeta behavior = model.findBehaviorByClassName(
+                        faceletTag.getBehaviorClass());
+            
+            if (null != behavior)
+            {
+                if (behavior.getLongDescription() != null)
+                {
+                    faceletTag.setLongDescription(
+                            behavior.getLongDescription()+"<p>"+faceletTag.getLongDescription()+"</p>");
+                }
+                if (behavior.getDescription() != null)
+                {
+                    faceletTag.setDescription(
+                            behavior.getDescription()+" "+faceletTag.getDescription());
+                }
+                addOrMergePropertiesToAttributeHolder(faceletTag, behavior);
+            }
+        }
 
         if (faceletTag.getComponentClass() != null)
         {
@@ -473,6 +546,7 @@ public class Flattener
                 attribute.setLongDescription(property.getLongDescription());
                 attribute.setName(property.getJspName());
                 attribute.setRequired(property.isRequired());
+                attribute.setFaceletsOnly(property.isFaceletsOnly());
 
                 //just add attribute to tag
                 AttributeMeta attributeInTag = attributeHolder.getAttribute(attribute.getName());

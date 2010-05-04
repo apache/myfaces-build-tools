@@ -27,12 +27,16 @@
     <composite-library-name>$compositeLibrary</composite-library-name>
 #end
 
+$baseContent
+
     <!-- Component Tags -->
 #set ($componentList = ${model.getComponents()})
 #foreach( $component in $componentList )
 #if ($modelIds.contains($component.modelId) 
-    && ($component.name) && ($component.name != "t:inputHtml"))
-#if (!$component.isConfigExcluded())
+    && ($component.name))
+#if (!$component.isConfigExcluded() && !$component.isComposite())
+## Check if we don't have a facelet tag taking precedence over this description
+#if (! ${model.findFaceletTagByName($component.name)})
     <tag>
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <component>
@@ -50,19 +54,23 @@
 #end
 #end
 #end
+#end
 
    <!-- Converter tags -->
 #set ($componentList = ${model.getConverters()})
 #foreach( $component in $componentList )
 #if ($modelIds.contains($component.modelId) 
     && ($component.name))
-#if ($component.converterId) 
+#if ($component.converterId)
+## Check if we don't have a facelet tag taking precedence over this description
+#if (! ${model.findFaceletTagByName($component.name)}) 
     <tag>
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <converter>
             <converter-id>$component.converterId</converter-id>
         </converter>
     </tag>
+#end
 #end
 #end
 #end
@@ -73,6 +81,8 @@
 #if ($modelIds.contains($component.modelId) 
     && ($component.name))
 #if ($component.validatorId)
+## Check if we don't have a facelet tag taking precedence over this description
+#if (! ${model.findFaceletTagByName($component.name)})
     <tag>
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <validator>
@@ -82,12 +92,34 @@
 #end
 #end
 #end
+#end
+
+   <!-- Behavior tags -->
+#set ($behaviorList = ${model.getBehaviors()})
+#foreach( $behavior in $behaviorList )
+#if ($modelIds.contains($behavior.modelId) 
+    && ($behavior.name))
+#if ($behavior.behaviorId)
+## Check if we don't have a facelet tag taking precedence over this description
+#if (! ${model.findFaceletTagByName($behavior.name)}) 
+    <tag>
+        <tag-name>$utils.getTagName($behavior.name)</tag-name>
+        <behavior>
+            <behavior-id>$behavior.behaviorId</behavior-id>
+        </behavior>
+    </tag>
+#end
+#end
+#end
+#end
     
    <!-- Single Tags -->
 #set ($tagList = $model.getTags())
 #foreach( $tag in $tagList )
 #if ($modelIds.contains($tag.modelId))
 #if ($tag.tagHandler)
+## Check if we don't have a facelet tag taking precedence over this description
+#if (! ${model.findFaceletTagByName($tag.name)})
    <tag>
       <tag-name>$utils.getTagName($tag.name)</tag-name>
       <handler-class>$tag.tagHandler</handler-class>
@@ -95,5 +127,43 @@
 #end
 #end
 #end
+#end
 
+    <!-- Facelet Tags -->
+#set ($faceletTagList = $model.getFaceletTags())
+#foreach( $faceletTag in $faceletTagList )
+#if ($modelIds.contains($faceletTag.modelId) && ($faceletTag.name))
+#if ($utils.getTagPrefix($faceletTag.name) == $shortname)
+   <tag>
+      <tag-name>$utils.getTagName($faceletTag.name)</tag-name>
+#if ($faceletTag.componentClass)
+#set ($component = ${model.findComponentByClassName($faceletTag.componentClass)})
+    <component>
+        <component-type>$component.type</component-type>
+#if ($component.rendererType)
+#if (!($component.rendererType == ""))
+        <renderer-type>$component.rendererType</renderer-type>
+#end
+#end
+        <handler-class>$faceletTag.className</handler-class>
+    </component>
+#elseif ($faceletTag.converterClass)
+#set ($converter = ${model.findConverterByClassName($faceletTag.converterClass)})
+    <converter>
+        <converter-id>$converter.converterId</converter-id>
+        <handler-class>$faceletTag.className</handler-class>
+    </converter>
+#elseif ($faceletTag.behaviorClass)
+#set ($behavior = ${model.findBehaviorByClassName($faceletTag.behaviorClass)})
+    <behavior>
+        <behavior-id>$behavior.behaviorId</behavior-id>
+        <handler-class>$faceletTag.className</handler-class>
+    </behavior>
+#else
+    <handler-class>$faceletTag.className</handler-class>
+#end
+   </tag>
+#end
+#end
+#end
 </facelet-taglib>
