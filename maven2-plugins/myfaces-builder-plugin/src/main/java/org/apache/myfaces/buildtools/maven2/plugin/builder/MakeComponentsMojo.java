@@ -27,8 +27,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
-import java.util.logging.Logger;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -36,6 +34,7 @@ import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.MavenPluginConsoleLogSystem;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.MyfacesUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -75,8 +74,6 @@ import com.thoughtworks.qdox.model.JavaMethod;
  */
 public class MakeComponentsMojo extends AbstractMojo
 {
-    final Logger log = Logger.getLogger(MakeComponentsMojo.class.getName());
-
     /**
      * Injected Maven project.
      * 
@@ -236,39 +233,38 @@ public class MakeComponentsMojo extends AbstractMojo
     
     private VelocityEngine initVelocity() throws MojoExecutionException
     {
-
-        Properties p = new Properties();
-
-        p.setProperty( "resource.loader", "file, class" );
-        p.setProperty( "file.resource.loader.class",
-                "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
-        p.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
-        p.setProperty( "class.resource.loader.class",
-                "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
-        p.setProperty( "class.resource.loader.path", "META-INF");            
-        p.setProperty( "velocimacro.library", "componentClassMacros11.vm");
-        p.setProperty( "velocimacro.permissions.allow.inline","true");
-        p.setProperty( "velocimacro.permissions.allow.inline.local.scope", "true");
-        p.setProperty( "directive.foreach.counter.initial.value","0");
-        p.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
-        "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.ConsoleLogSystem" );
-        
         File template = new File(templateSourceDirectory, _getTemplateName());
         
         if (template.exists())
         {
-            log.info("Using template from file loader: "+template.getPath());
+            getLog().info("Using template from file loader: "+template.getPath());
         }
         else
         {
-            log.info("Using template from class loader: META-INF/"+_getTemplateName());
+            getLog().info("Using template from class loader: META-INF/"+_getTemplateName());
         }
                 
-        VelocityEngine velocityEngine = new VelocityEngine();
-                
+        VelocityEngine velocityEngine = null;
         try
         {
-            velocityEngine.init(p);
+            velocityEngine = new VelocityEngine();
+            velocityEngine.setProperty( "resource.loader", "file, class" );
+            velocityEngine.setProperty( "file.resource.loader.class",
+                    "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+            velocityEngine.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
+            velocityEngine.setProperty( "class.resource.loader.class",
+                    "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
+            velocityEngine.setProperty( "class.resource.loader.path", "META-INF");            
+            velocityEngine.setProperty( "velocimacro.library", "componentClassMacros11.vm");
+            velocityEngine.setProperty( "velocimacro.permissions.allow.inline","true");
+            velocityEngine.setProperty( "velocimacro.permissions.allow.inline.local.scope", "true");
+            velocityEngine.setProperty( "directive.foreach.counter.initial.value","0");
+            //velocityEngine.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
+            //    "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.ConsoleLogSystem" );
+            
+            velocityEngine.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM,
+                    new MavenPluginConsoleLogSystem(this.getLog()));
+            velocityEngine.init();
         }
         catch (Exception e)
         {
@@ -328,7 +324,7 @@ public class MakeComponentsMojo extends AbstractMojo
                             continue;
                         }
                     }
-                    log.info("Generating component class:"+component.getClassName());
+                    getLog().info("Generating component class:"+component.getClassName());
                     
                     try 
                     {
@@ -338,7 +334,7 @@ public class MakeComponentsMojo extends AbstractMojo
                     {
                         if (force)
                         {
-                            log.severe(e.getMessage());
+                            getLog().error(e.getMessage());
                         }
                         else
                         {

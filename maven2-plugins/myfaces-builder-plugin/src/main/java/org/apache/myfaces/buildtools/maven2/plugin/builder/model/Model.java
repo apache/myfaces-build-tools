@@ -23,7 +23,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Logger;
 
 import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
@@ -33,7 +32,6 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  */
 public class Model
 {
-    static private final Logger _log = Logger.getLogger(Model.class.getName());
 
     private List _components = new ArrayList(100);
     private List _converters = new ArrayList(100);

@@ -28,7 +28,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.logging.Logger;
 
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
@@ -57,8 +56,6 @@ import org.codehaus.doxia.site.renderer.SiteRenderer;
  */
 public class TagdocIndexReport extends AbstractMavenReport
 {
-    final Logger log = Logger.getLogger(TagdocIndexReport.class.getName());
-
     private Model _model;
 
     /**

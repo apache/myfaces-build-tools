@@ -30,13 +30,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.MavenPluginConsoleLogSystem;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.MyfacesUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -339,28 +339,28 @@ public class MakeConfigMojo extends AbstractMojo
 
     private VelocityEngine initVelocity() throws MojoExecutionException
     {
-
-        Properties p = new Properties();
-
-        p.setProperty( "resource.loader", "file, class" );
-        p.setProperty( "file.resource.loader.class",
-                "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
-        p.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
-        p.setProperty( "class.resource.loader.class",
-                "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
-        p.setProperty( "class.resource.loader.path", "META-INF");            
-        p.setProperty( "velocimacro.library", "xmlMacros.vm");
-        p.setProperty( "velocimacro.permissions.allow.inline","true");
-        p.setProperty( "velocimacro.permissions.allow.inline.local.scope", "true");
-        p.setProperty( "directive.foreach.counter.initial.value","0");
-        p.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
-        "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.ConsoleLogSystem" );
-                        
         VelocityEngine velocityEngine = new VelocityEngine();
                 
         try
         {
-            velocityEngine.init(p);
+            velocityEngine.setProperty( "resource.loader", "file, class" );
+            velocityEngine.setProperty( "file.resource.loader.class",
+                    "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
+            velocityEngine.setProperty( "file.resource.loader.path", templateSourceDirectory.getPath());
+            velocityEngine.setProperty( "class.resource.loader.class",
+                    "org.apache.myfaces.buildtools.maven2.plugin.builder.utils.RelativeClasspathResourceLoader" );
+            velocityEngine.setProperty( "class.resource.loader.path", "META-INF");            
+            velocityEngine.setProperty( "velocimacro.library", "xmlMacros.vm");
+            velocityEngine.setProperty( "velocimacro.permissions.allow.inline","true");
+            velocityEngine.setProperty( "velocimacro.permissions.allow.inline.local.scope", "true");
+            velocityEngine.setProperty( "directive.foreach.counter.initial.value","0");
+            //velocityEngine.setProperty( RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
+            //"org.apache.myfaces.buildtools.maven2.plugin.builder.utils.ConsoleLogSystem" );
+
+            velocityEngine.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM,
+                    new MavenPluginConsoleLogSystem(this.getLog()));
+
+            velocityEngine.init();
         }
         catch (Exception e)
         {
