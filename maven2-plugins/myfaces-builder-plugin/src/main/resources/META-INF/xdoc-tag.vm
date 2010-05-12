@@ -47,8 +47,8 @@ $baseContent
 #end
 #end
 </table>
-#end
   </section>
+#end
 #if ($faceletTag)
 #set ($attributeList = ${tagdocUtils.getSortedAttributeList($faceletTag)})
 #if ($attributeList.size() != 0)  
