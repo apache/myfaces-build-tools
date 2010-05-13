@@ -244,7 +244,7 @@ public class JavaCCMojo
       getLog().info("Nothing to process - all grammars are up to date");
       if (project != null)
       {
-        project.addCompileSourceRoot(outDir.getPath());
+        project.addCompileSourceRoot(outputDirectory.getPath());
       }
       return;
     }
