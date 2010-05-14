@@ -1,0 +1,20 @@
+<project>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <artifactId>myfaces-javascript-plugin</artifactId>
+        <configuration>
+          <project implementation="org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.stub.MavenProjectStub">
+            <artifactId>test</artifactId>
+          </project>
+          <sourceDirectory>src/test/resources/scripts</sourceDirectory>
+          <webappDirectory>${basedir}/target/test-target/war-package</webappDirectory>
+          <scriptsDirectory>scripts</scriptsDirectory>
+          <libsDirectory>lib</libsDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+

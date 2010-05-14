@@ -1,0 +1,17 @@
+<project>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <artifactId>myfaces-javascript-plugin</artifactId>
+        <configuration>
+          <webappDirectory>${basedir}/target/test-target</webappDirectory>
+          <scripts>compress</scripts>
+          <classifier>compressed</classifier>
+          <compressor>jsmin</compressor>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
