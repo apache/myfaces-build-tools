@@ -28,7 +28,7 @@
       <plugin>
         <groupId>org.apache.myfaces.buildtools</groupId>
         <artifactId>myfaces-javacc-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
         <configuration>
           <sourceDirectory>src/main/java</sourceDirectory>
           <sourcePath>org/apache/myfaces/buildtools/maven2/plugin/javascript/obfuscator/javascript15parser</sourcePath>
