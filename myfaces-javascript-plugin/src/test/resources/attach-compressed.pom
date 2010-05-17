@@ -1,0 +1,30 @@
+<project>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.myfaces.buildtools</groupId>
+        <artifactId>myfaces-javascript-plugin</artifactId>
+        <configuration>
+          <project implementation="org.apache.maven.plugin.testing.stubs.MavenProjectStub">
+            <artifact implementation="org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.stub.ArtifactStub">
+                <groupId>test</groupId>
+                <artifactId>test</artifactId>
+                <version>1</version>
+                <type>javascript</type>
+            </artifact>
+            <file>${basedir}/src/test/resources/attach-compressed.pom</file>
+          </project>
+          <archiver implementation="org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.JavascriptArchiver"/>
+          <scriptsDirectory>${basedir}/src/test/resources/scripts</scriptsDirectory>
+          <compressedDirectory>${basedir}/target/test-target/attach-compressed</compressedDirectory>
+          <buildDirectory>${basedir}/target/test-target/attach-compressed</buildDirectory>
+          <finalName>scriptaculous-1.7</finalName>
+          <optimizationLevel>9</optimizationLevel>
+          <classifier>compressed</classifier>
+          <compressor>jsmin</compressor>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
