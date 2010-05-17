@@ -1,0 +1,240 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+ 
+ ------
+ Creating Custom Components 
+ ------
+ 
+Creating Custom Components
+ 
+    Any JSF Component has the following elements:
+    
+     * Component class file(s).
+    
+     * JSP tag class file(s).
+    
+     * Entry on faces-config.xml.
+    
+     * Renderer class file(s) (optional).
+    
+     * TLD file (optional).
+    
+     * facelet-taglib entry (optional).
+    
+     * Facelets tag handler files (optional).
+    
+    Keep all those files up to date is a complex task, but with 
+    myfaces-builder-plugin you just need to take care about:
+    
+     * Component class file(s).
+    
+     * Renderer class file(s) (optional).
+    
+     * Facelets tag handler files (optional).
+    
+    This example shows step by step what do you need to create a custom
+    component.
+    
+Setting up your project
+
+    All information related can be found {{{setup.html}here}}.
+
+Configuration files (faces-config.xml, .tld, facelets taglib)
+
+    This {{{config-files.html}page}} shows some examples.
+
+Writing your component class
+
+    There are three possibilities for create a component class:
+    
+    * Write just one file and add all code manually (Example: t:aliasBean).
+    
+    * Write an abstract class, and let generate all property code, including
+      saveState/restoreState methods in a concrete child class 
+      (Example: almost all components in tomahawk core and sandbox).
+    
+    * Write an abstract class (generally package scope) and use template
+      pattern. In other words, all property code is generated including
+      saveState/restoreState methods in a concrete child class, but other
+      code inside the abstract class is copied to the generated class.
+
+* Write a component class manually
+
+    In this mode, no code is generated, but the information is chained to
+    other files to be generated like faces-config.xml, tlds, tag classes, etc.
+    
+    Below there is an example of it:
+    
+-------------------
+/**
+ * The most important points are: 
+ * 
+ * 1. Define componentType, componentFamily and rendererType adding its
+ * constants (like below) or directly in the annotation.
+ * 
+ * 2. If the component has a jsp tag, define the "name" and the "tagClass"
+ * If the tagClass does not exists a new file is generated if make-tags
+ * goal is set on pom.xml
+ * 
+ */
+@JSFComponent(
+   name = "mycomponents:sayHello",
+   clazz = "org.myorganization.component.sayhello.SayHello",
+   tagClass = "org.myorganization.component.sayhello.SayHelloTag")
+public class SayHello extends UIOutput
+{
+    public static final String COMPONENT_TYPE = "org.myorganization.SayHello";
+    public static final String DEFAULT_RENDERER_TYPE = "org.myorganization.SayHelloRenderer";
+    public static final String COMPONENT_FAMILY = "javax.faces.Output";
+
+    /** ..... Some custom code goes here .... **/
+}
+-------------------
+
+* Write a component class using Abstract Pattern
+
+    The objective is create a abstract component class 
+    that defines all information required to generate the concrete 
+    component class. All custom code goes in the abstract class, so it
+    is inherited to the child component.
+    
+    This pattern is preferred over template mode, because it is more simple
+    to understand, but there are some cases where this mode cannot be
+    applied (like in myfaces core api, where the component hierarchy cannot
+    be changed).
+    
+    Below there is an example of it:
+
+-------------------
+/**
+ * To generate component classes using abstract pattern
+ * 
+ * 1. Define the "clazz" file which it is generated
+ * 
+ * 2. Define componentType, componentFamily and rendererType adding its
+ * constants (like below) or directly in the annotation.
+ * 
+ * 3. If the component has a jsp tag, define the "name" and the "tagClass"
+ * If the tagClass does not exists a new file is generated if make-tags
+ * goal is set on pom.xml
+ * 
+ */
+@JSFComponent(
+   name = "mycomponents:sayHello",
+   clazz = "org.myorganization.component.sayhello.SayHello",
+   tagClass = "org.myorganization.component.sayhello.SayHelloTag")
+public abstract class AbstractSayHello extends UIOutput
+{
+    public static final String COMPONENT_TYPE = "org.myorganization.SayHello";
+    public static final String DEFAULT_RENDERER_TYPE = "org.myorganization.SayHelloRenderer";
+    public static final String COMPONENT_FAMILY = "javax.faces.Output";
+
+    /**
+     * User's first name.
+     */
+    @JSFProperty
+    public abstract String getName();
+}
+-------------------
+
+* Write a component class using Template Pattern
+
+    The objective is create an abstract (generally package scoped) class
+    that works as a "template".
+    
+-------------------
+@JSFComponent(
+   name = "mycomponents:sayHello",
+   clazz = "org.myorganization.component.sayhello.SayHello",
+   tagClass = "org.myorganization.component.sayhello.SayHelloTag")
+abstract class _SayHello extends UIOutput
+{
+    public static final String COMPONENT_TYPE = "org.myorganization.SayHello";
+    public static final String DEFAULT_RENDERER_TYPE = "org.myorganization.SayHelloRenderer";
+    public static final String COMPONENT_FAMILY = "javax.faces.Output";
+
+    /**
+     * This method is copied to generated SayHello class
+     **/
+    public void broadcast(javax.faces.event.FacesEvent event)
+        throws javax.faces.event.AbortProcessingException
+    {
+        //Some custom code goes here
+    }
+    
+    /**
+     * This method is not copied, but @JSFExclude works with fields too!
+     **/
+    @JSFExclude
+    public void doSomething()
+    {
+        //Some never used custom code goes here
+    }
+    
+    /**
+     * User's first name.
+     */
+    @JSFProperty
+    public abstract String getName();
+}
+-------------------
+
+Generating Component Tag Classes
+
+    The goal "make-tags" trigger component jsp tag generation. This goal
+    checks if the tag class exists and if not, it creates one.
+
+    Here there are two scenarios:
+    
+     * The component class inherits from jsf core UIXXXXX, so the generated 
+       class inherits from javax.faces.webapp.UIComponent(EL)Tag.
+     
+     * The component class inherits from jsf core HtmlXXX. In this case, 
+       the tag classes where your component inherits is on myfaces core 
+       impl jar, so again there are three options:
+       
+        * Add myfaces core impl jar as compile dependency and use myfaces
+          core in your web application. 
+        
+        * Add tomahawk core or core12 to your dependencies, where there 
+          is an alternate tag hierarchy, so your components can work 
+          with the reference implementation. Make sure tomahawk dependency.
+          should be before myfaces core dependency in the pom, to be sure
+          that tomahawk model is loaded first.
+          
+        * Generate a jsf html tag hierarchy in your jar. See tomahawk core
+          or core12 pom for details.
+    
+    If you need to write some custom code on tag class, but keep some
+    code generated, use abstract pattern on tag class. The properties that
+    needs to be defined on abstract tag class must have inheritedTag="true",
+    so there are not overriden. See t:tree component for an example.  
+        
+Adding a Renderer to faces-config.xml file.
+
+    The annotations/doclets @JSFRenderer and @JSFRenderKit are used include
+    renderer configuration to generated faces-config.xml files. Just add it
+    to your renderer like this: 
+    
+---------------------------
+@JSFRenderer(
+   renderKitId = "HTML_BASIC",
+   family = "javax.faces.Output",
+   type = "org.myorganization.SayHelloRenderer")
+public class SayHelloRenderer extends Renderer
+{
+    //Some code goes here
+}
+---------------------------

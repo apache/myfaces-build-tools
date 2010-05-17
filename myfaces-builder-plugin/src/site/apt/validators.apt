@@ -1,0 +1,83 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+ 
+ ------
+ Creating Custom Validators 
+ ------
+ 
+Creating Custom Validators
+ 
+    A JSF Validator needs the following elements:
+    
+     * A class implementing validator interface.
+     
+     * Entry on faces-config.xml.
+     
+     * Tag entry on tld.
+     
+     * Tag entry on facelets taglib (optional).
+     
+     * JSP Tag class
+     
+    Myfaces builder plugin provide annotations/doclets to help users maintain
+    configuration files, and generating both validator classes and 
+    validator jsp tag classes automatically. In this way, all information 
+    for a validator is just in one file (the class implementing 
+    Validator interface).
+    
+    For both jsf versions 1.1 and 1.2, it is necessary to provide  
+    base classes for validators and tag classes, where all generated should 
+    inherit. This class is on myfaces commons validators project, but 
+    users can provide custom templates implementations for it.
+    
+    It is possible to use abstract pattern for create validator classes,
+    in similar way to components. 
+
+Setting up your project
+
+    All information related can be found {{{setup.html}here}}.
+
+Configuration files (faces-config.xml, .tld, facelets taglib)
+
+    This {{{config-files.html}page}} shows some examples.
+
+Annotate Validator Classes
+
+    Just add the annotations/doclets as presented below:
+
+-------------------
+ @JSFValidator(
+   name = "mcv:validateEmail",
+   tagClass = "org.apache.myfaces.commons.validator.ValidateEmailTag")
+public class EmailValidator extends org.apache.myfaces.commons.validator.ValidatorBase
+{
+
+    public static final String VALIDATOR_ID = "org.apache.myfaces.commons.validator.Email";
+ 
+    /** .......... impl code goes here ......... **/
+    
+    @JSFProperty
+    public String getProperty()
+    {
+        //Some stuff
+    }   
+}
+-------------------
+
+Write a Validator Class using Abstract Pattern
+
+    See {{{http://myfaces.apache.org/commons/index.html}myfaces commons}}
+    validators project for examples.
+

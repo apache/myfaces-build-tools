@@ -1,0 +1,168 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+ 
+ ------
+ Setting up your project 
+ ------
+ 
+Setting up your project
+ 
+* Configuring your pom.xml
+
+    According to your jsf version you will need to set the required
+    dependencies.
+ 
+    In jsf 1.1 (use doclets).
+    
+------------------------------------------------------    
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>1.1.6</version>
+            <scope>provided</scope>
+        </dependency>
+------------------------------------------------------
+
+    In jsf 1.2 (use annotations).
+    
+------------------------------------------------------
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>1.2.6</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.myfaces.buildtools</groupId>
+            <artifactId>myfaces-builder-annotations</artifactId> 
+            <version>1.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+------------------------------------------------------
+
+    If you are working with converters and validators, you should use
+    myfaces commons dependencies as base for it:
+
+-----------------------------------------------------------    
+        <dependency>
+            <groupId>org.apache.myfaces.commons</groupId>
+            <artifactId>myfaces-validators12</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.myfaces.commons</groupId>
+            <artifactId>myfaces-converters12</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+-----------------------------------------------------------
+
+    Then you need to define the plugin configuration in your projects 
+    pom.xml like this:
+    
+-------------------
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.vm</exclude>
+                </excludes>
+            </resource>    
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.myfaces.buildtools</groupId>
+                <artifactId>myfaces-builder-plugin</artifactId>
+                <version>1.0.2</version>
+                <executions>
+                    <execution>
+                      <id>buildmetadata</id>
+                      <goals>
+                        <goal>build-metadata</goal>
+                        <!-- when use components -->
+                        <goal>make-components</goal>
+                        <goal>make-tags</goal>
+                        
+                        <!-- when use validators -->
+                        <goal>make-validators</goal>
+                        <goal>make-validator-tags</goal>
+                        
+                        <!-- when use converters -->
+                        <goal>make-converter-tags</goal>                        
+                      </goals>
+                      <configuration>
+                            <!-- Use 1.1 or 1.2 according to your jsf version -->
+                            <jsfVersion>1.2</jsfVersion>
+                      </configuration>
+                    </execution>
+                    <execution>
+                      <id>makefacesconfig</id>
+                      <configuration>
+                          <xmlFile>META-INF/faces-config.xml</xmlFile>
+                      </configuration>
+                      <goals>
+                          <goal>make-config</goal>
+                      </goals>
+                    </execution>
+                    <execution>
+                        <id>maketld</id>
+                        <configuration>
+                            <xmlFile>META-INF/mycomponents.tld</xmlFile>
+                            <!-- as templateFile you can use tomahawk.vm or tomahawk12.vm -->
+                            <templateFile>mycomponents.tld.vm</templateFile>
+                            <params>
+                               <shortname>mycomponents</shortname>
+                               <uri>http://www.myorganitzation.org/mycomponents</uri>
+                               <displayname>Custom tag library.</displayname>
+                               <description>Enhanced standard JSP actions and custom MyFaces actions.</description>
+                            </params>
+                        </configuration>
+                        <goals>
+                            <goal>make-config</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>makefaceletstaglib</id>
+                        <configuration>
+                            <xmlFile>META-INF/mycomponents.taglib.xml</xmlFile>
+                            <xmlBaseFile>src/main/conf/META-INF/facelets-taglib-base.xml</xmlBaseFile>
+                            <templateFile>facelets-taglib.vm</templateFile>
+                            <params>
+                               <shortname>mycomponents</shortname>
+                               <uri>http://www.myorganitzation.org/mycomponents</uri>
+                            </params>
+                        </configuration>
+                        <goals>
+                            <goal>make-config</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+-------------------
+
+* Customizing your templates
+
+    The plugin uses velocity templates to generate files, and on its jar
+    there are some already defined. If you need some file (like a template
+    for tld) you can find the most up to date template on tomahawk core 
+    or core12. 
+
+    More detailed information can be found {{{templates.html}here}}.
