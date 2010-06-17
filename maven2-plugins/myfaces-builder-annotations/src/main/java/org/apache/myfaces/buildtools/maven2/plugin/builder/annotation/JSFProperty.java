@@ -119,7 +119,7 @@ public @interface JSFProperty
      * 
      * @return
      */
-    boolean inheritTag() default false;
+    boolean inheritedTag() default false;
     
     /**
      * The full name of the return type for MethodBinding or MethodExpression it uses

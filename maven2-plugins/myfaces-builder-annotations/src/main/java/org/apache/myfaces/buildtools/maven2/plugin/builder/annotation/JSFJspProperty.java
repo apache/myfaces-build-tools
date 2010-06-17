@@ -99,4 +99,25 @@ public @interface JSFJspProperty
      * This is commonly shown as a "tool tip" or popup-help in IDEs.
      */
     String desc() default "";
+    
+    /**
+     * Indicate if this property is inherited from a parent tag class or not.
+     * 
+     * @since 1.0.6
+     */
+    boolean inheritedTag() default false;
+
+    /**
+     * Use saveAttachedXXX and restoreAttachedXXX to save and restore state
+     * 
+     * @since 1.0.6
+     */
+    boolean stateHolder() default false;
+    
+    /**
+     * Indicate that the getter and setter does not evaluate EL or ValueBinding expressions.
+     * 
+     * @since 1.0.6
+     */
+    boolean literalOnly() default false;
 }
