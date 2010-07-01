@@ -51,7 +51,7 @@ public class TagdocUtils
     static public String getDisplayType(String className, String name,
             String type)
     {
-        if (type.startsWith("java.lang."))
+        if (type != null && type.startsWith("java.lang."))
         {
             return type.substring("java.lang.".length());
         }
