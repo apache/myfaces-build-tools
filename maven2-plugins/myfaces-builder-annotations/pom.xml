@@ -38,6 +38,12 @@
     intended to be JSF components, validators, etc. The maven-builder-plugin will
     recognise these annotations and process the class appropriately.
   </description>
+  
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-annotations/</connection>
+    <developerConnection>scm:svn:svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-annotations/</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-annotations/</url>
+  </scm>
 
   <build>
     <plugins>

@@ -48,20 +48,6 @@
     <url>http://issues.apache.org/jira/browse/MYFACES</url>
   </issueManagement>
 
-  <ciManagement>
-    <system>continuum</system>
-    <url>http://myfaces.zones.apache.org:8080/continuum</url>
-    <notifiers>
-      <notifier>
-        <type>mail</type>
-        <sendOnSuccess>true</sendOnSuccess>
-        <configuration>
-          <address>commits@myfaces.apache.org</address>
-        </configuration>
-      </notifier>
-    </notifiers>
-  </ciManagement>
-
   <inceptionYear>2001</inceptionYear>
 
   <build>
@@ -181,9 +167,9 @@
   </reporting>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-plugin-parent/</connection>
+    <developerConnection>scm:svn:svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-plugin-parent/</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-plugin-parent/</url>
   </scm>
 
   <distributionManagement>

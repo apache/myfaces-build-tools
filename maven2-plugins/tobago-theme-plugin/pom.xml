@@ -25,6 +25,13 @@
   <artifactId>tobago-theme-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>Tobago Maven2 Theme Plugin</name>
+  
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/tobago-theme-plugin/</connection>
+    <developerConnection>scm:svn:svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/tobago-theme-plugin/</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/tobago-theme-plugin/</url>
+  </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
