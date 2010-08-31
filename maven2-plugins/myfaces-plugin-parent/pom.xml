@@ -49,20 +49,6 @@
   <inceptionYear>2001</inceptionYear>
 
   <build>
-    <resources>
-      <resource>
-        <directory>${basedir}</directory>
-        <targetPath>META-INF</targetPath>
-        <includes>
-          <include>NOTICE.txt</include>
-          <include>LICENSE.txt</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>${basedir}/src/main/resources</directory>
-      </resource>
-    </resources>
-
     <pluginManagement>
       <plugins>
         <plugin>
@@ -136,10 +122,6 @@
   <reporting>
     <plugins>
       <plugin>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>2.0.1</version>
-      </plugin>
-      <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.3</version>
         <configuration>
@@ -177,55 +159,4 @@
     </site>
   </distributionManagement>
 
-  <profiles>
-    <profile>
-      <id>release</id>
-      <!--
-      NOTE: Execute this profile like
-            mvn clean source:jar install deploy -DaltDeploymentRepository=matzew::default::file://FOLDER -Prelease
-       -->
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.0-alpha-4</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.3</version>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-scm-plugin</artifactId>
-            <version>1.0</version>
-            <executions>
-              <execution>
-                <phase>validate</phase>
-                <id>getting-scm.revision</id>
-                <goals>
-                  <goal>update</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>
