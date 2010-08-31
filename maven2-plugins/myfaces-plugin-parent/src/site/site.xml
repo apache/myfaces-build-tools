@@ -34,7 +34,7 @@
   <skin>
     <groupId>org.apache.myfaces.maven</groupId>
     <artifactId>myfaces-site-skin</artifactId>
-    <version>1-SNAPSHOT</version>
+    <version>1</version>
   </skin>
 
   <body>
@@ -49,7 +49,7 @@
     </menu>
 
     <menu name="Documentation">
-      <item name="About"         href="index.html"/>
+      <item name="About"         href="./index.html"/>
     </menu>
 
     <menu ref="reports"/>
