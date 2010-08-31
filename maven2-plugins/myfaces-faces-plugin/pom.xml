@@ -42,7 +42,7 @@
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-faces-plugin/</connection>
-    <developerConnection>scm:svn:svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-faces-plugin/</developerConnection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-faces-plugin/</developerConnection>
     <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-faces-plugin/</url>
   </scm>
 
