@@ -27,7 +27,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.myfaces.buildtools</groupId>
     <artifactId>myfaces-archetype-helloworld</artifactId>
-    <packaging>maven-plugin</packaging>
+    <packaging>jar</packaging>
     <name>MyFaces Basic Archetype</name>
     <description>Archetype to create a new webapp based on myfaces</description>
 

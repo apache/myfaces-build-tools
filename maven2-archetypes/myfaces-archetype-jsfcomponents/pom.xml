@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.apache.myfaces.buildtools</groupId>
     <artifactId>myfaces-archetype-jsfcomponents</artifactId>
-    <packaging>maven-plugin</packaging>
+    <packaging>jar</packaging>
     <name>JSF Component Library Archetype</name>
     <description>Archetype to create a libary project of JSF components</description>
 </project>
