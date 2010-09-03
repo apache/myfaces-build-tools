@@ -31,7 +31,7 @@
     <groupId>org.apache.myfaces.buildtools</groupId>
     <artifactId>myfaces-archetype-helloworld20-owb</artifactId>
     <packaging>jar</packaging>
-    <name>MyFaces and OWB Basic Archetype</name>
+    <name>MyFaces 2.0 and OWB Basic Archetype</name>
     <description>Archetype to create a new webapp based on MyFaces 2.0 with OpenWebBeans</description>
 
 </project>

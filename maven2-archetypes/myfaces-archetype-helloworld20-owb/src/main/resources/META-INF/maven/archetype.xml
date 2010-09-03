@@ -27,7 +27,6 @@
         <source>src/main/java/GreetingService.java</source>
     </sources>
     <resources>
-        <resource>src/main/log4j/log4j.properties</resource>
         <resource>src/main/webapp/index.html</resource>
         <resource>src/main/webapp/helloWorld.xhtml</resource>
         <resource>src/main/webapp/page2.xhtml</resource>
