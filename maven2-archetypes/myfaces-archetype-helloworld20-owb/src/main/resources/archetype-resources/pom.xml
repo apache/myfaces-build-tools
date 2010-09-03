@@ -31,9 +31,9 @@
     <url>http://www.myorganization.org</url>
 
     <properties>
-        <jsf-myfaces.version>2.0.0-SNAPSHOT</jsf-myfaces.version>
-        <jsf-mojarra.version>2.0.1</jsf-mojarra.version>
-	<openwebbeans.version>1.0.0-M4</openwebbeans.version>
+        <jsf-myfaces.version>2.0.1</jsf-myfaces.version>
+        <jsf-mojarra.version>2.0.3</jsf-mojarra.version>
+        <openwebbeans.version>1.0.0-alpha-1</openwebbeans.version>
         <maven.jetty.plugin.version>6.1.16</maven.jetty.plugin.version>
         <log4j.version>1.2.13</log4j.version>
     </properties>
@@ -150,16 +150,6 @@
 
     <repositories>
         <repository>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>apache-maven-snapshots</id>
-            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-        </repository>
-        <repository>
             <id>java.net</id>
             <url>http://download.java.net/maven/2</url>
         </repository>
@@ -167,24 +157,49 @@
 
     <!-- Project dependencies -->
     <dependencies>
-		<dependency>
-			<groupId>org.apache.openwebbeans</groupId>
-			<artifactId>openwebbeans-impl</artifactId>
-			<version>${openwebbeans.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.openwebbeans</groupId>
-			<artifactId>openwebbeans-jsf</artifactId>
-			<version>${openwebbeans.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.openwebbeans</groupId>
+            <artifactId>openwebbeans-impl</artifactId>
+            <version>${openwebbeans.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.openwebbeans</groupId>
+            <artifactId>openwebbeans-jsf</artifactId>
+            <version>${openwebbeans.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.openwebbeans</groupId>
+            <artifactId>openwebbeans-web</artifactId>
+            <version>${openwebbeans.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.openwebbeans</groupId>
+            <artifactId>openwebbeans-spi</artifactId>
+            <version>${openwebbeans.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>
             <artifactId>geronimo-interceptor_1.1_spec</artifactId>
-            <version>1.0.0-EA1-SNAPSHOT</version>
-            <scope>runtime</scope>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-atinject_1.0_spec</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
