@@ -33,7 +33,7 @@
     <properties>
         <jsf-myfaces.version>2.0.1</jsf-myfaces.version>
         <jsf-mojarra.version>2.0.3</jsf-mojarra.version>
-        <openwebbeans.version>1.0.0-alpha-1</openwebbeans.version>
+        <openwebbeans.version>1.0.0-alpha-2</openwebbeans.version>
         <maven.jetty.plugin.version>6.1.16</maven.jetty.plugin.version>
         <log4j.version>1.2.13</log4j.version>
     </properties>
