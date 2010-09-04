@@ -1,5 +1,7 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,7 +20,6 @@
  * specific language governing permissions and limitations
  * under the License.
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -63,13 +64,13 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
-                    <version>${jsf-myfaces.version}</version>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
                     <scope>compile</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <version>${jsf-myfaces.version}</version>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -88,13 +89,13 @@
                 <dependency>
                     <groupId>com.sun.faces</groupId>
                     <artifactId>jsf-api</artifactId>
-                    <version>${jsf-mojarra.version}</version>
+                    <version>${symbol_dollar}{jsf-mojarra.version}</version>
                     <scope>compile</scope>
                 </dependency>
                 <dependency>
                     <groupId>com.sun.faces</groupId>
                     <artifactId>jsf-impl</artifactId>
-                    <version>${jsf-mojarra.version}</version>
+                    <version>${symbol_dollar}{jsf-mojarra.version}</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -115,7 +116,7 @@
                         <!--This plugin allows to run the war using mvn jetty:run -->
                         <groupId>org.mortbay.jetty</groupId>
                         <artifactId>maven-jetty-plugin</artifactId>
-                        <version>${maven.jetty.plugin.version}</version>
+                        <version>${symbol_dollar}{maven.jetty.plugin.version}</version>
                         <configuration>
                             <scanIntervalSeconds>10</scanIntervalSeconds>
                         </configuration>
@@ -130,35 +131,35 @@
         <dependency>
             <groupId>org.apache.openwebbeans</groupId>
             <artifactId>openwebbeans-impl</artifactId>
-            <version>${openwebbeans.version}</version>
+            <version>${symbol_dollar}{openwebbeans.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.openwebbeans</groupId>
             <artifactId>openwebbeans-jsf</artifactId>
-            <version>${openwebbeans.version}</version>
+            <version>${symbol_dollar}{openwebbeans.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.openwebbeans</groupId>
             <artifactId>openwebbeans-web</artifactId>
-            <version>${openwebbeans.version}</version>
+            <version>${symbol_dollar}{openwebbeans.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.openwebbeans</groupId>
             <artifactId>openwebbeans-spi</artifactId>
-            <version>${openwebbeans.version}</version>
+            <version>${symbol_dollar}{openwebbeans.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.openwebbeans</groupId>
             <artifactId>openwebbeans-resource</artifactId>
-            <version>${openwebbeans.version}</version>
+            <version>${symbol_dollar}{openwebbeans.version}</version>
             <scope>runtime</scope>
         </dependency>
 

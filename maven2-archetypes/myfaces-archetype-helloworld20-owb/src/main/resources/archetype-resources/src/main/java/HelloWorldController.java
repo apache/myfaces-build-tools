@@ -26,7 +26,7 @@ import javax.inject.Inject;
 import javax.enterprise.context.RequestScoped;
 
 /**
- * A typical simple backing bean, that is backed to <code>${artifactId}.xhtml</code>
+ * A typical simple backing bean, that is backed to <code>helloWorld.xhtml</code>
  */
 @Named("helloWorld")
 @RequestScoped
