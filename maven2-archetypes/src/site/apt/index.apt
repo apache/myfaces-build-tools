@@ -15,13 +15,13 @@ Archetypes
 * HelloWorld 2.0 Basic Archetype
 
   Sets up a webapp project that uses MyFaces Core 2.0.x with Facelets as the page templating
-  system. Uses JSR-299/JSR-330 annotations for managed bean definition with Apache
-  OpenWebBeans as the CDI implementation.
+  system.
 
 * HelloWorld 2.0 OpenWebBeans Archetype
 
   Sets up a webapp project that uses MyFaces Core 2.0.x with Facelets as the page templating
-  system. Additionally sets up OpenWebBeans for the project.
+  system. Uses JSR-299/JSR-330 annotations for managed bean definition with Apache
+  OpenWebBeans as the CDI implementation.
 
 * HelloWorld Basic Archetype
 
