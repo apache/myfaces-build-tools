@@ -1,6 +1,3 @@
-#set( $symbol_pound = '#' )
-#set( $symbol_dollar = '$' )
-#set( $symbol_escape = '\' )
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,14 +15,14 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
-*/
+ */
 package ${package};
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 /**
- * A typical simple backing bean, that is backed to <code>${artifactId}.xhtml</code>
+ * A typical simple backing bean, that is backed to <code>helloWorld.xhtml</code>
  */
 @ManagedBean(name = "helloWorld")
 @RequestScoped
