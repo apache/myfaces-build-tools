@@ -1,4 +1,3 @@
-#literal()
 ## Velocity template used to generate JSF1.2-compatible validator classes
 ## from validator meta-data.
 ##
@@ -214,4 +213,3 @@ public class ${utils.getClassFromFullClass($validator.className)} extends $gener
 #end
     }
 }
-#end

@@ -1,3 +1,6 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  Licensed to the Apache Software Foundation (ASF) under one
@@ -68,7 +71,7 @@
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
-            <version>1.2.7</version>
+            <version>1.2.9</version>
             <scope>provided</scope>
         </dependency>
 
@@ -117,7 +120,7 @@
             <plugin>
                 <groupId>org.apache.myfaces.buildtools</groupId>
                 <artifactId>myfaces-builder-plugin</artifactId>
-                <version>1.0.3</version>
+                <version>1.0.6</version>
                 <executions>
                     <execution>
                         <goals>
@@ -144,11 +147,11 @@
                     <execution>
                         <id>maketld</id>
                         <configuration>
-                            <xmlFile>META-INF/${shortname}.tld</xmlFile>
+                            <xmlFile>META-INF/${symbol_dollar}{shortname}.tld</xmlFile>
                             <templateFile>mycomponents.tld.vm</templateFile>
                             <params>
-                               <shortname>${shortname}</shortname>
-                               <uri>http://www.myorganitzation.org/${shortname}</uri>
+                               <shortname>${symbol_dollar}{shortname}</shortname>
+                               <uri>http://www.myorganitzation.org/${symbol_dollar}{shortname}</uri>
                                <displayname>Custom tag library.</displayname>
                                <description>Enhanced standard JSP actions and custom MyFaces actions.</description>
                             </params>
@@ -193,8 +196,8 @@
                         <artifactId>maven-taglib-plugin</artifactId>
                         <version>2.3.1</version>
                         <configuration>
-                            <taglib.src.dir>\${basedir}/target/classes/META-INF</taglib.src.dir>
-                            <tldDocDir>\${basedir}/target/site/tlddoc</tldDocDir>
+                            <taglib.src.dir>${symbol_dollar}{basedir}/target/classes/META-INF</taglib.src.dir>
+                            <tldDocDir>${symbol_dollar}{basedir}/target/site/tlddoc</tldDocDir>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -226,8 +229,8 @@
                         <artifactId>maven-taglib-plugin</artifactId>
                         <version>2.3.1</version>
                         <configuration>
-                            <taglib.src.dir>\${basedir}/target/classes/META-INF</taglib.src.dir>
-                            <tldDocDir>\${basedir}/target/site/tlddoc</tldDocDir>
+                            <taglib.src.dir>${symbol_dollar}{basedir}/target/classes/META-INF</taglib.src.dir>
+                            <tldDocDir>${symbol_dollar}{basedir}/target/site/tlddoc</tldDocDir>
                         </configuration>
                         <executions>
                             <execution>

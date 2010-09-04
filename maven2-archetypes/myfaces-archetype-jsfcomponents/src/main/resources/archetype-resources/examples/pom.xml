@@ -1,3 +1,6 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  Licensed to the Apache Software Foundation (ASF) under one
@@ -34,9 +37,9 @@
     </parent>
 
     <properties>
-        <jsf-myfaces.version>1.2.7</jsf-myfaces.version>
-        <jsf-ri.version>1.2_13</jsf-ri.version>        
-        <maven.jetty.plugin.version>6.1.16</maven.jetty.plugin.version>
+        <jsf-myfaces.version>1.2.9</jsf-myfaces.version>
+        <jsf-ri.version>1.2_15</jsf-ri.version>        
+        <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
         <log4j.version>1.2.13</log4j.version>
     </properties>
     
@@ -44,7 +47,7 @@
            <dependency>
                <groupId>${groupId}</groupId>
                <artifactId>${artifactId}-core</artifactId>
-               <version>${project.version}</version>
+               <version>${symbol_dollar}{project.version}</version>
            </dependency>
            <dependency>
                <groupId>commons-logging</groupId>
@@ -61,15 +64,6 @@
            
        </dependencies>
 
-    <repositories>
-        <!-- Repository for jstl 1.2 -->
-        <repository>
-            <id>java.net</id>
-            <url>http://download.java.net/maven/1</url>
-            <layout>legacy</layout>
-        </repository> 
-    </repositories>
-
     <profiles>
         <!-- By default the war examples use myfaces! :) -->
         <profile>
@@ -83,12 +77,12 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
-                    <version>${jsf-myfaces.version}</version>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <version>${jsf-myfaces.version}</version>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
                     <!-- Sandbox examples must only have runtime dependency to myfaces-impl
                  so that it will be automatically added to war. But there must not be
                  any compile dependency on impl so that is is always possible to use
@@ -115,12 +109,12 @@
                 <dependency>
                     <groupId>javax.faces</groupId>
                     <artifactId>jsf-api</artifactId>
-                    <version>${jsf-ri.version}</version>
+                    <version>${symbol_dollar}{jsf-ri.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>javax.faces</groupId>
                     <artifactId>jsf-impl</artifactId>
-                    <version>${jsf-ri.version}</version>
+                    <version>${symbol_dollar}{jsf-ri.version}</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
@@ -128,8 +122,7 @@
             <repositories>
                 <repository>
                     <id>java.net</id>
-                    <name>java.net Maven 1 Repository</name>
-                    <url>https://maven-repository.dev.java.net/nonav/repository</url>
+                    <url>http://download.java.net/maven/1</url>
                     <layout>legacy</layout>
                 </repository>
             </repositories>
@@ -156,7 +149,7 @@
                         <!--This plugin allows to run the example using mvn jetty:run -->
                         <groupId>org.mortbay.jetty</groupId>
                         <artifactId>maven-jetty-plugin</artifactId>
-                        <version>${maven.jetty.plugin.version}</version>
+                        <version>${symbol_dollar}{maven.jetty.plugin.version}</version>
                         <configuration>
                             <scanIntervalSeconds>10</scanIntervalSeconds>
                             <systemProperties>
@@ -173,7 +166,7 @@
                 <dependency>
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
-                    <version>${log4j.version}</version>
+                    <version>${symbol_dollar}{log4j.version}</version>
                     <type>jar</type>
                 </dependency>
             </dependencies>
@@ -187,7 +180,7 @@
                 <!--This plugin allows to run the example using mvn jetty:run -->
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
-                <version>${maven.jetty.plugin.version}</version>
+                <version>${symbol_dollar}{maven.jetty.plugin.version}</version>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                 </configuration>

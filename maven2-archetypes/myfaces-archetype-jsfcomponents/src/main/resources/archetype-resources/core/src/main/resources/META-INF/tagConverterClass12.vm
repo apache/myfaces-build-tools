@@ -1,4 +1,3 @@
-#literal()
 // WARNING: This file was automatically generated. Do not edit it directly,
 //          or you will lose your changes.
 /*
@@ -166,4 +165,3 @@ public class $utils.getClassFromFullClass($converter.tagClass)
 #end
     }
 }
-#end
