@@ -118,6 +118,7 @@
     <module>myfaces-archetype-helloworld-facelets</module>
     <module>myfaces-archetype-helloworld-portlets</module>
     <module>myfaces-archetype-trinidad</module>
+    <module>myfaces-archetype-trinidad20</module>  
     <module>myfaces-archetype-jsfcomponents</module>
   </modules>
 
