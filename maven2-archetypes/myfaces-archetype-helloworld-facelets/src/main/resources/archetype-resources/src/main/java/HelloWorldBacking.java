@@ -16,12 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package $package;
+package ${package};
 
 /**
  * A typical simple backing bean, that is backed to <code>helloworld.jsp</code>
- * 
- * @author <a href="mailto:matzew@apache.org">Matthias Weﬂendorf</a> 
+ *
+ * @author <a href="mailto:matzew@apache.org">Matthias Weﬂendorf</a>
  */
 public class HelloWorldBacking
 {

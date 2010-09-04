@@ -1,3 +1,6 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
  Licensed to the Apache Software Foundation (ASF) under one
@@ -25,13 +28,13 @@
     <artifactId>${artifactId}</artifactId>
     <packaging>war</packaging>
     <version>${version}</version>
-    <name>A custom project using myfaces</name>
+    <name>A custom project using myfaces 1.2 and facelets</name>
     <url>http://www.myorganization.org</url>
 
     <properties>
-        <jsf-myfaces.version>1.2.7</jsf-myfaces.version>
-        <jsf-ri.version>1.2_13</jsf-ri.version>        
-        <maven.jetty.plugin.version>6.1.16</maven.jetty.plugin.version>
+        <jsf-myfaces.version>1.2.9</jsf-myfaces.version>
+        <jsf-ri.version>1.2_15</jsf-ri.version>        
+        <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
         <log4j.version>1.2.13</log4j.version>
     </properties>
 
@@ -42,7 +45,7 @@
                 <!--This plugin allows to run the example using mvn jetty:run -->
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
-                <version>${maven.jetty.plugin.version}</version>
+                <version>${symbol_dollar}{maven.jetty.plugin.version}</version>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                 </configuration>
@@ -62,14 +65,14 @@
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-api</artifactId>
-                    <version>${jsf-myfaces.version}</version>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
                     <scope>compile</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.myfaces.core</groupId>
                     <artifactId>myfaces-impl</artifactId>
-                    <version>${jsf-myfaces.version}</version>
-                    <scope>compile</scope>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
+                    <scope>runtime</scope>
                 </dependency>
             </dependencies>
         </profile>
@@ -86,14 +89,23 @@
                 <dependency>
                     <groupId>javax.faces</groupId>
                     <artifactId>jsf-api</artifactId>
-                    <version>${jsf-ri.version}</version>
+                    <version>${symbol_dollar}{jsf-ri.version}</version>
+                    <scope>compile</scope>
                 </dependency>
                 <dependency>
                     <groupId>javax.faces</groupId>
                     <artifactId>jsf-impl</artifactId>
-                    <version>${jsf-ri.version}</version>
+                    <version>${symbol_dollar}{jsf-ri.version}</version>
+                    <scope>runtime</scope>
                 </dependency>
             </dependencies>
+            <repositories>
+                <repository>
+                    <id>java.net</id>
+                    <url>http://download.java.net/maven/1</url>
+                    <layout>legacy</layout>
+                </repository>
+            </repositories>
         </profile>
         
         <profile>
@@ -114,7 +126,7 @@
                         <!--This plugin allows to run the example using mvn jetty:run -->
                         <groupId>org.mortbay.jetty</groupId>
                         <artifactId>maven-jetty-plugin</artifactId>
-                        <version>${maven.jetty.plugin.version}</version>
+                        <version>${symbol_dollar}{maven.jetty.plugin.version}</version>
                         <configuration>
                             <scanIntervalSeconds>10</scanIntervalSeconds>
                             <systemProperties>
@@ -131,30 +143,12 @@
                 <dependency>
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
-                    <version>${log4j.version}</version>
+                    <version>${symbol_dollar}{log4j.version}</version>
                     <type>jar</type>
                 </dependency>
             </dependencies>
         </profile>
     </profiles>
-
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>apache-maven-snapshots</id>
-            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-        </repository>
-        <repository>
-            <id>java.net</id>
-            <url>http://download.java.net/maven/1</url>
-            <layout>legacy</layout>
-        </repository>
-    </repositories>
 
     <!-- Project dependencies -->
     <dependencies>
