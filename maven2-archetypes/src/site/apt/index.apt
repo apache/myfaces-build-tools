@@ -41,6 +41,10 @@ Archetypes
 
   Sets up a webapp that uses MyFaces Core 1.2.x and MyFaces Trinidad.
 
+* Trinidad 2.0 Archetype
+
+  Sets up a webapp that uses MyFaces Core 2.0.x and MyFaces Trinidad 2.0.
+
 * JSF-Component Library Archetype
 
   Sets up a project that is intended to define new JSF components (rather than just use them).
