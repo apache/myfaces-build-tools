@@ -4,7 +4,7 @@
 
 Overview
 
-  The archetype subprojects define Maven plugins that can build a directory tree containing
+  The archetype subprojects define Maven archetypes that can build a directory tree containing
   the files needed to quickly get started on a new JSF project.
 
   Different archetypes create different initial setups, such as including different libraries

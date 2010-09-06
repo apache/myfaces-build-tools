@@ -1,16 +1,16 @@
  ------
- Myfaces HelloWorld Archetype
+ Myfaces Trinidad Archetype
  ------
 
 Overview
 
   This project defines a Maven archetype. Running the archetype plugin with this archetype will
   create a directory tree containing the files needed to quickly get started on a new JSF 1.2
-  project which uses JSP as the templating language.
+  project which uses MyFaces Trinidad.
 
 Usage
 
-  Use the following maven command and then select myfaces-archetype-helloworld from the options.
+  Use the following maven command and then select myfaces-archetype-trinidad from the options.
 
 
 +------------------------------------------------------------------+
