@@ -23,6 +23,8 @@
 
     <namespace>$uri</namespace>
 
+$baseContent
+
     <!-- Component Tags -->
 #set ($componentList = ${model.getComponents()})
 #foreach( $component in $componentList )
@@ -60,6 +62,9 @@
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <converter>
             <converter-id>$component.converterId</converter-id>
+#if ($component.tagHandler)
+            <handler-class>$component.tagHandler</handler-class>
+#end
         </converter>
     </tag>
 #end
@@ -78,7 +83,10 @@
         <tag-name>$utils.getTagName($component.name)</tag-name>
         <validator>
             <validator-id>$component.validatorId</validator-id>
-        </validator>      
+#if ($component.tagHandler)
+            <handler-class>$component.tagHandler</handler-class>
+#end
+        </validator>
     </tag>
 #end
 #end
