@@ -281,9 +281,14 @@ public class QdoxModelBuilder implements ModelBuilder
                 continue;
             }
             QdoxHelper.initConverterAncestry(processedClasses, model, converter);
-            // TODO: why is there no check for Converter class existence here??
-            // ANS: there is no automatic generation of converter class.
-            
+
+            //Check if the converter class file exists
+            if (!IOUtils.existsSourceFile(StringUtils.replace(
+                    converter.getClassName(),".","/")+".java", sourceDirs))
+            {
+                converter.setGeneratedComponentClass(Boolean.TRUE);
+            }
+
             // Check if the tag class java file exists in the source dirs
             if (QdoxHelper.isTagClassMissing(converter.getTagClass(), sourceDirs))
             {
@@ -686,8 +691,10 @@ public class QdoxModelBuilder implements ModelBuilder
         String bodyContent = QdoxHelper.getString(clazz, "bodyContent", props, null);
         String tagClass = QdoxHelper.getString(clazz, "tagClass", props, null);
         String tagSuperclass = QdoxHelper.getString(clazz, "tagSuperclass", props, null);
+        String tagHandler = QdoxHelper.getString(clazz, "tagHandler", props, null);
         String serialuidtag = QdoxHelper.getString(clazz, "serialuidtag", props, null);
         Boolean configExcluded = QdoxHelper.getBoolean(clazz,"configExcluded",props,null);   
+        Boolean evaluateELOnExecution = QdoxHelper.getBoolean(clazz,"evaluateELOnExecution",props,null);
 
         ConverterMeta converter = new ConverterMeta();
         initClassMeta(model, clazz, converter, classNameOverride);
@@ -695,11 +702,13 @@ public class QdoxModelBuilder implements ModelBuilder
         converter.setBodyContent(bodyContent);
         converter.setTagClass(tagClass);
         converter.setTagSuperclass(tagSuperclass);
+        converter.setTagHandler(tagHandler);
         converter.setConverterId(converterId);
         converter.setDescription(shortDescription);
         converter.setLongDescription(longDescription);
         converter.setSerialuidtag(serialuidtag);
         converter.setConfigExcluded(configExcluded);
+        converter.setEvaluateELOnExecution(evaluateELOnExecution);
         
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, converter);
@@ -782,8 +791,10 @@ public class QdoxModelBuilder implements ModelBuilder
         String bodyContent = QdoxHelper.getString(clazz, "bodyContent", props, null);
         String tagClass = QdoxHelper.getString(clazz, "tagClass", props, null);        
         String tagSuperclass = QdoxHelper.getString(clazz, "tagSuperclass", props, null);
+        String tagHandler = QdoxHelper.getString(clazz, "tagHandler", props, null);
         String serialuidtag = QdoxHelper.getString(clazz, "serialuidtag", props, null);
-        Boolean configExcluded = QdoxHelper.getBoolean(clazz,"configExcluded",props,null);   
+        Boolean configExcluded = QdoxHelper.getBoolean(clazz,"configExcluded",props,null);
+        Boolean evaluateELOnExecution = QdoxHelper.getBoolean(clazz,"evaluateELOnExecution",props,null);
         
         ValidatorMeta validator = new ValidatorMeta();
         initClassMeta(model, clazz, validator, classNameOverride);
@@ -791,11 +802,13 @@ public class QdoxModelBuilder implements ModelBuilder
         validator.setBodyContent(bodyContent);
         validator.setTagClass(tagClass);
         validator.setTagSuperclass(tagSuperclass);
+        validator.setTagHandler(tagHandler);
         validator.setValidatorId(validatorId);
         validator.setDescription(shortDescription);
         validator.setLongDescription(longDescription);
         validator.setSerialuidtag(serialuidtag);
         validator.setConfigExcluded(configExcluded);
+        validator.setEvaluateELOnExecution(evaluateELOnExecution);
         
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, validator);

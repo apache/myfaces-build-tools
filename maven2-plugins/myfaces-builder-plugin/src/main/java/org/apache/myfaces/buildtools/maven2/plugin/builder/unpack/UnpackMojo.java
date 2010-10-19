@@ -272,6 +272,13 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
 
                 if (converter.getModelId().equals(model.getModelId()))
                 {
+                    if (converter.isGeneratedComponentClass().booleanValue())
+                    {
+                        getLog().info("Adding Generated: "+ converter.getClassName());
+                        exclusions.add(StringUtils.replace(
+                                converter.getClassName(), ".", "/")
+                                + ".java");
+                    }
                     if (converter.isGeneratedTagClass().booleanValue())
                     {
                         getLog().info("Adding Generated: "+ converter.getTagClass());

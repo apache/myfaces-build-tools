@@ -80,4 +80,44 @@ public @interface JSFConverter
      * @since 1.0.3
      */
     String serialuidtag() default "";
+    
+    /**
+     * The fully-qualified-name of a concrete converter class.
+     * <p>
+     * This attribute is only relevant when "name" is also set, ie the
+     * annotation is indicating that a converter is really being declared.
+     * <p>
+     * When this attribute is not defined then it is assumed that this
+     * annotated class is the actual converter class.
+     * <p>
+     * When this attribute is set to something other than the name of the
+     * annotated class then the specified class is the one that the JSF
+     * converter registration in faces-config.xml will refer to. And if that
+     * class does not exist in the classpath (which will normally be the
+     * case) then code-generation will be triggered to create it.
+     * <p>
+     * This attribute is not inheritable.
+     * <p>
+     * The doclet-annotation equivalent of this attribute is named "class".
+     * 
+     * @since 1.0.7
+     */
+    String clazz() default "";
+    
+    /**
+     * Indicate tag handler class used for this component on facelets.
+     * 
+     * @since 1.0.7
+     */
+    String tagHandler() default "";
+    
+    /**
+     * Indicate that the EL Expressions should be stored using 
+     * setValueExpression() method, instead evaluate them at build view
+     * time. Later the EL Expressions will be evaluated according to
+     * their needs
+     * 
+     * @since 1.0.7
+     */
+    boolean evaluateELOnExecution() default false;
 }

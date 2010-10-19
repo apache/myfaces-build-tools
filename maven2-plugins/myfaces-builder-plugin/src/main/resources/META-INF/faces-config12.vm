@@ -39,7 +39,9 @@ $baseContent
 #end
 #set ($converterList = ${model.getConverters()})
 #foreach( $converter in $converterList )
-#if ($modelIds.contains($converter.modelId))
+#if ($modelIds.contains($converter.modelId) &&
+    !($converter.isConfigExcluded().booleanValue()) &&
+    $converter.converterId)
   <converter>
     <converter-id>$converter.converterId</converter-id>
     <converter-class>$converter.className</converter-class>

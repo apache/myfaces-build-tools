@@ -104,4 +104,21 @@ public @interface JSFValidator
      * @since 1.0.3
      */
     String clazz() default "";
+    
+    /**
+     * Indicate tag handler class used for this component on facelets.
+     * 
+     * @since 1.0.7
+     */
+    String tagHandler() default "";
+    
+    /**
+     * Indicate that the EL Expressions should be stored using 
+     * setValueExpression() method, instead evaluate them at build view
+     * time. Later the EL Expressions will be evaluated according to
+     * their needs
+     * 
+     * @since 1.0.7
+     */
+    boolean evaluateELOnExecution() default false;
 }

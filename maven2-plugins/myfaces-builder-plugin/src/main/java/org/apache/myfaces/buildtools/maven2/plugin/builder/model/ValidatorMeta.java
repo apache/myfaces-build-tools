@@ -40,10 +40,13 @@ public class ValidatorMeta extends ViewEntityMeta implements PropertyHolder
     private String _tagClass;
     private String _tagSuperclass;
     private String _serialuidtag;
+    private String _tagHandler;
     
     private Boolean _generatedComponentClass;
     private Boolean _generatedTagClass;
     private Boolean _configExcluded;
+    
+    private Boolean _evaluateELOnExecution;
 
     /**
      * Write an instance of this class out as xml.
@@ -56,10 +59,12 @@ public class ValidatorMeta extends ViewEntityMeta implements PropertyHolder
         out.writeElement("bodyContent", _bodyContent);
         out.writeElement("tagClass", _tagClass);
         out.writeElement("tagSuperclass", _tagSuperclass);
+        out.writeElement("tagHandler", _tagHandler);
         out.writeElement("serialuidtag", _serialuidtag);
         out.writeElement("generatedComponentClass", _generatedComponentClass);
         out.writeElement("generatedTagClass", _generatedTagClass);
         out.writeElement("configExcluded", _configExcluded);
+        out.writeElement("evaluateELOnExecution", _evaluateELOnExecution);
     }
 
     /**
@@ -79,10 +84,12 @@ public class ValidatorMeta extends ViewEntityMeta implements PropertyHolder
         digester.addBeanPropertySetter(newPrefix + "/bodyContent");
         digester.addBeanPropertySetter(newPrefix + "/tagClass");
         digester.addBeanPropertySetter(newPrefix + "/tagSuperclass");
+        digester.addBeanPropertySetter(newPrefix + "/tagHandler");
         digester.addBeanPropertySetter(newPrefix + "/serialuidtag");
         digester.addBeanPropertySetter(newPrefix + "/generatedComponentClass");
         digester.addBeanPropertySetter(newPrefix + "/generatedTagClass");
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
+        digester.addBeanPropertySetter(newPrefix + "/evaluateELOnExecution");
     }
     
     public ValidatorMeta()
@@ -128,6 +135,8 @@ public class ValidatorMeta extends ViewEntityMeta implements PropertyHolder
                     other._tagSuperclass);            
         }
 
+        _tagHandler = ModelUtils.merge(this._tagHandler, other._tagHandler);
+        _evaluateELOnExecution = ModelUtils.merge(this._evaluateELOnExecution, other._evaluateELOnExecution);
         
         _validatorId = ModelUtils.merge(this._validatorId, other._validatorId);
 
@@ -243,6 +252,28 @@ public class ValidatorMeta extends ViewEntityMeta implements PropertyHolder
         return _tagSuperclass;
     }
     
+    /**
+     * Specifies the class of the Facelets tag handler (component handler) for
+     * this component.
+     * <p>
+     * Note that a Facelets tag handler class is not needed for most components.
+     * 
+     * @since 1.0.8
+     */
+    public void setTagHandler(String tagHandler)
+    {
+        _tagHandler = tagHandler;
+    }
+
+    /**
+     * 
+     * @since 1.0.8
+     */
+    public String getTagHandler()
+    {
+        return _tagHandler;
+    }
+    
     public void setSerialuidtag(String serialuidtag)
     {
         _serialuidtag = serialuidtag;
@@ -282,6 +313,24 @@ public class ValidatorMeta extends ViewEntityMeta implements PropertyHolder
     {
         return ModelUtils.defaultOf(_configExcluded,false);
     }    
+
+    /**
+     * 
+     * @since 1.0.8
+     */
+    public void setEvaluateELOnExecution(Boolean evaluateELOnExecution)
+    {
+        this._evaluateELOnExecution = evaluateELOnExecution;
+    }
+
+    /**
+     * 
+     * @since 1.0.8
+     */
+    public Boolean isEvaluateELOnExecution()
+    {
+        return ModelUtils.defaultOf(_evaluateELOnExecution,false);
+    }
 
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
 
