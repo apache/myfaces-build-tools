@@ -30,7 +30,7 @@
       -->
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>6</version>
+    <version>9</version>
   </parent>
 
   <groupId>org.apache.myfaces.buildtools</groupId>
