@@ -100,8 +100,7 @@ public class TagdocIndexReport extends AbstractMavenReport
     private Map taglibs;
 
     /**
-     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
-     * @readonly
+     * @parameter expression="${project.build.directory}/generated-resources/myfaces-builder-plugin"
      */
     private File buildDirectory;
 

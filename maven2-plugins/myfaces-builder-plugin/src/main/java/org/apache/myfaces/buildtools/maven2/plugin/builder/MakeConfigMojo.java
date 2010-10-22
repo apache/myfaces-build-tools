@@ -97,8 +97,7 @@ public class MakeConfigMojo extends AbstractMojo
      * Defines the directory where the metadata file (META-INF/myfaces-metadata.xml) is loaded,
      * and the generated file named by xmlFile parameter is created. 
      * 
-     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
-     * @readonly
+     * @parameter expression="${project.build.directory}/generated-resources/myfaces-builder-plugin"
      */
     private File buildDirectory;
 
@@ -106,7 +105,7 @@ public class MakeConfigMojo extends AbstractMojo
      * Defines the directory where the resource will be output. 
      * 
      * @since 1.0.4
-     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
+     * @parameter expression="${project.build.directory}/generated-resources/myfaces-builder-plugin"
      */
     private File outputDirectory;
     

@@ -78,7 +78,7 @@ public class MakeConvertersMojo extends AbstractMojo
     /**
      * Defines the directory where the metadata file (META-INF/myfaces-metadata.xml) is loaded.
      * 
-     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
+     * @parameter expression="${project.build.directory}/generated-resources/myfaces-builder-plugin"
      * @readonly
      */
     private File buildDirectory;
@@ -101,7 +101,7 @@ public class MakeConvertersMojo extends AbstractMojo
      * The directory where all generated files are created. This directory is added as a
      * compile source root automatically like src/main/java is. 
      * 
-     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/java"
+     * @parameter expression="${project.build.directory}/generated-sources/myfaces-builder-plugin"
      */
     private File generatedSourceDirectory;
 

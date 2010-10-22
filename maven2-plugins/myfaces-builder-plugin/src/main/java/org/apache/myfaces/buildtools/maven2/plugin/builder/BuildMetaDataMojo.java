@@ -83,7 +83,7 @@ public class BuildMetaDataMojo extends AbstractMojo
      * into the "central" target directory from which the jarfile is built. 
      * </p>
      * 
-     * @parameter expression="${project.build.directory}/myfaces-builder-plugin/main/resources"
+     * @parameter expression="${project.build.directory}/generated-resources/myfaces-builder-plugin"
      */
     private File targetDirectory;
 
