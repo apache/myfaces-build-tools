@@ -148,7 +148,8 @@ public class IOUtils
             //This directory that contains target/myfaces-builder-plugin/main
             //is banned, all here is generated
             //so we don't take a look at this directory
-            if (srcDir.matches(".*\\W+target\\W+myfaces-builder-plugin\\W+main\\W+.*"))
+            //if (srcDir.matches(".*\\W+target\\W+myfaces-builder-plugin\\W+main\\W+.*"))
+            if (srcDir.matches(".*\\W+target\\W+generated-sources\\W+myfaces-builder-plugin"))
             {
                 continue;
             }                        
