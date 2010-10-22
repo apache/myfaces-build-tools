@@ -149,10 +149,10 @@ public class IOUtils
             //is banned, all here is generated
             //so we don't take a look at this directory
             //if (srcDir.matches(".*\\W+target\\W+myfaces-builder-plugin\\W+main\\W+.*"))
-            if (srcDir.matches(".*\\W+target\\W+generated-sources\\W+myfaces-builder-plugin"))
-            {
-                continue;
-            }                        
+            //if (srcDir.matches(".*\\W+target\\W+generated-sources\\W+myfaces-builder-plugin"))
+            //{
+            //    continue;
+            //}                        
             
             File f = new File(srcDir,filename);
             if (f.exists())

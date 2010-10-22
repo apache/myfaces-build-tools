@@ -28,12 +28,15 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import junit.framework.TestCase;
 
 import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelParams;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.PropertyMeta;
@@ -67,7 +70,10 @@ public class QdoxModelBuilderTest extends TestCase
         File parentDir = new File(parentDirName);
         List sourceDirs = new ArrayList();
         sourceDirs.add(parentDir.getAbsolutePath());
-        builder.buildModel(model, sourceDirs);
+        
+        ModelParams parameters = new ModelParams();
+        parameters.setSourceDirs(sourceDirs);
+        builder.buildModel(model, parameters);
 
         assertEquals(1, model.getComponents().size());
         ComponentMeta cm = (ComponentMeta) model.getComponents().get(0);
@@ -95,7 +101,9 @@ public class QdoxModelBuilderTest extends TestCase
 
         Model model = new Model();
         model.setModelId("test");
-        builder.buildModel(model, sourceDirs);
+        ModelParams parameters = new ModelParams();
+        parameters.setSourceDirs(sourceDirs);
+        builder.buildModel(model, parameters);
 
         // basic sanity checks
         assertTrue(model.getComponents().size() > 0);
@@ -128,7 +136,9 @@ public class QdoxModelBuilderTest extends TestCase
 
         Model model = new Model();
         model.setModelId("test");
-        builder.buildModel(model, sourceDirs);
+        ModelParams parameters = new ModelParams();
+        parameters.setSourceDirs(sourceDirs);
+        builder.buildModel(model, parameters);
 
         // basic sanity checks
         assertTrue(model.getComponents().size() > 0);
@@ -163,7 +173,9 @@ public class QdoxModelBuilderTest extends TestCase
 
         Model model = new Model();
         model.setModelId("test");
-        builder.buildModel(model, sourceDirs);
+        ModelParams parameters = new ModelParams();
+        parameters.setSourceDirs(sourceDirs);
+        builder.buildModel(model, parameters);
 
         // basic sanity checks
         assertTrue(model.getComponents().size() > 0);
@@ -198,7 +210,9 @@ public class QdoxModelBuilderTest extends TestCase
 
         Model model = new Model();
         model.setModelId("test");
-        builder.buildModel(model, sourceDirs);
+        ModelParams parameters = new ModelParams();
+        parameters.setSourceDirs(sourceDirs);
+        builder.buildModel(model, parameters);
 
         // basic sanity checks
         assertTrue(model.getComponents().size() > 0);

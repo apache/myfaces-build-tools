@@ -253,7 +253,16 @@ public class BuildMetaDataMojo extends AbstractMojo
      * @parameter
      */    
     private List sourceDirectories;
-        
+
+    /**
+     * The directory where all generated files are created. This directory is added as a
+     * compile source root automatically like src/main/java is. 
+     * 
+     * @since 1.0.8
+     * @parameter expression="${project.build.directory}/generated-sources/myfaces-builder-plugin"
+     */
+    private File generatedSourceDirectory;
+    
     /**
      * Create a metadata file containing information imported from other projects
      * plus data extracted from annotated classes in this project.
@@ -296,14 +305,34 @@ public class BuildMetaDataMojo extends AbstractMojo
             }
         }
 
+        ModelParams parameters = new ModelParams();
+        
+        List sourceDirs = new ArrayList();
         if (sourceDirectories == null)
         {
-            buildModel(model, project);
+            sourceDirs.addAll(project.getCompileSourceRoots());
         }
         else
         {
-            buildModel(model, sourceDirectories);
+            sourceDirs.addAll(sourceDirectories);
         }
+        
+        if (generatedSourceDirectory != null)
+        {
+            for (Iterator it = sourceDirs.iterator(); it.hasNext();)
+            {
+                File f = new File((String) it.next());
+                if (generatedSourceDirectory.equals(f))
+                {
+                    it.remove();
+                }
+            }
+        }
+        
+        parameters.setSourceDirs(sourceDirs);
+        
+        buildModel(model, project, parameters);
+        
         resolveReplacePackage(model);
         
         IOUtils.saveModel(model, new File(targetDirectory, outputFile));
@@ -392,38 +421,22 @@ public class BuildMetaDataMojo extends AbstractMojo
     /**
      * Execute ModelBuilder classes to create the Model data-structure.
      */
-    private Model buildModel(Model model, MavenProject project)
+    private Model buildModel(Model model, MavenProject project, ModelParams parameters)
             throws MojoExecutionException
     {
         try
         {
             QdoxModelBuilder builder = new QdoxModelBuilder();
             model.setModelId(modelId);
-            builder.buildModel(model, project,includes,excludes);            
-            return model;
-        }
-        catch (BuildException e)
-        {
-            throw new MojoExecutionException("Unable to build metadata", e);
-        }
-    }
-    
-    private Model buildModel(Model model, List dirs)
-        throws MojoExecutionException
-    {
-        try
-        {
-            QdoxModelBuilder builder = new QdoxModelBuilder();
-            model.setModelId(modelId);
-            if (StringUtils.isNotEmpty(includes) || 
-                    StringUtils.isNotEmpty(excludes))
+            if (StringUtils.isNotEmpty(includes)) 
             {
-                builder.buildModel(model, dirs, includes, excludes);
+                parameters.setIncludes(includes);
             }
-            else
+            if (StringUtils.isNotEmpty(excludes))
             {
-                builder.buildModel(model, dirs);
+                parameters.setExcludes(excludes);
             }
+            builder.buildModel(model, parameters);            
             return model;
         }
         catch (BuildException e)

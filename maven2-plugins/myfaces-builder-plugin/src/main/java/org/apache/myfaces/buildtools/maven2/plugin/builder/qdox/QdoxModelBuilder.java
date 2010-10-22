@@ -32,9 +32,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelBuilder;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelParams;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.BehaviorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
@@ -122,42 +122,36 @@ public class QdoxModelBuilder implements ModelBuilder
      * containing info extracted from the doc-annotation attributes and
      * introspected info about the item the annotation is attached to.
      */
-    public void buildModel(Model model, MavenProject project)
+    public void buildModel(Model model, ModelParams parameters)
             throws MojoExecutionException
-    {
-        buildModel(model, project.getCompileSourceRoots());
-    }
-    
-    /**
-     * @since 1.0.2
-     */
-    public void buildModel(Model model, MavenProject project, String includes, String excludes)
-        throws MojoExecutionException
-    {
-        if (StringUtils.isNotEmpty(includes) || 
-                StringUtils.isNotEmpty(excludes))
-        {
-            buildModel(model, project.getCompileSourceRoots(),includes, excludes);            
-        }
-        else
-        {
-            buildModel(model, project.getCompileSourceRoots());
-        }
-    }
-    
-    /**
-     * @since 1.0.2
-     */
-    public void buildModel(Model model, List sourceDirs, String includes, String excludes)
-        throws MojoExecutionException
     {
         String currModelId = model.getModelId();
         if (currModelId == null)
         {
             throw new MojoExecutionException("Model must have id set");
         }
-        //System.out.println("includes:"+includes+" excludes:"+excludes);
 
+        JavaClass[] classes = getSourceClasses(parameters.getSourceDirs(), 
+                parameters.getIncludes(), parameters.getExcludes());
+        
+        buildModel(model, parameters.getSourceDirs(), classes);
+    }
+
+    private JavaClass[] getSourceClasses(List sourceDirs, String includes, String excludes)
+    {
+        if (StringUtils.isNotEmpty(includes) || 
+                StringUtils.isNotEmpty(excludes))
+        {
+            return getInnerSourceClasses(sourceDirs, includes, excludes);
+        }
+        else
+        {
+            return getInnerSourceClasses(sourceDirs);
+        }
+    }
+    
+    private JavaClass[] getInnerSourceClasses(List sourceDirs, String includes, String excludes)
+    {
         JavaDocBuilder builder = new JavaDocBuilder();
 
         IncludeExcludeFileSelector selector = 
@@ -189,40 +183,20 @@ public class QdoxModelBuilder implements ModelBuilder
             QdoxHelper.addFileToJavaDocBuilder(builder, selector, srcDir);
         }        
         
-        JavaClass[] classes = builder.getClasses();
-        
-        buildModel(model, sourceDirs, classes);
+        return builder.getClasses();
     }
-    
-    /**
-     * Scan the source tree for doc-annotations, and build Model objects
-     * containing info extracted from the doc-annotation attributes and
-     * introspected info about the item the annotation is attached to.
-     */
-    public void buildModel(Model model, List sourceDirs)
-            throws MojoExecutionException
+
+    private JavaClass[] getInnerSourceClasses(List sourceDirs)
     {
-        String currModelId = model.getModelId();
-        if (currModelId == null)
-        {
-            throw new MojoExecutionException("Model must have id set");
-        }
-
         JavaDocBuilder builder = new JavaDocBuilder();
-
-        // need a File object representing the original source tree
-        //
-        // TODO: make this more flexible, so specific classes can
-        // be included and excluded.
+        
         for (Iterator i = sourceDirs.iterator(); i.hasNext();)
         {
             String srcDir = (String) i.next();
             builder.addSourceTree(new File(srcDir));
         }
 
-        JavaClass[] classes = builder.getClasses();
-
-        buildModel(model, sourceDirs, classes);
+        return builder.getClasses();
     }
     
     protected void buildModel(Model model, List sourceDirs, JavaClass[] classes)
