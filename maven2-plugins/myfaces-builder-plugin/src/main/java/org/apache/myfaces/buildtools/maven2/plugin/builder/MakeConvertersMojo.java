@@ -416,7 +416,7 @@ public class MakeConvertersMojo extends AbstractMojo
     {
         if (templateConverterName == null)
         {
-            if (_is12())
+            if (_is12() || _is20())
             {
                 return "converterClass12.vm";
             }
@@ -434,6 +434,12 @@ public class MakeConvertersMojo extends AbstractMojo
     private boolean _is12()
     {
         return "1.2".equals(jsfVersion) || "12".equals(jsfVersion);
+    }
+
+
+    private boolean _is20()
+    {
+        return "2.0".equals(jsfVersion) || "20".equals(jsfVersion);
     }
 
 }
