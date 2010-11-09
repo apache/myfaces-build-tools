@@ -44,8 +44,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.MyfacesUtils;
 import org.apache.velocity.runtime.resource.ResourceManagerImpl;
-import org.codehaus.doxia.sink.Sink;
-import org.codehaus.doxia.site.renderer.SiteRenderer;
+import org.apache.maven.doxia.sink.Sink;
+import org.apache.maven.doxia.siterenderer.Renderer;
 
 /**
  * Report for generating JSF tagdoc index based on myfaces-metadata.xml parsing.
@@ -89,10 +89,8 @@ public class TagdocIndexReport extends AbstractMavenReport
 
     /**
      * @component
-     * @required
-     * @readonly
      */
-    private SiteRenderer siteRenderer;
+    private Renderer siteRenderer;
 
     /**
      * @parameter
@@ -560,7 +558,7 @@ public class TagdocIndexReport extends AbstractMavenReport
         return outputDirectory.getAbsolutePath();
     }
 
-    protected SiteRenderer getSiteRenderer()
+    protected Renderer getSiteRenderer()
     {
         return siteRenderer;
     }
