@@ -178,6 +178,14 @@ public class TagdocContentMojo extends AbstractMojo
      * @parameter expression="xdoc-facelet-tag.vm"
      */
     private String templateFaceletTag;
+    
+    /**
+     * Defines the jsf version (1.1, 1.2 or 2.0), used to pass it and add default 
+     * properties for converters or validators in jsf 2.0.
+     * 
+     * @parameter
+     */
+    private String jsfVersion;
 
     static private final String _DOC_SUBDIRECTORY = "tagdoc";
 
@@ -276,6 +284,7 @@ public class TagdocContentMojo extends AbstractMojo
         baseContext.put("utils", new MyfacesUtils());
         baseContext.put("tagdocUtils", new TagdocUtils());
         baseContext.put("model",getModel());
+        baseContext.put("jsf20", new Boolean(_is20()));
         
         Iterator components = model.components();
 
@@ -428,7 +437,12 @@ public class TagdocContentMojo extends AbstractMojo
         
         Context context = new VelocityContext(baseContext);
         context.put("component", component);
+        context.put("jsf20", new Boolean(_is20()));
         FaceletTagMeta faceletTag = model.findFaceletTagByName(component.getName());
+        if (faceletTag == null && component.getTagHandler() != null)
+        {
+            faceletTag = model.findFaceletTagByClassName(component.getTagHandler());
+        }
         if (faceletTag != null)
         {
             context.put("faceletTag", faceletTag);
@@ -527,7 +541,12 @@ public class TagdocContentMojo extends AbstractMojo
         
         Context context = new VelocityContext(baseContext);
         context.put("converter", converter);
+        context.put("jsf20", new Boolean(_is20()));
         FaceletTagMeta faceletTag = model.findFaceletTagByName(converter.getName());
+        if (faceletTag == null && converter.getTagHandler() != null)
+        {
+            faceletTag = model.findFaceletTagByClassName(converter.getTagHandler());
+        }
         if (faceletTag != null)
         {
             context.put("faceletTag", faceletTag);
@@ -626,7 +645,12 @@ public class TagdocContentMojo extends AbstractMojo
         
         Context context = new VelocityContext(baseContext);
         context.put("validator", validator);
+        context.put("jsf20", new Boolean(_is20()));
         FaceletTagMeta faceletTag = model.findFaceletTagByName(validator.getName());
+        if (faceletTag == null && validator.getTagHandler() != null)
+        {
+            faceletTag = model.findFaceletTagByClassName(validator.getTagHandler());
+        }
         if (faceletTag != null)
         {
             context.put("faceletTag", faceletTag);
@@ -725,6 +749,7 @@ public class TagdocContentMojo extends AbstractMojo
         
         Context context = new VelocityContext(baseContext);
         context.put("behavior", behavior);
+        context.put("jsf20", new Boolean(_is20()));
         FaceletTagMeta faceletTag = model.findFaceletTagByName(behavior.getName());
         if (faceletTag != null)
         {
@@ -824,7 +849,12 @@ public class TagdocContentMojo extends AbstractMojo
         
         Context context = new VelocityContext(baseContext);
         context.put("tag", tag);
+        context.put("jsf20", new Boolean(_is20()));
         FaceletTagMeta faceletTag = model.findFaceletTagByName(tag.getName());
+        if (faceletTag == null && tag.getTagHandler() != null)
+        {
+            faceletTag = model.findFaceletTagByClassName(tag.getTagHandler());
+        }
         if (faceletTag != null)
         {
             context.put("faceletTag", faceletTag);
@@ -970,6 +1000,7 @@ public class TagdocContentMojo extends AbstractMojo
         
         Context context = new VelocityContext(baseContext);
         context.put("faceletTag", faceletTag);
+        context.put("jsf20", new Boolean(_is20()));
         
         String baseContent = "";
         
@@ -1196,5 +1227,15 @@ public class TagdocContentMojo extends AbstractMojo
     public String getTemplateFaceletTag()
     {
         return templateFaceletTag;
+    }
+    
+    private boolean _is12()
+    {
+        return "1.2".equals(jsfVersion) || "12".equals(jsfVersion);
+    }
+    
+    private boolean _is20()
+    {
+        return "2.0".equals(jsfVersion) || "20".equals(jsfVersion);
     }
 }

@@ -95,6 +95,23 @@ $baseContent
 </table>
   </section>
 #end
+#elseif ($jsf20)
+      <section name="Facelets Attributes">
+<table>
+ <tr>
+  <th>Name</th>
+  <th>Type</th>
+  <th>Required</th>
+  <th>Description</th>
+ </tr>
+ <tr>
+  <td>for</td>
+  <td>String</td>
+  <td>false</td>
+  <td></td>
+ </tr>
+</table>
+  </section>
 #end
  </body> 
 </document>
