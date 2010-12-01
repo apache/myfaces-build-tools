@@ -32,9 +32,9 @@
     <url>http://www.myorganization.org</url>
 
     <properties>
-        <jsf-myfaces.version>2.0.1</jsf-myfaces.version>
+        <jsf-myfaces.version>2.0.2</jsf-myfaces.version>
         <jsf-mojarra.version>2.0.3</jsf-mojarra.version>
-        <openwebbeans.version>1.0.0-alpha-2</openwebbeans.version>
+        <openwebbeans.version>1.0.0</openwebbeans.version>
         <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
     </properties>
 
@@ -189,6 +189,13 @@
             <artifactId>geronimo-jcdi_1.0_spec</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
         </dependency>
         
         <dependency>

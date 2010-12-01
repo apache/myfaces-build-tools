@@ -34,7 +34,7 @@
     <url>http://www.myorganization.org</url>
 
     <properties>
-        <jsf-myfaces.version>2.0.1</jsf-myfaces.version>
+        <jsf-myfaces.version>2.0.2</jsf-myfaces.version>
         <jsf-mojarra.version>2.0.3</jsf-mojarra.version>        
         <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
     </properties>
@@ -130,6 +130,13 @@
     <!-- Project dependencies -->
     <dependencies>
         
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
