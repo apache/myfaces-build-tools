@@ -40,6 +40,12 @@
   <name>checkstyle-rules</name>
   <url>http://maven.apache.org</url>
 
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules</url>
+  </scm>
+
   <build>
     <resources>
       <resource>
