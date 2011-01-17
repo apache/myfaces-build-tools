@@ -17,8 +17,7 @@
  specific language governing permissions and limitations
  under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -36,14 +35,14 @@
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>checkstyle-rules</artifactId>
   <packaging>jar</packaging>
-  <version>2-SNAPSHOT</version>
+  <version>2</version>
   <name>checkstyle-rules</name>
   <url>http://maven.apache.org</url>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/tags/checkstyle-rules-2</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/tags/checkstyle-rules-2</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/myfaces-build-tools/tags/checkstyle-rules-2</url>
   </scm>
 
   <build>
