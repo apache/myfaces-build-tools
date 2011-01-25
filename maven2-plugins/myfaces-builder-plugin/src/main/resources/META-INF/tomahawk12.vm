@@ -215,8 +215,8 @@ $baseContent
 #set ($attributeList = ${tag.attributeList})
 #foreach( $attribute in $attributeList )
       <attribute>
-#if ($property.longDescription)
-         <description><![CDATA[$property.longDescription]]></description>
+#if ($attribute.longDescription)
+         <description><![CDATA[$attribute.longDescription]]></description>
 #else
          <description><![CDATA[]]></description>
 #end

@@ -206,19 +206,18 @@ $baseContent
 #foreach( $tag in $tagList )
 #if ($modelIds.contains($tag.modelId))
    <tag>
-      <description><![CDATA[$tag.longDescription]]></description>
-      <name>$utils.getTagName($tag.name)</name>
-      <tag-class>$tag.className</tag-class>
-      <body-content>$tag.bodyContent</body-content>
 #if ($tag.longDescription)
       <description><![CDATA[$tag.longDescription]]></description>
 #end
+      <name>$utils.getTagName($tag.name)</name>
+      <tag-class>$tag.className</tag-class>
+      <body-content>$tag.bodyContent</body-content>
 #set ($attributeList = ${tag.attributeList})
 #foreach( $attribute in $attributeList )
 #if (!$attribute.isExclude().booleanValue())
       <attribute>
-#if ($property.longDescription)
-         <description><![CDATA[$property.longDescription]]></description>
+#if ($attribute.longDescription)
+         <description><![CDATA[$attribute.longDescription]]></description>
 #else
          <description><![CDATA[]]></description>
 #end
