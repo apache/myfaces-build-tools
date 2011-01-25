@@ -19,14 +19,14 @@
 -->
 <taglib xmlns="http://java.sun.com/xml/ns/javaee" 
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd" 
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd" 
         version="2.1">
    <!--
+   <description>$description</description>
+   <display-name>$displayname</display-name>
    <tlib-version>$version</tlib-version>
    <short-name>$shortname</short-name>
    <uri>$uri</uri>
-   <display-name>$displayname</display-name>
-   <description>$description</description>
    -->
 
 $baseContent
@@ -38,6 +38,7 @@ $baseContent
     && ($component.name))
 #if ($utils.getTagPrefix($component.name) == $shortname) 
    <tag>
+      <description><![CDATA[$component.longDescription]]></description>
       <name>$utils.getTagName($component.name)</name>
       <tag-class>$component.tagClass</tag-class>
 #if ($component.bodyContent)
@@ -45,12 +46,16 @@ $baseContent
 #else
       <body-content>JSP</body-content>
 #end
-      <description><![CDATA[$component.longDescription]]></description>
       
 #set ($propertyList = ${component.propertyList})
 #foreach( $property in $propertyList )
 #if (!$property.isTagExcluded())
       <attribute>
+#if ($property.longDescription)
+         <description><![CDATA[$property.longDescription]]></description>
+#else
+         <description><![CDATA[]]></description>
+#end
          <name>$property.jspName</name>
 #if ($property.isRequired())
          <required>$property.isRequired()</required>
@@ -85,11 +90,6 @@ $baseContent
          <rtexprvalue>$property.isRtexprvalue().booleanValue()</rtexprvalue>
 #end
 #end
-#if ($property.longDescription)
-         <description><![CDATA[$property.longDescription]]></description>
-#else
-         <description><![CDATA[]]></description>
-#end
       </attribute>
 #end
 #end
@@ -104,15 +104,15 @@ $baseContent
     && ($component.name))
 #if ($utils.getTagPrefix($component.name) == $shortname) 
    <tag>
+#if ($component.longDescription)
+      <description><![CDATA[$component.longDescription]]></description>
+#end
       <name>$utils.getTagName($component.name)</name>
       <tag-class>$component.tagClass</tag-class>
 #if ($component.bodyContent)
       <body-content>$component.bodyContent</body-content>
 #else
       <body-content>empty</body-content>
-#end
-#if ($component.longDescription)
-      <description><![CDATA[$component.longDescription]]></description>
 #end
 
       <attribute>
@@ -122,6 +122,11 @@ $baseContent
 #foreach( $property in $propertyList )
 #if (!$property.isTagExcluded())
       <attribute>
+#if ($property.longDescription)
+         <description><![CDATA[$property.longDescription]]></description>
+#else
+         <description><![CDATA[]]></description>
+#end
          <name>$property.name</name>
 #if ($property.isRequired())
          <required>$property.isRequired()</required>
@@ -138,11 +143,6 @@ $baseContent
          </deferred-value>
 #end
 #end
-#if ($property.longDescription)
-         <description><![CDATA[$property.longDescription]]></description>
-#else
-         <description><![CDATA[]]></description>
-#end
       </attribute>
 #end
 #end
@@ -157,6 +157,7 @@ $baseContent
     && ($component.name))
 #if ($utils.getTagPrefix($component.name) == $shortname) 
    <tag>
+      <description><![CDATA[$component.longDescription]]></description>
       <name>$utils.getTagName($component.name)</name>
       <tag-class>$component.tagClass</tag-class>
 #if ($component.bodyContent)
@@ -164,7 +165,6 @@ $baseContent
 #else
       <body-content>empty</body-content>
 #end
-      <description><![CDATA[$component.longDescription]]></description>
       
       <attribute>
         <name>id</name>
@@ -173,6 +173,11 @@ $baseContent
 #foreach( $property in $propertyList )
 #if (!$property.isTagExcluded())
       <attribute>
+#if ($property.longDescription)
+         <description><![CDATA[$property.longDescription]]></description>
+#else
+         <description><![CDATA[]]></description>
+#end
          <name>$property.name</name>
 #if ($property.isRequired())
          <required>$property.isRequired()</required>
@@ -189,11 +194,6 @@ $baseContent
          </deferred-value>
 #end
 #end
-#if ($property.longDescription)
-         <description><![CDATA[$property.longDescription]]></description>
-#else
-         <description><![CDATA[]]></description>
-#end
       </attribute>
 #end
 #end
@@ -206,6 +206,7 @@ $baseContent
 #foreach( $tag in $tagList )
 #if ($modelIds.contains($tag.modelId))
    <tag>
+      <description><![CDATA[$tag.longDescription]]></description>
       <name>$utils.getTagName($tag.name)</name>
       <tag-class>$tag.className</tag-class>
       <body-content>$tag.bodyContent</body-content>
@@ -216,6 +217,11 @@ $baseContent
 #foreach( $attribute in $attributeList )
 #if (!$attribute.isExclude().booleanValue())
       <attribute>
+#if ($property.longDescription)
+         <description><![CDATA[$property.longDescription]]></description>
+#else
+         <description><![CDATA[]]></description>
+#end
          <name>$attribute.name</name>
 #if ($attribute.isRequired())
          <required>$attribute.isRequired()</required>
@@ -234,11 +240,6 @@ $baseContent
 #else
          <type>java.lang.String</type>
 #end
-#end
-#if ($property.longDescription)
-         <description><![CDATA[$property.longDescription]]></description>
-#else
-         <description><![CDATA[]]></description>
 #end
       </attribute>
 #end
