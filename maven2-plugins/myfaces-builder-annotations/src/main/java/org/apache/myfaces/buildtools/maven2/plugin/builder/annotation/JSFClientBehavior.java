@@ -18,7 +18,7 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.annotation;
 
-public @interface JSFBehavior
+public @interface JSFClientBehavior
 {
     /**
      * Indicate the behaviorId which identifies this class. If not defined, it
@@ -89,4 +89,19 @@ public @interface JSFBehavior
      * @since 1.0.8
      */
     boolean evaluateELOnExecution() default false;
+    
+    /**
+     * Define the renderer-type attribute that is used to
+     * look up a renderer for instances of a component.
+     * 
+     * If this attribute is not defined, the builder plugin looks for a constant
+     * on the class with name RENDERER_TYPE. It is an error if a
+     * concrete component has no such setting (but the value can be inherited from an
+     * ancestor class).
+     * <p>
+     * This attribute is inheritable.
+     * 
+     * @since 1.0.8
+     */
+    String rendererType() default "";
 }

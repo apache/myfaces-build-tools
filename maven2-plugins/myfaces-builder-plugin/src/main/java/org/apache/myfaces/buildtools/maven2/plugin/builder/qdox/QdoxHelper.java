@@ -23,6 +23,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +41,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 import org.codehaus.plexus.components.io.fileselectors.FileInfo;
 import org.codehaus.plexus.components.io.fileselectors.FileSelector;
+import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
@@ -552,4 +555,73 @@ public class QdoxHelper
             return file.isFile();
         }        
     }
+    
+    public static JavaClass[] getSourceClasses(List sourceDirs, String includes, String excludes)
+    {
+        if (StringUtils.isNotEmpty(includes) || 
+                StringUtils.isNotEmpty(excludes))
+        {
+            return getInnerSourceClasses(sourceDirs, includes, excludes);
+        }
+        else
+        {
+            return getInnerSourceClasses(sourceDirs);
+        }
+    }
+    
+    private static JavaClass[] getInnerSourceClasses(List sourceDirs, String includes, String excludes)
+    {
+        JavaDocBuilder builder = new JavaDocBuilder();
+        IncludeExcludeFileSelector selector = 
+            new IncludeExcludeFileSelector(); 
+        if (StringUtils.isNotEmpty(excludes))
+        {
+            selector.setExcludes(excludes.split(","));
+        }
+        if (StringUtils.isNotEmpty(includes))
+        {
+            selector.setIncludes(includes.split(","));            
+        }
+        for (Iterator i = sourceDirs.iterator(); i.hasNext();)
+        {
+            Object dir = i.next();
+            File srcDir = null;
+            if (dir instanceof File)
+            {
+                srcDir = (File) dir;
+            }
+            else         
+            {
+                new File((String) i.next());
+            }
+            //Scan all files on directory and add to builder
+            QdoxHelper.addFileToJavaDocBuilder(builder, selector, srcDir);
+        }        
+        
+        return builder.getClasses();
+    }
+
+    private static JavaClass[] getInnerSourceClasses(List sourceDirs)
+    {
+        JavaDocBuilder builder = new JavaDocBuilder();
+        for (Iterator i = sourceDirs.iterator(); i.hasNext();)
+        {
+            String srcDir = (String) i.next();
+            builder.addSourceTree(new File(srcDir));
+        }
+        return builder.getClasses();
+    }
+    
+    public static class JavaClassComparator implements Comparator
+    {
+        public int compare(Object arg0, Object arg1)
+        {
+            JavaClass c0 = (JavaClass) arg0;
+            JavaClass c1 = (JavaClass) arg1;
+            return (c0.getFullyQualifiedName().compareTo(c1.getFullyQualifiedName()));
+        }
+    }
+
+
+
 }

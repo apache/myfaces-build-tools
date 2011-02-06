@@ -47,6 +47,11 @@ public class BehaviorMeta extends ViewEntityMeta implements PropertyHolder
     //add some properties for this cases (f:convertNumber or f:convertDateTime)
     private String _bodyContent;
     private Boolean _configExcluded;
+    
+    private String _tagHandler;
+    private Boolean _generatedComponentClass;
+    private Boolean _evaluateELOnExecution;
+
 
     /**
      * Write an instance of this class out as xml.
@@ -57,6 +62,9 @@ public class BehaviorMeta extends ViewEntityMeta implements PropertyHolder
         out.writeElement("behaviorId", _behaviorId);
         out.writeElement("bodyContent", _bodyContent);
         out.writeElement("configExcluded", _configExcluded);
+        out.writeElement("tagHandler", _tagHandler);
+        out.writeElement("generatedComponentClass", _generatedComponentClass);
+        out.writeElement("evaluateELOnExecution", _evaluateELOnExecution);
     }
 
     /**
@@ -75,11 +83,19 @@ public class BehaviorMeta extends ViewEntityMeta implements PropertyHolder
         digester.addBeanPropertySetter(newPrefix + "/behaviorId");
         digester.addBeanPropertySetter(newPrefix + "/bodyContent");
         digester.addBeanPropertySetter(newPrefix + "/configExcluded");
+        digester.addBeanPropertySetter(newPrefix + "/tagHandler");
+        digester.addBeanPropertySetter(newPrefix + "/generatedComponentClass");
+        digester.addBeanPropertySetter(newPrefix + "/evaluateELOnExecution");
     }
     
     public BehaviorMeta()
     {
         super("behavior");
+    }
+    
+    public BehaviorMeta(String name)
+    {
+        super(name);
     }
 
     /**
@@ -97,6 +113,9 @@ public class BehaviorMeta extends ViewEntityMeta implements PropertyHolder
 
         boolean inheritParentTag = false;
         //check if the parent set a tag class
+
+        _tagHandler = ModelUtils.merge(this._tagHandler, other._tagHandler);
+        _evaluateELOnExecution = ModelUtils.merge(this._evaluateELOnExecution, other._evaluateELOnExecution);
 
         _behaviorId = ModelUtils.merge(this._behaviorId, other._behaviorId);
         
@@ -195,7 +214,70 @@ public class BehaviorMeta extends ViewEntityMeta implements PropertyHolder
     public Boolean isConfigExcluded()
     {
         return ModelUtils.defaultOf(_configExcluded,false);
-    }    
+    }
+    
+    public String getBehaviorType()
+    {
+        return null;
+    }
+    
+    /**
+     * Specifies the class of the Facelets tag handler (component handler) for
+     * this component.
+     * <p>
+     * Note that a Facelets tag handler class is not needed for most components.
+     * 
+     * @since 1.0.9
+     */
+    public void setTagHandler(String tagHandler)
+    {
+        _tagHandler = tagHandler;
+    }
+
+    /**
+     * 
+     * @since 1.0.9
+     */
+    public String getTagHandler()
+    {
+        return _tagHandler;
+    }
+    
+    /**
+     * 
+     * @since 1.0.9
+     */
+    public void setEvaluateELOnExecution(Boolean evaluateELOnExecution)
+    {
+        this._evaluateELOnExecution = evaluateELOnExecution;
+    }
+
+    /**
+     * 
+     * @since 1.0.9
+     */
+    public Boolean isEvaluateELOnExecution()
+    {
+        return ModelUtils.defaultOf(_evaluateELOnExecution,false);
+    }
+    
+    /**
+     * 
+     * @since 1.0.9
+     */
+    public void setGeneratedComponentClass(Boolean generatedComponentClass)
+    {
+        _generatedComponentClass = generatedComponentClass;
+    }
+
+    /**
+     * 
+     * @since 1.0.9
+     */
+    public Boolean isGeneratedComponentClass()
+    {
+        return ModelUtils.defaultOf(_generatedComponentClass,false);
+    }
 
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
     
@@ -220,4 +302,23 @@ public class BehaviorMeta extends ViewEntityMeta implements PropertyHolder
         return _propertyTagList;
     }
 
+    private List _propertyBehaviorList = null; 
+
+    public Collection getPropertyBehaviorList()
+    {
+        if (_propertyBehaviorList == null)
+        {
+            _propertyBehaviorList = new ArrayList();
+            for (Iterator it = getPropertyList().iterator(); it.hasNext();)
+            {
+                PropertyMeta prop = (PropertyMeta) it.next();
+                if (!prop.isInherited().booleanValue() && prop.isGenerated().booleanValue())
+                {
+                    _propertyBehaviorList.add(prop);
+                }
+            }
+            
+        }
+        return _propertyBehaviorList;
+    }
 }

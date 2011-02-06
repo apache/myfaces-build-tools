@@ -81,6 +81,13 @@ $baseContent
         <renderer-class>$renderer.className</renderer-class>
       </renderer>
 #end
+#set ($clientBehaviorRendererList = ${renderKit.getClientBehaviorRenderers()})
+#foreach( $clientBehaviorRenderer in $clientBehaviorRendererList )
+      <client-behavior-renderer>
+        <client-behavior-renderer-type>$clientBehaviorRenderer.rendererType</client-behavior-renderer-type>
+        <client-behavior-renderer-class>$clientBehaviorRenderer.className</client-behavior-renderer-class>
+      </client-behavior-renderer>
+#end
   </render-kit>
 #end
 </faces-config>

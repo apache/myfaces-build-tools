@@ -212,6 +212,9 @@ $baseContent
         <tag-name>$utils.getTagName($behavior.name)</tag-name>
         <behavior>
             <behavior-id>$behavior.behaviorId</behavior-id>
+#if ($behavior.tagHandler)
+            <handler-class>$behavior.tagHandler</handler-class>
+#end
         </behavior>
 #set ($propertyList = ${behavior.propertyList})
 #foreach( $property in $propertyList )

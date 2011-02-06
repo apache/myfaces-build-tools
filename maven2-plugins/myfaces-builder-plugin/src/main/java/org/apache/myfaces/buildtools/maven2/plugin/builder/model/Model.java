@@ -135,7 +135,9 @@ public class Model
         ConverterMeta.addXmlRules(digester, prefix);
         ValidatorMeta.addXmlRules(digester, prefix);
         BehaviorMeta.addXmlRules(digester, prefix);
+        ClientBehaviorMeta.addXmlRules(digester, prefix);        
         RenderKitMeta.addXmlRules(digester, prefix);
+        ClientBehaviorRendererMeta.addXmlRules(digester, prefix);
         TagMeta.addXmlRules(digester, prefix);
         FaceletTagMeta.addXmlRules(digester, prefix);
         WebConfigMeta.addXmlRules(digester, prefix);

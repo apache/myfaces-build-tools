@@ -30,6 +30,7 @@ import org.apache.maven.plugin.dependency.utils.filters.MarkerFileFilter;
 import org.apache.maven.plugin.dependency.utils.markers.MarkerHandler;
 import org.apache.maven.plugin.dependency.utils.markers.UnpackFileMarkerHandler;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.BehaviorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
@@ -308,6 +309,21 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
                                 ".", "/")
                                 + ".java");
                     }                
+                }
+            }
+            for (Iterator it = model.behaviors(); it.hasNext();)
+            {
+                BehaviorMeta behavior = (BehaviorMeta) it.next();
+
+                if (behavior.getModelId().equals(model.getModelId()))
+                {
+                    if (behavior.isGeneratedComponentClass().booleanValue())
+                    {
+                        getLog().info("Adding Generated: "+ behavior.getClassName());
+                        exclusions.add(StringUtils.replace(
+                                behavior.getClassName(), ".", "/")
+                                + ".java");
+                    }
                 }
             }
             

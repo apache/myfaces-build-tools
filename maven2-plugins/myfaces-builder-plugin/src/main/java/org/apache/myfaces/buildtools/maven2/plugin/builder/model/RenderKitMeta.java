@@ -35,6 +35,7 @@ public class RenderKitMeta
 
     private String _renderKitId = "";
     private Map _renderers;
+    private Map _clientBehaviorRenderers;
 
     /**
      * Write an instance of this class out as xml.
@@ -49,6 +50,12 @@ public class RenderKitMeta
         for (Iterator it = rkm._renderers.values().iterator();it.hasNext();)
         {
             RendererMeta rm = (RendererMeta) it.next();
+            rm.writeXml(out);  
+        }
+        
+        for (Iterator it = rkm._clientBehaviorRenderers.values().iterator();it.hasNext();)
+        {
+            ClientBehaviorRendererMeta rm = (ClientBehaviorRendererMeta) it.next();
             rm.writeXml(out);  
         }
         
@@ -72,6 +79,7 @@ public class RenderKitMeta
         digester.addBeanPropertySetter(newPrefix + "/className");
         
         RendererMeta.addXmlRules(digester, newPrefix);
+        ClientBehaviorRendererMeta.addXmlRules(digester, newPrefix);
     }
 
 
@@ -81,6 +89,7 @@ public class RenderKitMeta
     public RenderKitMeta()
     {
         _renderers = new TreeMap();
+        _clientBehaviorRenderers = new TreeMap();
     }
 
     /**
@@ -179,4 +188,63 @@ public class RenderKitMeta
             addRenderer((RendererMeta) i.next());
         }
     }
+    
+    /**
+     * Adds a renderer to this render kit.
+     * 
+     * @param renderer
+     *            the renderer to add
+     */
+    public void addClientBehaviorRenderer(ClientBehaviorRendererMeta renderer)
+    {
+        String rendererType = renderer.getRendererType();
+        _clientBehaviorRenderers.put(rendererType, renderer);
+    }
+
+    /**
+     * Returns the renderer for this component family and renderer type.
+     * 
+     * @param componentFamily
+     *            the component family
+     * @param rendererType
+     *            the renderer type
+     */
+    public RendererMeta findClientBehaviorRenderer(String rendererType)
+    {
+        return (RendererMeta) _renderers.get(rendererType);
+    }
+
+    /**
+     * Returns true if this render kit has any renderers.
+     * 
+     * @return true if this render kit has any renderers, false otherwise
+     */
+    public boolean hasClientBehaviorRenderers()
+    {
+        return !_clientBehaviorRenderers.isEmpty();
+    }
+
+    /**
+     * Returns an iterator for all renderers in this render kit.
+     * 
+     * @return the renderer iterator
+     */
+    public Iterator clientBehaviorRenderers()
+    {
+        return _clientBehaviorRenderers.values().iterator();
+    }
+    
+    public Collection getClientBehaviorRenderers()
+    {
+        return _clientBehaviorRenderers.values();
+    }
+
+    void addAllClientBehaviorRenderers(RenderKitMeta renderKit)
+    {
+        for (Iterator i = renderKit._clientBehaviorRenderers.values().iterator(); i.hasNext();)
+        {
+            // use addRenderer to establish owner
+            addClientBehaviorRenderer((ClientBehaviorRendererMeta) i.next());
+        }
+    }    
 }

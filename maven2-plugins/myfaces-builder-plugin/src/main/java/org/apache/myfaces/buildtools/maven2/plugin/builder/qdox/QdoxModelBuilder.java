@@ -18,10 +18,8 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.qdox;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +36,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.ModelParams;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.AttributeMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.BehaviorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClientBehaviorMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClientBehaviorRendererMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletTagMeta;
@@ -55,9 +55,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.WebConfigMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.WebConfigParamMeta;
-import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
 
-import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
 import com.thoughtworks.qdox.model.Annotation;
 import com.thoughtworks.qdox.model.DocletTag;
@@ -77,46 +75,33 @@ import com.thoughtworks.qdox.model.Type;
 public class QdoxModelBuilder implements ModelBuilder
 {
     private final Log log = LogFactory.getLog(QdoxModelBuilder.class);
-
     private static final String DOC_CONVERTER = "JSFConverter";
     private static final String DOC_VALIDATOR = "JSFValidator";
     private static final String DOC_BEHAVIOR = "JSFBehavior";
+    private static final String DOC_CLIENT_BEHAVIOR = "JSFClientBehavior";
     private static final String DOC_COMPONENT = "JSFComponent";
     private static final String DOC_RENDERER = "JSFRenderer";
     private static final String DOC_RENDERKIT = "JSFRenderKit";
     private static final String DOC_RENDERERS = "JSFRenderers";
-
+    private static final String DOC_CLIENT_BEHAVIOR_RENDERER = "JSFClientBehaviorRenderer";
+    private static final String DOC_CLIENT_BEHAVIOR_RENDERERS = "JSFClientBehaviorRenderers";
     private static final String DOC_PROPERTY = "JSFProperty";
     private static final String DOC_FACET = "JSFFacet";
     private static final String DOC_LISTENER = "JSFListener";
-    
     //This property is used in special cases where properties 
     //does not have methods defined on component class, like binding
     //in jsf 1.1 (in 1.2 has component counterpart). In fact, all
     //properties must be defined with JSFProperty
     private static final String DOC_JSP_PROPERTY = "JSFJspProperty";
     private static final String DOC_JSP_PROPERTIES = "JSFJspProperties";
-    
     private static final String DOC_TAG = "JSFJspTag";
     private static final String DOC_JSP_ATTRIBUTE = "JSFJspAttribute";
     private static final String DOC_FACELET_TAG = "JSFFaceletTag";
     private static final String DOC_FACELET_TAGS = "JSFFaceletTags";
     private static final String DOC_FACELET_TAG_ATTRIBUTE = "JSFFaceletAttribute";
     private static final String DOC_FACELET_TAG_ATTRIBUTES = "JSFFaceletAttributes";
-    
     private static final String DOC_WEB_CONFIG_PARAM = "JSFWebConfigParam";
     
-    private static class JavaClassComparator implements Comparator
-    {
-        public int compare(Object arg0, Object arg1)
-        {
-            JavaClass c0 = (JavaClass) arg0;
-            JavaClass c1 = (JavaClass) arg1;
-
-            return (c0.getFullyQualifiedName().compareTo(c1.getFullyQualifiedName()));
-        }
-    }
-
     /**
      * Scan the source tree for doc-annotations, and build Model objects
      * containing info extracted from the doc-annotation attributes and
@@ -130,75 +115,11 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             throw new MojoExecutionException("Model must have id set");
         }
-
-        JavaClass[] classes = getSourceClasses(parameters.getSourceDirs(), 
+        JavaClass[] classes = QdoxHelper.getSourceClasses(parameters.getSourceDirs(), 
                 parameters.getIncludes(), parameters.getExcludes());
-        
         buildModel(model, parameters.getSourceDirs(), classes);
     }
 
-    private JavaClass[] getSourceClasses(List sourceDirs, String includes, String excludes)
-    {
-        if (StringUtils.isNotEmpty(includes) || 
-                StringUtils.isNotEmpty(excludes))
-        {
-            return getInnerSourceClasses(sourceDirs, includes, excludes);
-        }
-        else
-        {
-            return getInnerSourceClasses(sourceDirs);
-        }
-    }
-    
-    private JavaClass[] getInnerSourceClasses(List sourceDirs, String includes, String excludes)
-    {
-        JavaDocBuilder builder = new JavaDocBuilder();
-
-        IncludeExcludeFileSelector selector = 
-            new IncludeExcludeFileSelector(); 
-    
-        if (StringUtils.isNotEmpty(excludes))
-        {
-            selector.setExcludes(excludes.split(","));
-        }
-        if (StringUtils.isNotEmpty(includes))
-        {
-            selector.setIncludes(includes.split(","));            
-        }
-        
-        for (Iterator i = sourceDirs.iterator(); i.hasNext();)
-        {
-            Object dir = i.next();
-            File srcDir = null;
-            if (dir instanceof File)
-            {
-                srcDir = (File) dir;
-            }
-            else         
-            {
-                new File((String) i.next());
-            }
-            
-            //Scan all files on directory and add to builder
-            QdoxHelper.addFileToJavaDocBuilder(builder, selector, srcDir);
-        }        
-        
-        return builder.getClasses();
-    }
-
-    private JavaClass[] getInnerSourceClasses(List sourceDirs)
-    {
-        JavaDocBuilder builder = new JavaDocBuilder();
-        
-        for (Iterator i = sourceDirs.iterator(); i.hasNext();)
-        {
-            String srcDir = (String) i.next();
-            builder.addSourceTree(new File(srcDir));
-        }
-
-        return builder.getClasses();
-    }
-    
     protected void buildModel(Model model, List sourceDirs, JavaClass[] classes)
         throws MojoExecutionException
     {
@@ -207,7 +128,7 @@ public class QdoxModelBuilder implements ModelBuilder
         // Sort the class array so that they are processed in a
         // predictable order, regardless of how the source scanning
         // returned them.
-        Arrays.sort(classes, new JavaClassComparator());
+        Arrays.sort(classes, new QdoxHelper.JavaClassComparator());
         Map processedClasses = new HashMap();
         for (int i = 0; i < classes.length; ++i)
         {
@@ -303,8 +224,13 @@ public class QdoxModelBuilder implements ModelBuilder
                 continue;
             }
             QdoxHelper.initBehaviorAncestry(processedClasses, model, behavior);
-            // TODO: why is there no check for Behavior class existence here??
-            // ANS: there is no automatic generation of behavior class.
+            
+            //Check if the behavior class file exists
+            if (!IOUtils.existsSourceFile(StringUtils.replace(
+                    behavior.getClassName(),".","/")+".java", sourceDirs))
+            {
+                behavior.setGeneratedComponentClass(Boolean.TRUE);
+            }
         }
 
         // post-process the list of tags
@@ -424,6 +350,19 @@ public class QdoxModelBuilder implements ModelBuilder
             Map props = anno.getNamedParameterMap();
             processBehavior(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
         }
+        // client behaviors
+        tag = clazz.getTagByName(DOC_CLIENT_BEHAVIOR, false);
+        if (tag != null)
+        {
+            Map props = tag.getNamedParameterMap();
+            processClientBehavior(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
+        }
+        anno = QdoxHelper.getAnnotation(clazz, DOC_CLIENT_BEHAVIOR);
+        if (anno != null)
+        {
+            Map props = anno.getNamedParameterMap();
+            processClientBehavior(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
+        }
         // components
         tag = clazz.getTagByName(DOC_COMPONENT, false);
         if (tag != null)
@@ -454,6 +393,7 @@ public class QdoxModelBuilder implements ModelBuilder
         processClassForFaceletTagAnnotations(clazz, model, tag, anno);
         processClassForRendekitAnnotation(clazz, model, tag, anno);
         processClassForRendererAnnotations(clazz, model, tag, anno);
+        processClassForClientBehaviorRendererAnnotations(clazz, model, tag, anno);
     }
     
     private void processClassForFaceletTagAnnotations(JavaClass clazz, Model model, DocletTag tag, Annotation anno) 
@@ -550,6 +490,50 @@ public class QdoxModelBuilder implements ModelBuilder
                     Annotation ranno = (Annotation) jspPropsList.get(i);
                     Map props = ranno.getNamedParameterMap();
                     processRenderer(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
+                }
+            }
+        }
+    }
+    
+    private void processClassForClientBehaviorRendererAnnotations(JavaClass clazz, 
+            Model model, DocletTag tag, Annotation anno)
+    {
+        // renderer
+        DocletTag [] tags = clazz.getTagsByName(DOC_CLIENT_BEHAVIOR_RENDERER, false);
+        for (int i = 0; i < tags.length; i++)
+        {
+            tag = tags[i];
+            if (tag != null)
+            {
+                Map props = tag.getNamedParameterMap();
+                processClientBehaviorRenderer(props, (AbstractJavaEntity)tag.getContext(), clazz, model);
+            }
+        }
+        anno = QdoxHelper.getAnnotation(clazz, DOC_CLIENT_BEHAVIOR_RENDERER);
+        if (anno != null)
+        {
+            Map props = anno.getNamedParameterMap();
+            processClientBehaviorRenderer(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
+        }
+        anno = QdoxHelper.getAnnotation(clazz, DOC_CLIENT_BEHAVIOR_RENDERERS);
+        if (anno != null)
+        {
+            Object jspProps = anno.getNamedParameter("renderers");
+            
+            if (jspProps instanceof Annotation)
+            {
+                Annotation jspPropertiesAnno = (Annotation) jspProps;
+                Map props = jspPropertiesAnno.getNamedParameterMap();
+                processClientBehaviorRenderer(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
+            }
+            else
+            {
+                List jspPropsList = (List) jspProps;
+                for (int i = 0; i < jspPropsList.size();i++)
+                {
+                    Annotation ranno = (Annotation) jspPropsList.get(i);
+                    Map props = ranno.getNamedParameterMap();
+                    processClientBehaviorRenderer(props, (AbstractJavaEntity)anno.getContext(), clazz, model);
                 }
             }
         }
@@ -718,7 +702,9 @@ public class QdoxModelBuilder implements ModelBuilder
         
         String componentName = QdoxHelper.getString(clazz, "name", props, null);
         String bodyContent = QdoxHelper.getString(clazz, "bodyContent", props, null);
+        String tagHandler = QdoxHelper.getString(clazz, "tagHandler", props, null);
         Boolean configExcluded = QdoxHelper.getBoolean(clazz,"configExcluded",props,null);
+        Boolean evaluateELOnExecution = QdoxHelper.getBoolean(clazz,"evaluateELOnExecution",props,null);
 
         BehaviorMeta behavior = new BehaviorMeta();
         initClassMeta(model, clazz, behavior, classNameOverride);
@@ -727,13 +713,77 @@ public class QdoxModelBuilder implements ModelBuilder
         behavior.setBehaviorId(behaviorId);
         behavior.setDescription(shortDescription);
         behavior.setLongDescription(longDescription);
+        behavior.setTagHandler(tagHandler);
         behavior.setConfigExcluded(configExcluded);
+        behavior.setEvaluateELOnExecution(evaluateELOnExecution);
+
         
         // Now here walk the component looking for property annotations.
         processComponentProperties(clazz, behavior);
         
         model.addBehavior(behavior);
     }
+    
+    private void processClientBehavior(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, Model model)
+    {
+        String longDescription = clazz.getComment();
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
+
+        String behaviorIdDflt = null;
+        JavaField fieldBehaviorId = clazz
+                .getFieldByName("BEHAVIOR_ID");
+        if (fieldBehaviorId != null)
+        {
+            String value = fieldBehaviorId.getInitializationExpression();
+            behaviorIdDflt = QdoxHelper.clean(value.substring(value.indexOf('"')));
+        }
+        
+        String rendererTypeDflt = null;
+        JavaField fieldRendererType = clazz
+                .getFieldByName("RENDERER_TYPE");
+        if (fieldRendererType != null)
+        {
+            rendererTypeDflt = QdoxHelper.clean(fieldRendererType
+                    .getInitializationExpression());
+        }
+        
+        String behaviorId = QdoxHelper.getString(clazz, "id", props, behaviorIdDflt);
+
+        // Check for both "class" and "clazz" in order to support
+        // doclet and real annotations.
+        String classNameOverride = QdoxHelper.getString(clazz, "class", props, null);
+        classNameOverride = QdoxHelper.getString(clazz,"clazz",props,classNameOverride);
+        
+        String componentName = QdoxHelper.getString(clazz, "name", props, null);
+        String bodyContent = QdoxHelper.getString(clazz, "bodyContent", props, null);
+        String tagHandler = QdoxHelper.getString(clazz, "tagHandler", props, null);
+        Boolean configExcluded = QdoxHelper.getBoolean(clazz,"configExcluded",props,null);
+        Boolean evaluateELOnExecution = QdoxHelper.getBoolean(clazz,"evaluateELOnExecution",props,null);
+        String rendererType = QdoxHelper.getString(clazz, "rendererType", props, rendererTypeDflt);
+
+        ClientBehaviorMeta behavior = new ClientBehaviorMeta();
+        initClassMeta(model, clazz, behavior, classNameOverride);
+        behavior.setName(componentName);
+        behavior.setBodyContent(bodyContent);
+        behavior.setBehaviorId(behaviorId);
+        behavior.setDescription(shortDescription);
+        behavior.setLongDescription(longDescription);
+        behavior.setTagHandler(tagHandler);
+        behavior.setConfigExcluded(configExcluded);
+        behavior.setEvaluateELOnExecution(evaluateELOnExecution);
+        behavior.setRendererType(rendererType);
+        
+        // Now here walk the component looking for property annotations.
+        processComponentProperties(clazz, behavior);
+        
+        model.addBehavior(behavior);
+    }    
         
     private void processValidator(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, Model model)
@@ -851,6 +901,35 @@ public class QdoxModelBuilder implements ModelBuilder
         renderKit.addRenderer(renderer);
     }
     
+    private void processClientBehaviorRenderer(Map props, AbstractJavaEntity ctx,
+            JavaClass clazz, Model model)
+    {
+        String longDescription = clazz.getComment();
+        String descDflt = QdoxHelper.getFirstSentence(longDescription);
+        if ((descDflt == null) || (descDflt.length() < 2))
+        {
+            descDflt = "no description";
+        }
+        String shortDescription = QdoxHelper.getString(clazz, "desc", props, descDflt);
+        String renderKitId = QdoxHelper.getString(clazz, "renderKitId", props, null);
+        String rendererClass = QdoxHelper.getString(clazz, "class", props, clazz
+                .getFullyQualifiedName());
+        rendererClass = QdoxHelper.getString(clazz,"clazz",props,rendererClass);
+        String rendererType = QdoxHelper.getString(clazz,"type", props,null);
+        RenderKitMeta renderKit = model.findRenderKitById(renderKitId);
+        if (renderKit == null)
+        {
+            renderKit = new RenderKitMeta();
+            renderKit.setRenderKitId(renderKitId);
+            model.addRenderKit(renderKit);            
+        }
+        ClientBehaviorRendererMeta renderer = new ClientBehaviorRendererMeta();
+        renderer.setClassName(rendererClass);
+        renderer.setDescription(shortDescription);
+        renderer.setRendererType(rendererType);
+        renderKit.addClientBehaviorRenderer(renderer);
+    }
+    
     private void processTag(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, Model model) throws MojoExecutionException
     {
@@ -881,9 +960,6 @@ public class QdoxModelBuilder implements ModelBuilder
         model.addTag(tag);
     }
     
-    /**
-     * @since 1.0.4
-     */
     private void processFaceletTag(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, Model model) throws MojoExecutionException
     {
@@ -1096,9 +1172,6 @@ public class QdoxModelBuilder implements ModelBuilder
         }                
     }
     
-    /**
-     * @since 1.0.4
-     */
     private void processFaceletTagAttributes(JavaClass clazz,
             FaceletTagMeta ctag)
     {
@@ -1285,9 +1358,6 @@ public class QdoxModelBuilder implements ModelBuilder
         tag.addAttribute(a);
     }
 
-    /**
-     * @since 1.0.4
-     */
     private void processFaceletTagAttribute(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, FaceletTagMeta tag)
     {
@@ -1344,9 +1414,6 @@ public class QdoxModelBuilder implements ModelBuilder
         tag.addAttribute(a);
     }
 
-    /**
-     * @since 1.0.4
-     */
     private void processFaceletTagAttribute(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, FaceletTagMeta tag)
     {
@@ -1381,9 +1448,6 @@ public class QdoxModelBuilder implements ModelBuilder
         tag.addAttribute(a);
     }
 
-    /**
-     * @since 1.0.4
-     */
     private void processFaceletTagAttribute(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaField field, FaceletTagMeta tag)
     {
@@ -1596,9 +1660,6 @@ public class QdoxModelBuilder implements ModelBuilder
         }
     }
 
-    /**
-     * @since 1.0.4
-     */
     private void processComponentListeners(JavaClass clazz,
             ListenerHolder component)
     {
@@ -1697,9 +1758,6 @@ public class QdoxModelBuilder implements ModelBuilder
         }            
     }
     
-    /**
-     * @since 1.0.4
-     */
     private void processInterfaceComponentListener(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, ListenerHolder component)
     {
@@ -1853,9 +1911,6 @@ public class QdoxModelBuilder implements ModelBuilder
         component.addFacet(p);
     }
     
-    /**
-     * @since 1.0.4
-     */
     private void processComponentListener(Map props, AbstractJavaEntity ctx,
             JavaClass clazz, JavaMethod method, ListenerHolder component)
     {
