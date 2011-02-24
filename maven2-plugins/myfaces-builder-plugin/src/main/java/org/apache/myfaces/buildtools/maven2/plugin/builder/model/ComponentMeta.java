@@ -55,6 +55,9 @@ public class ComponentMeta extends ViewEntityMeta implements
     private Boolean _clientBehaviorHolder;
     private Boolean _composite;
     
+    private String _ccLibraryName;
+    private String _ccResourceName;
+    
     private Boolean _generatedComponentClass;
     private Boolean _generatedTagClass;
     
@@ -88,6 +91,8 @@ public class ComponentMeta extends ViewEntityMeta implements
         out.writeElement("template", _template);
         out.writeElement("clientBehaviorHolder", _clientBehaviorHolder);
         out.writeElement("composite", _composite);
+        out.writeElement("ccLibraryName", _ccLibraryName);
+        out.writeElement("ccResourceName", _ccResourceName);
         
         for (Iterator i = _facets.values().iterator(); i.hasNext();)
         {
@@ -145,6 +150,8 @@ public class ComponentMeta extends ViewEntityMeta implements
         digester.addBeanPropertySetter(newPrefix + "/template");
         digester.addBeanPropertySetter(newPrefix + "/clientBehaviorHolder");
         digester.addBeanPropertySetter(newPrefix + "/composite");
+        digester.addBeanPropertySetter(newPrefix + "/ccLibraryName");
+        digester.addBeanPropertySetter(newPrefix + "/ccResourceName");
 
         FacetMeta.addXmlRules(digester, newPrefix);
         ListenerMeta.addXmlRules(digester, newPrefix);
@@ -565,6 +572,42 @@ public class ComponentMeta extends ViewEntityMeta implements
         _composite = composite;
     }
 
+    /**
+     * 
+     * @since 1.0.9
+     */
+    public String getCcLibraryName()
+    {
+        return _ccLibraryName;
+    }
+
+    /**
+     * 
+     * @since 1.0.9
+     */
+    public void setCcLibraryName(String ccLibraryName)
+    {
+        this._ccLibraryName = ccLibraryName;
+    }
+    
+    /**
+     * 
+     * @since 1.0.9
+     */
+    public String getCcResourceName()
+    {
+        return _ccResourceName;
+    }
+
+    /**
+     * 
+     * @since 1.0.9
+     */
+    public void setCcResourceName(String ccResourceName)
+    {
+        this._ccResourceName = ccResourceName;
+    }
+
     //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
     
     public Collection getFacetList()
@@ -645,4 +688,5 @@ public class ComponentMeta extends ViewEntityMeta implements
         }
         return ModelUtils.defaultOf(_overrideEventNames,false);
     }
+
 }

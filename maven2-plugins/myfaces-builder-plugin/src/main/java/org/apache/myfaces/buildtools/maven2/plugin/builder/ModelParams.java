@@ -19,6 +19,7 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
 import java.util.List;
+import java.util.Map;
 
 public class ModelParams
 {
@@ -26,7 +27,11 @@ public class ModelParams
 
     private String excludes;
 
-    private List sources; 
+    private List sources;
+    
+    private List compositeComponentDirectories;
+    
+    private Map compositeComponentLibraries;
 
     public ModelParams()
     {
@@ -55,5 +60,21 @@ public class ModelParams
     public void setSourceDirs(List sources)
     {
         this.sources = sources;
+    }
+    public List getCompositeComponentDirectories()
+    {
+        return compositeComponentDirectories;
+    }
+    public Map getCompositeComponentLibraries()
+    {
+        return compositeComponentLibraries;
+    }
+    public void setCompositeComponentDirectories(List compositeComponentDirectories)
+    {
+        this.compositeComponentDirectories = compositeComponentDirectories;
+    }
+    public void setCompositeComponentLibraries(Map compositeComponentLibraries)
+    {
+        this.compositeComponentLibraries = compositeComponentLibraries;
     }
 }

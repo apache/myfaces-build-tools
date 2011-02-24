@@ -118,13 +118,14 @@ public class QdoxModelBuilder implements ModelBuilder
         JavaClass[] classes = QdoxHelper.getSourceClasses(parameters.getSourceDirs(), 
                 parameters.getIncludes(), parameters.getExcludes());
         buildModel(model, parameters.getSourceDirs(), classes);
+        CompositeComponentModelBuilder qccmb = new CompositeComponentModelBuilder();
+        qccmb.buildModel(model, parameters);
     }
 
     protected void buildModel(Model model, List sourceDirs, JavaClass[] classes)
         throws MojoExecutionException
     {
         String currModelId = model.getModelId();
-
         // Sort the class array so that they are processed in a
         // predictable order, regardless of how the source scanning
         // returned them.
@@ -135,7 +136,6 @@ public class QdoxModelBuilder implements ModelBuilder
             JavaClass clazz = classes[i];
             processClass(processedClasses, clazz, model);
         }
-
         // Post-process the list of components which we added in this run.
         // Note that model has all the inherited components in it too, so
         // we need to skip them.

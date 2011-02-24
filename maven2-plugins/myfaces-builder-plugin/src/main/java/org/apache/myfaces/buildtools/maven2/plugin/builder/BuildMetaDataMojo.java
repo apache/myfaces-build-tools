@@ -264,6 +264,18 @@ public class BuildMetaDataMojo extends AbstractMojo
     private File generatedSourceDirectory;
     
     /**
+     * The directory where there are the composite component templates
+     * 
+     * @parameter expression="src/main/resources/META-INF/resources"
+     */
+    private File compositeComponentDirectory;
+    
+    /**
+     * @parameter
+     */
+    private Map compositeComponentLibraries;
+    
+    /**
      * Create a metadata file containing information imported from other projects
      * plus data extracted from annotated classes in this project.
      */
@@ -330,6 +342,12 @@ public class BuildMetaDataMojo extends AbstractMojo
         }
         
         parameters.setSourceDirs(sourceDirs);
+        
+        List compositeComponentDirs = new ArrayList();
+        compositeComponentDirs.add(compositeComponentDirectory);
+        parameters.setCompositeComponentDirectories(compositeComponentDirs);
+        
+        parameters.setCompositeComponentLibraries(compositeComponentLibraries);
         
         buildModel(model, project, parameters);
         
@@ -479,22 +497,23 @@ public class BuildMetaDataMojo extends AbstractMojo
     {
         if (component.getName() != null)
         {
-            if (component.getDescription() == null)
+            if (!component.isComposite().booleanValue())
             {
-                throw new MojoExecutionException(
-                        "Missing mandatory property on component " + component.getClassName()
-                        + " [sourceClass=" + component.getSourceClassName() + "]: description");
+                if (component.getDescription() == null)
+                {
+                    throw new MojoExecutionException(
+                            "Missing mandatory property on component " + component.getClassName()
+                            + " [sourceClass=" + component.getSourceClassName() + "]: description");
+                }
+                if (component.getType() == null)
+                {
+                    throw new MojoExecutionException(
+                            "Missing mandatory property on component " + component.getClassName()
+                            + " [sourceClass=" + component.getSourceClassName() + "]: type");
+                }
+                // this is a concrete component, so it must have a family property
+                validateComponentFamily(model, component);
             }
-
-            if (component.getType() == null)
-            {
-                throw new MojoExecutionException(
-                        "Missing mandatory property on component " + component.getClassName()
-                        + " [sourceClass=" + component.getSourceClassName() + "]: type");
-            }
-            
-            // this is a concrete component, so it must have a family property
-            validateComponentFamily(model, component);
         }
     }
     

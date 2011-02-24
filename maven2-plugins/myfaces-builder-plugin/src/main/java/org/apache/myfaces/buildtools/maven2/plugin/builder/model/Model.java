@@ -53,6 +53,8 @@ public class Model
     private Map _faceletTagsByName = new TreeMap();
     private Map _webConfigsByModelId = new TreeMap();
     
+    private Map _componentsByType = new TreeMap();
+    
     private String _modelId;
 
     /**
@@ -234,6 +236,10 @@ public class Model
     {
         _components.add(component);
         _componentsByClass.put(component.getClassName(), component);
+        if (null != component.getType())
+        {
+            _componentsByType.put(component.getType(), component);
+        }
         if (null != component.getTagClass())
         {
             _componentsByTagClass.put(component.getTagClass(), component);
@@ -264,6 +270,11 @@ public class Model
     public ComponentMeta findComponentByTagClassName(String className)
     {
         return (ComponentMeta) _componentsByTagClass.get(className);
+    }
+    
+    public ComponentMeta findComponentByType(String componentType)
+    {
+        return (ComponentMeta) _componentsByType.get(componentType);
     }
 
     /**
