@@ -450,7 +450,7 @@ public class ComponentMeta extends ViewEntityMeta implements
      */
     public void addListener(ListenerMeta prop)
     {
-        _listeners.put(prop.getClassName(), prop);
+        _listeners.put(prop.getName(), prop);
     }
 
     /**
