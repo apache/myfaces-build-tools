@@ -20,12 +20,23 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.apache.commons.digester.Digester;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -33,8 +44,13 @@ import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.QdoxModelBuilder;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.trinidad.parse.FacesConfigBean;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.trinidad.parse.FacesConfigParser;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.trinidad.util.XIncludeFilter;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.BuildException;
+import org.apache.myfaces.buildtools.maven2.plugin.tagdoc.TagdocContentMojo.URLCreationFactory;
 import org.codehaus.plexus.util.StringUtils;
+import org.xml.sax.SAXException;
 
 /**
  * Maven goal which runs one or more ModelBuilder objects to gather metadata
@@ -276,6 +292,15 @@ public class BuildMetaDataMojo extends AbstractMojo
     private Map compositeComponentLibraries;
     
     /**
+     * @parameter 
+     */
+    private String readMavenFacesPluginMetadata;
+    
+    private File localResource;
+    
+    private FacesConfigBean _facesConfig;
+    
+    /**
      * Create a metadata file containing information imported from other projects
      * plus data extracted from annotated classes in this project.
      */
@@ -348,6 +373,17 @@ public class BuildMetaDataMojo extends AbstractMojo
         parameters.setCompositeComponentDirectories(compositeComponentDirs);
         
         parameters.setCompositeComponentLibraries(compositeComponentLibraries);
+        
+        //Trinidad maven faces plugin integration
+        if (isReadMavenFacesPluginMetadata())
+        {
+            processIndex(project);
+            
+            if (_facesConfig != null)
+            {
+                parameters.setFacesConfigBean(_facesConfig);
+            }
+        }
         
         buildModel(model, project, parameters);
         
@@ -538,12 +574,16 @@ public class BuildMetaDataMojo extends AbstractMojo
                 }
                 else
                 {
-                    curr = model.findComponentByClassName(parentName);
-                    if (curr == null)
+                    ComponentMeta curr1 = model.findComponentByClassName(parentName);
+                    if (curr1 == null)
                     {
                         throw new MojoExecutionException(
                                 "Parent class not found for component " + component.getClassName()
                                 + " [sourceClass=" + component.getSourceClassName() + "]");
+                    }
+                    else
+                    {
+                        curr = curr1;
                     }
                 }
             }
@@ -554,5 +594,192 @@ public class BuildMetaDataMojo extends AbstractMojo
                 "Missing mandatory property on component " + component.getClassName()
                 + " [sourceClass=" + component.getSourceClassName() + "]: family");
         }
+    }
+    
+    private boolean isReadMavenFacesPluginMetadata()
+    {
+        if (readMavenFacesPluginMetadata == null)
+        {
+            return false;
+        }
+        else
+        {
+            return Boolean.valueOf(readMavenFacesPluginMetadata);
+        }
+    }
+    
+    private void processIndex(MavenProject project)
+            throws MojoExecutionException
+    {
+        URL[] index = readIndex(project);
+
+        if (index.length > 0)
+        {
+            _facesConfig = new FacesConfigBean();
+    
+            for (int i = 0; i < index.length; i++)
+            {
+                processIndexEntry(index[i]);
+            }
+    
+            // Perform any post-processing
+            _facesConfig.performPostProcessing();
+        }
+    }
+
+    private void processIndexEntry(URL entry) throws MojoExecutionException
+    {
+        URL old = _facesConfig.setCurrentResource(entry);
+        try
+        {
+            new FacesConfigParser().merge(_facesConfig, entry);
+        }
+        finally
+        {
+            _facesConfig.setCurrentResource(old);
+        }
+    }
+
+    private FacesConfigBean getFacesConfig()
+    {
+        return _facesConfig;
+    }
+
+    private URL[] readIndex(MavenProject project)
+            throws MojoExecutionException
+    {
+        try
+        {
+            // 1. read master faces-config.xml resources
+            List masters = getMasterConfigs(project);
+            if (masters.isEmpty())
+            {
+                getLog().warn("Master faces-config.xml not found");
+                return new URL[0];
+            }
+            else
+            {
+                List entries = new LinkedList();
+
+                SAXParserFactory spf = SAXParserFactory.newInstance();
+                spf.setNamespaceAware(true);
+                // requires JAXP 1.3, in JavaSE 5.0
+                // spf.setXIncludeAware(false);
+
+                for (Iterator<URL> i = masters.iterator(); i.hasNext();)
+                {
+                    URL url = i.next();
+                    Digester digester = new Digester(spf.newSAXParser());
+                    digester.setNamespaceAware(true);
+
+                    // XInclude
+                    digester.setRuleNamespaceURI(XIncludeFilter.XINCLUDE_NAMESPACE);
+                    digester.addCallMethod("faces-config/include", "add", 1);
+                    digester.addFactoryCreate("faces-config/include",
+                            URLCreationFactory.class);
+                    digester.addCallParam("faces-config/include", 0, 0);
+
+                    digester.push(url);
+                    digester.push(entries);
+                    digester.parse(url.openStream());
+                }
+
+                return (URL[]) entries.toArray(new URL[0]);
+            }
+        }
+        catch (ParserConfigurationException e)
+        {
+            throw new MojoExecutionException("Failed to parse master config", e);
+        }
+        catch (SAXException e)
+        {
+            throw new MojoExecutionException("Failed to parse master config", e);
+        }
+        catch (IOException e)
+        {
+            throw new MojoExecutionException("Failed to parse master config", e);
+        }
+    }
+
+    private List getMasterConfigs(MavenProject project)
+            throws MojoExecutionException
+    {
+        if (localResource != null)
+        {
+            List urls = new ArrayList();
+            try
+            {
+                urls.add(localResource.toURL());
+            }
+            catch (MalformedURLException e)
+            {
+                getLog().error("", e);
+            }
+            return urls;
+        }
+        else
+        {
+            String resourcePath = "META-INF/maven-faces-plugin/faces-config.xml";
+            return getCompileDependencyResources(project, resourcePath);
+        }
+    }
+
+    private List getCompileDependencyResources(MavenProject project,
+            String resourcePath) throws MojoExecutionException
+    {
+        try
+        {
+            ClassLoader cl = createCompileClassLoader(project);
+            Enumeration e = cl.getResources(resourcePath);
+            List urls = new ArrayList();
+            while (e.hasMoreElements())
+            {
+                URL url = (URL) e.nextElement();
+                urls.add(url);
+            }
+            return Collections.unmodifiableList(urls);
+        }
+        catch (IOException e)
+        {
+            throw new MojoExecutionException(
+                    "Unable to get resources for path " + "\"" + resourcePath
+                            + "\"", e);
+        }
+
+    }
+
+    private ClassLoader createCompileClassLoader(MavenProject project)
+            throws MojoExecutionException
+    {
+        Thread current = Thread.currentThread();
+        ClassLoader cl = current.getContextClassLoader();
+
+        try
+        {
+            List classpathElements = project.getCompileClasspathElements();
+            if (!classpathElements.isEmpty())
+            {
+                String[] entries = (String[]) classpathElements
+                        .toArray(new String[0]);
+                URL[] urls = new URL[entries.length];
+                for (int i = 0; i < urls.length; i++)
+                {
+                    urls[i] = new File(entries[i]).toURL();
+                }
+                cl = new URLClassLoader(urls, cl);
+            }
+        }
+        catch (DependencyResolutionRequiredException e)
+        {
+            throw new MojoExecutionException(
+                    "Error calculating scope classpath", e);
+        }
+        catch (MalformedURLException e)
+        {
+            throw new MojoExecutionException(
+                    "Error calculating scope classpath", e);
+        }
+
+        return cl;
     }
 }

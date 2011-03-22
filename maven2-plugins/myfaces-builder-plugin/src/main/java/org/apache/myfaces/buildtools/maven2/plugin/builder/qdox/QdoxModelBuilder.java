@@ -49,6 +49,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.RenderKitP
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.RendererParsingStrategy;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.ValidatorParsingStrategy;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.WebConfigParamParsingStrategy;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.trinidad.TrinidadMavenFacesPluginModelBuilder;
 
 import com.thoughtworks.qdox.model.JavaClass;
 
@@ -82,6 +83,8 @@ public class QdoxModelBuilder implements ModelBuilder
         buildModel(model, parameters.getSourceDirs(), classes);
         CompositeComponentModelBuilder qccmb = new CompositeComponentModelBuilder();
         qccmb.buildModel(model, parameters);
+        TrinidadMavenFacesPluginModelBuilder tmfpmb = new TrinidadMavenFacesPluginModelBuilder();
+        tmfpmb.buildModel(model, parameters);
     }
 
     protected void buildModel(Model model, List sourceDirs, JavaClass[] classes)

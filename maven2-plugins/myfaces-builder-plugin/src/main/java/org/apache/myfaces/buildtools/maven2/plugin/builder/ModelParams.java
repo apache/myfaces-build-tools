@@ -21,6 +21,8 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.myfaces.buildtools.maven2.plugin.builder.trinidad.parse.FacesConfigBean;
+
 public class ModelParams
 {
     private String includes;
@@ -32,6 +34,8 @@ public class ModelParams
     private List compositeComponentDirectories;
     
     private Map compositeComponentLibraries;
+    
+    private FacesConfigBean facesConfigBean;
 
     public ModelParams()
     {
@@ -76,5 +80,13 @@ public class ModelParams
     public void setCompositeComponentLibraries(Map compositeComponentLibraries)
     {
         this.compositeComponentLibraries = compositeComponentLibraries;
+    }
+    public FacesConfigBean getFacesConfigBean()
+    {
+        return facesConfigBean;
+    }
+    public void setFacesConfigBean(FacesConfigBean facesConfigBean)
+    {
+        this.facesConfigBean = facesConfigBean;
     }
 }
