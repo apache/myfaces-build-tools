@@ -30,7 +30,7 @@
 
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-builder-annotations</artifactId> 
-  <version>1.0.8</version>
+  <version>1.0.9-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Apache MyFaces Buildtools Maven2 Builder Annotations</name>
 
@@ -41,9 +41,9 @@
   </description>
   
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/tags/myfaces-builder-annotations-1.0.8</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/tags/myfaces-builder-annotations-1.0.8</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/tags/myfaces-builder-annotations-1.0.8</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-annotations</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-annotations</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-annotations</url>
   </scm>
 
   <build>
