@@ -287,11 +287,19 @@ public class BuildMetaDataMojo extends AbstractMojo
     private File compositeComponentDirectory;
     
     /**
+     * Indicate the composite libraries to be loaded in the form of 
+     * &lt;short-name&gt;libraryName&lt;/short-name&gt; .
+     * 
      * @parameter
      */
     private Map compositeComponentLibraries;
     
     /**
+     * Indicate that metadata is provided in the structure of 
+     * trinidad maven-faces-plugin faces-config.xml files  
+     * and should be feed to build the full metadata 
+     * information of this jar file.
+     * 
      * @parameter 
      */
     private String readMavenFacesPluginMetadata;
