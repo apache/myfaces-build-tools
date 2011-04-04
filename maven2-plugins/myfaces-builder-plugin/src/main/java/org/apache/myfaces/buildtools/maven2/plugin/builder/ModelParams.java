@@ -35,6 +35,8 @@ public class ModelParams
     
     private Map compositeComponentLibraries;
     
+    private String compositeComponentFileExtensions;
+    
     private FacesConfigBean facesConfigBean;
 
     public ModelParams()
@@ -88,5 +90,12 @@ public class ModelParams
     public void setFacesConfigBean(FacesConfigBean facesConfigBean)
     {
         this.facesConfigBean = facesConfigBean;
+    }
+    public String getCompositeComponentFileExtensions() {
+        return compositeComponentFileExtensions;
+    }
+    public void setCompositeComponentFileExtensions(
+            String compositeComponentFileExtensions) {
+        this.compositeComponentFileExtensions = compositeComponentFileExtensions;
     }
 }

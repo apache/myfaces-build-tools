@@ -257,6 +257,7 @@ public class CompositeComponentModelBuilder
                         // Set as class name the assigned by Application.createResource, 
                         // even if not exists.
                         this.component.setClassName(alias);
+                        this.component.setModelId(model.getModelId());
                     }
                     //componentType
                     if (setComponentType)
@@ -299,6 +300,7 @@ public class CompositeComponentModelBuilder
                     if (property == null)
                     {
                         property = new PropertyMeta();
+                        property.setName(name);
                         component.addProperty(property);
                     }
                     
@@ -493,11 +495,21 @@ public class CompositeComponentModelBuilder
                         File dirToScan = new File(dir,libraryName);
                         if (dirToScan != null && dirToScan.exists() && dirToScan.isDirectory() )
                         {
+                             
+                             final String[] fileExtensions = parameters.getCompositeComponentFileExtensions() != null ? 
+                                     parameters.getCompositeComponentFileExtensions().split(" ") : new String[]{".xhtml"};
                              FileFilter fileFilter = new FileFilter()
                              {
                                  public boolean accept(File file)
                                  {
-                                     return file.getName().endsWith(".xhtml");
+                                     for (String extension : fileExtensions)
+                                     {
+                                         if (file.getName().endsWith(extension))
+                                         {
+                                             return true;
+                                         }
+                                     }
+                                     return false;
                                  }
                              };
                              File[] files = dirToScan.listFiles(fileFilter);
@@ -505,8 +517,17 @@ public class CompositeComponentModelBuilder
                              {
                                  for (int i = 0; i < files.length; i++)
                                  {
+                                     String fileExtension = null;
+                                     for (String extension : fileExtensions)
+                                     {
+                                         if (files[i].getName().endsWith(extension))
+                                         {
+                                             fileExtension = extension;
+                                             break;
+                                         }
+                                     }
                                      String componentName = files[i].getName().substring(
-                                                 0, files[i].getName().length()-6);
+                                                 0, files[i].getName().length()-fileExtension.length());
                                      try
                                     {
                                         doParseMetadata(model, files[i].toURL(), 

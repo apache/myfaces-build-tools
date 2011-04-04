@@ -295,6 +295,14 @@ public class BuildMetaDataMojo extends AbstractMojo
     private Map compositeComponentLibraries;
     
     /**
+     * Indicate the extensions used for composite components, separated by spaces.
+     * By default it is .xhtml
+     * 
+     * @parameter
+     */
+    private String compositeComponentFileExtensions; 
+    
+    /**
      * Indicate that metadata is provided in the structure of 
      * trinidad maven-faces-plugin faces-config.xml files  
      * and should be feed to build the full metadata 
@@ -381,6 +389,8 @@ public class BuildMetaDataMojo extends AbstractMojo
         parameters.setCompositeComponentDirectories(compositeComponentDirs);
         
         parameters.setCompositeComponentLibraries(compositeComponentLibraries);
+        
+        parameters.setCompositeComponentFileExtensions(compositeComponentFileExtensions);
         
         //Trinidad maven faces plugin integration
         if (isReadMavenFacesPluginMetadata())
