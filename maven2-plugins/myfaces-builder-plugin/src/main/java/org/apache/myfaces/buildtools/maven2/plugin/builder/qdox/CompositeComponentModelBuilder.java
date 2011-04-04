@@ -257,6 +257,14 @@ public class CompositeComponentModelBuilder
                         // Set as class name the assigned by Application.createResource, 
                         // even if not exists.
                         this.component.setClassName(alias);
+                        if (!setComponentType)
+                        {
+                            this.component.setParentClassName("javax.faces.component.UINamingContainer");
+                            PropertyMeta idProp = new PropertyMeta();
+                            idProp.setName("id");
+                            idProp.setRequired(false);
+                            this.component.addProperty(idProp);
+                        }
                         this.component.setModelId(model.getModelId());
                     }
                     //componentType
