@@ -35,7 +35,7 @@ Archetypes
 
 * HelloWorld-Portlet Archetype
 
-  Sets up a simple portlet-enabled webapp. 
+  Sets up a simple portlet-enabled webapp.
 
 * Trinidad Archetype
 
@@ -50,3 +50,11 @@ Archetypes
   Sets up a project that is intended to define new JSF components (rather than just use them).
   If you want to create a jar that defines a set of new custom JSF components then this
   archetype is a good starting point.
+
+* CODI JSF 2.0 Archetype
+
+  Sets up a new JSF 2.0 project using MyFaces CODI and Apache OpenWebBeans.
+
+* CODI JSF 1.2 Archetype
+
+  Sets up a new JSF 1.2 project using MyFaces CODI and Apache OpenWebBeans.
