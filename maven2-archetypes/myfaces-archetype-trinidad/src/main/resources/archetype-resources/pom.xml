@@ -33,9 +33,9 @@
     <url>http://www.myorganization.org</url>
 
     <properties>
-        <jsf-myfaces.version>1.2.9</jsf-myfaces.version>
+        <jsf-myfaces.version>1.2.10</jsf-myfaces.version>
         <jsf-ri.version>1.2_15</jsf-ri.version>
-        <trinidad.version>1.2.13</trinidad.version>        
+        <trinidad.version>1.2.14</trinidad.version>        
         <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
         <log4j.version>1.2.13</log4j.version>
     </properties>
@@ -180,7 +180,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.0</version>
+            <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
         

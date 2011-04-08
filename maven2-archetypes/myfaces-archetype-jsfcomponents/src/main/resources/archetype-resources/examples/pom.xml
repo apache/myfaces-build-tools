@@ -37,7 +37,7 @@
     </parent>
 
     <properties>
-        <jsf-myfaces.version>1.2.9</jsf-myfaces.version>
+        <jsf-myfaces.version>1.2.10</jsf-myfaces.version>
         <jsf-ri.version>1.2_15</jsf-ri.version>        
         <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
         <log4j.version>1.2.13</log4j.version>

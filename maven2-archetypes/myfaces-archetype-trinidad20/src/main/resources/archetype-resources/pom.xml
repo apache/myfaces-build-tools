@@ -29,13 +29,13 @@
     <artifactId>${artifactId}</artifactId>
     <packaging>war</packaging>
     <version>${version}</version>
-    <name>A custom project using myfaces 1.2 with trinidad</name>
+    <name>A custom project using myfaces 2.0 with trinidad</name>
     <url>http://www.myorganization.org</url>
 
     <properties>
-        <jsf-myfaces.version>2.0.1</jsf-myfaces.version>
-        <jsf-mojarra.version>2.0.3</jsf-mojarra.version>
-        <trinidad.version>2.0.0-alpha-2</trinidad.version>        
+        <jsf-myfaces.version>2.0.4</jsf-myfaces.version>
+        <jsf-mojarra.version>2.0.5-b02</jsf-mojarra.version>
+        <trinidad.version>2.0.0-beta-2</trinidad.version>        
         <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
     </properties>
     
@@ -155,7 +155,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.0</version>
+            <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
         

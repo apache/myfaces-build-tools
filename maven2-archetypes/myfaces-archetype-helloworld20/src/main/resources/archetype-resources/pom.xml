@@ -34,8 +34,8 @@
     <url>http://www.myorganization.org</url>
 
     <properties>
-        <jsf-myfaces.version>2.0.2</jsf-myfaces.version>
-        <jsf-mojarra.version>2.0.3</jsf-mojarra.version>        
+        <jsf-myfaces.version>2.0.4</jsf-myfaces.version>
+        <jsf-mojarra.version>2.0.5-b02</jsf-mojarra.version>        
         <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
     </properties>
 

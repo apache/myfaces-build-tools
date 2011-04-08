@@ -32,9 +32,9 @@
     <url>http://www.myorganization.org</url>
 
     <properties>
-        <jsf-myfaces.version>2.0.2</jsf-myfaces.version>
-        <jsf-mojarra.version>2.0.3</jsf-mojarra.version>
-        <openwebbeans.version>1.0.0</openwebbeans.version>
+        <jsf-myfaces.version>2.0.4</jsf-myfaces.version>
+        <jsf-mojarra.version>2.0.5-b02</jsf-mojarra.version>
+        <openwebbeans.version>1.1.0</openwebbeans.version>
         <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
     </properties>
 
@@ -192,16 +192,23 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>1.0</version>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-servlet_2.5_spec</artifactId>
+            <version>1.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-el_1.0_spec</artifactId>
+            <version>1.0.2</version>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.0</version>
+            <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
