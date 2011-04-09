@@ -33,7 +33,7 @@
     <url>http://www.myorganization.org</url>
 
     <properties>
-        <jsf-myfaces.version>2.0.4</jsf-myfaces.version>
+        <jsf-myfaces.version>2.0.5</jsf-myfaces.version>
         <jsf-mojarra.version>2.0.5-b02</jsf-mojarra.version>
         <trinidad.version>2.0.0-beta-2</trinidad.version>        
         <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
