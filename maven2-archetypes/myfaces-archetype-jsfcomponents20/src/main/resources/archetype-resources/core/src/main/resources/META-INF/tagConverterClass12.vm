@@ -1,0 +1,167 @@
+// WARNING: This file was automatically generated. Do not edit it directly,
+//          or you will lose your changes.
+/*
+ *  Licensed to the Apache Software Foundation (ASF) under one
+ *  or more contributor license agreements.  See the NOTICE file
+ *  distributed with this work for additional information
+ *  regarding copyright ownership.  The ASF licenses this file
+ *  to you under the Apache License, Version 2.0 (the
+ *  "License"); you may not use this file except in compliance
+ *  with the License.  You may obtain a copy of the License at
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *  Unless required by applicable law or agreed to in writing,
+ *  software distributed under the License is distributed on an
+ *  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *  KIND, either express or implied.  See the License for the
+ *  specific language governing permissions and limitations
+ *  under the License.
+ */
+package $utils.getPackageFromFullClass($converter.tagClass);
+
+import javax.faces.context.FacesContext;
+import javax.el.ELContext;
+import javax.faces.convert.Converter;
+import javax.el.ValueExpression;
+import javax.faces.webapp.UIComponentTag;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+$utils.importTagClasses($converter)
+
+public class $utils.getClassFromFullClass($converter.tagClass)
+#if (${converter.tagSuperclass})
+    extends ${converter.tagSuperclass}
+#else
+    extends org.apache.myfaces.commons.converter.ConverterTag
+#end
+{
+#if ($converter.serialuidtag)
+    private static final long serialVersionUID = ${converter.serialuidtag}; 
+#end  
+
+    public $utils.getClassFromFullClass($converter.tagClass)()
+    {
+        setConverterIdString("$converter.converterId");
+    }
+#set ($propertyList = ${converter.propertyTagList})
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#set ($type = $utils.getJspPropertyType12($property))
+ 
+    private $type $field;
+    
+#set ($var = $utils.getVariableFromName($property.name))
+    public void $utils.getPrefixedPropertyName("set", $property.jspName)($type $var)
+    {
+        $field = $var;
+    }
+#end
+
+    public void setPageContext(PageContext context) {
+        super.setPageContext(context);
+        setConverterIdString("$converter.converterId");
+    }
+
+    protected Converter createConverter() throws JspException {
+    
+        ELContext elContext = FacesContext.getCurrentInstance().getELContext();            
+        $converter.className converter = ($converter.className)super.createConverter();
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#set ($type = $utils.getJspPropertyType12($property))
+#set ($className = $utils.getPrimitiveType($property.className))
+        if ($field != null)
+        {
+            if (${field}.isLiteralText())
+            {
+#if ($utils.isPrimitiveClass($property.className))
+                String ${field}Value = ${field}.getExpressionString();
+                if (${field}Value != null)
+                    converter.${utils.getPrefixedPropertyName("set",$property.name)}(${utils.getBoxedClass($className)}.valueOf(${field}Value).${property.className}Value());
+#elseif ($utils.isPrimitiveClass($className))
+                String ${field}Value = ${field}.getExpressionString();
+                if (${field}Value != null)
+                    converter.${utils.getPrefixedPropertyName("set",$property.name)}(${utils.getBoxedClass($className)}.valueOf(${field}Value));
+                else
+                    converter.${utils.getPrefixedPropertyName("set",$property.name)}(null);
+#elseif ($utils.getClassFromFullClass($property.className) == "String")
+                converter.${utils.getPrefixedPropertyName("set",$property.name)}(${field}.getExpressionString());
+#elseif ($utils.getClassFromFullClass($property.className) == "Object")
+                converter.${utils.getPrefixedPropertyName("set",$property.name)}(${field}.getExpressionString());
+#elseif ($utils.getClassFromFullClass($property.className) == "Locale")
+                converter.${utils.getPrefixedPropertyName("set",$property.name)}(
+                    org.apache.myfaces.shared_tomahawk.util.LocaleUtils.converterTagLocaleFromString(${field}.getExpressionString()));
+#elseif ($utils.getClassFromFullClass($property.className) == "Class")
+                try
+                {
+                    converter.${utils.getPrefixedPropertyName("set",$property.name)}(
+                    org.apache.myfaces.shared_tomahawk.util.ClassUtils.classForName(${field}.getExpressionString()));
+                }
+                catch (ClassNotFoundException e)
+                {
+                    throw new JspException(e);
+                }
+#elseif ($utils.getClassFromFullClass($property.className) == "TimeZone")
+                converter.${utils.getPrefixedPropertyName("set",$property.name)}(
+                    java.util.TimeZone.getTimeZone(${field}.getExpressionString()));                
+#else
+                converter.${utils.getPrefixedPropertyName("set",$property.name)}(($property.className) ${field}.getValue(elContext));
+#end
+            }
+            else
+            {
+#if ($utils.isPrimitiveClass($property.className))
+                Object ${field}Value = ${field}.getValue(elContext);
+                if (${field}Value != null)
+                    converter.${utils.getPrefixedPropertyName("set",$property.name)}( ((${utils.getBoxedClass($className)}) ${field}Value ).${property.className}Value());
+#elseif ($utils.isPrimitiveClass($className))
+                converter.${utils.getPrefixedPropertyName("set",$property.name)}( (${utils.getBoxedClass($className)}) ${field}.getValue(elContext) );
+#elseif ($utils.getClassFromFullClass($property.className) == "Locale")
+                Object ${field}Value = ${field}.getValue(elContext);
+                if (${field}Value == null)
+                {
+                    ${field}Value = FacesContext.getCurrentInstance().getViewRoot().getLocale();                
+                }
+                if(!(${field}Value instanceof java.util.Locale))
+                {
+                    ${field}Value = org.apache.myfaces.shared_tomahawk.util.LocaleUtils.converterTagLocaleFromString(${field}.getExpressionString());                    
+                }
+                converter.${utils.getPrefixedPropertyName("set",$property.name)}((java.util.Locale)${field}Value);                
+#elseif ($utils.getClassFromFullClass($property.className) == "TimeZone")
+                Object ${field}Value = ${field}.getValue(elContext);
+                if(${field}Value instanceof java.util.TimeZone)
+                {
+                    converter.${utils.getPrefixedPropertyName("set",$property.name)}(
+                        (java.util.TimeZone) ${field}Value);
+                }
+                else
+                {
+                    converter.${utils.getPrefixedPropertyName("set",$property.name)}(
+                        java.util.TimeZone.getTimeZone(${field}Value.toString()));
+                }
+#elseif ($utils.getClassFromFullClass($property.className) == "String")
+                converter.${utils.getPrefixedPropertyName("set",$property.name)}( (String) ${field}.getValue(elContext));
+#else
+                converter.${utils.getPrefixedPropertyName("set",$property.name)}(($property.className) ${field}.getValue(elContext));
+#end
+            }
+        }
+#end
+        return converter;
+    }
+
+    public void release()
+    {
+        super.release();
+#foreach( $property in $propertyList )
+#set ($field = $property.fieldName)
+#if($utils.getJspPropertyType12($property) == "boolean")
+#set ($empty = "false")
+#else
+#set ($empty = "null")
+#end
+        $field = $empty;
+#end
+    }
+}
