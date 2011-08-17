@@ -22,12 +22,13 @@ package org.apache.myfaces.buildtools.maven2.plugin.builder.unpack;
 import java.io.File;
 
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.dependency.utils.DependencyUtil;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
  * ArtifactItem represents information specified in the plugin configuration
  * section for each artifact.
- * 
+ *
  * @since 1.0
  * @author <a href="mailto:brianf@apache.org">Brian Fox</a>
  * @version $Id$
@@ -36,7 +37,7 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
 {
     /**
      * Group Id of Artifact
-     * 
+     *
      * @parameter
      * @required
      */
@@ -44,7 +45,7 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
 
     /**
      * Name of Artifact
-     * 
+     *
      * @parameter
      * @required
      */
@@ -52,14 +53,14 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
 
     /**
      * Version of Artifact
-     * 
+     *
      * @parameter
      */
     private String version = null;
 
     /**
      * Type of Artifact (War,Jar,etc)
-     * 
+     *
      * @parameter
      * @required
      */
@@ -67,21 +68,21 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
 
     /**
      * Classifier for Artifact (tests,sources,etc)
-     * 
+     *
      * @parameter
      */
     private String classifier;
 
     /**
      * Location to use for this Artifact. Overrides default location.
-     * 
+     *
      * @parameter
      */
     private File outputDirectory;
 
     /**
      * Provides ability to change destination file name
-     * 
+     *
      * @parameter
      */
     private String destFileName;
@@ -100,7 +101,7 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
      * Artifact Item
      */
     private Artifact artifact;
-    
+
     /**
      * A comma separated list of file patterns to include when unpacking the
      * artifact.
@@ -130,14 +131,11 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
 
     private String filterEmptyString( String in )
     {
-        if ( in == null || in.equals( "" ) )
+        if ( "".equals( in ) )
         {
             return null;
         }
-        else
-        {
-            return in;
-        }
+        return in;
     }
 
     /**
@@ -322,37 +320,37 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
     {
         this.artifact = artifact;
     }
-    
+
     /**
      * @return Returns a comma separated list of excluded items
      */
     public String getExcludes ()
     {
-        return this.excludes;
+        return DependencyUtil.cleanToBeTokenizedString( this.excludes );
     }
-    
+
     /**
-     * @param excludes 
-     *             A comma seperated list of items to exclude 
-     *             i.e.  **\/*.xml, **\/*.properties
+     * @param excludes
+     *          A comma separated list of items to exclude
+     *          i.e.  <code>**\/*.xml, **\/*.properties</code>
      */
     public void setExcludes ( String excludes )
     {
         this.excludes = excludes;
     }
-    
+
     /**
-     * @return Returns a comma seperated list of included items
+     * @return Returns a comma separated list of included items
      */
     public String getIncludes()
     {
-        return this.includes;
+        return DependencyUtil.cleanToBeTokenizedString( this.includes );
     }
 
     /**
      * @param includes
-     *             A comma seperated list of items to inmclude 
-     *             i.e.  **\/*.xml, **\/*.properties
+     *          A comma separated list of items to include
+     *          i.e.  <code>**\/*.xml, **\/*.properties</code>
      */
     public void setIncludes ( String includes )
     {

@@ -108,30 +108,32 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
      * @parameter expression="${project.build.directory}/dependency-maven-plugin-markers"
      */
     private File markersDirectory;
-    
+
     /**
-     * A comma separated list of file patterns to include when unpacking the
-     * artifact.  i.e.  **\/*.xml,**\/*.properties
-     *  @since 2.0-alpha-5
+     * A comma separated list of file patterns to include when unpacking the artifact. i.e. **\/*.xml,**\/*.properties
+     * NOTE: Excludes patterns override the includes. (component code = return isIncluded( name ) AND !isExcluded( name
+     * );)
+     * 
+     * @since 2.0-alpha-5
      * @parameter expression="${mdep.unpack.includes}"
      */
     private String includes;
 
     /**
-     * A comma separated list of file patterns to exclude when unpacking the
-     * artifact.  i.e.  **\/*.xml,**\/*.properties
+     * A comma separated list of file patterns to exclude when unpacking the artifact. i.e. **\/*.xml,**\/*.properties
+     * NOTE: Excludes patterns override the includes. (component code = return isIncluded( name ) AND !isExcluded( name
+     * );)
+     * 
      * @since 2.0-alpha-5
      * @parameter expression="${mdep.unpack.excludes}"
      */
     private String excludes;
 
     /**
-     * Main entry into mojo. This method gets the ArtifactItems and iterates
-     * through each one passing it to unpackArtifact.
+     * Main entry into mojo. This method gets the ArtifactItems and iterates through each one passing it to
+     * unpackArtifact.
      * 
-     * @throws MojoExecutionException
-     *             with a message if an error occurs.
-     * 
+     * @throws MojoExecutionException with a message if an error occurs.
      * @see ArtifactItem
      * @see #getArtifactItems
      * @see #unpackArtifact(ArtifactItem)
@@ -139,17 +141,19 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
     public void execute()
         throws MojoExecutionException
     {
+        if ( isSkip() )
+        {
+            return;
+        }
+
         String existingFiles = scanAndAddExistingFilesAsExcluded(
                 baseDirectory1, baseDirectory2);
         
         String excludedFiles = null;
         
-        ArrayList processedItems = getProcessedArtifactItems( false );
-        Iterator iter = processedItems.iterator();
-        while ( iter.hasNext() )
+        List<ArtifactItem> processedItems = getProcessedArtifactItems( false );
+        for ( ArtifactItem artifactItem : processedItems )
         {
-            ArtifactItem artifactItem = (ArtifactItem) iter.next();
-            
             if ( artifactItem.isNeedsProcessing() )
             {
                 if (scanModel)
@@ -184,26 +188,18 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
     /**
      * This method gets the Artifact object and calls DependencyUtil.unpackFile.
      * 
-     * @param artifactItem
-     *            containing the information about the Artifact to unpack.
-     * 
-     * @throws MojoExecutionException
-     *             with a message if an error occurs.
-     * 
+     * @param artifactItem containing the information about the Artifact to unpack.
+     * @throws MojoExecutionException with a message if an error occurs.
      * @see #getArtifact
-     * @see DependencyUtil#unpackFile(Artifact, File, File, ArchiverManager,
-     *      Log)
+     * @see DependencyUtil#unpackFile(Artifact, File, File, ArchiverManager, Log)
      */
     private void unpackArtifact( ArtifactItem artifactItem )
         throws MojoExecutionException
     {
         MarkerHandler handler = new UnpackFileMarkerHandler( artifactItem, this.markersDirectory );
-        
-        unpack(
-                artifactItem.getArtifact().getFile(),
-                artifactItem.getOutputDirectory(),
-                artifactItem.getIncludes(),
-                artifactItem.getExcludes());
+
+        unpack( artifactItem.getArtifact().getFile(), artifactItem.getOutputDirectory(), artifactItem.getIncludes(),
+                artifactItem.getExcludes() );
         handler.setMarker();
     }
 
@@ -214,20 +210,18 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
         return new MarkerFileFilter( this.isOverWriteReleases(), this.isOverWriteSnapshots(),
                                      this.isOverWriteIfNewer(), handler );
     }
-    
-    protected ArrayList getProcessedArtifactItems(boolean removeVersion)
-        throws MojoExecutionException 
+
+    protected List<ArtifactItem> getProcessedArtifactItems( boolean removeVersion )
+        throws MojoExecutionException
     {
-        ArrayList items = super.getProcessedArtifactItems( removeVersion );
-        Iterator iter = items.iterator();
-        while ( iter.hasNext() )
+        List<ArtifactItem> items = super.getProcessedArtifactItems( removeVersion );
+        for ( ArtifactItem artifactItem : items )
         {
-            ArtifactItem artifactItem = (ArtifactItem) iter.next();
-            if ( StringUtils.isEmpty(artifactItem.getIncludes()) )
+            if ( StringUtils.isEmpty( artifactItem.getIncludes() ) )
             {
                 artifactItem.setIncludes( getIncludes() );
             }
-            if ( StringUtils.isEmpty(artifactItem.getExcludes()) )
+            if ( StringUtils.isEmpty( artifactItem.getExcludes() ) )
             {
                 artifactItem.setExcludes( getExcludes() );
             }
@@ -426,33 +420,29 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
     }
 
     /**
-     * @param theMarkersDirectory
-     *            The markersDirectory to set.
+     * @param theMarkersDirectory The markersDirectory to set.
      */
     public void setMarkersDirectory( File theMarkersDirectory )
     {
         this.markersDirectory = theMarkersDirectory;
     }
-    
-   
+
     /**
      * @return Returns a comma separated list of excluded items
      */
-    public String getExcludes ()
+    public String getExcludes()
     {
         return this.excludes;
     }
-    
+
     /**
-     * @param excludes 
-     *          A comma separated list of items to exclude 
-     *          i.e.  **\/*.xml, **\/*.properties
+     * @param excludes A comma separated list of items to exclude i.e. **\/*.xml, **\/*.properties
      */
-    public void setExcludes ( String excludes )
+    public void setExcludes( String excludes )
     {
         this.excludes = excludes;
     }
-    
+
     /**
      * @return Returns a comma separated list of included items
      */
@@ -462,11 +452,9 @@ public class UnpackMojo extends AbstractFromConfigurationMojo
     }
 
     /**
-     * @param includes
-     *          A comma separated list of items to include 
-     *          i.e.  **\/*.xml, **\/*.properties
+     * @param includes A comma separated list of items to include i.e. **\/*.xml, **\/*.properties
      */
-    public void setIncludes ( String includes )
+    public void setIncludes( String includes )
     {
         this.includes = includes;
     }

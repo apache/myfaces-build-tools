@@ -23,8 +23,11 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactCollector;
+import org.apache.maven.artifact.resolver.ArtifactResolver;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.dependency.utils.DependencySilentLog;
@@ -49,25 +52,21 @@ public abstract class AbstractDependencyMojo
 {
     /**
      * Used to look up Artifacts in the remote repository.
-     * 
-     * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
-     * @required
-     * @readonly
+     *
+     * @component
      */
-    protected org.apache.maven.artifact.factory.ArtifactFactory factory;
+    protected ArtifactFactory factory;
 
     /**
      * Used to look up Artifacts in the remote repository.
-     * 
-     * @parameter expression="${component.org.apache.maven.artifact.resolver.ArtifactResolver}"
-     * @required
-     * @readonly
+     *
+     * @component
      */
-    protected org.apache.maven.artifact.resolver.ArtifactResolver resolver;
+    protected ArtifactResolver resolver;
 
     /**
      * Artifact collector, needed to resolve dependencies.
-     * 
+     *
      * @component role="org.apache.maven.artifact.resolver.ArtifactCollector"
      * @required
      * @readonly
@@ -84,34 +83,32 @@ public abstract class AbstractDependencyMojo
 
     /**
      * Location of the local repository.
-     * 
+     *
      * @parameter expression="${localRepository}"
      * @readonly
      * @required
      */
-    protected org.apache.maven.artifact.repository.ArtifactRepository local;
+    private ArtifactRepository local;
 
     /**
      * List of Remote Repositories used by the resolver
-     * 
+     *
      * @parameter expression="${project.remoteArtifactRepositories}"
      * @readonly
      * @required
      */
-    protected java.util.List remoteRepos;
+    protected List<ArtifactRepository> remoteRepos;
 
     /**
      * To look up Archiver/UnArchiver implementations
-     * 
-     * @parameter expression="${component.org.codehaus.plexus.archiver.manager.ArchiverManager}"
-     * @required
-     * @readonly
+     *
+     * @component
      */
     protected ArchiverManager archiverManager;
 
     /**
      * POM
-     * 
+     *
      * @parameter expression="${project}"
      * @readonly
      * @required
@@ -120,16 +117,16 @@ public abstract class AbstractDependencyMojo
 
     /**
      * Contains the full list of projects in the reactor.
-     * 
+     *
      * @parameter expression="${reactorProjects}"
      * @required
      * @readonly
      */
-    protected List reactorProjects;
+    protected List<MavenProject> reactorProjects;
 
     /**
      * If the plugin should be silent.
-     * 
+     *
      * @optional
      * @since 2.0
      * @parameter expression="${silent}"
@@ -139,7 +136,7 @@ public abstract class AbstractDependencyMojo
 
     /**
      * Output absolute filename for resolved artifacts
-     * 
+     *
      * @optional
      * @since 2.0
      * @parameter expression="${outputAbsoluteArtifactFilename}"
@@ -152,7 +149,7 @@ public abstract class AbstractDependencyMojo
     /**
      * @return Returns the log.
      */
-    public Log getLog ()
+    public Log getLog()
     {
         if ( silent )
         {
@@ -169,21 +166,21 @@ public abstract class AbstractDependencyMojo
     /**
      * @return Returns the archiverManager.
      */
-    public ArchiverManager getArchiverManager ()
+    public ArchiverManager getArchiverManager()
     {
         return this.archiverManager;
     }
 
     /**
      * Does the actual copy of the file and logging.
-     * 
+     *
      * @param artifact represents the file to copy.
      * @param destFile file name of destination file.
-     * 
+     *
      * @throws MojoExecutionException with a message if an
      *             error occurs.
      */
-    protected void copyFile ( File artifact, File destFile )
+    protected void copyFile( File artifact, File destFile )
         throws MojoExecutionException
     {
         Log theLog = this.getLog();
@@ -201,7 +198,7 @@ public abstract class AbstractDependencyMojo
         }
     }
 
-    protected void unpack ( File file, File location )
+    protected void unpack( File file, File location )
         throws MojoExecutionException
     {
         unpack( file, location, null, null );
@@ -209,25 +206,20 @@ public abstract class AbstractDependencyMojo
 
     /**
      * Unpacks the archive file.
-     * 
+     *
      * @param file File to be unpacked.
-     * @param location Location where to put the unpacked
-     *            files.
-     * @param includes Comma separated list of file patterns
-     *            to include i.e. **\/*.xml,
-     *            **\/*.properties
-     * @param excludes Comma separated list of file patterns
-     *            to exclude i.e. **\/*.xml,
-     *            **\/*.properties
+     * @param location Location where to put the unpacked files.
+     * @param includes Comma separated list of file patterns to include i.e. <code>**&#47;.xml,
+     *            **&#47;*.properties</code>
+     * @param excludes Comma separated list of file patterns to exclude i.e. <code>**&#47;*.xml,
+     *            **&#47;*.properties</code>
      */
-    protected void unpack ( File file, File location, String includes, String excludes )
+    protected void unpack( File file, File location, String includes, String excludes )
         throws MojoExecutionException
     {
         try
         {
-            getLog().info(
-                            "Unpacking " + file.getPath() + "to\n " + location.getPath()
-                                + "\nwith Includes " + includes + " and excludes:" + excludes );
+            logUnpack( file, location, includes, excludes );
 
             location.mkdirs();
 
@@ -244,10 +236,7 @@ public abstract class AbstractDependencyMojo
                 // Create the selectors that will filter
                 // based on include/exclude parameters
                 // MDEP-47
-                IncludeExcludeFileSelector[] selectors = new IncludeExcludeFileSelector[]
-                    {
-                        new IncludeExcludeFileSelector() 
-                    };
+                IncludeExcludeFileSelector[] selectors = new IncludeExcludeFileSelector[] { new IncludeExcludeFileSelector() };
 
                 if ( StringUtils.isNotEmpty( excludes ) )
                 {
@@ -280,11 +269,9 @@ public abstract class AbstractDependencyMojo
         }
     }
 
-    private void silenceUnarchiver ( UnArchiver unArchiver )
+    private void silenceUnarchiver( UnArchiver unArchiver )
     {
-        // dangerous but handle any errors. It's the only
-        // way to silence the
-        // unArchiver.
+        // dangerous but handle any errors. It's the only way to silence the unArchiver.
         try
         {
             Field field = ReflectionUtils.getFieldByNameIncludingSuperclasses( "logger", unArchiver.getClass() );
@@ -295,15 +282,14 @@ public abstract class AbstractDependencyMojo
         }
         catch ( Exception e )
         {
-            // was a nice try. Don't bother logging because
-            // the log is silent.
+            // was a nice try. Don't bother logging because the log is silent.
         }
     }
 
     /**
      * @return Returns the factory.
      */
-    public org.apache.maven.artifact.factory.ArtifactFactory getFactory ()
+    public ArtifactFactory getFactory()
     {
         return this.factory;
     }
@@ -311,7 +297,7 @@ public abstract class AbstractDependencyMojo
     /**
      * @param factory The factory to set.
      */
-    public void setFactory ( org.apache.maven.artifact.factory.ArtifactFactory factory )
+    public void setFactory( ArtifactFactory factory )
     {
         this.factory = factory;
     }
@@ -319,7 +305,7 @@ public abstract class AbstractDependencyMojo
     /**
      * @return Returns the project.
      */
-    public MavenProject getProject ()
+    public MavenProject getProject()
     {
         return this.project;
     }
@@ -327,7 +313,7 @@ public abstract class AbstractDependencyMojo
     /**
      * @return Returns the local.
      */
-    public org.apache.maven.artifact.repository.ArtifactRepository getLocal ()
+    protected ArtifactRepository getLocal()
     {
         return this.local;
     }
@@ -335,7 +321,7 @@ public abstract class AbstractDependencyMojo
     /**
      * @param local The local to set.
      */
-    public void setLocal ( org.apache.maven.artifact.repository.ArtifactRepository local )
+    public void setLocal( ArtifactRepository local )
     {
         this.local = local;
     }
@@ -343,7 +329,7 @@ public abstract class AbstractDependencyMojo
     /**
      * @return Returns the remoteRepos.
      */
-    public java.util.List getRemoteRepos ()
+    public List<ArtifactRepository> getRemoteRepos()
     {
         return this.remoteRepos;
     }
@@ -351,7 +337,7 @@ public abstract class AbstractDependencyMojo
     /**
      * @param remoteRepos The remoteRepos to set.
      */
-    public void setRemoteRepos ( java.util.List remoteRepos )
+    public void setRemoteRepos( List<ArtifactRepository> remoteRepos )
     {
         this.remoteRepos = remoteRepos;
     }
@@ -359,7 +345,7 @@ public abstract class AbstractDependencyMojo
     /**
      * @return Returns the resolver.
      */
-    public org.apache.maven.artifact.resolver.ArtifactResolver getResolver ()
+    public org.apache.maven.artifact.resolver.ArtifactResolver getResolver()
     {
         return this.resolver;
     }
@@ -367,7 +353,7 @@ public abstract class AbstractDependencyMojo
     /**
      * @param resolver The resolver to set.
      */
-    public void setResolver ( org.apache.maven.artifact.resolver.ArtifactResolver resolver )
+    public void setResolver( ArtifactResolver resolver )
     {
         this.resolver = resolver;
     }
@@ -375,7 +361,7 @@ public abstract class AbstractDependencyMojo
     /**
      * @param archiverManager The archiverManager to set.
      */
-    public void setArchiverManager ( ArchiverManager archiverManager )
+    public void setArchiverManager( ArchiverManager archiverManager )
     {
         this.archiverManager = archiverManager;
     }
@@ -383,16 +369,15 @@ public abstract class AbstractDependencyMojo
     /**
      * @return Returns the artifactCollector.
      */
-    public ArtifactCollector getArtifactCollector ()
+    public ArtifactCollector getArtifactCollector()
     {
         return this.artifactCollector;
     }
 
     /**
-     * @param theArtifactCollector The artifactCollector to
-     *            set.
+     * @param theArtifactCollector The artifactCollector to set.
      */
-    public void setArtifactCollector ( ArtifactCollector theArtifactCollector )
+    public void setArtifactCollector( ArtifactCollector theArtifactCollector )
     {
         this.artifactCollector = theArtifactCollector;
     }
@@ -400,17 +385,53 @@ public abstract class AbstractDependencyMojo
     /**
      * @return Returns the artifactMetadataSource.
      */
-    public ArtifactMetadataSource getArtifactMetadataSource ()
+    public ArtifactMetadataSource getArtifactMetadataSource()
     {
         return this.artifactMetadataSource;
     }
 
     /**
-     * @param theArtifactMetadataSource The
-     *            artifactMetadataSource to set.
+     * @param theArtifactMetadataSource The artifactMetadataSource to set.
      */
-    public void setArtifactMetadataSource ( ArtifactMetadataSource theArtifactMetadataSource )
+    public void setArtifactMetadataSource( ArtifactMetadataSource theArtifactMetadataSource )
     {
         this.artifactMetadataSource = theArtifactMetadataSource;
+    }
+
+    private void logUnpack( File file, File location, String includes, String excludes )
+    {
+        if ( !getLog().isInfoEnabled() )
+        {
+            return;
+        }
+
+        StringBuffer msg = new StringBuffer();
+        msg.append( "Unpacking " );
+        msg.append( file );
+        msg.append( " to " );
+        msg.append( location );
+
+        if ( includes != null && excludes != null )
+        {
+            msg.append( " with includes \"" );
+            msg.append( includes );
+            msg.append( "\" and excludes \"" );
+            msg.append( excludes );
+            msg.append( "\"" );
+        }
+        else if ( includes != null )
+        {
+            msg.append( " with includes \"" );
+            msg.append( includes );
+            msg.append( "\"" );
+        }
+        else if ( excludes != null )
+        {
+            msg.append( " with excludes \"" );
+            msg.append( excludes );
+            msg.append( "\"" );
+        }
+
+        getLog().info( msg.toString() );
     }
 }
