@@ -121,6 +121,7 @@
     <module>myfaces-archetype-jsfcomponents20</module>
     <module>myfaces-archetype-codi-jsf12</module>
     <module>myfaces-archetype-codi-jsf20</module>
+    <module>myfaces-archetype-core-integration-test</module>
   </modules>
 
   <distributionManagement>

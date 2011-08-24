@@ -1,0 +1,46 @@
+ ------
+ MyFaces Core Integration-Test Archetype
+ ------
+
+Overview
+
+  This project defines a Maven archetype. Running the archetype plugin with this archetype will
+  create a directory tree containing the files needed to quickly get started on a new integration
+  test for MyFaces core 2.x.
+
+Usage
+
+  Use the following maven command and then select myfaces-archetype-core-integration-test from the options.
+
+
++------------------------------------------------------------------+
+mvn archetype:generate -DarchetypeCatalog=http://myfaces.apache.org
++------------------------------------------------------------------+
+
+  You will then be prompted for some archetype specific properties, which will look like this:
+
++------------------------------------------------------------------+
+Define value for property 'artifactId': : myfaces-1234-tests
+Define value for property 'environmentType': : 0
+Define value for property 'issueId': : MYFACES-1234
++------------------------------------------------------------------+
+
+  All other properties (like e.g. groupId) will automatically be configured. As shown above, you need
+  to provide 3 properties:
+
+  * artifactId is the artifactId for the maven project, you should use #\{issueId\}-tests as shown above.
+
+  * environmentType defines which type of environment should be used.
+
+    * 0: servlet 2.5 and el 1.0
+
+    * 1: servlet 2.5 and el 2.2
+
+    * 2: servlet 3.0 and el 2.2
+
+  * issueId is the issue-id of the JIRA issue which this integration test addresses
+
+  []
+
+  The version of the project is automatically set to a default value (e.g. 2.0.9-SNAPSHOT). If you
+  want to test a different version, you have to change this manually in the pom.xml.
