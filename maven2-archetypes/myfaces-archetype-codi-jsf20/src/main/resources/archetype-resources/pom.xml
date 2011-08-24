@@ -32,10 +32,10 @@
     <url>http://www.myorganization.org</url>
 
     <properties>
-        <jsf-myfaces.version>2.0.5</jsf-myfaces.version>
-        <jsf-mojarra.version>2.0.5-b02</jsf-mojarra.version>
+        <jsf-myfaces.version>2.0.7</jsf-myfaces.version>
+        <jsf-mojarra.version>2.0.6</jsf-mojarra.version>
         <openwebbeans.version>1.1.0</openwebbeans.version>
-        <codi.version>0.9.4</codi.version>
+        <codi.version>1.0.1</codi.version>
         <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
     </properties>
 
@@ -313,8 +313,8 @@
 
         <!-- OPTIONAL: use the all-in-one jar instead of the individual CODI module dependencies -->
         <!--dependency>
-            <groupId>org.apache.myfaces.extensions.cdi</groupId>
-            <artifactId>myfaces-extcdi-dist-jsf20</artifactId>
+            <groupId>org.apache.myfaces.extensions.cdi.bundles</groupId>
+            <artifactId>myfaces-extcdi-bundle-jsf20</artifactId>
             <version>${symbol_dollar}{codi.version}</version>
             <scope>compile</scope>
         </dependency-->
