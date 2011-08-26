@@ -61,6 +61,7 @@
     <module>myfaces-i18n-plugin</module>
     <module>myfaces-javacc-plugin</module>
     <module>myfaces-javascript-plugin</module>
+    <module>myfaces-jsdoc-plugin</module>
     <module>myfaces-jdev-plugin</module>
     <module>myfaces-tagdoc-plugin</module>
     <module>myfaces-wagon-plugin</module>
