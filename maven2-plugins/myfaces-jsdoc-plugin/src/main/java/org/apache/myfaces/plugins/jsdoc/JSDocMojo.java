@@ -30,6 +30,7 @@ import org.apache.myfaces.plugins.jsdoc.util.JSFileNameFilter;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -250,7 +251,18 @@ public class JSDocMojo extends AbstractMojo
     private void copyJavascripts() throws IOException
     {
         getLog().info("[JSDOC] Copying all javascript sources to the target dir for later reference");
-        FileUtils.copyDirectory(new File(buildSourceDirectory), new File(javascriptTargetPath));
+        FileUtils.copyDirectory(new File(buildSourceDirectory), new File(javascriptTargetPath), new FileFilter()
+        {
+            
+            public boolean accept(File pathname)
+            {
+                if (pathname.getName().endsWith(".svn"))
+                {
+                    return false;
+                }
+                return true;
+            }
+        });
         getLog().info("[JSDOC] Copying done without any errors");
     }
 
