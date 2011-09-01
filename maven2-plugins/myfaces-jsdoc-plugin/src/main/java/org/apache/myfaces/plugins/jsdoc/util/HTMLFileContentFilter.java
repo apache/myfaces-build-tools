@@ -20,6 +20,7 @@ package org.apache.myfaces.plugins.jsdoc.util;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,10 +39,12 @@ public class HTMLFileContentFilter implements IOFileFilter
 {
 
     String substitutionDir;
+    String substitutionName;
 
     public HTMLFileContentFilter(String substitutionDir)
     {
         this.substitutionDir = substitutionDir;
+        this.substitutionName = substitutionDir.replace('/', '_').replace('\\', '_').replace(':', '_');
     }
 
     private boolean fixFile(String fileName) throws IOException
@@ -58,7 +61,10 @@ public class HTMLFileContentFilter implements IOFileFilter
         {
             Object line = it.next();
             String sLine = (String) line;
-            targetLines.add(sLine.replaceAll(substitutionDir, ""));
+            //targetLines.add(sLine.replaceAll(substitutionDir, ""));
+            String targetLine = StringUtils.replace(sLine, substitutionDir, "");
+            targetLine =  StringUtils.replace(targetLine, substitutionName, "");
+            targetLines.add(targetLine);
         }
         FileUtils.writeLines(new File(fileName), targetLines);
         return true;
@@ -72,7 +78,15 @@ public class HTMLFileContentFilter implements IOFileFilter
         }
         try
         {
-            fixFile(file.getAbsolutePath());
+            if (file.getName().startsWith(substitutionName))
+            {
+                String newName = file.getName().substring(substitutionName.length());
+                file.renameTo(new File(file.getParentFile(), newName));
+            }
+            else
+            {
+                fixFile(file.getAbsolutePath());
+            }
         }
         catch (IOException e)
         {
@@ -89,7 +103,15 @@ public class HTMLFileContentFilter implements IOFileFilter
         }
         try
         {
-            fixFile(file.getAbsolutePath() + File.separator + s);
+            if (s.startsWith(substitutionName))
+            {
+                String newName = s.substring(substitutionName.length());
+                file.renameTo(new File(file.getParentFile(), newName));
+            }
+            else
+            {
+                fixFile(file.getAbsolutePath() + File.separator + s);
+            }
         }
         catch (IOException e)
         {

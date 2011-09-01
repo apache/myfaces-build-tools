@@ -47,6 +47,10 @@ public class JSFileNameFilter implements IOFileFilter
     private boolean matchNames(String fileName)
     {
         Iterator it = _fileMap.getFileNames().iterator();
+        if (fileName != null)
+        {
+            fileName = fileName.replace('\\', '/');
+        }
         while (it.hasNext())
         {
             String matchPattern = (String) it.next();
