@@ -163,9 +163,16 @@ public class JSDocMojo extends AbstractMojo
         jsdocPathCreator.mkdirs();
     }
 
-    public void _tearDown()
+    public void _tearDown() throws MojoExecutionException
     {
-
+        try
+        {
+            FileUtils.deleteDirectory(new File(jsdocEngineUnpacked));
+        }
+        catch (IOException e)
+        {
+            throw new MojoExecutionException(e.toString());
+        }
     }
 
     protected void _execute() throws MojoExecutionException, IOException
@@ -335,6 +342,10 @@ public class JSDocMojo extends AbstractMojo
         catch (IOException e)
         {
             throw new MojoExecutionException(e.toString());
+        }
+        finally
+        {
+            _tearDown();
         }
 
     }
