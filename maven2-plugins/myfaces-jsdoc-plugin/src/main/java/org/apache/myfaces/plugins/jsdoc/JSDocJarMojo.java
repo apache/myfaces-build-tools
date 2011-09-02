@@ -164,7 +164,7 @@ public class JSDocJarMojo extends AbstractJSDocMojo
                     // TODO: these introduced dependencies on the project are going to
                     // become problematic - can we export it
                     //  through metadata instead?
-                    projectHelper.attachArtifact( project, "jsdoc", getClassifier(), outputFile );
+                    projectHelper.attachArtifact( project, "jar", getClassifier(), outputFile );
                 }
             }
         }
