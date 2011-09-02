@@ -35,14 +35,9 @@
     <name>Apache MyFaces Buildtools Maven2 Javascript Documentation Plugin</name>
 
     <scm>
-        <connection>
-            scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-javascript-plugin
-        </connection>
-        <developerConnection>
-            scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-javascript-plugin
-        </developerConnection>
-        <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-javascript-plugin
-        </url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-jsdoc-plugin</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-jsdoc-plugin</developerConnection>
+        <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-jsdoc-plugin</url>
     </scm>
 
     <properties>
