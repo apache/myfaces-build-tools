@@ -81,7 +81,12 @@ public class HTMLFileContentFilter implements IOFileFilter
             if (file.getName().startsWith(substitutionName))
             {
                 String newName = file.getName().substring(substitutionName.length());
-                file.renameTo(new File(file.getParentFile(), newName));
+                File renameFile = new File(file.getParentFile(), newName);
+                if (renameFile.exists())
+                {
+                    renameFile.delete();
+                }
+                file.renameTo(renameFile);
             }
             else
             {
@@ -106,7 +111,12 @@ public class HTMLFileContentFilter implements IOFileFilter
             if (s.startsWith(substitutionName))
             {
                 String newName = s.substring(substitutionName.length());
-                file.renameTo(new File(file.getParentFile(), newName));
+                File renameFile = new File(file.getParentFile(), newName);
+                if (renameFile.exists())
+                {
+                    renameFile.delete();
+                }
+                file.renameTo(renameFile);
             }
             else
             {
