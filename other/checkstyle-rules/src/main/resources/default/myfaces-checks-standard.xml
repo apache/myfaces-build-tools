@@ -59,11 +59,6 @@
     <module name="FileLength">
         <property name="fileExtensions" value="java"/>
     </module>
-    <module name="LineLength">
-        <property name="max" value="120" />
-        <property name="ignorePattern" value="@version|@see"/>
-    </module>
-        
         
     <module name="TreeWalker">
 
@@ -84,6 +79,11 @@
         </module>
 -->
 
+        <module name="LineLength">
+            <property name="max" value="120" />
+            <property name="ignorePattern" value="@version|@see"/>
+        </module>
+        
         <module name="ConstantName">
           <!-- Normal rules, except that:
              -  * any name can start with an underscore.
@@ -112,7 +112,9 @@
 
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
-        <module name="AvoidStarImport"/>
+        <module name="AvoidStarImport">
+            <property name="allowStaticMemberImports" value="true"/>
+        </module>
         <module name="IllegalImport"/>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
