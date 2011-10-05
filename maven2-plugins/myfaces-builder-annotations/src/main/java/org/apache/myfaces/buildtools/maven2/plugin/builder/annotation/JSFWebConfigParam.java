@@ -57,4 +57,62 @@ public @interface JSFWebConfigParam
      * 
      */
     String since() default "";
+
+    /**
+     * The group which the param belongs. 
+     * 
+     * <p>These are the groups used in myfaces core:</p>
+     * <ul>
+     * <li>state</li>
+     * <li>resources</li>
+     * <li>viewhandler</li>
+     * <li>validation</li>
+     * <li>render</li>
+     * <li>EL</li>
+     * </ul>
+     * 
+     * @return
+     */
+    String group() default "";
+
+    /**
+     * The tag(s) or clasification(s), separated by commas
+     * that this web config param can be clasified. 
+     * 
+     * <p>These are the tags used in myfaces core:</p>
+     * <ul>
+     * <li>tomahawk</li>
+     * <li>performance</li>
+     * </ul>
+     * 
+     * 
+     * @return
+     */
+    String tags() default "";
+    
+    /**
+     * Indicate if the param was deprecated or not.
+     * 
+     * @return
+     */
+    boolean deprecated() default false;
+
+    /**
+     * Indicate an alias or alternate name for this param. 
+     * @return
+     */
+    String alias() default "";
+    
+    /**
+     * Indicate if this param ignore upper or lower case when read params 
+     * @return
+     */
+    boolean ignoreUpperLowerCase() default false;
+    
+    /**
+     * The java type or class which this param is converted
+     * 
+     * @return
+     */
+    String classType() default "";
 }

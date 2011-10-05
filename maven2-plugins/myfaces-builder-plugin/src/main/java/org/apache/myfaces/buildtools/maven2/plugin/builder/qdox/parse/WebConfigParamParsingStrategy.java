@@ -96,6 +96,12 @@ public class WebConfigParamParsingStrategy implements JavaClassParsingStrategy
         String defaultValue = QdoxHelper.getString(clazz,"defaultValue",props,null);
         String expectedValues = QdoxHelper.getString(clazz,"expectedValues",props,null);
         String since = QdoxHelper.getString(clazz,"since",props,null);
+        String group = QdoxHelper.getString(clazz,"group",props,null);
+        String tags = QdoxHelper.getString(clazz,"tags",props,null);
+        Boolean deprecated = QdoxHelper.getBoolean(clazz,"deprecated",props,null);
+        String alias = QdoxHelper.getString(clazz,"alias",props,null);
+        Boolean ignoreUpperLowerCase  = QdoxHelper.getBoolean(clazz, "ignoreUpperLowerCase", props, null);
+        String classType = QdoxHelper.getString(clazz,"classType",props,null);
         
         WebConfigParamMeta wcp = new WebConfigParamMeta();
         wcp.setName(name);
@@ -106,6 +112,12 @@ public class WebConfigParamParsingStrategy implements JavaClassParsingStrategy
         wcp.setLongDescription(longDescription);
         wcp.setDescription(shortDescription);
         wcp.setSince(since);
+        wcp.setGroup(group);
+        wcp.setTags(tags);
+        wcp.setDeprecated(deprecated);
+        wcp.setAlias(alias);
+        wcp.setIgnoreUpperLowerCase(ignoreUpperLowerCase);
+        wcp.setClassType(classType);
         webConfig.addWebConfigParam(wcp);
     }
 }

@@ -38,6 +38,12 @@ public class WebConfigParamMeta
     private String _expectedValues;
     private String _sourceClassName;
     private String _since;
+    private String _group;
+    private String _tags;
+    private Boolean _deprecated;
+    private String _alias;
+    private Boolean _ignoreUpperLowerCase;
+    private String _classType;
 
     public WebConfigParamMeta()
     {
@@ -53,6 +59,12 @@ public class WebConfigParamMeta
         _defaultValue = pm._defaultValue;
         _expectedValues = pm._expectedValues;
         _since = pm._since;
+        _group = pm._group;
+        _tags = pm._tags;
+        _deprecated = pm._deprecated;
+        _alias = pm._alias;
+        _ignoreUpperLowerCase = pm._ignoreUpperLowerCase;
+        _classType = pm._classType;
     }
     
     /**
@@ -69,6 +81,12 @@ public class WebConfigParamMeta
         out.writeElement("expectedValues", pm._expectedValues);
         out.writeElement("sourceClassName", pm._sourceClassName);
         out.writeElement("since", pm._since);
+        out.writeElement("group", pm._group);
+        out.writeElement("tags", pm._tags);
+        out.writeElement("deprecated", pm._deprecated);
+        out.writeElement("alias", pm._alias);
+        out.writeElement("ignoreUpperLowerCase", pm._ignoreUpperLowerCase);
+        out.writeElement("classType", pm._classType);
         out.endElement("webConfigParam");
     }
 
@@ -90,6 +108,12 @@ public class WebConfigParamMeta
         digester.addBeanPropertySetter(newPrefix + "/longDesc", "longDescription");
         digester.addBeanPropertySetter(newPrefix + "/defaultValue", "defaultValue");
         digester.addBeanPropertySetter(newPrefix + "/expectedValues", "expectedValues");
+        digester.addBeanPropertySetter(newPrefix + "/group", "group");
+        digester.addBeanPropertySetter(newPrefix + "/tags", "tags");
+        digester.addBeanPropertySetter(newPrefix + "/deprecated", "deprecated");
+        digester.addBeanPropertySetter(newPrefix + "/alias", "alias");
+        digester.addBeanPropertySetter(newPrefix + "/ignoreUpperLowerCase", "ignoreUpperLowerCase");
+        digester.addBeanPropertySetter(newPrefix + "/classType", "classType");
         MethodSignatureMeta.addXmlRules(digester, newPrefix);
         
     }
@@ -109,6 +133,12 @@ public class WebConfigParamMeta
         _defaultValue = ModelUtils.merge(this._defaultValue, other._defaultValue);
         _sourceClassName = ModelUtils.merge(this._sourceClassName, other._sourceClassName);
         _since = ModelUtils.merge(this._since, other._since);
+        _group = ModelUtils.merge(this._group, other._group);
+        _tags = ModelUtils.merge(this._tags, other._tags);
+        _deprecated = ModelUtils.merge(this._deprecated, other._deprecated);
+        _alias = ModelUtils.merge(this._alias, other._alias);
+        _ignoreUpperLowerCase = ModelUtils.merge(this._ignoreUpperLowerCase, other._ignoreUpperLowerCase);
+        _classType = ModelUtils.merge(this._classType, other._classType);
         setExpectedValues(ModelUtils.merge(this._expectedValues, other._expectedValues));
     }
 
@@ -223,5 +253,92 @@ public class WebConfigParamMeta
     public void setSince(String since)
     {
         _since = since;
+    }
+
+    public String getGroup()
+    {
+        return _group;
+    }
+
+    public void setGroup(String group)
+    {
+        this._group = group;
+    }
+
+    public String getTags()
+    {
+        return _tags;
+    }
+
+    public void setTags(String tags)
+    {
+        this._tags = tags;
+    }
+
+    public Boolean isDeprecated()
+    {
+        return ModelUtils.defaultOf(_deprecated, false);
+    }
+
+    public void setDeprecated(Boolean deprecated)
+    {
+        this._deprecated = deprecated;
+    }
+
+    public String getAlias()
+    {
+        return _alias;
+    }
+
+    public void setAlias(String alias)
+    {
+        this._alias = alias;
+    }
+
+    public Boolean isIgnoreUpperLowerCase()
+    {
+        return ModelUtils.defaultOf(_ignoreUpperLowerCase, false);
+    }
+
+    public void setIgnoreUpperLowerCase(Boolean ignoreUpperLowerCase)
+    {
+        this._ignoreUpperLowerCase = ignoreUpperLowerCase;
+    }
+    
+    public String getClassType()
+    {
+        return _classType;
+    }
+
+    public void setClassType(String classType)
+    {
+        this._classType = classType;
+    }
+
+    public boolean containsTag(String tag)
+    {
+        if (this.getGroup() != null && this.getGroup().equals(tag))
+        {
+            return true;
+        }
+        if (this.getTags() != null)
+        {
+            String [] splitTags =  StringUtils.split(getTags(), ',');
+            if (splitTags != null && splitTags.length > 0)
+            {
+                for (int i = 0; i < splitTags.length; i++)
+                {
+                    String s = splitTags[i];
+                    if (s != null && s.length() > 0)
+                    {
+                        if (s.trim().equals(tag))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
