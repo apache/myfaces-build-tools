@@ -43,6 +43,16 @@
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
     <!-- module name="Translation"/ -->
 
+    <!-- Checks for Headers                              -->
+    <!-- See http://checkstyle.sf.net/config_header.html -->
+    <module name="Header">
+        <property name="headerFile" value="${checkstyle.header.file}"/>
+    </module>
+    
+    <!-- Checks for whitespace                               -->
+    <!-- See http://checkstyle.sf.net/config_whitespace.html -->
+    <module name="FileTabCharacter"/>
+
     <module name="TreeWalker">
 
         <property name="cacheFile" value="${checkstyle.cache.file}"/>
@@ -86,12 +96,6 @@
           <property name="format" value="^_?[A-Z][a-zA-Z0-9]*$"/>
         </module>
 
-
-        <!-- Checks for Headers                              -->
-        <!-- See http://checkstyle.sf.net/config_header.html -->
-        <module name="Header">
-            <property name="headerFile" value="${checkstyle.header.file}"/>
-        </module>
 
 
         <!-- Checks for imports                              -->
