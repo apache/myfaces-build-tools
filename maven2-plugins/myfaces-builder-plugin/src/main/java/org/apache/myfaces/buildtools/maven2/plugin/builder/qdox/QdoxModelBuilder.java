@@ -43,6 +43,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.ClientBeha
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.ClientBehaviorRendererParsingStrategy;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.ComponentParsingStrategy;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.ConverterParsingStrategy;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.FaceletFunctionParsingStrategy;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.FaceletTagParsingStrategy;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.JspTagParsingStrategy;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.RenderKitParsingStrategy;
@@ -256,6 +257,7 @@ public class QdoxModelBuilder implements ModelBuilder
         context.addStrategy(new RenderKitParsingStrategy());
         context.addStrategy(new ValidatorParsingStrategy());
         context.addStrategy(new WebConfigParamParsingStrategy());
+        context.addStrategy(new FaceletFunctionParsingStrategy());
         
         context.parseClass(clazz, model);
     }

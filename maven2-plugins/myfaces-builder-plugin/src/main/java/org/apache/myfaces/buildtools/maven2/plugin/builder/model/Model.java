@@ -40,6 +40,7 @@ public class Model
     private List _renderKits = new ArrayList(100);
     private List _tags = new ArrayList(100);
     private List _faceletTags = new ArrayList(100);
+    private List _faceletFunctions = new ArrayList(100);
     private List _webConfigs = new ArrayList(10);
 
     private Map _componentsByClass = new TreeMap();
@@ -51,6 +52,7 @@ public class Model
     private Map _faceletTagsByClass =  new TreeMap();
     private Map _componentsByTagClass = new TreeMap();
     private Map _faceletTagsByName = new TreeMap();
+    private Map _faceletFunctionsByName = new TreeMap();
     private Map _webConfigsByModelId = new TreeMap();
     
     private Map _componentsByType = new TreeMap();
@@ -116,6 +118,12 @@ public class Model
             WebConfigMeta c = (WebConfigMeta) i.next();
             c.writeXml(out);
         }
+        
+        for (Iterator i = model._faceletFunctions.iterator(); i.hasNext();)
+        {
+            FaceletFunctionMeta c = (FaceletFunctionMeta) i.next();
+            c.writeXml(out);
+        }
 
         out.endElement("model");
     }
@@ -143,6 +151,7 @@ public class Model
         TagMeta.addXmlRules(digester, prefix);
         FaceletTagMeta.addXmlRules(digester, prefix);
         WebConfigMeta.addXmlRules(digester, prefix);
+        FaceletFunctionMeta.addXmlRules(digester, prefix);
     }
     
     /**
@@ -214,6 +223,16 @@ public class Model
                 this.addFaceletTag(faceletTag);
             }
         }
+        
+        for (Iterator it = other.getFaceletFunctions().iterator(); it.hasNext();)
+        {
+            FaceletFunctionMeta faceletTag = (FaceletFunctionMeta) it.next();
+            
+            if (this.findFaceletFunctionByName(faceletTag.getName())== null)
+            {
+                this.addFaceletFunction(faceletTag);
+            }
+        }        
         
         for (Iterator it = other.getWebConfigs().iterator(); it.hasNext();)
         {
@@ -496,6 +515,49 @@ public class Model
     {
         return (FaceletTagMeta) _faceletTagsByName.get(name);
     }
+    
+    /**
+     * Adds a tag to this faces config document.
+     * 
+     * @since 1.0.10
+     * @param tag
+     *            the tag to add
+     */
+    public void addFaceletFunction(FaceletFunctionMeta tag)
+    {
+        _faceletFunctions.add(tag);
+        if (tag.getName() != null)
+        {
+            _faceletFunctionsByName.put(tag.getName(), tag);
+        }
+    }
+
+    /**
+     * Returns all tags
+     * @since 1.0.10
+     */
+    public List getFaceletFunctions()
+    {
+        return _faceletFunctions;
+    }
+
+    /**
+     * Returns an iterator for all tags.
+     * @since 1.0.10
+     */
+    public Iterator faceletFunctions()
+    {
+        return _faceletFunctions.iterator();
+    }
+
+    /**
+     * @since 1.0.10
+     */
+    public FaceletFunctionMeta findFaceletFunctionByName(String name)
+    {
+        return (FaceletFunctionMeta) _faceletFunctionsByName.get(name);
+    }
+
     
     /**
      * @since 1.0.4
