@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
  *
  */
 @Documented
-@Target(ElementType.TYPE)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.SOURCE)
 public @interface JSFFaceletFunction
 {
