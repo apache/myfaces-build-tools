@@ -26,8 +26,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
@@ -63,7 +63,7 @@ import com.thoughtworks.qdox.JavaDocBuilder;
  * @goal make-validators
  * @phase generate-sources
  */
-public class MakeValidatorsMojo extends AbstractMojo
+public class MakeValidatorsMojo extends AbstractBuilderMojo
 {
     /**
      * Injected Maven project.
@@ -197,10 +197,14 @@ public class MakeValidatorsMojo extends AbstractMojo
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());
             }
-            Model model = IOUtils.loadModel(new File(buildDirectory,
-                    metadataFile));
+            File mdFile = new File(buildDirectory, metadataFile);
+            Model model = IOUtils.loadModel(mdFile);
             new Flattener(model).flatten();
-            generateValidators(model);
+            
+            Properties cacheInfo = new Properties();
+            loadCache(cacheInfo);
+            generateValidators(model, cacheInfo, mdFile.lastModified() );
+            storeCache(cacheInfo);
         }
         catch (IOException e)
         {
@@ -211,7 +215,6 @@ public class MakeValidatorsMojo extends AbstractMojo
             throw new MojoExecutionException("Error generating validators", e);
         }
     }
-    
     
     private VelocityEngine initVelocity() throws MojoExecutionException
     {
@@ -261,12 +264,76 @@ public class MakeValidatorsMojo extends AbstractMojo
     /**
      * Generates parsed validators.
      */
-    private void generateValidators(Model model) throws IOException,
+    private void generateValidators(Model model, Properties cachedInfo, long lastModifiedMetadata) throws IOException,
             MojoExecutionException
     {
         // Make sure generated source directory 
         // is added to compilation source path 
         //project.addCompileSourceRoot(generatedSourceDirectory.getCanonicalPath());
+        File tf = new File(templateSourceDirectory, _getTemplateName());
+        
+        if (isCachingEnabled())
+        {
+            boolean upToDate = true;
+            for (Iterator it = model.getValidators().iterator(); it.hasNext();)
+            {
+                ValidatorMeta validator = (ValidatorMeta) it.next();
+                
+                if (validator.getClassName() != null)
+                {
+                    File f = new File(mainSourceDirectory, StringUtils.replace(
+                        validator.getClassName(), ".", "/")+".java");
+                                    
+                    if (!f.exists() && canGenerateValidator(validator))
+                    {
+                        if (mainSourceDirectory2 != null)
+                        {
+                            File f2 = new File(mainSourceDirectory2, StringUtils.replace(
+                                    validator.getClassName(), ".", "/")+".java");
+                            if (f2.exists())
+                            {
+                                //Skip
+                                continue;
+                            }
+                        }
+    
+                        File outFile = new File(generatedSourceDirectory, StringUtils.replace(
+                                validator.getClassName(), ".", "/")+".java");
+    
+                        String lastModifiedString = cachedInfo.getProperty(outFile.getAbsolutePath());
+                        if (lastModifiedString == null)
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else if (!outFile.exists())
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else
+                        {
+                            Long lastModified = Long.valueOf(lastModifiedString);
+                            if (lastModified != null && lastModifiedMetadata > lastModified.longValue())
+                            {
+                                upToDate = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (upToDate && tf != null && tf.exists())
+            {
+                upToDate = isFileUpToDate(cachedInfo, tf);
+            }
+            if (upToDate)
+            {
+                getLog().info("generated converter files are up to date");
+                return;
+            }
+        }
+
         
         //Init Qdox for extract code 
         JavaDocBuilder builder = new JavaDocBuilder();
@@ -310,7 +377,8 @@ public class MakeValidatorsMojo extends AbstractMojo
                     getLog().info("Generating validator class:"+validator.getClassName());
                     try
                     {
-                        _generateValidator(velocityEngine, builder,validator,baseContext);
+                        _generateValidator(velocityEngine, builder,validator,baseContext,
+                                cachedInfo, lastModifiedMetadata);
                     }
                     catch(MojoExecutionException e)
                     {
@@ -326,7 +394,14 @@ public class MakeValidatorsMojo extends AbstractMojo
                     }
                 }
             }
-        }        
+        }
+        if (isCachingEnabled())
+        {
+            if (tf != null && tf.exists())
+            {
+                cachedInfo.put(tf.getAbsolutePath(), Long.toString(tf.lastModified()));
+            }
+        }
     }
     
     public boolean canGenerateValidator(ValidatorMeta validator)
@@ -370,7 +445,8 @@ public class MakeValidatorsMojo extends AbstractMojo
      */
     private void _generateValidator(VelocityEngine velocityEngine,
             JavaDocBuilder builder,
-            ValidatorMeta validator, VelocityContext baseContext)
+            ValidatorMeta validator, VelocityContext baseContext,
+            Properties cachedInfo, long lastModifiedMetadata)
             throws MojoExecutionException
     {
         Context context = new VelocityContext(baseContext);
@@ -396,6 +472,11 @@ public class MakeValidatorsMojo extends AbstractMojo
             template.merge(context, writer);
 
             writer.flush();
+            
+            if (isCachingEnabled())
+            {
+                cachedInfo.put(outFile.getAbsolutePath(), Long.toString(lastModifiedMetadata));
+            }
         }
         catch (Exception e)
         {
@@ -432,7 +513,7 @@ public class MakeValidatorsMojo extends AbstractMojo
     {
         return "1.2".equals(jsfVersion) || "12".equals(jsfVersion);
     }
-    
+
 
     private boolean _is20()
     {

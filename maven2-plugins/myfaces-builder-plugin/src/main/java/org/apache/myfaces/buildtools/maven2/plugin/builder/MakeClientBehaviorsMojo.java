@@ -26,8 +26,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.BehaviorMeta;
@@ -63,7 +63,7 @@ import com.thoughtworks.qdox.JavaDocBuilder;
  * @goal make-client-behaviors
  * @phase generate-sources
  */
-public class MakeClientBehaviorsMojo extends AbstractMojo
+public class MakeClientBehaviorsMojo extends AbstractBuilderMojo
 {
     /**
      * Injected Maven project.
@@ -186,10 +186,14 @@ public class MakeClientBehaviorsMojo extends AbstractMojo
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());
             }
-            Model model = IOUtils.loadModel(new File(buildDirectory,
-                    metadataFile));
+            File mdFile = new File(buildDirectory, metadataFile);
+            Model model = IOUtils.loadModel(mdFile);
             new Flattener(model).flatten();
-            generateBehaviors(model);
+            
+            Properties cacheInfo = new Properties();
+            loadCache(cacheInfo);
+            generateBehaviors(model, cacheInfo, mdFile.lastModified() );
+            storeCache(cacheInfo);
         }
         catch (IOException e)
         {
@@ -200,7 +204,6 @@ public class MakeClientBehaviorsMojo extends AbstractMojo
             throw new MojoExecutionException("Error generating behaviors", e);
         }
     }
-    
     
     private VelocityEngine initVelocity() throws MojoExecutionException
     {
@@ -250,12 +253,76 @@ public class MakeClientBehaviorsMojo extends AbstractMojo
     /**
      * Generates parsed behaviors.
      */
-    private void generateBehaviors(Model model) throws IOException,
+    private void generateBehaviors(Model model, Properties cachedInfo, long lastModifiedMetadata) throws IOException,
             MojoExecutionException
     {
         // Make sure generated source directory 
         // is added to compilation source path 
         //project.addCompileSourceRoot(generatedSourceDirectory.getCanonicalPath());
+        File tf = new File(templateSourceDirectory, _getTemplateName());
+        
+        if (isCachingEnabled())
+        {
+            boolean upToDate = true;
+            for (Iterator it = model.getBehaviors().iterator(); it.hasNext();)
+            {
+                BehaviorMeta behavior = (BehaviorMeta) it.next();
+                
+                if (behavior.getClassName() != null)
+                {
+                    File f = new File(mainSourceDirectory, StringUtils.replace(
+                        behavior.getClassName(), ".", "/")+".java");
+                                    
+                    if (!f.exists() && canGenerateBehavior(behavior))
+                    {
+                        if (mainSourceDirectory2 != null)
+                        {
+                            File f2 = new File(mainSourceDirectory2, StringUtils.replace(
+                                    behavior.getClassName(), ".", "/")+".java");
+                            if (f2.exists())
+                            {
+                                //Skip
+                                continue;
+                            }
+                        }
+    
+                        File outFile = new File(generatedSourceDirectory, StringUtils.replace(
+                                behavior.getClassName(), ".", "/")+".java");
+    
+                        String lastModifiedString = cachedInfo.getProperty(outFile.getAbsolutePath());
+                        if (lastModifiedString == null)
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else if (!outFile.exists())
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else
+                        {
+                            Long lastModified = Long.valueOf(lastModifiedString);
+                            if (lastModified != null && lastModifiedMetadata > lastModified.longValue())
+                            {
+                                upToDate = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (upToDate && tf != null && tf.exists())
+            {
+                upToDate = isFileUpToDate(cachedInfo, tf);
+            }
+            if (upToDate)
+            {
+                getLog().info("generated converter files are up to date");
+                return;
+            }
+        }
+
         
         //Init Qdox for extract code 
         JavaDocBuilder builder = new JavaDocBuilder();
@@ -299,7 +366,8 @@ public class MakeClientBehaviorsMojo extends AbstractMojo
                     getLog().info("Generating client behavior class:"+behavior.getClassName());
                     try
                     {
-                        _generateBehavior(velocityEngine, builder,behavior,baseContext);
+                        _generateBehavior(velocityEngine, builder,behavior,baseContext,
+                                cachedInfo, lastModifiedMetadata);
                     }
                     catch(MojoExecutionException e)
                     {
@@ -315,7 +383,14 @@ public class MakeClientBehaviorsMojo extends AbstractMojo
                     }
                 }
             }
-        }        
+        }
+        if (isCachingEnabled())
+        {
+            if (tf != null && tf.exists())
+            {
+                cachedInfo.put(tf.getAbsolutePath(), Long.toString(tf.lastModified()));
+            }
+        }
     }
     
     public boolean canGenerateBehavior(BehaviorMeta behavior)
@@ -366,7 +441,8 @@ public class MakeClientBehaviorsMojo extends AbstractMojo
      */
     private void _generateBehavior(VelocityEngine velocityEngine,
             JavaDocBuilder builder,
-            BehaviorMeta behavior, VelocityContext baseContext)
+            BehaviorMeta behavior, VelocityContext baseContext,
+            Properties cachedInfo, long lastModifiedMetadata)
             throws MojoExecutionException
     {
         Context context = new VelocityContext(baseContext);
@@ -392,6 +468,11 @@ public class MakeClientBehaviorsMojo extends AbstractMojo
             template.merge(context, writer);
 
             writer.flush();
+            
+            if (isCachingEnabled())
+            {
+                cachedInfo.put(outFile.getAbsolutePath(), Long.toString(lastModifiedMetadata));
+            }
         }
         catch (Exception e)
         {

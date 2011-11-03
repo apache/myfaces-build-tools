@@ -18,7 +18,10 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -26,6 +29,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -61,7 +65,7 @@ import org.codehaus.plexus.util.StringUtils;
  * @goal make-converter-tags
  * @phase generate-sources
  */
-public class MakeConverterTagsMojo extends AbstractMojo
+public class MakeConverterTagsMojo extends AbstractBuilderMojo
 {
     /**
      * Injected Maven project.
@@ -202,10 +206,14 @@ public class MakeConverterTagsMojo extends AbstractMojo
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());
             }
-            Model model = IOUtils.loadModel(new File(buildDirectory,
-                    metadataFile));
+            File mdFile = new File(buildDirectory, metadataFile);
+            Model model = IOUtils.loadModel(mdFile);
             new Flattener(model).flatten();
-            generateConverters(model);
+            
+            Properties cacheInfo = new Properties();
+            loadCache(cacheInfo);
+            generateConverters(model, cacheInfo, mdFile.lastModified() );
+            storeCache(cacheInfo);
         }
         catch (IOException e)
         {
@@ -216,7 +224,7 @@ public class MakeConverterTagsMojo extends AbstractMojo
             throw new MojoExecutionException("Error generating components", e);
         }
     }
-        
+    
     private VelocityEngine initVelocity() throws MojoExecutionException
     {
 
@@ -265,9 +273,73 @@ public class MakeConverterTagsMojo extends AbstractMojo
     /**
      * Generates parsed components.
      */
-    private void generateConverters(Model model) throws IOException,
+    private void generateConverters(Model model, Properties cachedInfo, long lastModifiedMetadata) throws IOException,
             MojoExecutionException
     {
+        File tf = new File(templateSourceDirectory, _getTemplateTagName());
+        
+        if (isCachingEnabled())
+        {
+            boolean upToDate = true;
+            for (Iterator it = model.getConverters().iterator(); it.hasNext();)
+            {
+                ConverterMeta converter = (ConverterMeta) it.next();
+                
+                if (converter.getTagClass() != null)
+                {
+                    File f = new File(mainSourceDirectory, StringUtils.replace(
+                        converter.getTagClass(), ".", "/")+".java");
+                    
+                    if (!f.exists() && canGenerateConverterTag(converter))
+                    {
+                        if (mainSourceDirectory2 != null)
+                        {
+                            File f2 = new File(mainSourceDirectory2, StringUtils.replace(
+                                    converter.getTagClass(), ".", "/")+".java");
+                            if (f2.exists())
+                            {
+                                //Skip
+                                continue;
+                            }
+                        }
+    
+                        File outFile = new File(generatedSourceDirectory, StringUtils.replace(
+                                converter.getTagClass(), ".", "/")+".java");
+    
+                        String lastModifiedString = cachedInfo.getProperty(outFile.getAbsolutePath());
+                        if (lastModifiedString == null)
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else if (!outFile.exists())
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else
+                        {
+                            Long lastModified = Long.valueOf(lastModifiedString);
+                            if (lastModified != null && lastModifiedMetadata > lastModified.longValue())
+                            {
+                                upToDate = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (upToDate && tf != null && tf.exists())
+            {
+                upToDate = isFileUpToDate(cachedInfo, tf);
+            }
+            if (upToDate)
+            {
+                getLog().info("generated component tag files are up to date");
+                return;
+            }
+        }
+
         VelocityEngine velocityEngine = initVelocity();
 
         VelocityContext baseContext = new VelocityContext();
@@ -297,7 +369,8 @@ public class MakeConverterTagsMojo extends AbstractMojo
                     getLog().info("Generating tag class:"+converter.getTagClass());
                     try
                     {
-                        _generateConverter(velocityEngine, converter,baseContext);
+                        _generateConverter(velocityEngine, converter,baseContext, 
+                                cachedInfo, lastModifiedMetadata);
                     }
                     catch(MojoExecutionException e)
                     {
@@ -314,7 +387,13 @@ public class MakeConverterTagsMojo extends AbstractMojo
                 }
             }
         }
-        //throw new MojoExecutionException("stopping..");
+        if (isCachingEnabled())
+        {
+            if (tf != null && tf.exists())
+            {
+                cachedInfo.put(tf.getAbsolutePath(), Long.toString(tf.lastModified()));
+            }
+        }
     }
     
     public boolean canGenerateConverterTag(ConverterMeta component)
@@ -376,7 +455,8 @@ public class MakeConverterTagsMojo extends AbstractMojo
      * @param converter
      *            the parsed component metadata
      */
-    private void _generateConverter(VelocityEngine velocityEngine, ConverterMeta converter, VelocityContext baseContext)
+    private void _generateConverter(VelocityEngine velocityEngine, ConverterMeta converter, VelocityContext baseContext,
+            Properties cachedInfo, long lastModifiedMetadata)
             throws MojoExecutionException
     {
 
@@ -403,6 +483,11 @@ public class MakeConverterTagsMojo extends AbstractMojo
             template.merge(context, writer);
 
             writer.flush();
+            
+            if (isCachingEnabled())
+            {
+                cachedInfo.put(outFile.getAbsolutePath(), Long.toString(lastModifiedMetadata));
+            }
         }
         catch (Exception e)
         {

@@ -26,8 +26,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
@@ -61,7 +61,7 @@ import org.codehaus.plexus.util.StringUtils;
  * @goal make-validator-tags
  * @phase generate-sources
  */
-public class MakeValidatorTagsMojo extends AbstractMojo
+public class MakeValidatorTagsMojo extends AbstractBuilderMojo
 {
     /**
      * Injected Maven project.
@@ -202,10 +202,14 @@ public class MakeValidatorTagsMojo extends AbstractMojo
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());
             }
-            Model model = IOUtils.loadModel(new File(buildDirectory,
-                    metadataFile));
+            File mdFile = new File(buildDirectory, metadataFile);
+            Model model = IOUtils.loadModel(mdFile);
             new Flattener(model).flatten();
-            generateValidators(model);
+            
+            Properties cacheInfo = new Properties();
+            loadCache(cacheInfo);
+            generateValidators(model, cacheInfo, mdFile.lastModified() );
+            storeCache(cacheInfo);
         }
         catch (IOException e)
         {
@@ -216,7 +220,7 @@ public class MakeValidatorTagsMojo extends AbstractMojo
             throw new MojoExecutionException("Error generating components", e);
         }
     }
-        
+
     private VelocityEngine initVelocity() throws MojoExecutionException
     {
         File template = new File(templateSourceDirectory, _getTemplateTagName());
@@ -265,9 +269,73 @@ public class MakeValidatorTagsMojo extends AbstractMojo
     /**
      * Generates parsed components.
      */
-    private void generateValidators(Model model) throws IOException,
+    private void generateValidators(Model model, Properties cachedInfo, long lastModifiedMetadata) throws IOException,
             MojoExecutionException
     {
+        File tf = new File(templateSourceDirectory, _getTemplateTagName());
+        
+        if (isCachingEnabled())
+        {
+            boolean upToDate = true;
+            for (Iterator it = model.getValidators().iterator(); it.hasNext();)
+            {
+                ValidatorMeta validator = (ValidatorMeta) it.next();
+                
+                if (validator.getTagClass() != null)
+                {
+                    File f = new File(mainSourceDirectory, StringUtils.replace(
+                        validator.getTagClass(), ".", "/")+".java");
+                    
+                    if (!f.exists() && canGenerateValidatorTag(validator))
+                    {
+                        if (mainSourceDirectory2 != null)
+                        {
+                            File f2 = new File(mainSourceDirectory2, StringUtils.replace(
+                                    validator.getTagClass(), ".", "/")+".java");
+                            if (f2.exists())
+                            {
+                                //Skip
+                                continue;
+                            }
+                        }
+    
+                        File outFile = new File(generatedSourceDirectory, StringUtils.replace(
+                                validator.getTagClass(), ".", "/")+".java");
+    
+                        String lastModifiedString = cachedInfo.getProperty(outFile.getAbsolutePath());
+                        if (lastModifiedString == null)
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else if (!outFile.exists())
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else
+                        {
+                            Long lastModified = Long.valueOf(lastModifiedString);
+                            if (lastModified != null && lastModifiedMetadata > lastModified.longValue())
+                            {
+                                upToDate = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (upToDate && tf != null && tf.exists())
+            {
+                upToDate = isFileUpToDate(cachedInfo, tf);
+            }
+            if (upToDate)
+            {
+                getLog().info("generated component tag files are up to date");
+                return;
+            }
+        }
+
         VelocityEngine velocityEngine = initVelocity();
 
         VelocityContext baseContext = new VelocityContext();
@@ -297,7 +365,8 @@ public class MakeValidatorTagsMojo extends AbstractMojo
                     getLog().info("Generating tag class:"+validator.getTagClass());
                     try
                     {
-                        _generateValidator(velocityEngine, validator,baseContext);
+                        _generateValidator(velocityEngine, validator,baseContext, 
+                                cachedInfo, lastModifiedMetadata);
                     }
                     catch(MojoExecutionException e)
                     {
@@ -314,7 +383,13 @@ public class MakeValidatorTagsMojo extends AbstractMojo
                 }
             }
         }
-        //throw new MojoExecutionException("stopping..");
+        if (isCachingEnabled())
+        {
+            if (tf != null && tf.exists())
+            {
+                cachedInfo.put(tf.getAbsolutePath(), Long.toString(tf.lastModified()));
+            }
+        }
     }
     
     public boolean canGenerateValidatorTag(ValidatorMeta component)
@@ -376,7 +451,8 @@ public class MakeValidatorTagsMojo extends AbstractMojo
      * @param validator
      *            the parsed component metadata
      */
-    private void _generateValidator(VelocityEngine velocityEngine, ValidatorMeta validator, VelocityContext baseContext)
+    private void _generateValidator(VelocityEngine velocityEngine, ValidatorMeta validator, VelocityContext baseContext,
+            Properties cachedInfo, long lastModifiedMetadata)
             throws MojoExecutionException
     {
 
@@ -403,6 +479,11 @@ public class MakeValidatorTagsMojo extends AbstractMojo
             template.merge(context, writer);
 
             writer.flush();
+            
+            if (isCachingEnabled())
+            {
+                cachedInfo.put(outFile.getAbsolutePath(), Long.toString(lastModifiedMetadata));
+            }
         }
         catch (Exception e)
         {

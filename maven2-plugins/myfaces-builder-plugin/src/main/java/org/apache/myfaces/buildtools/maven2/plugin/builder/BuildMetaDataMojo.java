@@ -18,7 +18,12 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,6 +36,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
@@ -41,6 +47,7 @@ import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.IOUtils.SourceVisitor;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.QdoxModelBuilder;
@@ -312,6 +319,19 @@ public class BuildMetaDataMojo extends AbstractMojo
      */
     private String readMavenFacesPluginMetadata;
     
+    /**
+     * 
+     * @parameter expression="${project.build.directory}/myfaces-builder-plugin-cachefile"
+     */
+    private File cacheFile;
+    
+    /**
+     * Does not check if the model is up to date and always build the model when it is executed
+     * 
+     * @parameter
+     */
+    private String noCache;
+    
     private File localResource;
     
     private FacesConfigBean _facesConfig;
@@ -335,29 +355,7 @@ public class BuildMetaDataMojo extends AbstractMojo
             throw new MojoExecutionException("Error during generation", e);
         }
         
-        List models = IOUtils.getModelsFromArtifacts(project); 
-        models = sortModels(models);
-
-        Model model = new Model();
-
-        if (inputFile != null)
-        {
-            // An explicitly-specified input model takes precedence
-            Model fileModel = IOUtils.loadModel(inputFile);
-            model.merge(fileModel);
-        }
-        
-        
-        for (Iterator it = models.iterator(); it.hasNext();)
-        {
-            Model artifactModel = (Model) it.next();
-            
-            if ((dependencyModelIds == null) || dependencyModelIds.contains(artifactModel.getModelId()))
-            {
-                model.merge(artifactModel);
-            }
-        }
-
+        //1. Set up parameters
         ModelParams parameters = new ModelParams();
         
         List sourceDirs = new ArrayList();
@@ -403,15 +401,155 @@ public class BuildMetaDataMojo extends AbstractMojo
             }
         }
         
+        //2. Check if is required to refresh model
+        
+        if (!isReadMavenFacesPluginMetadata() && isCachingEnabled() && cacheFile != null)
+        {
+            final Properties p = new Properties();
+            try
+            {
+                if (cacheFile.exists())
+                {
+                    p.load(new BufferedInputStream(new FileInputStream(cacheFile)));
+                }
+
+                SourceVisitorChecker jsvc = new SourceVisitorChecker(p);
+                if (inputFile != null && inputFile.exists())
+                {
+                    jsvc.processSource(inputFile);
+                }
+                
+                IOUtils.visitSources(parameters,  jsvc);
+                
+                if (jsvc.isUpToDate())
+                {
+                    //Model is up to date, no need to create it again.
+                    getLog().info("model is up to date");
+                    return;
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                throw new MojoExecutionException("cannot read cacheFile:"+cacheFile.getAbsolutePath());
+            }
+            catch (IOException e)
+            {
+                throw new MojoExecutionException("cannot read cacheFile:"+cacheFile.getAbsolutePath());
+            }
+        }
+        
+        List models = IOUtils.getModelsFromArtifacts(project); 
+        models = sortModels(models);
+
+        Model model = new Model();
+
+        if (inputFile != null)
+        {
+            // An explicitly-specified input model takes precedence
+            Model fileModel = IOUtils.loadModel(inputFile);
+            model.merge(fileModel);
+        }
+        
+        
+        for (Iterator it = models.iterator(); it.hasNext();)
+        {
+            Model artifactModel = (Model) it.next();
+            
+            if ((dependencyModelIds == null) || dependencyModelIds.contains(artifactModel.getModelId()))
+            {
+                model.merge(artifactModel);
+            }
+        }
+        
         buildModel(model, project, parameters);
         
         resolveReplacePackage(model);
         
-        IOUtils.saveModel(model, new File(targetDirectory, outputFile));
+        File metadataFile = new File(targetDirectory, outputFile);
+        
+        IOUtils.saveModel(model, metadataFile);
         
         validateComponents(model);
+        
+        final Properties p = new Properties();
+        
+        if (!isReadMavenFacesPluginMetadata() && isCachingEnabled() && cacheFile != null)
+        {
+            p.put(outputFile, Long.toString(metadataFile.lastModified()));
+            if (inputFile != null && inputFile.exists())
+            {
+                p.put(outputFile, Long.toString(inputFile.lastModified()));
+            }
+        }
+        
+        IOUtils.visitSources(parameters, new IOUtils.SourceVisitor()
+        {
+            public void processSource(File file) throws IOException
+            {
+                p.put(file.getAbsolutePath(), Long.toString(file.lastModified()));                 
+            }
+        });
+        
+        if (cacheFile.exists())
+        {
+            cacheFile.delete();
+        }
+        if (!isReadMavenFacesPluginMetadata() && isCachingEnabled() && cacheFile != null)
+        {
+            try
+            {
+                p.store(new BufferedOutputStream(new FileOutputStream(cacheFile)), "Created: "+ Long.toString(System.currentTimeMillis()));
+            }
+            catch (IOException e)
+            {
+                throw new MojoExecutionException("Error during saving cache information", e);
+            }
+        }
     }
     
+    protected boolean isCachingEnabled()
+    {
+        return (!Boolean.valueOf(noCache)) && cacheFile != null;
+    }
+    
+    private class SourceVisitorChecker implements SourceVisitor
+    {
+        private Properties cachedInfo;
+        
+        private boolean upToDate;
+        
+        public SourceVisitorChecker(Properties p)
+        {
+            cachedInfo = p;
+            upToDate = true;
+        }
+
+        public void processSource(File file) throws IOException
+        {
+            if (!upToDate)
+            {
+                return;
+            }
+            String lastModifiedString = cachedInfo.getProperty(file.getAbsolutePath());
+            if (lastModifiedString != null)
+            {
+                Long lastModified = Long.valueOf(lastModifiedString);
+                if (lastModified != null && file.lastModified() > lastModified.longValue())
+                {
+                    upToDate = false;
+                }
+            }
+            else
+            {
+                upToDate = false;
+            }
+        }
+        
+        public boolean isUpToDate()
+        {
+            return upToDate;
+        }
+    }
     /**
      * Order the models as specified by the modelIdOrder property.
      * <p>

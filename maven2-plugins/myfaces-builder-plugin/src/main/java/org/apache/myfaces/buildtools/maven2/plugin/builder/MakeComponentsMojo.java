@@ -27,8 +27,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
@@ -72,7 +72,7 @@ import com.thoughtworks.qdox.model.JavaMethod;
  * @goal make-components
  * @phase generate-sources
  */
-public class MakeComponentsMojo extends AbstractMojo
+public class MakeComponentsMojo extends AbstractBuilderMojo
 {
     /**
      * Injected Maven project.
@@ -214,10 +214,14 @@ public class MakeComponentsMojo extends AbstractMojo
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());
             }
-            Model model = IOUtils.loadModel(new File(buildDirectory,
-                    metadataFile));
+            File mdFile = new File(buildDirectory, metadataFile);
+            Model model = IOUtils.loadModel(mdFile);
             new Flattener(model).flatten();
-            generateComponents(model);
+            
+            Properties cacheInfo = new Properties();
+            loadCache(cacheInfo);
+            generateComponents(model, cacheInfo, mdFile.lastModified() );
+            storeCache(cacheInfo);
         }
         catch (IOException e)
         {
@@ -228,7 +232,6 @@ public class MakeComponentsMojo extends AbstractMojo
             throw new MojoExecutionException("Error generating components", e);
         }
     }
-    
     
     private VelocityEngine initVelocity() throws MojoExecutionException
     {
@@ -277,12 +280,76 @@ public class MakeComponentsMojo extends AbstractMojo
     /**
      * Generates parsed components.
      */
-    private void generateComponents(Model model) throws IOException,
+    private void generateComponents(Model model, Properties cachedInfo, long lastModifiedMetadata) throws IOException,
             MojoExecutionException
     {
         // Make sure generated source directory 
         // is added to compilation source path 
         //project.addCompileSourceRoot(generatedSourceDirectory.getCanonicalPath());
+        File tf = new File(templateSourceDirectory, _getTemplateName());
+        
+        if (isCachingEnabled())
+        {
+            boolean upToDate = true;
+            for (Iterator it = model.getComponents().iterator(); it.hasNext();)
+            {
+                ComponentMeta component = (ComponentMeta) it.next();
+                
+                if (component.getClassName() != null)
+                {
+                    File f = new File(mainSourceDirectory, StringUtils.replace(
+                            component.getClassName(), ".", "/")+".java");
+                                        
+                    if (!f.exists() && canGenerateComponent(component))
+                    {
+                        if (mainSourceDirectory2 != null)
+                        {
+                            File f2 = new File(mainSourceDirectory2, StringUtils.replace(
+                                    component.getClassName(), ".", "/")+".java");
+                            if (f2.exists())
+                            {
+                                //Skip
+                                continue;
+                            }
+                        }
+    
+                        File outFile = new File(generatedSourceDirectory, StringUtils.replace(
+                                component.getClassName(), ".", "/")+".java");
+    
+                        String lastModifiedString = cachedInfo.getProperty(outFile.getAbsolutePath());
+                        if (lastModifiedString == null)
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else if (!outFile.exists())
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else
+                        {
+                            Long lastModified = Long.valueOf(lastModifiedString);
+                            if (lastModified != null && lastModifiedMetadata > lastModified.longValue())
+                            {
+                                upToDate = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (upToDate && tf != null && tf.exists())
+            {
+                upToDate = isFileUpToDate(cachedInfo, tf);
+            }
+            if (upToDate)
+            {
+                getLog().info("generated component files are up to date");
+                return;
+            }
+        }
+
         
         //Init Qdox for extract code 
         JavaDocBuilder builder = new JavaDocBuilder();
@@ -327,7 +394,8 @@ public class MakeComponentsMojo extends AbstractMojo
                     
                     try 
                     {
-                        _generateComponent(velocityEngine, builder,component,baseContext);
+                        _generateComponent(velocityEngine, builder,component,baseContext,
+                                cachedInfo, lastModifiedMetadata);
                     }
                     catch(MojoExecutionException e)
                     {
@@ -343,7 +411,14 @@ public class MakeComponentsMojo extends AbstractMojo
                     }
                 }
             }
-        }        
+        }
+        if (isCachingEnabled())
+        {
+            if (tf != null && tf.exists())
+            {
+                cachedInfo.put(tf.getAbsolutePath(), Long.toString(tf.lastModified()));
+            }
+        }
     }
     
     public boolean canGenerateComponent(ComponentMeta component)
@@ -407,7 +482,8 @@ public class MakeComponentsMojo extends AbstractMojo
      */
     private void _generateComponent(VelocityEngine velocityEngine,
             JavaDocBuilder builder,
-            ComponentMeta component, VelocityContext baseContext)
+            ComponentMeta component, VelocityContext baseContext,
+            Properties cachedInfo, long lastModifiedMetadata)
             throws MojoExecutionException
     {
         Context context = new VelocityContext(baseContext);
@@ -443,6 +519,11 @@ public class MakeComponentsMojo extends AbstractMojo
             template.merge(context, writer);
 
             writer.flush();
+            
+            if (isCachingEnabled())
+            {
+                cachedInfo.put(outFile.getAbsolutePath(), Long.toString(lastModifiedMetadata));
+            }
         }
         catch (Exception e)
         {

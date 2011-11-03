@@ -19,6 +19,7 @@
 package org.apache.myfaces.buildtools.maven2.plugin.builder;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -38,12 +39,22 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.digester.Digester;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
+import org.codehaus.plexus.components.io.fileselectors.FileInfo;
+import org.codehaus.plexus.components.io.fileselectors.FileSelector;
+import org.codehaus.plexus.components.io.fileselectors.IncludeExcludeFileSelector;
 import org.xml.sax.SAXException;
+
+import com.thoughtworks.qdox.directorywalker.DirectoryScanner;
+import com.thoughtworks.qdox.directorywalker.FileVisitor;
+import com.thoughtworks.qdox.directorywalker.SuffixFilter;
 
 /**
  * Utilities to write a Model as xml, and read a Model in from xml.
@@ -379,6 +390,238 @@ public class IOUtils
         {
             // TODO Auto-generated catch block
             throw new MojoExecutionException("Unable to load parser", e);
+        }
+    }
+    
+    public interface SourceVisitor
+    {
+        public void processSource(File file) throws IOException;
+    }
+
+    public static void visitSources(ModelParams parameters, SourceVisitor visitor)
+    {
+        getSourceClasses(visitor, parameters.getSourceDirs(),
+                parameters.getIncludes(), parameters.getExcludes());
+    }
+
+    private static void getSourceClasses(SourceVisitor visitor,
+            List sourceDirs, String includes, String excludes)
+    {
+        if (StringUtils.isNotEmpty(includes)
+                || StringUtils.isNotEmpty(excludes))
+        {
+            getInnerSourceClasses(visitor, sourceDirs, includes, excludes);
+        }
+        else
+        {
+            getInnerSourceClasses(visitor, sourceDirs);
+        }
+    }
+
+    private static void getInnerSourceClasses(SourceVisitor visitor,
+            List sourceDirs, String includes, String excludes)
+    {
+        IncludeExcludeFileSelector selector = new IncludeExcludeFileSelector();
+        if (StringUtils.isNotEmpty(excludes))
+        {
+            selector.setExcludes(excludes.split(","));
+        }
+        if (StringUtils.isNotEmpty(includes))
+        {
+            selector.setIncludes(includes.split(","));
+        }
+        for (Iterator i = sourceDirs.iterator(); i.hasNext();)
+        {
+            Object dir = i.next();
+            File srcDir = null;
+            if (dir instanceof File)
+            {
+                srcDir = (File) dir;
+            }
+            else
+            {
+                new File((String) i.next());
+            }
+            //Scan all files on directory and add to builder
+            addFileToJavaDocBuilder(visitor, selector, srcDir);
+        }
+    }
+
+    private static void getInnerSourceClasses(SourceVisitor visitor,
+            List sourceDirs)
+    {
+        for (Iterator i = sourceDirs.iterator(); i.hasNext();)
+        {
+            String srcDir = (String) i.next();
+            addSourceTree(visitor, new File(srcDir));
+        }
+    }
+
+    /**
+     * Add all files in a directory (and subdirs, recursively).
+     *
+     * If a file cannot be read, a RuntimeException shall be thrown.
+     */
+    private static void addSourceTree(SourceVisitor visitor, File file)
+    {
+        FileVisitor errorHandler = new FileVisitor()
+        {
+            public void visitFile(File badFile)
+            {
+                throw new RuntimeException("Cannot read file : "
+                        + badFile.getName());
+            }
+        };
+        addSourceTree(visitor, file, errorHandler);
+    }
+
+    /**
+     * Add all files in a directory (and subdirs, recursively).
+     *
+     * If a file cannot be read, errorHandler will be notified.
+     */
+    private static void addSourceTree(final SourceVisitor visitor,
+            File file, final FileVisitor errorHandler)
+    {
+        DirectoryScanner scanner = new DirectoryScanner(file);
+        scanner.addFilter(new SuffixFilter(".java"));
+        scanner.scan(new FileVisitor()
+        {
+            public void visitFile(File currentFile)
+            {
+                try
+                {
+                    visitor.processSource(currentFile);
+                }
+                catch (IOException e)
+                {
+                    errorHandler.visitFile(currentFile);
+                }
+            }
+        });
+    }
+
+    private static void addFileToJavaDocBuilder(SourceVisitor visitor,
+            FileSelector selector, File path)
+    {
+        addFileToJavaDocBuilder(visitor, selector, path, path.getPath());
+    }
+
+    private static void addFileToJavaDocBuilder(SourceVisitor visitor,
+            FileSelector selector, File path, String basePath)
+    {
+        if (path.isDirectory())
+        {
+            File[] files = path.listFiles();
+
+            //Scan all files in directory
+            for (int i = 0; i < files.length; i++)
+            {
+                addFileToJavaDocBuilder(visitor, selector, files[i], basePath);
+            }
+        }
+        else
+        {
+            File file = path;
+
+            try
+            {
+                String name = file.getPath();
+                while (name.startsWith("/"))
+                {
+                    name = name.substring(1);
+                }
+                while (name.startsWith("\\"))
+                {
+                    name = name.substring(1);
+                }
+                SourceFileInfo fileInfo = new SourceFileInfo(file, name);
+                if (selector.isSelected(fileInfo))
+                {
+                    //builder.addSource(file);
+                    visitor.processSource(file);
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Log log = LogFactory.getLog(IOUtils.class);
+                log.error("Error reading file: " + file.getName() + " "
+                        + e.getMessage());
+            }
+            catch (IOException e)
+            {
+                Log log = LogFactory.getLog(IOUtils.class);
+                log.error("Error reading file: " + file.getName() + " "
+                        + e.getMessage());
+            }
+        }
+    }
+
+    private static class SourceFileInfo implements FileInfo
+    {
+        private File file;
+
+        private String name;
+
+        /**
+         * Creates a new instance.
+         */
+        public SourceFileInfo(File file)
+        {
+            this(file, file.getPath().replace('\\', '/'));
+        }
+
+        /**
+         * Creates a new instance.
+         */
+        public SourceFileInfo(File file, String name)
+        {
+            this.file = file;
+            this.name = name;
+        }
+
+        /**
+         * Sets the resources file.
+         */
+        public void setFile(File file)
+        {
+            this.file = file;
+        }
+
+        /**
+         * Returns the resources file.
+         */
+        public File getFile()
+        {
+            return file;
+        }
+
+        /**
+         * Sets the resources name.
+         */
+        public void setName(String name)
+        {
+            this.name = name;
+        }
+
+        public String getName()
+        {
+            return name;
+        }
+
+        public InputStream getContents() throws IOException
+        {
+            return new FileInputStream(getFile());
+        }
+
+        public boolean isDirectory()
+        {
+            return file.isDirectory();
+        }
+
+        public boolean isFile()
+        {
+            return file.isFile();
         }
     }
 }

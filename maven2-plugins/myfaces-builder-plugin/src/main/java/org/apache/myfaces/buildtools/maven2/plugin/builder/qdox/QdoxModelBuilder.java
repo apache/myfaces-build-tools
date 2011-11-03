@@ -18,6 +18,8 @@
  */
 package org.apache.myfaces.buildtools.maven2.plugin.builder.qdox;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,6 +54,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.ValidatorP
 import org.apache.myfaces.buildtools.maven2.plugin.builder.qdox.parse.WebConfigParamParsingStrategy;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.trinidad.TrinidadMavenFacesPluginModelBuilder;
 
+import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
 
 /**
@@ -79,8 +82,18 @@ public class QdoxModelBuilder implements ModelBuilder
         {
             throw new MojoExecutionException("Model must have id set");
         }
-        JavaClass[] classes = QdoxHelper.getSourceClasses(parameters.getSourceDirs(), 
-                parameters.getIncludes(), parameters.getExcludes());
+        
+        final JavaDocBuilder builder = new JavaDocBuilder();
+        IOUtils.visitSources(parameters, new IOUtils.SourceVisitor()
+        {
+            public void processSource(File file) throws IOException
+            {
+                builder.addSource(file);
+            }
+            
+        });
+        JavaClass[] classes = builder.getClasses();
+
         buildModel(model, parameters.getSourceDirs(), classes);
         CompositeComponentModelBuilder qccmb = new CompositeComponentModelBuilder();
         qccmb.buildModel(model, parameters);

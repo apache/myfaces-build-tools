@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
@@ -83,7 +83,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
  * @goal make-config
  * @phase generate-sources
  */
-public class MakeConfigMojo extends AbstractMojo
+public class MakeConfigMojo extends AbstractBuilderMojo
 {
     /**
      * The current maven project (auto-injected by Maven).
@@ -212,15 +212,18 @@ public class MakeConfigMojo extends AbstractMojo
 
             // Load the metadata file from an xml file (presumably generated
             // by an earlier execution of the build-metadata goal.
-            Model model = IOUtils.loadModel(new File(buildDirectory,
-                    metadataFile));
+            File mdFile = new File(buildDirectory, metadataFile);
+            Model model = IOUtils.loadModel(mdFile);
 
             // Flatten the model so that the template can access every property
             // of each model item directly, even when the property is actually
             // defined on an ancestor class or interface.
             new Flattener(model).flatten();
-
-            generateConfigFromVelocity(model);
+            
+            Properties cacheInfo = new Properties();
+            loadCache(cacheInfo);
+            generateConfigFromVelocity(model, cacheInfo, mdFile.lastModified() );
+            storeCache(cacheInfo);
         }
         catch (IOException e)
         {
@@ -232,78 +235,100 @@ public class MakeConfigMojo extends AbstractMojo
         }
     }
     
-    private void generateConfigFromVelocity(Model model) throws IOException,
+    private void generateConfigFromVelocity(Model model,
+		Properties cachedInfo, long lastModifiedMetadata) throws IOException,
         MojoExecutionException
     {    
-        VelocityEngine velocityEngine = initVelocity();
-
-        VelocityContext baseContext = new VelocityContext();
-        baseContext.put("utils", new MyfacesUtils());
-        
-        String baseContent = "";
-        
-        if (xmlBaseFile != null && xmlBaseFile.exists())
-        {
-            getLog().info("using base content file: "+xmlBaseFile.getPath());
-            
-            Reader reader = null;
-            try
-            {
-                reader = new FileReader(xmlBaseFile);
-                Xpp3Dom root = Xpp3DomBuilder.build(reader);
-                
-                StringWriter writer = new StringWriter();
-                
-                Xpp3Dom [] children = root.getChildren();
-                
-                for (int i = 0; i< children.length; i++)
-                {
-                    Xpp3Dom dom = children[i];
-                    Xpp3DomWriter.write(writer, dom);
-                    writer.write('\n');
-                }
-                baseContent = writer.toString();
-                writer.close();
-            }
-            catch (XmlPullParserException e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            finally
-            {
-                reader.close();
-            }
-        }
-        
-        baseContext.put("baseContent", baseContent);
-        
-        baseContext.put("model", model);
-        
-        baseContext.put("modelIds", modelIds);
-        
-        if (params != null)
-        {
-            //Load all parameters to the context, so the template can
-            //load it. This allow to generate any config file we want
-            //(faces-config, tld, facelet,....)
-            for (Iterator it = params.keySet().iterator(); it.hasNext();)
-            {
-                String key = (String) it.next();
-                baseContext.put(key,params.get(key));
-            }
-        }
-        
         Writer writer = null;
         File outFile = null;
+        File tf = new File(templateSourceDirectory, templateFile);
         
         try
         {
             outFile = new File(outputDirectory, xmlFile);
-            
+
             if ( !outFile.getParentFile().exists() )
             {
                 outFile.getParentFile().mkdirs();
+            }
+            
+            if (isCachingEnabled() && outFile.exists())
+            {
+                boolean upToDate = isFileUpToDate(cachedInfo, lastModifiedMetadata, outFile); 
+                
+                if (upToDate && xmlBaseFile != null && xmlBaseFile.exists())
+                {
+                    upToDate = isFileUpToDate(cachedInfo, xmlBaseFile);
+                }
+                if (upToDate && tf != null && tf.exists())
+                {
+                    upToDate = isFileUpToDate(cachedInfo, tf);
+                }
+                
+                if (upToDate)
+                {
+                    getLog().info("generated file " +outFile.getName()+ " is up to date");
+                    return;
+                }
+            }
+            
+            VelocityEngine velocityEngine = initVelocity();
+
+            VelocityContext baseContext = new VelocityContext();
+            baseContext.put("utils", new MyfacesUtils());
+            
+            String baseContent = "";
+            
+            if (xmlBaseFile != null && xmlBaseFile.exists())
+            {
+                getLog().info("using base content file: "+xmlBaseFile.getPath());
+                
+                Reader reader = null;
+                try
+                {
+                    reader = new FileReader(xmlBaseFile);
+                    Xpp3Dom root = Xpp3DomBuilder.build(reader);
+                    
+                    StringWriter swriter = new StringWriter();
+                    
+                    Xpp3Dom [] children = root.getChildren();
+                    
+                    for (int i = 0; i< children.length; i++)
+                    {
+                        Xpp3Dom dom = children[i];
+                        Xpp3DomWriter.write(swriter, dom);
+                        swriter.write('\n');
+                    }
+                    baseContent = swriter.toString();
+                    swriter.close();
+                }
+                catch (XmlPullParserException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                finally
+                {
+                    reader.close();
+                }
+            }
+            
+            baseContext.put("baseContent", baseContent);
+            
+            baseContext.put("model", model);
+            
+            baseContext.put("modelIds", modelIds);
+            
+            if (params != null)
+            {
+                //Load all parameters to the context, so the template can
+                //load it. This allow to generate any config file we want
+                //(faces-config, tld, facelet,....)
+                for (Iterator it = params.keySet().iterator(); it.hasNext();)
+                {
+                    String key = (String) it.next();
+                    baseContext.put(key,params.get(key));
+                }
             }
             
             writer = new OutputStreamWriter(new FileOutputStream(outFile));
@@ -313,6 +338,19 @@ public class MakeConfigMojo extends AbstractMojo
             template.merge(baseContext, writer);
 
             writer.flush();
+            
+            if (isCachingEnabled())
+            {
+                cachedInfo.put(outFile.getAbsolutePath(), Long.toString(lastModifiedMetadata));
+                if (xmlBaseFile != null && xmlBaseFile.exists())
+                {
+                    cachedInfo.put(xmlBaseFile.getAbsolutePath(), Long.toString(xmlBaseFile.lastModified()));
+                }
+                if (tf != null && tf.exists())
+                {
+                    cachedInfo.put(tf.getAbsolutePath(), Long.toString(tf.lastModified()));
+                }
+            }
         }
         catch (ResourceNotFoundException e)
         {

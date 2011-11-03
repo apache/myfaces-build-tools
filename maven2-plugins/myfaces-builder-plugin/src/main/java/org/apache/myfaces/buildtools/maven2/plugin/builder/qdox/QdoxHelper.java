@@ -332,13 +332,14 @@ public class QdoxHelper
         return value;
     }
     
+    @Deprecated
     public static void addFileToJavaDocBuilder(JavaDocBuilder builder,
             FileSelector selector, File path)
     {
         addFileToJavaDocBuilder(builder,selector, path, path.getPath());
     }
     
-    
+    @Deprecated
     public static void addFileToJavaDocBuilder(JavaDocBuilder builder,
             FileSelector selector, File path, String basePath)
     {
@@ -556,6 +557,15 @@ public class QdoxHelper
         }        
     }
     
+    /**
+     * 
+     * @deprecated use IOUtils.visitSources(ModelParams, JavaSourceVisitor)
+     * @param sourceDirs
+     * @param includes
+     * @param excludes
+     * @return
+     */
+    @Deprecated
     public static JavaClass[] getSourceClasses(List sourceDirs, String includes, String excludes)
     {
         if (StringUtils.isNotEmpty(includes) || 
@@ -569,6 +579,7 @@ public class QdoxHelper
         }
     }
     
+    @Deprecated
     private static JavaClass[] getInnerSourceClasses(List sourceDirs, String includes, String excludes)
     {
         JavaDocBuilder builder = new JavaDocBuilder();
@@ -601,6 +612,7 @@ public class QdoxHelper
         return builder.getClasses();
     }
 
+    @Deprecated
     private static JavaClass[] getInnerSourceClasses(List sourceDirs)
     {
         JavaDocBuilder builder = new JavaDocBuilder();

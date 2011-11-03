@@ -26,8 +26,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
@@ -61,7 +61,7 @@ import org.codehaus.plexus.util.StringUtils;
  * @goal make-tags
  * @phase generate-sources
  */
-public class MakeTagsMojo extends AbstractMojo
+public class MakeTagsMojo extends AbstractBuilderMojo
 {
     /**
      * Injected Maven project.
@@ -202,10 +202,14 @@ public class MakeTagsMojo extends AbstractMojo
                 modelIds = new ArrayList();
                 modelIds.add(project.getArtifactId());
             }
-            Model model = IOUtils.loadModel(new File(buildDirectory,
-                    metadataFile));
+            File mdFile = new File(buildDirectory, metadataFile);
+            Model model = IOUtils.loadModel(mdFile);
             new Flattener(model).flatten();
-            generateComponents(model);
+            
+            Properties cacheInfo = new Properties();
+            loadCache(cacheInfo);
+            generateComponents(model, cacheInfo, mdFile.lastModified() );
+            storeCache(cacheInfo);
         }
         catch (IOException e)
         {
@@ -216,7 +220,7 @@ public class MakeTagsMojo extends AbstractMojo
             throw new MojoExecutionException("Error generating components", e);
         }
     }
-        
+    
     private VelocityEngine initVelocity() throws MojoExecutionException
     {
         File template = new File(templateSourceDirectory, _getTemplateTagName());
@@ -264,9 +268,73 @@ public class MakeTagsMojo extends AbstractMojo
     /**
      * Generates parsed components.
      */
-    private void generateComponents(Model model) throws IOException,
+    private void generateComponents(Model model, Properties cachedInfo, long lastModifiedMetadata) throws IOException,
             MojoExecutionException
     {
+        File tf = new File(templateSourceDirectory, _getTemplateTagName());
+        
+        if (isCachingEnabled())
+        {
+            boolean upToDate = true;
+            for (Iterator it = model.getComponents().iterator(); it.hasNext();)
+            {
+                ComponentMeta component = (ComponentMeta) it.next();
+                
+                if (component.getTagClass() != null)
+                {
+                    File f = new File(mainSourceDirectory, StringUtils.replace(
+                        component.getTagClass(), ".", "/")+".java");
+                    
+                    if (!f.exists() && canGenerateComponentTag(component))
+                    {
+                        if (mainSourceDirectory2 != null)
+                        {
+                            File f2 = new File(mainSourceDirectory2, StringUtils.replace(
+                                    component.getTagClass(), ".", "/")+".java");
+                            if (f2.exists())
+                            {
+                                //Skip
+                                continue;
+                            }
+                        }
+    
+                        File outFile = new File(generatedSourceDirectory, StringUtils.replace(
+                                component.getTagClass(), ".", "/")+".java");
+    
+                        String lastModifiedString = cachedInfo.getProperty(outFile.getAbsolutePath());
+                        if (lastModifiedString == null)
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else if (!outFile.exists())
+                        {
+                            upToDate = false;
+                            break;
+                        }
+                        else
+                        {
+                            Long lastModified = Long.valueOf(lastModifiedString);
+                            if (lastModified != null && lastModifiedMetadata > lastModified.longValue())
+                            {
+                                upToDate = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            if (upToDate && tf != null && tf.exists())
+            {
+                upToDate = isFileUpToDate(cachedInfo, tf);
+            }
+            if (upToDate)
+            {
+                getLog().info("generated component tag files are up to date");
+                return;
+            }
+        }
+
         VelocityEngine velocityEngine = initVelocity();
 
         VelocityContext baseContext = new VelocityContext();
@@ -296,7 +364,8 @@ public class MakeTagsMojo extends AbstractMojo
                     getLog().info("Generating tag class:"+component.getTagClass());
                     try 
                     {
-                        _generateComponent(velocityEngine, component,baseContext);
+                        _generateComponent(velocityEngine, component,baseContext, 
+                                cachedInfo, lastModifiedMetadata);
                     }
                     catch(MojoExecutionException e)
                     {
@@ -313,7 +382,13 @@ public class MakeTagsMojo extends AbstractMojo
                 }
             }
         }
-        //throw new MojoExecutionException("stopping..");
+        if (isCachingEnabled())
+        {
+            if (tf != null && tf.exists())
+            {
+                cachedInfo.put(tf.getAbsolutePath(), Long.toString(tf.lastModified()));
+            }
+        }
     }
     
     public boolean canGenerateComponentTag(ComponentMeta component)
@@ -375,7 +450,8 @@ public class MakeTagsMojo extends AbstractMojo
      * @param component
      *            the parsed component metadata
      */
-    private void _generateComponent(VelocityEngine velocityEngine, ComponentMeta component, VelocityContext baseContext)
+    private void _generateComponent(VelocityEngine velocityEngine, ComponentMeta component, VelocityContext baseContext,
+            Properties cachedInfo, long lastModifiedMetadata)
             throws MojoExecutionException
     {
 
@@ -402,6 +478,11 @@ public class MakeTagsMojo extends AbstractMojo
             template.merge(context, writer);
 
             writer.flush();
+            
+            if (isCachingEnabled())
+            {
+                cachedInfo.put(outFile.getAbsolutePath(), Long.toString(lastModifiedMetadata));
+            }
         }
         catch (Exception e)
         {
