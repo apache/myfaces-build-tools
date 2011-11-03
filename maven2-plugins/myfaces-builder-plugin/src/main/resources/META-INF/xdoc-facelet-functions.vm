@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<document>
+ <properties>
+  <title>&lt;$faceletFunction.name&gt;</title>
+ </properties>
+ <body>
+  <section name="Summary">
+  <p>
+   <b>Function name:</b> &lt;$faceletFunction.name&gt;
+   <br/>
+   <b>Function signature:</b> $faceletFunction.declaredSignature
+   <br/>
+#set ($javadocPath = "../apidocs/" + $faceletFunction.getSourceClassName().replace('.', '/') )
+   <b>Source class:</b> <a href="${tagdocUtils.platformAgnosticPath( $javadocPath )}.html">${faceletFunction.sourceClassName}</a>
+   <br/>
+#if ($faceletFunction.longDescription)
+   <b>Description:</b> $faceletFunction.longDescription
+#elseif ($faceletFunction.description)
+   <b>Description:</b> $faceletFunction.description
+#end
+   <br/>
+  </p>
+  </section>
+#if ($baseContent)
+$baseContent
+#end
+ </body> 
+</document>

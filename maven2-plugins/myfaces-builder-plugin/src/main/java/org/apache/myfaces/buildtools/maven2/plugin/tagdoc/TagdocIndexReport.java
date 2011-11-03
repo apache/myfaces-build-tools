@@ -29,6 +29,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.maven.doxia.sink.Sink;
+import org.apache.maven.doxia.siterenderer.Renderer;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
@@ -38,14 +40,13 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.BehaviorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ClassMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ComponentMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ConverterMeta;
+import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletFunctionMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.FaceletTagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.TagMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.model.ValidatorMeta;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.utils.MyfacesUtils;
 import org.apache.velocity.runtime.resource.ResourceManagerImpl;
-import org.apache.maven.doxia.sink.Sink;
-import org.apache.maven.doxia.siterenderer.Renderer;
 
 /**
  * Report for generating JSF tagdoc index based on myfaces-metadata.xml parsing.
@@ -158,6 +159,18 @@ public class TagdocIndexReport extends AbstractMavenReport
             return false;
         }
     }
+    
+    public boolean canGenerate(FaceletFunctionMeta component)
+    {
+        if (modelIds.contains(component.getModelId()))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public class CustomResourceManagerImpl extends ResourceManagerImpl
     {
@@ -189,7 +202,12 @@ public class TagdocIndexReport extends AbstractMavenReport
         Iterator tags = model.tags();
         
         Iterator faceletTags = model.faceletTags();
-
+        
+        Iterator faceletFunctions = model.faceletFunctions();
+        
+        Map<String, List<FaceletFunctionMeta>> faceletFunctionByModelId = 
+            new HashMap<String, List<FaceletFunctionMeta>>();
+        
         // =-=AEW Note that only updating out-of-date components, etc. is
         // permanently tricky, even if we had proper detection in place,
         // because the index always has to have all docs
@@ -207,6 +225,7 @@ public class TagdocIndexReport extends AbstractMavenReport
         Set validatorPages = new TreeSet();
         Set tagsPages = new TreeSet();
         Set faceletTagPages = new TreeSet();
+        Set faceletFunctionPages = new TreeSet();
 
         int count = 0;
         while (components.hasNext())
@@ -293,7 +312,28 @@ public class TagdocIndexReport extends AbstractMavenReport
             }
         }
         
+        for (int i = 0; i < modelIds.size(); i++)
+        {
+            String modelId = (String) modelIds.get(i);
+            
+            faceletFunctionByModelId.put(modelId, new ArrayList<FaceletFunctionMeta>());
+        }
 
+        while (faceletFunctions.hasNext())
+        {
+            FaceletFunctionMeta faceletFunction = (FaceletFunctionMeta) faceletFunctions.next();
+            
+            if (canGenerate(faceletFunction))
+            {
+                String pageName = _generateFaceletFunctionDoc(model, faceletFunction);
+                if (pageName != null)
+                {
+                    faceletFunctionPages.add(pageName);
+                    count++;
+                }
+            }
+        }
+        
         Set otherPages = _gatherOtherTags();
 
         getLog().info("Generated " + count + " page(s)");
@@ -341,6 +381,7 @@ public class TagdocIndexReport extends AbstractMavenReport
         _writeIndexSection(sink, behaviorPages, "Behaviors");
         _writeIndexSection(sink, tagsPages, "JSF Tags");
         _writeIndexSection(sink, faceletTagPages, "JSF Facelet Tags");
+        _writeIndexSection(sink, faceletFunctionPages, "JSF Facelet EL Functions", "Function Name");
         _writeIndexSection(sink, otherPages, "Miscellaneous");
 
         sink.body_();
@@ -370,6 +411,11 @@ public class TagdocIndexReport extends AbstractMavenReport
 
     private void _writeIndexSection(Sink sink, Set pages, String title)
     {
+        _writeIndexSection(sink, pages, title, "Tag Name");
+    }
+    
+    private void _writeIndexSection(Sink sink, Set pages, String title, String typeName)
+    {
         if (pages.isEmpty())
         {
             return;
@@ -382,7 +428,7 @@ public class TagdocIndexReport extends AbstractMavenReport
         sink.table();
         sink.tableRow();
         sink.tableHeaderCell();
-        sink.text("Tag Name");
+        sink.text(typeName);
         sink.tableHeaderCell_();
         sink.tableRow_();
 
@@ -406,7 +452,7 @@ public class TagdocIndexReport extends AbstractMavenReport
         sink.table_();
         sink.section1_();
     }
-
+    
     public boolean usePageLinkBar()
     {
         return false;
@@ -478,6 +524,19 @@ public class TagdocIndexReport extends AbstractMavenReport
         }
         
         String pageName = _toPageName(tag.getName());
+        
+        return pageName;
+    }
+    
+    private String _generateFaceletFunctionDoc(Model model, FaceletFunctionMeta faceletFunction)
+    throws IOException
+    {
+        if (faceletFunction.getName() == null)
+        {
+            return null;
+        }
+        
+        String pageName = _toPageName(faceletFunction.getName());
         
         return pageName;
     }
