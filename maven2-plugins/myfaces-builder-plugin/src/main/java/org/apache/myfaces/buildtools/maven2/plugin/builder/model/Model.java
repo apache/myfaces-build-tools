@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
@@ -606,5 +608,29 @@ public class Model
     public String getModelId()
     {
         return _modelId;
+    }
+    
+    //THIS METHODS ARE USED FOR VELOCITY TO GET DATA AND GENERATE CLASSES
+    
+    public List getWebConfigGroups(List modelIds)
+    {
+        Set<String> groups = new TreeSet<String>();
+        for (Iterator it = _webConfigs.iterator(); it.hasNext();)
+        {
+            WebConfigMeta wcm = (WebConfigMeta) it.next();
+            if (modelIds.contains(wcm.getModelId()))
+            {
+                for (Iterator it1 = wcm.getWebConfigParametersList().iterator(); it1.hasNext();)
+                {
+                    WebConfigParamMeta wcpm = (WebConfigParamMeta) it1.next();
+                    
+                    if (wcpm.getGroup() != null && wcpm.getGroup().length() > 0)
+                    {
+                        groups.add(wcpm.getGroup());
+                    }
+                }
+            }
+        }
+        return new ArrayList(groups);
     }
 }
