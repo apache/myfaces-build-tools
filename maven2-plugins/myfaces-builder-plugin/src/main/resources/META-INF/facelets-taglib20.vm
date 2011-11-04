@@ -297,4 +297,25 @@ $baseContent
 #end
 #end
 #end
+
+   <!-- Facelets Functions -->
+#set ($functionList = $model.getFaceletFunctions())
+#foreach( $faceletFunction in $functionList )
+#if ($modelIds.contains($faceletFunction.modelId) && ($faceletFunction.name))
+#if ($utils.getTagPrefix($faceletFunction.name) == $shortname)
+   <function>
+#if ($faceletFunction.longDescription)
+       <description><![CDATA[$faceletFunction.longDescription]]></description>
+#elseif ($faceletFunction.description)
+       <description><![CDATA[$faceletFunction.description]]></description>
+#else
+       <description><![CDATA[]]></description>
+#end
+       <function-name>$utils.getTagName($faceletFunction.name)</function-name>
+       <function-class>$faceletFunction.sourceClassName</function-class>
+       <function-signature>$faceletFunction.signature</function-signature>
+   </function>   
+#end
+#end
+#end
 </facelet-taglib>
