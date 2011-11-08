@@ -236,7 +236,7 @@ public class MakeConfigMojo extends AbstractBuilderMojo
     }
     
     private void generateConfigFromVelocity(Model model,
-		Properties cachedInfo, long lastModifiedMetadata) throws IOException,
+        Properties cachedInfo, long lastModifiedMetadata) throws IOException,
         MojoExecutionException
     {    
         Writer writer = null;
