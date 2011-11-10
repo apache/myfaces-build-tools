@@ -36,7 +36,7 @@
 
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-plugin-parent</artifactId>
-  <version>1.0.7-SNAPSHOT</version>
+  <version>1.0.6-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Apache MyFaces Buildtools Maven2 Plugin Parent</name>
   <url>http://myfaces.apache.org/build-tools/plugins</url>

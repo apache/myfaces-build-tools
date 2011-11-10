@@ -30,7 +30,7 @@
 
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-builder-annotations</artifactId> 
-  <version>1.0.10-SNAPSHOT</version>
+  <version>1.0.9-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Apache MyFaces Buildtools Maven2 Builder Annotations</name>
 
