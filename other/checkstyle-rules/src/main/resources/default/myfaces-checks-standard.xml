@@ -125,8 +125,10 @@
         <module name="MethodLength">
           <property name="max" value="300" />
         </module>
+        <!-- In MyFaces Core we need methods with more than 10 
+             parameters, for example when rendering client behaviors. -->
         <module name="ParameterNumber">
-          <property name="max" value="10" />
+          <property name="max" value="20" />
         </module>
 
 
