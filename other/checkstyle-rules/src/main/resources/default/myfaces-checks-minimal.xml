@@ -43,7 +43,13 @@
     <!-- See http://checkstyle.sf.net/config_whitespace.html -->
     <module name="FileTabCharacter"/>
 
+    <!-- allow usage of CHECKSTYLE:OFF and CHECKSTYLE:ON -->
+    <module name="SuppressionCommentFilter"/>
+
     <module name="TreeWalker">
+
+        <!-- needed for the SuppressionCommentFilter -->
+        <module name="FileContentsHolder"/>
 
         <property name="cacheFile" value="${checkstyle.cache.file}"/>
 

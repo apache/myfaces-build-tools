@@ -53,7 +53,11 @@
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.sf.net/config_whitespace.html -->
     <module name="FileTabCharacter"/>
-        
+
+    <!-- allow usage of CHECKSTYLE:OFF and CHECKSTYLE:ON -->
+    <module name="SuppressionCommentFilter"/>
+
+
     <!-- Checks for Size Violations.                    -->
     <!-- See http://checkstyle.sf.net/config_sizes.html -->
     <module name="FileLength">
@@ -62,6 +66,9 @@
     </module>
         
     <module name="TreeWalker">
+
+        <!-- needed for the SuppressionCommentFilter -->
+        <module name="FileContentsHolder"/>
 
         <property name="cacheFile" value="${checkstyle.cache.file}"/>
 
@@ -125,10 +132,8 @@
         <module name="MethodLength">
           <property name="max" value="300" />
         </module>
-        <!-- In MyFaces Core we need methods with more than 10 
-             parameters, for example when rendering client behaviors. -->
         <module name="ParameterNumber">
-          <property name="max" value="20" />
+          <property name="max" value="10" />
         </module>
 
 
