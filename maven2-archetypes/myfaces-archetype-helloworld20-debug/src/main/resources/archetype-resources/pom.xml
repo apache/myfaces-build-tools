@@ -31,10 +31,13 @@
     <packaging>war</packaging>
     <version>${version}</version>
     <name>${artifactId}</name>
-    <description>A custom project using MyFaces 2.0</description>
+    <description>A custom project used to debug MyFaces Core 2.0</description>
     <url>http://www.myorganization.org</url>
 
     <!-- Instructions 
+      This project uses myfaces-test and myfaces-impl test jar
+      to make easier create specific tests for myfaces core that
+      later could be included into myfaces codebase.
       - Run using jetty 
           mvn clean jetty:run
           mvn clean -Dcontainer=jetty-mojarra jetty:run
@@ -42,12 +45,17 @@
       - Build war and bundle JSF jars 
           mvn clean -Pbundle-myfaces install
           mvn clean -Pbundle-mojarra install
+      - Run using tomcat 6.0
+          mvn clean -Dcontainer=tomcat tomcat:run-war
+      - Run using tomcat 7.0 through cargo
+          mvn clean -Dcontainer=tomcat7 install cargo:run
      -->
 
     <properties>
         <jsf-myfaces.version>2.0.12</jsf-myfaces.version>
         <jsf-mojarra.version>2.0.9</jsf-mojarra.version>        
         <jetty.maven.plugin.version>8.1.1.v20120215</jetty.maven.plugin.version>
+        <cargo.version>1.1.1</cargo.version>
     </properties>
 
     <build>
@@ -61,6 +69,35 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
+            <!-- The following plugin is used to pack everything inside
+                 webapp folder and make it available on test jar under
+                 the path "webapp". This allows create junit tests over
+                 those files like for example, check if all facelets
+                 compile, if a view is correctly built or if render 
+                 what is expected. -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>add-webapp-folder-as-test</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                          <resources>
+                            <resource>
+                                <directory>src/main/webapp</directory>
+                                <targetPath>webapp</targetPath>
+                            </resource>
+                          </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
         </plugins>
     </build>
 
@@ -103,6 +140,28 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
             <scope>runtime</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.myfaces.test</groupId>
+            <artifactId>myfaces-test20</artifactId>
+            <version>1.0.4</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${symbol_dollar}{jsf-myfaces.version}</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${symbol_dollar}{jsf-myfaces.version}</version>
+            <scope>test</scope>
         </dependency>
         
         <dependency>
@@ -170,7 +229,7 @@
                                 </systemProperty>
                             </systemProperties>
                             <webApp>
-                                <contextPath>/${artifactId}</contextPath>
+                                <contextPath>/${symbol_dollar}{artifactId}</contextPath>
                             </webApp>
                             <scanIntervalSeconds>5</scanIntervalSeconds>
                         </configuration>
@@ -258,7 +317,7 @@
                                 </systemProperty>
                             </systemProperties>
                             <webApp>
-                                <contextPath>/${artifactId}</contextPath>
+                                <contextPath>/${symbol_dollar}{artifactId}</contextPath>
                             </webApp>
                             <scanIntervalSeconds>5</scanIntervalSeconds>
                         </configuration>
@@ -289,6 +348,112 @@
                 </repository>
             </repositories>
         </profile>
+        
+        <profile>
+            <!-- Plugin embedded tomcat 6 container. 
+                 Just running use:
+                 mvn clean -Dcontainer=tomcat tomcat:run-war 
+            -->
+            <!-- For debugging use (attach debugger port 8000):
+                 mvnDebug clean -Dcontainer=tomcat tomcat:run-war 
+            -->
+            <id>tomcat</id>
+            <activation>
+                <property>
+                    <name>container</name>
+                    <value>tomcat</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                      <groupId>org.codehaus.mojo</groupId>
+                      <artifactId>tomcat-maven-plugin</artifactId>
+                      <version>1.1</version>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        
+        <profile>
+            <!-- Installed tomcat 7 running war file through cargo 
+                 Attach debugger on port 8000:
+                 mvn clean -Dcontainer=tomcat7 install cargo:run -->
+            <id>cargo-tomcat7</id>
+            <activation>
+                <property>
+                    <name>container</name>
+                    <value>tomcat7</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                      <groupId>org.codehaus.cargo</groupId>
+                      <artifactId>cargo-maven2-plugin</artifactId>
+                      <version>${symbol_dollar}{cargo.version}</version>
+                      <configuration>
+                        <wait>true</wait>
+                        <properties>
+                            <cargo.servlet.port>8080</cargo.servlet.port>
+                            <cargo.jvmargs>
+                              -Xdebug
+                              -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000
+                              -Xnoagent
+                              -Djava.compiler=NONE
+                            </cargo.jvmargs>
+                        </properties>
+                        <container>
+                          <containerId>tomcat7x</containerId>
+                          <zipUrlInstaller>
+                            <url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.25/bin/apache-tomcat-7.0.25.zip</url>
+                            <!-- 
+                            <installDir>${symbol_dollar}{basedir}/tomcat7x</installDir>
+                             -->
+                            <downloadDir>${symbol_dollar}{basedir}/downloads</downloadDir>
+                            <extractDir>${symbol_dollar}{basedir}/tomcat7x</extractDir>
+                          </zipUrlInstaller>
+                        </container>
+                        <configuration>
+                          <home>${symbol_dollar}{basedir}/target/tomcat7x</home>
+                          <properties>
+                            <cargo.jvmargs>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000 -Xnoagent -Djava.compiler=NONE</cargo.jvmargs>
+                          </properties>
+                        </configuration>
+                      </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        
     </profiles>
 
 </project>

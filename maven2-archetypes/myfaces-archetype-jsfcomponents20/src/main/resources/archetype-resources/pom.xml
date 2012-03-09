@@ -27,17 +27,14 @@
   <groupId>${groupId}</groupId>
   <artifactId>${artifactId}-project</artifactId>
   <packaging>pom</packaging>
-  <name>My JSF Components Library Project</name>
+  <name>${artifactId}-project</name>
+  <description>My JSF Components Library Project</description>
   <version>${version}</version>
 
-  <description>
-      This is the project for my funky components. This will build both the core and the examples
-  </description>
-  
   <properties>
-    <jsf-myfaces.version>2.0.4</jsf-myfaces.version>
-    <jsf-ri.version>2.0.3-20100630</jsf-ri.version>
-    <maven.jetty.plugin.version>6.1.22</maven.jetty.plugin.version>
+    <jsf-myfaces.version>2.0.12</jsf-myfaces.version>
+    <jsf-mojarra.version>2.0.9</jsf-mojarra.version>
+    <jetty.maven.plugin.version>8.1.1.v20120215</jetty.maven.plugin.version>
   </properties>
 
   <build>
@@ -55,7 +52,7 @@
         <plugin>
             <groupId>org.apache.myfaces.buildtools</groupId>
             <artifactId>myfaces-builder-plugin</artifactId>
-            <version>1.0.9</version>
+            <version>1.0.10</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -70,23 +67,37 @@
     <dependencies>
     
       <dependency>
-        <groupId>javax.servlet.jsp</groupId>
-        <artifactId>jsp-api</artifactId>
-        <version>2.1</version>
-        <scope>provided</scope>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-servlet_2.5_spec</artifactId>
+          <version>1.2</version>
+          <scope>provided</scope>
       </dependency>
 
       <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>2.5</version>
-        <scope>provided</scope>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-jsp_2.1_spec</artifactId>
+          <version>1.0.1</version>
+          <scope>provided</scope>
+      </dependency>      
+
+      <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-el_2.2_spec</artifactId>
+          <version>1.0.2</version>
+          <scope>provided</scope>
       </dependency>
-    
+
+      <dependency>
+          <groupId>org.apache.geronimo.specs</groupId>
+          <artifactId>geronimo-annotation_1.0_spec</artifactId>
+          <version>1.1.1</version>
+          <scope>provided</scope>
+      </dependency>
+
       <dependency>
         <groupId>org.apache.myfaces.buildtools</groupId>
         <artifactId>myfaces-builder-annotations</artifactId> 
-        <version>1.0.8</version>
+        <version>1.0.9</version>
         <scope>provided</scope>
       </dependency>
       
@@ -105,14 +116,14 @@
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.8.1</version>
+        <version>4.8.2</version>
         <scope>test</scope>
       </dependency>
       
       <dependency>
         <groupId>org.apache.myfaces.test</groupId>
         <artifactId>myfaces-test20</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.4</version>
         <scope>test</scope>
       </dependency>
       
