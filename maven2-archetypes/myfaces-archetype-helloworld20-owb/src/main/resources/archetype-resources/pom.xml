@@ -38,17 +38,27 @@
       - Run using jetty 
           mvn clean jetty:run
           mvn clean -Dcontainer=jetty-mojarra jetty:run
-        Set your browser to http://localhost:8080/${artifactId}
+          Set your browser to http://localhost:8080/${artifactId}
+      - Run using tomcat
+          mvn clean -Dcontainer=tomcat7 tomcat:run
+          Set your browser to http://localhost:8080/${artifactId}
+      - Run war using tomcat
+          mvn clean -Dcontainer=tomcat7 tomcat:run-war
+          Set your browser to http://localhost:8080/${artifactId}
+      - Run war using jetty (remove <webApp> config inside plugin config first)
+          mvn clean jetty:run-war
+          mvn clean -Dcontainer=jetty-mojarra jetty:run-war
+          Set your browser to http://localhost:8080
       - Build war and bundle JSF jars 
           mvn clean -Pbundle-myfaces install
           mvn clean -Pbundle-mojarra install
      -->
 
     <properties>
-        <jsf-myfaces.version>2.0.12</jsf-myfaces.version>
-        <jsf-mojarra.version>2.0.9</jsf-mojarra.version>        
-        <jetty.maven.plugin.version>8.1.1.v20120215</jetty.maven.plugin.version>
-        <openwebbeans.version>1.1.0</openwebbeans.version>
+        <jsf-myfaces.version>2.1.7</jsf-myfaces.version>
+        <jsf-mojarra.version>2.1.7</jsf-mojarra.version>        
+        <jetty.maven.plugin.version>8.1.3.v20120416</jetty.maven.plugin.version>
+        <openwebbeans.version>1.1.4</openwebbeans.version>
     </properties>
 
     <build>
@@ -253,7 +263,7 @@
                                 </systemProperty>
                             </systemProperties>
                             <webApp>
-                                <contextPath>/${artifactId}</contextPath>
+                                <contextPath>/${symbol_dollar}{artifactId}</contextPath>
                             </webApp>
                             <scanIntervalSeconds>5</scanIntervalSeconds>
                         </configuration>
@@ -449,7 +459,7 @@
                                 </systemProperty>
                             </systemProperties>
                             <webApp>
-                                <contextPath>/${artifactId}</contextPath>
+                                <contextPath>/${symbol_dollar}{artifactId}</contextPath>
                             </webApp>
                             <scanIntervalSeconds>5</scanIntervalSeconds>
                         </configuration>
@@ -534,6 +544,94 @@
                 </repository>
             </repositories>
         </profile>
+        
+        <profile>
+            <id>maven-tomcat7</id>
+            <activation>
+                <property>
+                    <name>container</name>
+                    <value>tomcat7</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                      <groupId>org.apache.tomcat.maven</groupId>
+                      <artifactId>tomcat7-maven-plugin</artifactId>
+                      <version>2.0-beta-1</version>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-jta_1.1_spec</artifactId>
+                    <version>1.1.1</version>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-interceptor_1.1_spec</artifactId>
+                    <version>1.0</version>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-atinject_1.0_spec</artifactId>
+                    <version>1.0</version>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-jcdi_1.0_spec</artifactId>
+                    <version>1.0</version>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.openwebbeans</groupId>
+                    <artifactId>openwebbeans-impl</artifactId>
+                    <version>${symbol_dollar}{openwebbeans.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.openwebbeans</groupId>
+                    <artifactId>openwebbeans-jsf</artifactId>
+                    <version>${symbol_dollar}{openwebbeans.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.openwebbeans</groupId>
+                    <artifactId>openwebbeans-web</artifactId>
+                    <version>${symbol_dollar}{openwebbeans.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.openwebbeans</groupId>
+                    <artifactId>openwebbeans-spi</artifactId>
+                    <version>${symbol_dollar}{openwebbeans.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.openwebbeans</groupId>
+                    <artifactId>openwebbeans-resource</artifactId>
+                    <version>${symbol_dollar}{openwebbeans.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
     </profiles>
 
 </project>

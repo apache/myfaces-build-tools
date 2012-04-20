@@ -40,7 +40,17 @@
       - Run using jetty 
           mvn clean jetty:run
           mvn clean -Dcontainer=jetty-mojarra jetty:run
-        Set your browser to http://localhost:8080/${artifactId}-examples
+          Set your browser to http://localhost:8080/${artifactId}-examples
+      - Run using tomcat
+          mvn clean -Dcontainer=tomcat7 tomcat:run
+          Set your browser to http://localhost:8080/${artifactId}-examples
+      - Run war using tomcat
+          mvn clean -Dcontainer=tomcat7 tomcat:run-war
+          Set your browser to http://localhost:8080/${artifactId}-examples
+      - Run war using jetty (remove <webApp> config inside plugin config first)
+          mvn clean jetty:run-war
+          mvn clean -Dcontainer=jetty-mojarra jetty:run-war
+          Set your browser to http://localhost:8080
       - Build war and bundle JSF jars 
           mvn clean -Pbundle-myfaces install
           mvn clean -Pbundle-mojarra install
@@ -275,7 +285,8 @@
                         </configuration>
                         <dependencies>
                            <!-- Tld scanning only works when JSF is included
-                                as container dependency. -->
+                                as container dependency. Add other jsf libraries
+                                here, so jetty:run goal can find and process them -->
                            <dependency>
                                <groupId>com.sun.faces</groupId>
                                <artifactId>jsf-api</artifactId>
@@ -308,6 +319,47 @@
                 <jsf_implementation>Mojarra</jsf_implementation>
             </properties>
         </profile>
+        
+        <profile>
+            <id>maven-tomcat7</id>
+            <activation>
+                <property>
+                    <name>container</name>
+                    <value>tomcat7</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                      <groupId>org.apache.tomcat.maven</groupId>
+                      <artifactId>tomcat7-maven-plugin</artifactId>
+                      <version>2.0-beta-1</version>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
+                    <scope>compile</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <version>${symbol_dollar}{jsf-myfaces.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.examples.jsfcomponents20</groupId>
+                    <artifactId>myfaces-jsfcomponents20-core</artifactId>
+                    <version>${symbol_dollar}{project.version}</version>
+                    <scope>compile</scope>
+                </dependency>
+
+            </dependencies>
+        </profile>
+
     </profiles>
 
 </project>

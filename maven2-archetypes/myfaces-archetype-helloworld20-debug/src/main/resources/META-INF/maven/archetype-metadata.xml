@@ -39,6 +39,15 @@
       </fileSet>
       <fileSet filtered="false" packaged="false">
           <directory>src/main/webapp/</directory>
+          <excludes>
+              <exclude>WEB-INF/web.xml</exclude>
+          </excludes>
+      </fileSet>
+      <fileSet filtered="true" packaged="false">
+          <directory>src/main/webapp/</directory>
+          <includes>
+              <include>WEB-INF/web.xml</include>
+          </includes>
       </fileSet>
   </fileSets>
 
