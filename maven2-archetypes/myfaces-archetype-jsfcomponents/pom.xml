@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.myfaces.buildtools</groupId>
     <artifactId>myfaces-archetype-parent</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5-SNAPSHOT</version>
   </parent>
 
     <modelVersion>4.0.0</modelVersion>
