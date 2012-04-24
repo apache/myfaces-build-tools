@@ -39,7 +39,7 @@
 
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-archetype-parent</artifactId>
-  <version>1.0.4-SNAPSHOT</version>
+  <version>1.0.4</version>
   <packaging>pom</packaging>
   <name>Apache MyFaces Buildtools Maven2 Archetype Parent</name>
   <url>http://myfaces.apache.org/build-tools/archetypes/</url>
@@ -99,9 +99,9 @@
   </reporting>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-archetypes/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-archetypes/</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-archetypes/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/tags/myfaces-archetype-parent-1.0.4</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/tags/myfaces-archetype-parent-1.0.4</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/tags/myfaces-archetype-parent-1.0.4</url>
   </scm>
 
   <modules>
