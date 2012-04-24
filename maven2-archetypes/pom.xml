@@ -34,7 +34,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>13</version>
+    <version>14</version>
   </parent>
 
   <groupId>org.apache.myfaces.buildtools</groupId>
