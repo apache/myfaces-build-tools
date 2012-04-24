@@ -49,23 +49,19 @@
     <url>http://issues.apache.org/jira/browse/MYFACES</url>
   </issueManagement>
 
-  <ciManagement>
-    <system>continuum</system>
-    <url>http://myfaces.zones.apache.org:8080/continuum</url>
-    <notifiers>
-      <notifier>
-        <type>mail</type>
-        <sendOnSuccess>true</sendOnSuccess>
-        <configuration>
-          <address>commits@myfaces.apache.org</address>
-        </configuration>
-      </notifier>
-    </notifiers>
-  </ciManagement>
-
   <inceptionYear>2008</inceptionYear>
 
   <build>
+      
+    <!-- Since Maven 3.0, this is required to add scpexe as protocol for deploy. -->
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ssh-external</artifactId>
+        <version>1.0-beta-7</version>
+      </extension>
+    </extensions>
+
     <resources>
       <resource>
         <directory>${basedir}</directory>
