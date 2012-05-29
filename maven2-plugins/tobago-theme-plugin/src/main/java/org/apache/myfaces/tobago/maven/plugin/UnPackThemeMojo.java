@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.maven.plugin;
  * limitations under the License.
  */
 
-import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
@@ -29,7 +29,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipEntry;
@@ -39,7 +38,7 @@ import java.util.zip.ZipEntry;
  * @version $Id$
  * @goal resources
  * @phase process-resources
- * @requiresDependencyResolution compile
+ * @requiresDependencyResolution runtime
  */
 public class UnPackThemeMojo extends AbstractThemeMojo {
   /**
@@ -66,11 +65,6 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
    */
   private File webappDirectory;
 
-  /**
-   * @parameter expression="${plugin.artifacts}"
-   * @required
-   */
-  private List pluginArtifacts;
 
   private boolean findThemeDescriptor(File jarFile) throws MojoExecutionException {
     ZipInputStream zip = null;
@@ -82,7 +76,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
           continue;
         }
         String name = nextEntry.getName();
-        if (name.equals("META-INF/tobago-theme.xml")) {
+        if (name.equals("META-INF/tobago-theme.xml")|| name.equals("META-INF/tobago-config.xml")) {
           return true;
         }
       }
@@ -102,47 +96,51 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
   }
 
   public void execute() throws MojoExecutionException {
-
-    Iterator artifacts =  getProject().getDependencyArtifacts().iterator();
-    while (artifacts.hasNext()) {
+    try {
+      Iterator artifacts =  getProject().getRuntimeClasspathElements().iterator();
       if (!workDirectory.exists()) {
         workDirectory.mkdirs();
       }
-      Artifact artifact = (Artifact) artifacts.next();
-      getLog().debug("Expanding theme "+ artifact);
-      File file = artifact.getFile();
-      if (Artifact.SCOPE_COMPILE.equals(artifact.getScope()) && file.isFile()
-          && "jar".equals(artifact.getType()) && findThemeDescriptor(file)) {
+      while (artifacts.hasNext()) {
 
-        String name = file.getName();
-        getLog().debug("Expanding theme "+ name);
-        File tempLocation = new File(workDirectory, name.substring(0, name.length() - 4));
-        boolean process = false;
-        if (!tempLocation.exists()) {
-          tempLocation.mkdirs();
-          process = true;
-        } else if (artifact.getFile().lastModified() > tempLocation.lastModified()) {
-          process = true;
-        }
-        if (process) {
-          try {
-            unpack(file, tempLocation);
-            String[] fileNames = getThemeFiles(tempLocation);
-            for (String fileName : fileNames) {
+        String artifact = (String) artifacts.next();
+        getLog().debug("Testing jar "+ artifact);
 
-              File fromFile = new File(tempLocation, fileName);
-              File toFile = new File(webappDirectory, fileName);
-              try {
-                FileUtils.copyFile(fromFile, toFile);
-              } catch (IOException e) {
-                throw new MojoExecutionException("Error copy file: " + fromFile + "to: " + toFile, e);
+        File file = new File(artifact);
+        if (file.isFile() && artifact.endsWith(".jar") && findThemeDescriptor(file)) {
+          String name = file.getName();
+          File tempLocation = new File(workDirectory, name.substring(0, name.length() - 4));
+          boolean process = false;
+          if (!tempLocation.exists()) {
+            tempLocation.mkdirs();
+            process = true;
+          } else if (file.lastModified() > tempLocation.lastModified()) {
+            process = true;
+          }
+          if (process) {
+            getLog().debug("Expanding theme "+ name);
+            try {
+              unpack(file, tempLocation);
+              String[] fileNames = getThemeFiles(tempLocation);
+              for (int i = 0, fileNamesLength = fileNames.length; i < fileNamesLength; i++) {
+                String fileName = fileNames[i];
+
+                File fromFile = new File(tempLocation, fileName);
+                File toFile = new File(webappDirectory, fileName);
+                try {
+                  FileUtils.copyFile(fromFile, toFile);
+                } catch (IOException e) {
+                  throw new MojoExecutionException("Error copy file: " + fromFile + "to: " + toFile, e);
+                }
               }
+            } catch (NoSuchArchiverException e) {
+              getLog().info("Skip unpacking dependency file with unknown extension: " + file.getPath());
             }
-          } catch (NoSuchArchiverException e) {
-            getLog().info("Skip unpacking dependency file with unknown extension: " + file.getPath());
           }
         }
       }
+    } catch (DependencyResolutionRequiredException drre) {
+      throw new MojoExecutionException(drre.getMessage(), drre);
     }
   }
 
