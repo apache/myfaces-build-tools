@@ -60,11 +60,42 @@
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
     <module name="Translation"/>
 
+    <module name="FileLength"/>
+
+    <!-- Checks for Headers                              -->
+    <!-- See http://checkstyle.sf.net/config_header.html -->
+    <module name="Header">
+        <property name="headerFile" value="${checkstyle.header.file}"/>
+    </module>
+
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+    </module>
+
+    <module name="RegexpMultiline">
+        <property name="format" value="((public)|(protected))\s+void\s+finalize\(\s*\)"/>
+        <property name="message" value="Avoid finalizers"/>
+    </module>
+
+    <!-- No direct printing to System.out or System.err -->
+    <module name="RegexpMultiline">
+        <property name="format" value="System\.(out|err)\."/>
+        <property name="message" value="Don't write directly to System.out our System.err"/>
+    </module>
+    <!-- No @author tags -->
+    <module name="RegexpMultiline">
+        <property name="format" value="@author"/>
+        <property name="message" value="No @author tag allowed"/>
+    </module>
+
+    <module name="RegexpMultiline">
+        <property name="format" value="strÃ¤hlekreuzen"/>
+        <property name="message" value="No strÃ¤hlekreuzen allowed"/>
+    </module>
 
     <module name="TreeWalker">
 
         <property name="cacheFile" value="${checkstyle.cache.file}"/>
-        <property name="charset" value="UTF-8"/>
         <property name="tabWidth" value="2"/>
 
         <!-- Checks for Javadoc comments.                     -->
@@ -73,9 +104,6 @@
         <module name="JavadocType"/>
         <module name="JavadocVariable"/>
         <module name="JavadocStyle"/>   -->
-
-
-
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
@@ -89,44 +117,16 @@
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
 
-
-
-
-        <!-- Checks for Headers                                -->
-        <!-- See http://checkstyle.sf.net/config_header.html   -->
-        <!-- <module name="Header"> -->
-            <!-- The follow property value demonstrates the ability     -->
-            <!-- to have access to ANT properties. In this case it uses -->
-            <!-- the ${basedir} property to allow Checkstyle to be run  -->
-            <!-- from any directory within a project. See property      -->
-            <!-- expansion,                                             -->
-            <!-- http://checkstyle.sf.net/config.html#properties        -->
-            <!-- <property                                              -->
-            <!--     name="headerFile"                                  -->
-            <!--     value="${basedir}/java.header"/> -->
-            <!-- Following interprets the header file as regular expressions. -->
-        <!-- </module> -->
-
-         <module name="RegexpHeader">
-           <property name="headerFile" value="${checkstyle.header.file}"/>
-             <!--<property name="header" value="^package \n^$\n/\*$\n^ \* Copyright (\d\d\d\d-)?\d\d\d\d The Apache Software Foundation.$\n^ \*$\n^ \* Licensed under the Apache License, Version 2.0 \(the &quot;License&quot;\)\;$\n^ \* you may not use this file except in compliance with the License.$\n^ \* You may obtain a copy of the License at$\n^ \*$\n^ \*      http://www.apache.org/licenses/LICENSE-2.0$\n^ \*$\n^ \* Unless required by applicable law or agreed to in writing, software$\n^ \* distributed under the License is distributed on an &quot;AS IS&quot; BASIS,$\n^ \* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.$\n^ \* See the License for the specific language governing permissions and$\n^ \* limitations under the License.$\n^ \*/$\n^$"/>-->
-         </module>
-
-
-
-
-
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
         <module name="AvoidStarImport"/>
-        <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
+        <module name="IllegalImport"/>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
-
+        <!--module name="AvoidStaticImport"/-->
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="FileLength"/>
         <module name="LineLength">
           <property name="max" value="120"/>
         </module>
@@ -134,7 +134,6 @@
         <module name="ParameterNumber">
           <property name="max" value="15"/>
         </module>
-
 
         <!-- Checks for whitespace                               -->
         <!-- See http://checkstyle.sf.net/config_whitespace.html -->
@@ -145,7 +144,6 @@
         <module name="OperatorWrap"/>
         <module name="ParenPad"/>
         <module name="TypecastParenPad"/>
-        <module name="TabCharacter"/>
         <module name="WhitespaceAfter"/>
         <!--<module name="WhitespaceAround"/>-->
 
@@ -173,9 +171,10 @@
         <!-- See http://checkstyle.sf.net/config_coding.html -->
         <!-- <module name="AvoidInlineConditionals"/> -->
         <module name="CovariantEquals"/>
-        <module name="DoubleCheckedLocking"/>    <!-- MY FAVOURITE -->
+        <module name="DoubleCheckedLocking"/>
         <!--<module name="EmptyStatement"/>-->
         <module name="EqualsHashCode"/>
+        <!--module name="MissingDeprecated"/-->
         <!--module name="HiddenField">
           <property name="ignoreSetter" value="true" />
           <property name=" ignoreConstructorParameter" value="true" />
@@ -184,7 +183,10 @@
            <property name="classes" value="java.lang.Boolean, java.lang.String"/>
         </module>
         <module name="InnerAssignment"/>
-        <!-- <module name="MagicNumber"/> -->
+       <!-- <module name="MagicNumber">
+          &lt;!&ndash; some numbers are really not that magic &ndash;&gt;
+          <property name="ignoreNumbers" value="-4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 32, 64, 100, 128, 256, 512, 1000, 1024"/>
+        </module>-->
         <module name="MissingSwitchDefault"/>
         <module name="RedundantThrows">
           <property name="allowUnchecked" value="true"/>
@@ -207,46 +209,16 @@
         <module name="InterfaceIsType"/>
         <module name="VisibilityModifier"/>
 
-
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
         <!--<module name="FinalParameters"/> -->
-        <!-- Line with Trailing Spaces (disabled as it's to noisy)
-        <module name="GenericIllegalRegexp">
-          <property name="format" value="\s+$"/>
-          <property name="message" value="Line has trailing spaces."/>
-        </module>
-        -->
 
         <!-- Let todo plugin handle this.
         <module name="TodoComment"/>
         -->
 
-        <module name="GenericIllegalRegexp">
- 	        <property name="format" value="((public)|(protected))\s+void\s+finalize\(\s*\)"/>
-	        <property name="message" value="Avoid finalizers"/>
-        </module>
-	      <!-- No direct printing to System.out or System.err -->
-
-
- 	      <module name="GenericIllegalRegexp">
- 	        <property name="format" value="System\.(out|err)\."/>
- 	        <property name="message" value="Don't write directly to System.out our System.err"/>
- 	      </module>
-	 	    <!-- No @author tags -->
- 	      <module name="GenericIllegalRegexp">
- 	        <property name="format" value="@author"/>
- 	        <property name="message" 	value="No @author tag allowed"/>
- 	      </module>
-
-        <module name="GenericIllegalRegexp">
- 	        <property name="format" value="strählekreuzen"/>
- 	        <property name="message" 	value="No strählekreuzen allowed"/>
- 	      </module>
-
         <module name="UpperEll"/>
 
     </module>
-
 </module>
