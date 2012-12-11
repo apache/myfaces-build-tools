@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+-->
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+
+    <description>Webproject.xml</description>
+
+
+    <!--
+    Note this entry is vital it plugs the ext-scripting system into
+    a myfaces extension point
+    -->
+    <context-param>
+        <description>
+            Initializes the plugins for our groovy handlers
+        </description>
+        <param-name>org.apache.myfaces.FACES_INIT_PLUGINS</param-name>
+        <param-value>org.apache.myfaces.extensions.scripting.jsf.startup.StartupServletContextPluginChainLoader
+        </param-value>
+    </context-param>
+
+    <!--
+    <context-param>
+        <description>Additional comma separated loader paths to allow direct editing on the source
+        directories of the deployment dir.
+        </description>
+        <param-name>org.apache.myfaces.extensions.scripting.ruby.LOADER_PATHS</param-name>
+        <param-value>
+            /whatever/extscript-examples/myfaces20-example/src/main/webapp/WEB-INF/ruby
+        </param-value>
+    </context-param>
+
+    <context-param>
+        <description>resource paths for our custom JSF2 resource resolver</description>
+        <param-name>org.apache.myfaces.extensions.scripting.resources.LOADER_PATHS</param-name>
+        <param-value>
+            /whatever/myfaces20-extscript-helloworld/src/main/webapp/
+        </param-value>
+    </context-param>
+
+    <context-param>
+        <description>a redirecting Facelet resource resolver which allows to pick up templates and resources from our
+            source dir
+        </description>
+        <param-name>facelets.RESOURCE_RESOLVER</param-name>
+        <param-value>org.apache.myfaces.extensions.scripting.jsf.facelet.ReroutingResourceResolver</param-value>
+    </context-param>
+
+    <context-param>
+        <description>Some containers do not expand their war/ear files and do not return a proper classpath for the
+        compilers.
+        For those you can set an additional classpath as comma separated list of paths so that the compiler can pick
+        up dependencies from other directories. Wildcarding regarding jar and zip files is allowed.
+        </description>
+        <param-name>org.apache.myfaces.extensions.scripting.ADDITIONAL_CLASSPATH</param-name>
+        <param-value>/whatever/myfaces20-extscript-helloworld/target/myfaces20-extscript-helloworld-1.0.4-SNAPSHOT/WEB-INF/lib/*.jar,
+        /whatever/myfaces20-extscript-helloworld/target/myfaces20-extscript-helloworld-1.0.4-SNAPSHOT/WEB-INF/classes</param-value>
+    </context-param>
+
+    -->
+    <!--
+    <context-param>
+        <description>a comma separated whitelist of root packages which are compiled those and nothing else
+            will be compiled during all compile stages, all other files stay permanently as they are
+        </description>
+        <param-name>org.apache.myfaces.extensions.scripting.PGK_WHITELIST</param-name>
+        <param-value>org.apache.myfaces.groovyloader.blog</param-value>
+    </context-param>
+    -->
+
+    <listener>
+        <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+    </listener>
+
+
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+
+
+    <context-param>
+        <description>State saving method: "client" or "server" (= default)
+            See JSF Specification 2.5.3
+        </description>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+
+
+    <!-- Faces Servlet -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Faces Servlet Mapping -->
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- Welcome files -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>
