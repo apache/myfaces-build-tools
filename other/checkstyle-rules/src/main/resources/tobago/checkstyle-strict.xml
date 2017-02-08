@@ -66,6 +66,7 @@
     <!-- See http://checkstyle.sf.net/config_header.html -->
     <module name="Header">
         <property name="headerFile" value="${checkstyle.header.file}"/>
+        <property name="fileExtensions" value="*.java"/>
     </module>
 
     <module name="FileTabCharacter">
@@ -124,7 +125,6 @@
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
         <!--module name="AvoidStaticImport"/-->
-
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
