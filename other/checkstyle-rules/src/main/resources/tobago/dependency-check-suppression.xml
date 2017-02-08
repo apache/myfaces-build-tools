@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
+  <suppress>
+    <notes><![CDATA[ file name: xbean-asm5-shaded-4.1.jar ]]></notes>
+    <gav regex="true">^org\.apache\.xbean:xbean-asm5-shaded:.*$</gav>
+    <cpe>cpe:/a:apache:geronimo</cpe>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: xbean-finder-shaded-4.1.jar ]]></notes>
+    <gav regex="true">^org\.apache\.xbean:xbean-finder-shaded:.*$</gav>
+    <cpe>cpe:/a:apache:geronimo</cpe>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: geronimo-el_2.2_spec-1.0.4.jar ]]></notes>
+    <gav regex="true">^org\.apache\.geronimo\.specs:geronimo-el_2\.2_spec:.*$</gav>
+    <cpe>cpe:/a:apache:geronimo</cpe>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: geronimo-servlet_3.0_spec-1.0.jar ]]></notes>
+    <gav regex="true">^org\.apache\.geronimo\.specs:geronimo-servlet_3\.0_spec:.*$</gav>
+    <cpe>cpe:/a:apache:geronimo</cpe>
+  </suppress>
+</suppressions>
