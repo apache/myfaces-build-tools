@@ -198,6 +198,7 @@
         <module name="IllegalThrows"/>
         <module name="PackageDeclaration"/>
         <module name="MultipleVariableDeclarations"/>
+        <module name="UnnecessaryParentheses"/>
 
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
