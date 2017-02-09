@@ -174,13 +174,19 @@
         <!-- See http://checkstyle.sf.net/config_coding.html -->
         <!-- <module name="AvoidInlineConditionals"/> -->
         <module name="CovariantEquals"/>
-        <!--<module name="EmptyStatement"/>-->
+        <!-- TBD
+        <module name="EmptyStatement"/>
+        -->
         <module name="EqualsHashCode"/>
-        <!--module name="MissingDeprecated"/-->
-        <!--module name="HiddenField">
+        <!-- TBD
+        <module name="MissingDeprecated"/>
+        -->
+<!-- TBD
+        <module name="HiddenField">
           <property name="ignoreSetter" value="true" />
           <property name=" ignoreConstructorParameter" value="true" />
-        </module-->
+        </module>
+-->
         <module name="IllegalInstantiation">
            <property name="classes" value="java.lang.Boolean, java.lang.String"/>
         </module>
@@ -197,6 +203,9 @@
         <module name="SuperFinalize"/>
         <module name="IllegalThrows"/>
         <module name="PackageDeclaration"/>
+<!-- TODO
+        <module name="DeclarationOrder"/>
+-->
         <module name="ParameterAssignment"/>
         <module name="MultipleVariableDeclarations"/>
         <module name="UnnecessaryParentheses"/>
@@ -214,6 +223,12 @@
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
         <!--<module name="FinalParameters"/> -->
+        <!-- TBD Line with Trailing Spaces (disabled as it's to noisy)
+        <module name="GenericIllegalRegexp">
+          <property name="format" value="\s+$"/>
+          <property name="message" value="Line has trailing spaces."/>
+        </module>
+        -->
 
         <!-- Let todo plugin handle this.
         <module name="TodoComment"/>
