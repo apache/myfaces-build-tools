@@ -35,14 +35,14 @@
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>checkstyle-rules</artifactId>
   <packaging>jar</packaging>
-  <version>7</version>
+  <version>8-SNAPSHOT</version>
   <name>checkstyle-rules</name>
   <url>http://maven.apache.org</url>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/tags/checkstyle-rules-7</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/tags/checkstyle-rules-7</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/myfaces-build-tools/tags/checkstyle-rules-7</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/myfaces-build-tools/trunk/other/checkstyle-rules</url>
   </scm>
 
   <build>
