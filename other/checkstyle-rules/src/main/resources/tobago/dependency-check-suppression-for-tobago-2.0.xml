@@ -3,7 +3,7 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
   <suppress>
-    <notes><![CDATA[ subject of CVE is myfaces-core version, but not tobago version ]]></notes>
+    <notes><![CDATA[ subject of CVE is myfaces-core version, but not Tobago version ]]></notes>
     <gav regex="true">^org\.apache\.myfaces\.tobago:*:.*$</gav>
     <cve>CVE-2011-4367</cve>
   </suppress>
@@ -22,5 +22,10 @@
     <notes><![CDATA[ file name: javax.el-api-3.0.1-b04.jar ]]></notes>
     <gav regex="true">^javax\.el:javax\.el-api:.*$</gav>
     <cve>CVE-2013-2566</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ subject of CVE is Trinidad version, but not Tobago version  ]]></notes>
+    <gav regex="true">^org\.apache\.myfaces\.tobago:tobago-tool-annotation:.*$</gav>
+    <cve>CVE-2016-5019</cve>
   </suppress>
 </suppressions>
