@@ -4,7 +4,7 @@
               xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
   <suppress>
     <notes><![CDATA[ subject of CVE is myfaces-core version, but not Tobago version ]]></notes>
-    <gav regex="true">^org\.apache\.myfaces\.tobago:*:.*$</gav>
+    <gav regex="true">^org\.apache\.myfaces\.tobago:.*:.*$</gav>
     <cve>CVE-2011-4367</cve>
   </suppress>
   <suppress>
@@ -25,7 +25,7 @@
   </suppress>
   <suppress>
     <notes><![CDATA[ subject of CVE is Trinidad version, but not Tobago version  ]]></notes>
-    <gav regex="true">^org\.apache\.myfaces\.tobago:tobago-tool-annotation:.*$</gav>
+    <gav regex="true">^org\.apache\.myfaces\.tobago:.*:.*$</gav>
     <cve>CVE-2016-5019</cve>
   </suppress>
 </suppressions>
