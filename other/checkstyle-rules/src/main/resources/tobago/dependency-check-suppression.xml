@@ -13,6 +13,11 @@
     <cpe>cpe:/a:apache:geronimo</cpe>
   </suppress>
   <suppress>
+    <notes><![CDATA[ file name: xbean-finder-shaded-4.5.jar ]]></notes>
+    <gav regex="true">^org\.apache\.xbean:xbean-finder-shaded:.*$</gav>
+    <cpe>cpe:/a:finder_project:finder</cpe>
+  </suppress>
+  <suppress>
     <notes><![CDATA[ file name: geronimo-el_2.2_spec-1.0.4.jar ]]></notes>
     <gav regex="true">^org\.apache\.geronimo\.specs:geronimo-el_2\.2_spec:.*$</gav>
     <cpe>cpe:/a:apache:geronimo</cpe>
