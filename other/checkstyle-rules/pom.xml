@@ -29,7 +29,7 @@
       -->
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>16</version>
+    <version>17</version>
   </parent>
 
   <groupId>org.apache.myfaces.buildtools</groupId>
@@ -64,7 +64,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.3</version>
         <configuration>
           <tagBase>https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/tags</tagBase>
         </configuration>
