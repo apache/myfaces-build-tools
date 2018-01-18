@@ -181,12 +181,12 @@
         <!-- TBD
         <module name="MissingDeprecated"/>
         -->
-<!-- TBD
+
         <module name="HiddenField">
           <property name="ignoreSetter" value="true" />
           <property name=" ignoreConstructorParameter" value="true" />
         </module>
--->
+
         <module name="IllegalInstantiation">
            <property name="classes" value="java.lang.Boolean, java.lang.String"/>
         </module>
