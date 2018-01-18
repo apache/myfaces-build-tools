@@ -174,9 +174,7 @@
         <!-- See http://checkstyle.sf.net/config_coding.html -->
         <!-- <module name="AvoidInlineConditionals"/> -->
         <module name="CovariantEquals"/>
-        <!-- TBD
         <module name="EmptyStatement"/>
-        -->
         <module name="EqualsHashCode"/>
         <module name="MissingDeprecated"/>
 
