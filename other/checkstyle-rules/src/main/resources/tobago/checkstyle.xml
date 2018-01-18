@@ -178,9 +178,7 @@
         <module name="EmptyStatement"/>
         -->
         <module name="EqualsHashCode"/>
-        <!-- TBD
         <module name="MissingDeprecated"/>
-        -->
 
         <module name="HiddenField">
           <property name="ignoreSetter" value="true" />
