@@ -28,4 +28,9 @@
     <gav regex="true">^org\.apache\.myfaces\.tobago:.*:.*$</gav>
     <cve>CVE-2016-5019</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[ subject of CVE is MyFaces Core, but not Tobago ]]></notes>
+    <gav regex="true">^org\.apache\.myfaces\.tobago:.*:.*$</gav>
+    <cve>CVE-2011-4343</cve>
+  </suppress>
 </suppressions>
