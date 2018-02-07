@@ -3,6 +3,11 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
   <suppress>
+    <notes><![CDATA[ file name: xbean-asm6-shaded-4.5.jar ]]></notes>
+    <gav regex="true">^org\.apache\.xbean:xbean-asm6-shaded:.*$</gav>
+    <cpe>cpe:/a:apache:geronimo</cpe>
+  </suppress>
+  <suppress>
     <notes><![CDATA[ file name: xbean-asm5-shaded-4.1.jar ]]></notes>
     <gav regex="true">^org\.apache\.xbean:xbean-asm5-shaded:.*$</gav>
     <cpe>cpe:/a:apache:geronimo</cpe>
