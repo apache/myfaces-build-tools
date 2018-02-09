@@ -119,6 +119,7 @@
     <module>myfaces-archetype-codi-jsf20</module>
     <module>myfaces-archetype-core-integration-test</module>
     <module>myfaces-archetype-extscript-jsf20</module>
+    <module>myfaces-archetype-meecrowave</module>
   </modules>
 
   <distributionManagement>

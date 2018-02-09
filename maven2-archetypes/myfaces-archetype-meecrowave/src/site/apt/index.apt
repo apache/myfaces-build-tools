@@ -1,0 +1,18 @@
+ ------
+ Myfaces Meecrowave Archetype
+ ------
+
+Overview
+
+  This project defines a Maven archetype. Running the archetype plugin with this archetype will
+  create a directory tree containing the files needed to quickly get started on a new JSF 2.2
+  project with meecrowave.
+
+Usage
+
+  Use the following maven command and then select myfaces-archetype-meecrowave from the options.
+
+
++------------------------------------------------------------------+
+mvn archetype:generate -DarchetypeCatalog=http://myfaces.apache.org
++------------------------------------------------------------------+
