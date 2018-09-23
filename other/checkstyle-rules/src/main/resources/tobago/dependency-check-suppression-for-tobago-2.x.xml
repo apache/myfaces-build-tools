@@ -33,4 +33,29 @@
     <gav regex="true">^org\.apache\.myfaces\.tobago:.*:.*$</gav>
     <cve>CVE-2011-4343</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[ subject of CVE is a feature not used by Tobago, also log4j its only used in examples ]]></notes>
+    <gav regex="true">^org\.zenframework\.z8\.dependencies\.commons:log4j-1\.2\.17:.*$</gav>
+    <cve>CVE-2017-5645</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ seems not to be relevant for Tobago, because it's only used to build themes ]]></notes>
+    <gav regex="true">^org\.codehaus\.plexus:plexus-archiver:.*$</gav>
+    <cve>CVE-2018-1002207</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: geronimo-validation_1.1_spec-1.0.jar ]]></notes>
+    <gav regex="true">^org\.apache\.geronimo\.specs:geronimo-validation_1\.1_spec:.*$</gav>
+    <cve>CVE-2013-4499</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ addressbook demo ]]></notes>
+    <gav regex="true">^org\.apache\.derby:derby:.*$</gav>
+    <cve>CVE-2018-1313</cve>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: batik-xml-1.9.jar batik-i18n-1.9.ja ]]></notes>
+    <gav regex="true">^org\.apache\.xmlgraphics:batik-.*:.*$</gav>
+    <cve>CVE-2018-8013</cve>
+  </suppress>
 </suppressions>

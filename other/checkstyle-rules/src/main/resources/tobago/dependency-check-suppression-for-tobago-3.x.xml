@@ -37,4 +37,9 @@
     <gav regex="true">^org\.apache\.geronimo\.specs:geronimo-validation_1\.1_spec:.*$</gav>
     <cve>CVE-2013-4499</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[ addressbook demo ]]></notes>
+    <gav regex="true">^org\.apache\.derby:derby:.*$</gav>
+    <cve>CVE-2018-1313</cve>
+  </suppress>
 </suppressions>
