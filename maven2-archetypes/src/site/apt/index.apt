@@ -37,6 +37,10 @@ Archetypes
 
   Sets up a simple portlet-enabled webapp.
 
+* Tobago Archetype
+
+  Sets up a webapp that uses MyFaces 2.3 and Tobago.
+
 * Trinidad Archetype
 
   Sets up a webapp that uses MyFaces Core 1.2.x and MyFaces Trinidad.

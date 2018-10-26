@@ -1,0 +1,19 @@
+ ------
+ Tobago with MyFaces 2.3 and OWB Basic Archetype
+ ------
+
+Overview
+
+  This project defines a Maven archetype. Running the archetype plugin with this archetype will
+  create a directory tree containing the files needed to quickly get started on a new JSF 2.3
+  project with Tobago. Managed beans are defined with JSR-299/JSR-330 annotations with
+  Apache OpenWebBeans as the CDI implementation.
+
+Usage
+
+  Use the following maven command and then select myfaces-archetype-tobago from the options.
+
+
++------------------------------------------------------------------+
+mvn archetype:generate -DarchetypeCatalog=http://myfaces.apache.org
++------------------------------------------------------------------+
