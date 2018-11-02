@@ -111,8 +111,9 @@
     <module>myfaces-archetype-helloworld20-owb</module>
     <module>myfaces-archetype-helloworld-facelets</module>
     <module>myfaces-archetype-helloworld-portlets</module>
+    <module>myfaces-archetype-tobago</module>
     <module>myfaces-archetype-trinidad</module>
-    <module>myfaces-archetype-trinidad20</module>  
+    <module>myfaces-archetype-trinidad20</module>
     <module>myfaces-archetype-jsfcomponents</module>
     <module>myfaces-archetype-jsfcomponents20</module>
     <module>myfaces-archetype-codi-jsf12</module>
