@@ -37,4 +37,9 @@
     <gav regex="true">^org\.apache\.geronimo\.specs:geronimo-validation_1\.1_spec:.*$</gav>
     <cve>CVE-2013-4499</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: org.apache.myfaces.tobago:tobago-tool-test:4.3.1 ]]></notes>
+    <gav regex="true">^org\.apache\.myfaces\.tobago:tobago-tool-test:.*$</gav>
+    <cve>CVE-2007-1349</cve>
+  </suppress>
 </suppressions>
