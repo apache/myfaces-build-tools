@@ -97,7 +97,7 @@ public class SayHello extends UIOutput
 {
     public static final String COMPONENT_TYPE = "org.myorganization.SayHello";
     public static final String DEFAULT_RENDERER_TYPE = "org.myorganization.SayHelloRenderer";
-    public static final String COMPONENT_FAMILY = "javax.faces.Output";
+    public static final String COMPONENT_FAMILY = "jakarta.faces.Output";
 
     /** ..... Some custom code goes here .... **/
 }
@@ -139,7 +139,7 @@ public abstract class AbstractSayHello extends UIOutput
 {
     public static final String COMPONENT_TYPE = "org.myorganization.SayHello";
     public static final String DEFAULT_RENDERER_TYPE = "org.myorganization.SayHelloRenderer";
-    public static final String COMPONENT_FAMILY = "javax.faces.Output";
+    public static final String COMPONENT_FAMILY = "jakarta.faces.Output";
 
     /**
      * User's first name.
@@ -163,13 +163,13 @@ abstract class _SayHello extends UIOutput
 {
     public static final String COMPONENT_TYPE = "org.myorganization.SayHello";
     public static final String DEFAULT_RENDERER_TYPE = "org.myorganization.SayHelloRenderer";
-    public static final String COMPONENT_FAMILY = "javax.faces.Output";
+    public static final String COMPONENT_FAMILY = "jakarta.faces.Output";
 
     /**
      * This method is copied to generated SayHello class
      **/
-    public void broadcast(javax.faces.event.FacesEvent event)
-        throws javax.faces.event.AbortProcessingException
+    public void broadcast(jakarta.faces.event.FacesEvent event)
+        throws jakarta.faces.event.AbortProcessingException
     {
         //Some custom code goes here
     }
@@ -199,7 +199,7 @@ Generating Component Tag Classes
     Here there are two scenarios:
     
      * The component class inherits from jsf core UIXXXXX, so the generated 
-       class inherits from javax.faces.webapp.UIComponent(EL)Tag.
+       class inherits from jakarta.faces.webapp.UIComponent(EL)Tag.
      
      * The component class inherits from jsf core HtmlXXX. In this case, 
        the tag classes where your component inherits is on myfaces core 
@@ -231,7 +231,7 @@ Adding a Renderer to faces-config.xml file.
 ---------------------------
 @JSFRenderer(
    renderKitId = "HTML_BASIC",
-   family = "javax.faces.Output",
+   family = "jakarta.faces.Output",
    type = "org.myorganization.SayHelloRenderer")
 public class SayHelloRenderer extends Renderer
 {

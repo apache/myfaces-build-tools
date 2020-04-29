@@ -41,9 +41,9 @@
  */
 package ${component.packageName};
 
-import javax.faces.component.UIComponent;
-import javax.faces.el.ValueBinding;
-import javax.faces.context.FacesContext;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.el.ValueBinding;
+import jakarta.faces.context.FacesContext;
 import $component.parentClassName;
 $utils.importTagClasses($component)
 

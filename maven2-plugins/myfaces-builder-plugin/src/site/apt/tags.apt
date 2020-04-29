@@ -72,7 +72,7 @@ public class ValueChangeListenerTag extends
 
     @Override
     @JSFJspAttribute(
-        className = "javax.faces.event.ValueChangeListener",
+        className = "jakarta.faces.event.ValueChangeListener",
         rtexprvalue = true)
     public void setBinding(ValueExpression binding)
     {

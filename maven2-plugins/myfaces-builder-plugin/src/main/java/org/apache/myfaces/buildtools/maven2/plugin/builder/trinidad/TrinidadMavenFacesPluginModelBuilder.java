@@ -66,9 +66,9 @@ public class TrinidadMavenFacesPluginModelBuilder
             ComponentBean sourceComponent = it.next();
             
             String componentType = sourceComponent.getComponentType();
-            if (componentType.startsWith("javax.faces.") || sourceComponent.getComponentClass().startsWith("javax.faces."))
+            if (componentType.startsWith("jakarta.faces.") || sourceComponent.getComponentClass().startsWith("jakarta.faces."))
             {
-                // Components in javax.faces package were already loaded, so
+                // Components in jakarta.faces package were already loaded, so
                 // there is no need to load them again
                 continue;
             }
@@ -234,9 +234,9 @@ public class TrinidadMavenFacesPluginModelBuilder
             ConverterBean sourceComponent = it.next();
             
             String converterId = sourceComponent.getConverterId();
-            if (converterId.startsWith("javax.faces.") || sourceComponent.getConverterClass().startsWith("javax.faces."))
+            if (converterId.startsWith("jakarta.faces.") || sourceComponent.getConverterClass().startsWith("jakarta.faces."))
             {
-                // Components in javax.faces package were already loaded, so
+                // Components in jakarta.faces package were already loaded, so
                 // there is no need to load them again
                 continue;
             }
@@ -281,9 +281,9 @@ public class TrinidadMavenFacesPluginModelBuilder
             ValidatorBean sourceComponent = it.next();
 
             String validatorId = sourceComponent.getValidatorId();
-            if (validatorId.startsWith("javax.faces.") || sourceComponent.getValidatorClass().startsWith("javax.faces."))
+            if (validatorId.startsWith("jakarta.faces.") || sourceComponent.getValidatorClass().startsWith("jakarta.faces."))
             {
-                // Components in javax.faces package were already loaded, so
+                // Components in jakarta.faces package were already loaded, so
                 // there is no need to load them again
                 continue;
             }

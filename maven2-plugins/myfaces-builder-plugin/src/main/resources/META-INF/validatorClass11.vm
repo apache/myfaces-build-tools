@@ -34,8 +34,8 @@
  */
 package ${validator.packageName};
 
-import javax.faces.el.ValueBinding;
-import javax.faces.context.FacesContext;
+import jakarta.faces.el.ValueBinding;
+import jakarta.faces.context.FacesContext;
 $utils.importTagClasses($validator)
 
 #if ($validator.isTemplate())

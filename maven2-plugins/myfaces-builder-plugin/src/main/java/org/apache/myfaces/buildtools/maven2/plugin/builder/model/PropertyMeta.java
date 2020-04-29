@@ -530,7 +530,7 @@ public class PropertyMeta
      */
     public boolean isMethodBinding()
     {
-        return ("javax.faces.el.MethodBinding".equals(getClassName()));
+        return ("jakarta.faces.el.MethodBinding".equals(getClassName()));
     }
 
     /**
@@ -540,7 +540,7 @@ public class PropertyMeta
      */
     public boolean isMethodExpression()
     {
-        return ("javax.el.MethodExpression".equals(getClassName()));
+        return ("jakarta.el.MethodExpression".equals(getClassName()));
     }
     
     /**
@@ -554,7 +554,7 @@ public class PropertyMeta
     /**
      * Indicate the type that values should be
      * cast on tld. It is supposed that the className is
-     * javax.el.ValueExpression to apply it. 
+     * jakarta.el.ValueExpression to apply it. 
      *
      * @since 1.0.3
      */

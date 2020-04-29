@@ -259,7 +259,7 @@ public class CompositeComponentModelBuilder
                         this.component.setClassName(alias);
                         if (!setComponentType)
                         {
-                            this.component.setParentClassName("javax.faces.component.UINamingContainer");
+                            this.component.setParentClassName("jakarta.faces.component.UINamingContainer");
                             PropertyMeta idProp = new PropertyMeta();
                             idProp.setName("id");
                             idProp.setRequired(false);

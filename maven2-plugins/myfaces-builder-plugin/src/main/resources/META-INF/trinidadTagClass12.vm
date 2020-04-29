@@ -20,7 +20,7 @@
  */
 package ${component.tagPackage};
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 ##$utils.importTagClasses12($component)
 #set ($addMeMb = false)
@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 #end
 #end
 #if ($addMe)
-import javax.el.MethodExpression;
+import jakarta.el.MethodExpression;
 #end
 #if ($addMeMb)
 import org.apache.myfaces.trinidadinternal.taglib.util.MethodExpressionMethodBinding;
@@ -49,7 +49,7 @@ public class $utils.getClassFromFullClass($component.tagClass)
 #if (${component.tagSuperclass})
     extends ${component.tagSuperclass}
 #else
-    extends javax.faces.webapp.UIComponentTag
+    extends jakarta.faces.webapp.UIComponentTag
 #end
 {
     public $utils.getClassFromFullClass($component.tagClass)()

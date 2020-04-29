@@ -84,12 +84,12 @@ public class MyfacesUtils
     {
         if (property.isMethodExpression())
         {
-            return "javax.faces.el.MethodBinding";
+            return "jakarta.faces.el.MethodBinding";
         }
 
         if (property.isMethodBinding())
         {
-            return "javax.faces.el.MethodBinding";
+            return "jakarta.faces.el.MethodBinding";
         }
 
         return "java.lang.String";
@@ -100,15 +100,15 @@ public class MyfacesUtils
     {
         if (property.getJspName().equals("actionListener"))
         {
-            return "javax.el.MethodExpression";
+            return "jakarta.el.MethodExpression";
         }
         if (property.getJspName().equals("validator"))
         {
-            return "javax.el.MethodExpression";
+            return "jakarta.el.MethodExpression";
         }
         if (property.getJspName().equals("valueChangeListener"))
         {
-            return "javax.el.MethodExpression";
+            return "jakarta.el.MethodExpression";
         }
         
         if (property.isMethodExpression())
@@ -196,15 +196,15 @@ public class MyfacesUtils
             }
             if (property.getJspName().equals("actionListener"))
             {
-                imports.add("javax.faces.event.MethodExpressionActionListener");
+                imports.add("jakarta.faces.event.MethodExpressionActionListener");
             }
             if (property.getJspName().equals("valueChangeListener"))
             {
-                imports.add("javax.faces.event.MethodExpressionValueChangeListener");
+                imports.add("jakarta.faces.event.MethodExpressionValueChangeListener");
             }
             if (property.getJspName().equals("validator"))
             {
-                imports.add("javax.faces.validator.MethodExpressionValidator");
+                imports.add("jakarta.faces.validator.MethodExpressionValidator");
             }
         }
 
@@ -225,7 +225,7 @@ public class MyfacesUtils
 
     public static boolean isConverter(String propClass)
     {
-        return ("javax.faces.convert.Converter".equals(propClass));
+        return ("jakarta.faces.convert.Converter".equals(propClass));
     }
     
     public static boolean isList(String propClass)

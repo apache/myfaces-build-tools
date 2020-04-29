@@ -36,10 +36,10 @@
  */
 package ${component.packageName};
 
-import javax.el.ValueExpression;
-import javax.faces.context.FacesContext;
-import javax.faces.component.PartialStateHolder;
-import javax.faces.component.StateHolder;
+import jakarta.el.ValueExpression;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.component.PartialStateHolder;
+import jakarta.faces.component.StateHolder;
 import org.apache.myfaces.component.AttachedDeltaWrapper;
 $utils.importTagClasses($component)
 

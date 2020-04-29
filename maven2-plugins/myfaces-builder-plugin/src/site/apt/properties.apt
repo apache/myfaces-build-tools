@@ -83,9 +83,9 @@ Properties
     use @JSFProperty annotation/doclet instead.
 
 -------------------
-@JSFComponent(type = "javax.faces.ComponentBase", family = "javax.faces.ComponentBase", desc = "base component when all components must inherit", tagClass = "javax.faces.webapp.UIComponentELTag", configExcluded = true)
+@JSFComponent(type = "jakarta.faces.ComponentBase", family = "jakarta.faces.ComponentBase", desc = "base component when all components must inherit", tagClass = "jakarta.faces.webapp.UIComponentELTag", configExcluded = true)
 @JSFJspProperty(name = "binding", 
-    returnType = "javax.faces.component.UIComponent", 
+    returnType = "jakarta.faces.component.UIComponent", 
     longDesc = "Identifies a backing bean property (of type UIComponent or appropriate subclass) to bind to this component instance. This value must be an EL expression.", desc = "backing bean property to bind to this component instance")
 public abstract class UIComponentBase extends UIComponent
 {
@@ -131,7 +131,7 @@ public abstract class UIComponentBase extends UIComponent
 
 -------------------
 
-    @JSFProperty(stateHolder = true, returnSignature = "void", methodSignature = "javax.faces.event.ActionEvent")
+    @JSFProperty(stateHolder = true, returnSignature = "void", methodSignature = "jakarta.faces.event.ActionEvent")
     public MethodBinding getActionListener()
     {
         // .... some code ...

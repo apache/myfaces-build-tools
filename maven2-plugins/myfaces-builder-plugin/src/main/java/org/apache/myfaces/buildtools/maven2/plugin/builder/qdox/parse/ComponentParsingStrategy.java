@@ -159,13 +159,13 @@ public class ComponentParsingStrategy extends ClassMetaPropertyParsingStrategy
         {
             JavaClass iface = interfaces[i];
             if (iface.getFullyQualifiedName().equals(
-                    "javax.faces.component.NamingContainer"))
+                    "jakarta.faces.component.NamingContainer"))
             {
                 component.setNamingContainer(Boolean.TRUE);
                 break;
             }
             if (iface.getFullyQualifiedName().equals(
-                    "javax.faces.component.behavior.ClientBehaviorHolder"))
+                    "jakarta.faces.component.behavior.ClientBehaviorHolder"))
             {
                 component.setClientBehaviorHolder(Boolean.TRUE);
                 break;
@@ -178,7 +178,7 @@ public class ComponentParsingStrategy extends ClassMetaPropertyParsingStrategy
         }
         if (implementsValue != null)
         {
-            if (StringUtils.contains(implementsValue, "javax.faces.component.behavior.ClientBehaviorHolder"))
+            if (StringUtils.contains(implementsValue, "jakarta.faces.component.behavior.ClientBehaviorHolder"))
             {
                 component.setClientBehaviorHolder(Boolean.TRUE);
             }

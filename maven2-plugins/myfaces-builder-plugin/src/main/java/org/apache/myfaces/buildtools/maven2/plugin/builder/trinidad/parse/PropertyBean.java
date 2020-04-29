@@ -347,7 +347,7 @@ public class PropertyBean extends AttributeBean
    */
   public boolean isMethodBinding()
   {
-    return ("javax.faces.el.MethodBinding".equals(getPropertyClass()));
+    return ("jakarta.faces.el.MethodBinding".equals(getPropertyClass()));
   }
 
 
@@ -359,7 +359,7 @@ public class PropertyBean extends AttributeBean
    */
   public boolean isMethodExpression()
   {
-    return ("javax.el.MethodExpression".equals(getPropertyClass()));
+    return ("jakarta.el.MethodExpression".equals(getPropertyClass()));
   }
 
   /**

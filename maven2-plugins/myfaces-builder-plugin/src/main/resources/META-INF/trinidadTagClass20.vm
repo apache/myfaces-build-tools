@@ -21,7 +21,7 @@
 */
 package ${component.tagPackage};
 
-import javax.el.ValueExpression;
+import jakarta.el.ValueExpression;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 ##$utils.importTagClasses12($component)
 #set ($addMeMb = false)
@@ -37,17 +37,17 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 #set ($addMe = true)
 #end
 #if ($property.name == "converter")
-import javax.faces.convert.Converter;
+import jakarta.faces.convert.Converter;
 #end
 #if ($property.name == "textAndAccessKey" || $property.name == "labelAndAccessKey" || $property.name == "valueAndAccessKey")
 import org.apache.myfaces.trinidadinternal.taglib.util.VirtualAttributeUtils;
 #end
 #end
 #if ($addMb)
-import javax.faces.el.MethodBinding;
+import jakarta.faces.el.MethodBinding;
 #end
 #if ($addMe)
-import javax.el.MethodExpression;
+import jakarta.el.MethodExpression;
 #end
 #if ($addMeMb)
 import org.apache.myfaces.trinidadinternal.taglib.util.MethodExpressionMethodBinding;
@@ -65,7 +65,7 @@ public class $utils.getClassFromFullClass($component.tagClass)
 #if (${component.tagSuperclass})
     extends $utils.getClassFromFullClass(${component.tagSuperclass})
 #else
-    extends javax.faces.webapp.UIComponentTag
+    extends jakarta.faces.webapp.UIComponentTag
 #end
 {
 

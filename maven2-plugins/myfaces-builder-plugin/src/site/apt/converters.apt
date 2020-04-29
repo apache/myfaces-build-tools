@@ -37,7 +37,7 @@ Creating Custom Converters
     one file (the class implementing Converter interface).
     
     On jsf 1.2, it is necessary to provide a base tag class that extends
-    from javax.faces.webapp.ConverterELTag where all converters should 
+    from jakarta.faces.webapp.ConverterELTag where all converters should 
     inherit. This class is on myfaces commons converters project, but 
     users can provide custom template implementations for it.
 
@@ -59,7 +59,7 @@ Annotate Converter Classes
     name = "mcc:convertDateTime",
     tagClass = "org.apache.myfaces.commons.converter.ConvertDateTimeTag",
     tagSuperclass = "org.apache.myfaces.commons.converter.ConverterTag")
-public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
+public class DateTimeConverter extends jakarta.faces.convert.DateTimeConverter
 {
     public static final String CONVERTER_ID = "org.apache.myfaces.custom.convertDateTime.DateTimeConverter";
  

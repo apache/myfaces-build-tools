@@ -109,7 +109,7 @@ public class Flattener
                         " without a parent defined as component, using " +
                         "UIComponent");
                 parent = model
-                    .findComponentByClassName("javax.faces.component.UIComponent");
+                    .findComponentByClassName("jakarta.faces.component.UIComponent");
                 flattenComponent(parent);
                 component.merge(parent);                
             }
@@ -250,7 +250,7 @@ public class Flattener
                     AttributeMeta attribute = new AttributeMeta();
                     if (property.isMethodExpression())
                     {
-                        attribute.setClassName("javax.el.MethodExpression");
+                        attribute.setClassName("jakarta.el.MethodExpression");
                         MethodSignatureMeta sig = property.getMethodBindingSignature();
                         attribute.setDeferredMethodSignature(
                                 sig.getReturnType()+" myMethod("+sig.getParameterTypesAsString()+")");
@@ -258,7 +258,7 @@ public class Flattener
                     else if (null == property.isRtexprvalue() || !property.isRtexprvalue().booleanValue())
                     {
                         attribute.setDeferredValueType(property.getClassName());
-                        attribute.setClassName("javax.el.ValueExpression");
+                        attribute.setClassName("jakarta.el.ValueExpression");
                     }
                     else
                     {
@@ -525,7 +525,7 @@ public class Flattener
                 AttributeMeta attribute = new AttributeMeta();
                 if (property.isMethodExpression())
                 {
-                    attribute.setClassName("javax.el.MethodExpression");
+                    attribute.setClassName("jakarta.el.MethodExpression");
                     MethodSignatureMeta sig = property.getMethodBindingSignature();
                     attribute.setDeferredMethodSignature(
                             sig.getReturnType()+" myMethod("+sig.getParameterTypesAsString()+")");
@@ -533,7 +533,7 @@ public class Flattener
                 else if (null == property.isRtexprvalue() || !property.isRtexprvalue().booleanValue())
                 {
                     attribute.setDeferredValueType(property.getClassName());
-                    attribute.setClassName("javax.el.ValueExpression");
+                    attribute.setClassName("jakarta.el.ValueExpression");
                 }
                 else
                 {

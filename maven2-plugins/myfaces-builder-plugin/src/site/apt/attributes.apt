@@ -116,7 +116,7 @@ Attributes
 -------------------
   /** works on version 1.0.3 and upper for jsf 1.2 and upper tld templates **/
   @JSFJspAttribute(required=true,
-          deferredMethodSignature = "void myMethod(javax.faces.context.FacesContext, java.io.OutputStream)")
+          deferredMethodSignature = "void myMethod(jakarta.faces.context.FacesContext, java.io.OutputStream)")
   public void setMethod(MethodExpression method)
   {
     _method = method;

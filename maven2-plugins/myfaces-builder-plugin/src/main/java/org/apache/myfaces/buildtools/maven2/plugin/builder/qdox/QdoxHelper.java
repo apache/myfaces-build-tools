@@ -132,7 +132,7 @@ public class QdoxHelper
     public static String getFullyQualifiedClassName(JavaClass clazz, String fqn)
     {
         //QDox 1.9 bug. getFullyQualifiedName does not resolve 
-        //correctly classes like javax.servlet.jsp.tagext.TagSupport as parent
+        //correctly classes like jakarta.servlet.jsp.tagext.TagSupport as parent
         //of a class with @JSFJspTag. The temporal solution is scan
         //the imports, looking for this type and if it is found replace it.
         //Fixed on 1.9.1, but better let the code as is 

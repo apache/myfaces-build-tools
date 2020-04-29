@@ -39,7 +39,7 @@ public class BuildMetaDataMojoTest extends TestCase
         comp.setDescription("dummy desc");
         comp.setLongDescription("dummy long desc");
         comp.setFamily("mockFamily");
-        comp.setParentClassName("javax.faces.UIComponent");
+        comp.setParentClassName("jakarta.faces.UIComponent");
         comp.setType("mockType");
 
         PropertyMeta prop = new PropertyMeta();

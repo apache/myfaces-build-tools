@@ -233,7 +233,7 @@ public class AttributeMeta
     /**
      * Indicate the type that values should be
      * cast on tld. It is supposed that the className is
-     * javax.el.ValueExpression to apply it. 
+     * jakarta.el.ValueExpression to apply it. 
      *
      * @since 1.0.3
      */
@@ -253,7 +253,7 @@ public class AttributeMeta
     /**
      * Indicate the method signature that values should be
      * cast on tld. It is supposed that the className is
-     * javax.el.MethodExpression to apply it. 
+     * jakarta.el.MethodExpression to apply it. 
      *
      * @since 1.0.3
      */
