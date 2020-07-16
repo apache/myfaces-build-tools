@@ -17,7 +17,7 @@
  specific language governing permissions and limitations
  under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"> 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -29,7 +29,7 @@
   </parent>
 
   <groupId>org.apache.myfaces.buildtools</groupId>
-  <artifactId>myfaces-builder-plugin</artifactId> 
+  <artifactId>myfaces-builder-plugin</artifactId>
   <version>1.0.11-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Apache MyFaces Buildtools Maven2 Builder Plugin</name>
@@ -39,9 +39,10 @@
   </description>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-plugin</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-plugin</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/myfaces-build-tools/trunk/maven2-plugins/myfaces-builder-plugin</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-build-tools.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-build-tools.git</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf/myfaces-build-tools.git</url>
+    <tag>HEAD</tag>
   </scm>
 
   <properties>
@@ -49,9 +50,29 @@
     <doxiaVersion>1.0</doxiaVersion>
     <pluginTestingVersion>1.2</pluginTestingVersion>
   </properties>
-  
+
+    <!-- Turn Java Doc Errors into Warnings -->
+  <profiles>
+     <profile>
+        <id>JDK 8 Build</id>
+        <activation>
+           <jdk>[1.8,)</jdk>
+        </activation>
+        <properties>
+           <additionalparam>-Xdoclint:none</additionalparam>
+        </properties>
+     </profile>
+  </profiles>
+
   <build>
     <plugins>
+
+      <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-release-plugin</artifactId>
+         <version>2.2.2</version>
+      </plugin>
+
       <!-- required for plexus, but we are not using this right now
       <plugin>
         <artifactId>maven-plugin-plugin</artifactId>
@@ -69,6 +90,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.4.2</version>
@@ -81,7 +103,7 @@
           <headerLocation>default/myfaces-header-spaces.txt</headerLocation>
         </configuration>
       </plugin>
-      
+
     </plugins>
   </build>
 
@@ -97,7 +119,7 @@
       </plugin>
     </plugins>
   </reporting>
-  
+
   <dependencies>
     <dependency>
       <groupId>org.apache.maven</groupId>
@@ -110,12 +132,12 @@
       <artifactId>maven-project</artifactId>
       <version>${mavenVersion}</version>
     </dependency>
-    
-    <dependency>    
+
+    <dependency>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-dependency-plugin</artifactId>
       <version>2.3</version>
-    </dependency>   
+    </dependency>
 
     <dependency>
       <groupId>com.thoughtworks.qdox</groupId>
@@ -144,7 +166,7 @@
       <version>6.5.3</version>
       <scope>runtime</scope>
     </dependency>
-    
+
     <!--
     <dependency>
       <groupId>xerces</groupId>
@@ -173,7 +195,7 @@
       <artifactId>velocity</artifactId>
       <version>1.6.4</version>
     </dependency>
-    
+
     <dependency>
       <groupId>logkit</groupId>
       <artifactId>logkit</artifactId>
@@ -185,45 +207,45 @@
       <artifactId>commons-collections</artifactId>
       <version>3.1</version>
     </dependency>
-    
+
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>2.4</version>
     </dependency>
-    <!--     
+    <!--
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-velocity</artifactId>
       <version>1.1.7</version>
     </dependency>
      -->
-    
+
     <!-- Reporting required API-->
     <dependency>
       <groupId>org.apache.maven.reporting</groupId>
       <artifactId>maven-reporting-api</artifactId>
       <version>3.0</version>
     </dependency>
-  
+
     <dependency>
       <groupId>org.apache.maven.reporting</groupId>
       <artifactId>maven-reporting-impl</artifactId>
       <version>2.0.5</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.apache.maven.doxia</groupId>
       <artifactId>doxia-sink-api</artifactId>
       <version>${doxiaVersion}</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.apache.maven.doxia</groupId>
       <artifactId>doxia-site-renderer</artifactId>
       <version>${doxiaVersion}</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.apache.maven.doxia</groupId>
       <artifactId>doxia-decoration-model</artifactId>
