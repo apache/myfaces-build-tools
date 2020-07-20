@@ -30,7 +30,7 @@
 
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>myfaces-builder-plugin</artifactId>
-  <version>1.0.11-SNAPSHOT</version>
+  <version>1.0.11</version>
   <packaging>maven-plugin</packaging>
   <name>Apache MyFaces Buildtools Maven2 Builder Plugin</name>
   <description>
@@ -42,7 +42,7 @@
     <connection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-build-tools.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-build-tools.git</developerConnection>
     <url>https://gitbox.apache.org/repos/asf/myfaces-build-tools.git</url>
-    <tag>HEAD</tag>
+    <tag>myfaces-builder-plugin-1.0.11</tag>
   </scm>
 
   <properties>
