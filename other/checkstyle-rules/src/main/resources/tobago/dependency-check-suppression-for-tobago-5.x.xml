@@ -7,4 +7,18 @@
     <packageUrl regex="true">^pkg:npm/path\-parse@.*$</packageUrl>
     <cve>CVE-2021-23343</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: glob-parent:6.0.0 ]]></notes>
+    <packageUrl regex="true">^pkg:npm/glob\-parent@.*$</packageUrl>
+    <vulnerabilityName>1751</vulnerabilityName>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: trim-newlines:4.0.1 ]]></notes>
+    <packageUrl regex="true">^pkg:npm/trim\-newlines@.*$</packageUrl>
+    <vulnerabilityName>1753</vulnerabilityName>
+  </suppress>  <suppress>
+    <notes><![CDATA[ file name: trim-newlines:1.0.0 ]]></notes>
+    <packageUrl regex="true">^pkg:npm/trim\-newlines@.*$</packageUrl>
+    <cpe>cpe:/a:trim-newlines_project:trim-newlines</cpe>
+  </suppress>
 </suppressions>
