@@ -21,9 +21,15 @@
     <notes><![CDATA[ file name: trim-newlines:4.0.1 ]]></notes>
     <packageUrl regex="true">^pkg:npm/trim\-newlines@.*$</packageUrl>
     <vulnerabilityName>1753</vulnerabilityName>
-  </suppress>  <suppress>
+  </suppress>
+  <suppress>
     <notes><![CDATA[ file name: trim-newlines:1.0.0 ]]></notes>
     <packageUrl regex="true">^pkg:npm/trim\-newlines@.*$</packageUrl>
     <cpe>cpe:/a:trim-newlines_project:trim-newlines</cpe>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: jakarta.el-api-3.0.3.jar ]]></notes>
+    <packageUrl regex="true">^pkg:maven/jakarta\.el/jakarta\.el-api@.*$</packageUrl>
+    <cve>CVE-2021-28170</cve>
   </suppress>
 </suppressions>
