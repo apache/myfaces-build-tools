@@ -48,8 +48,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <inherited>true</inherited>
           <configuration>
-            <source>1.5</source>
-            <target>1.5</target>
+            <source>1.6</source>
+            <target>1.6</target>
             <showWarnings>true</showWarnings>
             <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>
           </configuration>
