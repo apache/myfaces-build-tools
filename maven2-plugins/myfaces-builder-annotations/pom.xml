@@ -35,7 +35,7 @@
   <name>Apache MyFaces Buildtools Maven2 Builder Annotations</name>
 
   <description>
-    A set of Java 1.5 Annotation classes that can be applied to classes that are
+    A set of Java 1.6 Annotation classes that can be applied to classes that are
     intended to be JSF components, validators, etc. The maven-builder-plugin will
     recognise these annotations and process the class appropriately.
   </description>
@@ -53,8 +53,8 @@
         <version>2.0.2</version>
         <inherited>true</inherited>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>1.6</source>
+          <target>1.6</target>
         </configuration>
       </plugin>
     </plugins>
