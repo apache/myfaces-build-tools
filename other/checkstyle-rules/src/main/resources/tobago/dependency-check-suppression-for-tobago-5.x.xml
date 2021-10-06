@@ -32,4 +32,19 @@
     <packageUrl regex="true">^pkg:maven/jakarta\.el/jakarta\.el-api@.*$</packageUrl>
     <cve>CVE-2021-28170</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: lodash:4.17.21 ]]></notes>
+    <packageUrl regex="true">^pkg:npm/lodash@.*$</packageUrl>
+    <cpe>cpe:/a:lodash:lodash</cpe>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: set-value:2.0.1 ]]></notes>
+    <packageUrl regex="true">^pkg:npm/set\-value@.*$</packageUrl>
+    <cpe>cpe:/a:set-value_project:set-value</cpe>
+  </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: set-value:3.0.2 ]]></notes>
+    <packageUrl regex="true">^pkg:npm/set\-value@.*$</packageUrl>
+    <cpe>cpe:/a:set-value_project:set-value</cpe>
+  </suppress>
 </suppressions>
