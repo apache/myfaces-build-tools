@@ -120,7 +120,6 @@
             <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
             <link>http://jakarta.apache.org/commons/pool/apidocs/</link>
             <link>http://www.junit.org/junit/javadoc/</link>
-            <link>http://logging.apache.org/log4j/docs/api/</link>
             <link>http://jakarta.apache.org/regexp/apidocs/</link>
             <link>http://jakarta.apache.org/velocity/api/</link>
           </links>
