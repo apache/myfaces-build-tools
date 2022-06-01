@@ -96,4 +96,16 @@
     <sha1>20e179f0dfabf0a46428f22c2150c9c4850fd15d</sha1>
     <cve>CVE-2016-1000027</cve>
   </suppress>
+  <suppress>
+    <!-- CVE is for linux watchman -->
+    <notes><![CDATA[ file name: fb-watchman:2.0.1 ]]></notes>
+    <packageUrl regex="true">^pkg:npm/fb\-watchman@.*$</packageUrl>
+    <vulnerabilityName>CVE-2022-21944</vulnerabilityName>
+  </suppress>
+  <suppress>
+    <!-- CVE was solved in 2.8.9 -->
+    <notes><![CDATA[ file name: hosted-git-info:2.8.9 ]]></notes>
+    <sha1>f58142bf71363f8925fecf8e1bce7f6a4e84af35</sha1>
+    <vulnerabilityName>CVE-2021-23362</vulnerabilityName>
+  </suppress>
 </suppressions>
