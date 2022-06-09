@@ -73,4 +73,10 @@
     <packageUrl regex="true">^pkg:maven/org\.iq80\.snappy/snappy@.*$</packageUrl>
     <cve>CVE-2018-6353</cve>
   </suppress>
+  <suppress>
+    <!-- the problem is fixed in 2.0.25 - https://issues.apache.org/jira/browse/MYFACES-4373 -->
+    <notes><![CDATA[ file name: myfaces-impl-2.0.25.jar ]]></notes>
+    <sha1>cef072c00fce9358be1fb26ded20ec5e38321316</sha1>
+    <vulnerabilityName>CVE-2021-26296</vulnerabilityName>
+  </suppress>
 </suppressions>
