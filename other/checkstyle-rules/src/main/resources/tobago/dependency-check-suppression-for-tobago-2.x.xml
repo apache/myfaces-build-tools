@@ -79,4 +79,10 @@
     <sha1>cef072c00fce9358be1fb26ded20ec5e38321316</sha1>
     <vulnerabilityName>CVE-2021-26296</vulnerabilityName>
   </suppress>
+  <suppress>
+    <!-- CVE is a problem with AMS patch scripts -->
+    <notes><![CDATA[ file name: log4j-api-2.17.2.jar ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.apache\.logging\.log4j/log4j\-.*@.*$</packageUrl>
+    <cve>CVE-2022-33915</cve>
+  </suppress>
 </suppressions>
