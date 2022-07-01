@@ -255,7 +255,7 @@
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>3.0</version>
+      <version>3.0.16</version>
     </dependency>
     <!-- End Reporting required API -->
 
