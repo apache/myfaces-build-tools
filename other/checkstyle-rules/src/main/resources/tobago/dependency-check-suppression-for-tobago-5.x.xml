@@ -89,4 +89,9 @@
     <packageUrl regex="true">^pkg:maven/ch\.qos\.logback/logback\-.*@.*$</packageUrl>
     <cve>CVE-2021-42550</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: snakeyaml-1.32.jar ]]></notes>
+    <packageUrl regex="true">^pkg:maven/org\.yaml/snakeyaml@.*$</packageUrl>
+    <vulnerabilityName>CVE-2022-38752</vulnerabilityName>
+  </suppress>
 </suppressions>
