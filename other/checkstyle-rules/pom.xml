@@ -35,7 +35,7 @@
   <groupId>org.apache.myfaces.buildtools</groupId>
   <artifactId>checkstyle-rules</artifactId>
   <packaging>jar</packaging>
-  <version>23-SNAPSHOT</version>
+  <version>23</version>
   <name>checkstyle-rules</name>
   <url>http://maven.apache.org</url>
 
@@ -43,7 +43,7 @@
     <connection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-build-tools.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/myfaces-build-tools.git</developerConnection>
     <url>https://gitbox.apache.org/repos/asf?p=myfaces-build-tools.git</url>
-    <tag>HEAD</tag>
+    <tag>checkstyle-rules-23</tag>
   </scm>
 
   <build>
