@@ -36,4 +36,9 @@
     <packageUrl regex="true">^pkg:npm/word\-wrap@.*$</packageUrl>
     <vulnerabilityName>GHSA-j8xg-fqg3-53r7</vulnerabilityName>
   </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: micromatch:4.0.7 ]]></notes>
+    <packageUrl regex="true">^pkg:npm/micromatch@.*$</packageUrl>
+    <vulnerabilityName>CVE-2024-4067</vulnerabilityName>
+  </suppress>
 </suppressions>
