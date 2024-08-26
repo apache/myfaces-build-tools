@@ -63,4 +63,12 @@
     <packageUrl regex="true">^pkg:maven/.*/.*@.*$</packageUrl>
     <cve>CVE-2021-37533</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: bootstrap*.js
+There is an issue with the carousel component. Tobago doesn't use the component, but if the application
+uses the carousel component, they might be affected. We recommend to upgrade to Tobago 5 or higher.
+]]></notes>
+    <packageUrl regex="true">^pkg:javascript/bootstrap@.*$</packageUrl>
+    <vulnerabilityName>CVE-2024-6531</vulnerabilityName>
+  </suppress>
 </suppressions>
