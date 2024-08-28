@@ -34,4 +34,9 @@
     <vulnerabilityName>CVE-2024-6531</vulnerabilityName>
     <!-- affects version from 4.0.0 to 4.6.2 -->
   </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: ejs:3.1.10 ]]></notes>
+    <packageUrl regex="true">^pkg:npm/ejs@.*$</packageUrl>
+    <vulnerabilityName>CVE-2023-29827</vulnerabilityName>
+  </suppress>
 </suppressions>
