@@ -440,7 +440,7 @@ public class IOUtils
             }
             else
             {
-                new File((String) i.next());
+                srcDir = new File(dir.toString());
             }
             //Scan all files on directory and add to builder
             addFileToJavaDocBuilder(visitor, selector, srcDir);
