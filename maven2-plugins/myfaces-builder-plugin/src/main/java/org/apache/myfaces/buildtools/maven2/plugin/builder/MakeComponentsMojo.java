@@ -198,6 +198,13 @@ public class MakeComponentsMojo extends AbstractBuilderMojo
     private File mainSourceDirectory2;
 
     /**
+     * Excludes files from the component generation. Must be comma separated.
+     * 
+     * @parameter
+     */
+    private String[] excludes;
+
+    /**
      * Execute the Mojo.
      */
     public void execute() throws MojoExecutionException
@@ -217,7 +224,20 @@ public class MakeComponentsMojo extends AbstractBuilderMojo
             File mdFile = new File(buildDirectory, metadataFile);
             Model model = IOUtils.loadModel(mdFile);
             new Flattener(model).flatten();
-            
+
+            for(int i = 0; i < excludes.length; i++){
+                String str =  excludes[i];
+                getLog().info("Files to be excluded: "+ str);
+                if(excludes != null){
+                    if(str.contains("**"))
+                    {
+                        // must be reglar expression 
+                        str = str.replace("**", ".*");
+                    }
+                    excludes[i] = str;
+                }
+            }
+
             Properties cacheInfo = new Properties();
             loadCache(cacheInfo);
             generateComponents(model, cacheInfo, mdFile.lastModified() );
@@ -360,7 +380,10 @@ public class MakeComponentsMojo extends AbstractBuilderMojo
         for (Iterator i = sourceDirs.iterator(); i.hasNext();)
         {
             String srcDir = (String) i.next();
-            builder.addSourceTree(new File(srcDir));
+            File dir = new File(srcDir);
+            //recusively add files to the builder
+            // allows control to exclude files 
+            addFilesToBuilder(builder,dir);
         }        
         
         //Init velocity
@@ -417,6 +440,38 @@ public class MakeComponentsMojo extends AbstractBuilderMojo
             if (tf != null && tf.exists())
             {
                 cachedInfo.put(tf.getAbsolutePath(), Long.toString(tf.lastModified()));
+            }
+        }
+    }
+
+    public void addFilesToBuilder(JavaDocBuilder builder, File dir) throws IOException
+    {
+        File[] directoryListing = dir.listFiles();
+        if(directoryListing == null)
+        {
+            return;
+        }
+        for(int j = 0; j < directoryListing.length; j++)
+        {
+            File f =  directoryListing[j];
+            if(f.isDirectory()){
+                addFilesToBuilder(builder, f);
+            } 
+            else 
+            {
+                boolean skip = false;
+                for(int i = 0; i < excludes.length; i++) {
+                    String currentExclude= excludes[i];
+                    if(currentExclude != null && f.toString().matches(currentExclude))
+                    {
+                        getLog().info("Excluding source from builder: " + f);
+                        skip = true;
+                        break;
+                    }
+                }
+                if(!skip){
+                    builder.addSource(f);
+                }
             }
         }
     }
