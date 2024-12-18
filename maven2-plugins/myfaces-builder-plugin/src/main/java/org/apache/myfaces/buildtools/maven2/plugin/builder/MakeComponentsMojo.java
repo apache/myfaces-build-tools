@@ -462,7 +462,8 @@ public class MakeComponentsMojo extends AbstractBuilderMojo
                 boolean skip = false;
                 for(int i = 0; i < excludes.length; i++) {
                     String currentExclude= excludes[i];
-                    if(currentExclude != null && f.toString().matches(currentExclude))
+                    String filepath = f.toString().replace("\\", "/");
+                    if(currentExclude != null && filepath.matches(currentExclude))
                     {
                         getLog().info("Excluding source from builder: " + f);
                         skip = true;
