@@ -48,7 +48,7 @@ public interface JSCompressor
      * @param input source to get compressed
      * @param output compressed script
      * @param level optimization level from 0 to 9. May have various
-     * signification dependending on the compressor, from beeing ignored to some
+     * signification depending on the compressor, from being ignored to some
      * fine tweaking the output.
      * @param language version of javascript to be used ("130" for JS 1.3), as
      * defined by Mozilla Rhino engine

@@ -27,8 +27,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.Types;
 
 /**
  * Goal used to build javascript libraries with maven. Compress the JavaScript
- * files from the packaging directory, pakage them as a javascript archive and
- * attach this new artifact to the project for beeing installed / deployed with
+ * files from the packaging directory, package them as a javascript archive and
+ * attach this new artifact to the project for being installed / deployed with
  * the regular uncompressed js-archive.
  * 
  * @author <a href="mailto:nicolas@apache.org">nicolas De Loof</a>
