@@ -28,7 +28,7 @@ Configuration files (faces-config.xml, .tld, facelets taglib)
      xmlBaseFile + templateFile( model(s) to take in consideration ) = xmlFile
 -------------------------
     
-    It is enought flexible to generate any file based on the model.
+    It is enough flexible to generate any file based on the model.
     Some examples can be seen below.
     
 -------------------------

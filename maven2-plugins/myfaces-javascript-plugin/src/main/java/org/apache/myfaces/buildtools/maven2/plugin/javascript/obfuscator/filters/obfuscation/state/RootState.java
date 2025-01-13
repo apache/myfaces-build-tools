@@ -28,7 +28,7 @@ public class RootState extends ObfuscationState
 {
   static private RootState _instance;
 
-  // private construnctor for singleton
+  // private constructor for singleton
   private RootState()
   {
   }

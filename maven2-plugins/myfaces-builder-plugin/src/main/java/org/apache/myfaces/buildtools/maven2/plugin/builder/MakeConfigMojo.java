@@ -63,7 +63,7 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
  * <ul>
  * <li>The name of the input template to be executed</li>
  * <li>The name of the output file to be created</li>
- * <li>Any number of variables which are accessable from the template
+ * <li>Any number of variables which are accessible from the template
  * (string values only)</li>
  * </ul>
  * </p>

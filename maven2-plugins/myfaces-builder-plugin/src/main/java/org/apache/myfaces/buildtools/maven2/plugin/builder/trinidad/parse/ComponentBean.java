@@ -862,7 +862,7 @@ public class ComponentBean extends AbstractTagBean
    * (oracle.adf.view.rich.component.rich.RichDialog) lists
    * oracle-adf-richdialog-holder as a required ancestor contract, and
    * af:popup (oracle.adf.view.rich.component.rich.RichPopup) lists
-   * oracle-adf-richdialog-holder as a satisified contract.
+   * oracle-adf-richdialog-holder as a satisfied contract.
    *
    * @param requiredAncestorContracts  a space delimited string of required ancestor contracts
    */
@@ -882,7 +882,7 @@ public class ComponentBean extends AbstractTagBean
    * (oracle.adf.view.rich.component.rich.RichDialog) lists
    * oracle-adf-richdialog-holder as a required ancestor contract, and
    * af:popup (oracle.adf.view.rich.component.rich.RichPopup) lists
-   * oracle-adf-richdialog-holder as a satisified contract.
+   * oracle-adf-richdialog-holder as a satisfied contract.
    *
    * @param requiredAncestorContracts  a string array of the required ancestor contracts
    */
@@ -902,7 +902,7 @@ public class ComponentBean extends AbstractTagBean
    * (oracle.adf.view.rich.component.rich.RichDialog) lists
    * oracle-adf-richdialog-holder as a required ancestor contract, and
    * af:popup (oracle.adf.view.rich.component.rich.RichPopup) lists
-   * oracle-adf-richdialog-holder as a satisified contract.
+   * oracle-adf-richdialog-holder as a satisfied contract.
    *
    * @return  a java.util.Iterator of strings, where each string is the name
    *          of a required ancestor contract

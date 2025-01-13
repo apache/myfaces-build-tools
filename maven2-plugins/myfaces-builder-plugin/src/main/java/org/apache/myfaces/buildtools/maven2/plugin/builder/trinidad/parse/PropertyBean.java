@@ -525,8 +525,8 @@ public class PropertyBean extends AttributeBean
   }
 
   /**
-   * Set if this property is overridding a property in an ancestor class.
-   * @param override if overridding a property
+   * Set if this property is overriding a property in an ancestor class.
+   * @param override if overriding a property
    */
   public void setOverride(boolean override)
   {
@@ -534,8 +534,8 @@ public class PropertyBean extends AttributeBean
   }
 
   /**
-   * Get if this property is overridding a property in an ancestor class.
-   * @return If the property is an overide
+   * Get if this property is overriding a property in an ancestor class.
+   * @return If the property is an override
    */
   public boolean isOverride()
   {

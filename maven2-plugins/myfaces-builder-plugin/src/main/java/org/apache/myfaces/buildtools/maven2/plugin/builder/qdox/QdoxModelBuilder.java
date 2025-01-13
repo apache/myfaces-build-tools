@@ -120,7 +120,7 @@ public class QdoxModelBuilder implements ModelBuilder
         // we need to skip them.
         //
         // Hmm..as noted elsewhere, JavaClass objects representing parent
-        // classes are accessable via getParentClazz(). Presumably they are
+        // classes are accessible via getParentClazz(). Presumably they are
         // not in the array returned by builder.getClasses() though..
         for (Iterator it = model.getComponents().iterator(); it.hasNext();)
         {

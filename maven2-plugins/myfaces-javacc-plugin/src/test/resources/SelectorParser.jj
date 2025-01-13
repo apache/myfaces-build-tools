@@ -548,7 +548,7 @@ String stringLitteral() :
 {
     t = <STRING_LITERAL> 
     {
-    	// Decode the sting value.
+    	// Decode the string value.
     	String image = t.image;
     	for( int i=1; i < image.length()-1; i++ ) {
     		char c = image.charAt(i);
