@@ -60,7 +60,7 @@ public class SelectorParser implements SelectorParserConstants {
     }
 
 // ----------------------------------------------------------------------------
-// Grammer
+// Grammar
 // ----------------------------------------------------------------------------
   final public BooleanExpression JmsSelector() throws ParseException {
     Expression left=null;

@@ -76,8 +76,8 @@ public @interface JSFWebConfigParam
     String group() default "";
 
     /**
-     * The tag(s) or clasification(s), separated by commas
-     * that this web config param can be clasified. 
+     * The tag(s) or classification(s), separated by commas
+     * that this web config param can be classified.
      * 
      * <p>These are the tags used in myfaces core:</p>
      * <ul>

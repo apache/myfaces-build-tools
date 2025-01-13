@@ -28,9 +28,9 @@ import java.util.logging.Logger;
 public class ValidatorBean extends AbstractTagBean {
 
   /**
-   * Sets the validator identifer for this component.
+   * Sets the validator identifier for this component.
    *
-   * @param validatorId  validator identifer
+   * @param validatorId  validator identifier
    */
   public void setValidatorId(
     String validatorId)

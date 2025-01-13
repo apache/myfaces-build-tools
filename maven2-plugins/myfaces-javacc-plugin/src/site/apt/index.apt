@@ -42,7 +42,7 @@ Available Configuration Options: (param - default value)
  
  * outputDirectory - target/generated-sources/javacc
  
- * timestampDirectory - target (used so grammers are not constantly regenerated)
+ * timestampDirectory - target (used so grammars are not constantly regenerated)
  
  * lookAhead - 1
 

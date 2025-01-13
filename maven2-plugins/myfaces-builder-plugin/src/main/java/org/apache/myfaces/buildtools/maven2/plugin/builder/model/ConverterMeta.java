@@ -110,7 +110,7 @@ public class ConverterMeta extends ViewEntityMeta implements PropertyHolder
      * Merge the data in the specified other property into this one, throwing an
      * exception if there is an incompatibility.
      * 
-     * Not used right now since theorically there is very few inheritance
+     * Not used right now since theoretically there is very few inheritance
      * on converters
      * 
      */
@@ -185,7 +185,7 @@ public class ConverterMeta extends ViewEntityMeta implements PropertyHolder
     }
 
     /**
-     * Sets the converter identifer for this component.
+     * Sets the converter identifier for this component.
      */
     public void setConverterId(String converterId)
     {

@@ -101,7 +101,7 @@ public class ValidatorMeta extends ViewEntityMeta implements PropertyHolder
      * Merge the data in the specified other property into this one, throwing an
      * exception if there is an incompatibility.
      * 
-     * Not used right now since theorically there is very few inheritance
+     * Not used right now since theoretically there is very few inheritance
      * on converters
      * 
      */
@@ -175,7 +175,7 @@ public class ValidatorMeta extends ViewEntityMeta implements PropertyHolder
     }
 
     /**
-     * Sets the validator identifer for this component.
+     * Sets the validator identifier for this component.
      */
     public void setValidatorId(String validatorId)
     {

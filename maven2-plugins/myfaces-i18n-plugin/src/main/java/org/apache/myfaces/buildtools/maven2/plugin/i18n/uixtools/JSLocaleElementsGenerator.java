@@ -119,7 +119,7 @@ public class JSLocaleElementsGenerator
       bundleOutDir = sourceDir;
     }
 
-    // The bundle output dir is the base of the heirarchy, we'll actually put
+    // The bundle output dir is the base of the hierarchy, we'll actually put
     // the files into the appropriate sub directory for the package.
     String fullBundleOutDir = (bundleOutDir
                                + (bundleOutDir.endsWith(File.separator)

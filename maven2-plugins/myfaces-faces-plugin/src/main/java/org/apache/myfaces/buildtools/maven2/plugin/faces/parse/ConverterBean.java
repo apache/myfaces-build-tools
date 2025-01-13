@@ -29,9 +29,9 @@ public class ConverterBean extends AbstractTagBean
 {
 
   /**
-   * Sets the converter identifer for this component.
+   * Sets the converter identifier for this component.
    *
-   * @param converterId  converter identifer
+   * @param converterId  converter identifier
    */
   public void setConverterId(
     String converterId)
