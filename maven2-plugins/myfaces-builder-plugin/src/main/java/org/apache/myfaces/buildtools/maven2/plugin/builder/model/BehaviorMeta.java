@@ -102,7 +102,7 @@ public class BehaviorMeta extends ViewEntityMeta implements PropertyHolder
      * Merge the data in the specified other property into this one, throwing an
      * exception if there is an incompatibility.
      * 
-     * Not used right now since theorically there is very few inheritance
+     * Not used right now since theoretically there is very few inheritance
      * on behaviors
      * 
      */
@@ -155,7 +155,7 @@ public class BehaviorMeta extends ViewEntityMeta implements PropertyHolder
     }
 
     /**
-     * Sets the behavior identifer for this component.
+     * Sets the behavior identifier for this component.
      */
     public void setBehaviorId(String behaviorId)
     {

@@ -88,7 +88,7 @@ public abstract class AbstractComponentTagGenerator implements ComponentTagGener
 
         if (propertyClass != null && property.isLiteralOnly())
         {
-          // Import the property class only if only litterals are supported
+          // Import the property class only if only literals are supported
           // otherwise the class will be a String inside the tag to support
           // ValueBinding
           imports.add(propertyClass);

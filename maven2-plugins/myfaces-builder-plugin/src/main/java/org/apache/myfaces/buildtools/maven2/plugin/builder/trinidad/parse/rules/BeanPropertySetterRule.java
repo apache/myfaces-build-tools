@@ -30,7 +30,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 /**
  * Extends Apache Commons Digester BeanPropertySetterRule to add QName support.
  *
- * A QName conveter is not sufficient because it requires contextual
+ * A QName converter is not sufficient because it requires contextual
  * knowledge of the current prefix-to-namespace mappings.
  */
 public class BeanPropertySetterRule
