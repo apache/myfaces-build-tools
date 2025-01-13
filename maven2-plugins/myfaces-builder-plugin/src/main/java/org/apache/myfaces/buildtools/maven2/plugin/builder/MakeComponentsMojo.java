@@ -381,7 +381,7 @@ public class MakeComponentsMojo extends AbstractBuilderMojo
         {
             String srcDir = (String) i.next();
             File dir = new File(srcDir);
-            //recusively add files to the builder
+            //recursively add files to the builder
             // allows control to exclude files 
             addFilesToBuilder(builder,dir);
         }        

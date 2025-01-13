@@ -28,8 +28,8 @@ import java.util.Set;
  * A set of TagAttributes, usually representing all attributes on a Tag.
  * 
  * TODO: PROFILE - Explore the possibility of using HashMap instead of sorted arrays. 
- *       The footprint should be higher, but the instanciation and access speed should be faster 
- *       Instanciation: from O(n log n) to O(1)
+ *       The footprint should be higher, but the instantiation and access speed should be faster
+ *       Instantiation: from O(n log n) to O(1)
  *       Access: from O(log n) to O(1)
  * 
  * @see org.apache.myfaces.view.facelets.tag.Tag

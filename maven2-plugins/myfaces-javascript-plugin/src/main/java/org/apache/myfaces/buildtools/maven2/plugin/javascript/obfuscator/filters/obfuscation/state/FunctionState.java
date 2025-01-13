@@ -33,7 +33,7 @@ public class FunctionState extends ObfuscationState
 {
   static private FunctionState _instance;
 
-  // private construnctor for singleton
+  // private constructor for singleton
   private FunctionState()
   {
   }

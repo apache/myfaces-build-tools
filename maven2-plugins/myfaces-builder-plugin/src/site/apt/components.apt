@@ -220,7 +220,7 @@ Generating Component Tag Classes
     If you need to write some custom code on tag class, but keep some
     code generated, use abstract pattern on tag class. The properties that
     needs to be defined on abstract tag class must have inheritedTag="true",
-    so there are not overriden. See t:tree component for an example.  
+    so there are not overridden. See t:tree component for an example.
         
 Adding a Renderer to faces-config.xml file.
 

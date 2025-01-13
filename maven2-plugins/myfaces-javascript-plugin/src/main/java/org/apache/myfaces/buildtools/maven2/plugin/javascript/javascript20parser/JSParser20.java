@@ -3205,7 +3205,7 @@ public class JSParser20/*@bgen(jjtree)*/implements JSParser20TreeConstants, JSPa
   }
 
 /////////////////////////////////////////////////////
-// Expresion Statement 
+// Expression Statement
 /////////////////////////////////////////////////////
   final public void ExpressionStatement() throws ParseException {
  /*@bgen(jjtree) ExpressionStatement */

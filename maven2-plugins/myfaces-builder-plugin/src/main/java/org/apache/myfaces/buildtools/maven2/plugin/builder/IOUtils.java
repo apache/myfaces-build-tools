@@ -270,7 +270,7 @@ public class IOUtils
                     || "provided".equals(artifact.getScope())
                     || "system".equals(artifact.getScope()))
             {
-                //This is safe since we have all depencencies on the
+                //This is safe since we have all dependencies on the
                 //pom, so they are downloaded first by maven.
                 File jarFile = artifact.getFile();
 
