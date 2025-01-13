@@ -9,7 +9,7 @@
 // See scriptaculous.js for full license.  
 
 // converts rgb() and #xxx to #xxxxxx format,  
-// returns self (or first argument) if not convertable  
+// returns self (or first argument) if not convertible
 String.prototype.parseColor = function() {  
   var color = '#';  
   if(this.slice(0,4) == 'rgb(') {  

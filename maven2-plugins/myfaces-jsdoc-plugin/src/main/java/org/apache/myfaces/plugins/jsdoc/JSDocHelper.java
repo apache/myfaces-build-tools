@@ -36,7 +36,7 @@ public class JSDocHelper
     private String jsdocEngineUnpacked = null;
 
     /**
-     * target patchs for the javascript
+     * target paths for the javascript
      */
     private String javascriptTargetPath = null;
 

@@ -28,7 +28,7 @@ import org.apache.maven.reporting.MavenReportException;
  * @version $Revision$ $Date$
  *          <p/>
  *          A simple jsdoc plugin which should cover our documentation needs
- *          Note this plugin is a simplified tailored derivate from
+ *          Note this plugin is a simplified tailored derivative from
  *          <p/>
  *          http://www.abiss.gr some code stems from there.
  *          <p/>

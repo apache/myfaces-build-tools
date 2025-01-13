@@ -131,7 +131,7 @@ public class DepthFirstTraversal implements JSParser20Visitor
   {
     //
     //  Hack Alert: Due to an error with the leaf node ASTEolWithComments
-    //  Wich only matches special and no regular tokens thus we get the next
+    //  Which only matches special and no regular tokens thus we get the next
     //  valid leafs token stuck in here. Thus we get duplicate info in each file.
     //  Fixed this with simple flag to recognizes if the token has already been 
     //  written out.Need to refactor that terminal.
