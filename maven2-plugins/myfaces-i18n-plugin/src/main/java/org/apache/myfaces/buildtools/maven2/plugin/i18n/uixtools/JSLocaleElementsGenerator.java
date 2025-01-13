@@ -69,7 +69,7 @@ public class JSLocaleElementsGenerator
     // whether the output should be pretty printed for legibility
     boolean prettyPrint = getArgBooleanValue(args, "prettyPrint", true);
 
-    // whether verbose ouput should be generated.
+    // whether verbose output should be generated.
     boolean verbose = getArgBooleanValue(args, "verbose", false);
 
     boolean writeSource = getArgBooleanValue(args, "writeSource", true);
@@ -561,7 +561,7 @@ public class JSLocaleElementsGenerator
       }
     }
 
-    // we wrote some ouput
+    // we wrote some output
     return true;
   }
 
@@ -796,7 +796,7 @@ public class JSLocaleElementsGenerator
                                                           File.separatorChar);
 
   // Mimicking to be in api path. In the trinidad-faces impl side we have
-  // the following directory structure. There is identical directory sturcture
+  // the following directory structure. There is identical directory structure
   // in trinidad-faces api side.
   // Only _TRINIDAD_LOCALE_ELEMENT base file will be added to the api side,
   // while all the variants will be in impl side in the directory structure

@@ -37,7 +37,7 @@ import java.util.Map;
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  *          <p/>
- *          A helper which reads the xml config appopriately
+ *          A helper which reads the xml config appropriately
  */
 
 public class XMLConfig
