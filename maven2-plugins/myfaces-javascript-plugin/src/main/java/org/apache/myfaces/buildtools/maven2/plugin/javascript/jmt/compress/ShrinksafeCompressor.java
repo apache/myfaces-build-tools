@@ -33,7 +33,7 @@ import org.mozilla.javascript.tools.shell.ShellContextFactory;
 
 /**
  * A JS compressor that uses Dojo modified Rhino engine to compress the script.
- * The resulting compressed-js is garanteed to be functionaly equivalent as this
+ * The resulting compressed-js is guaranteed to be functionally equivalent as this
  * is the internal view of the rhino context.
  * 
  * @author <a href="mailto:nicolas@apache.org">nicolas De Loof</a>

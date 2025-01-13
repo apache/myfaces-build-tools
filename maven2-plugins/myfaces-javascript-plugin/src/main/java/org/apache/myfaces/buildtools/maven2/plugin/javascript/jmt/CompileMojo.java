@@ -157,7 +157,7 @@ public class CompileMojo
     /**
      * Honor the assembly rules to build merged scripts from individual ones.
      * 
-     * @return a set of all script merged, to be skiped from the target
+     * @return a set of all script merged, to be skipped from the target
      * directory.
      * @throws MojoExecutionException
      */

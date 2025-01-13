@@ -50,7 +50,7 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 
 /**
- * Abstact mojo for compressing JavaScripts.
+ * Abstract mojo for compressing JavaScripts.
  * 
  * @author <a href="mailto:nicolas@apache.org">nicolas De Loof</a>
  */

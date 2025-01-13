@@ -43,7 +43,7 @@ public class YahooUICompressorTest
 
         compressor.compress( input, output, JSCompressor.MAX, JSCompressor.JAVASCRIPT_1_3 );
 
-        assertTrue( "exepected file not found", output.exists() );
+        assertTrue( "expected file not found", output.exists() );
         assertTrue( "no compression occurred", output.length() < input.length() );
     }
 }

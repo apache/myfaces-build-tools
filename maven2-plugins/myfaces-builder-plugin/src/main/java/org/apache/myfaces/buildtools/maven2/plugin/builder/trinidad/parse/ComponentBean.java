@@ -794,7 +794,7 @@ public class ComponentBean extends AbstractTagBean
    * with the required ancestor contracts of other components to determine
    * if a component hierarchy is legally assembled.
    *
-   * @param satisfiedContracts  a space delimited string of satisifed contracts
+   * @param satisfiedContracts  a space delimited string of satisfied contracts
    */
   public void parseSatisfiedContracts(
     String satisfiedContracts)
