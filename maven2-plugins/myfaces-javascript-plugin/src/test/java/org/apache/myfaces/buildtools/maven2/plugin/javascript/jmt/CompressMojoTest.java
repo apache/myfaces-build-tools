@@ -47,7 +47,7 @@ public class CompressMojoTest
         File expected =
             new File( "./target/test-target/attach-compressed/scriptaculous-1.7-compressed.jar" );
         assertTrue( "expected file not found " + expected, expected.exists() );
-        assertTrue( "no compression occured", expected.length() < size );
+        assertTrue( "no compression occurred", expected.length() < size );
     }
 
     public void testCompressScriptaculous()
@@ -69,7 +69,7 @@ public class CompressMojoTest
         {
             File expected = new File( target, js[i].getName().replace( ".js", "-compressed.js" ) );
             assertTrue( "expected file not found " + expected.getName(), expected.exists() );
-            assertTrue( "no compression occured on " + expected.getName(),
+            assertTrue( "no compression occurred on " + expected.getName(),
                 expected.length() < js[i].length() );
         }
     }
