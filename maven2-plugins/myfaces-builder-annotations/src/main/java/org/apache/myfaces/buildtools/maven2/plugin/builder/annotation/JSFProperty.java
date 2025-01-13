@@ -83,7 +83,7 @@ public @interface JSFProperty
     /**
      * Indicate if it should be generated a method like
      * isSetXXX, used when it is necessary to check if a boolean type
-     * property was set programatically (using setXXX method) or not. 
+     * property was set programmatically (using setXXX method) or not.
      * 
      * If there is no generation of component class this property
      * has any effect.

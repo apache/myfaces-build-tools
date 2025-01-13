@@ -30,5 +30,5 @@
     <artifactId>myfaces-archetype-jsfcomponents20</artifactId>
     <packaging>jar</packaging>
     <name>JSF Component Library Archetype For JSF 2.0</name>
-    <description>Archetype to create a libary project of JSF 2.0 components </description>
+    <description>Archetype to create a library project of JSF 2.0 components </description>
 </project>
