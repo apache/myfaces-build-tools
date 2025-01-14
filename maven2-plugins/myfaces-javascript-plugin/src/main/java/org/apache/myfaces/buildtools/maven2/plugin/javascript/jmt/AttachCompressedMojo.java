@@ -88,7 +88,7 @@ public class AttachCompressedMojo
     private String scriptClassifier;
 
     /**
-     * The intput directory for the source javascript files.
+     * The input directory for the source javascript files.
      * 
      * @parameter default-value="${project.build.outputDirectory}"
      */
