@@ -857,7 +857,7 @@ public class TagdocReport extends AbstractMavenMultiPageReport
           String sectionName;
           if ("events".equalsIgnoreCase(group))
           {
-            sectionName = "Javascript attributes";
+            sectionName = "JavaScript attributes";
           }
           else
           {
