@@ -28,7 +28,7 @@ public class Filter1 implements TokenReader
 {
 
   /**
-   * blocks until is has read atleast one token from the input reader
+   * blocks until it has read at least one token from the input reader
    */
   public Filter1(TokenReader in) throws IOException, InterruptedException
   {
