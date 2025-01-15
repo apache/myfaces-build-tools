@@ -100,7 +100,7 @@ public class FaceletFunctionMeta
     public void merge(FaceletFunctionMeta other)
     {
         // Merge className does not harm, since you cannot
-        //use polymorphism on a jsf component.
+        //use polymorphism on a JSF component.
         _name = ModelUtils.merge(this._name, other._name);
         _modelId = ModelUtils.merge(this._modelId, other._modelId);
         _description = ModelUtils.merge(this._description, other._description);

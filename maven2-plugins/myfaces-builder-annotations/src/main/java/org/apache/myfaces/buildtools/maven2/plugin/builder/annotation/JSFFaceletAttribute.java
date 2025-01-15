@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  * Define a facelet tag attribute. This doclet should be used inside a @JSFFaceletTag class, 
  * to define individual tag classes used in JSF
  * 
- * This annotation should only be used in jsf 2.0 libraries.
+ * This annotation should only be used in JSF 2.0 libraries.
  * 
  * @since 1.0.4
  * @author Leonardo Uribe (latest modification by $Author$)

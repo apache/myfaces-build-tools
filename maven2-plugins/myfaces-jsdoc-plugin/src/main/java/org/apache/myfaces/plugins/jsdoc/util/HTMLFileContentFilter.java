@@ -32,7 +32,7 @@ import java.util.List;
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  *          <p/>
- *          Since JSDoc adds the full canonical path to our filenames we have to fix it within the generated html
+ *          Since JSDoc adds the full canonical path to our filenames we have to fix it within the generated HTML
  */
 
 public class HTMLFileContentFilter implements IOFileFilter

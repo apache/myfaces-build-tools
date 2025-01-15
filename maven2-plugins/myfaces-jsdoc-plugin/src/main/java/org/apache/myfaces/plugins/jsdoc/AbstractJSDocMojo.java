@@ -331,7 +331,7 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
 
     /**
      * initially copies all source files from the given source dir to the target
-     * dir so that the files can be referenced later on by the html files
+     * dir so that the files can be referenced later on by the HTML files
      */
     private void copyJavascripts(JSDocHelper helper) throws IOException
     {

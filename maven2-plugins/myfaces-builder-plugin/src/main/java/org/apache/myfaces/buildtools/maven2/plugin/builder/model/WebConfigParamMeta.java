@@ -125,7 +125,7 @@ public class WebConfigParamMeta
     public void merge(WebConfigParamMeta other)
     {
         // Merge className does not harm, since you cannot
-        //use polymorphism on a jsf component.  
+        //use polymorphism on a JSF component.
         _name = ModelUtils.merge(this._name, other._name);
         _fieldName = ModelUtils.merge(this._fieldName, other._fieldName);
         _description = ModelUtils.merge(this._description, other._description);

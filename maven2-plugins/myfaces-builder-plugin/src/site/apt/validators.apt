@@ -37,7 +37,7 @@ Creating Custom Validators
     for a validator is just in one file (the class implementing 
     Validator interface).
     
-    For both jsf versions 1.1 and 1.2, it is necessary to provide  
+    For both JSF versions 1.1 and 1.2, it is necessary to provide
     base classes for validators and tag classes, where all generated should 
     inherit. This class is on myfaces commons validators project, but 
     users can provide custom templates implementations for it.

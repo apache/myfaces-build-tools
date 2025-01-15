@@ -138,9 +138,9 @@ public @interface JSFProperty
 
     /**
      * Indicate the type that values should be cast on tld. 
-     * This param only applies on jsf 1.2 (it is supposed that 
+     * This param only applies on JSF 1.2 (it is supposed that
      * the className is javax.el.ValueExpression to apply it),
-     * because in jsf 1.1, values on tag class are considered 
+     * because in JSF 1.1, values on tag class are considered
      * to be String. 
      *
      * @since 1.0.3

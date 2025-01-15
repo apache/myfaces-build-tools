@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Used to define a jsf tag that does not fall in a category like converter, validator
+ * Used to define a JSF tag that does not fall in a category like converter, validator
  * or component. Examples are f:verbatim or f:actionListener
  * 
  * @author Leonardo Uribe (latest modification by $Author$)

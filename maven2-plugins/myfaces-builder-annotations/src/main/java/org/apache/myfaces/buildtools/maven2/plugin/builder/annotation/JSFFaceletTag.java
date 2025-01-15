@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Used to define a jsf facelet tag handler. 
+ * Used to define a JSF facelet tag handler.
  * <p>
  * The intention of this annotation is use its information to generate a
  * facelet taglib xml file(optional), and create a specific 
@@ -47,7 +47,7 @@ import java.lang.annotation.Target;
  * This is the case of h:outputScript or h:outputStylesheet</li>
  * </ul>
  * 
- * This annotation should only be used in jsf 2.0 libraries.
+ * This annotation should only be used in JSF 2.0 libraries.
  * 
  * @since 1.0.4
  * @author Leonardo Uribe (latest modification by $Author$)

@@ -137,7 +137,7 @@ public class MakeComponentsMojo extends AbstractBuilderMojo
     private boolean force;
 
     /**
-     * Defines the jsf version (1.1 or 1.2), used to take the default templates for each version.
+     * Defines the JSF version (1.1 or 1.2), used to take the default templates for each version.
      * <p> 
      * If version is 1.1, the default templateComponentName is 'componentClass11.vm', if version
      * is 1.2 the default templateComponentName is 'componentClass12.vm', if version is 2.0 the

@@ -185,7 +185,7 @@ public class PropertyMeta
     public void merge(PropertyMeta other)
     {
         // Merge className does not harm, since you cannot
-        //use polymorphism on a jsf component.  
+        //use polymorphism on a JSF component.
         _className = ModelUtils.merge(this._className, other._className);
         
         _name = ModelUtils.merge(this._name, other._name);

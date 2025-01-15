@@ -36,7 +36,7 @@ Creating Custom Converters
     automatically. In this way, all information for a converter is just in
     one file (the class implementing Converter interface).
     
-    On jsf 1.2, it is necessary to provide a base tag class that extends
+    On JSF 1.2, it is necessary to provide a base tag class that extends
     from jakarta.faces.webapp.ConverterELTag where all converters should 
     inherit. This class is on myfaces commons converters project, but 
     users can provide custom template implementations for it.

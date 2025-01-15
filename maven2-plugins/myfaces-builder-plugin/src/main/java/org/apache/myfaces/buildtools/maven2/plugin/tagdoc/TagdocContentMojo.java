@@ -188,8 +188,8 @@ public class TagdocContentMojo extends AbstractMojo
     private String templateFaceletFunctions;
     
     /**
-     * Defines the jsf version (1.1, 1.2 or 2.0), used to pass it and add default 
-     * properties for converters or validators in jsf 2.0.
+     * Defines the JSF version (1.1, 1.2 or 2.0), used to pass it and add default
+     * properties for converters or validators in JSF 2.0.
      * 
      * @parameter
      */

@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
  * the selected tags.
  * </p>
  * <p>
- * This annotation should only be used in jsf 2.0 libraries.
+ * This annotation should only be used in JSF 2.0 libraries.
  * </p>
  * 
  * @since 1.0.4

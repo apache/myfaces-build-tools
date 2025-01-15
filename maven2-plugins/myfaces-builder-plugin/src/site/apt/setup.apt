@@ -21,10 +21,10 @@ Setting up your project
  
 * Configuring your pom.xml
 
-    According to your jsf version you will need to set the required
+    According to your JSF version you will need to set the required
     dependencies.
  
-    In jsf 1.1 (use doclets).
+    In JSF 1.1 (use doclets).
     
 ------------------------------------------------------    
         <dependency>
@@ -35,7 +35,7 @@ Setting up your project
         </dependency>
 ------------------------------------------------------
 
-    In jsf 1.2 (use annotations).
+    In JSF 1.2 (use annotations).
     
 ------------------------------------------------------
         <dependency>
@@ -107,7 +107,7 @@ Setting up your project
                         <goal>make-converter-tags</goal>                        
                       </goals>
                       <configuration>
-                            <!-- Use 1.1 or 1.2 according to your jsf version -->
+                            <!-- Use 1.1 or 1.2 according to your JSF version -->
                             <jsfVersion>1.2</jsfVersion>
                       </configuration>
                     </execution>
