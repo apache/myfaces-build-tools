@@ -31,12 +31,12 @@ import org.codehaus.doxia.sink.Sink;
 
 /**
  * <p/>
- * A simple jsdoc plugin which should cover our documentation needs
+ * A simple JSDoc plugin which should cover our documentation needs
  * Note this plugin is a simplified tailored derivative from
  * <p/>
  * http://www.abiss.gr some code stems from there.
  * <p/>
- * since we use jsdoc for now and are not in the reporting part
+ * since we use JSDoc for now and are not in the reporting part
  * a simple plugin suffices.
  *          
  * @author Werner Punz (latest modification by $Author$)
@@ -51,7 +51,7 @@ public class JSDocReportMojo extends AbstractJSDocMojo implements MavenReport
     // ----------------------------------------------------------------------
 
     /**
-     * Specifies the destination directory where jsdoc saves the generated HTML files.
+     * Specifies the destination directory where JSDoc saves the generated HTML files.
      *
      * @parameter expression="${reportOutputDirectory}" default-value="${project.reporting.outputDirectory}/jsdoc"
      * @required
@@ -125,11 +125,11 @@ public class JSDocReportMojo extends AbstractJSDocMojo implements MavenReport
         }
         catch ( MavenReportException e )
         {
-            getLog().error( "Error while creating jsdoc report: " + e.getMessage(), e );
+            getLog().error( "Error while creating JSDoc report: " + e.getMessage(), e );
         }
         catch ( RuntimeException e )
         {
-            getLog().error( "Error while creating jsdoc report: " + e.getMessage(), e );
+            getLog().error( "Error while creating JSDoc report: " + e.getMessage(), e );
         }
     }
 
@@ -211,7 +211,7 @@ public class JSDocReportMojo extends AbstractJSDocMojo implements MavenReport
     {
         if ( skip )
         {
-            getLog().info( "Skipping jsdoc generation" );
+            getLog().info( "Skipping JSDoc generation" );
             return;
         }
         

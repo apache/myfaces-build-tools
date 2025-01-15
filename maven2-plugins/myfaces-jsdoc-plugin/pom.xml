@@ -109,7 +109,7 @@
             <version>1.7R1</version>
         </dependency>
 
-        <!-- note jsdoc throws a lot of warnings
+        <!-- note JSDoc throws a lot of warnings
         which will be gone in 2.4 -->
         <dependency>
             <groupId>org.jsdoctoolkit</groupId>

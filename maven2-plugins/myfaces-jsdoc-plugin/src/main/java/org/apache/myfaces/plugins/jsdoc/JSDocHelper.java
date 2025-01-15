@@ -31,7 +31,7 @@ public class JSDocHelper
     private JSDocPack unpacker;
 
     /**
-     * target path for the unpacked jsdoc engine
+     * target path for the unpacked JSDoc engine
      */
     private String jsdocEngineUnpacked = null;
 
@@ -41,7 +41,7 @@ public class JSDocHelper
     private String javascriptTargetPath = null;
 
     /**
-     * run path for the jsdoc engine
+     * run path for the JSDoc engine
      */
     private String jsdocRunPath = null;
 
