@@ -314,7 +314,7 @@ public class JDeveloperMojo
 
       // TODO: read configuration for war:war goal
       File webappDir = new File(project.getBasedir(), "src/main/webapp");
-      // TODO: read configuration for compiler:complie goal
+      // TODO: read configuration for compiler:compile goal
       File outputDir =
         new File(project.getBuild().getDirectory(), "classes");
 
