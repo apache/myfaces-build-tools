@@ -60,7 +60,7 @@
       <item name="Apache MyFaces Buildtools Maven2 Faces Plugin"             href="http://myfaces.apache.org/build-tools/plugins/myfaces-faces-plugin/index.html"/>
       <item name="Apache MyFaces Buildtools Maven2 i18n Plugin"              href="http://myfaces.apache.org/build-tools/plugins/myfaces-i18n-plugin/index.html"/>
       <item name="Apache MyFaces Buildtools Maven2 Javacc Plugin"            href="http://myfaces.apache.org/build-tools/plugins/myfaces-javacc-plugin/index.html"/>
-      <item name="Apache MyFaces Buildtools Maven2 Javascript Plugin"        href="http://myfaces.apache.org/build-tools/plugins/myfaces-javascript-plugin/index.html"/>
+      <item name="Apache MyFaces Buildtools Maven2 JavaScript Plugin"        href="http://myfaces.apache.org/build-tools/plugins/myfaces-javascript-plugin/index.html"/>
       <item name="Apache MyFaces Buildtools Maven2 JDev Plugin"              href="http://myfaces.apache.org/build-tools/plugins/myfaces-jdev-plugin/index.html"/>
       <item name="Apache MyFaces Buildtools Maven2 Tag Documentation Report" href="http://myfaces.apache.org/build-tools/plugins/myfaces-tagdoc-plugin/index.html"/>
       <item name="Apache MyFaces Buildtools Maven2 Wagon Plugin"             href="http://myfaces.apache.org/build-tools/plugins/myfaces-wagon-plugin/index.html"/>

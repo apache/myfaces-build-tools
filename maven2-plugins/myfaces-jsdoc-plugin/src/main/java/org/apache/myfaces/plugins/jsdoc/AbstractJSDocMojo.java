@@ -73,8 +73,8 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
     // ----------------------------------------------------------------------
     
     /**
-     * The project source javascript directory, which are the source 
-     * files unprocessed by myfaces javascript plugin
+     * The project source JavaScript directory, which are the source
+     * files unprocessed by myfaces JavaScript plugin
      *
      * @parameter expression="${basedir}/src/main/javascript/"
      */
@@ -127,7 +127,7 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
     protected File outputDirectory;
     
     /**
-     * Path to the assembly file containing the file paths to our source javascript files
+     * Path to the assembly file containing the file paths to our source JavaScript files
      *
      * @parameter expression="${basedir}/src/assembler/jsdoc-compiler.xml"
      */
@@ -335,7 +335,7 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
      */
     private void copyJavascripts(JSDocHelper helper) throws IOException
     {
-        getLog().info("[JSDOC] Copying all javascript sources to the target dir for later reference");
+        getLog().info("[JSDOC] Copying all JavaScript sources to the target dir for later reference");
         
         if (!StringUtils.isEmpty(sourceDirectory))
         {
@@ -481,7 +481,7 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
     private List<String> fetchJavascriptSources(JSDocHelper helper)
     {
         List<String> sources = null;
-        getLog().info("[JSDOC] Fetch Javascript sources for further processing");
+        getLog().info("[JSDOC] Fetch JavaScript sources for further processing");
         if (helper.getFileMap() == null)
         {
             sources = new ArrayList<String>();
@@ -505,7 +505,7 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
                 sources.add(finalFileName);
             }
         }
-        getLog().info("[JSDOC] All Javascript sources are prepared for processing");
+        getLog().info("[JSDOC] All JavaScript sources are prepared for processing");
         return sources;
     }
     

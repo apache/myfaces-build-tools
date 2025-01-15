@@ -73,7 +73,7 @@ public class GenerateJavascriptLocalesMojo extends AbstractMojo
 
       if (force || !uptodate)
       {
-        getLog().info("Generating Javascript Locales");
+        getLog().info("Generating JavaScript Locales");
 
         List argsList = new ArrayList();
 
@@ -88,7 +88,7 @@ public class GenerateJavascriptLocalesMojo extends AbstractMojo
       }
       else
       {
-        getLog().info("Nothing to generate - Javascript Locales are up to date");
+        getLog().info("Nothing to generate - JavaScript Locales are up to date");
       }
     }
     catch (Exception e)

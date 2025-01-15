@@ -20,9 +20,9 @@
   <components>
 
     <!--
-        A custom artifact handler for javascript archives (jsar).
+        A custom artifact handler for JavaScript archives (jsar).
         This requires the plugin to be configured with <extensions> set to true
-        on any project that uses javascript dependencies.
+        on any project that uses JavaScript dependencies.
      -->
     <component>
       <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
@@ -37,7 +37,7 @@
     </component>
 
   <!--
-    A custom lifecycle for javascript packaging
+    A custom lifecycle for JavaScript packaging
     -->
     <component>
       <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
@@ -82,7 +82,7 @@
     <component>
       <role>org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.JavascriptArtifactManager</role>
       <implementation>org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.JavascriptArtifactManager</implementation>
-      <description>A component to handle javascript dependencies.</description>
+      <description>A component to handle JavaScript dependencies.</description>
       <isolated-realm>false</isolated-realm>
       <requirements>
         <requirement>
@@ -96,7 +96,7 @@
       <role>org.codehaus.plexus.archiver.UnArchiver</role>
       <role-hint>javascript</role-hint>
       <implementation>org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.JavascriptUnArchiver</implementation>
-      <description>Custom archiver for javascript dependencies, packaged as &quot;jsar&quot; (JavaScript
+      <description>Custom archiver for JavaScript dependencies, packaged as &quot;jsar&quot; (JavaScript
 ARchive), that are simply a jar of scripts and resources.</description>
       <isolated-realm>false</isolated-realm>
     </component>
@@ -105,7 +105,7 @@ ARchive), that are simply a jar of scripts and resources.</description>
       <role-hint>javascript</role-hint>
       <implementation>org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.JavascriptArchiver</implementation>
       <instantiation-strategy>per-lookup</instantiation-strategy>
-      <description>Custom archiver for javascript dependencies, packaged as &quot;jsar&quot; (JavaScript
+      <description>Custom archiver for JavaScript dependencies, packaged as &quot;jsar&quot; (JavaScript
 ARchive), that are simply a jar of scripts and resources.</description>
       <isolated-realm>false</isolated-realm>
     </component>    

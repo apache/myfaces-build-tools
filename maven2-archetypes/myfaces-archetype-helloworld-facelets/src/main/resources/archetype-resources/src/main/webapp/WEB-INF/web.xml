@@ -100,10 +100,10 @@
 	</context-param>
 	<context-param>
 		<description>
-			This parameter tells MyFaces if javascript code should be
-			allowed in the rendered HTML output. If javascript is
-			allowed, command_link anchors will have javascript code that
-			submits the corresponding form. If javascript is not
+			This parameter tells MyFaces if JavaScript code should be
+			allowed in the rendered HTML output. If JavaScript is
+			allowed, command_link anchors will have JavaScript code that
+			submits the corresponding form. If JavaScript is not
 			allowed, the state saving info and nested parameters will be
 			added as url parameters. Default: "true"
 		</description>
@@ -126,7 +126,7 @@
 	</context-param>
 	<context-param>
 		<description>
-			If true, a javascript function will be rendered that is able
+			If true, a JavaScript function will be rendered that is able
 			to restore the former vertical scroll on every request.
 			Convenient feature if you have pages with long lists and you
 			do not want the browser page to always jump to the top if

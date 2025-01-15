@@ -30,7 +30,7 @@ import java.util.TreeMap;
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  *          <p/>
- *          A javascript filename filter which can be used within the context of commons-io
+ *          A JavaScript filename filter which can be used within the context of commons-io
  */
 public class JSFileNameFilter implements IOFileFilter
 {

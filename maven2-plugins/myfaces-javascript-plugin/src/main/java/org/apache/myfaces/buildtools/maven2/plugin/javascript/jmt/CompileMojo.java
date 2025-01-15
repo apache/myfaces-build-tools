@@ -41,7 +41,7 @@ import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.IOUtil;
 
 /**
- * Goal which assemble javascript sources into the packaging directory. An
+ * Goal which assemble JavaScript sources into the packaging directory. An
  * optional assembler descriptor can be set to configure scripts to be merged.
  * Other scripts are simply copied to the output directory.
  * 

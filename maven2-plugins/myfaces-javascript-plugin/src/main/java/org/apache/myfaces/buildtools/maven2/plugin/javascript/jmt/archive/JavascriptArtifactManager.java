@@ -31,7 +31,7 @@ import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 
 /**
- * A component to handle javascript dependencies.
+ * A component to handle JavaScript dependencies.
  * 
  * @author <a href="mailto:nicolas.deloof@gmail.com">nicolas De Loof</a>
  * @plexus.component role="org.codehaus.mojo.javascript.archive.JavascriptArtifactManager"
@@ -65,7 +65,7 @@ public class JavascriptArtifactManager
             if ( !dependency.isOptional() && Types.JAVASCRIPT_TYPE.equals( dependency.getType() )
                 && runtime.include( dependency ) )
             {
-                getLogger().info( "Unpack javascript dependency [" + dependency.toString() + "]" );
+                getLogger().info( "Unpack JavaScript dependency [" + dependency.toString() + "]" );
                 archiver.setSourceFile( dependency.getFile() );
 
                 File dest = target;
@@ -94,7 +94,7 @@ public class JavascriptArtifactManager
         }
         catch ( Exception e )
         {
-            throw new ArchiverException( "Failed to extract javascript artifact to " + target, e );
+            throw new ArchiverException( "Failed to extract JavaScript artifact to " + target, e );
         }
 
     }

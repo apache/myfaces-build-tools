@@ -90,7 +90,7 @@ public class WarPackageMojo
         }
         catch ( ArchiverException e )
         {
-            throw new MojoExecutionException( "Failed to unpack javascript dependencies", e );
+            throw new MojoExecutionException( "Failed to unpack JavaScript dependencies", e );
         }
     }
 
