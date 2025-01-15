@@ -49,9 +49,9 @@ Doclets and Annotations
 
 -------------------
     
-    Doclets and annotations can be used on both jsf 1.1 and jsf 1.2, but
-    since jsf 1.1 is jdk 1.4 compatible, it is preferred to use doclets with
-    jsf 1.1 (note that if you use annotations, your source code should be
+    Doclets and annotations can be used on both JSF 1.1 and JSF 1.2, but
+    since JSF 1.1 is jdk 1.4 compatible, it is preferred to use doclets with
+    JSF 1.1 (note that if you use annotations, your source code should be
     jdk 1.5 in order to compile).
     
     The differences between doclets and annotations are listed below:

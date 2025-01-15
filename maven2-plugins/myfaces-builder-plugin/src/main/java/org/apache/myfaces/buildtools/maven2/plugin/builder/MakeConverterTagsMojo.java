@@ -156,7 +156,7 @@ public class MakeConverterTagsMojo extends AbstractBuilderMojo
     private boolean force;
 
     /**
-     * Defines the jsf version (1.1 or 1.2), used to take the default templates for each version.
+     * Defines the JSF version (1.1 or 1.2), used to take the default templates for each version.
      * <p> 
      * If version is 1.1, the default templateTagName is 'tagConverterClass11.vm' and if version
      * is 1.2 the default templateTagName is 'tagConverterClass12.vm'.

@@ -70,7 +70,7 @@ import org.xml.sax.SAXException;
  * purposes:
  * <ul>
  * <li>It is needed if other projects then use the myfaces-builder-plugin to
- * create subclasses of the jsf classes in this project.</li>
+ * create subclasses of the JSF classes in this project.</li>
  * <li>It is good documentation (more precise than the tld and faces-config.xml
  * files).</li>
  * </ul>

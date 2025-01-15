@@ -389,7 +389,7 @@
                         </configuration>
                         <dependencies>
                            <!-- Tld scanning only works when JSF is included
-                                as container dependency. Add other jsf libraries
+                                as container dependency. Add other JSF libraries
                                 here, so jetty:run goal can find and process them -->
                             <dependency>
                                 <groupId>org.apache.myfaces.core</groupId>
@@ -769,7 +769,7 @@
                         </configuration>
                         <dependencies>
                            <!-- Tld scanning only works when JSF is included
-                                as container dependency. Add other jsf libraries
+                                as container dependency. Add other JSF libraries
                                 here, so jetty:run goal can find and process them -->
                            <dependency>
                                <groupId>com.sun.faces</groupId>

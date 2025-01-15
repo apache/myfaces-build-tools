@@ -30,7 +30,7 @@ import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
- * Stores info about all of the jsf artifacts in the system being processed.
+ * Stores info about all of the JSF artifacts in the system being processed.
  */
 public class Model
 {

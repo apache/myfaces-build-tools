@@ -94,7 +94,7 @@
       <!-- merge the render-kits together -->
       <!-- In tomahawk 1.1 we don't merge render-kit,
       because we add all components to HTML_BASIC renderkit,
-      and the render-kit-class is missing (myfaces core or jsf ri
+      and the render-kit-class is missing (myfaces core or JSF ri
       decide what class implement this). 
       So, here we cannot put 
       javaee:render-kit[contains(javaee:render-kit-class, $packageContains)]

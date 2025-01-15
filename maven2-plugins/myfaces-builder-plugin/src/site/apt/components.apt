@@ -198,10 +198,10 @@ Generating Component Tag Classes
 
     Here there are two scenarios:
     
-     * The component class inherits from jsf core UIXXXXX, so the generated 
+     * The component class inherits from JSF core UIXXXXX, so the generated
        class inherits from jakarta.faces.webapp.UIComponent(EL)Tag.
      
-     * The component class inherits from jsf core HtmlXXX. In this case, 
+     * The component class inherits from JSF core HtmlXXX. In this case,
        the tag classes where your component inherits is on myfaces core 
        impl jar, so again there are three options:
        
@@ -214,7 +214,7 @@ Generating Component Tag Classes
           should be before myfaces core dependency in the pom, to be sure
           that tomahawk model is loaded first.
           
-        * Generate a jsf html tag hierarchy in your jar. See tomahawk core
+        * Generate a JSF HTML tag hierarchy in your jar. See tomahawk core
           or core12 pom for details.
     
     If you need to write some custom code on tag class, but keep some

@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * Define a set of properties used to group several definitions
  * of JSFFaceletAttribute annotations.
  * 
- * This annotation should only be used in jsf 2.0 libraries.
+ * This annotation should only be used in JSF 2.0 libraries.
  * 
  * @since 1.0.4
  * @author Leonardo Uribe (latest modification by $Author$)

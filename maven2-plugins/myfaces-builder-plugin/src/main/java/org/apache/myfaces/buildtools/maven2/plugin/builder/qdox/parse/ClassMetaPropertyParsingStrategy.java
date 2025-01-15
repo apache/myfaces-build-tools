@@ -40,7 +40,7 @@ public abstract class ClassMetaPropertyParsingStrategy extends ClassMetaParsingS
     public static final String DOC_PROPERTY = "JSFProperty";
     //This property is used in special cases where properties 
     //does not have methods defined on component class, like binding
-    //in jsf 1.1 (in 1.2 has component counterpart). In fact, all
+    //in JSF 1.1 (in 1.2 has component counterpart). In fact, all
     //properties must be defined with JSFProperty
     public static final String DOC_JSP_PROPERTY = "JSFJspProperty";
     public static final String DOC_JSP_PROPERTIES = "JSFJspProperties";

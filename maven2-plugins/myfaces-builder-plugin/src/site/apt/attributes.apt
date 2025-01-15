@@ -30,7 +30,7 @@ Attributes
     
 * Attribute loaded from basic type
 
-    On jsf 1.1 and in some special cases, no ValueExpressions are allowed
+    On JSF 1.1 and in some special cases, no ValueExpressions are allowed
     on some attribute.
 
 -------------------
@@ -60,9 +60,9 @@ Attributes
 -------------------
 
     /** 
-      * On jsf 1.1 this translates to something like:
+      * On JSF 1.1 this translates to something like:
       *
-      * Works on version 1.0.2, but some jsf 1.2 tld templates translate it to:
+      * Works on version 1.0.2, but some JSF 1.2 tld templates translate it to:
       * 
       * <attribute>
       *    <description><![CDATA[The fully qualified class name of the ActionListener class.]]></description>
@@ -91,7 +91,7 @@ Attributes
     }
     
     /**
-      * Works on version 1.0.3 and upper for jsf 1.2 and upper tld templates:
+      * Works on version 1.0.3 and upper for JSF 1.2 and upper tld templates:
       *
       * <attribute>
       *    <description><![CDATA[The fully qualified class name of the ActionListener class.]]></description>
@@ -114,7 +114,7 @@ Attributes
 * Attribute loaded from MethodExpression
 
 -------------------
-  /** works on version 1.0.3 and upper for jsf 1.2 and upper tld templates **/
+  /** works on version 1.0.3 and upper for JSF 1.2 and upper tld templates **/
   @JSFJspAttribute(required=true,
           deferredMethodSignature = "void myMethod(jakarta.faces.context.FacesContext, java.io.OutputStream)")
   public void setMethod(MethodExpression method)
