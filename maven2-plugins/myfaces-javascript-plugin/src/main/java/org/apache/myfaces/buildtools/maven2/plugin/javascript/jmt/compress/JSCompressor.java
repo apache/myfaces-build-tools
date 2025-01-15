@@ -34,7 +34,7 @@ public interface JSCompressor
     int MAX = 9;
 
     /**
-     * Javascript language versions
+     * JavaScript language versions
      */
     int JAVASCRIPT_1_1 = 110;
 
@@ -50,7 +50,7 @@ public interface JSCompressor
      * @param level optimization level from 0 to 9. May have various
      * signification depending on the compressor, from being ignored to some
      * fine tweaking the output.
-     * @param language version of javascript to be used ("130" for JS 1.3), as
+     * @param language version of JavaScript to be used ("130" for JS 1.3), as
      * defined by Mozilla Rhino engine
      * @throws CompressionException any error during compression
      */

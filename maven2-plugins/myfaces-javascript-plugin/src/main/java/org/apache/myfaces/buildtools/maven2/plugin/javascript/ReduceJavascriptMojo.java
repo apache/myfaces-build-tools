@@ -37,7 +37,7 @@ import org.apache.maven.project.MavenProject;
  * @version $Id$
  * @goal reduce-javascript
  * @phase generate-sources
- * @description Goal which compiles the Javascript sources
+ * @description Goal which compiles the JavaScript sources
  */
 public class ReduceJavascriptMojo extends AbstractMojo
 {
@@ -74,7 +74,7 @@ public class ReduceJavascriptMojo extends AbstractMojo
     }
     catch (IOException e)
     {
-      throw new MojoExecutionException("Error copying Javascript files", e);
+      throw new MojoExecutionException("Error copying JavaScript files", e);
     }
 
 
@@ -100,7 +100,7 @@ public class ReduceJavascriptMojo extends AbstractMojo
     }
     catch (IOException e)
     {
-      throw new MojoExecutionException("Error compiling Javascript files", e);
+      throw new MojoExecutionException("Error compiling JavaScript files", e);
     }
   }
 

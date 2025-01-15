@@ -321,7 +321,7 @@ public abstract class AbstractCompressMojo
             throw new MojoExecutionException( "Failed to create a isolated-classloader proxy for "
                 + compressorClassName, e );
         }
-        getLog().info( "Compressing javascript using " + compressor );
+        getLog().info( "Compressing JavaScript using " + compressor );
 
         compressors.put( compressor, jscompressor );
         return jscompressor;
@@ -372,7 +372,7 @@ public abstract class AbstractCompressMojo
             }
             catch ( CompressionException e )
             {
-                throw new MojoExecutionException( "Failed to compress Javascript file "
+                throw new MojoExecutionException( "Failed to compress JavaScript file "
                     + e.getScript(), e );
             }
             String describe = in.getName() + " (" + INTEGER.format( in.length() ) + " bytes) ";

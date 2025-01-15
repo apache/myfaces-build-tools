@@ -49,7 +49,7 @@ public abstract class AbstractJavascriptMojo
     private JavascriptArtifactManager javascriptArtifactManager;
 
     /**
-     * Unpack a javascript dependency
+     * Unpack a JavaScript dependency
      */
     protected void unpackJavascriptDependency( String artifact, File dest )
         throws MojoExecutionException
@@ -67,7 +67,7 @@ public abstract class AbstractJavascriptMojo
         }
         catch ( ArchiverException e )
         {
-            throw new MojoExecutionException( "Failed to unpack javascript dependency " + artifact,
+            throw new MojoExecutionException( "Failed to unpack JavaScript dependency " + artifact,
                 e );
         }
     }

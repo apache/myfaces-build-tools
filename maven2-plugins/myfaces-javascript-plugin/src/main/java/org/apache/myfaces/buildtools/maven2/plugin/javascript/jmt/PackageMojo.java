@@ -28,7 +28,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.Javasc
 import org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.Types;
 
 /**
- * Goal which packages scripts and resources as a javascript archive to be
+ * Goal which packages scripts and resources as a JavaScript archive to be
  * installed / deployed in maven repositories.
  * 
  * @goal package
@@ -117,7 +117,7 @@ public class PackageMojo
         }
         catch ( Exception e )
         {
-            throw new MojoExecutionException( "Failed to create the javascript archive", e );
+            throw new MojoExecutionException( "Failed to create the JavaScript archive", e );
         }
 
         if ( classifier != null )

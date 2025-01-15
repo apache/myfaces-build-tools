@@ -43,7 +43,7 @@ import java.util.List;
  * @requiresDependencyResolution compile
  * @goal obfuscate-javascript
  * @phase generate-resources
- * @description Goal which obfuscates the Javascript sources
+ * @description Goal which obfuscates the JavaScript sources
  */
 public class ObfuscateJavascriptMojo
   extends AbstractMojo

@@ -29,7 +29,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.Javasc
 import org.codehaus.plexus.archiver.ArchiverException;
 
 /**
- * Goal that copies javascript dependencies to the web application script
+ * Goal that copies JavaScript dependencies to the web application script
  * folder, inside the webapp source directory. This allows to prepare the webapp
  * for running on a lightweight servlet container that does not requires
  * packaging (when using the jetty:run goal).
@@ -100,7 +100,7 @@ public class InPlaceMojo
         }
         catch ( ArchiverException e )
         {
-            throw new MojoExecutionException( "Failed to unpack javascript dependencies", e );
+            throw new MojoExecutionException( "Failed to unpack JavaScript dependencies", e );
         }
 
     }

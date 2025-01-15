@@ -30,7 +30,7 @@ import org.codehaus.plexus.archiver.jar.Manifest;
 import org.codehaus.plexus.archiver.jar.ManifestException;
 
 /**
- * Custom archiver for javascript dependencies, packaged as "jsar" (JavaScript
+ * Custom archiver for JavaScript dependencies, packaged as "jsar" (JavaScript
  * ARchive), that are simply a jar of scripts and resources.
  * 
  * @author <a href="mailto:nicolas.deloof@gmail.com">Nicolas De Loof</a>

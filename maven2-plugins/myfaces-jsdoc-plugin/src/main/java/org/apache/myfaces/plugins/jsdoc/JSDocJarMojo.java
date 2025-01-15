@@ -54,7 +54,7 @@ public class JSDocJarMojo extends AbstractJSDocMojo
 
     
     
-    /** Includes all generated Javascript doc files */
+    /** Includes all generated JavaScript doc files */
     private static final String[] DEFAULT_INCLUDES = new String[] { "**/**" };
 
     /**

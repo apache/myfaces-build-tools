@@ -26,8 +26,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.Javasc
 import org.apache.myfaces.buildtools.maven2.plugin.javascript.jmt.archive.Types;
 
 /**
- * Goal used to build javascript libraries with maven. Compress the JavaScript
- * files from the packaging directory, package them as a javascript archive and
+ * Goal used to build JavaScript libraries with maven. Compress the JavaScript
+ * files from the packaging directory, package them as a JavaScript archive and
  * attach this new artifact to the project for being installed / deployed with
  * the regular uncompressed js-archive.
  * 
@@ -53,14 +53,14 @@ public class AttachCompressedMojo
     private JavascriptArchiver archiver;
 
     /**
-     * The output directory of the compressed javascript files.
+     * The output directory of the compressed JavaScript files.
      * 
      * @parameter default-value="${project.build.directory}/compressed"
      */
     private File compressedDirectory;
 
     /**
-     * The output directory of the compressed javascript archive.
+     * The output directory of the compressed JavaScript archive.
      * 
      * @parameter default-value="${project.build.directory}"
      */
@@ -88,7 +88,7 @@ public class AttachCompressedMojo
     private String scriptClassifier;
 
     /**
-     * The input directory for the source javascript files.
+     * The input directory for the source JavaScript files.
      * 
      * @parameter default-value="${project.build.outputDirectory}"
      */
@@ -163,7 +163,7 @@ public class AttachCompressedMojo
         }
         catch ( Exception e )
         {
-            throw new MojoExecutionException( "Failed to create the javascript archive", e );
+            throw new MojoExecutionException( "Failed to create the JavaScript archive", e );
         }
 
         projectHelper.attachArtifact( project, Types.JAVASCRIPT_EXTENSION, classifier, compressed );
