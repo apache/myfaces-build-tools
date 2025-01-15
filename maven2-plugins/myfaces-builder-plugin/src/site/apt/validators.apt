@@ -33,7 +33,7 @@ Creating Custom Validators
      
     Myfaces builder plugin provide annotations/doclets to help users maintain
     configuration files, and generating both validator classes and 
-    validator jsp tag classes automatically. In this way, all information 
+    validator JSP tag classes automatically. In this way, all information
     for a validator is just in one file (the class implementing 
     Validator interface).
     

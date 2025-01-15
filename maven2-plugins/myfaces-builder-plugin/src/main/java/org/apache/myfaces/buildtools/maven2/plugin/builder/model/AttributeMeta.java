@@ -22,7 +22,7 @@ import org.apache.commons.digester.Digester;
 import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
 
 /**
- * Store metadata about a attribute of a jsp tag. 
+ * Store metadata about a attribute of a JSP tag.
  * <p>
  * This metadata defines the attributes of JSP tags, among other things.
  * 

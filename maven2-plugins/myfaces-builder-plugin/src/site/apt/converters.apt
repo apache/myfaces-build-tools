@@ -32,7 +32,7 @@ Creating Custom Converters
      * JSP Tag class
      
     Myfaces builder plugin provide annotations/doclets to help users maintain
-    configuration files, and generating converter jsp tag classes 
+    configuration files, and generating converter JSP tag classes
     automatically. In this way, all information for a converter is just in
     one file (the class implementing Converter interface).
     

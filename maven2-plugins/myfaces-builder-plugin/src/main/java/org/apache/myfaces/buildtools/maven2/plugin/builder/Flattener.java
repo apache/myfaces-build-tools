@@ -353,7 +353,7 @@ public class Flattener
     
     /**
      * This method allows component facelet tag classes to be
-     * used with component and jsp tags, so it is possible to 
+     * used with component and JSP tags, so it is possible to
      * inherit attribute for component. But facelet tags can inherit
      * attributes from other facelet tags. 
      * 

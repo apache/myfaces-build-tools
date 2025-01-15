@@ -99,7 +99,7 @@ public @interface JSFProperty
     String setMethodScope() default "";
     
     /**
-     * The name used in jsp pages to make reference to this
+     * The name used in JSP pages to make reference to this
      * property (used on tld).
      */
     String jspName() default "";
