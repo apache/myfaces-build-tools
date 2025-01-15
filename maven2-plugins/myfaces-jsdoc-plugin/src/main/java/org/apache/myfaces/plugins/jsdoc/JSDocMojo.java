@@ -27,12 +27,12 @@ import org.apache.maven.reporting.MavenReportException;
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  *          <p/>
- *          A simple jsdoc plugin which should cover our documentation needs
+ *          A simple JSDoc plugin which should cover our documentation needs
  *          Note this plugin is a simplified tailored derivative from
  *          <p/>
  *          http://www.abiss.gr some code stems from there.
  *          <p/>
- *          since we use jsdoc for now and are not in the reporting part
+ *          since we use JSDoc for now and are not in the reporting part
  *          a simple plugin suffices.
  * @goal jsdoc
  */

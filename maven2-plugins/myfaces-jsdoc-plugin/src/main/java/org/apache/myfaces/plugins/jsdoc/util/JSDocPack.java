@@ -36,7 +36,7 @@ import java.util.jar.JarFile;
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  *          <p/>
- *          base class for all our jsdoc unpackers
+ *          base class for all our JSDoc unpackers
  */
 
 public abstract class JSDocPack

@@ -26,13 +26,13 @@ import java.util.jar.JarFile;
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  *          <p/>
- *          An unpacker for the jsdoc toolkit
- *          Unfortunately we have to unpack the jsdoc toolkit during
+ *          An unpacker for the JSDoc toolkit
+ *          Unfortunately we have to unpack the JSDoc toolkit during
  *          the build process because we have a set of js files
  *          running via rhino which will not work unless we have them
  *          on the filesystem instead of the jar.
  *          <p/>
- *          The jsdoc toolkit itself can be streamed in via maven.
+ *          The JSDoc toolkit itself can be streamed in via maven.
  */
 
 public class JSDocPackMaven extends JSDocPack
@@ -50,7 +50,7 @@ public class JSDocPackMaven extends JSDocPack
 
     /**
      * public method which is called from the outside
-     * unpacks the current jsdoc package into our target dir
+     * unpacks the current JSDoc package into our target dir
      *
      * @param targetDir the target dir to unpack to
      * @param log       the target log to log into
@@ -63,7 +63,7 @@ public class JSDocPackMaven extends JSDocPack
     }
 
     /**
-     * fetches the location of the jsdoc hosting jar,
+     * fetches the location of the JSDoc hosting jar,
      * the location already should be in maven and our main
      * constant is the <code>app/main.js</code> file which should be present
      * everywhere

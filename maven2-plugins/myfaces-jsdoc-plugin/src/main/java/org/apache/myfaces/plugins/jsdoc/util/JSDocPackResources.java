@@ -30,7 +30,7 @@ import java.util.jar.JarFile;
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  *          <p/>
- *          unpacks a locally hosted jsdoc (which is placed in our resources folder
+ *          unpacks a locally hosted JSDoc (which is placed in our resources folder
  */
 
 public class JSDocPackResources extends JSDocPack

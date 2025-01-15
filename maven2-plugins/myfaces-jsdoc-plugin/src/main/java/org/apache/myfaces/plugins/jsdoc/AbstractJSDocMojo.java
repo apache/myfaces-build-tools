@@ -119,7 +119,7 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
     protected String relativeWebappDirectory;
     
     /**
-     * Specifies the destination directory where jsdoc saves the generated HTML files.
+     * Specifies the destination directory where JSDoc saves the generated HTML files.
      *
      * @parameter expression="${destDir}" alias="destDir" default-value="${project.build.directory}/jsdoc"
      * @required
@@ -145,7 +145,7 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
     // Standard JSDoc Options
     // ----------------------------------------------------------------------
     
-    //various jsdoc params, copied over as well as the corresponding snippets from
+    //various JSDoc params, copied over as well as the corresponding snippets from
     /**
      * Whether to include symbols tagged as private. Default is <code>false</code>.
      *
@@ -168,7 +168,7 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
     protected boolean includeUndocumentedUnderscored;
 
     /**
-     * template directory used by jsdoc the default is <code>templates/jsdoc</code> under the jsdoc root
+     * template directory used by JSDoc the default is <code>templates/jsdoc</code> under the JSDoc root
      *
      * @parameter expression="templates/jsdoc"
      */
@@ -324,9 +324,9 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
 
     private void unpackJSDoc(JSDocHelper helper) throws IOException
     {
-        getLog().info("[JSDOC] Unpacking jsdoc toolkit for further processing");
+        getLog().info("[JSDOC] Unpacking JSDoc toolkit for further processing");
         helper.getUnpacker().unpack(helper.getJsdocEngineUnpacked(), getLog());
-        getLog().info("[JSDOC] Unpacking jsdoc toolkit for further processing done");
+        getLog().info("[JSDOC] Unpacking JSDoc toolkit for further processing done");
     }
 
     /**
@@ -448,13 +448,13 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
 
         args.addAll(fetchJavascriptSources(helper));
         //according to the run.js source the last argument
-        //must be a -j param pointing to the jsdoc javascripts
+        //must be a -j param pointing to the JSDoc javascripts
         args.add(JSDocMojoConst.PARAM_JS_FLAG + JSDocMojoConst.EQUALS + runJsPath);
         return args;
     }
 
     /**
-     * @return the directory as absolute path holding the jsdoc toolkit templates
+     * @return the directory as absolute path holding the JSDoc toolkit templates
      */
     private final String getTemplateDirectory(JSDocHelper helper)
     {
@@ -464,7 +464,7 @@ public abstract class AbstractJSDocMojo extends AbstractMojo
     }
 
     /**
-     * @return the target directory for the jsdoc files
+     * @return the target directory for the JSDoc files
      */
     /*
     private final String getOutputDirectory()

@@ -39,12 +39,12 @@ import org.codehaus.plexus.archiver.jar.ManifestException;
  *          Leonardo Uribe
  * @version 1.0.0
  *          <p/>
- *          A simple jsdoc plugin which should cover our documentation needs
+ *          A simple JSDoc plugin which should cover our documentation needs
  *          Note this plugin is a simplified tailored derivative from
  *          <p/>
  *          http://www.abiss.gr some code stems from there.
  *          <p/>
- *          since we use jsdoc for now and are not in the reporting part
+ *          since we use JSDoc for now and are not in the reporting part
  *          a simple plugin suffices.
  * @goal jar
  * @phase package
@@ -142,7 +142,7 @@ public class JSDocJarMojo extends AbstractJSDocMojo
     {
         if ( skip )
         {
-            getLog().info( "Skipping jsdoc generation" );
+            getLog().info( "Skipping JSDoc generation" );
             return;
         }
     
@@ -157,7 +157,7 @@ public class JSDocJarMojo extends AbstractJSDocMojo
     
                 if ( !attach )
                 {
-                    getLog().info( "NOT adding jsdoc to attached artifacts list." );
+                    getLog().info( "NOT adding JSDoc to attached artifacts list." );
                 }
                 else
                 {
