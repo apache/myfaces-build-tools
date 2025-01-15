@@ -37,7 +37,7 @@
   <!-- Faces Servlet Mappings -->
   <!-- 
     In this demo application, I chose to use suffix mapping.  I did this because it makes urls
-    in the portlet world look nicer in the source.  The portlet url should be the same 
+    in the portlet world look nicer in the source.  The portlet URL should be the same
     regardless.
   -->
   <servlet-mapping>
