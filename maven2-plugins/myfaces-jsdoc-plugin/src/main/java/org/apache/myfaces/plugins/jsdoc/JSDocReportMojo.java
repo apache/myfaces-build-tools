@@ -107,7 +107,7 @@ public class JSDocReportMojo extends AbstractJSDocMojo implements MavenReport
         if ( StringUtils.isEmpty( description ) )
         {
             //return getBundle( locale ).getString( "report.jsdoc.description" );
-            return "Javascript report using JSDoc";
+            return "JavaScript report using JSDoc";
         }
 
         return description;
