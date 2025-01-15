@@ -98,7 +98,7 @@ public @interface JSFFaceletTag
     boolean configExcluded() default false;
     
     /**
-     * The name of the most near jsp tag class where all
+     * The name of the most near JSP tag class where all
      * attributes should be inherited from this class
      * 
      * @since 1.0.4

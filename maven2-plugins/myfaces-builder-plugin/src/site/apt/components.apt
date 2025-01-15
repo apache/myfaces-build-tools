@@ -84,7 +84,7 @@ Writing your component class
  * 1. Define componentType, componentFamily and rendererType adding its
  * constants (like below) or directly in the annotation.
  * 
- * 2. If the component has a jsp tag, define the "name" and the "tagClass"
+ * 2. If the component has a JSP tag, define the "name" and the "tagClass"
  * If the tagClass does not exists a new file is generated if make-tags
  * goal is set on pom.xml
  * 
@@ -126,7 +126,7 @@ public class SayHello extends UIOutput
  * 2. Define componentType, componentFamily and rendererType adding its
  * constants (like below) or directly in the annotation.
  * 
- * 3. If the component has a jsp tag, define the "name" and the "tagClass"
+ * 3. If the component has a JSP tag, define the "name" and the "tagClass"
  * If the tagClass does not exists a new file is generated if make-tags
  * goal is set on pom.xml
  * 
@@ -193,7 +193,7 @@ abstract class _SayHello extends UIOutput
 
 Generating Component Tag Classes
 
-    The goal "make-tags" trigger component jsp tag generation. This goal
+    The goal "make-tags" trigger component JSP tag generation. This goal
     checks if the tag class exists and if not, it creates one.
 
     Here there are two scenarios:

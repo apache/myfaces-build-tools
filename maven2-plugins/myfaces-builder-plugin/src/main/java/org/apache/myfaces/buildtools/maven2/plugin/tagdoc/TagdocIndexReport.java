@@ -555,7 +555,7 @@ public class TagdocIndexReport extends AbstractMavenReport
             ComponentMeta comp = model.findComponentByClassName(tag.getComponentClass());
             if (name.equals(comp.getName()))
             {
-                //Exists in jsp and in facelets, but has specific facelets properties
+                //Exists in JSP and in facelets, but has specific facelets properties
                 return null;
             }
         }
@@ -564,7 +564,7 @@ public class TagdocIndexReport extends AbstractMavenReport
             ConverterMeta comp = model.findConverterByClassName(tag.getConverterClass());
             if (name.equals(comp.getName()))
             {
-                //Exists in jsp and in facelets, but has specific facelets properties
+                //Exists in JSP and in facelets, but has specific facelets properties
                 return null;
             }            
         }
@@ -573,7 +573,7 @@ public class TagdocIndexReport extends AbstractMavenReport
             ValidatorMeta comp = model.findValidatorByClassName(tag.getValidatorClass());
             if (name.equals(comp.getName()))
             {
-                //Exists in jsp and in facelets, but has specific facelets properties
+                //Exists in JSP and in facelets, but has specific facelets properties
                 return null;
             }            
         }
@@ -582,7 +582,7 @@ public class TagdocIndexReport extends AbstractMavenReport
             BehaviorMeta comp = model.findBehaviorByClassName(tag.getBehaviorClass());
             if (name.equals(comp.getName()))
             {
-                //Exists in jsp and in facelets, but has specific facelets properties
+                //Exists in JSP and in facelets, but has specific facelets properties
                 return null;
             }            
         }
@@ -592,7 +592,7 @@ public class TagdocIndexReport extends AbstractMavenReport
             TagMeta comp = model.findTagByClassName(tag.getTagClass());
             if (name.equals(comp.getName()))
             {
-                //Exists in jsp and in facelets, but has specific facelets properties
+                //Exists in JSP and in facelets, but has specific facelets properties
                 return null;
             }
         }

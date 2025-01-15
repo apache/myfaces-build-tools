@@ -110,7 +110,7 @@ public abstract class ClassMetaPropertyParsingStrategy extends ClassMetaParsingS
             }
         }
 
-        //Scan for properties defined only on jsp (special case on myfaces 1.1,
+        //Scan for properties defined only on JSP (special case on myfaces 1.1,
         //this feature should not be used on typical situations)
         DocletTag[] jspProperties = clazz.getTagsByName(DOC_JSP_PROPERTY);
         for (int i = 0; i < jspProperties.length; ++i)
