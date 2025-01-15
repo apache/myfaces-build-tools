@@ -35,7 +35,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  * <p>
  * Instances of this type are intended primarily to map to entries in generated
  * JSP TLD files, faces-config.xml files and similar. The "class" attribute on
- * this class contains the name of the java class that implements that entity.
+ * this class contains the name of the Java class that implements that entity.
  * <p>
  * However there are also instances of this class that represent "abstract"
  * entities that are not directly referenced by TLD or faces-config files; they
@@ -49,8 +49,8 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.io.XmlWriter;
  * entity (the generated class).
  * <p>
  * As described in the documentation for the parent attribute, the ClassMeta objects
- * describe a java inheritance tree, but it is not quite the same as the real java
- * inheritance hierarchy for the annotated java classes. The ClassMeta data omits
+ * describe a Java inheritance tree, but it is not quite the same as the real Java
+ * inheritance hierarchy for the annotated Java classes. The ClassMeta data omits
  * any classes in the hierarchy that are not annotated, as they are not relevant
  * for the purposes of metadata inheritance.
  */
@@ -225,7 +225,7 @@ public class ClassMeta
      * For example, when a class is marked as a Component class, then this will
      * refer to the nearest ancestor class that is also marked as a Component
      * class. Note that this is "consistent with" the actual Java class hierarchy for 
-     * annotated classes that were used to create this data, but skips java classes
+     * annotated classes that were used to create this data, but skips Java classes
      * that were not annotated (and are therefore irrelevant for metadata purposes).
      * <p>
      * The value of this attribute will match the className attribute of another ClassMeta
@@ -266,7 +266,7 @@ public class ClassMeta
     }
 
     /**
-     * Return the className of the real java class from which this metadata was gathered.
+     * Return the className of the real Java class from which this metadata was gathered.
      * <p>
      * This is mostly used for documentation. However when generating code in "template mode",
      * this is used to locate the original class in order to find the source code to copy.
@@ -284,12 +284,12 @@ public class ClassMeta
     }
 
     /**
-     * Return the real java parent class of the class from which this metadata
+     * Return the real Java parent class of the class from which this metadata
      * was gathered (see classSource property).
      * <p>
      * This value is usually the same as property parentClassName. However if
      * the parent of the annotated class is not itself annotated, then this
-     * property still points to the real java parent (which will not have a
+     * property still points to the real Java parent (which will not have a
      * ClassMeta object representing it) while property parentClass will point
      * to the nearest superclass that does have an annotation (and does have a
      * corresponding ClassMeta object).

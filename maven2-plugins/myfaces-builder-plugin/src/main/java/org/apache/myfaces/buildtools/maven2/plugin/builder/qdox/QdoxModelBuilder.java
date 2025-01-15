@@ -60,9 +60,9 @@ import com.thoughtworks.qdox.model.JavaClass;
 /**
  * An implementation of the ModelBuilder interface that uses the Qdox java
  * source-parsing library to scan a list of specified source directories for
- * java files.
+ * Java files.
  * <p>
- * The java source files found can use either java15 annotations or doclet
+ * The Java source files found can use either java15 annotations or doclet
  * annotations to indicate what data should be added to the Model.
  */
 public class QdoxModelBuilder implements ModelBuilder
@@ -131,7 +131,7 @@ public class QdoxModelBuilder implements ModelBuilder
             }
             QdoxHelper.initComponentAncestry(processedClasses, model, component);
 
-            //Check if the component class java file exists in the source dirs
+            //Check if the component class Java file exists in the source dirs
             String classname = component.getClassName();
             String classfile = StringUtils.replace(classname,".","/")+".java";
             if (!IOUtils.existsSourceFile(classfile, sourceDirs))
@@ -139,7 +139,7 @@ public class QdoxModelBuilder implements ModelBuilder
                 component.setGeneratedComponentClass(Boolean.TRUE);
             }
 
-            // Check if the tag class java file exists in the source dirs
+            // Check if the tag class Java file exists in the source dirs
             if (QdoxHelper.isTagClassMissing(component.getTagClass(), sourceDirs))
             {
                 component.setGeneratedTagClass(Boolean.TRUE);
@@ -163,7 +163,7 @@ public class QdoxModelBuilder implements ModelBuilder
                 converter.setGeneratedComponentClass(Boolean.TRUE);
             }
 
-            // Check if the tag class java file exists in the source dirs
+            // Check if the tag class Java file exists in the source dirs
             if (QdoxHelper.isTagClassMissing(converter.getTagClass(), sourceDirs))
             {
                 converter.setGeneratedTagClass(Boolean.TRUE);
@@ -187,7 +187,7 @@ public class QdoxModelBuilder implements ModelBuilder
                 validator.setGeneratedComponentClass(Boolean.TRUE);
             }
 
-            // Check if the tag class java file exists in the source dirs
+            // Check if the tag class Java file exists in the source dirs
             if (QdoxHelper.isTagClassMissing(validator.getTagClass(), sourceDirs))
             {
                 validator.setGeneratedTagClass(Boolean.TRUE);

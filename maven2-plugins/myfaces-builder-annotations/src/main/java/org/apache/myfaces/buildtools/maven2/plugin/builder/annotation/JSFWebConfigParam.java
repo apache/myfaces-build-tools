@@ -110,7 +110,7 @@ public @interface JSFWebConfigParam
     boolean ignoreUpperLowerCase() default false;
     
     /**
-     * The java type or class which this param is converted
+     * The Java type or class which this param is converted
      * 
      * @return
      */

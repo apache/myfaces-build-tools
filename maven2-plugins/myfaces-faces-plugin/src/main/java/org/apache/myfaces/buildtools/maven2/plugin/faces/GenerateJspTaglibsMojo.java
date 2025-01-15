@@ -104,14 +104,14 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
   }
 
 
-  // hook for custom component tag java content
+  // hook for custom component tag Java content
   protected void writeCustomComponentTagHandlerContent(
       PrettyWriter  out,
       ComponentBean component) throws IOException
   {
   }
 
-  // hook for custom component tag java imports
+  // hook for custom component tag Java imports
   protected void addCustomComponentTagHandlerImports(
       Set           imports,
       ComponentBean component)

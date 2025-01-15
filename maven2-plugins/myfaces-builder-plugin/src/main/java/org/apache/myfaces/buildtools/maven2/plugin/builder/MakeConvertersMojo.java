@@ -46,7 +46,7 @@ import org.codehaus.plexus.util.StringUtils;
 import com.thoughtworks.qdox.JavaDocBuilder;
 
 /**
- * Maven goal to generate java source code for Converter classes.
+ * Maven goal to generate Java source code for Converter classes.
  * 
  * <p>It uses velocity to generate templates, and has the option to define custom templates.</p>
  * <p>The executed template has the following variables available to it:</p>

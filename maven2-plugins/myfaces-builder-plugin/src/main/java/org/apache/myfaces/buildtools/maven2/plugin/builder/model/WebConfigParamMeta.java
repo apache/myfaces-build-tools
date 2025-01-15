@@ -228,7 +228,7 @@ public class WebConfigParamMeta
     }
 
     /**
-     * Return the className of the real java class from which this metadata was gathered.
+     * Return the className of the real Java class from which this metadata was gathered.
      * <p>
      * This is mostly used for documentation. However when generating code in "template mode",
      * this is used to locate the original class in order to find the source code to copy.

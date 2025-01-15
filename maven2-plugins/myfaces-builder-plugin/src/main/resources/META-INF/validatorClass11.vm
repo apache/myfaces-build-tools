@@ -11,7 +11,7 @@
 ## holds a String containing all the non-abstract functions defined
 ## in the annotated class.
 ##
-## The java package of the generated class is always the same as
+## The Java package of the generated class is always the same as
 ## the package in which the annotated class exists.
 ##
 /*
