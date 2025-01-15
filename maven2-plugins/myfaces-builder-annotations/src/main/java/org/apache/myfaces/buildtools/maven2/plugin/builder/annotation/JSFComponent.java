@@ -65,7 +65,7 @@ import java.lang.annotation.Target;
  * <p>
  * This allows common groups of JSF properties to be defined as an interface, and each
  * JSF component class that is expected to provide those properties simply declares that
- * it implements that interface. The normal java compilation rules ensure that the concrete
+ * it implements that interface. The normal Java compilation rules ensure that the concrete
  * JSF component class implements all of the methods on the interface, and the builder
  * plugin ensures that the inherited JSFProperty settings are used.
  * 

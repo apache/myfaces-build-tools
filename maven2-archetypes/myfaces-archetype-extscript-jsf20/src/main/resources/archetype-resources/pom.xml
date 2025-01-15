@@ -45,7 +45,7 @@
         <!--
              optional Groovy include,
              if we leave it out, Groovy support is disabled
-             and only java support will work
+             and only Java support will work
          -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>

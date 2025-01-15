@@ -30,7 +30,7 @@ Plugins
   Used to build MyFaces Core 1.1.6 and later, and MyFaces Tomahawk 1.1.7 and later.
   May be used to build other projects in the future.
 
-  This plugin uses annotations on java source files to discover which are JSF
+  This plugin uses annotations on Java source files to discover which are JSF
   components, renderers, etc. This information is used to automatically generate a
   suitable faces-config.xml and JSP ".tld" files. The annotations can be "real"
   java1.5 annotations, or doclet-style annotations.

@@ -126,13 +126,13 @@ Gathering and saving meta-data
   
 Generating output
 
-  The whole point of the artifacts being generated (config files or java code) is that they
+  The whole point of the artifacts being generated (config files or Java code) is that they
   are very repetitive internally, varying only due to the metadata information. Therefore
   a templating mechanism should be used to generate these.
   
   However there are a large number of possible templating solutions. In addition, the
   trinidad plugin has a history of generating output via hard-coding print statements in
-  java rather than using templating.
+  Java rather than using templating.
   
   The builder plugin therefore also provides a "pluggable" generation mechanism, so that
   projects can customise the process as they need. 

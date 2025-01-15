@@ -63,7 +63,7 @@ public @interface JSFJspProperty
     /**
      * The type of this attribute.
      * <p>
-     * This must be a fully-qualified class name of a java type.
+     * This must be a fully-qualified class name of a Java type.
      * <p>
      * TODO: doesn't the JSF spec also allow short-cuts for common types here?
      */

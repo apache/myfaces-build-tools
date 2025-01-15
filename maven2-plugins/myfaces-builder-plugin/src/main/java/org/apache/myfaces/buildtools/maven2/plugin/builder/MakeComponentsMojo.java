@@ -53,7 +53,7 @@ import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
 
 /**
- * Maven goal to generate java source code for Component classes.
+ * Maven goal to generate Java source code for Component classes.
  * 
  * <p>It uses velocity to generate templates, and has the option to define custom templates.</p>
  * <p>The executed template has the following variables available to it:</p>

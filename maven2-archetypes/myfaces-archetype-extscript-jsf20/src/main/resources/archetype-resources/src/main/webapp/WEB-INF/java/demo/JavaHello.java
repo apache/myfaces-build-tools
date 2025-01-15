@@ -25,12 +25,12 @@ import javax.faces.bean.ManagedBean;
  * @author Werner Punz (latest modification by $Author$)
  * @version $Revision$ $Date$
  *
- * Dynamic java hello world bean
+ * Dynamic Java hello world bean
  */
 
 @ManagedBean
 public class JavaHello {
-    String helloWorld = "Hello from a dynamic java bean";
+    String helloWorld = "Hello from a dynamic Java bean";
 
     public String getHelloWorld() {
         return helloWorld;

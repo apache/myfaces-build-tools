@@ -165,7 +165,7 @@ public class QdoxHelper
      * each component, and then on a second pass find the matching
      * parent for each one.
      * <p>
-     * The problem case is where an annotated java class extends a
+     * The problem case is where an annotated Java class extends a
      * generated one. In this case when walking up the ancestry tree of
      * the hand-written class we find an entry for which there is no
      * ComponentMeta entry. We do not know whether this is because the

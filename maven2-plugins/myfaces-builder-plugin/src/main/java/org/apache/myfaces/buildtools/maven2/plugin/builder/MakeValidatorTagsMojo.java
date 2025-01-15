@@ -44,7 +44,7 @@ import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.StringUtils;
 
 /**
- * Maven goal to generate java source code for Component tag classes.
+ * Maven goal to generate Java source code for Component tag classes.
  * 
  * <p>It uses velocity to generate templates, and has the option to define custom templates.</p>
  * <p>The executed template has the following variables available to it:</p>
