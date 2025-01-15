@@ -67,7 +67,7 @@
             If JavaScript is allowed, command_link anchors will have JavaScript code
             that submits the corresponding form.
             If JavaScript is not allowed, the state saving info and nested parameters
-            will be added as url parameters.
+            will be added as URL parameters.
             Default: "true"</description>
         <param-name>org.apache.myfaces.ALLOW_JAVASCRIPT</param-name>
         <param-value>true</param-value>
