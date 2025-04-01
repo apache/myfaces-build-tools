@@ -168,7 +168,7 @@ public class RendererBean extends ObjectBean
   /**
    * Finds the renderer-specific component class for this renderer.
    *
-   * @return  the renderer-specifc component class
+   * @return  the renderer-specific component class
    */
   public String findComponentClass()
   {

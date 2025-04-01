@@ -34,7 +34,7 @@
     </init-param>
 
     <init-param>
-      <name>javax.portlet.faces.defaltViewId.edit</name>
+      <name>javax.portlet.faces.defaultViewId.edit</name>
       <value>/edit.jsp</value>
     </init-param>
 

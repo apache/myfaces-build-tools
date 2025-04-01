@@ -1020,7 +1020,7 @@ public class JDeveloperMojo
 
     // /jpr:project
     //   /hash[@n="oracle.jdevimpl.webapp.jsp.libraries.model.ProjectTagLibraries"]
-    //       /list[@n="tag-libaries"]
+    //       /list[@n="tag-libraries"]
     Xpp3Dom projectTagsDOM =
       findNamedChild(projectDOM, "hash", "oracle.jdevimpl.webapp.jsp.libraries.model.ProjectTagLibraries");
     Xpp3Dom tagLibsDOM =
