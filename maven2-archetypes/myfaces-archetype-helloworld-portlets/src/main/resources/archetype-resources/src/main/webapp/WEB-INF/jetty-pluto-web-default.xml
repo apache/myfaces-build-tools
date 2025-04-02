@@ -40,7 +40,8 @@
   </listener>
   
   <listener>
-    <listener-class>      com.bekk.boss.pluto.embedded.util.PortalStartupListener
+    <listener-class>
+      com.bekk.boss.pluto.embedded.util.PortalStartupListener
     </listener-class>
   </listener>
 
@@ -90,7 +91,7 @@
                        as gzip content encoded if a matching resource is  
                        found ending with ".gz"                            
                                                                           
-      resoureBase      Can be set to replace the context resource base    
+      resourceBase      Can be set to replace the context resource base
                                                                           
       relativeResourceBase                                                
                        Set with a pathname relative to the base of the    

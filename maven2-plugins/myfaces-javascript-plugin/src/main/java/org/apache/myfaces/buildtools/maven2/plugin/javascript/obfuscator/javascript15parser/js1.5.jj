@@ -863,7 +863,7 @@ void IterationStatement():
                             ForStatement()
     |   LOOKAHEAD(<FOR> <LPAREN> <SEMICOLON>)                                  
                             ForStatement()
-    |   LOOKAHEAD(<FOR> <LPAREN> varToekn=<VAR> VariableDeclarationList(varToken) <SEMICOLON>)  
+    |   LOOKAHEAD(<FOR> <LPAREN> varToken=<VAR> VariableDeclarationList(varToken) <SEMICOLON>)
                             ForVarStatement()
     |   LOOKAHEAD(3)        ForInStatement()
     |   LOOKAHEAD(3)        ForVarInStatement()
