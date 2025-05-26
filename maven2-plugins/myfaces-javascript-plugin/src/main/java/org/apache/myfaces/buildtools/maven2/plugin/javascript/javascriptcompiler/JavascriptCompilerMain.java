@@ -98,7 +98,7 @@ public class JavascriptCompilerMain
 //    out = new File("D:\\Foo\\impl");
 //    _main._javascriptCompiler.process(in, out);
     //
-    //  Uodate the serialized version of the HashMap
+    //  Update the serialized version of the HashMap
     //
     FileOutputStream fos;
     ObjectOutputStream oos;

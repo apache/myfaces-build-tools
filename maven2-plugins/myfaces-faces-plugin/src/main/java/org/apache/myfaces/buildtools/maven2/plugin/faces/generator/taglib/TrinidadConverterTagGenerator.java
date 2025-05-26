@@ -62,7 +62,7 @@ public class TrinidadConverterTagGenerator extends AbstractConverterTagGenerator
     imports.add("org.apache.myfaces.trinidadinternal.taglib.util.TagUtils");
 
 
-    addImportsFromPropertes(converter, imports);
+    addImportsFromProperties(converter, imports);
     return imports;
   }
 

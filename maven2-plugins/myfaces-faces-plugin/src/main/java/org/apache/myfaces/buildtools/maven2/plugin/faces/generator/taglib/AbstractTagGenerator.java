@@ -209,7 +209,7 @@ public abstract class AbstractTagGenerator {
     out.println(" */");
   }
 
-  protected void addImportsFromPropertes(AbstractTagBean abstractTagBean, Set imports) {
+  protected void addImportsFromProperties(AbstractTagBean abstractTagBean, Set imports) {
     Iterator properties = abstractTagBean.properties();
     properties = new FilteredIterator(properties, new TagAttributeFilter());
 

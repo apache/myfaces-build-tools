@@ -62,7 +62,7 @@ public class MyFacesConverterTagGenerator extends AbstractConverterTagGenerator 
     imports.add("org.apache.myfaces.commons.util.TagUtils");
 
 
-    addImportsFromPropertes(converter, imports);
+    addImportsFromProperties(converter, imports);
     return imports;
   }
 
