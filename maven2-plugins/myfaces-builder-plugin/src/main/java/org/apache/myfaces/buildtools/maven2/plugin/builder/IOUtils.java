@@ -65,7 +65,7 @@ public class IOUtils
     private final static String MYFACES_METADATA = "META-INF/myfaces-metadata.xml";
     
     /**
-     * Write the contents of the model to an xml file.
+     * Write the contents of the model to an XML file.
      */
     public static void saveModel(Model model, File outfile)
             throws MojoExecutionException
@@ -119,7 +119,7 @@ public class IOUtils
     }
 
     /**
-     * Read the contents of the model from an xml file.
+     * Read the contents of the model from an XML file.
      */
     public static Model loadModel(File infile) throws MojoExecutionException
     {

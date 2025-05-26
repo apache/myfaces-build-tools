@@ -627,7 +627,7 @@ public class JDeveloperMojo
 
       Xpp3Dom stringDOM = null;
       // TODO: This is a Hack for excluding the golden files,
-      // which are not really xml files.  We need a way, in
+      // which are not really XML files.  We need a way, in
       // the pom file to specify excludes.
       if (relativeRoot.startsWith("src/test/resources"))
       {

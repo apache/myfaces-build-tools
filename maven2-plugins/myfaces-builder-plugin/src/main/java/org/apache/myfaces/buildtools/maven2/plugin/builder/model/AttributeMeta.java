@@ -87,7 +87,7 @@ public class AttributeMeta
     }
 
     /**
-     * Add digester rules to repopulate a Model instance from an xml file.
+     * Add digester rules to repopulate a Model instance from an XML file.
      */
     public static void addXmlRules(Digester digester, String prefix)
     {
@@ -150,7 +150,7 @@ public class AttributeMeta
     /**
      * Set the name that users refer to this property by.
      * <p>
-     * This sets the name of xml tag attributes, and the base names of generated
+     * This sets the name of XML tag attributes, and the base names of generated
      * getter/setter methods.
      */
     public void setName(String name)

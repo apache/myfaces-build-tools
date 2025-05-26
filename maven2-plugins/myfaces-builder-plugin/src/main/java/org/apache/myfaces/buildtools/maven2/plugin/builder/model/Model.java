@@ -131,7 +131,7 @@ public class Model
     }
 
     /**
-     * Add digester rules to repopulate a Model instance from an xml file.
+     * Add digester rules to repopulate a Model instance from an XML file.
      * <p>
      * Having a hand-coded method like this is not very elegant; it would be
      * better to do this via some library like Betwixt. However I'm not very

@@ -62,7 +62,7 @@ import org.xml.sax.SAXException;
 /**
  * Maven goal which runs one or more ModelBuilder objects to gather metadata
  * about JSF artifacts into a Model object, then save that model object as an
- * xml file for use by other goals of this plugin.
+ * XML file for use by other goals of this plugin.
  * <p>
  * By default, the generated file is named "META-INF/myfaces-metadata.xml".
  * This file will be included in the final artifact for this project. Having
