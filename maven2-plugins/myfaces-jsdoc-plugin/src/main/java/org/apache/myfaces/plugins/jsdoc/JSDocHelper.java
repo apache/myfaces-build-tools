@@ -24,7 +24,7 @@ import org.apache.myfaces.plugins.jsdoc.util.XMLConfig;
 public class JSDocHelper
 {
     /**
-     * the parsed xml filemap containing the single source files
+     * the parsed XML filemap containing the single source files
      */
     private XMLConfig fileMap;
 

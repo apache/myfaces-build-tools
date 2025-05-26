@@ -155,7 +155,7 @@ public class MakeConfigMojo extends AbstractBuilderMojo
     private File templateSourceDirectory;
     
     /**
-     * When defined, specifies an xml file whose top-level elements are to be copied
+     * When defined, specifies an XML file whose top-level elements are to be copied
      * directly into the created file.
      * <p>
      * This allows a hand-written file to be created containing data that cannot be
@@ -166,7 +166,7 @@ public class MakeConfigMojo extends AbstractBuilderMojo
      * <p>
      * The template can do whatever it wants with this variable, but it is expected
      * that the template will simply output this immediately after writing the
-     * root element of the output xml file.
+     * root element of the output XML file.
      * file.
      * </p>
      * <p>
@@ -210,7 +210,7 @@ public class MakeConfigMojo extends AbstractBuilderMojo
                 modelIds.add(project.getArtifactId());
             }
 
-            // Load the metadata file from an xml file (presumably generated
+            // Load the metadata file from an XML file (presumably generated
             // by an earlier execution of the build-metadata goal.
             File mdFile = new File(buildDirectory, metadataFile);
             Model model = IOUtils.loadModel(mdFile);

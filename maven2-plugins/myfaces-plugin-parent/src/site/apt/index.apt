@@ -59,7 +59,7 @@ Plugins
   but the MyFaces-Builder-Plugin is currently intended to be used instead.
 
   The original MyFaces-Trinidad-Plugin was used for MyFaces Core 1.2.x releases, and
-  for all Trinidad releases. It reads a tree of xml files which define the properties
+  for all Trinidad releases. It reads a tree of XML files which define the properties
   of JSF components in a project, and then generates faces-config.xml and .tld files,
   and also can generate Component and Tag classes.
 

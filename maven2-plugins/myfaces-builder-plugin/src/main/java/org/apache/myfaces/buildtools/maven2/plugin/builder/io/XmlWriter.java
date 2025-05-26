@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 import java.util.Stack;
 
 /**
- * Simple utility to help write out data structures in xml format, with pretty
+ * Simple utility to help write out data structures in XML format, with pretty
  * indenting.
  */
 public class XmlWriter
@@ -33,7 +33,7 @@ public class XmlWriter
     private Stack contexts = new Stack();
     private int indent = 0;
 
-    // Is the current xml element still "open" for adding attributes,
+    // Is the current XML element still "open" for adding attributes,
     // ie needs a ">" before adding nested text or child elements.
     private boolean openElement = false;
 

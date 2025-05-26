@@ -36,7 +36,7 @@ Creating Custom JSF Tags
     Any tag is registered on facelets taglib if it has a related tag handler.
     Usually, custom tag classes should have facelets tag handlers with 
     similar functions, but on facelets world there is no need to define
-    properties on a xml file.
+    properties on a XML file.
     
 Setting up your project
 

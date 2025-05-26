@@ -85,7 +85,7 @@ public class ClassMeta
     /**
      * Constructor.
      * 
-     * Param xmlElementName is the name of the xml element that is created
+     * Param xmlElementName is the name of the XML element that is created
      * when method writeXml is invoked.
      */
     protected ClassMeta(String xmlElementName)
@@ -96,7 +96,7 @@ public class ClassMeta
     /**
      * Write the properties of this instance out as xml.
      * <p>
-     * The name of the xml element that is created to hold the properties
+     * The name of the XML element that is created to hold the properties
      * was specified when the constructor was called.
      * <p>
      * Subclasses that want to output their own properties should not
@@ -105,7 +105,7 @@ public class ClassMeta
      * <p>
      * Having two write methods (writeXmlSimple/writeXmlComplex) gives some basic
      * control over the order in which data is written to xml, in order to make
-     * the generated xml look nice. Any properties written in writeXmlSimple will
+     * the generated XML look nice. Any properties written in writeXmlSimple will
      * appear in the output file before properties written by writeXmlComplex. 
      * Therefore, properties which are "easily read" should be written out in
      * a writeXmlSimple method. Data which has large CDATA blocks, or complicated
@@ -124,7 +124,7 @@ public class ClassMeta
     /**
      * Write this model out as xml.
      * <p>
-     * Subclasses that wish to write out properties as xml should override
+     * Subclasses that wish to write out properties as XML should override
      * this method, call the super implementation, then call methods on the
      * XmlWriter object to output their data.
      */

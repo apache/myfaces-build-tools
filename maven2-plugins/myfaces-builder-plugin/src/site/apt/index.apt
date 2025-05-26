@@ -94,7 +94,7 @@ Gathering and saving meta-data
   In order to drive all of the above artifact generation, metadata about the artifacts
   to be generated is needed. There are several reasonable ways to gather this info.
   
-  * For several years, Trinidad has used xml files to declare the necessary data.
+  * For several years, Trinidad has used XML files to declare the necessary data.
   
   * The Tobago project uses java1.5 annotations (with compile-scope retention) plus
     introspection of the classes (via the apt tool and the com.sun.mirror api) to
@@ -149,7 +149,7 @@ Representing MetaData internally
   The model objects are created/populated by the model-builders, and then used by the
   various generator modules.
   
-  The metadata itself can be written to xml and read back from xml. This allows the following:
+  The metadata itself can be written to XML and read back from xml. This allows the following:
   
   * the task of gathering the metadata can be one maven goal, with output being a file.
 

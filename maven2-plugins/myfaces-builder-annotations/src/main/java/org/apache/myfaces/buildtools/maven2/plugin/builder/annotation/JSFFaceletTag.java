@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * Used to define a JSF facelet tag handler.
  * <p>
  * The intention of this annotation is use its information to generate a
- * facelet taglib xml file(optional), and create a specific 
+ * facelet taglib XML file(optional), and create a specific
  * facelet documentation (generate alternate .tld files and use 
  * maven-taglib-plugin on these files).
  * In order to do that, this annotation has multiple use cases:
@@ -88,8 +88,8 @@ public @interface JSFFaceletTag
     
     /**
      * Indicate that this facelet tag handler should not be defined 
-     * on facelets taglib xml file.
-     * Note that for some libraries a xml file is not generated 
+     * on facelets taglib XML file.
+     * Note that for some libraries a XML file is not generated
      * (like in core 2.0), instead a library class is defined, 
      * so in those cases set this value has no effect.
      * 

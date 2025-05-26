@@ -25,7 +25,7 @@ import org.apache.myfaces.buildtools.maven2.plugin.builder.model.Model;
  * An interface that is implemented by classes that are capable of collecting
  * metadata about JSF components, converters, validators, etc.
  * <p>
- * A ModelBuilder implementation might read xml files, or scan source code for
+ * A ModelBuilder implementation might read XML files, or scan source code for
  * annotations, or read data from a database, or any number of possible
  * approaches. All that matters is that it makes a series of calls to a Model
  * object to add information.

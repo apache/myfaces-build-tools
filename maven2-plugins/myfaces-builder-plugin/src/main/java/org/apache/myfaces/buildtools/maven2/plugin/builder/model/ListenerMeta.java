@@ -76,7 +76,7 @@ public class ListenerMeta
     }
 
     /**
-     * Add digester rules to repopulate a Model instance from an xml file.
+     * Add digester rules to repopulate a Model instance from an XML file.
      */
     public static void addXmlRules(Digester digester, String prefix)
     {
