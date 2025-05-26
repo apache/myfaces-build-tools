@@ -26,5 +26,5 @@ public class Attribute implements Comparable
     {
         Attribute otherAttr = (Attribute) other;
         return name.compareTo(otherAttr.name);
-    }    
+    }
 }
