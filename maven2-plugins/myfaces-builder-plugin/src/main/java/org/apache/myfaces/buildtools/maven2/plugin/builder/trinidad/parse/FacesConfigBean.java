@@ -313,10 +313,10 @@ public class FacesConfigBean extends ObjectBean
    */
   public void performPostProcessing()
   {
-    _identifyOverriddenProperies();
+    _identifyOverriddenProperties();
   }
 
-  private void _identifyOverriddenProperies()
+  private void _identifyOverriddenProperties()
   {
     for (ComponentBean component : _components.values())
     {

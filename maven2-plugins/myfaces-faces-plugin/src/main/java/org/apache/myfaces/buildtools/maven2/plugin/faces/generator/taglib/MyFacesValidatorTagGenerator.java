@@ -62,7 +62,7 @@ public class MyFacesValidatorTagGenerator extends AbstractValidatorTagGenerator 
     imports.add("org.apache.myfaces.commons.util.TagUtils");
 
 
-    addImportsFromPropertes(validator, imports);
+    addImportsFromProperties(validator, imports);
     return imports;
   }
 

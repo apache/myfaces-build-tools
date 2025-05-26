@@ -250,7 +250,7 @@ public abstract class AbstractFromConfigurationMojo
 
         // Maven 3 will search the reactor for the artifact but Maven 2 does not
         // to keep consistent behaviour, we search the reactor ourselves.
-        Artifact result = getArtifactFomReactor( artifact );
+        Artifact result = getArtifactFromReactor( artifact );
         if ( result != null )
         {
             return result;
@@ -287,7 +287,7 @@ public abstract class AbstractFromConfigurationMojo
      * @return The resolved artifact that is the same as the one we were looking for or <code>null</code> if one could
      * not be found.
      */
-    private Artifact getArtifactFomReactor( Artifact artifact )
+    private Artifact getArtifactFromReactor( Artifact artifact )
     {
         // check project dependencies first off
         for ( Artifact a : (Set<Artifact>) project.getArtifacts() )

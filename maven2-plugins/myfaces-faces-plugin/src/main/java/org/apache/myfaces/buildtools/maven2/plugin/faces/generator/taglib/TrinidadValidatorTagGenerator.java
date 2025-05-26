@@ -62,7 +62,7 @@ public class TrinidadValidatorTagGenerator extends AbstractValidatorTagGenerator
     imports.add("org.apache.myfaces.trinidadinternal.taglib.util.TagUtils");
 
 
-    addImportsFromPropertes(validator, imports);
+    addImportsFromProperties(validator, imports);
     return imports;
   }
 
