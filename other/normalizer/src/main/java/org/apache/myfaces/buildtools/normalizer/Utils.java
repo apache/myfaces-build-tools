@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 /**
  * Read input file and write it out with everything normalized.
  */
-public class Utils 
+public class Utils
 {
     public static void indent(PrintWriter writer, int amount)
     {

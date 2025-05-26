@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- 
+<!--
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -64,7 +64,7 @@
         <property name="fileExtensions" value="java"/>
         <property name="max" value="3000"/>
     </module>
-        
+
     <module name="TreeWalker">
 
         <!-- needed for the SuppressionCommentFilter -->
@@ -91,18 +91,18 @@
             <property name="max" value="120" />
             <property name="ignorePattern" value="@version|@see"/>
         </module>
-        
+
         <module name="ConstantName">
           <!-- Normal rules, except that:
              -  * any name can start with an underscore.
              -  * "log" is allowed; this is a traditional name for log objects
              -  * names ending with "ThreadLocal" are allowed so that threadlocal vars don't have to be
              -    all-caps. They are static final, but are not really constants. Yes, type prefixes
-             -    on variable names sucks ("hungarian notation") but checkstyle doesn't allow 
+             -    on variable names sucks ("hungarian notation") but checkstyle doesn't allow
              -    name rules to vary by the type of the constant, and no other alternative seems
              -    any better.
              -->
-          <property name="format" 
+          <property name="format"
              value="^_?((log)|([a-z][a-zA-Z]*ThreadLocal)|([A-Z][A-Z0-9]*(_[A-Z0-9]+)*))$"/>
         </module>
 

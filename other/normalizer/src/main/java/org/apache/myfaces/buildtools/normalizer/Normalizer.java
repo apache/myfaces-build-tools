@@ -34,10 +34,10 @@ public class Normalizer extends DefaultHandler
             System.out.println("Usage: App inputFile");
             System.exit(-1);
         }
-        
+
         new Normalizer().process(args[0]);
     }
-    
+
     private void process(String filename) throws Exception
     {
         SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -61,7 +61,7 @@ public class Normalizer extends DefaultHandler
         InputStream is = new ByteArrayInputStream(new byte[0]);
         return new InputSource(is);
     }
-            
+
     public void startElement(String uri, String localName, String qname, Attributes attributes)
     {
         int nAttrs = attributes.getLength();
@@ -74,7 +74,7 @@ public class Normalizer extends DefaultHandler
         }
         Collections.sort(attrList);
 
-        Attribute[] attrs = (Attribute[]) attrList.toArray(EMPTY_ATTRS); 
+        Attribute[] attrs = (Attribute[]) attrList.toArray(EMPTY_ATTRS);
         Element e = new Element(qname, attrs);
 
         Element parent;
@@ -110,7 +110,7 @@ public class Normalizer extends DefaultHandler
     {
         currContent.append(ch, start, length);
     }
-    
+
     private Element getCurrElement()
     {
         return (Element) elements.peek();

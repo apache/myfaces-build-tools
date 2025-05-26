@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- 
+<!--
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -48,7 +48,7 @@
     <module name="Header">
         <property name="headerFile" value="${checkstyle.header.file}"/>
     </module>
-    
+
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.sf.net/config_whitespace.html -->
     <module name="FileTabCharacter"/>
@@ -82,11 +82,11 @@
              -  * "log" is allowed; this is a traditional name for log objects
              -  * names ending with "ThreadLocal" are allowed so that threadlocal vars don't have to be
              -    all-caps. They are static final, but are not really constants. Yes, type prefixes
-             -    on variable names sucks ("hungarian notation") but checkstyle doesn't allow 
+             -    on variable names sucks ("hungarian notation") but checkstyle doesn't allow
              -    name rules to vary by the type of the constant, and no other alternative seems
              -    any better.
              -->
-          <property name="format" 
+          <property name="format"
              value="^_?((log)|([a-z][a-zA-Z]*ThreadLocal)|([A-Z][A-Z0-9]*(_[A-Z0-9]+)*))$"/>
         </module>
 

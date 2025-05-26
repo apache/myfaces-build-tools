@@ -17,7 +17,7 @@ public class Element implements Comparable
     {
         "name",
     };
-    
+
     static String[] SORT_PRIORITY_LOW = new String[]
     {
         "class"
@@ -27,7 +27,7 @@ public class Element implements Comparable
     Attribute[] attributes;
     String content;
     List children = new LinkedList();
-    
+
     // Value used to choose ordering for two elements with different names.
     // Elements whose name matches a "high priority" pattern are output before
     // elements with "normal" names, which are output before elements whose
@@ -52,7 +52,7 @@ public class Element implements Comparable
     {
         this.content = content;
     }
-    
+
     public void addChild(Element child)
     {
         children.add(child);
@@ -200,7 +200,7 @@ public class Element implements Comparable
                 return i - SORT_PRIORITY_LOW.length;
             }
         }
-        
+
         return 0;
     }
 }
