@@ -59,7 +59,7 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
     private String version = null;
 
     /**
-     * Type of Artifact (War,Jar,etc)
+     * Type of Artifact (War,Jar,etc.)
      *
      * @parameter
      * @required
@@ -67,7 +67,7 @@ public class ArtifactItem extends org.apache.maven.plugin.dependency.fromConfigu
     private String type = "jar";
 
     /**
-     * Classifier for Artifact (tests,sources,etc)
+     * Classifier for Artifact (tests,sources,etc.)
      *
      * @parameter
      */

@@ -139,7 +139,7 @@ public class ClassMeta
         // Interface data is a little complex, and could possibly be placed in the
         // writeXmlComplex method. But except for very complicated inheritance
         // hierarchies is is still only going to be a few lines and it logically
-        // belongs with the className/parentClassName/etc data. So it is written here
+        // belongs with the className/parentClassName/etc. data. So it is written here
         // along with the other "simple" data.
         if (!_interfaceClassNames.isEmpty())
         {

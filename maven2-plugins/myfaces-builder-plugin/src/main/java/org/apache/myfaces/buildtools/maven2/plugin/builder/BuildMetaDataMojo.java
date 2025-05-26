@@ -664,7 +664,7 @@ public class BuildMetaDataMojo extends AbstractMojo
     }
     
     /**
-     * Check that each component is valid (has all mandatory properties etc).
+     * Check that each component is valid (has all mandatory properties etc.).
      * <p>
      * Most sanity checks are best done after the myfaces-metadata.xml file
      * is created, so that if an error occurs the file is available for the

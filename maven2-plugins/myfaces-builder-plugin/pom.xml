@@ -35,7 +35,7 @@
   <name>Apache MyFaces Buildtools Maven2 Builder Plugin</name>
   <description>
     A maven plugin that uses annotations (java15 or doclet style) to generate the necessary JSF configuration
-    files (.tld, faces-config.xml, etc) and optionally Tag, Validator and Component classes.
+    files (.tld, faces-config.xml, etc.) and optionally Tag, Validator and Component classes.
   </description>
 
   <scm>

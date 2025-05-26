@@ -111,7 +111,7 @@ import java.lang.annotation.Target;
  * have an appropriate implementation generated.
  * <p>
  * This approach allows a component "template" to be written as a normal class
- * (with the usual support tools provided by IDEs etc) while allowing the
+ * (with the usual support tools provided by IDEs etc.) while allowing the
  * actual UIComponent classes to have a hierarchy that is completely under
  * the control of the annotations. In particular, this is useful for generating
  * components for a JSF specification implementation, which is very specific
