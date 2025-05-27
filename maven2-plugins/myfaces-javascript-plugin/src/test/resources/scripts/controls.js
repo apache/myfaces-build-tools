@@ -21,7 +21,7 @@
 // should get the text for which to provide autocompletion by
 // invoking this.getToken(), NOT by directly accessing
 // this.element.value. This is to allow incremental tokenized
-// autocompletion. Specific auto-completion logic (AJAX, etc)
+// autocompletion. Specific auto-completion logic (AJAX, etc.)
 // belongs in getUpdatedChoices.
 //
 // Tokenized incremental autocompletion is enabled automatically

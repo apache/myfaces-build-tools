@@ -24,8 +24,8 @@
     <!--
       - Note that this parent declaration is a little weird; the checkstyle plugin configuration in
       - the parent pom references this artifact. Possibly the parent pom should be refactored into
-      - two parts; the bits we want to inherit here (distributionManagement, mailingLists etc) and
-      - a separate pom that references this artifact. However this works for now.
+      - two parts; the bits we want to inherit here (distributionManagement, mailingLists etc.) and
+      - a separate pom that references this artifact. However, this works for now.
       -->
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>

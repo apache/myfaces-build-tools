@@ -20,7 +20,7 @@
 Summary
 
   This is a maven plugin that uses javadoc annotations to generate the necessary JSF configuration
-  files (.tld, faces-config.xml, etc) and optionally Tag, Validator and Component classes.
+  files (.tld, faces-config.xml, etc.) and optionally Tag, Validator and Component classes.
 
   See the documentation menu in the left-hand navigation pane for more information.
 

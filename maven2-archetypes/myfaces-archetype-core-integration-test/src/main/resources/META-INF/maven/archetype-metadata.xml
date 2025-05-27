@@ -37,7 +37,7 @@
 
         <!--
             The issueId from the MyFaces core JIRA issue for which
-            this integration test is created (e.g MYFACES-1234)
+            this integration test is created (e.g. MYFACES-1234)
         -->
         <requiredProperty key="issueId" />
 

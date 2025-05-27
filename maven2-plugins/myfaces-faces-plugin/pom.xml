@@ -35,7 +35,7 @@
   <name>Apache MyFaces Buildtools Maven2 Faces Plugin</name>
   <description>
     A maven plugin that uses metadata input files to generate JSF Component, Validator and Tag classes,
-    together with the associated configuration files (.tld, faces-config.xml, etc).
+    together with the associated configuration files (.tld, faces-config.xml, etc.).
   </description>
 
   <scm>
