@@ -39,4 +39,13 @@
     <packageUrl regex="true">^pkg:npm/ejs@.*$</packageUrl>
     <vulnerabilityName>CVE-2023-29827</vulnerabilityName>
   </suppress>
+  <suppress>
+    <notes><![CDATA[ file name: jakarta.servlet.jsp.jstl-api-*.jar ]]></notes>
+    <packageUrl regex="true">^pkg:maven/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api@.*$</packageUrl>
+    <cve>CVE-2020-29242</cve>
+    <cve>CVE-2020-29243</cve>
+    <cve>CVE-2020-29244</cve>
+    <cve>CVE-2020-29245</cve>
+    <!-- jstl-api doesn't use dhowden/tag dependency-->
+  </suppress>
 </suppressions>
